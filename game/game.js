@@ -35,11 +35,11 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'https://nakamurayuri.coding.net/p/noname/d/noname/git/raw',
+			gitee:'https://gitee.com/Show-K/noname_online_extension/raw',
 			github:'https://raw.githubusercontent.com/Show-K/noname_online_extension',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname_online_extension',
-		mirrorURL:'https://nakamurayuri.coding.net/p/noname/d/noname/git/raw',
+		mirrorURL:'https://gitee.com/Show-K/noname_online_extension/raw',
 		hallURL:'47.99.105.222',
 		assetURL:'',
 		changeLog:[],
@@ -535,15 +535,15 @@
 					},
 					update_link:{
 						name:'更新地址',
-						init:'coding',
+						init:'gitee',
 						unfrequent:true,
 						item:{
-							coding:'Coding（官方）',
+							gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
-							lib.updateURL=lib.updateURLS[item]||lib.updateURLS.coding;
+							lib.updateURL=lib.updateURLS[item]||lib.updateURLS.gitee;
 						},
 					},
 					extension_source:{
@@ -41201,8 +41201,8 @@
 							if(str==lib.updateURLS.github){
 								return 'GitHub（Show-K）';
 							}
-							if(str==lib.updateURLS.coding){
-								return 'Coding（官方）';
+							if(str==lib.updateURLS.gitee){
+								return 'Gitee（Show-K）';
 							}
 							var index;
 							index=str.indexOf('://');
@@ -43927,7 +43927,7 @@
 				}
 				lib.init.js(lib.assetURL+'game','keyWords',function(){});
 				
-				lib.updateURL=lib.updateURLS[lib.config.update_link]||lib.updateURLS.coding;
+				lib.updateURL=lib.updateURLS[lib.config.update_link]||lib.updateURLS.gitee;
 
 				lib.init.cssstyles();
 
