@@ -36,9 +36,9 @@
 		versionOL:27,
 		updateURLS:{
 			coding:'https://nakamurayuri.coding.net/p/noname/d/noname/git/raw',
-			github:'https://raw.githubusercontent.com/libccy/noname',
+			github:'https://raw.githubusercontent.com/Show-K/noname_online_extension',
 		},
-		updateURL:'https://raw.githubusercontent.com/libccy/noname',
+		updateURL:'https://raw.githubusercontent.com/Show-K/noname_online_extension',
 		mirrorURL:'https://nakamurayuri.coding.net/p/noname/d/noname/git/raw',
 		hallURL:'47.99.105.222',
 		assetURL:'',
@@ -538,8 +538,8 @@
 						init:'coding',
 						unfrequent:true,
 						item:{
-							coding:'Coding',
-							github:'GitHub',
+							coding:'Coding（官方）',
+							github:'GitHub（Show-K）',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
@@ -41199,10 +41199,10 @@
 						var li3=document.createElement('li');
 						var trimurl=function(str){
 							if(str==lib.updateURLS.github){
-								return 'GitHub';
+								return 'GitHub（Show-K）';
 							}
 							if(str==lib.updateURLS.coding){
-								return 'Coding';
+								return 'Coding（官方）';
 							}
 							var index;
 							index=str.indexOf('://');
@@ -41653,8 +41653,8 @@
 							updatepx.style.display='none';
 							updatepx.style.whiteSpace='nowrap';
 							updatepx.style.marginTop='8px';
-							var buttonx=ui.create.node('button','访问项目主页',function(){
-								window.open('https://github.com/libccy/noname');
+							var buttonx=ui.create.node('button','访问项目主页（Show-K）',function(){
+								window.open('https://github.com/Show-K/noname_online_extension');
 							});
 							updatepx.appendChild(buttonx);
 							ui.updateUpdate=function(){
