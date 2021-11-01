@@ -35,11 +35,12 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			gitee:'https://gitee.com/Show-K/noname_online_extension/raw',
-			github:'https://raw.githubusercontent.com/Show-K/noname_online_extension',
+			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname-online-extension',
+			gitee:'https://gitee.com/Show-K/noname-online-extension/raw',
+			github:'https://raw.githubusercontent.com/Show-K/noname-online-extension',
 		},
-		updateURL:'https://raw.githubusercontent.com/Show-K/noname_online_extension',
-		mirrorURL:'https://gitee.com/Show-K/noname_online_extension/raw',
+		updateURL:'https://raw.githubusercontent.com/Show-K/noname-online-extension',
+		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname-online-extension',
 		hallURL:'47.99.105.222',
 		assetURL:'',
 		changeLog:[],
@@ -535,15 +536,16 @@
 					},
 					update_link:{
 						name:'更新地址',
-						init:'gitee',
+						init:'jsdelivr',
 						unfrequent:true,
 						item:{
+							jsdelivr:'jsDelivr（Show-K）（仅Release）',
 							gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
-							lib.updateURL=lib.updateURLS[item]||lib.updateURLS.gitee;
+							lib.updateURL=lib.updateURLS[item]||lib.updateURLS.jsdelivr;
 						},
 					},
 					extension_source:{
@@ -41204,6 +41206,9 @@
 							if(str==lib.updateURLS.gitee){
 								return 'Gitee（Show-K）';
 							}
+							if(str==lib.updateURLS.jsdelivr){
+								return 'jsDelivr（Show-K）（仅Release）'
+							}
 							var index;
 							index=str.indexOf('://');
 							if(index!=-1){
@@ -41654,7 +41659,7 @@
 							updatepx.style.whiteSpace='nowrap';
 							updatepx.style.marginTop='8px';
 							var buttonx=ui.create.node('button','访问项目主页（Show-K）',function(){
-								window.open('https://github.com/Show-K/noname_online_extension');
+								window.open('https://github.com/Show-K/noname-online-extension');
 							});
 							updatepx.appendChild(buttonx);
 							ui.updateUpdate=function(){
@@ -43927,7 +43932,7 @@
 				}
 				lib.init.js(lib.assetURL+'game','keyWords',function(){});
 				
-				lib.updateURL=lib.updateURLS[lib.config.update_link]||lib.updateURLS.gitee;
+				lib.updateURL=lib.updateURLS[lib.config.update_link]||lib.updateURLS.jsdelivr;
 
 				lib.init.cssstyles();
 
