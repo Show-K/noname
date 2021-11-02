@@ -41,7 +41,7 @@
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname-online-extension',
 		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname-online-extension@master',
-		hallURL:'47.99.105.222',
+		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],
 		updates:[],
