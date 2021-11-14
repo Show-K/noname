@@ -35,12 +35,12 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname-online-extension@master',
-			gitee:'https://gitee.com/Show-K/noname-online-extension/raw',
-			github:'https://raw.githubusercontent.com/Show-K/noname-online-extension',
+			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname@master',
+			gitee:'https://gitee.com/Show-K/noname/raw',
+			github:'https://raw.githubusercontent.com/Show-K/noname',
 		},
-		updateURL:'https://raw.githubusercontent.com/Show-K/noname-online-extension',
-		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname-online-extension@master',
+		updateURL:'https://raw.githubusercontent.com/Show-K/noname',
+		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname@master',
 		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],
@@ -41672,7 +41672,7 @@
 							updatepx.style.whiteSpace='nowrap';
 							updatepx.style.marginTop='8px';
 							var buttonx=ui.create.node('button','访问项目主页（Show-K）',function(){
-								window.open('https://github.com/Show-K/noname-online-extension');
+								window.open('https://github.com/Show-K/noname');
 							});
 							updatepx.appendChild(buttonx);
 							ui.updateUpdate=function(){
