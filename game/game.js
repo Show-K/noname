@@ -35,12 +35,12 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname@master',
-			gitee:'https://gitee.com/Show-K/noname/raw',
-			github:'https://raw.githubusercontent.com/Show-K/noname',
+			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname@super-smash-tabletop',
+			gitee:'https://gitee.com/Show-K/noname/raw/super-smash-tabletop',
+			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
-		updateURL:'https://raw.githubusercontent.com/Show-K/noname',
-		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname@master',
+		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
+		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname@super-smash-tabletop',
 		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],
@@ -539,7 +539,7 @@
 						init:'jsdelivr',
 						unfrequent:true,
 						item:{
-							jsdelivr:'jsDelivr（Show-K）（仅Release）',
+							jsdelivr:'jsDelivr（Show-K）',
 							gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
@@ -41201,7 +41201,7 @@
 								return 'Gitee（Show-K）';
 							}
 							if(str==lib.updateURLS.jsdelivr){
-								return 'jsDelivr（Show-K）（仅Release）'
+								return 'jsDelivr（Show-K）'
 							}
 							var index;
 							index=str.indexOf('://');
@@ -49897,7 +49897,7 @@
 				url+='/';
 			}
 			if(master!='nodev'){
-				return url+'master/';
+				return url;
 			}
 			else{
 				return url+'v'+lib.version+'/';
