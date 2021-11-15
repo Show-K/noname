@@ -41,7 +41,7 @@ window.config={
 	volumn_background:8,
 	volumn_audio:8,
 
-	connect_avatar:'caocao',
+	connect_avatar:'sst_mario',
 	connect_nickname:'无名玩家',
 	config_menu:true,
 	auto_popped_config:true,
@@ -133,8 +133,8 @@ window.config={
 	right_click:'pause',
 	sort:'type_sort',
 
-	cards:['standard','ex','extra','sp','classic','basic'],
-	characters:['standard','shenhua','sp','sp2','yijiang','refresh','xinghuoliaoyuan','mobile','extra','yingbian'],
+	cards:['sst','standard','ex','extra','sp','classic','basic'],
+	characters:['sst'],
 	connect_characters:['diy'],
 	connect_cards:['huanlekapai','guozhan','sp','zhulu','yingbian'],
 	plays:[],

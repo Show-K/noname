@@ -6980,9 +6980,9 @@
 					if(!name) return;
 					var src;
 					if(ext=='noskin'){
-						ext='.jpg';
+						ext='.png';
 					}
-					ext=ext||'.jpg';
+					ext=ext||'.png';
 					subfolder=subfolder||'default'
 					if(type){
 						var dbimage=null,extimage=null,modeimage=null;
@@ -9759,27 +9759,23 @@
 			},
 			c:function(){
 				(function(){
-					var a=0,b=0,c=0,d=0,e=0,f=0,g=0;
-					var sa=0,sb=0,sc=0,sd=0,se=0,sf=0,sg=0;
+					var a=0,b=0,c=0,d=0,e=0;
+					var sa=0,sb=0,sc=0,sd=0,se=0;
 					for(var i in lib.character){
 						switch(lib.character[i][1]){
-							case 'wei':a++;if(lib.config.banned.contains(i)) sa++;break;
-							case 'shu':b++;if(lib.config.banned.contains(i)) sb++;break;
-							case 'wu':c++;if(lib.config.banned.contains(i)) sc++;break;
-							case 'qun':d++;if(lib.config.banned.contains(i)) sd++;break;
-							case 'jin':g++;if(lib.config.banned.contains(i)) sg++;break;
-							case 'western':e++;if(lib.config.banned.contains(i)) se++;break;
-							case 'key':f++;if(lib.config.banned.contains(i)) sf++;break;
+							case 'sst_light':a++;if(lib.config.banned.contains(i)) sa++;break;
+							case 'sst_darkness':b++;if(lib.config.banned.contains(i)) sb++;break;
+							case 'sst_spirit':c++;if(lib.config.banned.contains(i)) sc++;break;
+							case 'sst_reality':d++;if(lib.config.banned.contains(i)) sd++;break;
+							case 'sst_others':g++;if(lib.config.banned.contains(i)) sg++;break;
 						}
 					}
-					console.log('魏：'+(a-sa)+'/'+a);
-					console.log('蜀：'+(b-sb)+'/'+b);
-					console.log('吴：'+(c-sc)+'/'+c);
-					console.log('群：'+(d-sd)+'/'+d);
-					console.log('晋：'+(g-sg)+'/'+g);
-					console.log('西：'+(e-se)+'/'+e);
-					console.log('键：'+(f-sf)+'/'+f);
-					console.log('已启用：'+((a+b+c+d+e+f)-(sa+sb+sc+sd+se+sf))+'/'+(a+b+c+d+e+f));
+					console.log('光：'+(a-sa)+'/'+a);
+					console.log('暗：'+(b-sb)+'/'+b);
+					console.log('魂：'+(c-sc)+'/'+c);
+					console.log('现：'+(d-sd)+'/'+d);
+					console.log('外：'+(g-sg)+'/'+g);
+					console.log('已启用：'+((a+b+c+d+e)-(sa+sb+sc+sd+se))+'/'+(a+b+c+d+e));
 				}());
 				(function(){
 					var a=0,b=0,c=0,d=0;
@@ -10224,23 +10220,19 @@
 			poison:"毒",
 			kami:'神',
 			ice:'冰',
-			wei:'魏',
-			shu:'蜀',
-			wu:'吴',
-			qun:'群',
+			sst_light:'光',
+			sst_darkness:'暗',
+			sst_spirit:'魂',
+			sst_reality:'现',
+			sst_others:'外',
 			shen:'神',
-			western:'西',
-			key:'键',
-			jin:'晋',
 			double:'双',
-			wei2:'魏国',
-			shu2:'蜀国',
-			wu2:'吴国',
-			qun2:'群雄',
+			sst_light2:'光明',
+			sst_darkness2:'黑暗',
+			sst_spirit2:'命魂',
+			sst_reality2:'现实',
+			sst_others2:'其他',
 			shen2:'神明',
-			western2:'西方',
-			key2:'KEY',
-			jin2:'晋朝',
 			double2:'双势力',
 			male:'男',
 			female:'女',
@@ -10253,14 +10245,12 @@
 			recover_hp:'回复体力',
 			lose_hp:'流失体力',
 			get_damage:'受伤害',
-			weiColor:"#b0d0e2",
-			shuColor:"#ffddb9",
-			wuColor:"#b2d9a9",
-			qunColor:"#f6f6f6",
+			sst_lightColor:"#f6f6f6",
+			sst_darknessColor:"#b0d0e2",
+			sst_spiritColor:"#b2d9a9",
+			sst_realityColor:"#ffddb9",
+			sst_othersColor:"#ffe14c",
 			shenColor:"#ffe14c",
-			westernColor:"#ffe14c",
-			jinColor:"#ffe14c",
-			keyColor:"#c9b1fd",
 			basic:'基本',
 			equip:'装备',
 			trick:'锦囊',
@@ -10343,18 +10333,16 @@
 			pss_scissor_info:'石头剪刀布时的一种手势。克制布，但被石头克制。',
 			pss_stone_info:'石头剪刀布时的一种手势。克制剪刀，但被布克制。',
 			renku:'仁库',
-			group_wei:"魏势力",
-			group_shu:"蜀势力",
-			group_wu:"吴势力",
-			group_qun:"群势力",
-			group_key:"键势力",
-			group_jin:"晋势力",
-			group_wei_bg:"魏",
-			group_shu_bg:"蜀",
-			group_wu_bg:"吴",
-			group_qun_bg:"群",
-			group_key_bg:"键",
-			group_jin_bg:"晋",
+			group_sst_light:'光势力',
+			group_sst_darkness:'暗势力',
+			group_sst_spirit:'魂势力',
+			group_sst_reality:'现势力',
+			group_sst_others:'外势力',
+			group_sst_light_bg:'光',
+			group_sst_darkness_bg:'暗',
+			group_sst_spirit_bg:'魂',
+			group_sst_reality_bg:'现',
+			group_sst_others_bg:'外',
 		},
 		element:{
 			content:{
@@ -25655,12 +25643,11 @@
 				subtype:"equip5",
 			},
 			disable_judge:{},
-			group_wei:{fullskin:true},
-			group_shu:{fullskin:true},
-			group_wu:{fullskin:true},
-			group_qun:{fullskin:true},
-			group_key:{fullskin:true},
-			group_jin:{fullskin:true},
+			group_sst_light:{fullskin:true},
+			group_sst_darkness:{fullskin:true},
+			group_sst_spirit:{fullskin:true},
+			group_sst_reality:{fullskin:true},
+			group_sst_others:{fullskin:true},
 		},
 		filter:{
 			all:function(){
@@ -26090,17 +26077,15 @@
 					return lib.character[name][1];
 				}
 				var groupSort=function(name){
-					if(!lib.character[name]) return 7;
+					if(!lib.character[name]) return 5;
 					var group=getGroup(name);
 					if(group=='shen') return -1;
-					if(group=='wei') return 0;
-					if(group=='shu') return 1;
-					if(group=='wu') return 2;
-					if(group=='qun') return 3;
-					if(group=='jin') return 4;
-					if(group=='key') return 5;
-					if(group=='western') return 6;
-					return 7;
+					if(group=='sst_light') return 0;
+					if(group=='sst_darkness') return 1;
+					if(group=='sst_spirit') return 2;
+					if(group=='sst_reality') return 3;
+					if(group=='sst_others') return 4;
+					return 5;
 				}
 				var del=groupSort(a)-groupSort(b);
 				if(del!=0) return del;
@@ -27949,18 +27934,16 @@
 			}
 		},
 		suit:['club','spade','diamond','heart'],
-		group:['wei','shu','wu','qun','jin','shen'],
+		group:['sst_light','sst_darkness','sst_spirit','sst_reality','sst_others','shen'],
 		nature:['fire','thunder','poison','kami','ice'],
 		linked:['fire','thunder','kami','ice'],
 		groupnature:{
 			shen:'thunder',
-			wei:'water',
-			shu:'soil',
-			wu:'wood',
-			qun:'metal',
-			western:'thunder',
-			key:'key',
-			jin:'thunder',
+			sst_light:'metal',
+			sst_darkness:'water',
+			sst_spirit:'wood',
+			sst_reality:'soil',
+			sst_others:'thunder',
 			ye:'thunder',
 		},
 		phaseName:['phaseZhunbei','phaseJudge','phaseDraw','phaseUse','phaseDiscard','phaseJieshu'],
@@ -37696,17 +37679,15 @@
 							return lib.character[name][1];
 						};
 						var groupSort=function(name){
-							if(!lib.character[name]) return 7;
+							if(!lib.character[name]) return 5;
 							var group=getGroup(name);
 							if(group=='shen') return -1;
-							if(group=='wei') return 0;
-							if(group=='shu') return 1;
-							if(group=='wu') return 2;
-							if(group=='qun') return 3;
-							if(group=='jin') return 4;
-							if(group=='key') return 5;
-							if(group=='western') return 6;
-							return 7;
+							if(group=='sst_light') return 0;
+							if(group=='sst_darkness') return 1;
+							if(group=='sst_spirit') return 2;
+							if(group=='sst_reality') return 3;
+							if(group=='sst_others') return 4;
+							return 5;
 						}
 						list.sort(function(a,b){
 							var del=groupSort(a)-groupSort(b);
@@ -42699,7 +42680,7 @@
 				},true,true);
 			},
 			groupControl:function(dialog){
-				return ui.create.control('wei','shu','wu','qun','jin','western','key',function(link,node){
+				return ui.create.control('sst_light','sst_darkness','sst_spirit','sst_reality','sst_others',function(link,node){
 					if(link=='全部'){
 						dialog.currentcapt='';
 						dialog.currentgroup='';
@@ -43129,7 +43110,7 @@
 					}
 				}
 				if(!thisiscard){
-					var groups=['wei','shu','wu','qun','jin'];
+					var groups=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_others'];
 					var bool1=false;
 					var bool2=false;
 					var bool3=(get.mode()=='guozhan'&&_status.forceKey!=true&&get.config('onlyguozhan'));
@@ -43361,17 +43342,15 @@
 						return lib.character[name][1];
 					}
 					groupSort=function(name){
-						if(!lib.character[name]) return 7;
+						if(!lib.character[name]) return 5;
 						var group=getGroup(name);
 						if(group=='shen') return -1;
-						if(group=='wei') return 0;
-						if(group=='shu') return 1;
-						if(group=='wu') return 2;
-						if(group=='qun') return 3;
-						if(group=='jin') return 4;
-						if(group=='key') return 5;
-						if(group=='western') return 6;
-						return 7;
+						if(group=='sst_light') return 0;
+						if(group=='sst_darkness') return 1;
+						if(group=='sst_spirit') return 2;
+						if(group=='sst_reality') return 3;
+						if(group=='sst_others') return 4;
+						return 5;
 					}
 				}
 				list.sort(function(a,b){
@@ -45825,8 +45804,8 @@
 				}
 				else{
 					if(get.mode()=='guozhan'){
-						list={wei:'魏',shu:'蜀',wu:'吴',qun:'群',jin:'晋'};
-						if(_status.forceKey) list.key='键';
+						list={sst_light:'光',sst_darkness:'暗',sst_spirit:'魂',sst_reality:'现',sst_others:'外'};
+						//if(_status.forceKey) list.key='键';
 					}
 					var list2=get.copy(list);
 					if(game.getIdentityList2){
@@ -50364,6 +50343,7 @@
 			if(typeof num!='number') num=false;
 			if(name==_status.lord) return num?Math.round(7*(num-1)/8+1):'ap';
 			var rank=lib.rank;
+			/*
 			if(lib.characterPack.standard[name]||lib.characterPack.shenhua[name]){
 				var skills;
 				if(lib.character[name]){
@@ -50384,6 +50364,7 @@
 					}
 				}
 			}
+			*/
 			if(rank.s.contains(name)) return num?Math.round(8*(num-1)/8+1):'s';
 			if(rank.ap.contains(name)) return num?Math.round(7*(num-1)/8+1):'ap';
 			if(rank.a.contains(name)) return num?Math.round(6*(num-1)/8+1):'a';
@@ -50782,6 +50763,23 @@
 			else if(str2.indexOf('新')==0&&(str.indexOf('re_')==0||str.indexOf('new_')==0)){
 				str2=str2.slice(1);
 			}
+			//新增
+			else if(str2.indexOf("炽焰")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("黑暗")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("酷霸王七子")==0){
+				str2="七人众";
+			}
+			else if(str2.indexOf("考古学家")==0){
+				str2=str2.slice(4);
+			}
+			else if(str2.indexOf("基诺")==0){
+				str2="♡♪!?";
+			}
+			//新增截止
 			return str2;
 		},
 		rawName2:function(str){
@@ -50806,6 +50804,23 @@
 			else if(str2.indexOf('手杀')==0){
 				str2=str2.slice(2);
 			}
+			//新增
+			else if(str2.indexOf("炽焰")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("黑暗")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("酷霸王七子")==0){
+				str2="七人众";
+			}
+			else if(str2.indexOf("考古学家")==0){
+				str2=str2.slice(4);
+			}
+			else if(str2.indexOf("基诺")==0){
+				str2="♡♪!?";
+			}
+			//新增截止
 			return str2;
 		},
 		slimName:function(str){
@@ -50830,6 +50845,23 @@
 			else if(str2.indexOf('手杀')==0){
 				str2=str2.slice(2);
 			}
+			//新增
+			else if(str2.indexOf("炽焰")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("黑暗")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("酷霸王七子")==0){
+				str2="七人众";
+			}
+			else if(str2.indexOf("考古学家")==0){
+				str2=str2.slice(4);
+			}
+			else if(str2.indexOf("基诺")==0){
+				str2="♡♪!?";
+			}
+			//新增截止
 			return get.verticalStr(str2,true);
 		},
 		time:function(){
@@ -52964,7 +52996,7 @@
 			}
 		},
 		groups:function(){
-			return ['wei','shu','wu','qun','jin','western','key'];
+			return ['sst_light','sst_darkness','sst_spirit','sst_reality','sst_others'];
 		},
 		types:function(){
 			var types=[];

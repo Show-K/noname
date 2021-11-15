@@ -1,5 +1,7 @@
 window.noname_package={
 	character:{
+		sst:'大乱桌斗',
+		/*
 		standard:'标准',
 		refresh:'界限突破',
 		shenhua:'神话再临',
@@ -22,8 +24,10 @@ window.noname_package={
 		swd:'轩辕剑',
 		gujian:'古剑奇谭',
 		xianjian:'仙剑奇侠传',
+		*/
 	},
 	card:{
+		sst:'大乱桌斗',
 		standard:'标准',
 		extra:'军争',
 		sp:'SP',
@@ -32,10 +36,10 @@ window.noname_package={
 		yingbian:'应变篇',
 		zhenfa:'阵法',
 		yunchou:'运筹帷幄',
-		swd:'轩辕剑',
-		gujian:'古剑奇谭',
-		hearth:'炉石传说',
-		gwent:'昆特牌',
+		//swd:'轩辕剑',
+		//gujian:'古剑奇谭',
+		//hearth:'炉石传说',
+		//gwent:'昆特牌',
 		mtg:'万智牌',
 		huanlekapai:'欢乐卡牌',
 	},
@@ -50,12 +54,12 @@ window.noname_package={
 		guozhan:'国战',
 		versus:'对决',
 		connect:'联机',
-		boss:'挑战',
+		//boss:'挑战',
 		doudizhu:'斗地主',
-		single:'单挑',
-		chess:'战棋',
-		tafang:'塔防',
-		stone:'炉石',
+		//single:'单挑',
+		//chess:'战棋',
+		//tafang:'塔防',
+		//stone:'炉石',
 		brawl:'乱斗',
 	},
 	submode:{
