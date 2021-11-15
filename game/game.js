@@ -36,10 +36,10 @@
 		versionOL:27,
 		updateURLS:{
 			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname@master',
-			gitee:'https://gitee.com/Show-K/noname/raw',
-			github:'https://raw.githubusercontent.com/Show-K/noname',
+			gitee:'https://gitee.com/Show-K/noname/raw/master',
+			github:'https://raw.githubusercontent.com/Show-K/noname/master',
 		},
-		updateURL:'https://raw.githubusercontent.com/Show-K/noname',
+		updateURL:'https://raw.githubusercontent.com/Show-K/noname/master',
 		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname@master',
 		hallURL:'123.56.240.30',
 		assetURL:'',
@@ -539,7 +539,7 @@
 						init:'jsdelivr',
 						unfrequent:true,
 						item:{
-							jsdelivr:'jsDelivr（Show-K）（仅Release）',
+							jsdelivr:'jsDelivr（Show-K）',
 							gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
@@ -41220,7 +41220,7 @@
 								return 'Gitee（Show-K）';
 							}
 							if(str==lib.updateURLS.jsdelivr){
-								return 'jsDelivr（Show-K）（仅Release）'
+								return 'jsDelivr（Show-K）'
 							}
 							var index;
 							index=str.indexOf('://');
@@ -49918,7 +49918,7 @@
 				url+='/';
 			}
 			if(master!='nodev'){
-				return url+'master/';
+				return url;
 			}
 			else{
 				return url+'v'+lib.version+'/';
