@@ -35,12 +35,12 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			jsdelivr:'https://cdn.jsdelivr.net/gh/Show-K/noname@super-smash-tabletop',
+			coding:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/super-smash-tabletop',
 			gitee:'https://gitee.com/Show-K/noname/raw/super-smash-tabletop',
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
-		mirrorURL:'https://cdn.jsdelivr.net/gh/Show-K/noname@super-smash-tabletop',
+		mirrorURL:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/super-smash-tabletop',
 		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],
@@ -536,16 +536,16 @@
 					},
 					update_link:{
 						name:'更新地址',
-						init:'jsdelivr',
+						init:'coding',
 						unfrequent:true,
 						item:{
-							jsdelivr:'jsDelivr（Show-K）',
+							coding:'Coding（Show-K）',
 							gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
-							lib.updateURL=lib.updateURLS[item]||lib.updateURLS.jsdelivr;
+							lib.updateURL=lib.updateURLS[item]||lib.updateURLS.coding;
 						},
 					},
 					extension_source:{
@@ -41200,8 +41200,8 @@
 							if(str==lib.updateURLS.gitee){
 								return 'Gitee（Show-K）';
 							}
-							if(str==lib.updateURLS.jsdelivr){
-								return 'jsDelivr（Show-K）'
+							if(str==lib.updateURLS.coding){
+								return 'Coding（Show-K）'
 							}
 							var index;
 							index=str.indexOf('://');
@@ -43924,7 +43924,7 @@
 				}
 				lib.init.js(lib.assetURL+'game','keyWords',function(){});
 				
-				lib.updateURL=lib.updateURLS[lib.config.update_link]||lib.updateURLS.jsdelivr;
+				lib.updateURL=lib.updateURLS[lib.config.update_link]||lib.updateURLS.coding;
 
 				lib.init.cssstyles();
 
