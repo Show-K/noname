@@ -2973,8 +2973,6 @@ window.noname_asset_list=[
 	'audio/skill/rexingxue2.mp3',
 	'audio/skill/reyanzhu1.mp3',
 	'audio/skill/reyanzhu2.mp3',
-	'audio/skill/tongqu1.mp3',
-	'audio/skill/tongqu2.mp3',
 	'audio/skill/cxliushi1.mp3',
 	'audio/skill/cxliushi2.mp3',
 	'audio/skill/zhanwan1.mp3',
