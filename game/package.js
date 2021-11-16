@@ -1,6 +1,7 @@
 window.noname_package={
 	character:{
 		sst:'大乱桌斗',
+		sst_sp:'乱斗SP',
 		/*
 		standard:'标准',
 		refresh:'界限突破',
@@ -28,6 +29,7 @@ window.noname_package={
 	},
 	card:{
 		sst:'大乱桌斗',
+		sst_sp:'乱斗SP',
 		standard:'标准',
 		extra:'军争',
 		sp:'SP',

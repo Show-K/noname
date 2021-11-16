@@ -14,6 +14,7 @@ window.noname_source_list=[
 	'card/zhenfa.js',
 	'card/zhulu.js',
 	'card/sst.js',
+	'card/sst_sp.js',
 	/*
 	'character/diy.js',
 	'character/extra.js',
@@ -40,6 +41,7 @@ window.noname_source_list=[
 	'character/yxs.js',
 	*/
 	'character/sst.js',
+	'character/sst_sp.js',
 	'game/asset.js',
 	'game/codemirror.js',
 	'game/config.js',

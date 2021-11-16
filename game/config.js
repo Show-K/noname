@@ -133,7 +133,7 @@ window.config={
 	right_click:'pause',
 	sort:'type_sort',
 
-	cards:['sst','standard','ex','extra','sp','classic','basic'],
+	cards:['sst','standard','ex','extra','classic','basic'],
 	characters:['sst'],
 	connect_characters:['diy'],
 	connect_cards:['huanlekapai','guozhan','sp','zhulu','yingbian'],

@@ -9767,14 +9767,14 @@
 							case 'sst_darkness':b++;if(lib.config.banned.contains(i)) sb++;break;
 							case 'sst_spirit':c++;if(lib.config.banned.contains(i)) sc++;break;
 							case 'sst_reality':d++;if(lib.config.banned.contains(i)) sd++;break;
-							case 'sst_others':g++;if(lib.config.banned.contains(i)) sg++;break;
+							case 'sst_smash':g++;if(lib.config.banned.contains(i)) sg++;break;
 						}
 					}
 					console.log('光：'+(a-sa)+'/'+a);
 					console.log('暗：'+(b-sb)+'/'+b);
 					console.log('魂：'+(c-sc)+'/'+c);
 					console.log('现：'+(d-sd)+'/'+d);
-					console.log('外：'+(g-sg)+'/'+g);
+					console.log('斗：'+(g-sg)+'/'+g);
 					console.log('已启用：'+((a+b+c+d+e)-(sa+sb+sc+sd+se))+'/'+(a+b+c+d+e));
 				}());
 				(function(){
@@ -10224,14 +10224,14 @@
 			sst_darkness:'暗',
 			sst_spirit:'魂',
 			sst_reality:'现',
-			sst_others:'外',
+			sst_smash:'斗',
 			shen:'神',
 			double:'双',
 			sst_light2:'光明',
 			sst_darkness2:'黑暗',
 			sst_spirit2:'命魂',
 			sst_reality2:'现实',
-			sst_others2:'其他',
+			sst_smash2:'乱斗',
 			shen2:'神明',
 			double2:'双势力',
 			male:'男',
@@ -10249,7 +10249,7 @@
 			sst_darknessColor:"#b0d0e2",
 			sst_spiritColor:"#b2d9a9",
 			sst_realityColor:"#ffddb9",
-			sst_othersColor:"#ffe14c",
+			sst_smashColor:"#ffe14c",
 			shenColor:"#ffe14c",
 			basic:'基本',
 			equip:'装备',
@@ -10337,12 +10337,12 @@
 			group_sst_darkness:'暗势力',
 			group_sst_spirit:'魂势力',
 			group_sst_reality:'现势力',
-			group_sst_others:'外势力',
+			group_sst_smash:'斗势力',
 			group_sst_light_bg:'光',
 			group_sst_darkness_bg:'暗',
 			group_sst_spirit_bg:'魂',
 			group_sst_reality_bg:'现',
-			group_sst_others_bg:'外',
+			group_sst_smash_bg:'斗',
 		},
 		element:{
 			content:{
@@ -25647,7 +25647,7 @@
 			group_sst_darkness:{fullskin:true},
 			group_sst_spirit:{fullskin:true},
 			group_sst_reality:{fullskin:true},
-			group_sst_others:{fullskin:true},
+			group_sst_smash:{fullskin:true},
 		},
 		filter:{
 			all:function(){
@@ -26084,7 +26084,7 @@
 					if(group=='sst_darkness') return 1;
 					if(group=='sst_spirit') return 2;
 					if(group=='sst_reality') return 3;
-					if(group=='sst_others') return 4;
+					if(group=='sst_smash') return 4;
 					return 5;
 				}
 				var del=groupSort(a)-groupSort(b);
@@ -27934,7 +27934,7 @@
 			}
 		},
 		suit:['club','spade','diamond','heart'],
-		group:['sst_light','sst_darkness','sst_spirit','sst_reality','sst_others','shen'],
+		group:['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash','shen'],
 		nature:['fire','thunder','poison','kami','ice'],
 		linked:['fire','thunder','kami','ice'],
 		groupnature:{
@@ -27943,7 +27943,7 @@
 			sst_darkness:'water',
 			sst_spirit:'wood',
 			sst_reality:'soil',
-			sst_others:'thunder',
+			sst_smash:'thunder',
 			ye:'thunder',
 		},
 		phaseName:['phaseZhunbei','phaseJudge','phaseDraw','phaseUse','phaseDiscard','phaseJieshu'],
@@ -37686,7 +37686,7 @@
 							if(group=='sst_darkness') return 1;
 							if(group=='sst_spirit') return 2;
 							if(group=='sst_reality') return 3;
-							if(group=='sst_others') return 4;
+							if(group=='sst_smash') return 4;
 							return 5;
 						}
 						list.sort(function(a,b){
@@ -42680,7 +42680,7 @@
 				},true,true);
 			},
 			groupControl:function(dialog){
-				return ui.create.control('sst_light','sst_darkness','sst_spirit','sst_reality','sst_others',function(link,node){
+				return ui.create.control('sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash',function(link,node){
 					if(link=='全部'){
 						dialog.currentcapt='';
 						dialog.currentgroup='';
@@ -43110,7 +43110,7 @@
 					}
 				}
 				if(!thisiscard){
-					var groups=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_others'];
+					var groups=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
 					var bool1=false;
 					var bool2=false;
 					var bool3=(get.mode()=='guozhan'&&_status.forceKey!=true&&get.config('onlyguozhan'));
@@ -43349,7 +43349,7 @@
 						if(group=='sst_darkness') return 1;
 						if(group=='sst_spirit') return 2;
 						if(group=='sst_reality') return 3;
-						if(group=='sst_others') return 4;
+						if(group=='sst_smash') return 4;
 						return 5;
 					}
 				}
@@ -45804,7 +45804,7 @@
 				}
 				else{
 					if(get.mode()=='guozhan'){
-						list={sst_light:'光',sst_darkness:'暗',sst_spirit:'魂',sst_reality:'现',sst_others:'外'};
+						list={sst_light:'光',sst_darkness:'暗',sst_spirit:'魂',sst_reality:'现',sst_smash:'斗'};
 						//if(_status.forceKey) list.key='键';
 					}
 					var list2=get.copy(list);
@@ -52996,7 +52996,7 @@
 			}
 		},
 		groups:function(){
-			return ['sst_light','sst_darkness','sst_spirit','sst_reality','sst_others'];
+			return ['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
 		},
 		types:function(){
 			var types=[];

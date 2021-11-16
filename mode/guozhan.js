@@ -369,8 +369,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_shibing2sst_spirit:['female','sst_spirit',0,[],['unseen']],
 				gz_shibing1sst_reality:['male','sst_reality',0,[],['unseen']],
 				gz_shibing2sst_reality:['female','sst_reality',0,[],['unseen']],
-				gz_shibing1sst_others:['male','sst_others',0,[],['unseen']],
-				gz_shibing2sst_others:['female','sst_others',0,[],['unseen']],
+				gz_shibing1sst_smash:['male','sst_smash',0,[],['unseen']],
+				gz_shibing2sst_smash:['female','sst_smash',0,[],['unseen']],
 				gz_shibing1ye:['male','ye',0,[],['unseen']],
 				gz_shibing2ye:['female','ye',0,[],['unseen']],
 				//身份武将
@@ -795,17 +795,13 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 			},
 			gz_sst_qixiao2:{
-				trigger:{player:"useSkillBegin"},
+				trigger:{player:"xianqu_mark"},
 				forced:true,
+				/*
 				filter:function(event,player){
-					game.log(event.backup);
-					/*
-					for(var i in event){
-						game.log(event[i]);
-					}
-					*/
 					return event.name=="xianqu_mark";
 				},
+				*/
 				content:function(){
 					player.storage.gz_sst_qixiao=Math.min(4,player.countCards("h"));
 				},
@@ -2542,6 +2538,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.removeMark(player.hasMark('xianqu_mark')?'xianqu_mark':'yexinjia_mark',1);
+					event.trigger("xianqu_mark");
 					var num=4-player.countCards('h');
 					if(num) player.draw(num);
 					"step 1"
@@ -3081,7 +3078,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				var choice=list.splice(0,num).sort(function(a,b){
 					return (get.is.double(a)?1:-1)-(get.is.double(b)?1:-1);
 				});
-				var map={sst_light:[],sst_darkness:[],sst_spirit:[],sst_reality:[],sst_others:[],ye:[]};
+				var map={sst_light:[],sst_darkness:[],sst_spirit:[],sst_reality:[],sst_smash:[],ye:[]};
 				for(var i=0;i<choice.length;i++){
 					if(get.is.double(choice[i])){
 						var group=get.is.double(choice[i],true);
@@ -3232,7 +3229,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					sst_darkness:'暗',
 					sst_spirit:'魂',
 					sst_reality:'现',
-					sst_others:'外',
+					sst_smash:'斗',
 					ye:'野',
 					unknown:'猜'
 				}
@@ -3254,8 +3251,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					delete list.sst_reality;
 					noye=false;
 				}
-				if(get.population('sst_others')>=num){
-					delete list.sst_others;
+				if(get.population('sst_smash')>=num){
+					delete list.sst_smash;
 					noye=false;
 				}
 				if(noye){
@@ -4158,8 +4155,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_shibing2sst_spirit:'魂兵',
 			gz_shibing1sst_reality:'现兵',
 			gz_shibing2sst_reality:'现兵',
-			gz_shibing1sst_others:'外兵',
-			gz_shibing2sst_others:'外兵',
+			gz_shibing1sst_smash:'斗兵',
+			gz_shibing2sst_smash:'斗兵',
 			gz_shibing1ye:'士兵',
 			gz_shibing2ye:'士兵',
 
