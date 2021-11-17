@@ -13521,8 +13521,8 @@
 								event.dialog.forcebutton=true;
 								event.dialog.open();
 								for(var i=0;i<event.choiceList.length;i++){
-									event.dialog.add('<div class="popup text" style="width:calc(100% - 10px);display:inline-block">选项'+
-									get.cnNumber(i+1,true)+'：'+event.choiceList[i]+'</div>');
+									event.dialog.add('<div class="popup text" style="width:calc(100% - 10px);display:inline-block">'+
+									(event.displayIndex!==false?('选项'+get.cnNumber(i+1,true)+'：'):'')+event.choiceList[i]+'</div>');
 								}
 							}
 							else if(event.prompt){
@@ -15670,6 +15670,7 @@
 					"step 6"
 					if(player.hp<=0&&player.isAlive()){
 						game.delayx();
+						event._dyinged=true;
 						player.dying(event);
 					}
 					if(source&&lib.config.border_style=='auto'){
@@ -15754,6 +15755,7 @@
 					"step 1"
 					if(player.hp<=0){
 						game.delayx();
+						event._dyinged=true;
 						player.dying(event);
 					}
 				},
@@ -21006,6 +21008,7 @@
 							else if(typeof info.intro.onunmark=='function'){
 								info.intro.onunmark(this.storage[name],this);
 							}
+							else delete this.storage[name];
 						}
 					}
 					return this;
