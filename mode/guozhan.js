@@ -315,6 +315,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'gz_zhangxiu','gz_liqueguosi','gz_huatuo',
 				'gz_zhanghuyuechen','gz_re_xushu','gz_mifangfushiren',
 				'gz_huangzu','gz_weiguan','gz_miheng',
+				'gz_wenqin',
 			],
 			'4':[
 				'gz_dianwei','gz_dengai','gz_xunyu',
@@ -323,7 +324,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'gz_zhangjiao','gz_pangde','gz_liuqi',
 				'gz_jin_zhangchunhua','gz_zongyu','gz_shixie',
 				'gz_jin_yanghuiyu','gz_tangzi','gz_yanbaihu',
-				'gz_wujing','gz_zhugeke','gz_wenqin',
+				'gz_wujing','gz_zhugeke','gz_sunchen',
 			],
 			'3':[
 				'gz_xiahoudun','gz_yuejin','gz_caoren',

@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.110.9.3.5.1',
-	update:'1.9.110.9.3.5',
+	version:'1.9.110.9.4',
+	update:'1.9.110.9.3.5.1',
 	changeLog:[
 		'测试',
 	],
@@ -11,7 +11,7 @@ window.noname_update={
 		'character/sst_sp.js',
 		//'card/extra.js',
 		//'card/gujian.js',
-		//'card/guozhan.js',
+		'card/guozhan.js',
 		//'card/gwent.js',
 		//'card/huanlekapai.js',
 		//'card/mtg.js',
@@ -56,7 +56,7 @@ window.noname_update={
 		//'mode/brawl.js',
 		//'mode/chess.js',
 		//'mode/connect.js',
-		//'mode/doudizhu.js',
+		'mode/doudizhu.js',
 		'mode/guozhan.js',
 		//'mode/identity.js',
 		//'mode/single.js',
