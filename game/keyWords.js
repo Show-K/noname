@@ -1,1 +1,1 @@
-window.bannedKeyWords=[""];
+window.bannedKeyWords=[];
