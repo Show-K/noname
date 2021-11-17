@@ -1973,12 +1973,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},//技能（必填）
 		dynamicTranslate:{
 		},
+		/*
 		characterReplace:{
 			ska_mario:["sst_mario","sst_dr_mario","ska_mario"],
 			ska_bowser:["sst_bowser","ska_bowser"],
 			ymk_yumiko:["sst_yumiko","ymk_yumiko"],
 			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
 		},//武将替换
+		*/
 		translate: {
 			//武将
 			ymk_claude:"库罗德",

@@ -351,7 +351,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			mode_guozhan:{
 				sst_64:["gz_sst_mario","gz_sst_donkey_kong","gz_sst_link","gz_sst_samus","gz_sst_yoshi","gz_sst_kirby","gz_sst_luigi","gz_sst_captain_falcon","gz_sst_jigglypuff","gz_sst_fox","gz_sst_pikachu"],
-				sst_melee:["gz_sst_bowser","gz_sst_peach","gz_sst_zelda","gz_sst_sheik","gz_sst_dr_mario","gz_sst_ganondorf","gz_sst_mr_game_n_watch","gz_sst_marth","gz_sst_young_link","gz_sst_pichu","gz_sst_falco"],
+				sst_melee:["gz_sst_bowser","gz_sst_peach","gz_sst_zelda","gz_sst_sheik","gz_sst_dr_mario","gz_sst_ganondorf","gz_sst_mr_game_watch","gz_sst_marth","gz_sst_young_link","gz_sst_pichu","gz_sst_falco"],
 				sst_brawl:["gz_sst_zero_suit_samus","gz_sst_wario","gz_sst_pokemon_trainer_red","gz_sst_meta_knight","gz_sst_ike","gz_sst_toon_link","gz_sst_wolf","gz_sst_snake","gz_sst_dedede","gz_sst_lucario","gz_sst_sonic"],
 				sst_4:["gz_sst_villager","gz_sst_rosalina","gz_sst_little_mac","gz_sst_greninja","gz_sst_palutena","gz_sst_lucina","gz_sst_bowser_jr","gz_sst_koopalings","gz_sst_ryu","gz_sst_mega_man","gz_sst_corrin","gz_sst_mii_fighters"],
 				sst_ultimate:["gz_sst_dark_samus","gz_sst_daisy","gz_sst_chrom","gz_sst_ridley","gz_sst_simon","gz_sst_richter","gz_sst_k_rool","gz_sst_isabelle","gz_sst_incineroar","gz_sst_terry","gz_sst_byleth_b","gz_sst_byleth_g","gz_sst_ken","gz_sst_joker","gz_sst_steve","gz_sst_alex","gz_sst_hero","gz_sst_minmin"],
@@ -388,7 +388,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_byleth_b:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],[]],
 				gz_sst_samus:["female","sst_light",4,["sst_juezhan","sst_zailu"],[]],
 				gz_sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],[]],
-				gz_sst_mr_game_n_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
+				gz_sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
 				gz_sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],[]],
 				gz_sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],[]],
 				gz_sst_simon:["male","sst_darkness",4,["sst_shengfa","sst_shengbian"],[]],
@@ -3923,7 +3923,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_sst_samus:"萨姆斯",
 			gz_sst_ridley:"利德雷",
 			gz_sst_dark_samus:"黑暗萨姆斯",
-			gz_sst_mr_game_n_watch:"代码人",
+			gz_sst_mr_game_watch:"代码人",
 			gz_sst_mnm:"莫奈门",
 			gz_sst_yumiko:"柚子",
 			gz_sst_haine:"海涅",

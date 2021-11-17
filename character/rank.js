@@ -76,7 +76,7 @@ window.noname_character_rank={
 			"sst_bowser",
 			"sst_samus",
 			"sst_ridley",
-			"sst_mr_game_n_watch",
+			"sst_mr_game_watch",
 			"sst_yumiko",
 			"sst_terry",
 			"sst_simon",
@@ -116,7 +116,8 @@ window.noname_character_rank={
 			"sst_sheik",
 			"ska_professor_toad",
 			"ska_geno",
-			"sst_ken"
+			"sst_ken",
+			"sst_pyra_mythra"
 		],
 		junk:[
 			"sst_donkey_kong",

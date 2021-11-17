@@ -6,10 +6,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst:{
 				sst_64:["sst_mario","sst_donkey_kong","sst_link","sst_samus","sst_yoshi","sst_kirby","sst_luigi","sst_captain_falcon","sst_jigglypuff","sst_fox","sst_pikachu"],
-				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_n_watch","sst_marth","sst_young_link","sst_pichu","sst_falco"],
+				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco"],
 				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_dedede","sst_lucario","sst_sonic"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters"],
-				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_b","sst_byleth_g","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_minmin"],
+				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_b","sst_byleth_g","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_minmin","sst_pyra_mythra"],
 				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_springman","sst_rex","sst_cuphead_n_mugman","sst_krystal"],
 				sst_players:["sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"],
 			},
@@ -18,6 +18,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//武将格式:
 			//"武将名字":["性别","势力",体力,[技能],[]],
 			//格式内每一样东西都不能缺少，否则无法导入该武将包及其以下内容
+			//士兵
+			shibing1sst_light:["male","sst_light",0,[],["unseen"]],
+			shibing2sst_light:["female","sst_light",0,[],["unseen"]],
+			shibing1sst_darkness:["male","sst_darkness",0,[],["unseen"]],
+			shibing2sst_darkness:["female","sst_darkness",0,[],["unseen"]],
+			shibing1sst_spirit:["male","sst_spirit",0,[],["unseen"]],
+			shibing2sst_spirit:["female","sst_spirit",0,[],["unseen"]],
+			shibing1sst_reality:["male","sst_reality",0,[],["unseen"]],
+			shibing2sst_reality:["female","sst_reality",0,[],["unseen"]],
+			shibing1sst_smash:["male","sst_smash",0,[],["unseen"]],
+			shibing2sst_smash:["female","sst_smash",0,[],["unseen"]],
+			//身份武将
 			sst_mario:["male","sst_light",4,["sst_jueyi"],[]],
 			sst_link:["male","sst_light",4,["sst_qingyong"],[]],
 			sst_yoshi:["male","sst_light",4,["sst_tanshi"],[]],
@@ -39,7 +51,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_samus:["female","sst_light",4,["sst_juezhan","sst_zailu"],[]],
 			sst_ridley:["male","sst_darkness",5,["sst_baozheng","sst_furan"],[]],
 			sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],[]],
-			sst_mr_game_n_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
+			sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
 			sst_mnm:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],[]],
 			sst_yumiko:["female","sst_reality",3,["sst_yingji","sst_huxiao"],[]],
 			sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],[]],
@@ -105,6 +117,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_minmin:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
 			sst_pikachu:["male","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 			sst_falco:["male","sst_light",4,["sst_juao"],[]],
+			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
 		},//武将（必填）
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -317,7 +330,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"“堕入黑暗”",
-			sst_mr_game_n_watch:"0689. Mr. Game & Watch/Mr.ゲーム & ウォッチ<br>"+
+			sst_mr_game_watch:"0689. Mr. Game & Watch/Mr.ゲーム & ウォッチ<br>"+
 			"系列：Game & Watch（游戏手表）<br>"+
 			"初登场：Game & Watch（游戏手表）<br>"+
 			"武将作者：mario not mary<br>"+
@@ -880,6 +893,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"放心，一个也别想逃。",
+			sst_pyra_mythra:"1458. 焰（斗士）/Pyra(Fighter)/ホムラ（ファイター）<br>"+
+			"1459. 光（斗士）/Mythra(Fighter)/ヒカリ（ファイター）<br>"+
+			"系列：Xenoblade Chronicles（异度神剑）<br>"+
+			"初登场：Xenoblade Chronicles 2（异度神剑2）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"没错，不是莱克斯参战，而是天之圣杯参战了！——当然，莱克斯还是会在进场、炫耀和胜利画面中出现的。作为斗士的焰速度较慢，但伤害和击杀能力非常强。如有需要，她还能随时切换为光。立绘姿势来源于之前出的手办。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"光的机动性和回场能力明显高于焰，但她的招式伤害较低。此外，在恰当的时机闪避还能触发“因果律预测”，创造反击机会。灵活运用天之圣杯不同形态的特点是取胜的关键。立绘姿势同样来源于之前出的手办。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"最终，少年遇到了少女。",
 		},//武将介绍（选填）
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -903,7 +928,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_samus:"银河战士",
 			sst_ridley:"狡猾的死神",
 			sst_dark_samus:"暗流涌动",
-			sst_mr_game_n_watch:"平面住民",
+			sst_mr_game_watch:"平面住民",
 			sst_mnm:"傲世轻物",
 			sst_yumiko:"酸甜可喵",
 			sst_haine:"渣男",
@@ -945,7 +970,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ocarina_of_time_link:"时光的笛音",
 			sst_springman:"拳簧",
 			sst_joker:"心之怪盗",
-			sst_rex:"天之御力者",
+			sst_rex:"天之御刃者",
 			sst_cuphead_n_mugman:"推杯换盏",
 			sst_krystal:"冰清玉洁",
 			sst_snake:"潜龙谍影",
@@ -969,6 +994,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_minmin:"玉盘珍馐",
 			sst_pikachu:"电光一闪",
 			sst_falco:"鹰击长空",
+			sst_pyra_mythra:"天之圣杯",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//后台技能
@@ -2163,7 +2189,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterTarget:function (card,player,target){
 					return target.countCards("ej");
 				},
-				selectTarget:1,
 				content:function () {
 					player.discardPlayerCard(target,"ej",true);
 					if (target == player) {
@@ -2882,10 +2907,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.draw(cards.length);
 						player.addTempSkill("sst_potian2");
 						if(player.storage.sst_shenjiao){
-							player.markSkillCharacter("sst_potian2",player.storage.sst_shenjiao,"破天","你使用的杀额定伤害为"+num+"直到回合结束");
+							player.markSkillCharacter("sst_potian2",player.storage.sst_shenjiao,"破天","你使用的杀基础伤害为"+num+"直到回合结束");
 						}
 						else{
-							player.markSkillCharacter("sst_potian2",player,"破天","你使用的杀额定伤害为"+num+"直到回合结束");
+							player.markSkillCharacter("sst_potian2",player,"破天","你使用的杀基础伤害为"+num+"直到回合结束");
 						}
 					}
 				},
@@ -7140,7 +7165,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return player.storage.sst_diebu?"你可以视为使用一张【闪】":"你可以视为使用一张【杀】";
 					},
 				},
-				enable:["chooseToUse"],
+				enable:"chooseToUse",
 				prompt:function(){
 					var player=_status.event.player;
 					return player.storage.sst_diebu?"你可以视为使用一张【闪】":"你可以视为使用一张【杀】";
@@ -7542,6 +7567,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 				},
 			},
+			/*
 			sst_yanyang:{
 				enable:"chooseToUse",
 				filterCard:function(){return true},
@@ -7572,6 +7598,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					damageBonus:true,
+				},
+			},
+			*/
+			sst_yanyang:{
+				enable:"phaseUse",
+				filterTarget:function(card,player,target){
+					return target.countCards("h")>=player.countCards("h");
+				},
+				content:function(){
+					"step 0"
+					target.chooseToDiscard("焰扬：弃置一张牌","he",true);
+					"step 1"
+					if(result.cards&&result.cards.length&&get.name(result.cards)=="sha"){
+						var num=player.getStat("skill").sst_yanyang||0;
+						if(num){
+							target.line(player,"green");
+							player.damage(num,target);
+						}
+					}
 				},
 			},
 			sst_shenglong:{
@@ -8055,6 +8100,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_qichang:{
+				derivation:"sst_qichang_detail",
 				locked:false,
 				onremove:function(player){
 					if(player.storage.sst_qichang) player.storage.sst_qichang.delete();
@@ -8143,6 +8189,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_shizhu:{
+				derivation:"sst_shizhu_detail",
 				trigger:{global:"phaseDiscardEnd"},
 				filter:function(event,player){
 					return event.cards&&event.cards.length;
@@ -8231,10 +8278,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseToDiscard(get.prompt2("sst_yufeng",trigger.player));
+					player.chooseToDiscard(get.prompt2("sst_yufeng",trigger.player)).set("logSkill",["sst_yufeng",trigger.player]);
 					"step 1"
 					if(result.cards&&result.cards.length){
-						player.logSkill("sst_yufeng",trigger.player);
 						var color=get.color(result.cards[0]);
 						var suit=get.suit(result.cards[0]);
 						trigger.player.storage.sst_yufeng_color=color;
@@ -8246,7 +8292,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yufeng2:{
 				mod:{
 					suit:function(card,suit){
-						if(get.color(card)==trigger.player.storage.sst_yufeng_color&&trigger.player.storage.sst_yufeng_suit) return trigger.player.storage.sst_yufeng_suit;
+						var player=_status.event.player;
+						if(get.color(card)==player.storage.sst_yufeng_color&&player.storage.sst_yufeng_suit) return player.storage.sst_yufeng_suit;
 					},
 				},
 			},
@@ -9692,16 +9739,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					player.lose(cards,ui.special,"toStorage");
-					player.$giveAuto(cards,player,false);
+					player.lose(cards,ui.special);
+					player.$throw(1);
 					player.storage.sst_qianlong=player.storage.sst_qianlong.concat(cards);
 					player.syncStorage("sst_qianlong");
 					player.markSkill("sst_qianlong");
-					game.log(player,"扣置了一张牌");
+					//game.log(player,"扣置了一张牌");
 					"step 1"
 					player.useCard({name:"sha"},target,"sst_qianlong");
 				},
-				group:["sst_qianlong2","sst_qianlong3"],
+				group:["sst_qianlong2"],
 				ai:{
 					respondSha:true,
 					result:{
@@ -9714,6 +9761,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 				},
 			},
+			/*
 			sst_qianlong2:{
 				trigger:{source:"damageEnd"},
 				forced:true,
@@ -9732,13 +9780,31 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.unmarkSkill("sst_qianlong");
 				},
 			},
-			sst_qianlong3:{
+			*/
+			sst_qianlong2:{
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
 					return event.skill=="sst_qianlong"&&player.storage.sst_qianlong&&player.storage.sst_qianlong.length;
 				},
 				content:function(){
+					"step 0"
+					var history=player.getHistory("sourceDamage",function(evt){
+						return evt.card==trigger.card;
+					});
+					if(history.length&&history.length==1){
+						player.showCards(player.storage.sst_qianlong);
+						event.card=player.storage.sst_qianlong[player.storage.sst_qianlong.length-1];
+						event.target=history[0].player;
+					}
+					else{
+						event.goto(2);
+					}
+					"step 1"
+					player.storage.sst_qianlong.remove(event.card);
+					player.syncStorage("sst_qianlong");
+					player.useCard(event.card,event.target,false);
+					"step 2"
 					player.unmarkSkill("sst_qianlong");
 				},
 			},
@@ -9935,7 +10001,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(!event.current) event.current=player;
 					event.current=event.current.getNext();
-					if(event.current==player) event.finish();
+					if(event.current==player){
+						event.finish();
+					}
+					else if(!event.current.countCards("h")){
+						event.goto(3);
+					}
 					"step 4"
 					player.line(event.current,"green");
 					event.current.chooseCard("音谣：展示与"+get.translation(event.card)+"花色或点数相同的牌，否则你翻面","he",function(card){
@@ -11653,6 +11724,287 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.die();
 				},
 			},
+			sst_xuanyi:{
+				mark:true,
+				zhuanhuanji:true,
+				intro:{
+					content:function(storage,player,skill){
+						return player.storage.sst_xuanyi?"转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。":"转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。";
+					},
+				},
+				enable:"phaseUse",
+				usable:1,
+				prompt:function(){
+					var player=_status.event.player;
+					return !player.storage.sst_xuanyi?"转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。":"转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。";
+				},
+				filter:function(event,player){
+					if(!player.storage.sst_xuanyi){
+						return game.hasPlayer(function(current){
+							return player.canCompare(current);
+						});
+					}
+					else{
+						return player.countCards("h")&&ui.cardPile.childNodes.length;
+					}
+				},
+				filterTarget:function(card,player,target){
+					if(!player.storage.sst_xuanyi){
+						return player.canCompare(target);
+					}
+					else{
+						return false;
+					}
+				},
+				selectTarget:function(){
+					var player=_status.event.player;
+					if(!player.storage.sst_xuanyi){
+						return 1;
+					}
+					else{
+						return -1;
+					}
+				},
+				content:function(){
+					"step 0"
+					if(!player.storage.sst_xuanyi){
+						event.sst_xuanyi=false;
+						player.storage.sst_xuanyi=true;
+						player.chooseToCompare(target);
+					}
+					else{
+						event.sst_xuanyi=true;
+						player.storage.sst_xuanyi=false;
+						//与牌堆顶的一张牌拼点
+						var next=game.createEvent("chooseToCompare");
+						next.player=player;
+						next.ai=function(card){
+							if(typeof card=="string"&&lib.skill[card]){
+								var ais=lib.skill[card].check||function(){return 0};
+								return ais();
+							}
+							var player=get.owner(card);
+							var getn=function(card){
+								if(player.hasSkill("tianbian")&&get.suit(card)=="heart") return 13;
+								return get.number(card);
+							};
+							var event=_status.event.getParent();
+							var addi=(get.value(card)>=8&&get.type(card)!="equip")?-10:0;
+							if(card.name=="du") addi+=5;
+							return getn(card)-get.value(card)/2+addi;
+						};
+						next.setContent(lib.skill.sst_xuanyi.contentx);
+						//next._args=Array.from(arguments);
+					};
+					"step 1"
+					if(result.winner){
+						event.winner=result.winner;
+						event.winner.gain(event.winner==player?result.target:result.player,"gain2");
+					}
+					"step 2"
+					if(event.winner!=player){
+						var str="炫奕：对一名角色造成1点";
+						str+=!event.sst_xuanyi?"火焰":"雷电";
+						str+="伤害";
+						player.chooseTarget(str,true).set("ai",function(target){
+							return get.damageEffect(target,player,player,!_status.event.sst_xuanyi?"fire":"thunder");
+						}).set("sst_xuanyi",event.sst_xuanyi);
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					if(result.targets&&result.targets.length){
+						player.line(result.targets[0],!event.sst_xuanyi?"fire":"thunder");
+						result.targets[0].damage(player,!event.sst_xuanyi?"fire":"thunder");
+					}
+				},
+				contentx:function(){
+					"step 0"
+					if(((!event.fixedResult||!event.fixedResult[player.playerid])&&player.countCards("h")==0)||!ui.cardPile.childNodes.length){
+						event.result={cancelled:true,bool:false};
+						event.finish();
+					}
+					game.log(player,"对","#b牌堆顶","发起拼点");
+					event.lose_list=[];
+					"step 1"
+					if(event.fixedResult&&event.fixedResult[player.playerid]){
+						event.card1=event.fixedResult[player.playerid];
+						event.lose_list.push([player,event.card1]);
+					}
+					else{
+						event.localPlayer=true;
+						player.chooseCard("请选择拼点牌",true).set("type","compare").set("glow_result",true).ai=event.ai;
+					}
+					"step 2"
+					if(event.localPlayer){
+						if(result.skill&&lib.skill[result.skill]&&lib.skill[result.skill].onCompare){
+							result.cards=lib.skill[result.skill].onCompare(player);
+							player.logSkill(result.skill);
+						}
+						else event.lose_list.push([player,result.cards[0]]);
+						event.card1=result.cards[0];
+					}
+					"step 3"
+					var card=get.cards()[0];
+					//event.lose_list.push([player,card]);
+					event.card2=card;
+					"step 4"
+					if(event.lose_list.length){
+						game.loseAsync({
+							lose_list:event.lose_list,
+						}).setContent("chooseToCompareLose");
+					}
+					if(event.card2) game.cardsGotoOrdering(event.card2);
+					"step 5"
+					game.broadcast(function(){
+						ui.arena.classList.add("thrownhighlight");
+					});
+					ui.arena.classList.add("thrownhighlight");
+					game.addVideo("thrownhighlight1");
+					player.$compare(event.card1,player,event.card2);
+					game.log(player,"的拼点牌为",event.card1);
+					game.log("#b牌堆顶","的拼点牌为",event.card2);
+					event.num1=event.card1.number;
+					event.num2=event.card2.number;
+					event.trigger("compare");
+					game.delay(0,1500);
+					"step 6"
+					event.result={
+						player:event.card1,
+						target:event.card2,
+						num1:event.num1,
+						num2:event.num2
+					};
+					var str;
+					if(event.num1>event.num2){
+						event.result.bool=true;
+						event.result.winner=player;
+						str=get.translation(player)+"拼点成功";
+						player.popup("胜");
+					}
+					else{
+						event.result.bool=false;
+						str=get.translation(player)+"拼点失败";
+						if(event.num1==event.num2){
+							event.result.tie=true;
+							player.popup("平");
+						}
+						else{
+							event.result.winner=null;
+							player.popup("负");
+						}
+					}
+					game.broadcastAll(function(str){
+						var dialog=ui.create.dialog(str);
+						dialog.classList.add("center");
+						setTimeout(function(){
+							dialog.close();
+						},1000);
+					},str);
+					game.delay(2);
+					"step 7"
+					game.broadcastAll(function(){
+						ui.arena.classList.remove("thrownhighlight");
+					});
+					game.addVideo("thrownhighlight2");
+					if(event.clear!==false){
+						game.broadcastAll(ui.clear);
+					}
+					if(typeof event.preserve=="function"){
+						event.preserve=event.preserve(event.result);
+					}
+					else if(event.preserve=="win"){
+						event.preserve=event.result.bool;
+					}
+					else if(event.preserve=="lose"){
+						event.preserve=!event.result.bool;
+					}
+				},
+				ai:{
+					order:5,
+					expose:0.2,
+					damage:true,
+					result:{
+						target:-1,
+						player:1,
+					},
+				},
+			},
+			sst_fuxin:{
+				skillAnimation:true,
+				animationStr:"付心",
+				animationColor:function(){
+					var player=_status.event.player;
+					if(!player.storage.sst_xuanyi){
+						return "fire";
+					}
+					else{
+						return "thunder";
+					}
+				},
+				line:function(){
+					var player=_status.event.player;
+					if(!player.storage.sst_xuanyi){
+						return "fire";
+					}
+					else{
+						return "thunder";
+					}
+				},
+				enable:"phaseUse",
+				usable:1,
+				filterTarget:function(card,player,target){
+					return target!=player;
+				},
+				content:function(){
+					"step 0"
+					var name=player.name;
+					var next=game.createEvent("removeCharacter");
+					next.player=player;
+					next.toRemove=name;
+					next.setContent(function(){
+						var name=player.name;
+						var info=lib.character[name];
+						if(!info) return;
+						var to="shibing"+(info[0]=="male"?1:2)+info[1];
+						game.log(player,"移除了武将牌","#b"+name);
+						player.reinit(name,to,false);
+					});
+					"step 1"
+					lib.inpile.push("sst_aegises");
+					var card=game.createCard2("sst_aegises",null,null);
+					//card.set("cardtag",["sst_ultimate"]);
+					if(!_status.cardtag) _status.cardtag={};
+					if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
+					_status.cardtag["sst_ultimate"].push(card.cardid);
+					player.give(card,target,"give",true);
+					target.addSkillLog("sst_fuxin_card");
+				},
+				ai:{
+					order:1,
+					expose:0.2,
+					damage:true,
+					result:{
+						target:3,
+					},
+				},
+			},
+			sst_fuxin_card:{
+				trigger:{player:"phaseZhunbeiBegin"},
+				filter:function(event,player){
+					return !player.hasCard(function(card){
+						return get.name(card)=="sst_aegises";
+					},"hej");
+				},
+				frequent:true,
+				content:function(){
+					var card=get.cardPile("sst_aegises","field");
+					if(card){
+						player.gain(card,"gain2","log");
+					}
+				},
+			},
 		},//技能（必填）
 		dynamicTranslate:{
 			sst_shenfa:function(player){
@@ -11676,7 +12028,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guaibi:function(player){
 				return "每轮限｛"+player.storage.sst_guaibi+"｝次，一张【杀】指定目标前，你可以弃置一名角色的两张牌，令其成为此【杀】的使用者，然后该角色可以为此【杀】重新指定目标。";
 			},
+			sst_xuanyi:function(player){
+				if(player.storage.sst_xuanyi) return "转换技，出牌阶段限一次，你可以与①一名角色<span class=\"bluetext\">②牌堆顶的一张牌</span>拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰<span class=\"bluetext\">②雷电伤害</span>。";
+				return "转换技，出牌阶段限一次，你可以与<span class=\"bluetext\">①一名角色</span>②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点<span class=\"bluetext\">①火焰</span>②雷电伤害。";
+			},
 		},
+		/*
 		characterReplace:{
 			sst_mario:["sst_mario","sst_dr_mario"],
 			sst_link:["sst_link","sst_young_link","sst_toon_link"],
@@ -11684,7 +12041,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_samus:["sst_samus","sst_zero_suit_samus"],
 			sst_byleth_b:["sst_byleth_b","sst_byleth_g"],
 		},//武将替换
+		*/
 		translate: {
+			//士兵
+			shibing1sst_light:"光兵",
+			shibing2sst_light:"光兵",
+			shibing1sst_darkness:"暗兵",
+			shibing2sst_darkness:"暗兵",
+			shibing1sst_spirit:"魂兵",
+			shibing2sst_spirit:"魂兵",
+			shibing1sst_reality:"现兵",
+			shibing2sst_reality:"现兵",
+			shibing1sst_smash:"斗兵",
+			shibing2sst_smash:"斗兵",
 			//武将
 			sst_mario:"马力欧",
 			sst_link:"林克",
@@ -11707,7 +12076,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_samus:"萨姆斯",
 			sst_ridley:"利德雷",
 			sst_dark_samus:"黑暗萨姆斯",
-			sst_mr_game_n_watch:"代码人",
+			sst_mr_game_watch:"代码人",
 			sst_mnm:"莫奈门",
 			sst_yumiko:"柚子",
 			sst_haine:"海涅",
@@ -11773,6 +12142,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_minmin:"面面",
 			sst_pikachu:"皮卡丘",
 			sst_falco:"佛克",
+			sst_pyra_mythra:"焰／光",
 			//身份技能
 			sst_jueyi:"决意",
 			sst_jueyi_info:"锁定技，你使用牌指定目标时，若其手牌数大于你，你摸一张牌，令此牌不可被目标响应。",
@@ -11849,7 +12219,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiuyuan_info:"主公技，你成为带有「伤害」标签的锦囊或【杀】的目标前，其他本势力角色可以摸一张牌，将目标改为自己。",
 			sst_potian:"破天",
 			sst_potian2:"破天",
-			sst_potian_info:"准备阶段，你可以重铸任意张花色不同的牌，然后你令你使用的杀额定伤害为X直到回合结束（X为你以此法置入弃牌堆的基本牌数量）。",
+			sst_potian_info:"准备阶段，你可以重铸任意张花色不同的牌，然后你令你使用的【杀】基础伤害为X直到回合结束（X为你以此法置入弃牌堆的基本牌数量）。",
 			sst_shenjiao:"身教",
 			sst_shenjiao2:"身教",
 			sst_shenjiao_info:"你重铸的牌置入弃牌堆前，你可以将这些牌交给一名其他角色，若这些牌是因〖破天〗重铸的，你令该角色于其下一个回合内拥有〖破天〗。",
@@ -12045,7 +12415,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bodong_info:"锁定技，你使用牌无距离限制。",
 			sst_yanyang:"焰扬",
 			sst_yanyang2:"焰扬",
-			sst_yanyang_info:"你可以将至多两张牌当作【火攻】使用；你以此法使用的【火攻】造成伤害时，其基础伤害为其对应实体牌数。",
+			//sst_yanyang_info:"你可以将至多两张牌当作【火攻】使用；你以此法使用的【火攻】造成伤害时，其基础伤害为其对应实体牌数。",
+			sst_yanyang_info:"出牌阶段，你可以令一名手牌数不小于你的角色弃置一张牌，若弃置的是【杀】，你受到其造成的X点伤害。（X为本回合你发动此技能的次数）",
 			sst_shenglong:"升龙",
 			sst_shenglong_info:"锁定技，与你距离最近的角色不能响应你使用的牌。",
 			sst_juexin:"决心",
@@ -12075,9 +12446,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qichang2:"绮裳",
 			sst_qichang3:"绮裳",
 			sst_qichang4:"绮裳",
-			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为对你使用一张装备牌（不得替换原装备，不能被弃置或获得），你的回合开始时或失去此牌后，销毁之。",
+			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为装备了一张你声明的装备（不可替换原有装备），直到你的下回合开始。",
+			sst_qichang_detail:"技能解释",
+			sst_qichang_detail_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为对你使用一张装备牌（不得替换原装备，不能被弃置或获得），你的回合开始时或失去此牌后，销毁之。",
 			sst_shizhu:"拾珠",
-			sst_shizhu_info:"你/其他角色的弃牌阶段结束时，你可以令一名其他角色/你可以弃置与你/其于此阶段弃置牌等量的牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用。",
+			sst_shizhu_info:"弃牌阶段，你可以令一名其他角色弃置与你数量相同的牌，或其他角色的弃牌阶段，你可以弃置与其等量的牌；然后你可以从此阶段进入弃牌堆的牌中选择任意张对你或其使用。",
+			sst_shizhu_detail:"技能解释",
+			sst_shizhu_detail_info:"你/其他角色的弃牌阶段结束时，你可以令一名其他角色/你可以弃置与你/其于此阶段弃置牌等量的牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用。",
 			sst_yufeng:"御风",
 			sst_yufeng2:"御风",
 			sst_yufeng_info:"一名角色的准备阶段，你可以弃置一张手牌，若如此做，本回合此角色与此牌颜色相同的牌花色均视为此牌花色。",
@@ -12136,7 +12511,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qianlong:"潜龙",
 			sst_qianlong2:"潜龙",
 			sst_qianlong3:"潜龙",
-			sst_qianlong_info:"出牌阶段限一次，你可以将一张牌扣置于武将牌上视为使用一张【杀】，若此【杀】造成了伤害，你展示此牌并对此目标使用，否则此【杀】结算完毕后你将此牌置于弃牌堆。",
+			sst_qianlong_info:"出牌阶段限一次，你可以将一张牌背面朝上当作【杀】使用，然后若此【杀】仅对一名角色造成了伤害，你亮出此牌并对该角色使用。",
 			sst_guangpao:"光炮",
 			sst_guangpao_info:"出牌阶段限一次，你可以弃置两张同名牌并对一名其他角色造成1点伤害，然后若你手牌中没有同名牌，你可以展示手牌并摸一张牌。",
 			sst_tewu:"特武",
@@ -12146,7 +12521,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_jijing2:"急竞",
 			sst_jijing_info:"出牌阶段，你可以弃置所有手牌（至少一张），并摸比弃置牌数少一的牌，然后你计算与其他角色距离-1。结束阶段，若你与其他角色距离均为1，你摸两张牌或回复1点体力，然后重置此技能的距离计算。",
 			sst_yinyao:"音谣",
-			sst_yinyao_info:"准备阶段，你可以展示并弃置一张手牌，然后从你下家开始到你上家为止，每名角色须依次展示与其上家所展示的牌花色或点数相同的牌，否则其翻面并结束此流程。",
+			sst_yinyao_info:"准备阶段，你可以展示并弃置一张手牌，然后从你下家开始到你上家为止，每名角色须依次展示与其上家所展示的牌花色或点数相同的牌（若其没有手牌则跳过），否则其翻面并结束此流程。",
 			sst_anke:"安可",
 			sst_anke2:"安可",
 			sst_anke_info:"每轮限一次，一名已翻面角色的回合开始前，其可以交给你一张手牌，然后其翻回正面。",
@@ -12230,6 +12605,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juao:"倨傲",
 			sst_juao2:"倨傲",
 			sst_juao_info:"准备阶段，你可以摸不多于你体力值的任意张牌。若如此做，直到你的下个准备阶段，你的体力值低于此次摸牌数时，你死亡。",
+			sst_xuanyi:"炫奕",
+			sst_xuanyi_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
+			sst_fuxin:"付心",
+			sst_fuxin_info:"出牌阶段，你可以移除此武将牌，然后将此武将牌视为攻击范围3的武器牌加入游戏并交给一名其他角色。该角色的准备阶段，若这张牌不在其区域内，其可以检索并获得这张牌。",
+			sst_fuxin_card:"付心",
+			sst_fuxin_card_info:"准备阶段，若【天之圣杯】不在你区域内，你可以检索并获得【天之圣杯】。",
 			//武将分类
 			sst_64:"64",
 			sst_melee:"Melee",
@@ -12265,6 +12646,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fox:["sst_falco","sst_krystal"],
 			sst_pikachu:["sst_pichu"],
 			sst_steve:["sst_alex"],
+			sst_rex:["sst_pyra_mythra"],
 		},//珠联璧合武将（选填）
 	};
 	/*

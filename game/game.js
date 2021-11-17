@@ -173,7 +173,7 @@
 					},
 					auto_confirm:{
 						name:'自动确认',
-						init:true,
+						init:false,
 						unfrequent:true,
 						intro:'当候选目标只有1个时，点击目标后无需再点击确认',
 					},
@@ -185,13 +185,13 @@
 					},
 					unauto_choose:{
 						name:'拆顺手牌选择',
-						init:false,
+						init:true,
 						unfrequent:true,
 						intro:'拆牌或者顺牌时，就算只能选择对方的手牌依然手动选择',
 					},
 					wuxie_self:{
 						name:'不无懈自己',
-						init:true,
+						init:false,
 						unfrequent:true,
 						intro:'自己使用的单目标普通锦囊即将生效时，不询问无懈',
 					},
@@ -359,7 +359,7 @@
 					},
 					game_speed:{
 						name:'游戏速度',
-						init:'mid',
+						init:'vslow',
 						item:{
 							vslow:'慢',
 							slow:'较慢',
@@ -444,7 +444,7 @@
 					},
 					video:{
 						name:'保存录像',
-						init:'20',
+						init:'10000',
 						intro:'游戏结束后保存录像在最大条数，超过后将从最早的录像开始删除（已收藏的录像不计入条数）',
 						item:{
 							'0':'关闭',
@@ -758,7 +758,7 @@
 				config:{
 					theme:{
 						name:'主题',
-						init:'woodden',
+						init:'simple',
 						item:{},
 						visualMenu:function(node,link){
 							if(!node.menu){
@@ -1072,7 +1072,7 @@
 					},
 					image_background:{
 						name:'游戏背景',
-						init:'default',
+						init:'xinsha_bg',
 						item:{},
 						visualBar:function(node,item,create){
 							if(node.created){
@@ -2589,7 +2589,7 @@
 					target_shake:{
 						name:'目标效果',
 						intro:'一名玩家成为卡牌或技能的目标时的显示效果',
-						init:'off',
+						init:'zoom',
 						item:{
 							off:'关闭',
 							zoom:'缩放',
@@ -2656,7 +2656,7 @@
 					cardshape:{
 						name:'手牌显示',
 						intro:'将手牌设置为正方形或长方形',
-						init:'default',
+						init:'oblong',
 						unfrequent:true,
 						item:{
 							default:'默认',
@@ -3019,7 +3019,7 @@
 					},
 					show_history:{
 						name:'出牌记录栏',
-						init:'off',
+						init:'right',
 						intro:'在屏幕左侧或右侧显示出牌记录',
 						unfrequent:true,
 						item:{
@@ -3052,7 +3052,7 @@
 					},
 					show_log:{
 						name:'历史记录栏',
-						init:'off',
+						init:'left',
 						intro:'在屏幕中部显示出牌文字记录',
 						unfrequent:true,
 						item:{
@@ -3088,7 +3088,7 @@
 					show_time:{
 						name:'显示时间',
 						intro:'在屏幕顶部显示当前时间',
-						init:false,
+						init:true,
 						unfrequent:true,
 						onclick:function(bool){
 							game.saveConfig('show_time',bool);
@@ -3103,7 +3103,7 @@
 					show_time2:{
 						name:'显示时间',
 						intro:'在触屏按钮处显示当前时间',
-						init:false,
+						init:true,
 						unfrequent:true,
 						onclick:function(bool){
 							game.saveConfig('show_time2',bool);
@@ -3130,7 +3130,7 @@
 					},
 					show_time3:{
 						name:'显示游戏时间',
-						init:false,
+						init:true,
 						unfrequent:true
 					},
 					show_statusbar_android:{
@@ -3301,7 +3301,7 @@
 					},
 					show_rarity:{
 						name:'显示武将评级',
-						init:false,
+						init:true,
 						intro:'仅供娱乐，重启后生效',
 						unfrequent:true,
 						onclick:function(bool){
@@ -3412,7 +3412,7 @@
 					},
 					show_replay:{
 						name:'显示重来按钮',
-						init:false,
+						init:true,
 						unfrequent:true,
 						onclick:function(bool){
 							game.saveConfig('show_replay',bool);
@@ -3510,7 +3510,7 @@
 					},
 					show_cardpile_number:{
 						name:'显示剩余牌数',
-						init:false,
+						init:true,
 						unfrequent:true,
 						onclick:function(bool){
 							game.saveConfig('show_cardpile_number',bool);
@@ -3560,7 +3560,7 @@
 					},
 					show_discardpile:{
 						name:'暂停时显示弃牌堆',
-						init:false,
+						init:true,
 						unfrequent:true,
 					},
 					show_extensionmaker:{
@@ -3649,7 +3649,7 @@
 					},
 					volumn_background:{
 						name:'音乐音量',
-						init:8,
+						init:0,
 						item:{
 							'0':'〇',
 							'1':'一',
@@ -16485,6 +16485,13 @@
 				},
 			},
 			player:{
+				//SST新增
+				canCompareTarget:function(target){
+					if(this==target) return false;
+					if(!target.countCards("h")) return false;
+					if(this.hasSkillTag("noCompareSource")||target.hasSkillTag("noCompareTarget")) return false;
+					return true;
+				},
 				//新函数
 				addSkillBlocker:function(skill){
 					if(!this.storage.skill_blocker) this.storage.skill_blocker=[];
@@ -28090,7 +28097,7 @@
 				url='image/card/'+url;
 			}
 			if(url.indexOf('.png')==-1&&url.indexOf('.jpg')==-1){
-				url+='.jpg';
+				url+='.png';
 			}
 			var name=url.slice(url.lastIndexOf('/')+1,url.lastIndexOf('.'));
 			var skill=name+'_skill';
