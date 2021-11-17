@@ -99,7 +99,7 @@ window.noname_asset_list=[
 	'image/character/sst_minmin.png',
 	'image/character/sst_pikachu.png',
 	'image/character/sst_falco.png',
-	'image/character/sst_pyra_mythra',
+	'image/character/sst_pyra_mythra.png',
 
 	'image/character/ymk_claude.png',
 	'image/character/ymk_isabelle.png',
