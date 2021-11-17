@@ -4384,7 +4384,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_paoxiao:{
-				inherit:"paoxiao",
+				mod:{
+					cardUsable:function(card,player,num){
+						if(card.name=="sha") return Infinity;
+					}
+				},
 				trigger:{
 					player:"useCard",
 				},
