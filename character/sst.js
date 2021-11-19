@@ -7681,11 +7681,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					target.chooseToDiscard("焰扬：弃置一张牌","he",true);
 					"step 1"
-					if(result.cards&&result.cards.length&&get.name(result.cards)=="sha"){
+					if(result.cards&&result.cards.length&&get.name(result.cards[0])=="sha"){
 						var num=(player.getStat("skill").sst_yanyang||0)+1;
 						target.line(player,"green");
 						player.damage(num,target);
 					}
+				},
+				ai:{
+					result:{
+						target:-0.5,
+					},
 				},
 			},
 			sst_shenglong:{
@@ -8211,17 +8216,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result&&result.bool&&result.links[0]){
 						var card=game.createCard(result.links[0][2],"","");
 						player.storage.sst_qichang=card;
-						player.useCard(card,player);
+						player.equip(card);
 					}
 				},
 				mod:{
-					canBeDiscarded:function(card){
-						var player=_status.event.player;
-						if(player&&player.storage.sst_qichang==card) return false;
+					canBeDiscarded:function(card,source,player){
+						if(player.storage.sst_qichang==card) return false;
 					},
-					canBeGained:function(card){
-						var player=_status.event.player;
-						if(player&&player.storage.sst_qichang==card) return false;
+					canBeGained:function(card,source,player){
+						if(player.storage.sst_qichang==card) return false;
 					},
 				},
 				group:["sst_qichang3","sst_qichang4"],
@@ -8241,6 +8244,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				forceDie:true,
 				content:function(){
+					game.cardsDiscard(player.storage.sst_qichang);
 					player.storage.sst_qichang.delete();
 					delete player.storage.sst_qichang;
 				},
@@ -9125,6 +9129,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				silent:true,
 				content:function(){
 					"step 0"
+					player.logSkill("sst_lanbo");
 					var dc=!player.storage.sst_shenbi_ready||!player.storage.sst_shenbi_ready.length;
 					var list=[];
 					if(player.needsToDiscard()) list.push("弃置手牌");
@@ -12165,6 +12170,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{
 					global:[
 						"gameStart",
+						"phaseZhunbeiAfter","phaseJudgeAfter","phaseDrawAfter","phaseUseAfter","phaseDiscardAfter","phaseJieshuAfter",
 						"useSkillBegin","useSkillAfter",
 						"useCard","useCardAfter",
 						"respond","respondAfter",

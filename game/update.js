@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.110.9.4.1.2',
-	update:'1.9.110.9.4.1.1',
+	version:'1.9.110.9.4.0.1',
+	update:'1.9.110.9.4.1.2',
 	changeLog:[
 		'新技能 萨姆斯',
 		'新增 萨菲罗斯',
