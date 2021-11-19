@@ -2708,20 +2708,20 @@ div:not(.handcards)>.card>.info>span,
 	transform-origin: bottom left;
 }
 
-.identitycircle > div > div[data-color='wei'] {
+.identitycircle > div > div[data-color='sst_light'] {
+	background-image: radial-gradient(circle at bottom left, rgb(255, 218, 71), rgb(224, 191, 62))
+}
+
+.identitycircle > div > div[data-color='sst_darkness'] {
 	background-image: radial-gradient(circle at bottom left, rgb(157, 198, 255), rgb(117, 147, 189))
 }
 
-.identitycircle > div > div[data-color='shu'] {
-	background-image: radial-gradient(circle at bottom left, rgb(185, 72, 36), rgb(158, 62, 31))
-}
-
-.identitycircle > div > div[data-color='wu'] {
+.identitycircle > div > div[data-color='sst_spirit'] {
 	background-image: radial-gradient(circle at bottom left, rgb(120, 218, 83), rgb(104, 189, 73))
 }
 
-.identitycircle > div > div[data-color='qun'] {
-	background-image: radial-gradient(circle at bottom left, rgb(255, 218, 71), rgb(224, 191, 62))
+.identitycircle > div > div[data-color='sst_reality'] {
+	background-image: radial-gradient(circle at bottom left, rgb(185, 72, 36), rgb(158, 62, 31))
 }
 
 .unseen>.avatar,.unseen>.name:not(.name2),

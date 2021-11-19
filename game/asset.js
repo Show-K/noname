@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.110.9.4',
+	'v1.9.110.9.4.1',
 	//新增内容
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -27,8 +27,8 @@ window.noname_asset_list=[
 	'image/character/sst_luigi.png',
 	'image/character/sst_bowser.png',
 	'image/character/sst_peach.png',
-	'image/character/sst_byleth_g.png',
-	'image/character/sst_byleth_b.png',
+	'image/character/sst_byleth_female.png',
+	'image/character/sst_byleth_male.png',
 	'image/character/sst_massy.png',
 	'image/character/sst_samus.png',
 	'image/character/sst_ridley.png',
@@ -76,7 +76,7 @@ window.noname_asset_list=[
 	'image/character/sst_springman.png',
 	'image/character/sst_joker.png',
 	'image/character/sst_rex.png',
-	'image/character/sst_cuphead_n_mugman.png',
+	'image/character/sst_cuphead_mugman.png',
 	'image/character/sst_krystal.png',
 	'image/character/sst_snake.png',
 	'image/character/sst_mega_man.png',
@@ -100,6 +100,8 @@ window.noname_asset_list=[
 	'image/character/sst_pikachu.png',
 	'image/character/sst_falco.png',
 	'image/character/sst_pyra_mythra.png',
+	'image/character/sst_enderman.png',
+	'image/character/sst_sephiroth.png',
 
 	'image/character/ymk_claude.png',
 	'image/character/ymk_isabelle.png',
@@ -1489,4 +1491,13 @@ window.noname_asset_list=[
 	'theme/woodden/wood2.png'
 ];
 window.noname_skin_list={
+	ska_bobby:2,
+	ska_olivia:1,
+	sst_enderman:1,
+	sst_ken:1,
+	sst_luigi:1,
+	sst_mario:3,
+	sst_young_link:1,
+	sst_zelda:1,
+	ymk_577:1,
 };

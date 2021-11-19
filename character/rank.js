@@ -24,7 +24,8 @@ window.noname_character_rank={
 			"sst_sans",
 			"ymk_yumiko",
 			"sst_steve",
-			"sst_fox"
+			"sst_fox",
+			"sst_sephiroth"
 		],
 		epic:[
 			"sst_dr_mario",
@@ -33,8 +34,8 @@ window.noname_character_rank={
 			"sst_zero_suit_samus",
 			"sst_luigi",
 			"sst_peach",
-			"sst_byleth_g",
-			"sst_byleth_b",
+			"sst_byleth_female",
+			"sst_byleth_male",
 			"sst_massy",
 			"sst_dark_samus",
 			"sst_mnm",
@@ -101,7 +102,7 @@ window.noname_character_rank={
 			"sst_young_link",
 			"sst_ocarina_of_time_link",
 			"sst_rex",
-			"sst_cuphead_n_mugman",
+			"sst_cuphead_mugman",
 			"sst_snake",
 			"ska_show_k",
 			"sst_mega_man",
@@ -117,7 +118,8 @@ window.noname_character_rank={
 			"ska_professor_toad",
 			"ska_geno",
 			"sst_ken",
-			"sst_pyra_mythra"
+			"sst_pyra_mythra",
+			"sst_enderman"
 		],
 		junk:[
 			"sst_donkey_kong",

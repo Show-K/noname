@@ -36,7 +36,7 @@
 		versionOL:27,
 		updateURLS:{
 			coding:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/super-smash-tabletop',
-			gitee:'https://gitee.com/Show-K/noname/raw/super-smash-tabletop',
+			//gitee:'https://gitee.com/Show-K/noname/raw/super-smash-tabletop',
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
@@ -540,7 +540,7 @@
 						unfrequent:true,
 						item:{
 							coding:'Coding（Show-K）',
-							gitee:'Gitee（Show-K）',
+							//gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
 						onclick:function(item){
@@ -5660,7 +5660,7 @@
 					},
 					connect_avatar:{
 						name:'联机头像',
-						init:'caocao',
+						init:'sst_mario',
 						item:{},
 						frequent:true,
 						onclick:function(item){
@@ -39682,12 +39682,15 @@
 									for(var i in page.content.pack.card){
 										var file;
 										var fullskin=page.content.pack.card[i].fullskin?true:false;
+										/*
 										if(fullskin){
 											file=i+'.png';
 										}
 										else{
 											file=i+'.jpg';
 										}
+										*/
+										file=i+'.png';
 										var loadImage=function(file,data){
 											var img = new Image();
 											img.crossOrigin = 'Anonymous';
@@ -41204,9 +41207,11 @@
 							if(str==lib.updateURLS.github){
 								return 'GitHub（Show-K）';
 							}
+							/*
 							if(str==lib.updateURLS.gitee){
 								return 'Gitee（Show-K）';
 							}
+							*/
 							if(str==lib.updateURLS.coding){
 								return 'Coding（Show-K）'
 							}
@@ -41551,7 +41556,7 @@
 									if(lib.config.asset_skin){
 										for(var i in skins){
 											for(var j=1;j<=skins[i];j++){
-												updates.push('image/skin/'+i+'/'+j+'.jpg');
+												updates.push('image/skin/'+i+'/'+j+'.png');
 											}
 										}
 									}
@@ -44412,26 +44417,6 @@
 							if(!game.download){
 								game.saveConfig('asset_version','无');
 							}
-							else{
-								var func=function(){
-									if(confirm('是否下载图片和字体素材？（约175MB）')){
-										if(!ui.arena.classList.contains('menupaused')){
-											ui.click.configMenu();
-											ui.click.menuTab('其它');
-										}
-										setTimeout(game.checkForAssetUpdate,500);
-									}
-									else{
-										game.saveConfig('asset_version','无');
-									}
-								}
-								if(_status.new_tutorial){
-									_status.new_tutorial=func;
-								}
-								else{
-									func();
-								}
-							}
 						},3000);
 					});
 				}
@@ -45593,7 +45578,7 @@
 					game.saveConfig('skin',lib.config.skin);
 					avatar.setBackground(name,'character');
 				}
-				img.src=lib.assetURL+'image/skin/'+name+'/'+num+'.jpg';
+				img.src=lib.assetURL+'image/skin/'+name+'/'+num+'.png';
 			},
 			touchpop:function(forced){
 				if(lib.config.touchscreen||forced){
@@ -48135,7 +48120,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -48154,7 +48139,7 @@
 								num--;
 								createButtons(num);
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
 						}
 						if(lib.config.change_skin){
 							loadImage();
@@ -48167,7 +48152,7 @@
 				if(lib.config.change_skin){
 					var img=new Image();
 					img.onload=changeskin;
-					img.src=lib.assetURL+'image/skin/'+nameskin+'/1.jpg';
+					img.src=lib.assetURL+'image/skin/'+nameskin+'/1.png';
 				}
 				else if(lib.config.debug&&lib.skin[nameskin]){
 					changeskin();
@@ -52334,7 +52319,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -52371,7 +52356,7 @@
 								nameskin=nameskin.slice(3);
 								gzbool=true;
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
 						}
 						if(lib.config.change_skin){
 							if(!node.isUnseen(0)){
@@ -52848,7 +52833,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -52867,7 +52852,7 @@
 								num--;
 								createButtons(num);
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
 						}
 						if(lib.config.change_skin){
 							loadImage();

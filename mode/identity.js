@@ -1943,7 +1943,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					},game.zhu,result.links[0],result.links[1],game.players.length>4);
 					
 					if(game.zhu.group=='shen'&&!game.zhu.isUnseen(0)){
-						var list=['wei','shu','wu','qun','jin','key'];
+						var list=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
 						for(var i=0;i<list.length;i++){
 							if(!lib.group.contains(list[i])) list.splice(i--,1);
 							else list[i]=['','','group_'+list[i]];
@@ -2036,7 +2036,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}
 					event.result2=result;
 					if(shen.length){
-						var list=['wei','shu','wu','qun','jin','key'];
+						var list=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
 						for(var i=0;i<list.length;i++){
 							if(!lib.group.contains(list[i])) list.splice(i--,1);
 							else list[i]=['','','group_'+list[i]];
@@ -2068,7 +2068,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						if(result[i]&&result[i].links) result[i]=result[i].links[0][2].slice(6);
 						else if(result[i]=='ai') result[i]=function(){
 						 var player=lib.playerOL[i];
-						 var list=['wei','shu','wu','qun','jin','key'];
+						 var list=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
 							for(var ix=0;ix<list.length;ix++){
 								if(!lib.group.contains(list[ix])) list.splice(ix--,1);
 							}

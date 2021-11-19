@@ -271,7 +271,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				game.chooseCharacterEndless();
 			}
 			else if(_status.mode=='siguo'){
-				var list=['wei','wei','shu','shu','wu','wu','qun','qun'].randomSort();
+				var list=['sst_light','sst_light','sst_darkness','sst_darkness','sst_spirit','sst_spirit','sst_reality','sst_reality'].randomSort();
 				for(var i=0;i<game.players.length;i++){
 					game.players[i].side=list[i];
 					game.players[i].identity=list[i];

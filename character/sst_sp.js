@@ -1057,9 +1057,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:["ska_kezhi_respond","ska_kezhi2"],
 				subSkill:{
 					respond:{
-						trigger:{
-							global:["respond","useCard"],
-						},
+						trigger:{global:["respond","useCard"]},
 						filter:function(event,player){
 							if(!event.respondTo) return false;
 							if(player!=event.respondTo[0]) return false;
@@ -2066,7 +2064,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ska:"Show-K",
 		},
 		perfectPair:{
-			ymk_claude:["sst_byleth_b","sst_byleth_g"],
+			ymk_claude:["sst_byleth_male","sst_byleth_female"],
 			ymk_isabelle:["sst_villager"],
 			ymk_yumiko:["sst_mnm","sst_terry"],
 			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad"],

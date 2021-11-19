@@ -2,6 +2,7 @@ window.noname_package={
 	character:{
 		sst:'大乱桌斗',
 		sst_sp:'乱斗SP',
+		sst_old:'乱斗怀旧',
 		/*
 		standard:'标准',
 		refresh:'界限突破',
@@ -78,7 +79,7 @@ window.noname_package={
 			four:'四人对抗',
 			three:'统率三军',
 			two:'欢乐成双',
-			jiange:'守卫剑阁',
+			//jiange:'守卫剑阁',
 			siguo:'四国争霸',
 			standard:'自由对决'
 		},
