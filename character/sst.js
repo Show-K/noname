@@ -8367,7 +8367,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				mod:{
 					suit:function(card,suit){
 						var player=_status.event.player;
-						if(get.color(card)==player.storage.sst_yufeng_color&&player.storage.sst_yufeng_suit) return player.storage.sst_yufeng_suit;
+						if(card.color==player.storage.sst_yufeng_color&&player.storage.sst_yufeng_suit&&card.suit!=player.storage.sst_yufeng_suit) return player.storage.sst_yufeng_suit;
 					},
 				},
 			},
