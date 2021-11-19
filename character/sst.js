@@ -12337,7 +12337,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.targets.push(result.targets[0]);
 						player.line(result.targets,"green");
-						player.discardPlayerCard("焚世：弃置"+get.translation(result.targets[0])+"两张牌",2,"he",true);
+						player.discardPlayerCard("焚世：弃置"+get.translation(result.targets[0])+"两张牌",result.targets[0],2,"he",true);
 					}
 					"step 4"
 					if(player.storage.sst_fenshi[0]&&!event.targets.contains(player)){
