@@ -118,7 +118,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pikachu:["male","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 			sst_falco:["male","sst_light",4,["sst_juao"],[]],
 			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
-			sst_enderman:["male","sst_spirit",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
+			sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
 			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],[]],
 		},//武将（必填）
 		characterFilter:{
