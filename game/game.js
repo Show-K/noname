@@ -10173,6 +10173,10 @@
 			},
 		},
 		translate:{
+			//New
+			pileTop:"牌堆顶",
+			pileBottom:"牌堆底",
+			//New end
 			flower:'鲜花',
 			egg:'鸡蛋',
 			wine:'酒杯',

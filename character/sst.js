@@ -4521,7 +4521,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				frequent:true,
 				content:function (){
-					player.draw();
+					player.draw("nodelay");
 				},
 			},
 			//Simon
@@ -6584,7 +6584,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					if(player.countCards("h")<4){
-						player.draw(4-player.countCards("h"));
+						player.draw(4-player.countCards("h"),"nodelay");
 					}
 					else{
 						player.chooseToDiscard("绝境：弃置"+get.cnNumber(player.countCards("h")-4)+"张牌",player.countCards("h")-4,true);
@@ -7682,7 +7682,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					target.chooseToDiscard("焰扬：弃置一张牌","he",true);
 					"step 1"
 					if(result.cards&&result.cards.length&&get.name(result.cards[0])=="sha"){
-						var num=(player.getStat("skill").sst_yanyang||0)+1;
+						var num=player.getStat("skill").sst_yanyang||1;
 						target.line(player,"green");
 						player.damage(num,target);
 					}
@@ -8997,8 +8997,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Springman
 			sst_shenbi:{
 				init:function(player){
-					player.storage.sst_shenbi=["下一张【杀】伤害+1","此【杀】不可抵消","失去一点体力"];
-					player.storage.sst_shenbi_ready=["下一张【杀】伤害+1","此【杀】不可抵消","失去一点体力"];
+					player.storage.sst_shenbi=["下一张【杀】伤害+1","此【杀】不可被响应","失去一点体力"];
+					player.storage.sst_shenbi_ready=["下一张【杀】伤害+1","此【杀】不可被响应","失去一点体力"];
 				},
 				locked:false,
 				mod:{
@@ -9061,7 +9061,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.markSkill("sst_shenbi_eff");
 							break;
 						}
-						case "此【杀】不可抵消":{
+						case "此【杀】不可被响应":{
 							if(trigger.name=="useCard") trigger.directHit.addArray(game.players);
 							break;
 						}
@@ -10026,6 +10026,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:true,
 				selectCard:-1,
+				delay:false,
 				prompt:"弃置所有手牌（至少一张），并摸比弃置牌数少一的牌，然后你计算与其他角色距离-1。结束阶段，若你与其他角色距离均为1，你摸两张牌或回复1点体力，然后重置此技能的距离计算",
 				content:function(){
 					"step 0"
@@ -10368,7 +10369,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					"step 0"
-					player.draw(2);
+					player.draw(2,"nodelay");
 					"step 1"
 					if(player.countCards("h")>player.maxHp&&player.countCards("hej")>1) player.discardPlayerCard("暴食：弃置"+get.cnNumber(player.countCards("hej")-1)+"张牌",player,player.countCards("hej")-1,"hej",true).set("ai",function(button){
 						if(get.position(button.link)=="e"||get.position(button.link)=="j") return 100;
@@ -12170,12 +12171,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{
 					global:[
 						"gameStart",
+						"phaseZhunbeiBefore","phaseJudgeBefore","phaseDrawBefore","phaseUseBefore","phaseDiscardBefore","phaseJieshuBefore",
+						"phaseZhunbeiBegin","phaseJudgeBegin","phaseDrawBegin","phaseUseBegin","phaseDiscardBegin","phaseJieshuBegin",
+						"phaseZhunbeiEnd","phaseJudgeEnd","phaseDrawEnd","phaseUseEnd","phaseDiscardEnd","phaseJieshuEnd",
 						"phaseZhunbeiAfter","phaseJudgeAfter","phaseDrawAfter","phaseUseAfter","phaseDiscardAfter","phaseJieshuAfter",
-						"useSkillBegin","useSkillAfter",
-						"useCard","useCardAfter",
-						"respond","respondAfter",
-						"triggerAfter",
-						"skillAfter"
+						"useSkillBefore","useSkillBegin","useSkillEnd","useSkillAfter",
+						"useCardBefore","useCardBegin","useCard","useCardEnd","useCardAfter",
+						"respondBefore","respondBegin","respond","respondEnd","respondAfter",
+						"triggerBefore","triggerBegin","triggerEnd","triggerAfter",
+						"triggerHiddenBefore","triggerHiddenBegin","triggerHiddenEnd","triggerHiddenAfter",
+						"skillBefore","skillBegin","skillEnd","skillAfter",
+						"arrangeTriggerBefore","arrangeTriggerBegin","arrangeTriggerEnd","arrangeTriggerAfter",
 					]
 				},
 				content:function(){
@@ -12324,7 +12330,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.targets=[];
 					player.chooseTarget("焚世：你可以对一名角色造成1点伤害").set("ai",function(target){
 						var player=_status.event.player;
-						return get.damageEffect(target,player);
+						return get.damageEffect(target,player,player);
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
@@ -12395,6 +12401,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("sst_xingduo",event.targets);
 						player.awakenSkill("sst_xingduo");
 						player.storage.sst_xingduo=true;
+						player.loseMaxHp();
 					}
 					else{
 						event.finish();
@@ -12448,7 +12455,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return "出牌阶段限一次，你可以失去一点体力，视为对一名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸一张牌。";
 			},
 			sst_chixing:function(player){
-				return "你使用的最后一张牌为红色的回合结束后，你可以令至多｛"+player.storage.sst_chixing+"｝名角色将手牌数调整到与你另外指定的一名角色相等。";
+				return "你使用的最后一张牌为红色的回合结束后，你可以令至多｛<span class=\"bluetext\">"+player.storage.sst_chixing+"</span>｝名角色将手牌数调整到与你另外指定的一名角色相等。";
 			},
 			sst_diebu:function(player){
 				if(player.storage.sst_diebu) return "转换技，你可以视为使用一张①【杀】<span class=\"bluetext\">②【闪】</span>。";
@@ -12457,6 +12464,39 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guaibi:function(player){
 				var num=player.storage.sst_guaibi||1;
 				return "每轮限｛<span class=\"bluetext\">"+num+"</span>｝次，一张【杀】指定目标前，你可以弃置一名角色的两张牌，令其成为此【杀】的使用者，然后该角色可以为此【杀】重新指定目标。";
+			},
+			sst_shenbi:function(player){
+				var str="你可以将手牌数调整至比当前回合角色少1，视为使用或打出一张无距离限制的【杀】";
+				if(!player.storage.sst_shenbi_ready.length){
+					str+="。";
+				}
+				else{
+					str+="，然后选择你未选择过的一项：";
+					for(var i=0;i<player.storage.sst_shenbi_ready.length;i++){
+						switch(player.storage.sst_shenbi_ready[i]){
+							case "下一张【杀】伤害+1":{
+								str+="<span class=\"bluetext\">1. 你使用的下一张【杀】伤害+1</span>";
+								break;
+							}
+							case "此【杀】不可被响应":{
+								str+="<span class=\"bluetext\">2. 此【杀】不可被响应</span>";
+								break;
+							}
+							case "失去一点体力":{
+								str+="<span class=\"bluetext\">3. 失去一点体力</span>";
+								break;
+							}
+						}
+						if(i==player.storage.sst_shenbi_ready.length-1){
+							str+="。";
+						}
+						else{
+							str+="；";
+						}
+					}
+					str+="然后若均已选择过或你体力值为1，重置此技能。";
+				}
+				return str;
 			},
 			sst_xuanyi:function(player){
 				if(player.storage.sst_xuanyi) return "转换技，出牌阶段限一次，你可以与①一名角色<span class=\"bluetext\">②牌堆顶的一张牌</span>拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰<span class=\"bluetext\">②雷电伤害</span>。";
@@ -12619,7 +12659,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chengli_info:"锁定技，若你未受伤，结束阶段，你失去1点体力。若你已受伤，你可以将一张牌当作任意一张基本牌或普通锦囊牌使用。",
 			sst_huoluan:"祸乱",
 			sst_huoluan2:"祸乱",
-			sst_huoluan_info:"锁定技，你使用牌结算后，你须弃置X-1张牌（X为你本回合使用牌的次数）。你失去最后的手牌时，减1点体力上限。",
+			sst_huoluan_info:"锁定技，你使用牌结算后，你须弃置X张牌（X为你本回合使用牌的次数，若在你的回合内则-1）。你失去最后的手牌时，减1点体力上限。",
 			sst_yane:"延厄",
 			sst_yane_info:"主公技，同势力角色的准备阶段，你可以对其造成1点伤害，令其摸两张牌。",
 			sst_quji:"祛疾",
@@ -12931,7 +12971,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenbi:"神臂",
 			sst_shenbi2:"神臂",
 			sst_shenbi_eff:"神臂",
-			sst_shenbi_info:"你可以将手牌数调整至比当前回合角色少1，视为使用或打出一张无距离限制的【杀】，然后选择你未选择过的一项：1. 你使用的下一张【杀】伤害+1；2. 此【杀】不可抵消；3. 失去一点体力。然后若均已选择过或你体力值为1，重置此技能。",
+			sst_shenbi_info:"你可以将手牌数调整至比当前回合角色少1，视为使用或打出一张无距离限制的【杀】，然后选择你未选择过的一项：1. 你使用的下一张【杀】伤害+1；2. 此【杀】不可被响应；3. 失去一点体力。然后若均已选择过或你体力值为1，重置此技能。",
 			sst_lanbo:"蓝波",
 			sst_lanbo2:"蓝波",
 			sst_lanbo_info:"你可以弃置超出你手牌上限的牌或删除〖神臂〗的一个选项，视为使用一张【闪】。",

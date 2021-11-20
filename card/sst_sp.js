@@ -231,8 +231,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					var card=null;
 					for(var i=ui.discardPile.childNodes.length-1;i>=0;i--){
-						if(ui.discardPile.childNodes[i].subtype=="equip1"){
+						if(get.subtype(ui.discardPile.childNodes[i])=="equip1"){
 							card==ui.discardPile.childNodes[i];
+							break;
 						}
 					}
 					if(card){
@@ -436,7 +437,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					return get.number(event.card)==7;
 				},
 				content:function(){
-					player.draw(2);
+					player.draw(2,"nodelay");
 				},
 				ai:{
 					mapValue:2,
