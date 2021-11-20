@@ -24,8 +24,7 @@ window.noname_character_rank={
 			"sst_sans",
 			"ymk_yumiko",
 			"sst_steve",
-			"sst_fox",
-			"sst_sephiroth"
+			"sst_fox"
 		],
 		epic:[
 			"sst_dr_mario",
@@ -65,7 +64,10 @@ window.noname_character_rank={
 			"ska_bowser",
 			"sst_ma",
 			"sst_minmin",
-			"sst_pikachu"
+			"sst_pikachu",
+			"sst_enderman",
+			"sst_sephiroth",
+			"nnk_pokemon_trainer_blue"
 		],
 		rare:[
 			"sst_mario",
@@ -118,8 +120,7 @@ window.noname_character_rank={
 			"ska_professor_toad",
 			"ska_geno",
 			"sst_ken",
-			"sst_pyra_mythra",
-			"sst_enderman"
+			"sst_pyra_mythra"
 		],
 		junk:[
 			"sst_donkey_kong",

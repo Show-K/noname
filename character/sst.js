@@ -1078,33 +1078,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_phase_sonic:{
 				charlotte:true,
 			},
-			_sst_compare:{
-				trigger:{
-					player:"chooseToCompareBefore",
-					target:"chooseToCompareBefore",
-				},
-				charlotte:true,
-				silent:true,
-				firstDo:true,
-				priority:2020,
-				filter:function(){
-					return lib.config.sst_compare!="4";
-				},
-				content:function(){
-					if(lib.config.sst_compare=="1"){
-						player.drawTo(2);
-					}
-					else if(lib.config.sst_compare=="2"){
-						player.draw();
-					}
-					else if(lib.config.sst_compare=="3"){
-						player.draw(2);
-					}
-					else{
-						player.drawTo(1);
-					}
-				},
-			},
 			_sst_judge_count:{
 				trigger:{player:"judgeBegin"},
 				charlotte:true,
@@ -10556,21 +10529,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.$throw(event.card);
 					game.log(player,"展示了",event.card);
 					//game.delayx();
-					"step 3"
 					player.storage.sst_tankuang.push(event.card);
-					if(get.suit(event.card)==event.control||get.type(event.card,"trick")==event.control){
-						player.gain(event.card,"gain2");
-						event.finish();
-					}
-					else{
-						game.cardsDiscard(event.card);
-					}
-					"step 4"
+					"step 3"
 					if(player.storage.sst_tankuang.length>10){
 						player.addTempSkill("sst_tankuang2");
 						player.damage("nosource");
+						event.finish();
+					}
+					"step 4"
+					if(get.suit(event.card)==event.control||get.type(event.card,"trick")==event.control){
+						player.gain(event.card,"gain2");
 					}
 					else{
+						game.cardsDiscard(event.card);
 						event.goto(2);
 					}
 				},
@@ -10733,7 +10704,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chat(trigger.sst_xuhuang[player.playerid].result?"造成伤害":"不造成伤害");
 					game.log(player,"公布了结果","#y"+(trigger.sst_xuhuang[player.playerid].result?"造成伤害":"不造成伤害"));
 					"step 1"
-					if(trigger.sst_xuhuang[player.playerid].result==trigger.result.bool){
+					var bool=player.getHistory("sourceDamage",function(evt){
+						return evt.card==trigger.card;
+					}).length?true:false;
+					if(bool==trigger.result.bool){
 						player.popup("猜中");
 						game.log(player,"#y猜中");
 						player.draw(2);
@@ -11556,11 +11530,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_fengcu2:{
-				trigger:{source:"damageEnd"},
+				trigger:{source:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
 					//game.log(event.getParent().skill);
-					return event.getParent().skill=="sst_fengcu_sha"||event.getParent().skill=="sst_fengcu_shan";
+					if(event.skill!="sst_fengcu_sha"&&event.skill!="sst_fengcu_shan") return false;
+					return player.getHistory("sourceDamage",function(evt){
+						return evt.card==event.card;
+					}).length;
 				},
 				content:function(){
 					player.addTempSkill("sst_fengcu3","roundStart");
@@ -12644,7 +12621,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_haoduo_info:"当你不因此技能获得或失去手牌后，若你的手牌数为全场最少，你可以与手牌最多的角色交换手牌。",
 			sst_huandai:"还贷",
 			sst_huandai2:"还贷",
-			sst_huandai_info:"准备阶段，你可以令一名其他角色选择是否交给你任意张手牌，若其选择是，则结束阶段，若你本回合使用牌数不小于其交给你的牌数，其摸等量的牌，否则你受到其造成的一点伤害。",
+			sst_huandai_info:"准备阶段，你可以令一名其他角色选择是否交给你任意张手牌，若其选择是，则结束阶段，若你本回合使用牌数不小于其交给你的牌数，其摸等量的牌，否则你受到其造成的1点伤害。",
 			sst_anzhi:"安智",
 			sst_anzhi_info:"一名角色使用牌时，若该角色于本回合内使用超过X张牌，你可以弃置其一张牌。（X为你的装备栏数）",
 			sst_yinjie:"印结",
@@ -12745,9 +12722,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"为1，你失去一点体力；<br>"+
 			"为2，你弃置一张牌；<br>"+
 			"为3，此牌不可响应；<br>"+
-			"为4，你对其造成一点伤害；<br>"+
-			"为5，你对其造成一点雷电伤害；<br>"+
-			"为6，你对其造成一点火焰伤害；<br>"+
+			"为4，你对其造成1点伤害；<br>"+
+			"为5，你对其造成1点雷电伤害；<br>"+
+			"为6，你对其造成1点火焰伤害；<br>"+
 			"为7，你回复一点体力；<br>"+
 			"为8，你令其翻面；<br>"+
 			"为9，你对其造成3点伤害。",
@@ -12772,7 +12749,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_paoxiao_info:"锁定技，你使用【杀】无出牌阶段次数限制，每当你于本回合使用第二张【杀】时，你可以摸一张牌。",
 			sst_shengfa:"圣罚",
 			sst_shengfa2:"圣罚",
-			sst_shengfa_info:"其他角色的准备阶段，你可以摸一张牌；若如此做，此回合结束阶段，若该角色于本回合内：未造成伤害，你受到一点伤害；造成了伤害，你对其造成一点伤害。",
+			sst_shengfa_info:"其他角色的准备阶段，你可以摸一张牌；若如此做，此回合结束阶段，若该角色于本回合内：未造成伤害，你受到1点伤害；造成了伤害，你对其造成1点伤害。",
 			sst_shengbian:"圣鞭",
 			sst_shengbian_info:"锁定技，你的攻击范围为你的手牌数。",
 			sst_weihe:"威吓",
@@ -12818,11 +12795,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiandu:"先读",
 			sst_xiandu2:"先读",
 			sst_xiandu3:"先读",
-			sst_xiandu_info:"一名其他角色的出牌阶段开始时，你可以扣置一张手牌，于该角色本回合第一次使用牌时亮出。若这两张牌的类别：相同，你可以对其造成一点伤害或摸两张牌；不同，其对你造成一点伤害。出牌阶段结束时，你将此牌置入弃牌堆。",
+			sst_xiandu_info:"一名其他角色的出牌阶段开始时，你可以扣置一张手牌，于该角色本回合第一次使用牌时亮出。若这两张牌的类别：相同，你可以对其造成1点伤害或摸两张牌；不同，其对你造成1点伤害。出牌阶段结束时，你将此牌置入弃牌堆。",
 			sst_wenxu:"温恤",
 			sst_wenxu2:"温恤",
 			sst_wenxu3:"温恤",
-			sst_wenxu_info:"一名其他角色于其回合内使用基本牌或普通锦囊牌结算后，你可以获得此牌，然后令此角色本回合使用【杀】的次数+1。若如此做，本回合结束阶段，若其使用【杀】的次数未达上限，你受到其造成的一点伤害。",
+			sst_wenxu_info:"一名其他角色于其回合内使用基本牌或普通锦囊牌结算后，你可以获得此牌，然后令此角色本回合使用【杀】的次数+1。若如此做，本回合结束阶段，若其使用【杀】的次数未达上限，你受到其造成的1点伤害。",
 			sst_mihu:"迷糊",
 			sst_mihu_info:"锁定技，若你已受伤，你使用牌指定唯一目标时判定，若结果为♠，目标改为其上家，若结果为♣，目标改为其下家。",
 			sst_niming:"逆命",
@@ -12852,7 +12829,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengyi_info:"觉醒技，结束阶段，若你已发动过〖溯行〗，你减1点体力上限，然后获得技能〖寒芒〗〖摧锋〗。",
 			sst_baling:"霸凌",
 			sst_baling2:"霸凌",
-			sst_baling_info:"你攻击范围内的角色的准备阶段，你可以令其选择一项：1. 受到你造成的一点伤害，然后其本回合下次造成的伤害+1；2. 你获得其一张牌。",
+			sst_baling_info:"你攻击范围内的角色的准备阶段，你可以令其选择一项：1. 受到你造成的1点伤害，然后其本回合下次造成的伤害+1；2. 你获得其一张牌。",
 			sst_yingzi:"英姿",
 			sst_yingzi_info:"锁定技，摸牌阶段摸牌时，你额外摸一张牌；你的手牌上限为你的体力上限。",
 			sst_geliao:"鸽了",
@@ -12895,7 +12872,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guaibi_info:"每轮限｛1｝次，一张【杀】指定目标前，你可以弃置一名角色的两张牌，令其成为此【杀】的使用者，然后该角色可以为此【杀】重新指定目标。",
 			sst_daonao:"捣闹",
 			sst_daonao2:"捣闹",
-			sst_daonao_info:"锁定技，每当你造成一次伤害，｛｝内数值+1；每当你受到一点伤害，｛｝内数值-1（至少为0）。",
+			sst_daonao_info:"锁定技，每当你造成一次伤害，｛｝内数值+1；每当你受到1点伤害，｛｝内数值-1（至少为0）。",
 			sst_shimo:"施魔",
 			sst_shimo_info:"准备阶段，你可以失去一点体力，令一名角色摸或弃置一张牌（若其此前未成为过此技能的目标，则改为两张）。",
 			sst_qiebao:"窃宝",
@@ -12990,7 +12967,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zhuizhai2:"追债",
 			sst_zhuizhai_info:"每轮游戏开始时，你可以令你攻击范围内任意名角色各摸一张牌，若如此做，当本轮这些角色受到伤害时，伤害来源可以获得其两张牌。",
 			sst_fanfei:"翻飞",
-			sst_fanfei_info:"当你成为红色牌的目标时，你可以弃置一张牌令此牌对你无效，然后对手牌数大于你的一名角色造成一点伤害。",
+			sst_fanfei_info:"当你成为红色牌的目标时，你可以弃置一张牌令此牌对你无效，然后对手牌数大于你的一名角色造成1点伤害。",
 			sst_liaoyi:"聊依",
 			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，你视为使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
 			sst_liaoyi1:"聊依",
