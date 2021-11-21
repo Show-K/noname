@@ -7,10 +7,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				lib.characterPack.mode_versus=lib.jiangeboss;
 			}
 			else if(get.config('versus_mode')=='siguo'){
+				/*
 				lib.characterPack.mode_versus={
 					tangzi:['male',['wei','wu'].randomGet(),4,['xingzhao'],[]],
 					liuqi:['male',['shu','qun'].randomGet(),3,['wenji','tunjiang'],[]],
 				};
+				*/
 				for(var i in lib.characterPack.mode_versus){
 					lib.character[i]=lib.characterPack.mode_versus[i];
 				}
@@ -864,7 +866,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.arena.classList.add('choose-character');
 					'step 1'
 					var list={
-						wei:[],shu:[],wu:[],qun:[]
+						sst_light:[],sst_darkness:[],sst_spirit:[],sst_reality:[]
 					}
 					event.list=list;
 					for(var i in lib.character){
@@ -1060,8 +1062,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}
 					game.me.init(result.links[0]);
 					event.list[game.me.side].remove(result.links[0]);
-					var added={wei:0,shu:0,wu:0,qun:0};
-					var dualside={wei:[],shu:[],wu:[],qun:[]};
+					var added={sst_light:0,sst_darkness:0,sst_spirit:0,sst_reality:0};
+					var dualside={sst_light:[],sst_darkness:[],sst_spirit:[],sst_reality:[]};
 					if(get.config('siguo_character')=='increase'){
 						for(var i in lib.characterPack.mode_versus){
 							if(Math.random()<0.5){
@@ -1115,7 +1117,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.longchuanzhibao=ui.create.system('龙船至宝',null,true);
 					// ui.longchuanzhibao.style.display='none';
 					lib.setPopped(ui.longchuanzhibao,function(){
-						var map={wei:0,shu:0,wu:0,qun:0};
+						var map={sst_light:0,sst_darkness:0,sst_spirit:0,sst_reality:0};
 						for(var i=0;i<game.players.length;i++){
 							var current=game.players[i];
 							map[current.side]+=current.storage.longchuanzhibao;
@@ -2127,10 +2129,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						list.push(i);
 					}
 					var groupSort=function(name){
-						if(lib.character[name][1]=='wei') return 0;
-						if(lib.character[name][1]=='shu') return 1;
-						if(lib.character[name][1]=='wu') return 2;
-						if(lib.character[name][1]=='qun') return 3;
+						if(lib.character[name][1]=='sst_light') return 0;
+						if(lib.character[name][1]=='sst_darkness') return 1;
+						if(lib.character[name][1]=='sst_spirit') return 2;
+						if(lib.character[name][1]=='sst_reality') return 3;
 					}
 					var sortByGroup=function(a,b){
 						var del=groupSort(a)-groupSort(b);
@@ -4163,39 +4165,22 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			["club",4,"bingliang"],
 		],
 		choiceThree:[
-			're_caocao','re_simayi','xiahoudun','re_zhangliao','re_guojia','zhenji','re_xiahouyuan','xuhuang',
-			'wenpin','re_xuzhu','wangyi','dianwei','re_lidian','xunyou','dengai','wangji',
-			'zhongyao','yuejin','simalang','zhangchunhua','sp_caoren','luzhi','litong','re_liubei',
-			'guanyu','re_zhangfei','re_zhugeliang','re_zhaoyun','re_machao','huangyueying','jiangwei','xin_masu',
-			'liuchen','re_huangzhong','mizhu','old_madai','wangping','xin_fazheng','re_xushu','liyan',
-			'sp_sunshangxiang','zhoucang','yanyan','mazhong','mayunlu','sunquan','re_ganning','re_huanggai',
-			're_zhouyu','re_daqiao','sunshangxiang','sunjian','re_xiaoqiao','sunce','re_luxun','zhugejin',
-			'dingfeng','lingtong','guyong','xusheng','yufan','handang','panzhangmazhong','zhugeke',
-			'zumao','xuezong','re_huatuo','lvbu','diaochan','re_pangde','jiaxu','chengong',
-			're_gongsunzan','caifuren','gongsunyuan','yj_jushou','sp_liuqi','quyi','caiyong','key_yuzuru'
+			"sst_mario","sst_donkey_kong","sst_link","sst_samus","sst_yoshi","sst_kirby","sst_luigi","sst_captain_falcon","sst_jigglypuff","sst_fox","sst_pikachu",
+			"sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco",
+			"sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_blue",
+			"sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters",
+			"sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_male","sst_byleth_female","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman",
+			"sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_geno",
+			"sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"
 		],
 		choiceFour:[
-			'sunquan','zhenji','re_diaochan','zhugeliang','sunshangxiang','re_huangyueying',
-			're_caocao','re_liubei','re_simayi','re_guanyu','re_zhouyu','re_lvbu','re_daqiao','re_zhangfei','re_zhangliao','re_zhaoyun','re_xuzhu','re_machao','re_ganning','re_guojia','re_lidian','re_xiahoudun','re_xushu','re_lvmeng',
-			're_xiahouyuan','re_xiaoqiao','re_huangzhong',
-			'yanwen','dianwei','pangtong','taishici','sp_zhugeliang','re_pangde',
-			'dongzhuo','jiaxu','sunjian','xuhuang','zhurong','jiangwei','sunce',
-			'wangping','sunliang','wangji','yanyan',
-			'chengong','zhangchunhua','xin_fazheng','lingtong','wuguotai','caozhi','xusheng',
-			'xunyou','zhonghui','xin_wangyi','old_madai',//'bulianshi',
-			'handang','liubiao',
-			'fuhuanghou','xin_liru',//'jianyong',
-			'panzhangmazhong','yufan','liufeng',
-			'yj_jushou','caifuren','guyong','zhoucang','sunluban',
-			'gongsunyuan','liuchen','xiahoushi','sunxiu',//'quancong',
-			'guotufengji',
-			'liyan',//'sundeng','cenhun','guohuanghou',
-			'caiyong','wuxian',//'xuecong',
-			'liuxie','yuejin','caoang','hetaihou','simalang','mayunlu','zhugejin','sp_machao','zhugeke','sp_caoren',
-			'dingfeng','heqi','chengyu','wenpin','guanyinping','kanze',
-			'sp_sunshangxiang','quyi','sp_jiangwei','dongbai',//'litong',
-			'yangxiu','sunqian','sunhao','xiahouba','liuqi','luzhi',
-			'zhugeguo','guosi','xf_tangzi','xf_sufei','caohong','mazhong',
+			"sst_mario","sst_donkey_kong","sst_link","sst_samus","sst_yoshi","sst_kirby","sst_luigi","sst_captain_falcon","sst_jigglypuff","sst_fox","sst_pikachu",
+			"sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco",
+			"sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_blue",
+			"sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters",
+			"sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_male","sst_byleth_female","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman",
+			"sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_geno",
+			"sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"
 		],
 		translate:{
 			zhu:'主',
@@ -4687,7 +4672,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						trigger:{player:'roundStart'},
 						silent:true,
 						filter:function(){
-							var map={wei:0,shu:0,wu:0,qun:0};
+							var map={sst_light:0,sst_darkness:0,sst_spirit:0,sst_reality:0};
 							for(var i=0;i<game.players.length;i++){
 								var current=game.players[i];
 								map[current.side]+=current.storage.longchuanzhibao;
@@ -6550,7 +6535,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						}
 					}
 
-					var map={wei:0,shu:0,wu:0,qun:0};
+					var map={sst_light:0,sst_darkness:0,sst_spirit:0,sst_reality:0};
 					for(var i=0;i<game.players.length;i++){
 						var current=game.players[i];
 						map[current.side]+=current.storage.longchuanzhibao;
@@ -7003,9 +6988,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				}
 				else{
 					if(_status.mode=='siguo'){
-						var list=['wei','shu','wu','qun'];
-						var map={wei:0,shu:0,wu:0,qun:0};
-						var map2={wei:0,shu:0,wu:0,qun:0};
+						var list=['sst_light','sst_darkness','sst_spirit','sst_reality'];
+						var map={sst_light:0,sst_darkness:0,sst_spirit:0,sst_reality:0};
+						var map2={sst_light:0,sst_darkness:0,sst_spirit:0,sst_reality:0};
 						for(var i=0;i<game.players.length;i++){
 							var current=game.players[i];
 							map[current.side]+=get.condition(current)*get.threaten(current,false,false);

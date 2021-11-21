@@ -3301,7 +3301,7 @@
 					},
 					show_rarity:{
 						name:'显示武将评级',
-						init:true,
+						init:false,
 						intro:'仅供娱乐，重启后生效',
 						unfrequent:true,
 						onclick:function(bool){

@@ -1,9 +1,7 @@
 window.noname_update={
-	version:'1.9.110.9.4.0.2',
-	update:'1.9.110.9.4.0.1',
+	version:'1.9.110.9.4.0.3',
+	update:'1.9.110.9.4.0.2',
 	changeLog:[
-		'新增 碧蓝',
-		'调整 技能强度',
 		'其他',
 	],
 	files:[

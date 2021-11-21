@@ -5,9 +5,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_sp:{
-				sst_ymk:["ymk_claude","ymk_isabelle","ymk_577","ska_xiaojie","ymk_yumiko"],
-				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_geno"],
-				sst_nnk:["nnk_pokemon_trainer_blue"],
+				sst_ymk:["ymk_claude","ymk_isabelle","ymk_577","ymk_yumiko"],
+				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad"],
+				sst_nnk:[],
 			},
 		},
 		character:{
@@ -16,7 +16,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//格式内每一样东西都不能缺少，否则无法导入该武将包及其以下内容
 			ymk_claude:["male","sst_spirit",3,["ymk_yunchou","ymk_guimou"],[]],
 			ymk_isabelle:["female","sst_light",3,["ymk_zhongmi","ymk_mihu"],[]],
-			ska_bobby:["male","sst_spirit",4,["ska_jixing","ska_daishi","ska_yangxun"],[]],
+			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_daishi","ska_yangxun"],[]],
 			ska_olivia:["female","sst_spirit",3,["ska_shenqi","ska_zhefu"],[]],
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
 			ska_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
@@ -24,8 +24,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
 			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
-			ska_geno:["male","sst_spirit",3,["ska_xingjiang","ska_fuyuan"],[]],
-			nnk_pokemon_trainer_blue:["female","sst_light",3,["nnk_jiliu"],[]],
 		},//武将（必填）
 		characterFilter:{
 		},
@@ -103,24 +101,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——翻译自《超级马力欧维基》（来源：https://www.mariowiki.com/Professor_Toad）<br>"+
 			"--------------------------------<br>"+
 			"大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
-			ska_geno:"0104. Geno/ジーノ<br>"+
-			"系列：Mario（马力欧）<br>"+
-			"初登场：Super Mario RPG（超级马力欧RPG）<br>"+
-			"武将作者：Show-K<br>"+
-			"--------------------------------<br>"+
-			"他是星之族的一员，本来没有身体，本名也是无法拼读的“❤♪!?”，所以选择附身在一个叫Geno的木偶上行动。他总是自信满满，擅长分析问题，战斗能力也相当出色。他会和马力欧、桃花公主、酷霸王和Mallow一起打败恶人。<br>"+
-			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"--------------------------------<br>"+
-			"所以Square什么时候能把超级马力欧RPG交一下！",
-			nnk_pokemon_trainer_blue:"0413. 宝可梦训练家（女性）/Pokémon Trainer (Female)/ポケモントレーナー（女性）<br>"+
-			"系列：Pokémon（宝可梦）<br>"+
-			"初登场：Pokémon Red and Blue（宝可梦 红蓝）<br>"+
-			"武将作者：南柯<br>"+
-			"--------------------------------<br>"+
-			"在早一些的《宝可梦》游戏中，如果你选择了女性训练家，则你的劲敌就会变成男性，反之亦然。从《宝可梦：X/Y》开始，训练家们不但可以选择肤色，还可以更换服装了——夺冠虽然重要，但打扮也不可或缺！<br>"+
-			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"--------------------------------<br>"+
-			"来看看新人设计的第一个武将！",
 		},//武将介绍（选填）
 		characterTitle:{
 			ymk_claude:"连系世界之王",
@@ -133,8 +113,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:"新厨明灶",
 			ska_bowser:"联挚之火",
 			ska_professor_toad:"沙原博时",
-			ska_geno:"星路战士",
-			nnk_pokemon_trainer_blue:"三位一体",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -1724,121 +1702,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 			},
-			ska_xingjiang:{
-				enable:"phaseUse",
-				usable:1,
-				delay:false,
-				content:function(){
-					"step 0"
-					event.card=get.cards()[0];
-					game.cardsGotoOrdering(event.card);
-					player.showCards(event.card);
-					"step 1"
-					player.chooseToDiscard("星降：你可以弃置一张牌，然后若与"+get.translation(event.card)+"的类型、花色、点数：1. 其中一项相同，你可以弃置场上一张牌；2. 其中两项相同，你可以对一名角色造成1点伤害；3. 其中三项相同，你可以令一名角色翻面。","he").set("ai",function(card){
-						var player=_status.event.player;
-						var cardx=_status.event.cardx;
-						var num=0;
-						if(get.type(card,"trick")==get.type(cardx,"trick")) num++;
-						if(get.color(card)==get.color(cardx)) num++;
-						if(get.number(card)==get.number(cardx)) num++;
-						if(num){
-							if(num==1&&game.hasPlayer(function(current){
-								var att=get.attitude(player,current);
-								if(att==0) return false;
-								if(att<0) return current.countCards("e",function(card){
-									return get.value(card,current)>5;
-								})>0;
-								return current.countCards("ej",function(card){
-									return get.position(card)=="j"||get.value(card,current)<=0;
-								})>0;
-							})) return 7-get.value(card);
-							return 6-get.value(card)+num;
-						}
-					}).set("cardx",event.card);
-					"step 2"
-					if(result.cards&&result.cards.length){
-						var card=result.cards[0];
-						event.num=0;
-						if(get.type(card,"trick")==get.type(event.card,"trick")) event.num++;
-						if(get.color(card)==get.color(event.card)) event.num++;
-						if(get.number(card)==get.number(event.card)) event.num++;
-						if(event.num){
-							var str="";
-							switch(event.num){
-								case 1:{
-									str="弃置场上一张牌";
-									break;
-								}
-								case 2:{
-									str="对一名角色造成1点伤害";
-									break;
-								}
-								case 3:{
-									str="令一名角色翻面";
-									break;
-								}
-							}
-							player.chooseTarget("星降：你可以"+str,function(card,player,target){
-								var num=_status.event.num;
-								if(num==1) return target.countDiscardableCards(player,"ej");
-								return true;
-							}).set("ai",function(target){
-								var player=_status.event.player;
-								var num=_status.event.num;
-								switch(event.num){
-									case 1:{
-										var att=get.attitude(player,target);
-										if(att>0&&target.countCards("ej",function(card){
-											return get.position(card)=="j"||get.value(card,target)<=0;
-										})) return 2*att;
-										else if(att<0&&target.countCards("e",function(card){
-											return get.value(card,target)>5;
-										})) return -att;
-									}
-									case 2:{
-										return get.damageEffect(target,player);
-									}
-									case 3:{
-										if(target.hasSkillTag("noturn")) return 0;
-										if(target.classList.contains("turnedover")) return get.attitude(player,target);
-										return -get.attitude(player,target);
-									}
-								}
-								return;
-							}).set("num",event.num);
-						}
-						else{
-							event.finish();
-						}
-					}
-					"step 3"
-					if(result.targets&&result.targets.length){
-						var target=result.targets[0];
-						player.line(target,"green");
-						switch(event.num){
-							case 1:{
-								player.discardPlayerCard("星降：弃置"+get.translation(target)+"场上的一张牌",target,"ej",true);
-								break;
-							}
-							case 2:{
-								target.damage(player);
-								break;
-							}
-							case 3:{
-								target.turnOver();
-								break;
-							}
-						}
-					}
-				},
-				ai:{
-					order:5,
-					result:{
-						player:1,
-					},
-					expose:0.2,
-				},
-			},
 			/*
 			ska_fuyuan:{
 				init:function(player){
@@ -1921,190 +1784,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			*/
-			ska_fuyuan:{
-				trigger:{global:"phaseJieshuBegin"},
-				filter:function(event,player){
-					return player.getHistory("gain").length||player.getHistory("lose").length;
-				},
-				direct:true,
-				content:function(){
-					"step 0"
-					event.num_draw=0;
-					player.getHistory("gain",function(evt){
-						event.num_draw+=evt.cards.length;
-					});
-					event.num_draw=Math.min(7,event.num_draw);
-					event.num_discard=0;
-					player.getHistory("lose",function(evt){
-						event.num_discard+=evt.cards.length;
-					});
-					event.num_discard=Math.min(7,event.num_discard);
-					var str="一名角色的结束阶段，你可以令一名角色";
-					if(event.num_draw) str+="摸"+get.cnNumber(event.num_draw)+"张牌";
-					if(event.num_draw&&event.num_discard) str+="，然后";
-					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
-					str+="。若其因此手牌数与其体力值相等，你可以观看牌堆顶一张牌，然后你可以使用此牌";
-					player.chooseTarget(get.prompt("ska_fuyuan"),str).set("ai",function(target){
-						if(_status.event.num_draw==_status.event.num_discard&&target.countCards("he")==0){
-							return 0;
-						}
-						if(_status.event.num_draw<_status.event.num_discard) return -get.attitude(_status.event.player,target);
-						return get.attitude(_status.event.player,target);
-					}).set("num_draw",event.num_draw).set("num_discard",event.num_discard);
-					"step 1"
-					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.logSkill("ska_fuyuan",event.target);
-						event.target.draw(event.num_draw);
-						event.target.chooseToDiscard("复愿：弃置"+get.cnNumber(event.num_discard)+"张牌",event.num_discard,true,"he");
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(event.target.countCards("h")==event.target.hp){
-						event.card=get.cards()[0];
-						game.log(player,"观看了牌堆顶的一张牌");
-						player.chooseControl("ok").set("dialog",["复愿",event.card]);
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
-					game.updateRoundNumber();
-					"step 4"
-					player.chooseUseTarget(event.card,false);
-				},
-				ai:{
-					expose:0.2,
-				},
-			},
-			//Blue
-			nnk_jiliu:{
-				init:function(player){
-					if(!player.storage.nnk_jiliu) player.storage.nnk_jiliu=0;
-				},
-				derivation:["nnk_maosheng","nnk_menghuo"],
-				forced:true,
-				trigger:{source:"damageSource"},
-				content:function(){
-					"step 0"
-					var num=game.countPlayer(function(current){
-						return get.distance(player,current)<=1;
-					});
-					if(num) player.draw(num);
-					"step 1"
-					if(!player.hasSkill("nnk_jiliu2")){
-						player.storage.nnk_jiliu=0;
-						player.addTempSkill("nnk_jiliu2");
-					}
-					player.storage.nnk_jiliu++;
-					"step 2"
-					player.removeSkill("nnk_jiliu");
-					game.log(player,"失去了技能","#g【激流】");
-					player.addSkillLog("nnk_maosheng");
-				},
-			},
-			nnk_jiliu2:{
-				mod:{
-					globalFrom:function(from,to,distance){
-						if(typeof from.storage.nnk_jiliu=="number"){
-							return distance-from.storage.nnk_jiliu;
-						}
-					},
-				},
-			},
-			nnk_maosheng:{
-				forced:true,
-				trigger:{player:["useCard","respond"]},
-				filter:function(event,player){
-					return game.countPlayer(function(current){
-						return get.distance(player,current)<=1;
-					});
-				},
-				content:function(){
-					"step 0"
-					var num=game.countPlayer(function(current){
-						return get.distance(player,current)<=1;
-					});
-					player.chooseTarget("茂盛：你对至多"+get.cnNumber(num)+"名角色：1. 若其未横置，横置之；2. 若其已横置，弃置其一张牌，若如此做，技能结算完成后你失去〖茂盛〗，获得〖猛火〗",[1,num]).set("ai",function(target){
-						return -get.attitude(_status.event.player,target);
-					});
-					"step 1"
-					if(result.targets&&result.targets.length){
-						event.targets=result.targets.sortBySeat();
-						player.line(event.targets,"green");
-						event.num=0;
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(event.num<event.targets.length){
-						if(!event.targets[event.num].isLinked()){
-							event.targets[event.num].link();
-						}
-						else{
-							player.discardPlayerCard("茂盛：弃置"+get.translation(event.targets[event.num])+"一张牌",event.targets[event.num],true);
-						}
-						event.num++;
-						event.redo();
-					}
-					"step 3"
-					player.removeSkill("nnk_maosheng");
-					game.log(player,"失去了技能","#g【茂盛】");
-					player.addSkillLog("nnk_menghuo");
-				},
-				ai:{
-					expose:0.3,
-				},
-			},
-			nnk_menghuo:{
-				forced:true,
-				trigger:{source:"damageBegin2"},
-				content:function(){
-					trigger.nature="fire";
-				},
-				group:["nnk_menghuo2","nnk_menghuo3"],
-			},
-			nnk_menghuo2:{
-				forced:true,
-				trigger:{player:"useCard"},
-				filter:function(event,player){
-					return get.name(event.card)=="juedou";
-				},
-				content:function(){
-					"step 0"
-					player.loseHp();
-					"step 1"
-					if(typeof trigger.baseDamage!="number"){
-						trigger.baseDamage=1;
-					}
-					trigger.baseDamage++;
-					/*
-					var id=player.playerid;
-					var map=trigger.customArgs;
-					if(!map[id]) map[id]={};
-					if(!map[id].extraDamage) map[id].extraDamage=0;
-					map[id].extraDamage++;
-					*/
-				},
-			},
-			nnk_menghuo3:{
-				forced:true,
-				trigger:{global:"dying"},
-				filter:function(event,player){
-					if(get.distance(player,event.player)>1) return false;
-					var evt=event.getParent();
-					return evt&&evt.name=="damage"&&evt.source==player;
-				},
-				content:function(){
-					player.removeSkill("nnk_menghuo");
-					game.log(player,"失去了技能","#g【猛火】");
-					player.addSkillLog("nnk_jiliu");
-				},
-			},
 		},//技能（必填）
 		dynamicTranslate:{
 		},
@@ -2128,8 +1807,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:"SP柚子",
 			ska_bowser:"☆SP酷霸王",
 			ska_professor_toad:"考古学家奇诺比奥",
-			ska_geno:"基诺",
-			nnk_pokemon_trainer_blue:"碧蓝",
 			//身份技能
 			ymk_yunchou:"运筹",
 			ymk_yunchou2:"运筹",
@@ -2192,19 +1869,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌并将其置于牌堆顶，然后展示牌堆底一张牌，1. 若你置于牌堆顶的牌花色与弃牌堆顶的花色相同，你视为使用或打出一张【杀】/【闪】，否则你不能发动此技能直到回合结束；2. 你可以令一名角色获得展示的牌堆底牌，然后若你置于牌堆顶的牌颜色与此牌相同，你可以对其造成1点伤害。",
 			ska_kuiwang:"窥往",
 			ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。",
-			ska_xingjiang:"星降",
-			ska_xingjiang_info:"出牌阶段限一次，你可以亮出牌堆顶一张牌。若如此做，你可以弃置一张牌，然后若这两张牌的类型、颜色、点数：1. 其中一项相同，你可以弃置场上一张牌；2. 其中两项相同，你可以对一名角色造成1点伤害；3. 其中三项相同，你可以令一名角色翻面。",
-			ska_fuyuan:"复愿",
-			ska_fuyuan_info:"一名角色的结束阶段，你可以令一名角色摸X张牌，然后弃置Y张牌（X/Y为本回合累计获得/失去的牌且至多为7）。若其因此手牌数与其体力值相等，你可以观看牌堆顶一张牌，然后你可以使用此牌。",
-			nnk_jiliu:"激流",
-			nnk_jiliu2:"激流",
-			nnk_jiliu_info:"锁定技，当你造成1点伤害时，你摸X张牌（X为与你距离1以内的角色数），本回合你与其他角色距离计算-1，然后你失去〖激流〗，获得〖茂盛〗。",
-			nnk_maosheng:"茂盛",
-			nnk_maosheng_info:"锁定技，当你使用或打出牌时，选择至多X名角色横置之（已横置的角色改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）",
-			nnk_menghuo:"猛火",
-			nnk_menghuo2:"猛火",
-			nnk_menghuo3:"猛火",
-			nnk_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当与你距离1以内的角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
 			//武将分类
 			//sst_sp:"SP",
 			sst_ymk:"Yumikohimi",
@@ -2217,8 +1881,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:["sst_mnm","sst_terry"],
 			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad"],
 			ska_xiaojie:["sst_mario","sst_luigi"],
-			ska_geno:["sst_mario","sst_bowser","sst_peach"],
-			nnk_pokemon_trainer_blue:["sst_pokemon_trainer_red"],
 		},//珠联璧合武将（选填）
 	};
 	/*

@@ -67,7 +67,7 @@ window.noname_character_rank={
 			"sst_pikachu",
 			"sst_enderman",
 			"sst_sephiroth",
-			"nnk_pokemon_trainer_blue"
+			"sst_pokemon_trainer_blue"
 		],
 		rare:[
 			"sst_mario",
@@ -118,7 +118,7 @@ window.noname_character_rank={
 			"sst_falco",
 			"sst_sheik",
 			"ska_professor_toad",
-			"ska_geno",
+			"sst_geno",
 			"sst_ken",
 			"sst_pyra_mythra"
 		],

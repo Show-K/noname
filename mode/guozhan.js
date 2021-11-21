@@ -253,109 +253,58 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		aozhanRank:{
-			'8':['gz_panjun'],
+			'8':[],
 			'7':[],
 			'6':[],
 			'5':[
-				'gz_lukang','gz_caoren','gz_lvfan',
-				'gz_machao','gz_ganfuren','gz_madai',
-				'gz_jiling','gz_pangde','gz_huangzu',
+				'gz_sst_meta_knight','gz_sst_kyuukou','gz_sst_bowser_jr','gz_ymk_yumiko','gz_sst_fox','gz_sst_dedede'
 			],
 			'4':[
-				'gz_re_lidian','gz_yuejin','gz_huangzhong',
-				'gz_menghuo','gz_sunshangxiang','gz_lvmeng',
-				'gz_lvbu','gz_xiahouba',
+				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_samus','gz_sst_dark_samus','gz_sst_greninja','gz_sst_chrom','gz_sst_mr_8','gz_sst_srf','gz_sst_waluigi','gz_ymk_577','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_captain_falcon','gz_sst_lucario','gz_sst_steve','gz_sst_pikachu','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_richter','gz_sst_ma','gz_ymk_claude','gz_ska_olivia'
 			],
 			'3':[
-				'gz_simayi','gz_luxun','gz_wuguotai',
-				'gz_caiwenji','gz_shibao','gz_xuyou',
-				'gz_zhugeke',
+				'gz_sst_mario','gz_sst_link','gz_sst_dr_mario','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_oc','gz_sst_ryu','gz_sst_ken','gz_sst_toon_link','gz_sst_wolf','gz_sst_snake','gz_sst_jigglypuff','gz_sst_feiji','gz_sst_sonic','gz_sst_alex','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_lucina','gz_sst_master_hand','gz_sst_mii_fighters','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_xiaojie'
 			],
 			'2':[
-				'gz_re_lusu','gz_zhangzhang',
-				'gz_jin_simashi','gz_jin_zhangchunhua',
+				'gz_sst_wario','gz_sst_byleth_male','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_donkey_kong','gz_sst_pokemon_trainer_red','gz_sst_isabelle','gz_sst_dark_link','gz_sst_windier','gz_sst_sheik','gz_sst_rex','gz_sst_cuphead_mugman','gz_sst_krystal','gz_sst_mega_man','gz_sst_hero','gz_sst_falco','gz_sst_enderman','gz_sst_k_rool','gz_sst_koopalings','gz_sst_pichu','gz_sst_mnm','gz_sst_ganondorf','gz_sst_daisy','gz_sst_little_mac','gz_sst_sans','gz_ska_bobby'
 			],
 			'1':[
-				'gz_caocao','gz_guojia','gz_xiahoudun',
-				'gz_xunyu','gz_caopi','gz_liubei',
-				'gz_fazheng','gz_dongzhuo','gz_yuji',
-				'gz_liqueguosi','gz_huanggai','gz_re_xushu',
-				'gz_panjun',
+				'gz_sst_yoshi','gz_sst_villager','gz_sst_rentianshu','gz_sst_ridley','gz_sst_yumiko','gz_sst_kirby'
 			],
 		},
 		guozhanRank:{
 			'8':[
-				'gz_xunyou','gz_re_lidian','gz_caopi',
-				'gz_shamoke','gz_lifeng','gz_wangping',
-				'gz_xiaoqiao','gz_zhoutai','gz_lvfan',
-				'gz_beimihu','gz_mateng','gz_jiaxu',
-				'gz_jin_wangyuanji','gz_huaxin','gz_duyu',
-				'gz_zhonghui','gz_xuyou','gz_simazhao',
+				'gz_ymk_yumiko','gz_sst_fox'
 			],
 			'7':[
-				'gz_zhanghe','gz_jianggan','gz_simayi',
-				'gz_weiyan','gz_huangyueying','gz_zhugeliang',
-				'gz_lingtong','gz_sunshangxiang','gz_sunce',
-				'gz_re_yuanshao','gz_yuanshu','gz_hetaihou',
-				'gz_jin_simashi','gz_sp_duyu','gz_shibao',
-				'gz_gongsunyuan','gz_panjun',
+				'gz_ymk_isabelle','gz_sst_meta_knight','gz_sst_kyuukou','gz_sst_richter','gz_sst_dedede','gz_sst_ganondorf'
 			],
 			'6':[
-				'gz_zhenji','gz_guojia','gz_yujin',
-				'gz_jiangwei','gz_zhangfei','gz_sp_zhugeliang',
-				'gz_zhouyu','gz_lingcao','gz_daqiao','gz_dingfeng',
-				'gz_yuji','gz_caiwenji','gz_diaochan','gz_zuoci',
-				'gz_key_ushio','gz_jin_simazhao','gz_dongzhao',
-				'gz_liuba',
+				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_dark_samus','gz_sst_greninja','gz_sst_isabelle','gz_sst_mr_8','gz_sst_bowser_jr','gz_sst_waluigi','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_steve','gz_sst_pikachu','gz_sst_enderman','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_k_rool','gz_sst_master_hand','gz_sst_yumiko','gz_ymk_claude','gz_ska_olivia'
 			],
 			'5':[
-				'gz_zhangliao','gz_caocao','gz_xuhuang',
-				'gz_liushan','gz_pangtong','gz_zhaoyun',
-				'gz_re_lusu','gz_sunquan','gz_ganning',
-				'gz_zhangxiu','gz_liqueguosi','gz_huatuo',
-				'gz_zhanghuyuechen','gz_re_xushu','gz_mifangfushiren',
-				'gz_huangzu','gz_weiguan','gz_miheng',
-				'gz_wenqin',
+				'gz_sst_mario','gz_sst_link','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_chrom','gz_sst_dark_link','gz_sst_ken','gz_ymk_577','gz_sst_toon_link','gz_sst_snake','gz_sst_lucario','gz_sst_feiji','gz_sst_sonic','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_koopalings','gz_sst_ma','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_bobby','gz_ska_xiaojie'
 			],
 			'4':[
-				'gz_dianwei','gz_dengai','gz_xunyu',
-				'gz_madai','gz_liubei','gz_mifuren',
-				'gz_wuguotai','gz_luxun','gz_taishici',
-				'gz_zhangjiao','gz_pangde','gz_liuqi',
-				'gz_jin_zhangchunhua','gz_zongyu','gz_shixie',
-				'gz_jin_yanghuiyu','gz_tangzi','gz_yanbaihu',
-				'gz_wujing','gz_zhugeke','gz_sunchen',
+				'gz_sst_wario','gz_sst_dr_mario','gz_sst_byleth_male','gz_sst_samus','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_pokemon_trainer_red','gz_sst_oc','gz_sst_windier','gz_sst_srf','gz_sst_sheik','gz_sst_wolf','gz_sst_rex','gz_sst_captain_falcon','gz_sst_alex','gz_sst_ridley','gz_sst_lucina','gz_sst_pichu','gz_sst_mii_fighters','gz_sst_mnm','gz_sst_little_mac','gz_sst_sans'
 			],
 			'3':[
-				'gz_xiahoudun','gz_yuejin','gz_caoren',
-				'gz_machao','gz_masu','gz_fazheng',
-				'gz_zhangzhang','gz_lvmeng','gz_huanggai',
-				'gz_jiling','gz_lvbu','gz_dongzhuo',
-				'gz_jin_xiahouhui','gz_simazhou','gz_zhanglu',
+				'gz_sst_yoshi','gz_sst_rentianshu','gz_sst_ryu','gz_sst_cuphead_mugman','gz_sst_krystal','gz_sst_mega_man','gz_sst_jigglypuff','gz_sst_hero','gz_sst_falco','gz_sst_kirby','gz_sst_daisy'
 			],
 			'2':[
-				'gz_cuimao','gz_xiahouyuan','gz_caohong',
-				'gz_zhurong','gz_zhurong','gz_jiangfei',
-				'gz_xusheng','gz_luyusheng','gz_sunjian',
-				'gz_zhangren','gz_kongrong','gz_yanwen',
-				'gz_jin_simayi','gz_mengda','gz_xiahouba',
+				'gz_sst_villager','gz_sst_donkey_kong'
 			],
 			'1':[
-				'gz_zangba','gz_bianfuren','gz_xuzhu',
-				'gz_menghuo','gz_ganfuren','gz_guanyu',
-				'gz_lukang','gz_jiangqing','gz_chendong',
-				'gz_zoushi','gz_panfeng','gz_tianfeng',
-				'gz_sufei',
 			],
 		},
 		characterSort:{
 			mode_guozhan:{
 				sst_64:["gz_sst_mario","gz_sst_donkey_kong","gz_sst_link","gz_sst_samus","gz_sst_yoshi","gz_sst_kirby","gz_sst_luigi","gz_sst_captain_falcon","gz_sst_jigglypuff","gz_sst_fox","gz_sst_pikachu"],
 				sst_melee:["gz_sst_bowser","gz_sst_peach","gz_sst_zelda","gz_sst_sheik","gz_sst_dr_mario","gz_sst_ganondorf","gz_sst_mr_game_watch","gz_sst_marth","gz_sst_young_link","gz_sst_pichu","gz_sst_falco"],
-				sst_brawl:["gz_sst_zero_suit_samus","gz_sst_wario","gz_sst_pokemon_trainer_red","gz_sst_meta_knight","gz_sst_ike","gz_sst_toon_link","gz_sst_wolf","gz_sst_snake","gz_sst_dedede","gz_sst_lucario","gz_sst_sonic"],
+				sst_brawl:["gz_sst_zero_suit_samus","gz_sst_wario","gz_sst_pokemon_trainer_red","gz_sst_meta_knight","gz_sst_ike","gz_sst_toon_link","gz_sst_wolf","gz_sst_snake","gz_sst_dedede","gz_sst_lucario","gz_sst_sonic","gz_sst_pokemon_trainer_blue"],
 				sst_4:["gz_sst_villager","gz_sst_rosalina","gz_sst_little_mac","gz_sst_greninja","gz_sst_palutena","gz_sst_lucina","gz_sst_bowser_jr","gz_sst_koopalings","gz_sst_ryu","gz_sst_mega_man","gz_sst_corrin","gz_sst_mii_fighters"],
 				sst_ultimate:["gz_sst_dark_samus","gz_sst_daisy","gz_sst_chrom","gz_sst_ridley","gz_sst_simon","gz_sst_richter","gz_sst_k_rool","gz_sst_isabelle","gz_sst_incineroar","gz_sst_terry","gz_sst_byleth_male","gz_sst_byleth_female","gz_sst_ken","gz_sst_joker","gz_sst_steve","gz_sst_alex","gz_sst_hero","gz_sst_min_min"],
-				sst_spirits:["gz_sst_dark_link","gz_sst_sans","gz_sst_waluigi","gz_sst_master_hand","gz_sst_spring_man","gz_sst_rex","gz_sst_cuphead_mugman","gz_sst_krystal"],
+				sst_spirits:["gz_sst_dark_link","gz_sst_sans","gz_sst_waluigi","gz_sst_master_hand","gz_sst_spring_man","gz_sst_rex","gz_sst_cuphead_mugman","gz_sst_krystal","sst_enderman"],
 				sst_players:["gz_sst_mnm","gz_sst_yumiko","gz_sst_massy","gz_sst_haine","gz_sst_oc","gz_sst_mr_8","gz_sst_kyuukou","gz_sst_windier","gz_sst_rentianshu","gz_sst_srf","gz_sst_miumiu","gz_sst_ma","gz_sst_feiji"],
 				sst_sp:["gz_ymk_claude","gz_ymk_isabelle","gz_ska_bobby","gz_ska_olivia","gz_ymk_577","gz_ska_xiaojie","gz_ska_show_k","gz_ymk_yumiko","gz_ska_bowser","gz_ska_professor_toad","gz_ska_geno"],
 			}
@@ -413,11 +362,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],[]],
 				gz_ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
 				gz_sst_ike:["male","sst_light",4,["sst_tugu"],[]],
-				gz_sst_sheik:["female","sst_light",3,["sst_nixing","sst_shouyin"],[]],
+				gz_sst_sheik:["female","sst_darkness",3,["sst_nixing","sst_shouyin"],[]],
 				gz_sst_miumiu:["female","sst_reality",3,["sst_qichang","sst_shizhu"],[]],
 				gz_sst_toon_link:["male","sst_light",4,["sst_yufeng","sst_chihang"],[]],
 				gz_sst_wolf:["male","sst_darkness",4,["sst_xishou"],[]],
-				//sst_young_link:["male","sst_light",3,["sst_shishi","sst_jiamian"],[]],
+				//sst_young_link:["male","sst_darkness",3,["sst_shishi","sst_jiamian"],[]],
 				//sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["forbidai"]],
 				gz_sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],[]],
 				gz_sst_joker:["male","sst_darkness",3,["sst_daoxin","sst_fanni"],[]],
@@ -445,20 +394,22 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_pikachu:["male","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 				gz_sst_falco:["male","sst_light",4,["sst_juao"],[]],
 				gz_ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
-				gz_ska_geno:["male","sst_spirit",3,["ska_xingjiang","ska_fuyuan"],[]],
+				gz_sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
+				gz_sst_geno:["male","sst_spirit",3,["ska_xingjiang","ska_fuyuan"],[]],
+				gz_sst_pokemon_trainer_blue:["female","sst_light",3,["sst_jiliu"],[]],
 				//修改武将
 				gz_sst_palutena:["female","sst_light",3,["gz_sst_qiji","sst_shengbing"],[]],
 				gz_sst_rosalina:["female","sst_light",3,["sst_xingchen","gz_sst_zhuansheng"],[]],
 				gz_sst_ridley:["male","sst_darkness",5,["sst_baozheng","gz_sst_furan"],[]],
 				gz_sst_k_rool:["male","sst_darkness",4,["sst_badao","gz_sst_jinjia"],[]],
-				gz_sst_richter:["male","sst_darkness",4,["gz_sst_shengxi","gz_sst_xuelun"],[]],
+				gz_sst_richter:["male","sst_darkness",4,["sst_shengxi","gz_sst_xuelun"],[]],
 				gz_sst_lucina:["female","sst_light",4,["sst_suxing","gz_sst_shengyi"],[]],
 				gz_sst_koopalings:["male","sst_darkness",7,["sst_shimo"],[]],
 				gz_sst_master_hand:["male","sst_spirit",4,["sst_zhuzai"],[]],
 				gz_sst_pichu:["male","sst_light",3,["sst_tieyan","sst_gaoya"],[]],
-				gz_sst_dedede:["male","sst_light",4,["sst_baoshi"],[]],
+				gz_sst_dedede:["male","sst_darkness",4,["sst_baoshi"],[]],
 				gz_sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],[]],
-				gz_sst_mii_fighters:["none","sst_light",4,["sst_bianshe"],["doublegroup:qun:wei:shu:wu"]],
+				gz_sst_mii_fighters:["none","sst_light",4,["sst_bianshe"],["doublegroup:sst_light:sst_darkness:sst_spirit:sst_reality"]],
 				//国战武将
 				gz_sst_mnm:["male","sst_reality",5,["gz_sst_qixiao","sst_zhongpao"],[]],
 				gz_sst_yumiko:["female","sst_reality",3,["sst_zhengshi","sst_muyuan"],[]],
@@ -2128,6 +2079,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					trigger.directHit.addArray(game.players);
+				},
+				ai:{
+					directHit_ai:true,
+					skillTagFilter:function(player,tag,arg){
+						return game.hasPlayer(function(current){
+							return current.hasSkill("gz_sst_yujun")&&current.inline(player);
+						});
+					},
 				},
 			},
 			gz_sst_xiduo:{
@@ -3901,6 +3860,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		},
 		translate:{
 			//国战武将
+			/*
 			gz_sst_mario:"马力欧",
 			gz_sst_link:"林克",
 			gz_sst_yoshi:"耀西",
@@ -3998,6 +3958,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_sst_falco:"佛克",
 			gz_ska_professor_toad:"考古学家奇诺比奥",
 			gz_ska_geno:"基诺",
+			*/
 			//修改技能
 			gz_sst_qiji:"奇迹",
 			gz_sst_qiji_info:"出牌阶段每种选项各限一次：1. 你可以叠置，令一名角色摸三张牌；2. 你可以弃置三张牌，令一名角色叠置。",
