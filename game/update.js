@@ -57,7 +57,7 @@ window.noname_update={
 		//'layout/nova/layout.css',
 		//'layout/mobile/equip.css',
 		//'mode/boss.js',
-		//'mode/brawl.js',
+		'mode/brawl.js',
 		//'mode/chess.js',
 		//'mode/connect.js',
 		//'mode/doudizhu.js',

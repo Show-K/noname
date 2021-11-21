@@ -10176,6 +10176,7 @@
 			//New
 			pileTop:"牌堆顶",
 			pileBottom:"牌堆底",
+			viewHandcard:"可见",
 			//New end
 			flower:'鲜花',
 			egg:'鸡蛋',
@@ -13675,6 +13676,7 @@
 					}
 					event.result=result;
 				},
+				//Modified
 				choosePlayerCard:function(){
 					"step 0"
 					if(!event.dialog) event.dialog=ui.create.dialog('hidden');
@@ -13697,12 +13699,31 @@
 							if(hs.length){
 								event.dialog.addText('手牌区');
 								hs.randomSort();
+								var hs_invisible=[];
+								var hs_visible=[];
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
+									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
-									event.dialog.add([hs,'blank']);
+									for(var j=0;j<hs.length;j++){
+										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
+											hs_visible.push(hs[j]);
+										}
+										else{
+											hs_invisible.push(hs[j]);
+										}
+									}
+									if(hs_invisible.length){
+										event.dialog.addText('不可见手牌');
+										event.dialog.add([hs_invisible,'blank']);
+									}
+									if(hs_visible.length){
+										event.dialog.addText('可见手牌');
+										event.dialog.add(hs_visible);
+										directh=false;
+									}
 								}
 							}
 						}
@@ -13775,6 +13796,7 @@
 					}
 					event.resume();
 				},
+				//Modified
 				discardPlayerCard:function(){
 					"step 0"
 					if(event.directresult){
@@ -13819,12 +13841,31 @@
 							if(hs.length){
 								event.dialog.addText('手牌区');
 								hs.randomSort();
+								var hs_invisible=[];
+								var hs_visible=[];
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
+									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
-									event.dialog.add([hs,'blank']);
+									for(var j=0;j<hs.length;j++){
+										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
+											hs_visible.push(hs[j]);
+										}
+										else{
+											hs_invisible.push(hs[j]);
+										}
+									}
+									if(hs_invisible.length){
+										event.dialog.addText('不可见手牌');
+										event.dialog.add([hs_invisible,'blank']);
+									}
+									if(hs_visible.length){
+										event.dialog.addText('可见手牌');
+										event.dialog.add(hs_visible);
+										directh=false;
+									}
 								}
 							}
 						}
@@ -13920,6 +13961,7 @@
 						}
 					}
 				},
+				//Modified
 				gainPlayerCard:function(){
 					"step 0"
 					if(event.directresult){
@@ -13964,12 +14006,31 @@
 							if(hs.length){
 								event.dialog.addText('手牌区');
 								hs.randomSort();
+								var hs_invisible=[];
+								var hs_visible=[];
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
+									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
-									event.dialog.add([hs,'blank']);
+									for(var j=0;j<hs.length;j++){
+										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
+											hs_visible.push(hs[j]);
+										}
+										else{
+											hs_invisible.push(hs[j]);
+										}
+									}
+									if(hs_invisible.length){
+										event.dialog.addText('不可见手牌');
+										event.dialog.add([hs_invisible,'blank']);
+									}
+									if(hs_visible.length){
+										event.dialog.addText('可见手牌');
+										event.dialog.add(hs_visible);
+										directh=false;
+									}
 								}
 							}
 						}
@@ -51929,6 +51990,7 @@
 				}
 			}
 		},
+		//Modified
 		nodeintro:function(node,simple,evt){
 			var uiintro=ui.create.dialog('hidden','notouchscroll');
 			if(node.classList.contains('player')&&!node.name){
@@ -51965,11 +52027,17 @@
 					uiintro.addText(get.colorspan(lib.characterTitle[node.name]));
 				}
 
-				if(node.isUnderControl()||(!game.observe&&game.me&&game.me.hasSkillTag('viewHandcard',null,node,true))){
-					var hs=node.getCards('h');
+				var hs=node.getCards('h');
+				if(hs.length){
+					for(var j=0;j<hs.length;j++){
+						if(!(node.isUnderControl()||(!game.observe&&game.me&&game.me.hasSkillTag('viewHandcard',null,node,true))||get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard'))){
+							hs.splice(j,1);
+							j--;
+						}
+					}
 					if(hs.length){
 						uiintro.add('<div class="text center">手牌</div>');
-						uiintro.addSmall(node.getCards('h'));
+						uiintro.addSmall(hs);
 					}
 				}
 

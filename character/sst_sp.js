@@ -2078,10 +2078,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.loseHp();
 					"step 1"
-					if(typeof trigger.extraDamage!="number"){
-						trigger.extraDamage=0;
+					if(typeof trigger.baseDamage!="number"){
+						trigger.baseDamage=1;
 					}
-					trigger.extraDamage++;
+					trigger.baseDamage++;
+					/*
+					var id=player.playerid;
+					var map=trigger.customArgs;
+					if(!map[id]) map[id]={};
+					if(!map[id].extraDamage) map[id].extraDamage=0;
+					map[id].extraDamage++;
+					*/
 				},
 			},
 			nnk_menghuo3:{

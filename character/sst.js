@@ -9,8 +9,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco"],
 				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_dedede","sst_lucario","sst_sonic"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters"],
-				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_male","sst_byleth_female","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_minmin","sst_pyra_mythra","sst_sephiroth","sst_enderman"],
-				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_springman","sst_rex","sst_cuphead_mugman","sst_krystal"],
+				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_male","sst_byleth_female","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman"],
+				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal"],
 				sst_players:["sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"],
 			},
 		},
@@ -91,7 +91,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_wolf:["male","sst_darkness",4,["sst_xishou"],[]],
 			sst_young_link:["male","sst_darkness",3,["sst_shishi","sst_jiamian"],[]],
 			sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["unseen"]],
-			sst_springman:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],[]],
+			sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],[]],
 			sst_joker:["male","sst_darkness",3,["sst_daoxin","sst_fanni"],[]],
 			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],[]],
 			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],[]],
@@ -114,7 +114,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fox:["male","sst_light",4,["sst_powei"],[]],
 			sst_mii_fighters:["none","sst_smash",4,["sst_bianshe"],[]],
 			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],[]],
-			sst_minmin:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
+			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
 			sst_pikachu:["male","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 			sst_falco:["male","sst_light",4,["sst_juao"],[]],
 			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
@@ -650,7 +650,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"物是人非，沧海桑田……",
-			sst_springman:"1287. 弹簧人/Spring Man/スプリングマン<br>"+
+			sst_spring_man:"1287. 弹簧人/Spring Man/スプリングマン<br>"+
 			"系列：ARMS（神臂斗士）<br>"+
 			"初登场：ARMS（神臂斗士）<br>"+
 			"武将作者：mario not mary<br>"+
@@ -865,7 +865,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"好像Minecraft官方的确有说过她是史蒂夫的女朋友。",
-			sst_minmin:"1289. 面面/Min Min/ミェンミェン<br>"+
+			sst_min_min:"1289. 面面/Min Min/ミェンミェン<br>"+
 			"1414. 面面（斗士）/Min Min (Fighter)/ミェンミェン（ファイター）<br>"+
 			"系列：ARMS（神臂斗士）<br>"+
 			"初登场：ARMS（神臂斗士）<br>"+
@@ -988,7 +988,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_wolf:"贪狼吞星",
 			sst_young_link:"时光的笛音",
 			sst_ocarina_of_time_link:"时光的笛音",
-			sst_springman:"拳簧",
+			sst_spring_man:"拳簧",
 			sst_joker:"心之怪盗",
 			sst_rex:"天之御刃者",
 			sst_cuphead_mugman:"推杯换盏",
@@ -1011,7 +1011,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fox:"狐舞星河",
 			sst_mii_fighters:"瞬缘传说",
 			sst_alex:"世界探索者",
-			sst_minmin:"玉盘珍馐",
+			sst_min_min:"玉盘珍馐",
 			sst_pikachu:"电光一闪",
 			sst_falco:"鹰击长空",
 			sst_pyra_mythra:"天之圣杯",
@@ -1854,7 +1854,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseTarget(get.prompt2("sst_shengbing"),function(card,player,target){
 						var bool=true;
 						for (var i=0;i<_status.event.esx.length;i++) {
-							if(!target.isEmpty(get.subtype(_status.event.esx[i]))) bool=false;
+							if(!target.isEmpty(get.subtype(_status.event.esx[i]))){
+								bool=false;
+								break;
+							}
 						}
 						return player!=target&&bool;
 					}).set("esx",trigger.es).set("ai",function(target){
@@ -1990,7 +1993,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				filter:function(event,player){
 					//if(event.type=="use") return false;
-					if(event.getParent().name=="discard") return false;
+					if(event.getParent().name!="discard") return false;
 					for(var i=0;i<event.hs.length;i++){
 						if(get.position(event.hs[i],true)=="d"){
 							return true;
@@ -2124,26 +2127,27 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Zero Suit Samus
 			sst_guangsuo:{
-				trigger:{
-					player:["useCardAfter"],
-				},
+				trigger:{player:"useCardAfter"},
 				global:"sst_guangsuo2",
-				filter:function (event, player) {
+				filter:function(event,player){
 					//game.log(event.targets);
 					if(get.name(event.card)!="sha") return false;
 					var bool=false;
-					for (var i = 0; i < event.targets.length; i++) {
-						if (!event.targets[i].isLinked()) bool=true;
+					for(var i=0;i<event.targets.length;i++){
+						if(!event.targets[i].isLinked()){
+							bool=true;
+							break;
+						}
 					}
 					return bool;
 				},
 				direct:true,
-				content:function () {
+				content:function(){
 					"step 0"
 					event.num=0;
 					event.targets=trigger.targets;
-					for (var i = 0; i < event.targets.length; i++) {
-						if (event.targets[i].isLinked()||event.targets[i].isDead()) event.targets.remove(event.targets[i]);
+					for(var i=0;i<event.targets.length;i++){
+						if(event.targets[i].isLinked()||!event.targets[i].isAlive()) event.targets.remove(event.targets[i]);
 					}
 					event.targets.sort(lib.sort.seat);
 					"step 1"
@@ -2609,7 +2613,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							});
 							var bool=false;
 							for(var i=0;i<list.length;i++){
-								if (get.attitude(player,list[i])>0) bool=true;
+								if(get.attitude(player,list[i])>0){
+									bool=true;
+									break;
+								}
 							}
 							if(!bool) return 0;
 							return get.effect(target,{name:"sha"},player,target);
@@ -2822,7 +2829,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.targets.contains(player)&&!lib.filter.targetEnabled2(event.card,event.player,player)) return false;
 					var bool=false;
 					for(var i=0;i<event.targets.length;i++){
-						if(event.targets[i]!=player&&event.targets[i].hasZhuSkill("sst_qiuyuan",player)&&event.targets[i].group==player.group) bool=true;
+						if(event.targets[i]!=player&&event.targets[i].hasZhuSkill("sst_qiuyuan",player)&&event.targets[i].group==player.group){
+							bool=true;
+							break;
+						}
 					}
 					if(get.type(event.card)=="trick"){
 						return bool&&get.tag(event.card,"damage");
@@ -2988,7 +2998,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseTarget(get.prompt("sst_shenjiao"),str,function(card,player,target){
 						return player!=target;
 					}).set("ai",function(target){
-						if(!_status.event.player.hasFriend()) return 0;
+						//if(!_status.event.player.hasFriend()) return 0;
 						return get.attitude(_status.event.player,target);
 					});
 					"step 1"
@@ -3379,7 +3389,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_juezhan_all_deleted:function(player){
 					var bool=true;
 					for(var i=0;i<player.storage.sst_juezhan.length;i++){
-						if(player.storage.sst_juezhan[i]) bool=false;
+						if(player.storage.sst_juezhan[i]){
+							bool=false;
+							break;
+						}
 					}
 					return bool;
 				},
@@ -3401,8 +3414,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					player.chooseControl(choice,"cancel2").set("ai",function(){
 						var choice=_status.event.choicex;
-						if(choice.contain("选项三")) return "选项三";
-						if(choice.contain("选项二")) return "选项二";
+						if(choice.contains("选项三")) return "选项三";
+						if(choice.contains("选项二")) return "选项二";
 						return "选项一";
 					}).set("choicex",choice).set("choiceList",list).set("displayIndex",false).set("prompt","茕途：你可以删除〖绝战〗一个｛｝内的内容");
 					"step 1"
@@ -5424,32 +5437,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Richter
 			sst_shengxi:{
-				global:["sst_shengxi2","sst_shengxi3","sst_shengxi4"],
-				init:function(player){
-					var players=game.filterPlayer();
-					for(var i=0;i<players.length;i++){
-						if(!players[i].storage.sst_shengxi) players[i].storage.sst_shengxi=[];
-					}
-				},
-				//marktext:"袭",
-				intro:{
-					content:"cards",
-					/*
-					onunmark:function(storage,player){
-						var players=game.filterPlayer();
-						for(var i=0;i<players.length;i++){
-							if(players[i].storage.sst_shengxi&&players[i].storage.sst_shengxi.length) players[i].storage.sst_shengxi.length=0;
-						}
-					},
-					*/
-				},
+				global:["sst_shengxi2","sst_shengxi4"],
 				onremove:function(player){
 					var players=game.filterPlayer();
+					var cards=[];
 					for(var i=0;i<players.length;i++){
-						if(players[i].storage.sst_shengxi&&players[i].storage.sst_shengxi.length){
-							players[i].storage.sst_shengxi.length=0;
-							players[i].unmarkSkill("sst_shengxi");
-						}
+						cards=cards.concat(players[i].getCards("h",function(card){
+							return card.hasGaintag("sst_shengxi");
+						}));
+					}
+					if(cards.length) for(var i=0;i<players.length;i++){
+						cards[i].removeGaintag("sst_shengxi");
+						cards[i].removeGaintag("viewHandcard");
 					}
 				},
 				ai:{
@@ -5457,67 +5456,36 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_shengxi2:{
-				trigger:{
-					player:"useCardToPlayer",
-				},
-				filter:function(event,player) {
-					var cards=event.target.getCards("h");
-					if(event.target.storage.sst_shengxi&&event.target.storage.sst_shengxi.length){
-						for(var i=0;i<event.target.storage.sst_shengxi.length;i++){
-							if(cards.contains(event.target.storage.sst_shengxi[i])) cards.remove(event.target.storage.sst_shengxi[i]);
-						}
-					}
+				direct:true,
+				trigger:{player:"useCardToPlayer"},
+				filter:function(event,player){
+					var cards=event.target.getCards("h",function(card){
+						return !card.hasGaintag("sst_shengxi");
+					});
 					return game.hasPlayer(function(current){
 						return current.hasSkill("sst_shengxi")&&(player==current||event.targets.contains(current));
 					})&&cards&&cards.length;
 				},
-				logTarget:"target",
-				check:function(event,player){
-					return get.attitude(player,event.target)<0;
-				},
 				content:function(){
 					"step 0"
-					/*
-					if(trigger.target==player){
-						player.chooseCard("h",get.prompt("sst_shengxi",trigger.target),"你可以明置你的一张手牌；一名角色可以使用你的这张手牌",function(card){
-							var player=_status.event.player;
-							return !player.storage.sst_shengxi.contains(card);
-						}).set("ai",function(card){
+					player.choosePlayerCard(trigger.target,"h",get.prompt2("sst_shengxi")).set("filterButton",function(button){
+						return !button.link.hasGaintag("viewHandcard");
+					}).set("targetx",trigger.target).set("ai",function(button){
+						if(get.attitude(_status.event.player,_status.event.targetx)<0){
+							var val=get.buttonValue(button);
+							return val;
+						}
+						else{
 							return 0;
-						});
-					}
-					else{
-						player.chooseBool(get.prompt("sst_shengxi",trigger.target),"你可以明置"+get.translation(trigger.target)+"的一张手牌；一名角色可以使用"+get.translation(trigger.target)+"的这张手牌").set("ai",function(){
-							//game.log(get.attitude(_status.event.player,_status.event.targetx))
-							return get.attitude(_status.event.player,_status.event.targetx)<0;
-						}).set("targetx",trigger.target);
-					}
-					*/
-					player.choosePlayerCard(trigger.target,"h",true,"圣袭：明置"+get.translation(trigger.target)+"的一张手牌").set("filterButton",function(button){
-						var target=_status.event.targetx;
-						return !target.storage.sst_shengxi.contains(button.link);
-					}).set("targetx",trigger.target);
+						}
+					});
 					"step 1"
 					if(result.cards&&result.cards.length){
-						//player.logSkill("sst_shengxi2",trigger.target);
+						player.logSkill("sst_shengxi",trigger.target);
 						var card=result.cards[0];
-						/*
-						if(trigger.target.storage.sst_shengxi.length){
-							for(var i=0;i<trigger.target.storage.sst_shengxi.length;i++){
-								if(cards.contains(trigger.target.storage.sst_shengxi[i])) cards.remove(trigger.target.storage.sst_shengxi[i]);
-							}
-						}
-						var card=cards.randomGet();
-						if(result.cards&&result.cards.length){
-							card=result.cards[0];
-						}
-						*/
 						trigger.target.$give(card,trigger.target,false);
-						trigger.target.storage.sst_shengxi.push(card);
-						trigger.target.syncStorage("sst_shengxi");
-						trigger.target.updateMarks();
-						trigger.target.markSkill("sst_shengxi");
-						game.delayx();
+						card.addGaintag("viewHandcard");
+						card.addGaintag("sst_shengxi");
 						game.log(player,"明置了",trigger.target,"的",card);
 					}
 				},
@@ -5526,35 +5494,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					effect:{
 						player:function(card,player,target){
 							if(get.tag(card,"multitarget")) return [1,3];
-							if(player.storage.sst_shengxi&&player.storage.sst_shengxi.contains(card)) return [1,3];
+							if(card&&typeof card.hasGaintag=="function"&&card.hasGaintag("sst_shengxi")) return [1,3];
 						},
 					},
-				},
-			},
-			sst_shengxi3:{
-				trigger:{
-					player:"loseEnd",
-				},
-				filter:function(event,player) {
-					if(!event.hs||!event.hs.length) return false;
-					if(!player.storage.sst_shengxi||!player.storage.sst_shengxi.length) return false;
-					for(var i=0;i<event.hs.length;i++){
-						if(player.storage.sst_shengxi.contains(event.hs[i])) return true;
-					}
-					return false;
-				},
-				silent:true,
-				content:function(){
-					for(var i=0;i<trigger.hs.length;i++){
-						if(player.storage.sst_shengxi.contains(trigger.hs[i])){
-							player.storage.sst_shengxi.remove(trigger.hs[i]);
-							player.syncStorage("sst_shengxi");
-							player.updateMarks();
-						}
-						if(!player.storage.sst_shengxi||!player.storage.sst_shengxi.length){
-							player.unmarkSkill("sst_shengxi");
-						}
-					}
 				},
 			},
 			sst_shengxi4:{
@@ -5564,10 +5506,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var players=game.filterPlayer();
 					players.remove(player);
 					for(var i=0;i<players.length;i++){
-						if(players[i].storage.sst_shengxi&&players[i].storage.sst_shengxi.length){
-							sst_shengxi=sst_shengxi.concat(players[i].storage.sst_shengxi);
-						}
-						players[i].syncStorage("sst_shengxi");
+						sst_shengxi=sst_shengxi.concat(players[i].getCards("h",function(card){
+							return card.hasGaintag("sst_shengxi");
+						}));
 					}
 					if(!sst_shengxi||!sst_shengxi.length) return false;
 					for(var i=0;i<sst_shengxi.length;i++){
@@ -5581,10 +5522,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var players=game.filterPlayer();
 						players.remove(player);
 						for(var i=0;i<players.length;i++){
-							if(players[i].storage.sst_shengxi&&players[i].storage.sst_shengxi.length){
-								sst_shengxi=sst_shengxi.concat(players[i].storage.sst_shengxi);
-							}
-							players[i].syncStorage("sst_shengxi");
+							sst_shengxi=sst_shengxi.concat(players[i].getCards("h",function(card){
+								return card.hasGaintag("sst_shengxi");
+							}));
 						}
 						return ui.create.dialog("圣袭",sst_shengxi,"hidden");
 					},
@@ -5607,32 +5547,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							selectCard:-1,
 							viewAs:links[0],
 							onuse:function(result,player){
-								player.logSkill("sst_shengxi4_backup");
-								/*
-								var players=game.filterPlayer();
-								for(var i=0;i<players.length;i++){
-									if(players[i].storage.sst_shengxi&&players[i].storage.sst_shengxi.length){
-										sst_shengxi=sst_shengxi.concat(players[i].storage.sst_shengxi);
-									}
-									players[i].syncStorage("sst_shengxi");
-								}
-								player.storage.sst_shengxi.remove(result.card);
-								player.syncStorage("sst_shengxi");
-								player.updateMarks();
-								if(!player.storage.sst_shengxi||!player.storage.sst_shengxi.length){
-									player.unmarkSkill("sst_shengxi");
-								}
-								*/
+								player.logSkill("sst_shengxi");
 								var owner=get.owner(result.card);
 								owner.lose(result.card,"visible",ui.ordering).set("type","use");
-								owner.storage.sst_shengxi.remove(result.card);
 								owner.line(player,"green");
 								game.log(player,"使用了",owner,"的",result.card);
-								owner.syncStorage("sst_shengxi");
-								owner.updateMarks();
-								if(!owner.storage.sst_shengxi||!owner.storage.sst_shengxi.length){
-									owner.unmarkSkill("sst_shengxi");
-								}
 							}
 						}
 					},
@@ -5649,10 +5568,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var players=game.filterPlayer();
 						players.remove(player);
 						for(var i=0;i<players.length;i++){
-							if(players[i].storage.sst_shengxi&&players[i].storage.sst_shengxi.length){
-								sst_shengxi=sst_shengxi.concat(players[i].storage.sst_shengxi);
-							}
-							players[i].syncStorage("sst_shengxi");
+							sst_shengxi=sst_shengxi.concat(players[i].getCards("h",function(card){
+								return card.hasGaintag("sst_shengxi");
+							}));
 						}
 						if(!sst_shengxi||!sst_shengxi.length) return -1;
 						var order=0;
@@ -5986,7 +5904,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					});
 					"step 1"
-					player.chooseUseTarget({name:"sha"},[result.card],false).viewAs=true;
+					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true);
 				},
 				group:["sst_cuifeng2"],
 			},
@@ -6465,7 +6383,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.num<event.players.length){
 						if(event.players[event.num].isAlive()){
 							//game.log("yes");
-							event.players[event.num].chooseToUse("对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌",player,-1).set("filterCard",function(card){
+							event.players[event.num].chooseToUse("斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌",player,-1).set("filterCard",function(card){
 								return get.name(card)=="sha"&&_status.event.player.canUse(card,_status.event.targetx,false);
 							}).set("targetx",player);
 							/*
@@ -11043,9 +10961,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<descriptions.length;i++){
 						descriptions[i]="【"+get.translation(descriptions[i])+"】"+lib.translate[descriptions[i]+"_info"];
 					}
-					player.chooseControl().set("ai",function(){
-						return _status.event.choiceList.randomGet();
-					}).set("choiceList",descriptions);
+					player.chooseControl().set("choiceList",descriptions);
 					"step 2"
 					/*
 					if(result.control){
@@ -12232,7 +12148,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("ai",function(target){
 						var player=_status.event.player;
 						var value=0;
-						var list=player.getCards("e",function(card){
+						var list=target.getCards("e",function(card){
 							return player.isEmpty(get.subtype(card));
 						});
 						for(var i=0;i<list.length;i++){
@@ -12581,7 +12497,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_wolf:"沃鲁夫",
 			sst_young_link:"幼年林克",
 			sst_ocarina_of_time_link:"时笛林克",
-			sst_springman:"弹簧人",
+			sst_spring_man:"弹簧人",
 			sst_joker:"雨宫莲",
 			sst_rex:"莱克斯",
 			sst_cuphead_mugman:"杯子兄弟",
@@ -12604,7 +12520,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fox:"火狐",
 			sst_mii_fighters:"秘斗士",
 			sst_alex:"艾莉克斯",
-			sst_minmin:"面面",
+			sst_min_min:"面面",
 			sst_pikachu:"皮卡丘",
 			sst_falco:"佛克",
 			sst_pyra_mythra:"焰／光",
