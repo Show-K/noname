@@ -4669,7 +4669,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				trigger:{global:"roundStart"},
 				check:function(event,player){
-					return player.maxHp-player.hp<2;
+					return (player.maxHp-player.hp<2)||!player.hasUsableCard("shan");
 				},
 				content:function(){
 					player.addTempSkill("sst_fuchou1","roundStart");
@@ -11064,7 +11064,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Alex
 			sst_qiaoqi:{
-				global:["sst_qiaoqi5","sst_qiaoqi6","sst_qiaoqi7"],
+				global:["sst_qiaoqi4","sst_qiaoqi5","sst_qiaoqi6","sst_qiaoqi7"],
 				enable:"phaseUse",
 				filterCard:function(card){
 					return get.color(card)=="red";
