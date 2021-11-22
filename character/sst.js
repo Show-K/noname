@@ -3524,12 +3524,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juezhan:{
 				init:function(player){
 					player.storage.sst_juezhan=[true,true,true];
-					player.logSkill("sst_juezhan");
-					player.disableEquip("equip1");
-					player.disableEquip("equip2");
-					player.disableEquip("equip3");
-					player.disableEquip("equip4");
-					player.disableEquip("equip5");
+					//player.logSkill("sst_juezhan");
+					player.$disableEquip("equip1");
+					player.$disableEquip("equip2");
+					player.$disableEquip("equip3");
+					player.$disableEquip("equip4");
+					player.$disableEquip("equip5");
 				},
 				mod:{
 					cardname:function(card,player){
@@ -11410,7 +11410,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var mount=from.getEquip(4);
 						if(mount){
 							var info=get.info(mount).distance;
-							if(info.globalFrom) return current-info.globalFrom;
+							if(info.globalFrom) return current+info.globalFrom;
 						}
 					},
 					globalTo:function(from,to,current){
