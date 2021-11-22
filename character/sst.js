@@ -48,7 +48,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],[]],
 			sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],[]],
 			sst_massy:["male","sst_reality",5,["sst_shenfa","sst_shenwu"],[]],
-			sst_samus:["female","sst_light",3,["sst_qiongtu","sst_juezhan"],[]],
+			sst_samus:["female","sst_light",4,["sst_qiongtu","sst_juezhan"],[]],
 			sst_ridley:["male","sst_darkness",5,["sst_baozheng","sst_furan"],[]],
 			sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],[]],
 			sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
@@ -3525,11 +3525,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				init:function(player){
 					player.storage.sst_juezhan=[true,true,true];
 					//player.logSkill("sst_juezhan");
-					player.$disableEquip("equip1");
-					player.$disableEquip("equip2");
-					player.$disableEquip("equip3");
-					player.$disableEquip("equip4");
-					player.$disableEquip("equip5");
+					player.disableEquip("equip1");
+					player.disableEquip("equip2");
+					player.disableEquip("equip3");
+					player.disableEquip("equip4");
+					player.disableEquip("equip5");
+				},
+				onremove:function(player){
+					player.enableEquip("equip1");
+					player.enableEquip("equip2");
+					player.enableEquip("equip3");
+					player.enableEquip("equip4");
+					player.enableEquip("equip5");
 				},
 				mod:{
 					cardname:function(card,player){
@@ -12751,16 +12758,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		*/
 		translate: {
 			//士兵
-			shibing1sst_light:"光兵",
-			shibing2sst_light:"光兵",
-			shibing1sst_darkness:"暗兵",
-			shibing2sst_darkness:"暗兵",
-			shibing1sst_spirit:"魂兵",
-			shibing2sst_spirit:"魂兵",
-			shibing1sst_reality:"现兵",
-			shibing2sst_reality:"现兵",
-			shibing1sst_smash:"斗兵",
-			shibing2sst_smash:"斗兵",
+			shibing1sst_light:"士兵",
+			shibing2sst_light:"士兵",
+			shibing1sst_darkness:"士兵",
+			shibing2sst_darkness:"士兵",
+			shibing1sst_spirit:"士兵",
+			shibing2sst_spirit:"士兵",
+			shibing1sst_reality:"士兵",
+			shibing2sst_reality:"士兵",
+			shibing1sst_smash:"士兵",
+			shibing2sst_smash:"士兵",
 			//武将
 			sst_mario:"马力欧",
 			sst_link:"林克",

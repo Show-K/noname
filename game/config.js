@@ -165,7 +165,7 @@ window.config={
 				['zhu','nei','fan'],
 				['zhu','zhong','nei','fan'],
 				['zhu','zhong','nei','fan','fan'],
-				['zhu','zhong','nei','fan','fan','fan'],
+				['zhu','zhong','nei','nei','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan','fan'],
 			],
