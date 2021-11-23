@@ -2343,6 +2343,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 									pileaddlist.push(['leisha','雷杀']);
 									pileaddlist.push(['icesha','冰杀']);
 									pileaddlist.push(['kamisha','神杀']);
+									pileaddlist.push(['cisha','刺杀']);
 								}
 							}
 						}

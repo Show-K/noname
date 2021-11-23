@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.110.9.4.0.4',
+	'v1.9.110.10',
 	//新增内容
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -815,6 +815,18 @@ window.noname_asset_list=[
 	'image/card/toushiche.png',
 	'image/card/kano_paibingbuzhen.png',
 	'image/card/qizhengxiangsheng.png',
+	'image/card/chenghuodajie.png',
+	'image/card/cisha.png',
+	'image/card/duanjian.png',
+	'image/card/guaguliaodu.png',
+	'image/card/qixingbaodao.png',
+	'image/card/serafuku.png',
+	'image/card/tuixinzhifu.png',
+	'image/card/xinge.png',
+	'image/card/yinfengyi.png',
+	'image/card/yitianjian.png',
+	'image/card/yonglv.png',
+	'image/card/zhanxiang.png',
 	
 	'image/emotion/shibing_emotion/1.gif',
 	'image/emotion/shibing_emotion/2.gif',
