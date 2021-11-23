@@ -6507,7 +6507,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.draw(4-player.countCards("h"),"nodelay");
 					}
 					else{
-						player.chooseToDiscard("绝境：弃置"+get.cnNumber(player.countCards("h")-4)+"张牌",player.countCards("h")-4,true);
+						player.chooseToDiscard("绝境：弃置"+get.cnNumber(player.countCards("h")-4)+"张牌",player.countCards("h")-4,true).set("delay",false);
 					}
 				},
 				ai:{
@@ -10298,7 +10298,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.countCards("h")>player.maxHp&&player.countCards("hej")>1) player.discardPlayerCard("暴食：弃置"+get.cnNumber(player.countCards("hej")-1)+"张牌",player,player.countCards("hej")-1,"hej",true).set("ai",function(button){
 						if(get.position(button.link)=="e"||get.position(button.link)=="j") return 100;
 						return 11-_status.event.player.getUseValue(button.link);
-					});
+					}).set("delay",false);
 				},
 			},
 			sst_wangyan:{
