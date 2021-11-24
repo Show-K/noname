@@ -6802,7 +6802,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				check:function(event,player){
-					return player.hp>2&&event.player.countCards("h")>=4;
+					return (player.hp>2||player.hasUsableCard("tao"))&&event.player.countCards("h")>=4;
 				},
 				group:["sst_jingyue2","sst_jingyue3"],
 			},
@@ -8271,7 +8271,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseToDiscard(get.prompt2("sst_yufeng",trigger.player)).set("logSkill",["sst_yufeng",trigger.player]);
+					player.chooseToDiscard(get.prompt2("sst_yufeng",trigger.player)).set("ai",function(card){
+						var player=_status.event.player;
+						var target=_status.event.targetx;
+						var judges=target.getCards("j");
+						if(get.attitude(player,target)>0&&judges&&judges.length&&!player.hasWuxie()){
+							var judge=get.judge(judges[0]);
+							return judge(card)*(11-get.value(card));
+						}
+					}).set("targetx",trigger.player).set("logSkill",["sst_yufeng",trigger.player]);
 					"step 1"
 					if(result.cards&&result.cards.length){
 						var color=get.color(result.cards[0]);
@@ -8373,6 +8381,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							evt.skipped=true;
 						}
 					}
+				},
+				ai:{
+					effect:{
+						player:function(card,player){
+							if(get.suit(card)==player.storage.sst_chihang_suit){
+								return [1,3];
+							}
+							else{
+								return [1,-3];
+							}
+						},
+					},
 				},
 			},
 			//Wolf
@@ -9287,11 +9307,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseCardButton(event.cards,get.prompt("sst_tanyun")).set("ai",function(button){
 						var player=_status.event.player;
 						var judges=player.getCards("j");
-						if(ui.selected.buttons&&ui.selected.buttons.length){
-							for(var i=0;i<ui.selected.buttons.length;i++){
-								if(judges&&judges.length) judges.shift();
-							}
-						}
 						if(judges&&judges.length&&!player.hasWuxie()){
 							var judge=get.judge(judges[0]);
 							return judge(button.link)*(11-get.value(button.link));
