@@ -1,8 +1,7 @@
 window.noname_update={
-	version:'1.9.110.10',
-	update:'1.9.110.9.4.0.4',
+	version:'1.9.110.10SST',
+	update:'1.9.110.10',
 	changeLog:[
-		'用间篇卡牌包',
 		'bug修复',
 		'其他',
 	],
