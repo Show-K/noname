@@ -22,9 +22,7 @@ window.noname_character_rank={
 			"ymk_claude",
 			"ymk_isabelle",
 			"sst_sans",
-			"ymk_yumiko",
-			"sst_steve",
-			"sst_fox"
+			"ymk_yumiko"
 		],
 		epic:[
 			"sst_dr_mario",
@@ -67,7 +65,9 @@ window.noname_character_rank={
 			"sst_pikachu",
 			"sst_enderman",
 			"sst_sephiroth",
-			"sst_pokemon_trainer_blue"
+			"sst_pokemon_trainer_blue",
+			"sst_steve",
+			"sst_fox"
 		],
 		rare:[
 			"sst_mario",

@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.110.10SST',
-	update:'1.9.110.10',
+	version:'1.9.110.10SST2',
+	update:'1.9.110.10SST',
 	changeLog:[
 		'bug修复',
 		'其他',
@@ -46,8 +46,8 @@ window.noname_update={
 		//'character/swd.js',
 		//'character/xianjian.js',
 		//'character/xinghuoliaoyuan.js',
-		'character/yingbian.js',
-		'character/yijiang.js',
+		//'character/yingbian.js',
+		//'character/yijiang.js',
 		//'character/yxs.js',
 		//'extension/boss/extension.js',
 		'layout/layout.css',

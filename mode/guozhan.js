@@ -1782,9 +1782,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseToCompare(target).set("onCompare",function(player){//拼点时拼点牌为
-						return game.cardsGotoSpecial(get.cards()).cards;//牌堆顶一张牌
-					});
+					var next=player.chooseToCompare(target);
+					if(!next.fixedResult) next.fixedResult={};
+					next.fixedResult[player.playerid]=get.cards()[0];
 					"step 1"
 					if(result.bool){
 						target.addTempSkill("gz_sst_yinjie2");
@@ -1817,23 +1817,6 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						}
 					},
 					order:6,
-				},
-				group:["gz_sst_yinjie_compare"],
-				subSkill:{
-					compare:{
-						trigger:{
-							global:"chooseToCompareBefore",
-						},
-						filter:function(event,player){
-							//game.log(event.getParent().name);
-							return event.getParent().name=="gz_sst_yinjie";
-						},
-						silent:true,
-						content:function(){
-							if(!trigger.fixedResult) trigger.fixedResult={};
-							trigger.fixedResult[player.playerid]=get.cards()[0];
-						},
-					},
 				},
 			},
 			gz_sst_yinjie2:{
