@@ -1359,11 +1359,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			ymk_qiuyi:{
-				usable:1,
 				trigger:{global:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return ["basic","trick"].contains(get.type(event.card))&&(event.player.hp>=player.hp||event.player.countCards("h")>=player.countCards("h"));
+					return !player.hasSkill("ymk_qiuyi3")&&!["shan","wuxie"].contains(get.name(event.card))&&["basic","trick"].contains(get.type(event.card))&&(event.player.hp>=player.hp||event.player.countCards("h")>=player.countCards("h"));
 				},
 				content:function(){
 					"step 0"
@@ -1375,7 +1374,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.cards&&result.cards.length){
 						player.logSkill("ymk_qiuyi",trigger.player);
+						player.addTempSkill("ymk_qiuyi3");
 						player.give(result.cards,trigger.player);
+						if(!trigger.player.storage.ymk_qiuyi) trigger.player.storage.ymk_qiuyi=0;
+						trigger.player.storage.ymk_qiuyi++;
+						trigger.player.addTempSkill("ymk_qiuyi2");
 					}
 					else{
 						event.finish();
@@ -1384,6 +1387,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseUseTarget("求艺：使用"+get.translation(trigger.card),trigger.card,true,false);
 				},
 			},
+			ymk_qiuyi2:{
+				mod:{
+					maxHandcard:function(player,num){
+						if(typeof player.storage.ymk_qiuyi=="number"){
+							return num+player.storage.ymk_qiuyi;
+						}
+					},
+				},
+			},
+			ymk_qiuyi3:{},
 			ymk_xifang:{
 				usable:1,
 				trigger:{source:"gainAfter"},
@@ -1403,13 +1416,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(!colors.contains(get.color(cards[i]))) colors.push(get.color(cards[i]));
 						if(!types.contains(get.type(cards[i],"trick"))) types.push(get.type(cards[i],"trick"));
 					}
-					var num=(colors.length>1?1:0)+(types.length>1?1:0);
-					if(num) player.draw(num);
+					if(colors.length>1||types.length>1) player.draw();
 					//if(colors.length>1) player.draw();
 					//if(types.length>1) player.draw();
-				},
-				ai:{
-					threaten:3,
 				},
 			},
 			ska_mengjin:{
