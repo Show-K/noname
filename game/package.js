@@ -1,6 +1,7 @@
 window.noname_package={
 	character:{
 		sst:'大乱桌斗',
+		sst_yingbian:'乱斗应变',
 		sst_sp:'乱斗SP',
 		sst_old:'乱斗怀旧',
 		/*

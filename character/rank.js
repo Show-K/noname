@@ -19,10 +19,8 @@ window.noname_character_rank={
 	],
 	rarity:{
 		legend:[
-			"ymk_claude",
 			"ymk_isabelle",
-			"sst_sans",
-			"ymk_yumiko"
+			"sst_sans"
 		],
 		epic:[
 			"sst_dr_mario",
@@ -67,7 +65,8 @@ window.noname_character_rank={
 			"sst_sephiroth",
 			"sst_pokemon_trainer_blue",
 			"sst_steve",
-			"sst_fox"
+			"sst_fox",
+			"ymk_yumiko"
 		],
 		rare:[
 			"sst_mario",
@@ -120,7 +119,8 @@ window.noname_character_rank={
 			"ska_professor_toad",
 			"sst_geno",
 			"sst_ken",
-			"sst_pyra_mythra"
+			"sst_pyra_mythra",
+			"sst_claude"
 		],
 		junk:[
 			"sst_donkey_kong",

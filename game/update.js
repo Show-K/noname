@@ -1,7 +1,8 @@
 window.noname_update={
-	version:'1.9.110.10SST2',
-	update:'1.9.110.10SST',
+	version:'1.9.110.10SST3',
+	update:'1.9.110.10SST2',
 	changeLog:[
+		'新增 乱斗应变 库罗德',
 		'bug修复',
 		'其他',
 	],
@@ -9,6 +10,7 @@ window.noname_update={
 		//'card/sst.js',
 		//'card/sst_sp.js',
 		'character/sst.js',
+		'character/sst_yingbian.js',
 		'character/sst_sp.js',
 		'character/sst_old.js',
 		//'card/extra.js',

@@ -10863,7 +10863,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseCard("he",2,get.prompt2("sst_yonghun")).set("ai",function(card){
 						if(get.tag(card,"damage")){
-							return 8-get.value(card);
+							return 10-get.value(card);
 						}
 						return 5-get.value(card);
 					});
@@ -12508,7 +12508,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				trigger:{global:"dying"},
 				filter:function(event,player){
-					if(get.distance(player,event.player)>1) return false;
 					var evt=event.getParent();
 					return evt&&evt.name=="damage"&&evt.source==player;
 				},
@@ -13377,7 +13376,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_menghuo:"猛火",
 			sst_menghuo2:"猛火",
 			sst_menghuo3:"猛火",
-			sst_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当与你距离1以内的角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
+			sst_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
 			sst_xingjiang:"星降",
 			sst_xingjiang_info:"出牌阶段限一次，你可以亮出牌堆顶一张牌。若如此做，你可以弃置一张牌，然后若这两张牌的类型、颜色、点数：1. 其中一项相同，你可以弃置场上一张牌；2. 其中两项相同，你可以对一名角色造成1点伤害；3. 其中三项相同，你可以令一名角色翻面。",
 			sst_fuyuan:"复愿",

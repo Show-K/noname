@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.110.10SST2',
+	'v1.9.110.10SST3',
 	//新增内容
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -105,7 +105,7 @@ window.noname_asset_list=[
 	'image/character/sst_pokemon_trainer_blue.png',
 	'image/character/sst_geno.png',
 
-	'image/character/ymk_claude.png',
+	'image/character/sst_claude.png',
 	'image/character/ymk_isabelle.png',
 	'image/character/ska_bobby.png',
 	'image/character/ska_olivia.png',

@@ -461,6 +461,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					return target!=player&&(get.mode()!='guozhan'||_status.mode=='yingbian'||_status.mode=='free'||target.countCards('e')>0);
 				},
 				enable:true,
+				yingbian_tags:['all','add'],
 				yingbian_prompt:function(card){
 					var str='';
 					if(get.cardtag(card,'yingbian_all')){

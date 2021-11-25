@@ -42,6 +42,7 @@ window.noname_source_list=[
 	'character/yxs.js',
 	*/
 	'character/sst.js',
+	'character/sst_yingbian.js',
 	'character/sst_sp.js',
 	'character/sst_old.js',
 	'game/asset.js',

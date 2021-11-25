@@ -5,7 +5,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_sp:{
-				sst_ymk:["ymk_claude","ymk_isabelle","ymk_577","ymk_yumiko"],
+				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumiko"],
 				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad"],
 				sst_nnk:[],
 			},
@@ -14,7 +14,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//武将格式:
 			//"武将名字":["性别","势力",体力,[技能],[]],
 			//格式内每一样东西都不能缺少，否则无法导入该武将包及其以下内容
-			ymk_claude:["male","sst_spirit",3,["ymk_yunchou","ymk_guimou"],[]],
 			ymk_isabelle:["female","sst_light",3,["ymk_zhongmi","ymk_mihu"],[]],
 			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_daishi","ska_yangxun"],[]],
 			ska_olivia:["female","sst_spirit",3,["ska_shenqi","ska_zhefu"],[]],
@@ -44,15 +43,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"+
 			"
 			*/
-			ymk_claude:"1386. 库罗德/Claude/クロード<br>"+
-			"系列：Fire Emblem（火焰纹章）<br>"+
-			"初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>"+
-			"武将作者：Yumikohimi<br>"+
-			"--------------------------------<br>"+
-			"雷斯塔诸侯同盟盟主之孙、爵位继承人。喜欢策略，喜欢琢磨战术，为了达到目标可以不择手段。不论玩家选择的是贝雷特还是贝雷丝，他都会以“兄弟”称呼他的老师。<br>"+
-			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"--------------------------------<br>"+
-			"芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
 			ymk_isabelle:"0827. 西施惠/Isabelle/しずえ<br>"+
 			"系列：Animal Crossing（动物森友会）<br>"+
 			"初登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>"+
@@ -103,7 +93,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 		},//武将介绍（选填）
 		characterTitle:{
-			ymk_claude:"连系世界之王",
 			ymk_isabelle:"尽忠职守",
 			ska_bobby:"枫海思忆",
 			ska_olivia:"折纸赋情",
@@ -116,345 +105,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
-			ymk_yunchou:{
-				group:["ymk_yunchou2"],
-				init:function(player){
-					if(!player.storage.ymk_yunchou) player.storage.ymk_yunchou=[];
-				},
-				intro:{
-					name:"运筹",
-					name2:"筹",
-					content:"cards",
-					onunmark:function(storage,player){
-						if(storage&&storage.length){
-							player.$throw(storage,1000);
-							game.cardsDiscard(storage);
-							game.log(storage,"被置入了弃牌堆");
-							storage.length=0;
-						}
-					},
-				},
-				trigger:{
-					player:"phaseDiscardBegin",
-				},
-				direct:true,
-				filter:function(event,player){
-					return player.storage.ymk_yunchou.length==0&&player.countCards("he");
-				},
-				content:function(){
-					"step 0"
-					player.chooseCard(get.prompt("ymk_yunchou"),"你可以将最多"+get.cnNumber(Math.max(1,player.getDamagedHp()))+"张牌置于武将牌上","he",[1,Math.max(1,player.getDamagedHp())]).set("ai",function(card){
-						return 11-get.value(card);
-					});
-					"step 1"
-					if(result.cards&&result.cards.length){
-						player.logSkill("ymk_yunchou");
-						player.lose(result.cards,ui.special,"toStorage");
-						player.$give(result.cards,player,"visible",false);
-						player.storage.ymk_yunchou=player.storage.ymk_yunchou.concat(result.cards);
-						player.syncStorage("ymk_yunchou");
-						player.markSkill("ymk_yunchou");
-						game.log(player,"将",result.cards,"置于武将牌上");
-					}
-				},
-				/*
-				ai:{
-					effect:{
-						player:function(card,player){
-							if(player.countCards("h")<=2) return [-1,-3];
-						},
-					},
-				},
-				*/
-			},
-			ymk_yunchou2:{
-				trigger:{
-					player:"moveLastCardFromStorage",
-				},
-				filter:function(event,player){
-					return true;
-				},
-				direct:true,
-				content:function(){
-					"step 0"
-					if(!player.getDamagedHp()&&!player.canMoveCard(true)){
-						event.finish();
-					}
-					else if(player.getDamagedHp()&&!player.canMoveCard(true)){
-						player.chooseControl("回复一点体力","cancel2").set("prompt",get.prompt("ymk_yunchou")).set("prompt2","你可以回复一点体力").set("ai",function(){
-							var player=_status.event.player;
-							if(player.getDamagedHp()>0&&get.recoverEffect(player,player,player)>0){
-								return "回复一点体力";
-							}
-							else{
-								return "cancel2";
-							}
-						});
-					}
-					else if(!player.getDamagedHp()&&player.canMoveCard(true)){
-						player.chooseControl("移动场上的一张牌","cancel2").set("prompt",get.prompt("ymk_yunchou")).set("prompt2","你可以移动场上的一张牌").set("ai",function(){
-							var player=_status.event.player;
-							if(player.canMoveCard(true)){
-								return "移动场上的一张牌";
-							}
-							else{
-								return "cancel2";
-							}
-						});
-					}
-					else{
-						player.chooseControl("回复一点体力","移动场上的一张牌","cancel2").set("prompt",get.prompt("ymk_yunchou")).set("prompt2","你可以回复一点体力或移动场上的一张牌").set("ai",function(){
-							var player=_status.event.player;
-							if(player.getDamagedHp()>0&&get.recoverEffect(player,player,player)>0){
-								return "回复一点体力";
-							}
-							else if(player.canMoveCard(true)){
-								return "移动场上的一张牌";
-							}
-							else{
-								return "cancel2";
-							}
-						});
-					}
-					"step 1"
-					switch(result.control){
-						case "回复一点体力":{
-							player.logSkill("ymk_yunchou");
-							player.recover();
-							break;
-						}
-						case "移动场上的一张牌":{
-							player.logSkill("ymk_yunchou");
-							player.moveCard();
-							break;
-						}
-						default:{
-							event.finish();
-							break;
-						}
-					}
-				},
-				ai:{
-					expose:0.2,
-				},
-			},
-			ymk_guimou:{
-				group:["ymk_guimou2","ymk_guimou3","ymk_guimou4","ymk_guimou5"],
-				enable:"chooseToUse",
-				filter:function(event,player){
-					/*
-					if(event.type=="wuxie"||event.type=="respondShan"||!player.storage.ymk_yunchou||!player.storage.ymk_yunchou.length) return false;
-					var list=["sha","tao","shan","jiu","taoyuan","wugu","juedou","huogong","jiedao","tiesuo","guohe","shunshou","wuzhong","wanjian","nanman"];
-					if(get.mode()=="guozhan"){
-						list=list.concat(["xietianzi","shuiyanqijunx","lulitongxin","lianjunshengyan","chiling","diaohulishan","yuanjiao","huoshaolianying"]);
-					}
-					for(var i=0;i<list.length;i++){
-						if(event.filterCard({name:list[i]},player)) return true;
-					}
-					return false;
-					*/
-					return event.type!="wuxie"&&event.type!="respondShan"&&player.storage.ymk_yunchou&&player.storage.ymk_yunchou.length;
-				},
-				chooseButton:{
-					dialog:function(){
-						var list=[];
-						for(var i=0;i<lib.inpile.length;i++){
-							var name=lib.inpile[i];
-							if(name=="wuxie") continue;
-							if(name=="sha"){
-								list.push(["基本","","sha"]);
-								list.push(["基本","","sha","fire"]);
-								list.push(["基本","","sha","thunder"]);
-								list.push(["基本","","sha","ice"]);
-							}
-							else if(get.type(name)=="trick") list.push(["锦囊","",name]);
-							else if(get.type(name)=="basic") list.push(["基本","",name]);
-						}
-						return ui.create.dialog("鬼谋",[list,"vcard"]);
-					},
-					filter:function(button,player){
-						/*
-						var evt=_status.event.getParent();
-						if(evt&&evt.filterCard){
-							return evt.filterCard({name:button.link[2]},player,evt);
-						}
-						return true;
-						*/
-						return _status.event.getParent().filterCard({name:button.link[2]},player,_status.event.getParent());
-					},
-					check:function(button){
-						var player=_status.event.player;
-						if(player.countCards("hs",button.link[2])>0) return 0;
-						if(button.link[2]=="wugu") return;
-						var effect=player.getUseValue(button.link[2]);
-						if(effect>0) return effect;
-						return 0;
-					},
-					backup:function(links,player){
-						return {
-							filterCard:function(){return false;},
-							selectCard:-1,
-							viewAs:{name:links[0][2],nature:links[0][3]},
-						}
-					},
-					prompt:function(links,player){
-						return "将武将牌上的一张牌置于牌堆顶，视为你使用一张"+get.translation(links[0][2]);
-					},
-				},
-				ai:{
-					threaten:2,
-					order:5,
-					result:{
-						player:1,
-					},
-					save:true,
-					respondSha:true,
-					respondTao:true,
-					skillTagFilter:function(player){
-						if(!player.storage.ymk_yunchou||!player.storage.ymk_yunchou.length) return false;
-					},
-				},
-			},
-			ymk_guimou2:{
-				trigger:{player:"useCardBefore"},
-				filter:function(event,player){
-					return event.skill=="ymk_guimou_backup"||event.skill=="ymk_guimou4"||event.skill=="ymk_guimou5";
-				},
-				silent:true,
-				priority:15,
-				content:function(){
-					"step 0"
-					player.logSkill("ymk_guimou");
-					player.chooseCardButton("鬼谋：选择武将牌上的一张牌",player.storage.ymk_yunchou,true).set("ai",function(button){
-						return 1/Math.max(0.1,get.value(button.link));
-					});
-					"step 1"
-					if(result.links){
-						event.card=result.links[0];
-						//game.cardsDiscard(card);
-						player.$throw(event.card,1000);
-						player.storage.ymk_yunchou.remove(event.card);
-						player.syncStorage("ymk_yunchou");
-						player.updateMarks();
-						game.delayx();
-						if(!player.storage.ymk_yunchou.length){
-							player.unmarkSkill("ymk_yunchou");
-							event.trigger("moveLastCardFromStorage");
-						}
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					event.card.fix();
-					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
-					game.log(player,"将",event.card,"置于牌堆顶");
-					game.updateRoundNumber();
-				},
-			},
-			ymk_guimou3:{
-				trigger:{player:"chooseToRespondBegin"},
-				filter:function(event,player){
-					if(event.responded) return false;
-					if(!event.filterCard({name:"shan"})&&!event.filterCard({name:"sha"})) return false;
-					if(!player.storage.ymk_yunchou||!player.storage.ymk_yunchou.length) return false;
-					return true;
-				},
-				direct:true,
-				content:function(){
-					"step 0"
-					if(trigger.filterCard({name:"shan"})&&lib.filter.cardRespondable({name:"shan"},player,trigger)) event.name="shan";
-					else event.name="sha";
-					player.chooseBool(get.prompt("ymk_guimou"),"你可以将武将牌上的一张牌置于牌堆顶，视为打出一张"+get.translation(event.name)).set("ai",function(){
-						return true;
-					});
-					"step 1"
-					if(result.bool){
-						player.logSkill("ymk_guimou");
-						player.chooseCardButton("鬼谋：选择武将牌上的一张牌",player.storage.ymk_yunchou,true).set("ai",function(button){
-							return 1/Math.max(0.1,get.value(button.link));
-						});
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(result.links){
-						event.card=result.links[0];
-						player.$throw(event.card,1000);
-						player.storage.ymk_yunchou.remove(event.card);
-						player.syncStorage("ymk_yunchou");
-						player.updateMarks();
-						if(!player.storage.ymk_yunchou.length) {
-							player.unmarkSkill("ymk_yunchou");
-							event.trigger("moveLastCardFromStorage");
-						}
-					}
-					"step 3"
-					event.card.fix();
-					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
-					game.log(player,"将",event.card,"置于牌堆顶");
-					game.updateRoundNumber();
-					"step 4"
-					trigger.untrigger();
-					trigger.responded=true;
-					trigger.result={bool:true,card:{name:event.name}};
-				},
-				ai:{
-					basic:{
-						useful:[6,4],
-						value:[6,4],
-					},
-					result:{
-						player:1,
-					},
-				},
-			},
-			ymk_guimou4:{
-				prompt:"将武将牌上的一张牌置于牌堆顶，视为使用一张闪",
-				enable:"chooseToUse",
-				filter:function(event,player){
-					return player.storage.ymk_yunchou&&player.storage.ymk_yunchou.length;
-				},
-				filterCard:function(){return false;},
-				selectCard:-1,
-				viewAs:{name:"shan"},
-				ai:{
-					skillTagFilter:function(player){
-						return player.storage.ymk_yunchou&&player.storage.ymk_yunchou.length;
-					},
-					respondShan:true,
-				},
-			},
-			ymk_guimou5:{
-				enable:"chooseToUse",
-				filterCard:function(){return false;},
-				selectCard:-1,
-				viewAsFilter:function(player){
-					return player.storage.ymk_yunchou&&player.storage.ymk_yunchou.length;
-				},
-				viewAs:{name:"wuxie"},
-				/*
-				check:function(card){
-					if (card.name == "wuxie") return 1000;
-					return 0;
-				},
-				*/
-				prompt:"将武将牌上的一张牌置于牌堆顶，视为使用一张无懈可击",
-				/*
-				threaten:1.2,
-				ai:{
-					basic:{
-						useful:[6,4],
-						value:[6,4],
-					},
-					result:{
-						player:1,
-					},
-					expose:0.2,
-				},
-				*/
-			},
 			ymk_zhongmi:{
 				trigger:{player:["gainAfter","loseAfter"]},
 				filter:function(event,player){
@@ -1806,7 +1456,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		*/
 		translate: {
 			//武将
-			ymk_claude:"库罗德",
 			ymk_isabelle:"SP西施惠",
 			ska_bobby:"炸弹彬",
 			ska_olivia:"奥莉维亚",
@@ -1817,15 +1466,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bowser:"☆SP酷霸王",
 			ska_professor_toad:"考古学家奇诺比奥",
 			//身份技能
-			ymk_yunchou:"运筹",
-			ymk_yunchou2:"运筹",
-			ymk_yunchou_info:"弃牌阶段开始时，若你的武将牌上没有牌，你可以将至多X张牌（X为你已损失的体力值且至少为1）置于你的武将牌上。当你失去武将牌上的最后一张牌时，你可以回复一点体力或移动场上的一张牌。",
-			ymk_guimou:"鬼谋",
-			ymk_guimou_backup:"鬼谋",
-			ymk_guimou3:"鬼谋",
-			ymk_guimou4:"鬼谋",
-			ymk_guimou5:"鬼谋",
-			ymk_guimou_info:"当你需要使用或打出一张基本牌或普通锦囊牌时，你可以将武将牌上的一张牌置于牌堆顶，视为你使用或打出这张牌。",
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
 			ymk_mihu:"迷糊",
@@ -1885,7 +1525,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_nnk:"南柯",
 		},
 		perfectPair:{
-			ymk_claude:["sst_byleth_male","sst_byleth_female"],
 			ymk_isabelle:["sst_villager"],
 			ymk_yumiko:["sst_mnm","sst_terry"],
 			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad"],
