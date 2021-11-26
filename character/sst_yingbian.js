@@ -36,7 +36,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_claude:"1386. 库罗德/Claude/クロード<br>"+
 			"系列：Fire Emblem（火焰纹章）<br>"+
 			"初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>"+
-			"武将作者：Yumikohimi<br>"+
+			"武将作者：mario not mary、Yumikohimi<br>"+
 			"--------------------------------<br>"+
 			"雷斯塔诸侯同盟盟主之孙、爵位继承人。喜欢策略，喜欢琢磨战术，为了达到目标可以不择手段。不论玩家选择的是贝雷特还是贝雷丝，他都会以“兄弟”称呼他的老师。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
