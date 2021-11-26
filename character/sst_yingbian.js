@@ -107,10 +107,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var choices=["yingbian_damage_tag","yingbian_hit_tag","yingbian_draw_tag","yingbian_gain_tag","yingbian_add_tag","yingbian_all_tag","yingbian_remove_tag"];
 						var list=_status.event.list;
 						var card=_status.event.card;
-						var bool=true;
 						for(var i=0;i<choices.length;i++){
-							if(_status.cardtag&&_status.cardtag[choices[i].slice(0,-4)]&&_status.cardtag[choices[i].slice(0,-4)].contains(card.cardid)) bool=false;
-							if(list.contains(choices[i])&&bool) return choices[i];
+							if(_status.cardtag&&_status.cardtag[choices[i].slice(0,-4)]&&_status.cardtag[choices[i].slice(0,-4)].contains(card.cardid)) return "cancel2";
+							if(list.contains(choices[i])) return choices[i];
 						}
 						return "cancel2";
 					}).set("list",list).set("card",trigger.card).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.translation("sst_guimou_info"));
