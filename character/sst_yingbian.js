@@ -92,13 +92,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_guimou:{
-				init:function(player){
-					player.storage.sst_guimou=0;
-				},
 				direct:true,
 				trigger:{player:"useCardBegin"},
 				filter:function(event,player){
-					return player.storage.sst_guimou<Math.ceil(game.countPlayer2()/2)&&get.is.yingbian(event.card);
+					return !player.hasSkill("sst_guimou2")&&get.is.yingbian(event.card);
 				},
 				content:function(){
 					"step 0"
@@ -120,7 +117,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
 						player.logSkill("sst_guimou");
-						player.storage.sst_guimou++;
+						player.addTempSkill("sst_guimou2");
 						if(!_status.cardtag) _status.cardtag={};
 						var list=["yingbian_add","yingbian_remove","yingbian_draw","yingbian_all","yingbian_hit","yingbian_gain","yingbian_damage"];
 						var cardtag=[];
@@ -160,6 +157,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 			},
+			sst_guimou2:{},
 		},//技能（必填）
 		dynamicTranslate:{
 		},
@@ -182,7 +180,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou3:"鬼谋",
 			sst_guimou4:"鬼谋",
 			sst_guimou5:"鬼谋",
-			sst_guimou_info:"每局游戏限X次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。（X为游戏人数的一半且向上取整）",
+			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			//武将分类
 		},
 		perfectPair:{
