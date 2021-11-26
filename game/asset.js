@@ -319,6 +319,8 @@ window.noname_asset_list=[
 	'audio/skill/qinglong_skill.mp3',
 	'audio/skill/renwang_skill.mp3',
 	'audio/skill/sanjian_skill.mp3',
+	'audio/skill/tengjia1.mp3',
+	'audio/skill/tengjia2.mp3',
 	'audio/skill/zhangba_skill.mp3',
 	'audio/skill/zhuge_skill.mp3',
 	'audio/skill/zhuque_skill.mp3',
