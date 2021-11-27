@@ -5911,7 +5911,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				//frequent:true,
 				check:function(event,player){
 					return game.hasPlayer(function(current){
-						return player.canUse({name:"sha"},current)&&get.effect(current,{name:"sha"},player,player);
+						return player.canUse({name:"sha"},current)&&get.effect(current,{name:"sha"},player,player)>0;
 					});
 				},
 				content:function(){
@@ -5925,7 +5925,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					});
 					"step 1"
-					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true);
+					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){return false;});
 				},
 				group:["sst_cuifeng2"],
 			},
@@ -8111,7 +8111,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result&&result.bool&&result.links[0]){
 						var card=game.createCard(result.links[0][2],"","");
 						player.storage.sst_qichang=card;
-						player.directequip(card);
+						player.equip(card);
 					}
 				},
 				mod:{

@@ -179,7 +179,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoOrdering(event.card);
 					player.showCards(event.card);
 					"step 1"
-					player.chooseToDiscard("星降：你可以弃置一张牌，然后若与"+get.translation(event.card)+"的类型相同，你可以弃置场上一张牌；花色相同，你可以对一名角色造成1点伤害；点数相同，你可以令一名角色翻面。","he").set("ai",function(card){
+					player.chooseToRespond("星降：你可以打出一张牌，然后若与"+get.translation(event.card)+"的类型相同，你可以弃置场上一张牌；花色相同，你可以对一名角色造成1点伤害；点数相同，你可以令一名角色翻面。").set("ai",function(card){
 						var player=_status.event.player;
 						var cardx=_status.event.cardx;
 						var num=0;
@@ -199,10 +199,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							})) return 7-get.value(card);
 							return 6-get.value(card)+num;
 						}
-					}).set("cardx",event.card);
+					}).set("position","he").set("cardx",event.card);
 					"step 2"
-					if(result.cards&&result.cards.length){
-						var card=result.cards[0];
+					if(result.card){
+						var card=result.card;
 						event.conditions=[false,false,false];
 						event.num=0;
 						if(get.type(card,"trick")==get.type(event.card,"trick")) event.conditions[0]=true;
@@ -392,7 +392,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou5:"鬼谋",
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_xingjiang:"星降",
-			sst_xingjiang_info:"出牌阶段限一次，你可以亮出牌堆顶一张牌。若如此做，你可以弃置一张牌，然后若这两张牌的类型相同，你可以弃置场上一张牌；花色相同，你可以对一名角色造成1点伤害；点数相同，你可以令一名角色翻面。",
+			sst_xingjiang_info:"出牌阶段限一次，你可以亮出牌堆顶一张牌。若如此做，你可以打出一张牌，然后若这两张牌的类型相同，你可以弃置场上一张牌；花色相同，你可以对一名角色造成1点伤害；点数相同，你可以令一名角色翻面。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan2:"复愿",
 			sst_fuyuan_info:"一名角色的结束阶段，你可以令一名角色摸X张牌，然后弃置Y张牌（X/Y为本回合累计获得/失去的牌且至多为7）。若因此其手牌数与其体力值或体力上限相等，你可以观看牌堆顶一张牌，然后你可以使用此牌（其应变效果直接生效）。",
