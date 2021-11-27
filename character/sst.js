@@ -3519,7 +3519,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juezhan:{
 				init:function(player){
 					player.storage.sst_juezhan=[true,true,true];
-					if(_status._sst_start){
+					if(_status.sst_started){
 						//player.logSkill("sst_juezhan");
 						player.disableEquip("equip1");
 						player.disableEquip("equip2");
@@ -12114,7 +12114,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fankui:{
 				init:function(player){
 					player.storage.sst_fankui_cards=[];
-					if(_status._sst_start){
+					if(_status.sst_started){
 						player.storage.sst_fankui={};
 						var players=game.filterPlayer().sortBySeat();
 						for(var i=0;i<players.length;i++){
