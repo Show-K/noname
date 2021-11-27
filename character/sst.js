@@ -11199,7 +11199,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.card=result.cards[0];
 						player.loseToSpecial(cards,"sst_qiaoqi",target);
 						player.popup(get.name(event.card));
-						target.addGaintag(cards,get.translation(event.card));
+						for(var i=0;i<cards.length;i++){
+							target.addGaintag(cards[i],get.translation(event.card));
+						}
 						game.log(player,"将此牌扣置于",event.card,"上");
 						player.$give(1,target,false);
 					}
@@ -11251,6 +11253,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var card;
 					for(var i=0;i<trigger.es.length;i++){
 						card=trigger.es[i];
+						if(get.name(card)=="muniu") continue;
 						if((!event.getParent(2)||event.getParent(2).name!="swapEquip")&&(event.getParent().type!="equip"||event.getParent().swapEquip)){
 							player.lose(card.cards,ui.discardPile);
 							player.$throw(card.cards,1000);
