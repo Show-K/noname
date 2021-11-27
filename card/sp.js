@@ -11,6 +11,27 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				type:'trick',
 				notarget:true,
 				global:['g_jinchan','g_jinchan2'],
+				yingbian_tags:['gain','draw'],
+				yingbian_prompt:function(card){
+					var str='';
+					if(get.cardtag(card,'yingbian_gain')){
+						str+='当你声明使用此牌时，你获得此牌响应的目标牌';
+					}
+					if(!str.length||get.cardtag(card,'yingbian_draw')){
+						if(str.length) str+='；';
+						str+='当你声明使用此牌时，你摸一张牌';
+					}
+					return str;
+				},
+				yingbian:function(event){
+					var bool=false;
+					if(get.cardtag(event.card,'yingbian_gain')){
+						bool=true;
+						var cardx=event.respondTo;
+						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD('od').length) player.gain(cardx[1].cards.filterInD('od'),'gain2','log');
+					}
+					if(!bool||get.cardtag(event.card,'yingbian_draw')) event.player.draw();
+				},
 				content:function(){
 					var evt=event.getParent(3)._trigger;
 					if(evt.jinchan){

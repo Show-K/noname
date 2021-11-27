@@ -1261,7 +1261,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var player=_status.event.player;
 							var target=_status.event.targetx;
 							if(get.attitude(player,target)>0) return 8-get.value(card);
-							return 0;
 						}).set("targetx",player);
 						//player.storage.sst_huandai_target=result.targets[0];
 						event.target=result.targets[0];
@@ -1740,7 +1739,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(button.link==_status.pileTop) return 10;
 							return 5-get.useful(button.link);
 						}
-						return 0;
 					});
 					next.set("cardx",trigger.card);
 					next.set("effect",effect);
@@ -1806,7 +1804,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				check:function(card){
 					var player=_status.event.player;
-					if(!ui.selected.cards.length&&!player.hasSkill("sst_qiji_turn")) return 0;
+					if(!ui.selected.cards.length&&!player.hasSkill("sst_qiji_turn")) return;
 					return 8-get.value(card);
 				},
 				//prompt:"不选择牌：你翻面，令目标摸三张牌<br>选择三张牌：你弃置这三张牌，令目标翻面",
@@ -7849,7 +7847,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return Math.sqrt(get.attitude(player,target));
 						},
 						player:function(player,target){
-							return player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"});
+							if(player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})>=0) return player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})+1;
+							return 0;
 						},
 					},
 				},
@@ -8123,7 +8122,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result&&result.bool&&result.links[0]){
 						var card=game.createCard(result.links[0][2],"","");
 						player.storage.sst_qichang=card;
-						player.equip(card);
+						player.directequip(card);
 					}
 				},
 				mod:{
@@ -8161,9 +8160,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qichang4:{
 				trigger:{
 					player:"loseAfter",
-					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter"],
+					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","die"],
 				},
 				filter:function(event,player){
+					if(event.name="die") return true;
 					var evt=event.getl(player);
 					return evt&&evt.player==player&&evt.es&&evt.es.length>0&&evt.es.contains(player.storage.sst_qichang);
 				},
@@ -8271,17 +8271,30 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var player=_status.event.player;
 						var target=_status.event.targetx;
 						var judges=target.getCards("j");
-						if(get.attitude(player,target)>0&&judges&&judges.length&&!player.hasWuxie()){
-							var judge=get.judge(judges[0]);
-							return judge(card)*(11-get.value(card));
+						if(judges&&judges.length){
+							if(get.attitude(player,target)>0&&judges&&judges.length&&!player.hasWuxie()){
+								var judge=get.judge(judges[0]);
+								return judge(card)*(11-get.value(card));
+							}
+						}
+						else{
+							if(target==player){
+								if(player.countCards("h",{color:"red"})-player.countCards("h",{color:"black"})>0&&get.color(card)=="red"){
+									return 5-get.value(card);
+								}
+								else if(player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})>=0&&get.color(card)=="black"){
+									return 5-get.value(card);
+								}
+							}
 						}
 					}).set("targetx",trigger.player).set("logSkill",["sst_yufeng",trigger.player]);
 					"step 1"
 					if(result.cards&&result.cards.length){
 						var color=get.color(result.cards[0]);
 						var suit=get.suit(result.cards[0]);
-						trigger.player.storage.sst_yufeng_color=color;
-						trigger.player.storage.sst_yufeng_suit=suit;
+						//game.log(color);
+						//game.log(suit);
+						trigger.player.storage.sst_yufeng=suit;
 						trigger.player.addTempSkill("sst_yufeng2");
 					}
 				},
@@ -8290,7 +8303,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				mod:{
 					suit:function(card,suit){
 						var player=_status.event.player;
-						if(card.color==player.storage.sst_yufeng_color&&player.storage.sst_yufeng_suit&&card.suit!=player.storage.sst_yufeng_suit) return player.storage.sst_yufeng_suit;
+						//var color="none";
+						var color=function(suit){
+							if(["spade","club"].contains(suit)) return "black";
+							if(["heart","diamond"].contains(suit)) return "red";
+							return "none";
+						}
+						//game.log(card.color);
+						//game.log(player.storage.sst_yufeng_color);
+						//game.log(suit);
+						//game.log(player.storage.sst_yufeng_suit);
+						if(player.storage.sst_yufeng&&color(suit)==color(player.storage.sst_yufeng)&&suit!=player.storage.sst_yufeng) return player.storage.sst_yufeng;
 					},
 				},
 			},
@@ -8347,6 +8370,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.showCards(result.cards);
 						player.give(result.cards,result.targets[0]);
 						var suit=get.suit(result.cards[0]);
+						//game.log(suit);
 						player.storage.sst_chihang_suit=suit;
 						player.addTempSkill("sst_chihang3","phaseUseEnd");
 					}
@@ -8361,11 +8385,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					if(get.suit(trigger.card)==player.storage.sst_chihang_suit){
-						player.drawTo(player.maxHp);
+						player.drawTo(player.maxHp,"nodelay");
 						event.finish();
 					}
 					else{
-						player.chooseControl("失去一点体力","结束出牌阶段",true);
+						player.chooseControl("失去一点体力","结束出牌阶段",true).set("prompt","驰航：请选择一项");
 					}
 					"step 1"
 					if(result.control=="失去一点体力"){
@@ -8523,7 +8547,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 										get.recoverEffect(target,player,player)>0){
 										if(target.hp==1&&!target.hujia) return 1.6*att;
 										if(target.hp==2) return 0.01*att;
-										return 0;
+										return;
 									}
 								}
 								var es=target.getCards("e");
@@ -8532,7 +8556,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 									return esx.name=="tengjia"||get.value(esx)>0;
 								}).length==0);
 								var noh=(nh==0||target.hasSkillTag("noh"));
-								if(noh&&(noe||noe2)) return 0;
+								if(noh&&(noe||noe2)) return;
 								if(att<=0&&!target.countCards("he")) return 1.5*att;
 								return -1.5*att;
 							});
@@ -9380,12 +9404,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					var eff=get.effect(player,trigger.card,trigger.source,player);
+					var eff=get.effect(player,trigger.card,trigger.player,player);
 					var dmg=0;
 					game.filterPlayer(function(current){
 						if(current.countCards("h")>player.countCards("h")) dmg=Math.max(dmg,get.damageEffect(current,player,player));
 					});
-					var check=eff-1<0&&dmg;
+					var check=eff-1<0&&dmg>0;
 					player.chooseToDiscard(get.prompt2("sst_fanfei"),"he").set("ai",function(card){
 						if(_status.event.check) return 7-get.value(card);
 					}).set("check",check).set("logSkill",event.name);
