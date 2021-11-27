@@ -501,7 +501,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(get.cardtag(event.card,'yingbian_gain')){
 						bool=true;
 						var cardx=event.respondTo;
-						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD('od').length) player.gain(cardx[1].cards.filterInD('od'),'gain2','log');
+						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD('od').length) event.player.gain(cardx[1].cards.filterInD('od'),'gain2','log');
 					}
 					if(get.cardtag(card,'yingbian_hit')){
 						bool=true;

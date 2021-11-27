@@ -8159,11 +8159,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_qichang4:{
 				trigger:{
-					player:"loseAfter",
-					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","die"],
+					player:["loseAfter","die"],
+					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter"],
 				},
 				filter:function(event,player){
-					if(event.name="die") return true;
+					if(event.name=="die") return true;
 					var evt=event.getl(player);
 					return evt&&evt.player==player&&evt.es&&evt.es.length>0&&evt.es.contains(player.storage.sst_qichang);
 				},
