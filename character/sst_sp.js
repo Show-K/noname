@@ -738,11 +738,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return evt.card==event.card;
 					}).length;
 				},
-				frequent:true,
+				direct:true,
 				content:function(){
-					player.addTempSkill("ska_kezhi3");
-					player.recover();
-					player.draw(2);
+					"step 0"
+					player.chooseDrawRecover(2).set("logSkill","ska_kezhi2");
+					"step 1"
+					if(result.control!="cancel2") player.addTempSkill("ska_kezhi3");
 				},
 			},
 			ska_kezhi3:{},
@@ -762,6 +763,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},
 						prompt:"视为使用或打出一张【杀】",
 						onuse:function(result,player){
+							player.logSkill("ska_jiyan");
 							player.popup("《话语权》");
 							player.chat("《话语权》");
 							player.storage.ska_jiyan.remove("sha");
@@ -796,6 +798,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("shan");
 						},
 						onuse:function(result,player){
+							player.logSkill("ska_jiyan");
 							player.popup("《理解》");
 							player.chat("《理解》");
 							player.storage.ska_jiyan.remove("shan");
@@ -830,6 +833,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("tao");
 						},
 						onuse:function(result,player){
+							player.logSkill("ska_jiyan");
 							player.popup("《硬气》");
 							player.chat("《硬气》");
 							player.storage.ska_jiyan.remove("tao");
@@ -864,6 +868,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("jiu");
 						},
 						onuse:function(result,player){
+							player.logSkill("ska_jiyan");
 							player.popup("《压迫感》");
 							player.chat("《压迫感》");
 							player.storage.ska_jiyan.remove("jiu");
@@ -1494,7 +1499,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_jicai_info:"锁定技，你跳过判定阶段，改为执行一个弃牌阶段；你跳过不以此法执行的弃牌阶段，改为执行一个摸牌阶段。",
 			ska_kezhi:"恪志",
 			ska_kezhi2:"恪志",
-			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以将一张牌当作此牌使用并失去1点体力。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
+			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以将一张牌当作此牌使用并失去1点体力。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_kezhi2_info:"每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
 			ska_jiyan:"籍验",
 			ska_jiyan_sha:"籍验·杀",
