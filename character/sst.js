@@ -12175,7 +12175,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.map[event.players[event.num].playerid]!=undefined&&player.storage.sst_fankui[event.players[event.num].playerid]!=undefined){
 						if(event.map[event.players[event.num].playerid]&&!player.storage.sst_fankui[event.players[event.num].playerid]){
 							player.logSkill("sst_fankui",event.players[event.num]);
-							player.gainPlayerCard("反窥：获得"+get.translation(event.players[event.num])+"区域里的一张牌",event.players[event.num],"hej",true).set("filterCard",function(button){
+							player.gainPlayerCard("反窥：获得"+get.translation(event.players[event.num])+"区域里的一张牌",event.players[event.num],"hej",true).set("filterButton",function(button){
 								return !_status.event.player.storage.sst_fankui_cards.contains(button.link);
 							});
 						}
