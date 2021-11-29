@@ -1329,7 +1329,7 @@
 					},
 					card_style:{
 						name:'卡牌样式',
-						init:'default',
+						init:'ol',
 						intro:'设置正面朝上的卡牌的样式',
 						item:{
 							wood:'木纹',
@@ -1452,7 +1452,7 @@
 					cardback_style:{
 						name:'卡背样式',
 						intro:'设置背面朝上的卡牌的样式',
-						init:'default',
+						init:'ol',
 						item:{
 							// wood:'木纹',
 							// music:'音乐',
@@ -4522,7 +4522,7 @@
 					nei_fullscreenpop:{
 						name:'主内单挑特效',
 						intro:'在进入主内单挑时，弹出全屏文字特效',
-						init:true,
+						init:false,
 						unfrequent:true,
 					},
 					double_character:{

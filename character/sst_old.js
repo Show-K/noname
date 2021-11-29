@@ -575,7 +575,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//武将
 			old_sst_samus:"旧萨姆斯",
 			old_sst_ken:"旧肯",
-			old_ymk_claude:"库罗德",
+			old_ymk_claude:"旧库罗德",
 			//身份技能
 			old_sst_juezhan:"绝战",
 			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",

@@ -9,7 +9,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco"],
 				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_blue"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters"],
-				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_terry","sst_byleth_male","sst_byleth_female","sst_ken","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman"],
+				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
+				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman"],
 				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal"],
 				sst_players:["sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"],
 			},
@@ -3976,7 +3977,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.delayx();
 					"step 3"
 					if(event.nine){
-						player.popup("⑨");
+						player.popup("⑨","fire");
 						player.line(trigger.target,"fire");
 						game.delayx();
 					}
@@ -3984,15 +3985,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 4"
-					player.popup("⑨");
+					player.popup("⑨","green");
 					player.line(trigger.target,"green");
 					game.delayx();
 					"step 5"
-					player.popup("⑨");
+					player.popup("⑨","thunder");
 					player.line(trigger.target,"thunder");
 					game.delayx();
 					"step 6"
-					player.popup("⑨");
+					player.popup("⑨","black");
 					player.line(trigger.target,"black");
 					trigger.target.damage(3,player);
 				},
@@ -7782,7 +7783,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					target.discardPlayerCard(player,"h",true);
+					target.discardPlayerCard(player,"h",true).set("ai",function(button){
+						var val=get.buttonValue(button);
+						if(get.attitude(_status.event.player,get.owner(button.link))>0){
+							if(get.color(button.link)=="black") return 5-val;
+							return -val;
+						}
+						return val;
+					});
 					"step 1"
 					if(get.color(result.cards[0])=="black"){
 						event.card=result.cards[0];
@@ -12018,24 +12026,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fuxin:{
 				skillAnimation:true,
 				animationStr:"付心",
-				animationColor:function(){
-					var player=_status.event.player;
-					if(!player.storage.sst_xuanyi){
-						return "fire";
-					}
-					else{
-						return "thunder";
-					}
-				},
-				line:function(){
-					var player=_status.event.player;
-					if(!player.storage.sst_xuanyi){
-						return "fire";
-					}
-					else{
-						return "thunder";
-					}
-				},
+				animationColor:"fire",
+				line:"fire",
 				enable:"phaseUse",
 				usable:1,
 				filterTarget:function(card,player,target){
@@ -13223,6 +13215,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_brawl:"Brawl",
 			sst_4:"For WiiU/3DS",
 			sst_ultimate:"Ultimate",
+			sst_dlc:"DLC",
 			sst_spirits:"命魂",
 			sst_players:"玩家",
 		},
