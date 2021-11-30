@@ -50835,14 +50835,53 @@
 				str2=str2.slice(1);
 			}
 			//新增
+			else if(str2.indexOf("马力欧医生")==0){
+				str2="马力欧";
+			}
+			else if(str2.indexOf("零装甲")==0){
+				str2=str2.slice(3);
+			}
+			else if(str2.indexOf("Mr. Game & Watch")==0){
+				str2="代码人";
+			}
 			else if(str2.indexOf("炽焰")==0){
 				str2=str2.slice(2);
 			}
 			else if(str2.indexOf("黑暗")==0){
 				str2=str2.slice(2);
 			}
-			else if(str2.indexOf("酷霸王七子")==0){
-				str2="七人众";
+			else if(str2.indexOf("库鲁鲁王")==0){
+				str2="库鲁鲁";
+			}
+			else if(str2.indexOf("酷霸王Jr.")==0){
+				str2="小酷霸王";
+			}
+			else if(str2.indexOf("酷霸王7人帮")==0){
+				str2="七人帮";
+			}
+			else if(str2.indexOf("卡通")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("幼年")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("时之笛")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("Joker")==0){
+				str2="雨宫莲";
+			}
+			else if(str2.indexOf("茶杯头马克杯人")==0){
+				str2="杯子兄弟";
+			}
+			else if(str2.indexOf("Snake")==0){
+				str2="固蛇";
+			}
+			else if(str2.indexOf("帝帝帝大王")==0){
+				str2="帝帝帝";
+			}
+			else if(str2.indexOf("Mii斗士")==0){
+				str2="秘斗士";
 			}
 			else if(str2.indexOf("考古学家")==0){
 				str2=str2.slice(4);
@@ -50876,14 +50915,53 @@
 				str2=str2.slice(2);
 			}
 			//新增
+			else if(str2.indexOf("马力欧医生")==0){
+				str2="马力欧";
+			}
+			else if(str2.indexOf("零装甲")==0){
+				str2=str2.slice(3);
+			}
+			else if(str2.indexOf("Mr. Game & Watch")==0){
+				str2="代码人";
+			}
 			else if(str2.indexOf("炽焰")==0){
 				str2=str2.slice(2);
 			}
 			else if(str2.indexOf("黑暗")==0){
 				str2=str2.slice(2);
 			}
-			else if(str2.indexOf("酷霸王七子")==0){
-				str2="七人众";
+			else if(str2.indexOf("库鲁鲁王")==0){
+				str2="库鲁鲁";
+			}
+			else if(str2.indexOf("酷霸王Jr.")==0){
+				str2="小酷霸王";
+			}
+			else if(str2.indexOf("酷霸王7人帮")==0){
+				str2="七人帮";
+			}
+			else if(str2.indexOf("卡通")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("幼年")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("时之笛")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("Joker")==0){
+				str2="雨宫莲";
+			}
+			else if(str2.indexOf("茶杯头马克杯人")==0){
+				str2="杯子兄弟";
+			}
+			else if(str2.indexOf("Snake")==0){
+				str2="固蛇";
+			}
+			else if(str2.indexOf("帝帝帝大王")==0){
+				str2="帝帝帝";
+			}
+			else if(str2.indexOf("Mii斗士")==0){
+				str2="秘斗士";
 			}
 			else if(str2.indexOf("考古学家")==0){
 				str2=str2.slice(4);
@@ -50917,14 +50995,53 @@
 				str2=str2.slice(2);
 			}
 			//新增
+			else if(str2.indexOf("马力欧医生")==0){
+				str2="马力欧";
+			}
+			else if(str2.indexOf("零装甲")==0){
+				str2=str2.slice(3);
+			}
+			else if(str2.indexOf("Mr. Game & Watch")==0){
+				str2="代码人";
+			}
 			else if(str2.indexOf("炽焰")==0){
 				str2=str2.slice(2);
 			}
 			else if(str2.indexOf("黑暗")==0){
 				str2=str2.slice(2);
 			}
-			else if(str2.indexOf("酷霸王七子")==0){
-				str2="七人众";
+			else if(str2.indexOf("库鲁鲁王")==0){
+				str2="库鲁鲁";
+			}
+			else if(str2.indexOf("酷霸王Jr.")==0){
+				str2="小酷霸王";
+			}
+			else if(str2.indexOf("酷霸王7人帮")==0){
+				str2="七人帮";
+			}
+			else if(str2.indexOf("卡通")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("幼年")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("时之笛")==0){
+				str2=str2.slice(2);
+			}
+			else if(str2.indexOf("Joker")==0){
+				str2="雨宫莲";
+			}
+			else if(str2.indexOf("茶杯头马克杯人")==0){
+				str2="杯子兄弟";
+			}
+			else if(str2.indexOf("Snake")==0){
+				str2="固蛇";
+			}
+			else if(str2.indexOf("帝帝帝大王")==0){
+				str2="帝帝帝";
+			}
+			else if(str2.indexOf("Mii斗士")==0){
+				str2="秘斗士";
 			}
 			else if(str2.indexOf("考古学家")==0){
 				str2=str2.slice(4);
