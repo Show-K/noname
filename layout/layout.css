@@ -62,7 +62,7 @@ table {
 	color: white;
 	text-shadow: black 0 0 2px;
 	position: relative;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	transition: all 0.5s;
 }
 #window.server>div:not(.serverinfo){
@@ -71,7 +71,7 @@ table {
 #window.server>.serverinfo{
 	width: 400px;
 	height: 200px;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	text-align: center;
 	left: calc(50% - 200px);
 	top: calc(50% - 100px);
@@ -189,7 +189,7 @@ table {
 	text-align: center;
 	pointer-events: none;
 	display: block;
-	font-family: 'xinwei'
+	font-family: 'fzhtk'
 }
 #time>div{
 	margin: 0;
@@ -381,7 +381,7 @@ table {
 	transition: all 0.5s;
 }
 #splash>div>.splashtext {
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 50px;
 	position: absolute;
 	right: 7px;
@@ -596,7 +596,7 @@ table {
 	left: 0;
 	bottom: 2px;
 	height: auto;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 18px;
 	text-align: center;
 	width: 100%;
@@ -612,7 +612,7 @@ table {
 	left: 28px;
 	top: 28px;
 	border-radius: 100%;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 20px;
 	line-height: 20px;
 	z-index: 1;
@@ -636,7 +636,7 @@ table {
 }
 
 .dialog .button.character.cardbg>.avatar_name {
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 20px;
 	width: 100%;
 	height: 20px;
@@ -658,7 +658,7 @@ table {
 	left: 16px;
 	top: auto;
 	bottom: 16px;
-	font-family: 'xinwei'
+	font-family: 'fzhtk'
 }
 .player.connect[data-cursor_style="forbidden"]{
 	opacity: 0.5;
@@ -675,7 +675,7 @@ table {
 	text-shadow: black 0 0 2px;
 	top: 0;
 	margin: 0;
-	font-family: 'xinwei'
+	font-family: 'fzhtk'
 }
 .touchinfo.left{
 	left: 0;
@@ -926,7 +926,7 @@ table {
 	display: table;
 	text-align: center;
 	font-size: 60px;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	text-shadow: black 0 0 10px
 }
 #arena:not(.chess):not(.mobile)>#autonode {
@@ -1091,7 +1091,7 @@ table {
 	/*box-shadow: rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.2) 0 3px 10px;
 	background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
 	border-radius: 4px;
-	font-family:'STXinwei','xinwei';
+	font-family:'STfzhtk','fzhtk';
 
 	text-align:center;
 	display:inline-block;
@@ -1320,7 +1320,7 @@ body>.background.land {
 	right: 0;
 }
 .card.fullborder>.name{
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 }
 .card>.cardframebg{
 	width: 100%;
@@ -1538,7 +1538,7 @@ div:not(.handcards)>.card>.info>span,
 .judges>.card.fakejudge.fullborder>.background,
 .marks>.card.fakemark.fullborder>.background {
 	display: block !important;
-	font-family: 'huangcao' !important;
+	font-family: 'fzhtk' !important;
 	padding-top: 4px !important;
 }
 .judges:empty{
@@ -1606,20 +1606,20 @@ div:not(.handcards)>.card>.info>span,
 	padding-top: 12px;
 }
 .card>.background {
-	font-family: 'xiaozhuan'
+	font-family: 'fzhtk'
 }
 .card>.background.tight {
 	letter-spacing: -0.2em
 }
 .marks>.card>.background.skillmark {
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	padding-top: 4px;
 }
 .marks>.card.overflowmark {
 	overflow: visible;
 }
 .marks>div>.markcount.menubutton {
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 9px;
 	width: 12px;
 	height: 12px;
@@ -1769,7 +1769,7 @@ div:not(.handcards)>.card>.info>span,
 }
 .dialog .content>.volumn {
 	margin: 0;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 }
 .dialog .content>.volumn>span {
 	margin-left: 2px;
@@ -1908,7 +1908,7 @@ div:not(.handcards)>.card>.info>span,
 .button.character>.hp.text {
 	top: 8px;
 	left: 6px;
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 20px;
 	letter-spacing: 3px;
 }
@@ -1964,7 +1964,7 @@ div:not(.handcards)>.card>.info>span,
 	background: none !important;
 	box-shadow: none !important;
 	border: none !important;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	text-align: right;
 	width: auto;
 	height: auto;
@@ -2023,7 +2023,7 @@ div:not(.handcards)>.card>.info>span,
 /*--------角色--------*/
 .player>.avatar>.action {
 	margin: 5px;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 20px;
 	letter-spacing: -2px;
 	right: 5px;
@@ -2105,7 +2105,7 @@ div:not(.handcards)>.card>.info>span,
 	left: 16px;
 	top: 24px;
 	font-size: 20px;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 }
 .player>.name.name2 {
 	left: 81px
@@ -2137,14 +2137,14 @@ div:not(.handcards)>.card>.info>span,
 }
 
 .button.character>.name {
-	font-family: 'xinwei'
+	font-family: 'fzhtk'
 }
 .player>.intro {
 	top: 87px;
 	left: 18px;
 }
 .player>.turned{
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	width: 100%;
 	height: 100%;
 	line-height: 50px;
@@ -2219,7 +2219,7 @@ div:not(.handcards)>.card>.info>span,
 }
 #window>.damage.fullscreenavatar{
 	text-align: center;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	top: calc(50% - 200px);
 	height: 400px;
 	transform-origin: center;
@@ -2324,7 +2324,7 @@ div:not(.handcards)>.card>.info>span,
 }
 .player>.damage,
 #window>.damage {
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 72px;
 	width: 100%;
 	text-align: center;
@@ -2341,7 +2341,7 @@ div:not(.handcards)>.card>.info>span,
 	font-size: 120px;
 }
 .damage.normal-font {
-	font-family: xinwei;
+	font-family: fzhtk;
 	font-size: 30px;
 	top: calc(50% - 15px);
 }
@@ -2357,7 +2357,7 @@ div:not(.handcards)>.card>.info>span,
 	transition-property: opacity;
 }
 .player>.cardeffect {
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 108px;
 	width: 100%;
 	text-align: center;
@@ -2547,7 +2547,7 @@ div:not(.handcards)>.card>.info>span,
 	top: 18px;
 }
 .hp.textstyle{
-	font-family: 'xinwei'
+	font-family: 'fzhtk'
 }
 .hp>div {
 	width: 8px;
@@ -3217,7 +3217,7 @@ div:not(.handcards)>.card>.info>span,
 	border-radius: 100%;
 	padding: 0;
 	font-size: 15px;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	line-height: 22px;
 	bottom: 47px;
 	right: 13px;
@@ -3677,7 +3677,7 @@ div:hover>.intro {
 .player .identity>div {
 	margin: auto;
 	position: relative;
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 24px;
 	top: 0;
 }
@@ -4144,7 +4144,7 @@ div[data-decoration="bronze"]::after{
 	height: 65px;
 	border-radius: 100% !important;
 	font-size: 55px;
-	font-family: 'huangcao';
+	font-family: 'fzhtk';
 	top: calc(50% - 110px);
 	line-height: 65px;
 	text-align: center;
@@ -4193,7 +4193,7 @@ div[data-decoration="bronze"]::after{
     -webkit-animation:skillbarglow 3s infinite;*/
 /* } */
 #arena>.skillbar>.skillbartext {
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 35px;
 	width: 100%;
 	text-align: center;
@@ -4249,7 +4249,7 @@ div[data-decoration="bronze"]::after{
 }
 .coin_menu .content>.caption>.coin_buy {
 	line-height: 36px;
-	font-family: 'xinwei';
+	font-family: 'fzhtk';
 	font-size: 24px;
 }
 .coin_menu .content>.caption>.coin_buy>.menubutton {
@@ -4268,7 +4268,7 @@ div[data-decoration="bronze"]::after{
 }
 
 .wunature {
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 24px;
 	color: white !important;
 	pointer-events: none;
@@ -4314,7 +4314,7 @@ div[data-decoration="bronze"]::after{
 	right: 6px;
 }
 .tempname {
-	font-family: 'huangcao','xinwei';
+	font-family: 'fzhtk','fzhtk';
 	font-size: 20px;
 	color: white !important;
 	pointer-events: none;

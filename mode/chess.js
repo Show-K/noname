@@ -2121,9 +2121,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.auto.hide();
 					ui.money=ui.create.div(ui.window);
 					lib.setIntro(ui.money,function(uiintro){
-						uiintro.add('<span style="font-family:xinwei">'+game.data.money+'金币');
+						uiintro.add('<span style="font-family:fzhtk">'+game.data.money+'金币');
 						uiintro.addText('通过战斗或竞技场可获得金币。花费100金币可招募3名随机武将；花费150金币可参加一次竞技场');
-						uiintro.add('<span style="font-family:xinwei">'+game.data.dust+'招募令');
+						uiintro.add('<span style="font-family:fzhtk">'+game.data.dust+'招募令');
 						uiintro.addText('通过遣返武将或竞技场可获得招募令。挑战武将成功后可通过招募令招募该武将，普通/稀有/史诗/传说武将分别花费40/100/400/1600招募令');
 					});
 					ui.money.innerHTML='<span>⚑</span><span>'+game.data.dust+'</span>'+
@@ -2133,10 +2133,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.money.style.right='20px';
 					ui.money.style.bottom='15px';
 					ui.money.childNodes[0].style.color='rgb(111, 198, 255)';
-					ui.money.childNodes[1].style.fontFamily='huangcao';
+					ui.money.childNodes[1].style.fontFamily='fzhtk';
 					ui.money.childNodes[1].style.marginRight='10px';
 					ui.money.childNodes[2].style.color='#FFE600';
-					ui.money.childNodes[3].style.fontFamily='huangcao';
+					ui.money.childNodes[3].style.fontFamily='fzhtk';
 					ui.money.style.letterSpacing='4px';
 					if(get.config('chess_leader_allcharacter')){
 						for(var i in lib.rank){
@@ -2301,7 +2301,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								node.node.intro.style.top='145px';
 							}
 							node.node.intro.style.fontSize='20px';
-							node.node.intro.style.fontFamily='yuanli';
+							node.node.intro.style.fontFamily='fzhtk';
 							switch(rarity){
 								case 'rare':node.node.intro.dataset.nature='thunderm';break;
 								case 'epic':node.node.intro.dataset.nature='metalm';break;
@@ -2385,7 +2385,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						if(rarity!='common'){
 							var intro=button.node.intro;
 							intro.classList.add('showintro');
-							intro.style.fontFamily='yuanli';
+							intro.style.fontFamily='fzhtk';
 							intro.style.fontSize='20px';
 							intro.style.top='82px';
 							intro.style.left='2px';
@@ -2495,7 +2495,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						['','','leader_hard']
 					],'vcard']);
 					// for(i=0;i<dialog2.buttons.length;i++){
-					// 	dialog2.buttons[i].node.name.style.fontFamily='xinwei';
+					// 	dialog2.buttons[i].node.name.style.fontFamily='fzhtk';
 					// 	dialog2.buttons[i].node.name.style.fontSize='30px';
 					// 	dialog2.buttons[i].node.name.style.left='4px';
 					// 	dialog2.buttons[i].node.name.dataset.color='unknownm';
@@ -3287,7 +3287,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					victory.style.right='20px';
 					victory.style.bottom='15px';
 					victory.style.fontSize='30px'
-					victory.style.fontFamily='huangcao';
+					victory.style.fontFamily='fzhtk';
 					victory.firstChild.style.marginRight='5px';
 					ui.window.appendChild(victory);
 					ui.refresh(victory);
@@ -3323,7 +3323,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 									div.firstChild.style.marginRight='3px';
 									node.$dust();
 								}
-								div.style.fontFamily='huangcao';
+								div.style.fontFamily='fzhtk';
 								div.style.fontSize='50px';
 								div.style.top='40px';
 								div.style.letterSpacing='8px';

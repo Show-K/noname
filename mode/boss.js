@@ -1901,7 +1901,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					game.boss.node.action.style.opacity=1;
 					game.boss.node.action.style.letterSpacing='4px';
 					game.boss.node.action.style.marginRight=0;
-					game.boss.node.action.style.fontFamily='huangcao';
+					game.boss.node.action.style.fontFamily='fzhtk';
 					game.boss.node.action.innerHTML='';
 					_status.additionalReward=function(){
 						return Math.round(Math.pow(_status.damageCount,2.4))*2;

@@ -28,7 +28,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				node.style.width='400px';
 				node.style.height='30px';
 				node.style.lineHeight='30px';
-				node.style.fontFamily='xinwei';
+				node.style.fontFamily='fzhtk';
 				node.style.fontSize='30px';
 				node.style.padding='10px';
 				node.style.left='calc(50% - 210px)';
@@ -63,7 +63,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				text.style.width='400px';
 				text.style.height='30px';
 				text.style.lineHeight='30px';
-				text.style.fontFamily='xinwei';
+				text.style.fontFamily='fzhtk';
 				text.style.fontSize='30px';
 				text.style.padding='10px';
 				text.style.left='calc(50% - 200px)';

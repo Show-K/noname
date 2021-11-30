@@ -433,7 +433,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					uiintro.listen(function(e){
 						e.stopPropagation();
 					});
-					uiintro.add('剩余 <span style="font-family:'+'xinwei'+'">'+game.me.deckCards.length);
+					uiintro.add('剩余 <span style="font-family:'+'fzhtk'+'">'+game.me.deckCards.length);
 					uiintro.addSmall([game.me.deckCards,'card']);
 					return uiintro;
 				},220);

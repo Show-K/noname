@@ -2294,7 +2294,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						get.population('zhong')+get.population('fan')==0){
 							game.broadcastAll(function(){
 								game.showIdentity();
-								if(game.zhu&&game.zhu.isAlive()&&get.population('nei')==1&&get.config('nei_fullscreenpop')) game.me.$fullscreenpop('<span style="font-family:xinwei"><span data-nature="fire">主公</span><span data-nature="soil"> vs </span><span data-nature="thunder">内奸</span></span>',null,null,false);
+								if(game.zhu&&game.zhu.isAlive()&&get.population('nei')==1&&get.config('nei_fullscreenpop')) game.me.$fullscreenpop('<span style="font-family:fzhtk"><span data-nature="fire">主公</span><span data-nature="soil"> vs </span><span data-nature="thunder">内奸</span></span>',null,null,false);
 							});
 						}
 					}

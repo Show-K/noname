@@ -2771,7 +2771,7 @@
 					},
 					name_font:{
 						name:'人名字体',
-						init:'xingkai',
+						init:'fzhtk',
 						unfrequent:true,
 						item:{},
 						textMenu:function(node,link){
@@ -2787,7 +2787,7 @@
 					},
 					identity_font:{
 						name:'身份字体',
-						init:'huangcao',
+						init:'fzhtk',
 						unfrequent:true,
 						item:{},
 						textMenu:function(node,link){
@@ -9228,14 +9228,14 @@
 					ui.css.styles.remove();
 				}
 				ui.css.styles=lib.init.sheet();
-				ui.css.styles.sheet.insertRule('#arena .player>.name,#arena .button.character>.name {font-family: '+(lib.config.name_font||'xinwei')+',xinwei}',0);
-				ui.css.styles.sheet.insertRule('#arena .player .identity>div {font-family: '+(lib.config.identity_font||'huangcao')+',xinwei}',0);
-				ui.css.styles.sheet.insertRule('.button.character.newstyle>.identity {font-family: '+(lib.config.identity_font||'huangcao')+',xinwei}',0);
+				ui.css.styles.sheet.insertRule('#arena .player>.name,#arena .button.character>.name {font-family: '+(lib.config.name_font||'fzhtk')+',fzhtk}',0);
+				ui.css.styles.sheet.insertRule('#arena .player .identity>div {font-family: '+(lib.config.identity_font||'fzhtk')+',fzhtk}',0);
+				ui.css.styles.sheet.insertRule('.button.character.newstyle>.identity {font-family: '+(lib.config.identity_font||'fzhtk')+',fzhtk}',0);
 				if(lib.config.cardtext_font&&lib.config.cardtext_font!='default'){
 					ui.css.styles.sheet.insertRule('.card div:not(.info):not(.background) {font-family: '+lib.config.cardtext_font+';}',0);
 				}
 				if(lib.config.global_font&&lib.config.global_font!='default'){
-					ui.css.styles.sheet.insertRule('#window {font-family: '+lib.config.global_font+',xinwei}',0);
+					ui.css.styles.sheet.insertRule('#window {font-family: '+lib.config.global_font+',fzhtk}',0);
 					ui.css.styles.sheet.insertRule('#window #control{font-family: STHeiti,SimHei,Microsoft JhengHei,Microsoft YaHei,WenQuanYi Micro Hei,Helvetica,Arial,sans-serif}',0);
 				}
 				switch(lib.config.glow_phase){
@@ -13435,7 +13435,7 @@
 								var item=ui.create.div('.button.card.pointerdiv.mebg');
 								item.style.width='50px';
 								buttons.insertBefore(item,event.dialog.buttons[i]);
-								item.innerHTML='<div style="font-family: xinwei;font-size: 25px;height: 75px;line-height: 25px;top: 8px;left: 10px;width: 30px;">第'+get.cnNumber(i+1,true)+'张</div>';
+								item.innerHTML='<div style="font-family: fzhtk;font-size: 25px;height: 75px;line-height: 25px;top: 8px;left: 10px;width: 30px;">第'+get.cnNumber(i+1,true)+'张</div>';
 								if(i==event.dialog.buttons.length+1){
 									item.firstChild.innerHTML='牌堆底';
 								}
@@ -35513,7 +35513,7 @@
 				if(rarity!='common'&&lib.config.show_rarity){
 					var intro=button.node.intro;
 					intro.classList.add('showintro');
-					intro.style.fontFamily='yuanli';
+					intro.style.fontFamily='fzhtk';
 					intro.style.fontSize='16px';
 					intro.style.bottom='6px';
 					intro.style.left='6px';
@@ -43159,7 +43159,7 @@
 						newlined=document.createElement('div');
 						newlined.style.marginTop='5px';
 						newlined.style.display='block';
-						// newlined.style.fontFamily='xinwei';
+						// newlined.style.fontFamily='fzhtk';
 						if(get.is.phoneLayout()){
 							newlined.style.fontSize='32px';
 						}
@@ -43333,7 +43333,7 @@
 					newlined2=document.createElement('div');
 					newlined2.style.marginTop='5px';
 					newlined2.style.display='none';
-					newlined2.style.fontFamily='xinwei';
+					newlined2.style.fontFamily='fzhtk';
 					newlined2.classList.add('pointernode');
 					if(get.is.phoneLayout()){
 						newlined2.style.fontSize='32px';
@@ -43495,7 +43495,7 @@
 							newlined=document.createElement('div');
 							newlined.style.marginTop='5px';
 							newlined.style.display='block';
-							newlined.style.fontFamily='xinwei';
+							newlined.style.fontFamily='fzhtk';
 							if(get.is.phoneLayout()){
 								newlined.style.fontSize='32px';
 							}
@@ -46058,10 +46058,10 @@
 				else{
 					num=ui.cardPile.childNodes.length;
 				}
-				uiintro.add('剩余 <span style="font-family:'+'xinwei'+'">'+num);
+				uiintro.add('剩余 <span style="font-family:'+'fzhtk'+'">'+num);
 
 				if(_status.connectMode) return uiintro;
-				uiintro.add('<div class="text center">轮数 <span style="font-family:xinwei">'+game.roundNumber+'</span>&nbsp;&nbsp;&nbsp;&nbsp;洗牌 <span style="font-family:xinwei">'+game.shuffleNumber+'</div>');
+				uiintro.add('<div class="text center">轮数 <span style="font-family:fzhtk">'+game.roundNumber+'</span>&nbsp;&nbsp;&nbsp;&nbsp;洗牌 <span style="font-family:fzhtk">'+game.shuffleNumber+'</div>');
 				uiintro.add('<div class="text center">弃牌堆</div>');
 				if(ui.discardPile.childNodes.length){
 					var list=[];
@@ -52715,8 +52715,8 @@
 							}
 						}
 						if(lib.card[name].yingbian_prompt&&get.is.yingbian(node.link||node)){
-							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: yuanli">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
-							else uiintro.add('<div class="text" style="font-family: yuanli">应变：'+lib.card[name].yingbian_prompt+'</div>');
+							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: fzhtk">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
+							else uiintro.add('<div class="text" style="font-family: fzhtk">应变：'+lib.card[name].yingbian_prompt+'</div>');
 						}
 						if(lib.translate[name+'_append']){
 							uiintro.add('<div class="text" style="display:inline">'+lib.translate[name+'_append']+'</div>');

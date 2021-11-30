@@ -128,12 +128,15 @@ window.noname_package={
 		music_jilve:'极略',
 	},
 	font:{
+		fzhtk:"黑体"
+		/*
 		xiaozhuan:'小篆',
 		xinwei:'新魏',
 		huangcao:'黄草',
 		yuanli:'楷体',
 		xingkai:'行楷',
 		shousha:'手杀',
+		*/
 	},
 	theme:{
 		woodden:'木纹',

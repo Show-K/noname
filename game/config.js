@@ -28,7 +28,7 @@ window.config={
 		stockextension:['boss','cardpile','coin','wuxing'],
 		layout:['default','newlayout'],
 		theme:['woodden','music','simple'],
-		card_font:['xiaozhuan','huangcao','caoshu','xingshu'],
+		card_font:['fzhtk'],
 		double_hp:['hejiansan','pingjun','zuidazhi','zuixiaozhi','zonghe'],
 		image_background_filter:['default','blur','gray','sepia','invert','saturate','contrast','hue','brightness'],
 	},
@@ -91,7 +91,7 @@ window.config={
 	asset_image:true,
 	asset_font:true,
 
-	card_font:'xiaozhuan',
+	card_font:'fzhtk',
 	show_statusbar_ios:'off',
 	show_statusbar_android:false,
 	show_name:true,

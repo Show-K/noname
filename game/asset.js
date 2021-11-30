@@ -372,12 +372,15 @@ window.noname_asset_list=[
 	'audio/voice/female/21.mp3',
 	'audio/voice/female/22.mp3',
 	
+	'font/FZHTK.TTF',
+	/*
 	'font/huangcao.ttf',
 	'font/shousha.ttf',
 	'font/xiaozhuan.ttf',
 	'font/xingkai.ttf',
 	'font/xinwei.ttf',
 	'font/yuanli.ttf',
+	*/
 	'image/background/huangtian_bg.jpg',
 	'image/background/key_bg.jpg',
 	'image/background/kyoani_bg.jpg',
