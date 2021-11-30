@@ -50889,6 +50889,9 @@
 			else if(str2.indexOf("基诺")==0){
 				str2="♡♪!?";
 			}
+			else if(str2.indexOf("艾黛尔贾特")==0){
+				str2="艾黛贾特";
+			}
 			//New add end
 			return str2;
 		},
@@ -50969,6 +50972,9 @@
 			else if(str2.indexOf("基诺")==0){
 				str2="♡♪!?";
 			}
+			else if(str2.indexOf("艾黛尔贾特")==0){
+				str2="艾黛贾特";
+			}
 			//New add end
 			return str2;
 		},
@@ -51048,6 +51054,9 @@
 			}
 			else if(str2.indexOf("基诺")==0){
 				str2="♡♪!?";
+			}
+			else if(str2.indexOf("艾黛尔贾特")==0){
+				str2="艾黛贾特";
 			}
 			//New add end
 			return get.verticalStr(str2,true);

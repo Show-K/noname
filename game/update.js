@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.110.10.1SST',
-	update:'1.9.110.10SST3',
+	version:'1.9.110.10.1SST2',
+	update:'1.9.110.10.1SST',
 	changeLog:[
-		'新增 乱斗应变 库罗德',
+		'新增 艾黛尔贾特',
 		'bug修复',
 		'其他',
 	],

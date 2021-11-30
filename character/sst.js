@@ -11,7 +11,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
 				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman"],
-				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal"],
+				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_edelgard"],
 				sst_players:["sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"],
 			},
 		},
@@ -122,6 +122,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
 			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],[]],
 			sst_pokemon_trainer_blue:["female","sst_light",3,["sst_jiliu"],[]],
+			sst_edelgard:["female","sst_spirit",3,["sst_tianjiu","sst_yanhai"],[]],
 		},//武将（必填）
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -131,6 +132,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return mode=="identity";
 			},
 			sst_corrin_female:function(mode){
+				return mode=="identity";
+			},
+			sst_edelgard:function(mode){
 				return mode=="identity";
 			},
 		},
@@ -936,6 +940,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"来看看新人设计的第一个武将！",
+			sst_edelgard:"1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>"+
+			"系列：Fire Emblem（火焰纹章）<br>"+
+			"初登场：（）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>"+
+			"——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"请握住我的手，在我随风飘落，散入黎明之前……",
 		},//武将介绍（选填）
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -1029,6 +1042,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_enderman:"末地住民",
 			sst_sephiroth:"片翼天使",
 			sst_pokemon_trainer_blue:"三位一体",
+			sst_edelgard:"炎翼的皇女",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//后台技能
@@ -2242,23 +2256,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_qingying2:{
-				onremove:function (player){
+				onremove:function(player){
 					player.unmarkSkill("sst_qingying2");
 				},
 				mod:{
-					targetInRange:function (card,player,target){
+					targetInRange:function(card,player,target){
 						return true;
 					},
-					cardUsable:function (card,player,num){
+					cardUsable:function(card,player,num){
 						return Infinity;
 					},
 				},
 			},
 			//Luigi
 			sst_que:{
-				trigger:{
-					player:["phaseZhunbeiBegin"],
-				},
+				trigger:{player:"phaseZhunbeiBegin"},
 				filter:function(event,player){
 					return game.hasPlayer(function(current){
 						return player!=current&&current.countCards("h");
@@ -6687,9 +6699,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					trigger.cancel();
 					if(result.cards&&result.cards.length) player.give(result.cards,event.target);
-					player.addAdditionalSkill("sst_geliao",["sst_xiangle"]);
+					player.addAdditionalSkill("sst_geliao","sst_xiangle");
 					game.log(player,"获得了技能","#g【享乐】");
-					event.target.addAdditionalSkill("sst_geliao",["sst_xiangle"]);
+					event.target.addAdditionalSkill("sst_geliao","sst_xiangle");
 					game.log(event.target,"获得了技能","#g【享乐】");
 				},
 				group:["sst_geliao2"],
@@ -7975,7 +7987,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return get.tag({name:name},"damage");
 				},
 				filter:function(event,player){
-					return player.countCards("he")>0;//&&!_status.dying.length;
+					return player.countCards("he",function(card){
+						return !get.tag(card,"damage");
+					});//&&!_status.dying.length;
 				},
 				chooseButton:{
 					dialog:function(event,player){
@@ -8023,6 +8037,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					respondSha:true,
 					order:4,
+					skillTagFilter:function(player){
+						if(!player.countCards("he",function(card){
+							return !get.tag(card,"damage");
+						})) return false;
+					},
 					result:{
 						player:function(player){
 							return 1;
@@ -12055,7 +12074,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
 					_status.cardtag["sst_ultimate"].push(card.cardid);
 					player.give(card,target,"give",true);
-					target.addAdditionalSkill("sst_fuxin","sst_fuxin_card",true);
+					target.addAdditionalSkill("sst_fuxin","sst_fuxin_card");
 				},
 				ai:{
 					order:1,
@@ -12525,6 +12544,55 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addSkillLog("sst_jiliu");
 				},
 			},
+			//Edelgard
+			sst_tianjiu:{
+				forced:true,
+				trigger:{player:"phaseUseBegin"},
+				content:function(){
+					"step 0"
+					player.chooseToDiscard("天鹫：你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】");
+					"step 1"
+					if(!result.cards||!result.cards.length){
+						player.loseHp();
+					}
+					"step 2"
+					player.chooseUseTarget("天鹫：视为对攻击范围内任意名角色使用一张【杀】",{name:"sha"},true,false).set("selectTarget",[1,Infinity]);
+				},
+			},
+			sst_yanhai:{
+				skillAnimation:true,
+				animationColor:"fire",
+				juexingji:true,
+				unique:true,
+				forced:true,
+				trigger:{player:"dieBefore"},
+				filter:function(event,player){
+					return !player.storage.sst_yanhai&&player.identity!="zhu";
+				},
+				content:function(){
+					"step 0"
+					trigger.cancel();
+					player.awakenSkill("sst_yanhai");
+					player.storage.sst_yanhai=true;
+					"step 1"
+					if(2-player.hp>0) player.recover(2-player.hp);
+					"step 2"
+					player.draw(3);
+					"step 3"
+					player.addAdditionalSkill("sst_yanhai","sst_yanhai2");
+					"step 4"
+					player.identity="nei";
+					player.setIdentity("炎");
+					player.identityShown=true;
+				}
+			},
+			sst_yanhai2:{
+				mod:{
+					inRange:function(from,to){
+						return true;
+					},
+				},
+			},
 		},//技能（必填）
 		dynamicTranslate:{
 			sst_shenfa:function(player){
@@ -12718,6 +12786,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_enderman:"末影人",
 			sst_sephiroth:"萨菲罗斯",
 			sst_pokemon_trainer_blue:"碧蓝",
+			sst_edelgard:"艾黛尔贾特",
 			//身份技能
 			sst_jueyi:"决意",
 			sst_jueyi_info:"锁定技，你使用牌指定目标时，若其手牌数大于你，你摸一张牌，令此牌不可被目标响应。",
@@ -13209,6 +13278,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_menghuo2:"猛火",
 			sst_menghuo3:"猛火",
 			sst_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
+			sst_tianjiu:"天鹫",
+			sst_tianjiu_info:"锁定技，出牌阶段开始时，你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】。",
+			sst_yanhai:"炎骸",
+			sst_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
 			//武将分类
 			sst_64:"64",
 			sst_melee:"Melee",
