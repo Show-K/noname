@@ -95,6 +95,8 @@ window.noname_package={
 		},
 	},
 	background:{
+		final_destination_bg:'终点',
+		//----------------
 		ol_bg:'龙纹',
 		planetarian_bg:'星梦',
 		heaven_bg:'红烧',

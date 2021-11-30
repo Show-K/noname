@@ -1,6 +1,6 @@
 window.noname_asset_list=[
 	'v1.9.110.10.1SST',
-	//新增内容
+	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
 	'image/character/shibing1sst_darkness.png',
@@ -126,7 +126,7 @@ window.noname_asset_list=[
 	'image/card/ska_garreg_mach_monastery.png',
 	'image/card/ska_cloud_sea_of_alrest.png',
 	'image/card/ska_spring_stadium.png',
-	//新增内容结束
+	//New add end
 	'audio/background/aozhan_chaoming.mp3',
 	'audio/background/aozhan_online.mp3',
 	'audio/background/aozhan_rewrite.mp3',
@@ -372,7 +372,10 @@ window.noname_asset_list=[
 	'audio/voice/female/21.mp3',
 	'audio/voice/female/22.mp3',
 	
+	//New add
 	'font/FZHTK.TTF',
+	'image/background/final_destination_bg.png',
+	//New add end
 	/*
 	'font/huangcao.ttf',
 	'font/shousha.ttf',

@@ -1073,7 +1073,7 @@
 					},
 					image_background:{
 						name:'游戏背景',
-						init:'xinsha_bg',
+						init:'final_destination_bg',
 						item:{},
 						visualBar:function(node,item,create){
 							if(node.created){
@@ -1103,7 +1103,7 @@
 										game.saveConfig('customBackgroundPack',lib.config.customBackgroundPack);
 									};
 									if(game.writeFile){
-										game.writeFile(file,'image/background',link+'.jpg',callback);
+										game.writeFile(file,'image/background',link+'.png',callback);
 									}
 									else{
 										game.putDB('image',link,file,callback);
@@ -1168,7 +1168,7 @@
 								}
 							}
 							else{
-								node.setBackgroundImage('image/background/'+link+'.jpg');
+								node.setBackgroundImage('image/background/'+link+'.png');
 								node.style.backgroundSize='cover';
 							}
 						},
@@ -1256,7 +1256,7 @@
 								});
 							}
 							else{
-								ui.background.setBackgroundImage('image/background/'+lib.config.image_background+'.jpg');
+								ui.background.setBackgroundImage('image/background/'+lib.config.image_background+'.png');
 							}
 							ui.background.style.backgroundSize='cover';
 							ui.background.style.backgroundPosition='50% 50%';
@@ -8317,7 +8317,7 @@
 				ui.background.style.backgroundSize="cover";
 				ui.background.style.backgroundPosition='50% 50%';
 				if(lib.config.image_background&&lib.config.image_background!='default'&&lib.config.image_background.indexOf('custom_')!=0){
-					ui.background.setBackgroundImage('image/background/'+lib.config.image_background+'.jpg');
+					ui.background.setBackgroundImage('image/background/'+lib.config.image_background+'.png');
 					if(lib.config.image_background_blur){
 						ui.background.style.filter='blur(8px)';
 						ui.background.style.webkitFilter='blur(8px)';
@@ -9010,7 +9010,7 @@
 						node.link=lib.config.all.mode[i];
 						ui.create.div(node,'.splashtext',get.verticalStr(get.translation(lib.config.all.mode[i])));
 						if(lib.config.all.stockmode.indexOf(lib.config.all.mode[i])!=-1){
-							ui.create.div(node,'.avatar').setBackgroundImage('image/splash/'+lib.config.all.mode[i]+'.jpg');
+							ui.create.div(node,'.avatar').setBackgroundImage('image/splash/'+lib.config.all.mode[i]+'.png');
 						}
 						else{
 							var avatarnode=ui.create.div(node,'.avatar');
@@ -50834,7 +50834,7 @@
 			else if(str2.indexOf('新')==0&&(str.indexOf('re_')==0||str.indexOf('new_')==0)){
 				str2=str2.slice(1);
 			}
-			//新增
+			//New add
 			else if(str2.indexOf("马力欧医生")==0){
 				str2="马力欧";
 			}
@@ -50889,7 +50889,7 @@
 			else if(str2.indexOf("基诺")==0){
 				str2="♡♪!?";
 			}
-			//新增截止
+			//New add end
 			return str2;
 		},
 		rawName2:function(str){
@@ -50914,7 +50914,7 @@
 			else if(str2.indexOf('手杀')==0){
 				str2=str2.slice(2);
 			}
-			//新增
+			//New add
 			else if(str2.indexOf("马力欧医生")==0){
 				str2="马力欧";
 			}
@@ -50969,7 +50969,7 @@
 			else if(str2.indexOf("基诺")==0){
 				str2="♡♪!?";
 			}
-			//新增截止
+			//New add end
 			return str2;
 		},
 		slimName:function(str){
@@ -50994,7 +50994,7 @@
 			else if(str2.indexOf('手杀')==0){
 				str2=str2.slice(2);
 			}
-			//新增
+			//New add
 			else if(str2.indexOf("马力欧医生")==0){
 				str2="马力欧";
 			}
@@ -51049,7 +51049,7 @@
 			else if(str2.indexOf("基诺")==0){
 				str2="♡♪!?";
 			}
-			//新增截止
+			//New add end
 			return get.verticalStr(str2,true);
 		},
 		time:function(){

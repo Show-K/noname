@@ -86,7 +86,7 @@ window.config={
 	hp_style:'default',
 
 	image_character:'default',
-	image_background:'xinsha_bg',
+	image_background:'final_destination_bg',
 
 	asset_image:true,
 	asset_font:true,
