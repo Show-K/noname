@@ -374,7 +374,7 @@ window.noname_asset_list=[
 	'audio/voice/female/22.mp3',
 	
 	//New add
-	'font/FZHTK.TTF',
+	'font/fzhtk.ttf',
 	'image/background/final_destination_bg.png',
 	//New add end
 	/*
