@@ -1,8 +1,9 @@
 window.noname_update={
-	version:'1.9.110.10.1SST2',
-	update:'1.9.110.10.1SST',
+	version:'1.9.110.10.1SST3',
+	update:'1.9.110.10.1SST2',
 	changeLog:[
-		'新增 艾黛尔贾特',
+		'新增 草薙京',
+		'修改 森喜刚',
 		'bug修复',
 		'其他',
 	],

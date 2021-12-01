@@ -11,8 +11,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_lucina","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_chrom","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
 				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman"],
-				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal"],
-				sst_players:["sst_mnm","sst_yumiko","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"],
+				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_kyo_kusanagi"],
+				sst_players:["sst_mario_not_mary","sst_yumikohimi","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji"],
 			},
 		},
 		character:{
@@ -53,8 +53,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ridley:["male","sst_darkness",5,["sst_baozheng","sst_furan"],[]],
 			sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],[]],
 			sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
-			sst_mnm:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],[]],
-			sst_yumiko:["female","sst_reality",3,["sst_yingji","sst_huxiao"],[]],
+			sst_mario_not_mary:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],[]],
+			sst_yumikohimi:["female","sst_reality",3,["sst_yingji","sst_huxiao"],[]],
 			sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],[]],
 			sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],[]],
 			sst_simon:["male","sst_darkness",4,["sst_shengfa","sst_shengbian"],[]],
@@ -122,6 +122,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
 			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],[]],
 			sst_pokemon_trainer_blue:["female","sst_light",3,["sst_jiliu"],[]],
+			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],[]],
 		},//武将（必填）
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -343,10 +344,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"“是9！是9！”",
-			sst_mnm:"武将作者：mario not mary<br>"+
+			sst_mario_not_mary:"武将作者：mario not mary<br>"+
 			"--------------------------------<br>"+
 			"这才是大佬！九州第一库巴！完全虐爆我！连续让我回炉重造！",
-			sst_yumiko:"武将作者：mario not mary<br>"+
+			sst_yumikohimi:"武将作者：mario not mary<br>"+
 			"--------------------------------<br>"+
 			"那个九州第一库巴的女朋友！依然是完全虐爆我！不过比MNM好相处……",
 			sst_haine:"武将作者：mario not mary<br>"+
@@ -936,6 +937,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"来看看新人设计的第一个武将！",
+			sst_kyo_kusanagi:"1362. 草薙京/Kyo Kusanagi/草薙京<br>"+
+			"系列：The King of Fighters（拳皇）<br>"+
+			"初登场：The King of Fighters \x2794（拳皇\x2794）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"炎之贵公子草薙京，三神器之一”草薙剑“的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>"+
+			"——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"所以拳皇XV终于憋出来了……",
 		},//武将介绍（选填）
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -960,8 +970,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ridley:"狡猾的死神",
 			sst_dark_samus:"暗流涌动",
 			sst_mr_game_watch:"平面住民",
-			sst_mnm:"傲世轻物",
-			sst_yumiko:"酸甜可喵",
+			sst_mario_not_mary:"傲世轻物",
+			sst_yumikohimi:"酸甜可喵",
 			sst_haine:"渣男",
 			sst_terry:"饿狼传说",
 			sst_simon:"除魔圣鞭",
@@ -1029,6 +1039,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_enderman:"末地住民",
 			sst_sephiroth:"片翼天使",
 			sst_pokemon_trainer_blue:"三位一体",
+			sst_kyo_kusanagi:"炎之贵公子",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//后台技能
@@ -1750,6 +1761,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						trigger.cancel();
 					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					game.delayx();
 				},
 				ai:{
 					expose:0.2,
@@ -3969,30 +3985,37 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								game.players[i].chat("是9！是9！");
 							}
 							event.nine=true;
+							event.others=game.filterPlayer(function(current){
+								return current!=player&&current!=trigger.target;
+							});
 							break;
 						}
 					}
 					game.delayx();
 					"step 3"
 					if(event.nine){
-						player.popup("⑨","fire");
+						player.popup("⑨");
 						player.line(trigger.target,"fire");
+						event.others.randomGet().line(trigger.target,"fire");
 						game.delayx();
 					}
 					else{
 						event.finish();
 					}
 					"step 4"
-					player.popup("⑨","green");
+					player.popup("⑨");
 					player.line(trigger.target,"green");
+					event.others.randomGet().line(trigger.target,"green");
 					game.delayx();
 					"step 5"
-					player.popup("⑨","thunder");
+					player.popup("⑨");
 					player.line(trigger.target,"thunder");
+					event.others.randomGet().line(trigger.target,"thunder");
 					game.delayx();
 					"step 6"
-					player.popup("⑨","black");
+					player.popup("⑨");
 					player.line(trigger.target,"black");
+					event.others.randomGet().line(trigger.target,"black");
 					trigger.target.damage(3,player);
 				},
 				ai:{
@@ -5361,33 +5384,35 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_jinjia_ai:{},
 			//Donkey Kong
 			sst_baochui:{
-				trigger:{player:"phaseDiscardEnd"},
 				init:function(player){
-					player.storage.sst_baochui=[];
+					player.storage.sst_baochui=0;
 				},
+				usable:1,
+				trigger:{player:"useCardToPlayer"},
 				filter:function(event,player){
-					return event.cards&&event.cards.length&&event.cards.filterInD("d")&&event.cards.filterInD("d").length;
+					return get.tag(event.card,"damage")&&event.targets&&event.targets.length==1;
 				},
-				frequent:true,
+				check:function(event,player){
+					var num=0;
+					player.getHistory("lose",function(evt){
+						num+=evt.cards.length;
+					});
+					num=Math.ceil(num/2)+1;
+					if(num<=1) return false;
+					var rand=0.95;
+					game.log("收益：",get.effect(event.targets[0],event.card,player,player));
+					if(get.effect(event.targets[0],event.card,player,player)>5) rand=0.05;
+					if(!event.targets[0].countCards("h")) rand=0;
+					return Math.random()>rand?true:false;
+				},
 				content:function(){
-					var cards=trigger.cards.filterInD("d");
-					player.lose(cards,ui.special,"toStorage");
-					player.$gain2(cards);
-					player.storage.sst_baochui=player.storage.sst_baochui.concat(cards);
-					player.syncStorage("sst_baochui");
-					player.markSkill("sst_baochui");
-					game.log(player,"将",cards,"置于武将牌上");
-				},
-				intro:{
-					content:"cards",
-					onunmark:function(storage,player){
-						if(storage&&storage.length){
-							player.$throw(storage,1000);
-							game.cardsDiscard(storage);
-							game.log(storage,"被置入了弃牌堆");
-							storage.length=0;
-						}
-					},
+					var num=0;
+					player.getHistory("lose",function(evt){
+						num+=evt.cards.length;
+					});
+					num=Math.ceil(num/2)+1;
+					trigger.getParent().sst_baochui=true;
+					trigger.getParent().baseDamage=num;
 				},
 				ai:{
 					threaten:2,
@@ -5395,68 +5420,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:["sst_baochui2","sst_baochui3"],
 			},
 			sst_baochui2:{
-				enable:"chooseToUse",
-				prompt:function(){
-					if(_status.event.player.storage.sst_baochui.length){
-						return "你可以将武将牌上的所有牌视为伤害为"+Math.min(3,_status.event.player.storage.sst_baochui.length)+"的【杀】使用";
-					}
-				},
+				trigger:{player:"useCardAfter"},
+				forced:true,
 				filter:function(event,player){
-					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
-					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
-					return player.storage.sst_baochui.length;
+					return event.sst_baochui&&!player.getHistory("sourceDamage",function(evt){
+						return evt.card==event.card;
+					}).length;
 				},
-				filterTarget:function(card,player,target){
-					if(_status.event._backup&&
-						typeof _status.event._backup.filterTarget=="function"&&
-						!_status.event._backup.filterTarget({name:"sha"},player,target)){
-						return false;
-					}
-					return player.canUse({name:"sha"},target);
-				},
-				direct:true,
-				line:false,
-				delay:false,
 				content:function(){
-					var cards=player.storage.sst_baochui;
-					player.storage.sst_baochui_num=cards.length;
-					player.useCard({name:"sha"},cards,target,"sst_baochui");
-					player.storage.sst_baochui.length=0;
-					player.syncStorage("sst_baochui");
-					player.updateMarks();
-					player.unmarkSkill("sst_baochui");
-				},
-				ai:{
-					respondSha:true,
-					skillTagFilter:function(player){
-						if(!player.storage.sst_baochui.length) return false;
-					},
-					result:{
-						target:function(player,target){
-							var num=0;
-							if(player.storage.sst_baochui.length) num=player.storage.sst_baochui.length;
-							return get.effect(target,{name:"sha"},player,target)-3+num;
-						}
-					},
-					order:function(){
-						return get.order({name:"sha"})+1;
-					},
+					player.storage.sst_baochui++;
 				},
 			},
 			sst_baochui3:{
-				trigger:{player:"useCard1"},
-				direct:true,
-				forced:true,
-				filter:function(event,player){
-					return event.skill=="sst_baochui";
-				},
-				content:function(){
-					//trigger.directHit.addArray(game.players);
-					if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
-					trigger.baseDamage+=Math.min(3,player.storage.sst_baochui_num)-1;
-				},
-				ai:{
-					damageBonus:true,
+				mod:{
+					maxHandcard:function(player,num){
+						return num-player.storage.sst_baochui;
+					},
 				},
 			},
 			//Richter
@@ -7586,6 +7565,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
+					order:3,
 					result:{
 						target:-0.5,
 					},
@@ -11532,7 +11512,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_fengcu2:{
-				trigger:{source:"useCardAfter"},
+				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
 					//game.log(event.getParent().skill);
@@ -12533,6 +12513,44 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addSkillLog("sst_jiliu");
 				},
 			},
+			//Kyo Kusanagi
+			sst_congyun:{
+				usable:1,
+				enable:"phaseUse",
+				viewAs:{name:"huogong",isCard:true},
+				selectCard:-1,
+				filterCard:function(){return false},
+			},
+			sst_fuzhuo:{
+				trigger:{source:"damageSource"},
+				filter:function(event,player){
+					return event.nature=="fire";
+				},
+				check:function(event,player){
+					if(player.hasSkill("sst_fuzhuo2")||!player.isPhaseUsing()||!player.getDamagedHp()) return true;
+					return game.hasPlayer(function(current){
+						return player.canUse({name:"sha",nature:"fire",isCard:true},current)&&get.effect(current,{name:"sha",nature:"fire",isCard:true},player,player)>0;
+					});
+				},
+				content:function(){
+					"step 0"
+					player.draw();
+					if(!player.hasSkill("sst_fuzhuo2")&&player.isPhaseUsing()){
+						player.addTempSkill("sst_fuzhuo2");
+						event.num=player.maxHp-player.hp;
+					}
+					else{
+						event.finish();
+					}
+					"step 1"
+					event.num--;
+					if(event.num>=0){
+						player.chooseUseTarget("祓濯：视为使用一张火【杀】（剩余"+event.num+"次）",{name:"sha",nature:"fire",isCard:true},true,false);
+						event.redo();
+					}
+				},
+			},
+			sst_fuzhuo2:{},
 		},//技能（必填）
 		dynamicTranslate:{
 			sst_shenfa:function(player){
@@ -12657,8 +12675,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ridley:"利德雷",
 			sst_dark_samus:"黑暗萨姆斯",
 			sst_mr_game_watch:"Mr. Game & Watch",
-			sst_mnm:"莫奈门",
-			sst_yumiko:"柚子",
+			sst_mario_not_mary:"莫奈门",
+			sst_yumikohimi:"柚子",
 			sst_haine:"海涅",
 			sst_terry:"特瑞",
 			sst_simon:"西蒙",
@@ -12726,6 +12744,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_enderman:"末影人",
 			sst_sephiroth:"萨菲罗斯",
 			sst_pokemon_trainer_blue:"碧蓝",
+			sst_kyo_kusanagi:"草薙京",
 			//身份技能
 			sst_jueyi:"决意",
 			sst_jueyi_info:"锁定技，你使用牌指定目标时，若其手牌数大于你，你摸一张牌，令此牌不可被目标响应。",
@@ -12899,7 +12918,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_baochui:"爆锤",
 			sst_baochui2:"爆锤",
 			sst_baochui3:"爆锤",
-			sst_baochui_info:"弃牌阶段，你可以将你弃置的牌置于你的武将牌上。当你需要使用【杀】时，你可以将你武将牌上的所有牌视为伤害为X的【杀】使用。（X为此杀对应的实体牌数量且至多为3）",
+			sst_baochui_info:"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其基础伤害为X+1。然后若此牌没有造成伤害，你的手牌上限-1。（X为你本回合失去牌的数量除以2且向上取整）",
 			sst_shengxi:"圣袭",
 			sst_shengxi2:"圣袭",
 			sst_shengxi3:"圣袭",
@@ -13217,6 +13236,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_menghuo2:"猛火",
 			sst_menghuo3:"猛火",
 			sst_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
+			sst_congyun:"丛云",
+			sst_congyun_info:"出牌阶段限一次，你可以视为使用一张【火攻】。",
+			sst_fuzhuo:"祓濯",
+			sst_fuzhuo2:"祓濯",
+			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，你视为依次使用X张火【杀】。（X为你已损失的体力值）",
 			//武将分类
 			sst_64:"64",
 			sst_melee:"Melee",
@@ -13242,8 +13266,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_samus:["sst_zero_suit_samus"],
 			sst_byleth_male:["sst_byleth_female"],
 			sst_simon:["sst_richter"],
-			sst_mnm:["sst_yumiko","sst_bowser"],
-			sst_yumiko:["sst_terry"],
+			sst_mario_not_mary:["sst_yumikohimi","sst_bowser"],
+			sst_yumikohimi:["sst_terry"],
 			sst_kyuukou:["sst_incineroar"],
 			sst_oc:["sst_bowser"],
 			sst_windier:["sst_little_mac"],

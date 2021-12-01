@@ -393,7 +393,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						var dy=Math.round(ly*Math.sin(deg));
 						node.style.transform='translate('+dx+'px,'+dy+'px)';
 					}
-					var characterz=['sst_mario','sst_yoshi','sst_donkey_kong','sst_link','sst_zero_suit_samus','sst_kirby','sst_fox','sst_pikachu'];
+					var characterz=['sst_mario','sst_yoshi','sst_donkey_kong','sst_link','sst_samus','sst_kirby','sst_fox','sst_pikachu'];
 					for(var i=0;i<8;i++){
 						var node=ui.create.player(null,true);
 						this.nodes.push(node);

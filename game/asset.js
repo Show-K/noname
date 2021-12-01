@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.110.10.1SST2',
+	'v1.9.110.10.1SST3',
 	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -34,8 +34,8 @@ window.noname_asset_list=[
 	'image/character/sst_ridley.png',
 	'image/character/sst_dark_samus.png',
 	'image/character/sst_mr_game_watch.png',
-	'image/character/sst_mnm.png',
-	'image/character/sst_yumiko.png',
+	'image/character/sst_mario_not_mary.png',
+	'image/character/sst_yumikohimi.png',
 	'image/character/sst_haine.png',
 	'image/character/sst_terry.png',
 	'image/character/sst_simon.png',
@@ -105,6 +105,7 @@ window.noname_asset_list=[
 	'image/character/sst_pokemon_trainer_blue.png',
 	'image/character/sst_geno.png',
 	'image/character/mnm_edelgard.png',
+	'image/character/sst_kyo_kusanagi.png',
 
 	'image/character/sst_claude.png',
 	'image/character/ymk_isabelle.png',
@@ -112,7 +113,7 @@ window.noname_asset_list=[
 	'image/character/ska_olivia.png',
 	'image/character/ymk_577.png',
 	'image/character/ska_xiaojie.png',
-	'image/character/ymk_yumiko.png',
+	'image/character/ymk_yumikohimi.png',
 	'image/character/ska_professor_toad.png',
 
 	'image/card/sst_aegises.png',

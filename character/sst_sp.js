@@ -6,7 +6,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
-				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumiko"],
+				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad"],
 				sst_nnk:[],
 			},
@@ -21,7 +21,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
 			ska_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
 			//ska_show_k:["male","sst_reality",3,["ska_lunli","ska_shubian"],[]],
-			ymk_yumiko:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
+			ymk_yumikohimi:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
 			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
@@ -84,7 +84,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_show_k:"武将作者：Show-K<br>"+
 			"--------------------------------<br>"+
 			"写我自己只是用来测试一下我写的技能的，目前根本就没计划加入我……",
-			ymk_yumiko:"武将作者：Yumikohimi<br>"+
+			ymk_yumikohimi:"武将作者：Yumikohimi<br>"+
 			"--------------------------------<br>"+
 			"果然刚设计出来就要被削，果然还是三方定律。",
 			ska_professor_toad:"????. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>"+
@@ -113,7 +113,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:"生电妙手",
 			ska_xiaojie:"永不言弃",
 			ska_show_k:"灵跃文理",
-			ymk_yumiko:"新厨明灶",
+			ymk_yumikohimi:"新厨明灶",
 			ska_bowser:"联挚之火",
 			ska_professor_toad:"沙原博时",
 			mnm_edelgard:"炎翼的皇女",
@@ -1058,6 +1058,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			ymk_qiuyi2:{
+				onremove:function(player){
+					delete player.storage.ymk_qiuyi;
+				},
 				mod:{
 					maxHandcard:function(player,num){
 						if(typeof player.storage.ymk_qiuyi=="number"){
@@ -1520,7 +1523,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterReplace:{
 			ska_mario:["sst_mario","sst_dr_mario","ska_mario"],
 			ska_bowser:["sst_bowser","ska_bowser"],
-			ymk_yumiko:["sst_yumiko","ymk_yumiko"],
+			ymk_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
 			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
 		},//武将替换
 		*/
@@ -1532,7 +1535,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:"方块君",
 			ska_xiaojie:"小桀",
 			ska_show_k:"小溪",
-			ymk_yumiko:"SP柚子",
+			ymk_yumikohimi:"SP柚子",
 			ska_bowser:"☆SP酷霸王",
 			ska_professor_toad:"考古学家奇诺比奥",
 			mnm_edelgard:"艾黛尔贾特",
@@ -1578,9 +1581,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shubian:"数变",
 			ska_shubian_info:"出牌阶段限一次，你可以弃置任意张点数和等于13的牌，然后指定等量角色，你依次令其回复1点体力或受到你造成的1点伤害。",
 			ymk_qiuyi:"求艺",
-			ymk_qiuyi_info:"每回合限一次，一名角色使用的基本牌或普通锦囊牌结算完成后，若其体力值或手牌数不小于你，你可以交给此角色一张牌，然后你使用此牌。",
+			ymk_qiuyi_info:"每回合限一次，当一名角色使用的基本牌或普通锦囊牌（闪，无懈可击除外）结算完毕后，若其体力值或手牌数不小于你，你可以交给其一张牌并令其本回合手牌上限+1，然后你可以视为使用此牌。",
 			ymk_xifang:"析方",
-			ymk_xifang_info:"每回合限一次，一名角色获得你的牌后，你可以观看其手牌，若：1. 不止一种颜色；2. 不止一种类型。每满足一项，你摸一张牌。",
+			ymk_xifang_info:"每回合限一次，一名角色获得你的牌后，你可以观看其手牌，若其满足类别不同或颜色不同，你摸一张牌。",
 			ska_mengjin:"盟进",
 			ska_mengjin_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌（X、Y为各自手牌数的一半且向上取整）。你以此法获得的牌无使用距离和次数限制直到回合结束。",
 			ska_juegu:"掘古",
@@ -1603,7 +1606,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
-			ymk_yumiko:["sst_mnm","sst_terry"],
+			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
 			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad"],
 			ska_xiaojie:["sst_mario","sst_luigi"],
 		},//珠联璧合武将（选填）

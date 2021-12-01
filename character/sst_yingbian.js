@@ -199,6 +199,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							})) return 7-get.value(card);
 							return 6-get.value(card)+num;
 						}
+						else{
+							return 0;
+						}
 					}).set("position","he").set("cardx",event.card);
 					"step 2"
 					if(result.card){
@@ -257,7 +260,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 										return -get.attitude(player,target);
 									}
 								}
-								return;
+								return 0;
 							}).set("num",event.num);
 						}
 					}
@@ -374,7 +377,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterReplace:{
 			ska_mario:["sst_mario","sst_dr_mario","ska_mario"],
 			ska_bowser:["sst_bowser","ska_bowser"],
-			ymk_yumiko:["sst_yumiko","ymk_yumiko"],
+			ymk_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
 			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
 		},//武将替换
 		*/

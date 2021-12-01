@@ -33,7 +33,7 @@ window.noname_character_rank={
 			"sst_byleth_male",
 			"sst_massy",
 			"sst_dark_samus",
-			"sst_mnm",
+			"sst_mario_not_mary",
 			"sst_haine",
 			"sst_incineroar",
 			"sst_greninja",
@@ -66,7 +66,9 @@ window.noname_character_rank={
 			"sst_pokemon_trainer_blue",
 			"sst_steve",
 			"sst_fox",
-			"ymk_yumiko"
+			"ymk_yumikohimi",
+			"sst_donkey_kong",
+			"sst_kyo_kusanagi"
 		],
 		rare:[
 			"sst_mario",
@@ -79,7 +81,7 @@ window.noname_character_rank={
 			"sst_samus",
 			"sst_ridley",
 			"sst_mr_game_watch",
-			"sst_yumiko",
+			"sst_yumikohimi",
 			"sst_terry",
 			"sst_simon",
 			"sst_kirby",
@@ -120,10 +122,10 @@ window.noname_character_rank={
 			"sst_geno",
 			"sst_ken",
 			"sst_pyra_mythra",
-			"sst_claude"
+			"sst_claude",
+			"mnm_edelgard"
 		],
 		junk:[
-			"sst_donkey_kong",
 			"sst_yoshi",
 			"sst_villager",
 			"sst_krystal"

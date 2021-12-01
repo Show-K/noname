@@ -5,7 +5,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_old:{
-                sst_64:["old_sst_samus"],
+                sst_64:["old_sst_samus","old_sst_donkey_kong"],
                 sst_melee:[],
                 sst_brawl:[],
                 sst_4:[],
@@ -22,6 +22,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_samus:["female","sst_light",4,["old_sst_juezhan","old_sst_zailu"],[]],
 			old_sst_ken:["male","sst_light",4,["old_sst_yanyang","sst_shenglong"],[]],
 			old_ymk_claude:["male","sst_spirit",3,["old_ymk_yunchou","old_ymk_guimou"],[]],
+			old_sst_donkey_kong:["male","sst_light",4,["old_sst_baochui"],[]],
 		},//武将（必填）
 		characterFilter:{
 		},
@@ -69,11 +70,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
+			old_sst_donkey_kong:"0134. 森喜刚/Donkey Kong/ドンキーコング<br>"+
+			"系列：Donkey Kong（森喜刚）<br>"+
+			"初登场：Donkey Kong（森喜刚）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"丛林的王者，也是最狂热的香蕉狂魔。他的冒险总是以某人偷了他的香蕉开始。在大乱斗中，他的力度和投技是众所周知的。虽然体积很大，但是速度也不是特别慢。他的前投掷还能扛着对手走哦！要合理利用这一点！<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"砸人很疼的。",
 		},//武将介绍（选填）
 		characterTitle:{
 			old_sst_samus:"银河战士",
 			old_sst_ken:"红莲格斗王",
 			old_ymk_claude:"连系世界之王",
+			old_sst_donkey_kong:"丛林的王者",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -568,6 +579,106 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				*/
 			},
+			//Donkey Kong
+			old_sst_baochui:{
+				trigger:{player:"phaseDiscardEnd"},
+				init:function(player){
+					player.storage.old_sst_baochui=[];
+				},
+				filter:function(event,player){
+					return event.cards&&event.cards.length&&event.cards.filterInD("d")&&event.cards.filterInD("d").length;
+				},
+				frequent:true,
+				content:function(){
+					var cards=trigger.cards.filterInD("d");
+					player.lose(cards,ui.special,"toStorage");
+					player.$gain2(cards);
+					player.storage.old_sst_baochui=player.storage.old_sst_baochui.concat(cards);
+					player.syncStorage("old_sst_baochui");
+					player.markSkill("old_sst_baochui");
+					game.log(player,"将",cards,"置于武将牌上");
+				},
+				intro:{
+					content:"cards",
+					onunmark:function(storage,player){
+						if(storage&&storage.length){
+							player.$throw(storage,1000);
+							game.cardsDiscard(storage);
+							game.log(storage,"被置入了弃牌堆");
+							storage.length=0;
+						}
+					},
+				},
+				ai:{
+					threaten:2,
+				},
+				group:["old_sst_baochui2","old_sst_baochui3"],
+			},
+			old_sst_baochui2:{
+				enable:"chooseToUse",
+				prompt:function(){
+					if(_status.event.player.storage.old_sst_baochui.length){
+						return "你可以将武将牌上的所有牌视为伤害为"+Math.min(3,_status.event.player.storage.old_sst_baochui.length)+"的【杀】使用";
+					}
+				},
+				filter:function(event,player){
+					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
+					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
+					return player.storage.old_sst_baochui.length;
+				},
+				filterTarget:function(card,player,target){
+					if(_status.event._backup&&
+						typeof _status.event._backup.filterTarget=="function"&&
+						!_status.event._backup.filterTarget({name:"sha"},player,target)){
+						return false;
+					}
+					return player.canUse({name:"sha"},target);
+				},
+				direct:true,
+				line:false,
+				delay:false,
+				content:function(){
+					var cards=player.storage.old_sst_baochui;
+					player.storage.old_sst_baochui_num=cards.length;
+					player.useCard({name:"sha"},cards,target,"old_sst_baochui");
+					player.storage.old_sst_baochui.length=0;
+					player.syncStorage("old_sst_baochui");
+					player.updateMarks();
+					player.unmarkSkill("old_sst_baochui");
+				},
+				ai:{
+					respondSha:true,
+					skillTagFilter:function(player){
+						if(!player.storage.old_sst_baochui.length) return false;
+					},
+					result:{
+						target:function(player,target){
+							var num=0;
+							if(player.storage.old_sst_baochui.length) num=player.storage.old_sst_baochui.length;
+							return get.effect(target,{name:"sha"},player,target)-3+num;
+						}
+					},
+					order:function(){
+						return get.order({name:"sha"})+1;
+					},
+				},
+			},
+			old_sst_baochui3:{
+				trigger:{player:"useCard1"},
+				direct:true,
+				forced:true,
+				filter:function(event,player){
+					return event.skill=="old_sst_baochui";
+				},
+				content:function(){
+					//trigger.directHit.addArray(game.players);
+					if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
+					trigger.baseDamage+=Math.min(3,player.storage.old_sst_baochui_num)-1;
+				},
+				ai:{
+					damageBonus:true,
+				},
+			},
 		},//技能（必填）
 		dynamicTranslate:{
 		},
@@ -576,6 +687,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_samus:"旧萨姆斯",
 			old_sst_ken:"旧肯",
 			old_ymk_claude:"旧库罗德",
+			old_sst_donkey_kong:"旧森喜刚",
 			//身份技能
 			old_sst_juezhan:"绝战",
 			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
@@ -595,6 +707,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_ymk_guimou4:"鬼谋",
 			old_ymk_guimou5:"鬼谋",
 			old_ymk_guimou_info:"当你需要使用或打出一张基本牌或普通锦囊牌时，你可以将武将牌上的一张牌置于牌堆顶，视为你使用或打出这张牌。",
+			old_sst_baochui:"爆锤",
+			old_sst_baochui2:"爆锤",
+			old_sst_baochui3:"爆锤",
+			old_sst_baochui_info:"弃牌阶段，你可以将你弃置的牌置于你的武将牌上。当你需要使用【杀】时，你可以将你武将牌上的所有牌视为伤害为X的【杀】使用。（X为此杀对应的实体牌数量且至多为3）",
 			//武将分类
 			/*
 			old_sst_64:"64",
@@ -610,6 +726,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		perfectPair:{
             old_sst_ken:["sst_ryu"],
 			old_ymk_claude:["sst_byleth_male","sst_byleth_female"],
+			old_sst_donkey_kong:["sst_mario"],
 		},//珠联璧合武将（选填）
 	};
 	return sst_old;
