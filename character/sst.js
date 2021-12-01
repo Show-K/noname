@@ -5261,8 +5261,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.players.length){
 						event.current=event.players.shift();
 						if(player.isAlive()){
-							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？",player,-1).set("filterCard",function(card){
-								return get.type(card)=="basic"&&get.name(card)!="shan"&&lib.filter.targetEnabled2(card,_status.event.player,_status.event.targetx);
+							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？").set("filterTarget",function(card,player,target){
+								return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
+							}).set("filterCard",function(card){
+								return get.type(card)=="basic";
 							}).set("targetx",player);
 							/*
 							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
@@ -6394,8 +6396,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.num<event.players.length){
 						if(event.players[event.num].isAlive()){
 							//game.log("yes");
-							event.players[event.num].chooseToUse("斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌",player,-1).set("filterCard",function(card){
-								return get.name(card)=="sha"&&_status.event.player.canUse(card,_status.event.targetx,false);
+							event.players[event.num].chooseToUse("斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌").set("filterTarget",function(card,player,target){
+								return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
+							}).set("filterCard",function(card){
+								return get.name(card)=="sha";
 							}).set("targetx",player);
 							/*
 							event.players[event.num].chooseToUse({name:"sha"},"斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
