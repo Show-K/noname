@@ -104,7 +104,7 @@ window.noname_asset_list=[
 	'image/character/sst_sephiroth.png',
 	'image/character/sst_pokemon_trainer_blue.png',
 	'image/character/sst_geno.png',
-	'image/character/sst_edelgard.png',
+	'image/character/mnm_edelgard.png',
 
 	'image/character/sst_claude.png',
 	'image/character/ymk_isabelle.png',
