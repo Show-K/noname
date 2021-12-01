@@ -5,6 +5,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_sp:{
+				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumiko"],
 				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad"],
 				sst_nnk:[],
@@ -23,8 +24,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
 			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
+			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 		},//武将（必填）
 		characterFilter:{
+			mnm_edelgard:function(mode){
+				return mode=="identity";
+			},
 		},
 		characterIntro:{
 			/*
@@ -91,6 +96,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——翻译自《超级马力欧维基》（来源：https://www.mariowiki.com/Professor_Toad）<br>"+
 			"--------------------------------<br>"+
 			"大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
+			mnm_edelgard:"1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>"+
+			"系列：Fire Emblem（火焰纹章）<br>"+
+			"初登场：（）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>"+
+			"——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"请握住我的手，在我随风飘落，散入黎明之前……",
 		},//武将介绍（选填）
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -102,6 +116,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:"新厨明灶",
 			ska_bowser:"联挚之火",
 			ska_professor_toad:"沙原博时",
+			mnm_edelgard:"炎翼的皇女",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -1448,6 +1463,56 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			*/
+			//Edelgard
+			mnm_tianjiu:{
+				forced:true,
+				trigger:{player:"phaseUseBegin"},
+				content:function(){
+					"step 0"
+					player.chooseToDiscard("天鹫：你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】");
+					"step 1"
+					if(!result.cards||!result.cards.length){
+						player.loseHp();
+					}
+					"step 2"
+					player.chooseUseTarget("天鹫：视为对攻击范围内任意名角色使用一张【杀】",{name:"sha"},true,false).set("selectTarget",[1,Infinity]);
+				},
+			},
+			mnm_yanhai:{
+				skillAnimation:true,
+				animationColor:"fire",
+				juexingji:true,
+				unique:true,
+				forced:true,
+				trigger:{player:"dieBefore"},
+				filter:function(event,player){
+					return !player.storage.mnm_yanhai&&player.identity!="zhu";
+				},
+				content:function(){
+					"step 0"
+					trigger.cancel();
+					player.awakenSkill("mnm_yanhai");
+					player.storage.mnm_yanhai=true;
+					"step 1"
+					if(2-player.hp>0) player.recover(2-player.hp);
+					"step 2"
+					player.draw(3);
+					"step 3"
+					player.addAdditionalSkill("mnm_yanhai","mnm_yanhai2");
+					"step 4"
+					player.identity="nei";
+					player.setIdentity("炎");
+					player.identityShown=true;
+					player.node.identity.dataset.color="zhu";
+				}
+			},
+			mnm_yanhai2:{
+				mod:{
+					inRange:function(from,to){
+						return true;
+					},
+				},
+			},
 		},//技能（必填）
 		dynamicTranslate:{
 		},
@@ -1470,6 +1535,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_yumiko:"SP柚子",
 			ska_bowser:"☆SP酷霸王",
 			ska_professor_toad:"考古学家奇诺比奥",
+			mnm_edelgard:"艾黛尔贾特",
 			//身份技能
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -1523,8 +1589,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌并将其置于牌堆顶，然后展示牌堆底一张牌，1. 若你置于牌堆顶的牌花色与弃牌堆顶的花色相同，你视为使用或打出一张【杀】/【闪】，否则你不能发动此技能直到回合结束；2. 你可以令一名角色获得展示的牌堆底牌，然后若你置于牌堆顶的牌颜色与此牌相同，你可以对其造成1点伤害。",
 			ska_kuiwang:"窥往",
 			ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。",
+			mnm_tianjiu:"天鹫",
+			mnm_tianjiu_info:"锁定技，出牌阶段开始时，你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】。",
+			mnm_yanhai:"炎骸",
+			mnm_yanhai2:"炎骸",
+			mnm_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
 			//武将分类
 			//sst_sp:"SP",
+			sst_mnm:"mario not mary",
 			sst_ymk:"Yumikohimi",
 			sst_ska:"Show-K",
 			sst_nnk:"南柯",
