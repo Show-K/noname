@@ -9780,7 +9780,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				enable:"phaseUse",
 				usable:1,
-				prompt:"将一张牌扣置于武将牌上视为使用一张【杀】，若此【杀】造成了伤害，你展示此牌并对此目标使用，否则此【杀】结算完毕后你将此牌置于弃牌堆",
 				filterCard:true,
 				position:"he",
 				filterTarget:function(card,player,target){
@@ -9868,7 +9867,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					player.storage.sst_qianlong.remove(event.card);
 					player.syncStorage("sst_qianlong");
-					player.useCard(event.card,event.target,false);
+					if(lib.filter.targetEnabled2(event.card,player,event.target)) player.useCard(event.card,event.target,false);
 					"step 2"
 					player.unmarkSkill("sst_qianlong");
 				},
@@ -12584,6 +12583,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.identity="nei";
 					player.setIdentity("炎");
 					player.identityShown=true;
+					player.node.identity.dataset.color="zhu";
 				}
 			},
 			sst_yanhai2:{
@@ -13281,6 +13281,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tianjiu:"天鹫",
 			sst_tianjiu_info:"锁定技，出牌阶段开始时，你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】。",
 			sst_yanhai:"炎骸",
+			sst_yanhai2:"炎骸",
 			sst_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
 			//武将分类
 			sst_64:"64",
