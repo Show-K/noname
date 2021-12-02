@@ -250,6 +250,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 										else if(att<0&&target.countCards("e",function(card){
 											return get.value(card,target)>5;
 										})) return -att;
+										return -att;
 									}
 									case 2:{
 										return get.damageEffect(target,player);
@@ -321,7 +322,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
 					str+="。若因此其手牌数与其体力值或体力上限相等，你可以观看牌堆顶一张牌，然后你可以使用此牌（其应变效果直接生效）";
 					player.chooseTarget(get.prompt("sst_fuyuan"),str).set("ai",function(target){
-						if(_status.event.num_draw==_status.event.num_discard&&target.countCards("he")==0){
+						if(_status.event.num_draw<=_status.event.num_discard&&target.countCards("he")-_status.event.num_discard+_status.event.num_draw<=0){
 							return 0;
 						}
 						if(_status.event.num_draw<_status.event.num_discard) return -get.attitude(_status.event.player,target);

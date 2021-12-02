@@ -68,6 +68,7 @@ window.noname_character_rank={
 			"sst_fox",
 			"ymk_yumikohimi",
 			"sst_donkey_kong",
+			"mnm_edelgard",
 			"sst_kyo_kusanagi"
 		],
 		rare:[
@@ -123,7 +124,7 @@ window.noname_character_rank={
 			"sst_ken",
 			"sst_pyra_mythra",
 			"sst_claude",
-			"mnm_edelgard"
+			"alz_kyo_kusanagi"
 		],
 		junk:[
 			"sst_yoshi",

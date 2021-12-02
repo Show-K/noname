@@ -3230,16 +3230,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Massy
 			sst_shenfa:{
-				trigger:{
-					player:"useCardToPlayered",
-				},
-				filter:function (event,player){
+				trigger:{player:"useCardToPlayered"},
+				filter:function(event,player){
 					if(event.getParent().triggeredTargets3.length>1) return false;
 					return get.name(event.card)=="sha";
 				},
 				logTarget:"targets",
 				forced:true,
-				content:function (){
+				content:function(){
 					"step 0"
 					event.num=0;
 					"step 1"
@@ -3317,16 +3315,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.getParent().baseDamage++;
 					}
 				},
-				intro:{
-					content:function (storage,player){
-						if(player.storage.sst_shenfa1){
-							if(player.storage.sst_shenfa2){
-								return "锁定技，你使用【杀】指定目标后，你令此【杀】不可被响应，且此【杀】伤害+1。";
-							}
-							return "锁定技，你使用【杀】指定目标后，你选择一项：此【杀】不可被响应，或此【杀】伤害+1。";
-						}
-					},
-				},
 				ai:{
 					damageBonus:true,
 					threaten:function(player,target){
@@ -3360,7 +3348,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							});
 							*/
 							player.storage.sst_shenfa2=true;
-							player.markSkill("sst_shenfa");
 						}
 					}
 					else{
@@ -3373,7 +3360,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						*/
 						player.storage.sst_shenfa1=true;
-						player.markSkill("sst_shenfa");
 					}
 				},
 			},
@@ -3906,52 +3892,55 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				//skillAnimation:true,
 				//animationStr:"审判",
 				//animationColor:"metal",
-				trigger:{
-					player:"useCardToPlayered",
-				},
+				trigger:{player:"useCardToPlayered"},
 				filter:function(event,player){
-					return event.targets.length==1&&(get.name(event.card)=="sha"||get.type(event.card)=="trick");
+					return event.targets&&event.targets.length==1&&(get.name(event.card)=="sha"||get.type(event.card)=="trick");
 				},
-				direct:true,
+				logTarget:"target",
+				check:function(event,player){
+					return get.attitude(player,event.target)<0;
+				},
 				content:function(){
-					"step 0";
-					player.chooseBool(get.prompt("sst_shenpan",trigger.target),"你可以判定，然后根据判定结果执行相应的效果").set("ai",function(){
-						return get.attitude(_status.event.player,_status.event.targetx)<0;
-					}).set("targetx",trigger.target);
-					"step 1"
-					if(result.bool){
-						player.logSkill("sst_shenpan",trigger.target,"green");
-						player.judge(function(card){
-							var num=get.number(card);
-							switch(num){
-								case 1:return -2;
-								case 2:return -1;
-								case 3:return 1;
-								case 4:return 2;
-								case 5:return 2;
-								case 6:return 2;
-								case 7:{
-									if(player.getDamagedHp()){
-										return 2;
-									}
-									else{
-										return 0;
-									}
+					"step 0"
+					player.judge(function(card){
+						var num=get.number(card);
+						switch(num){
+							case 1:return -2;
+							case 2:return -1;
+							case 3:return 1;
+							case 4:return 2;
+							case 5:return 2;
+							case 6:return 2;
+							case 7:{
+								if(player.getDamagedHp()){
+									return 2;
 								}
-								case 8:return 3;
-								case 9:return 4;
+								else{
+									return 0;
+								}
 							}
-						});
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
+							case 8:return 3;
+							case 9:return 4;
+						}
+					});
+					"step 1"
 					//if(result.number>=1&&result.number<=9) player.popup(get.translation(result.number));
 					switch(result.number){
-						case 1:player.popup("①");player.loseHp();break;
-						case 2:player.popup("②");player.chooseToDiscard("审判：弃置一张牌","he",true);break;
-						case 3:player.popup("③");trigger.getParent().directHit.addArray(game.players);break;
+						case 1:{
+							player.popup("①");
+							player.loseHp();
+							break;
+						}
+						case 2:{
+							player.popup("②");
+							player.chooseToDiscard("审判：弃置一张牌","he",true);
+							break;
+						}
+						case 3:{
+							player.popup("③");
+							trigger.getParent().directHit.addArray(game.players);
+							break;
+						}
 						case 4:{
 							player.popup("④");
 							player.line(trigger.target);
@@ -3970,7 +3959,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							trigger.target.damage(player,"fire");
 							break;
 						}
-						case 7:player.popup("⑦");player.recover();break;
+						case 7:{
+							player.popup("⑦");
+							player.recover();
+							break;
+						}
 						case 8:{
 							player.popup("⑧");
 							player.line(trigger.target,"green");
@@ -3991,12 +3984,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							break;
 						}
 					}
+					"step 2"
 					game.delayx();
 					"step 3"
 					if(event.nine){
 						player.popup("⑨");
-						player.line(trigger.target,"fire");
-						event.others.randomGet().line(trigger.target,"fire");
+						player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
+						event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
 						game.delayx();
 					}
 					else{
@@ -4004,18 +3998,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 4"
 					player.popup("⑨");
-					player.line(trigger.target,"green");
-					event.others.randomGet().line(trigger.target,"green");
+					player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
+					event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
 					game.delayx();
 					"step 5"
 					player.popup("⑨");
-					player.line(trigger.target,"thunder");
-					event.others.randomGet().line(trigger.target,"thunder");
+					player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
+					event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
 					game.delayx();
 					"step 6"
 					player.popup("⑨");
-					player.line(trigger.target,"black");
-					event.others.randomGet().line(trigger.target,"black");
+					player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
+					event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
 					trigger.target.damage(3,player);
 				},
 				ai:{
@@ -4669,6 +4663,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_fuchou:{
 				intro:{
+					name2:"复",
 					mark:function(dialog,storage,player){
 						dialog.addAuto(player.getCards("s",function(card){
 							return card.hasGaintag("sst_fuchou");
@@ -5287,7 +5282,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？").set("filterTarget",function(card,player,target){
 								return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
 							}).set("filterCard",function(card){
-								return get.type(card)=="basic";
+								return get.type(card)=="basic"&&lib.filter.targetEnabled2(card,_status.event.player,_status.event.targetx);
 							}).set("targetx",player);
 							/*
 							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
@@ -6378,7 +6373,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.players[event.num].chooseToUse("斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌").set("filterTarget",function(card,player,target){
 								return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
 							}).set("filterCard",function(card){
-								return get.name(card)=="sha";
+								return get.name(card)=="sha"&&lib.filter.targetEnabled2(card,_status.event.player,_status.event.targetx);
 							}).set("targetx",player);
 							/*
 							event.players[event.num].chooseToUse({name:"sha"},"斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
@@ -6631,11 +6626,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_geliao:{
-				derivation:["sst_xiangle"],
+				derivation:"sst_xiangle",
 				trigger:{player:"phaseUseBefore"},
-				filter:function(event,player){
-					return true;
-				},
 				direct:true,
 				content:function(){
 					"step 0"
@@ -6656,8 +6648,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var player=_status.event.player;
 							var target=_status.event.targetx;
 							if(get.attitude(player,target)>0){
-								if(player.needsToDiscard()) return 11-get.useful(card);
-								return 5-get.useful(card);
+								//if(player.needsToDiscard()) return 11-get.useful(card);
+								return 7-get.useful(card);
 							}
 							return 0;
 						}).set("targetx",event.target);
@@ -7133,13 +7125,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Srf
 			sst_diebu:{
-				mark:true,
 				zhuanhuanji:true,
-				intro:{
-					content:function(storage,player,skill){
-						return player.storage.sst_diebu?"你可以视为使用一张【闪】":"你可以视为使用一张【杀】";
-					},
-				},
 				enable:"chooseToUse",
 				prompt:function(){
 					var player=_status.event.player;
@@ -11633,18 +11619,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						next.fixedResult[player.playerid]=event.compare_card;
 					}
 					"step 3"
+					/*
 					if(result.winner==player){
-						event.dotarget=true;
+						event.do_target=true;
 					}
 					else if(result.tie){
-						event.doplayer=true;
-						event.dotarget=true;
+						event.do_player=true;
+						event.do_target=true;
 					}
 					else if(result.winner==event.target){
-						event.doplayer=true;
+						event.do_player=true;
+					}
+					*/
+					if(result.winner!=player){
+						event.do_player=true;
+					}
+					if(result.winner!=event.target){
+						event.do_target=true;
 					}
 					"step 4"
-					if(event.doplayer){
+					if(event.do_player){
 						player.chooseControl().set("choiceList",[get.translation(player)+"受到1点雷电伤害",get.translation(player)+"判定一次【闪电】"]).set("ai",function(){
 							return 1;
 						});
@@ -11680,7 +11674,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 10"
 					event.card.delete();
 					"step 11"
-					if(event.dotarget){
+					if(event.do_target){
 						player.chooseControl().set("choiceList",[get.translation(event.target)+"受到1点雷电伤害",get.translation(event.target)+"判定一次【闪电】"]).set("ai",function(){
 							return 0;
 						});
@@ -12065,7 +12059,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					var card=get.cardPile("sst_aegises","field");
 					if(card){
-						player.gain(card,"gain2","log");
+						player.gain(card,"gain2");
 					}
 				},
 			},
@@ -12520,6 +12514,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				viewAs:{name:"huogong",isCard:true},
 				selectCard:-1,
 				filterCard:function(){return false},
+				ai:{
+					result:{
+						player:1,
+					},
+				},
 			},
 			sst_fuzhuo:{
 				trigger:{source:"damageSource"},

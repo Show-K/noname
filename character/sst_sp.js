@@ -9,6 +9,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad"],
 				sst_nnk:[],
+				sst_alz:["alz_kyo_kusanagi"],
 			},
 		},
 		character:{
@@ -25,6 +26,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
+			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_shiquan","alz_huangyao"],[]],
 		},//武将（必填）
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -105,6 +107,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"请握住我的手，在我随风飘落，散入黎明之前……",
+			alz_kyo_kusanagi:"1362. 草薙京/Kyo Kusanagi/草薙京<br>"+
+			"系列：The King of Fighters（拳皇）<br>"+
+			"初登场：The King of Fighters \x2794（拳皇\x2794）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"炎之贵公子草薙京，三神器之一”草薙剑“的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>"+
+			"——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"所以拳皇XV终于憋出来了……",
 		},//武将介绍（选填）
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -117,6 +128,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bowser:"联挚之火",
 			ska_professor_toad:"沙原博时",
 			mnm_edelgard:"炎翼的皇女",
+			alz_kyo_kusanagi:"炎之贵公子",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -1294,7 +1306,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.card_top=event.result.cards[0];
 							player.showCards(event.card_top);
 							"step 1"
-							player.$throw(event.card_top);
+							player.$throw(1);
 							game.log(player,"将",event.card_top,"置于牌堆顶");
 							player.lose(event.card_top,ui.cardPile,"insert");
 							"step 2"
@@ -1318,14 +1330,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var can_damage=get.color(event.card_top)==get.color(event.card_bottom);
 							player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
 								var player=_status.event.player;
-								if(get.value(event.card_bottom)<=get.damageEffect(target,player)&&_status.event.can_damage) return get.damageEffect(target,player);
+								if(get.value(event.card_bottom)<=get.damageEffect(target,player)&&_status.event.can_damage) return get.damageEffect(player,target);
 								return get.attitude(player,target);
 							}).set("cardx",event.card_bottom).set("can_damage",can_damage);
 							"step 5"
 							if(result.targets&&result.targets.length){
 								event.target=result.targets[0];
 								player.line(event.target,"green");
-								event.target.gain(event.card_bottom,"gain2");
+								event.target.gain(event.card_bottom,"gain2").set("delay",false);
 							}
 							else{
 								event.finish();
@@ -1373,12 +1385,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.gain(get.bottomCards(trigger.cards.length),"gain2");
+					player.gain(get.bottomCards(trigger.cards.length),"draw");
 					"step 1"
 					player.chooseCard("窥往：将"+get.cnNumber(trigger.cards.length)+"张牌置于牌堆底（后选择的在下）",trigger.cards.length,true);
 					"step 2"
 					if(result.cards&&result.cards.length){
-						player.$throw(result.cards);
+						player.$throw(result.cards.length);
 						game.log(player,"将",result.cards,"置于牌堆底");
 						player.lose(result.cards,ui.cardPile);
 					}
@@ -1516,6 +1528,92 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 				},
 			},
+			//Kyo Kusanagi
+			alz_shiquan:{
+				init:function(player){
+					player.storage.alz_shiquan=[];
+				},
+				usable:1,
+				trigger:{player:"useCardToPlayered"},
+				filter:function(event,player){
+					return event.targets&&event.targets.length==1&&player.canCompare(event.target);
+				},
+				logTarget:"target",
+				check:function(event,player){
+					return get.attitude(player,event.target)<0;
+				},
+				content:function(){
+					"step 0"
+					player.chooseToCompare(trigger.target);
+					"step 1"
+					if(result.winner==player){
+						event.num=trigger.target.hp+1;
+					}
+					else if(result.winner==trigger.target){
+						player.storage.alz_shiquan.push(trigger.target);
+						var evt=event.getParent("phase");
+						if(evt&&evt.name=="phase"&&!evt.alz_shiquan){
+							evt.alz_shiquan=true;
+							var next=game.createEvent("alz_shiquan_clear");
+							event.next.remove(next);
+							evt.after.push(next);
+							next.player=player;
+							next.setContent(function(){
+								player.storage.alz_shiquan=[];
+							});
+						}
+						event.finish();
+					}
+					"step 2"
+					event.num--;
+					if(event.num>=0){
+						var next=player.chooseToUse("十拳：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
+						next.set("logSkill","alz_shiquan");
+						next.set("addCount",false);
+						next.set("targetx",trigger.target);
+						next.set("filterCard",function(card){
+							return get.name(card)=="sha"&&lib.filter.targetEnabled2(card,_status.event.player,_status.event.targetx);
+						});
+						next.set("filterTarget",function(card,player,target){
+							return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
+						});
+					}
+					"step 3"
+					if(result.bool) event.goto(2);
+				},
+				ai:{
+					expose:0.2,
+				},
+			},
+			alz_shiquan2:{
+				mod:{
+					playerEnabled:function(card,player,target){
+						if(player.storage.alz_shiquan&&player.storage.alz_shiquan.contains(target)) return false;
+					},
+				},
+			},
+			alz_huangyao:{
+				enable:"chooseToUse",
+				filterCard:function(card,player){
+					return get.color(card)=="red"&&get.type(card)=="basic";
+				},
+				position:"he",
+				viewAs:{name:"sha",nature:"fire"},
+				viewAsFilter:function(player){
+					if(!player.countCards("he",function(card){
+						return get.color(card)=="red"&&get.type(card)=="basic";
+					})) return false;
+				},
+				check:function(card){return 4-get.value(card)},
+				ai:{
+					skillTagFilter:function(player){
+						if(!player.countCards("he",function(card){
+							return get.color(card)=="red"&&get.type(card)=="basic";
+						})) return false;
+					},
+					respondSha:true,
+				}
+			},
 		},//技能（必填）
 		dynamicTranslate:{
 		},
@@ -1539,6 +1637,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bowser:"☆SP酷霸王",
 			ska_professor_toad:"考古学家奇诺比奥",
 			mnm_edelgard:"艾黛尔贾特",
+			alz_kyo_kusanagi:"SP草薙京",
 			//身份技能
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -1597,12 +1696,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_yanhai:"炎骸",
 			mnm_yanhai2:"炎骸",
 			mnm_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
+			alz_shiquan:"十拳",
+			alz_shiquan_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张杀（X为其体力值+1）；若其赢，本回合不能对其使用牌。",
+			alz_huangyao:"荒咬",
+			alz_huangyao_info:"你可以将一张红色基本牌当作火【杀】使用。",
 			//武将分类
 			//sst_sp:"SP",
 			sst_mnm:"mario not mary",
 			sst_ymk:"Yumikohimi",
 			sst_ska:"Show-K",
 			sst_nnk:"南柯",
+			sst_alz:"Axel_Zhai",
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
