@@ -3601,7 +3601,7 @@
 						name:'背景音乐',
 						init:true,
 						item:{
-							music_default:'默认',
+							music_battlefield:'战场',
 						},
 						onclick:function(item){
 							game.saveConfig('background_music',item);
@@ -7514,7 +7514,7 @@
 						if(lib.device||typeof window.require=='function'){
 							lib.configMenu.audio.config.background_music.item.music_custom='自定义音乐';
 						}
-						lib.config.all.background_music=['music_default'];
+						lib.config.all.background_music=['music_battlefield'];
 						for(i in pack.music){
 							lib.config.all.background_music.push(i);
 							lib.configMenu.audio.config.background_music.item[i]=pack.music[i];
@@ -9368,7 +9368,7 @@
 					localStorage.setItem(lib.configprefix+'background',lib.config.image_background);
 				}
 				else if(lib.config.image_background=='default'&&lib.config.theme=='simple'){
-					localStorage.setItem(lib.configprefix+'background','ol_bg');
+					localStorage.setItem(lib.configprefix+'background','final_destination_bg');
 				}
 				else{
 					localStorage.removeItem(lib.configprefix+'background');

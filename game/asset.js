@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.110.10.1SST3',
+	'v1.9.110.10.1SST4',
 	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -128,17 +128,28 @@ window.noname_asset_list=[
 	'image/card/ska_garreg_mach_monastery.png',
 	'image/card/ska_cloud_sea_of_alrest.png',
 	'image/card/ska_spring_stadium.png',
+	
+	'audio/background/music_battlefield.mp3',
+	'audio/background/music_final_destination.mp3',
+	'audio/background/music_master_hand.mp3',
+	'audio/background/music_crazy_hand.mp3',
+	'audio/background/music_master_hand_crazy_hand.mp3',
+	'audio/background/music_galeem.mp3',
+	'audio/background/music_dharkon.mp3',
+	'audio/background/music_galeem_dharkon.mp3',
 	//New add end
+	/*
 	'audio/background/aozhan_chaoming.mp3',
 	'audio/background/aozhan_online.mp3',
 	'audio/background/aozhan_rewrite.mp3',
 	'audio/background/music_danji.mp3',
-	'audio/background/music_default.mp3',
+	'audio/background/music_battlefield.mp3',
 	'audio/background/music_diaochan.mp3',
 	'audio/background/music_shezhan.mp3',
 	'audio/background/music_jifeng.mp3',
 	'audio/background/music_phliosophy.mp3',
 	'audio/background/music_jilve.mp3',
+	*/
 	'audio/card/default.mp3',
 	
 	'audio/card/female/caomu.mp3',
@@ -385,7 +396,6 @@ window.noname_asset_list=[
 	'font/xingkai.ttf',
 	'font/xinwei.ttf',
 	'font/yuanli.ttf',
-	*/
 	'image/background/huangtian_bg.jpg',
 	'image/background/key_bg.jpg',
 	'image/background/kyoani_bg.jpg',
@@ -409,6 +419,7 @@ window.noname_asset_list=[
 	'image/background/zhanyun_bg.jpg',
 	'image/background/xinsha_bg.jpg',
 	'image/background/xiaowu_bg.jpg',
+	*/
 
 	'image/card/minguangkai.png',
 	'image/card/db_atk1.jpg',

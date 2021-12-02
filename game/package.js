@@ -96,7 +96,7 @@ window.noname_package={
 	},
 	background:{
 		final_destination_bg:'终点',
-		//----------------
+		/*
 		ol_bg:'龙纹',
 		planetarian_bg:'星梦',
 		heaven_bg:'红烧',
@@ -120,14 +120,25 @@ window.noname_package={
 		wangshi_bg:'往事',
 		xiongxin_bg:'雄心',
 		xinsha_bg:'新杀',
+		*/
 	},
 	music:{
+		//music_battlefield:'战场',
+		music_final_destination:'终点',
+		music_master_hand:'大师',
+		music_crazy_hand:'疯狂',
+		music_master_hand_crazy_hand:'左右',
+		music_galeem:'吉拉',
+		music_dharkon:'达兹',
+		music_galeem_dharkon:'光暗',
+		/*
 		music_phliosophy:'Philosophy of ours',
 		music_diaochan:'貂蝉',
 		music_shezhan:'舌战群儒',
 		music_danji:'千里走单骑',
 		music_jifeng:'祭风',
 		music_jilve:'极略',
+		*/
 	},
 	font:{
 		fzhtk:"黑体"

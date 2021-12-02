@@ -1546,23 +1546,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseToCompare(trigger.target);
 					"step 1"
-					if(result.winner==player){
-						event.num=trigger.target.hp+1;
-					}
-					else if(result.winner==trigger.target){
-						player.storage.alz_shiquan.push(trigger.target);
-						var evt=event.getParent("phase");
-						if(evt&&evt.name=="phase"&&!evt.alz_shiquan){
-							evt.alz_shiquan=true;
-							var next=game.createEvent("alz_shiquan_clear");
-							event.next.remove(next);
-							evt.after.push(next);
-							next.player=player;
-							next.setContent(function(){
-								player.storage.alz_shiquan=[];
-							});
-						}
-						event.finish();
+					if(result.bool){
+						event.num=get.distance(player,trigger.target)+1;
 					}
 					"step 2"
 					event.num--;
@@ -1585,30 +1570,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.2,
 				},
 			},
-			alz_shiquan2:{
-				mod:{
-					playerEnabled:function(card,player,target){
-						if(player.storage.alz_shiquan&&player.storage.alz_shiquan.contains(target)) return false;
-					},
-				},
-			},
 			alz_huangyao:{
 				enable:"chooseToUse",
 				filterCard:function(card,player){
-					return get.color(card)=="red"&&get.type(card)=="basic";
+					return get.color(card)=="red";
 				},
 				position:"he",
 				viewAs:{name:"sha",nature:"fire"},
 				viewAsFilter:function(player){
 					if(!player.countCards("he",function(card){
-						return get.color(card)=="red"&&get.type(card)=="basic";
+						return get.color(card)=="red";
 					})) return false;
 				},
 				check:function(card){return 4-get.value(card)},
 				ai:{
 					skillTagFilter:function(player){
 						if(!player.countCards("he",function(card){
-							return get.color(card)=="red"&&get.type(card)=="basic";
+							return get.color(card)=="red";
 						})) return false;
 					},
 					respondSha:true,
@@ -1697,9 +1675,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_yanhai2:"炎骸",
 			mnm_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
 			alz_shiquan:"十拳",
-			alz_shiquan_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张杀（X为其体力值+1）；若其赢，本回合不能对其使用牌。",
+			alz_shiquan_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张杀（X为你与其距离+1）。",
 			alz_huangyao:"荒咬",
-			alz_huangyao_info:"你可以将一张红色基本牌当作火【杀】使用。",
+			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用。",
 			//武将分类
 			//sst_sp:"SP",
 			sst_mnm:"mario not mary",

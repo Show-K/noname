@@ -12300,7 +12300,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						game.log(player,"更改了","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
-					if(player.storage.sst_fenshi[1]&&event.targets[0]==event.targets[1]){
+					"step 5"
+					if(player.storage.sst_fenshi[1]&&event.targets.length>1&&event.targets[0]==event.targets[1]){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
 						game.log(player,"更改了","#g【焚世】","的描述");

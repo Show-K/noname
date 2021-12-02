@@ -202,7 +202,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						else{
 							return 0;
 						}
-					}).set("position","he").set("cardx",event.card);
+					}).set("position","hes").set("cardx",event.card);
 					"step 2"
 					if(result.card){
 						var card=result.card;
