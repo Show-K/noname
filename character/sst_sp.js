@@ -1530,10 +1530,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Kyo Kusanagi
 			alz_shiquan:{
-				init:function(player){
-					player.storage.alz_shiquan=[];
-				},
-				usable:1,
 				trigger:{player:"useCardToPlayered"},
 				filter:function(event,player){
 					return event.targets&&event.targets.length==1&&player.canCompare(event.target);
@@ -1562,6 +1558,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						next.set("filterTarget",function(card,player,target){
 							return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
 						});
+					}
+					else{
+						event.finish();
 					}
 					"step 3"
 					if(result.bool) event.goto(2);

@@ -50866,7 +50866,7 @@
 				str2=str2.slice(2);
 			}
 			else if(str2.indexOf("时之笛")==0){
-				str2=str2.slice(2);
+				str2=str2.slice(3);
 			}
 			else if(str2.indexOf("Joker")==0){
 				str2="雨宫莲";
@@ -50949,7 +50949,7 @@
 				str2=str2.slice(2);
 			}
 			else if(str2.indexOf("时之笛")==0){
-				str2=str2.slice(2);
+				str2=str2.slice(3);
 			}
 			else if(str2.indexOf("Joker")==0){
 				str2="雨宫莲";
@@ -51032,7 +51032,7 @@
 				str2=str2.slice(2);
 			}
 			else if(str2.indexOf("时之笛")==0){
-				str2=str2.slice(2);
+				str2=str2.slice(3);
 			}
 			else if(str2.indexOf("Joker")==0){
 				str2="雨宫莲";
