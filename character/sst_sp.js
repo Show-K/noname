@@ -26,7 +26,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
-			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_shiquan","alz_huangyao"],[]],
+			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 		},//武将（必填）
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -1529,7 +1529,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			//Kyo Kusanagi
-			alz_shiquan:{
+			alz_wushi:{
 				trigger:{player:"useCardToPlayered"},
 				filter:function(event,player){
 					return event.targets&&event.targets.length==1&&player.canCompare(event.target);
@@ -1549,7 +1549,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.num--;
 					if(event.num>=0){
 						var next=player.chooseToUse("十拳：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
-						next.set("logSkill","alz_shiquan");
+						next.set("logSkill","alz_wushi");
 						next.set("addCount",false);
 						next.set("targetx",trigger.target);
 						next.set("filterCard",function(card){
@@ -1673,8 +1673,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_yanhai:"炎骸",
 			mnm_yanhai2:"炎骸",
 			mnm_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
-			alz_shiquan:"十拳",
-			alz_shiquan_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张杀（X为你与其距离+1）。",
+			alz_wushi:"无式",
+			alz_wushi_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张杀（X为你与其距离+1）。",
 			alz_huangyao:"荒咬",
 			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用。",
 			//武将分类
