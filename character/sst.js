@@ -9249,7 +9249,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					var eff=get.effect(player,trigger.card,trigger.player,player);
+					var eff=get.effect(trigger.target,trigger.card,trigger.player,player);
 					var dmg=0;
 					game.filterPlayer(function(current){
 						if(current.countCards("h")>player.countCards("h")) dmg=Math.max(dmg,get.damageEffect(current,player,player));
@@ -9257,6 +9257,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var check=eff-1<0&&dmg>0;
 					player.chooseToDiscard(get.prompt2("sst_fanfei"),"he").set("ai",function(card){
 						if(_status.event.check) return 7-get.value(card);
+						return 0;
 					}).set("check",check).set("logSkill",event.name);
 					"step 1"
 					if(result.cards&&result.cards.length){
@@ -9598,11 +9599,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				init:function(player){
 					player.storage.sst_qianlong=[];
 				},
-				intro:{
-					name:"潜龙",
-					content:"cardCount",
-					onunmark:"throw",
-				},
 				enable:"phaseUse",
 				usable:1,
 				filterCard:true,
@@ -9631,8 +9627,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.lose(cards,ui.special);
 					player.$throw(1);
 					player.storage.sst_qianlong=player.storage.sst_qianlong.concat(cards);
-					player.syncStorage("sst_qianlong");
-					player.markSkill("sst_qianlong");
 					//game.log(player,"扣置了一张牌");
 					"step 1"
 					player.useCard({name:"sha"},target,"sst_qianlong");
@@ -9691,10 +9685,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 1"
 					player.storage.sst_qianlong.remove(event.card);
-					player.syncStorage("sst_qianlong");
-					if(lib.filter.targetEnabled2(event.card,player,event.target)) player.useCard(event.card,event.target,false);
+					if(lib.filter.targetEnabled2(event.card,player,event.target)){
+						player.useCard(event.card,event.target,false);
+						event.finish();
+					}
 					"step 2"
-					player.unmarkSkill("sst_qianlong");
+					game.cardsDiscard(event.card);
 				},
 			},
 			//Mega Man
