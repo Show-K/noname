@@ -9672,12 +9672,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
+					event.card=player.storage.sst_qianlong[player.storage.sst_qianlong.length-1];
 					var history=player.getHistory("sourceDamage",function(evt){
 						return evt.card==trigger.card;
 					});
 					if(history.length&&history.length==1){
 						player.showCards(player.storage.sst_qianlong);
-						event.card=player.storage.sst_qianlong[player.storage.sst_qianlong.length-1];
 						event.target=history[0].player;
 					}
 					else{
@@ -9690,6 +9690,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
+					player.$throw(event.card);
 					game.cardsDiscard(event.card);
 				},
 			},
