@@ -6852,7 +6852,7 @@
 						}
 					}
 					if(htmlbg){
-						document.documentElement.style.backgroundImage='url("'+lib.assetURL+'image/background/'+htmlbg+'.jpg")';
+						document.documentElement.style.backgroundImage='url("'+lib.assetURL+'image/background/'+htmlbg+'.png")';
 						document.documentElement.style.backgroundSize='cover';
 						document.documentElement.style.backgroundPosition='50% 50%';
 					}
