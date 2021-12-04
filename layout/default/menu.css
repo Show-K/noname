@@ -654,7 +654,7 @@
 	background: linear-gradient(#4b4b4b, #464646);
 }
 .themebutton.ol{
-	background:url('../../image/background/ol_bg.jpg');
+	background:url('../../image/background/final_destination_bg.png');
 	background-size: cover;
 }
 .themebutton.ol>div:not(*:first-child){
@@ -665,7 +665,7 @@
 	background: linear-gradient(#4b4b4b, #464646);
 }
 .themebutton.simple{
-	background:url('../../image/background/ol_bg.jpg');
+	background:url('../../image/background/final_destination_bg.png');
 	background-size: cover;
 }
 .themebutton.simple>div:not(*:first-child){
