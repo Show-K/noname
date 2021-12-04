@@ -10169,6 +10169,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.draw(2,"nodelay");
 					"step 1"
+					/*
 					if(player.countCards("h")>player.maxHp){
 						var cards=player.getCards("hej");
 						if(result&&result.length){
@@ -10178,6 +10179,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						player.discard(cards).set("delay",false);
 					}
+					*/
+					if(player.countCards("h")>player.maxHp&&player.countCards("hej")>1) player.discardPlayerCard("暴食：弃置"+get.cnNumber(player.countCards("hej")-1)+"张牌",player,player.countCards("hej")-1,"hej",true).set("ai",function(button){
+						if(get.position(button.link)=="e"||get.position(button.link)=="j") return 100;
+						return 11-_status.event.player.getUseValue(button.link);
+					}).set("delay",false);
 				},
 			},
 			sst_wangyan:{
