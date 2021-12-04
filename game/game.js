@@ -1203,7 +1203,7 @@
 										lib.config.customBackgroundPack.remove(background);
 										game.saveConfig('customBackgroundPack',lib.config.customBackgroundPack);
 										if(background.indexOf('cdv_')==0){
-											game.removeFile('image/background/'+background+'.jpg');
+											game.removeFile('image/background/'+background+'.png');
 										}
 										else{
 											game.deleteDB('image',background);
