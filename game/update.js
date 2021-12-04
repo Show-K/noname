@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.110.10.1SST4',
-	update:'1.9.110.10.1SST3',
+	version:'1.9.110.10.1SST5',
+	update:'1.9.110.10.1SST4',
 	changeLog:[
 		'新增 草薙京',
 		'新增 背景音乐',
