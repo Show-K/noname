@@ -10839,7 +10839,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}),false);
 					}
 					"step 5"
-					game.log("结果：",result.bool&&result.targets&&result.targets.length);
+					//game.log("结果：",result.bool&&result.targets&&result.targets.length);
 					if(result.bool&&result.targets&&result.targets.length) event.used=true;
 					if(event.goon){
 						event.goto(2);
