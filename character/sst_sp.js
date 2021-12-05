@@ -110,7 +110,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_kyo_kusanagi:"1362. 草薙京/Kyo Kusanagi/草薙京<br>"+
 			"系列：The King of Fighters（拳皇）<br>"+
 			"初登场：The King of Fighters \x2794（拳皇\x2794）<br>"+
-			"武将作者：mario not mary<br>"+
+			"武将作者：Axel_Zhai<br>"+
 			"--------------------------------<br>"+
 			"炎之贵公子草薙京，三神器之一”草薙剑“的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>"+
 			"——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
