@@ -8017,10 +8017,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				forceDie:true,
 				content:function(){
-					game.broadcastAll(function(player){
-						game.cardsDiscard(player.storage.sst_qichang);
-						player.storage.sst_qichang.delete();
-					},player);
+					player.lose(player.storage.sst_qichang).getlx=false;
+					player.storage.sst_qichang.delete();
 					delete player.storage.sst_qichang;
 				},
 			},
@@ -8037,9 +8035,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				forceDie:true,
 				content:function(){
-					game.broadcastAll(function(player){
-						player.storage.sst_qichang.delete();
-					},player);
+					game.cardsGotoSpecial(player.storage.sst_qichang,false);
+					player.storage.sst_qichang.delete();
 					delete player.storage.sst_qichang;
 				},
 			},
