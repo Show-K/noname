@@ -35530,7 +35530,7 @@
 						button.node.name.dataset.nature='watermm';
 						button.node.group.dataset.nature='water';
 					}
-					else button.node.group.style.backgroundColor=get.translation('weiColor');
+					else button.node.group.style.backgroundColor=get.translation('sst_darknessColor');
 				}
 			},
 			div:function(){

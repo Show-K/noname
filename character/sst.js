@@ -2230,6 +2230,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterTarget:function (card,player,target){
 					return target.countCards("ej");
 				},
+				delay:false,
 				content:function () {
 					player.discardPlayerCard(target,"ej",true);
 					if (target == player) {
@@ -3154,11 +3155,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var next=game.createEvent("sst_tianmai_reset");
 						_status.event.next.remove(next);
 						evt.after.push(next);
-						next.set("targetx",target);
+						next.player=target;
 						next.setContent(function(){
 							var evt=_status.event.getParent("phase");
 							if(evt){
-								_status.roundStart=_status.event.targetx;
+								_status.roundStart=player;
 								game.resetSkills();
 								_status.event=evt;
 								_status.event.finish();
@@ -3410,35 +3411,35 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var choice=[];
 					var list=[];
 					if(player.storage.sst_juezhan[0]){
-						choice.push("选项一");
-						list.push("选项一：你带有「伤害」标签的牌均视为【杀】。");
+						choice.push("｛1｝");
+						list.push("｛1｝你带有「伤害」标签的牌均视为【杀】。");
 					}
 					if(player.storage.sst_juezhan[1]){
-						choice.push("选项二");
-						list.push("选项二：你使用牌不能指定与你距离1以外的目标。");
+						choice.push("｛2｝");
+						list.push("｛2｝你使用牌不能指定与你距离1以外的目标。");
 					}
 					if(player.storage.sst_juezhan[2]){
-						choice.push("选项三");
-						list.push("选项三：你的装备区被废除。");
+						choice.push("｛3｝");
+						list.push("｛3｝你的装备区被废除。");
 					}
 					player.chooseControl(choice,"cancel2").set("ai",function(){
 						var choice=_status.event.choicex;
-						if(choice.contains("选项三")) return "选项三";
-						if(choice.contains("选项二")) return "选项二";
-						return "选项一";
+						if(choice.contains("｛3｝")) return "｛3｝";
+						if(choice.contains("｛2｝")) return "｛2｝";
+						return "｛1｝";
 					}).set("choicex",choice).set("choiceList",list).set("displayIndex",false).set("prompt","茕途：你可以删除〖绝战〗一个｛｝内的内容");
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
 						switch(result.control){
-							case "选项一":{
+							case "｛1｝":{
 								player.storage.sst_juezhan[0]=false;
 								break;
 							}
-							case "选项二":{
+							case "｛2｝":{
 								player.storage.sst_juezhan[1]=false;
 								break;
 							}
-							case "选项三":{
+							case "｛3｝":{
 								player.storage.sst_juezhan[2]=false;
 								player.enableEquip("equip1");
 								player.enableEquip("equip2");
@@ -3938,6 +3939,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						case 3:{
 							player.popup("③");
+							player.line(trigger.target,"green");
 							trigger.getParent().directHit.addArray(game.players);
 							break;
 						}
@@ -3948,13 +3950,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							break;
 						}
 						case 5:{
-							player.popup("⑤");
+							player.popup("⑤","thunder");
 							player.line(trigger.target,"thunder");
 							trigger.target.damage(player,"thunder");
 							break;
 						}
 						case 6:{
-							player.popup("⑥");
+							player.popup("⑥","fire");
 							player.line(trigger.target,"fire");
 							trigger.target.damage(player,"fire");
 							break;
@@ -3973,14 +3975,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case 9:{
 							player.popup("⑨");
 							//player.awakenSkill("sst_shenpan");
-							player.line(trigger.target);
+							player.line(trigger.target,{color:[0,0,0]});
 							for(var i=0;i<game.players.length;i++){
 								game.players[i].chat("是9！是9！");
 							}
 							event.nine=true;
-							event.others=game.filterPlayer(function(current){
-								return current!=player&&current!=trigger.target;
-							});
 							break;
 						}
 					}
@@ -3988,29 +3987,55 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.delayx();
 					"step 3"
 					if(event.nine){
-						player.popup("⑨");
-						player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-						event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-						game.delayx();
+						var next=game.createEvent("nine_effect");
+						next.player=player;
+						next.target=trigger.target;
+						next.others=game.filterPlayer(function(current){
+							return current!=player&&current!=trigger.target;
+						});
+						next.setContent(lib.skill.sst_shenpan.nine_effect);
 					}
-					else{
-						event.finish();
+				},
+				nine_effect:function(){
+					"step 0"
+					player.popup("⑨");
+					event.num=64;
+					"step 1"
+					event.num--;
+					player.line(target,{color:[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)],duration:250});
+					for(var i=0;i<4;i++){
+						game.linexy([
+							player.getLeft()+player.offsetWidth/2,
+							player.getTop()+player.offsetHeight/2,
+							target.getLeft()+target.offsetWidth/2+Math.floor(Math.random()*256)-128,
+							target.getTop()+target.offsetHeight/2+Math.floor(Math.random()*256)-128
+						],{color:[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)],duration:250},true);
 					}
-					"step 4"
+					//if(event.others&&event.others.length) event.others.randomGet().line(target,{color:[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]});
+					if(lib.config.background_audio){
+						game.playAudio("effect","damage");
+					}
+					game.broadcast(function(){
+						if(lib.config.background_audio){
+							game.playAudio("effect","damage");
+						}
+					});
+					target.$damage(player);
+					game.delay(0.0625);
+					if(event.num) event.redo();
+					"step 2"
 					player.popup("⑨");
-					player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-					event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-					game.delayx();
-					"step 5"
-					player.popup("⑨");
-					player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-					event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-					game.delayx();
-					"step 6"
-					player.popup("⑨");
-					player.line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-					event.others.randomGet().line(trigger.target,[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]);
-					trigger.target.damage(3,player);
+					player.line(target,{color:[Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128)]});
+					for(var i=0;i<16;i++){
+						game.linexy([
+							player.getLeft()+player.offsetWidth/2+Math.floor(Math.random()*32)-16,
+							player.getTop()+player.offsetHeight/2+Math.floor(Math.random()*32)-16,
+							target.getLeft()+target.offsetWidth/2+Math.floor(Math.random()*32)-16,
+							target.getTop()+target.offsetHeight/2+Math.floor(Math.random()*32)-16
+						],{color:[Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128)]},true);
+					}
+					//if(event.others&&event.others.length) event.others.randomGet().line(target,{color:[Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128)]});
+					target.damage(3,player);
 				},
 				ai:{
 					threaten:2,
@@ -5335,7 +5360,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.choosePlayerCard(trigger.target,"h",get.prompt2("sst_shengxi")).set("filterButton",function(button){
+					player.choosePlayerCard(trigger.target,"h",get.prompt2("sst_shengxi",trigger.target)).set("filterButton",function(button){
 						return !button.link.hasGaintag("viewHandcard");
 					}).set("targetx",trigger.target).set("ai",function(button){
 						if(get.attitude(_status.event.player,_status.event.targetx)<0){
