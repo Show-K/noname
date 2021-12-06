@@ -1516,7 +1516,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 			},
 			duzhansanguo:{
-				name:'毒战三国',
+				name:'毒战乱斗',
 				mode:'identity',
 				intro:'牌堆中额外添加10%的毒',
 				showcase:function(init){
@@ -1554,7 +1554,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				content:{
 					cardPile:function(list){
-						game.identityVideoName='毒战三国杀';
+						game.identityVideoName='毒战乱斗';
 						lib.config.bannedcards.remove('du');
 						if(game.bannedcards) game.bannedcards.remove('du');
 						var num=Math.ceil(list.length/10);

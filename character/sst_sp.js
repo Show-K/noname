@@ -5,7 +5,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_sp:{
-				sst_mnm:["mnm_edelgard"],
+				sst_mnm:["mnm_edelgard","mnm_captain_falcon"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad"],
 				sst_nnk:[],
@@ -27,6 +27,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
+			//mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
 		},//武将（必填）
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -116,6 +117,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"所以拳皇XV终于憋出来了……",
+			mnm_captain_falcon:"0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>"+
+			"系列：F-Zero（零式赛车）<br>"+
+			"初登场：F-Zero（零式赛车）<br>"+
+			"武将作者：mario not mary<br>"+
+			"--------------------------------<br>"+
+			"在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"亮招来见。",
 		},//武将介绍（选填）
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -129,6 +139,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_professor_toad:"沙原博时",
 			mnm_edelgard:"炎翼的皇女",
 			alz_kyo_kusanagi:"炎之贵公子",
+			mnm_captain_falcon:"风驰电掣",
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -1591,6 +1602,261 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondSha:true,
 				}
 			},
+			//Captain Falcon
+			/*
+			mnm_jijing:{
+				enable:"phaseUse",
+				usable:1,
+				content:function(){
+					"step 0"
+					if(_status.connectMode) event.time=lib.configOL.choose_timeout;
+					event.videoId=lib.status.videoId++;
+					if(player.isUnderControl()){
+						game.swapPlayerAuto(player);
+					}
+					var switchToAuto=function(){
+						game.pause();
+						game.countChoose();
+						setTimeout(function(){
+							_status.imchoosing=false;
+							var max=1+player.countMark("mnm_jijing");
+							var score=Math.random()<0.5?max:get.rand(1,max);
+							event._result={
+								bool:true,
+								score:score,
+								win:score>=max,
+							};
+							if(event.dialog) event.dialog.close();
+							if(event.control) event.control.close();
+							game.resume();
+						},5000);
+					};
+					var createDialog=function(player,id){
+						if(_status.connectMode) lib.configOL.choose_timeout="30";
+						if(player==game.me) return;
+						var str=get.translation(player)+"正在表演《御风飞行》...<br>";
+						ui.create.dialog(str).videoId=id;
+					};
+					var chooseButton=function(){
+						var roundmenu=false;
+						if(ui.roundmenu&&ui.roundmenu.display!="none"){
+							roundmenu=true;
+							ui.roundmenu.style.display="none";
+						}
+						var event=_status.event;
+						event.settleed=false;
+						event.score=0;
+						event.dialog=ui.create.dialog("forcebutton","hidden");
+						event.dialog.textPrompt=event.dialog.add("<div class=\"text center\">准备好了吗？准备好了的话就点击屏幕开始吧！</div>");
+						var max=1+game.me.countMark("mnm_jijing");
+						event.dialog.textPrompt.style["z-index"]=10;
+						event.switchToAuto=function(){
+							event._result={
+								bool:true,
+								score:event.score,
+								win:event.score>=max,
+							};
+							event.dialog.close();
+							game.resume();
+							_status.imchoosing=false;
+							if(roundmenu) ui.roundmenu.style.display="";
+						};
+						event.dialog.classList.add("fixed");
+						event.dialog.classList.add("scroll1");
+						event.dialog.classList.add("scroll2");
+						event.dialog.classList.add("fullwidth");
+						event.dialog.classList.add("fullheight");
+						event.dialog.classList.add("noupdate");
+						event.dialog.style.overflow="hidden";
+						event.dialog.open();
+						
+						var height=event.dialog.offsetHeight;
+						var width=event.dialog.offsetWidth;
+						var top=50;
+						var speed=0;
+						var start=false;
+						
+						var bird=ui.create.div("");
+						bird.style["background-image"]="linear-gradient(rgba(240, 235, 3, 1), rgba(230, 225, 5, 1))";
+						bird.style["border-radius"]="3px";
+						var pipes=[];
+						bird.style.position="absolute";
+						bird.style.height="40px";
+						bird.style.width="40px";
+						bird.style.left=Math.ceil(width/3)+"px";
+						bird.style.top=(top/100*height)+"px";
+						bird.updatePosition=function(){
+							bird.style.transform="translateY("+(top/100*height-bird.offsetTop)+"px)";
+						};
+						event.dialog.appendChild(bird);
+						var isDead=function(){
+							if(top>100||top<0) return true;
+							var btop=top;
+							var bleft=100/3;
+							var bdown=btop+5;
+							var bright=bleft+5;
+							for(var i of pipes){
+								var left2=i.left;
+								var right2=left2+10;
+								var bottom2=i.height1;
+								var top2=i.height2;
+								
+								if(left2>bright||right2<bleft) continue;
+								if(btop<bottom2) return true;
+								if(bdown>top2) return true;
+								return false;
+							}
+							return false;
+						};
+						
+						var fly=function(){
+							if(!start){
+								start=true;
+								event.dialog.textPrompt.innerHTML="<div class=\"text center\">当前分数："+event.score+"</div>";
+								//speed=-4;
+								event.fly=setInterval(function(){
+									top+=speed;
+									if(top<0) top=0;
+									bird.updatePosition();
+									for(var i of pipes){
+										i.left-=0.5;
+										i.updateLeft();
+									}
+									//speed+=0.5;
+									if(speed>2.5) speed=2.5;
+									
+									if(isDead()==true){
+										event.settle();
+									}
+								},35);
+								var addPipe=function(){
+									var num=get.rand(5,55);
+									
+									var pipe1=ui.create.div("");
+									pipe1.style["background-image"]="linear-gradient(rgba(57, 133, 4, 1), rgba(60, 135, 6, 1))";
+									pipe1.style["border-radius"]="3px";
+									pipe1.style.position="absolute";
+									pipe1.height1=num;
+									pipe1.height2=num+50;
+									pipe1.left=110;
+									pipe1.num=1;
+									pipe1.style.height=Math.ceil(height*num/100)+"px";
+									pipe1.style.width=(width/10)+"px";
+									pipe1.style.left=(pipe1.left*width/100)+"px";
+									pipe1.style.top="0px";
+
+									var pipe2=ui.create.div("");
+									pipe2.style["background-image"]="linear-gradient(rgba(57, 133, 4, 1), rgba(60, 135, 6, 1))";
+									pipe2.style["border-radius"]="3px";
+									pipe1.pipe2=pipe2;
+									pipe2.style.position="absolute";
+									pipe2.style.height=Math.ceil((100-pipe1.height2)*height/100)+"px";
+									pipe2.style.width=(width/10)+"px";
+									pipe2.style.left=(pipe1.left*width/100)+"px";
+									pipe2.style.top=Math.ceil(pipe1.height2*height/100)+"px";
+									pipes.add(pipe1);
+									event.dialog.appendChild(pipe1);
+									event.dialog.appendChild(pipe2);
+									pipe1.updateLeft=function(){
+										this.style.transform="translateX("+((this.left/100*width)-this.offsetLeft)+"px)";
+										this.pipe2.style.transform="translateX("+((this.left/100*width)-this.pipe2.offsetLeft)+"px)";
+										if(this.left<25&&!this.score){
+											this.score=true;
+											event.score++;
+											event.dialog.textPrompt.innerHTML="<div class=\"text center\">当前分数："+event.score+"</div>";
+											if(event.score>=max){
+												event.settle();
+											}
+										}
+										if(this.left<-15){
+											this.remove();
+											this.pipe2.remove();
+											pipes.remove(this);
+										}
+									}
+								};
+								event.addPipe=setInterval(addPipe,2500);
+							}
+							else{
+								speed=-4;
+							}
+						};
+						document.addEventListener(lib.config.touchscreen?"touchend":"click",fly);
+						
+						event.settle=function(){
+							clearInterval(event.fly);
+							clearInterval(event.addPipe);
+							document.removeEventListener(lib.config.touchscreen?"touchend":"click",fly);
+							setTimeout(function(){
+								event.switchToAuto()
+							},1000);
+						};
+						
+						game.pause();
+						game.countChoose();
+					};
+					//event.switchToAuto=switchToAuto;
+					game.broadcastAll(createDialog,player,event.videoId);
+					if(event.isMine()){
+						chooseButton();
+					}
+					else if(event.isOnline()){
+						event.player.send(chooseButton);
+						event.player.wait();
+						game.pause();
+					}
+					else{
+						switchToAuto();
+					}
+					"step 1"
+					game.broadcastAll(function(id,time){
+						if(_status.connectMode) lib.configOL.choose_timeout=time;
+						var dialog=get.idDialog(id);
+						if(dialog){
+							dialog.close();
+						}
+					},event.videoId,event.time);
+					var result=event.result||result;
+					player.popup(get.cnNumber(result.score)+"分",result.win?"wood":"fire")
+					game.log(player,"御风飞行",result.win?"#g成功":"#y失败");
+					game.log(player,"获得了","#g"+result.score+"分");
+					var max=player.countMark("mnm_jijing");
+					if(!result.win){
+						if(result.score) player.draw(result.score);
+						if(max) player.removeMark("mnm_jijing",max,false);
+						event.finish();
+					}
+					else{
+						if(max<2) player.addMark("mnm_jijing",1,false);
+						event.score=result.score;
+						player.chooseTarget("请选择【御风】的目标",[1,result.score],function(card,player,target){
+							return target!=player&&!target.hasSkill("mnm_jijing2");
+						}).set("ai",function(target){
+							var player=_status.event.player;
+							var att=-get.attitude(player,target),attx=att*2;
+							if(att<=0||target.hasSkill("xinfu_pdgyingshi")) return 0;
+							if(target.hasJudge("lebu")) attx-=att;
+							if(target.hasJudge("bingliang")) attx-=att;
+							return attx/Math.max(2.25,Math.sqrt(target.countCards("h")+1));
+						});
+					}
+					"step 2"
+					if(result.bool){
+						result.targets.sortBySeat();
+						player.line(result.targets,"green");
+						game.log(result.targets,"获得了","#y“御风”","效果");
+						for(var i of result.targets) i.addSkill("mnm_jijing2");
+						if(event.score>result.targets.length) player.draw(event.score-result.targets.length);
+					}
+					else player.draw(event.score);
+				},
+				ai:{
+					order:10,
+					result:{player:1},
+					threaten:3.2,
+				}
+			},
+			*/
 		},//技能（必填）
 		dynamicTranslate:{
 		},
@@ -1615,6 +1881,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_professor_toad:"考古学家奇诺比奥",
 			mnm_edelgard:"艾黛尔贾特",
 			alz_kyo_kusanagi:"SP草薙京",
+			mnm_captain_falcon:"飞隼队长",
 			//身份技能
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -1677,6 +1944,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_wushi_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张杀（X为你与其距离+1）。",
 			alz_huangyao:"荒咬",
 			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用。",
+			mnm_jijing:"急竞",
+			mnm_jijing_info:"出牌阶段限一次，你可以将武将牌弹飞，其所命中的武将牌对应的角色依次受到你造成的1点伤害。",
 			//武将分类
 			//sst_sp:"SP",
 			sst_mnm:"mario not mary",
