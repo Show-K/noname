@@ -56,7 +56,7 @@ window.noname_update={
 		'layout/layout.css',
 		'layout/default/layout.css',
 		//'layout/newlayout/global.css',
-		2//'layout/default/menu.css',
+		//'layout/default/menu.css',
 		//'layout/nova/layout.css',
 		//'layout/mobile/equip.css',
 		//'mode/boss.js',
