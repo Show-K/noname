@@ -2356,12 +2356,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				*/
 			},
 			sst_guiyun2:{
-				trigger:{
-					player:["damageBegin4"],
-				},
-				filter:function(event){
-					return true;
-				},
+				trigger:{player:"damageBegin4"},
 				onremove:function (player) {
 					player.unmarkSkill("sst_guiyun2");
 				},
