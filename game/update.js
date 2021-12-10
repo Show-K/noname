@@ -9,6 +9,7 @@ window.noname_update={
 	files:[
 		'card/sst.js',
 		'card/sst_sp.js',
+		'card/sst_land.js',
 		'character/sst.js',
 		'character/sst_yingbian.js',
 		'character/sst_sp.js',
@@ -55,7 +56,7 @@ window.noname_update={
 		'layout/layout.css',
 		'layout/default/layout.css',
 		//'layout/newlayout/global.css',
-		//'layout/default/menu.css',
+		2//'layout/default/menu.css',
 		//'layout/nova/layout.css',
 		//'layout/mobile/equip.css',
 		//'mode/boss.js',

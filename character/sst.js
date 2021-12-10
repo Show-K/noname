@@ -1155,7 +1155,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qingyongx:{
 				viewAs:{name:"sha"},
 				filterCard:true,
-				position:"he",
+				position:"hes",
 				check:function(card){return 5-get.value(card)},
 			},
 			//Yoshi
@@ -1531,7 +1531,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							filterCard: true,
 							selectCard: 1,
 							popname: true,
-							position: "he",
+							position: "hes",
 							viewAs: { name: links[0][2], nature: links[0][3] },
 						}
 					},
@@ -4830,7 +4830,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:function(card,player){
 					return true;
 				},
-				position:"he",
+				position:"hes",
 				viewAs:function(cards,player){
 					if(player.storage.sst_huanbian){
 						if(player.storage.sst_huanbian_nature) return {name:player.storage.sst_huanbian,nature:player.storage.sst_huanbian_nature};
@@ -7837,7 +7837,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return get.tag({name:name},"damage");
 				},
 				filter:function(event,player){
-					return player.countCards("he",function(card){
+					return player.countCards("hes",function(card){
 						return !get.tag(card,"damage");
 					});//&&!_status.dying.length;
 				},
@@ -7876,7 +7876,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							check:function(card){
 								return 6-get.value(card);
 							},
-							position:"he",
+							position:"hes",
 							viewAs:{name:links[0][2],nature:links[0][3]},
 						}
 					},
@@ -7888,7 +7888,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondSha:true,
 					order:4,
 					skillTagFilter:function(player){
-						if(!player.countCards("he",function(card){
+						if(!player.countCards("hes",function(card){
 							return !get.tag(card,"damage");
 						})) return false;
 					},
@@ -9624,7 +9624,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				enable:"phaseUse",
 				usable:1,
 				filterCard:true,
-				position:"he",
+				position:"hes",
 				filterTarget:function(card,player,target){
 					if(_status.event._backup&&
 						typeof _status.event._backup.filterTarget=="function"&&
@@ -9636,7 +9636,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
 					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
-					return player.countCards("he");
+					return player.countCards("hes");
 				},
 				check:function(card){
 					return 5-get.value(card);
@@ -10443,7 +10443,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					else{
-						player.chooseToDiscard("伏妙：弃置"+get.cnNumber(player.countCards("h")-trigger.player.hp)+"张牌",player.countCards("h")-trigger.player.hp,true);
+						player.chooseToDiscard("伏妙：弃置"+get.cnNumber(player.countCards("h")-trigger.player.hp)+"张手牌",player.countCards("h")-trigger.player.hp,true);
 					}
 					"step 1"
 					var next=player.chooseToUse("伏妙：你可以将一张牌当作【杀】使用（不受距离限制，不计入使用次数）");
@@ -10459,7 +10459,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fumiaox:{
 				viewAs:{name:"sha"},
 				filterCard:true,
-				position:"he",
+				position:"hes",
 				check:function(card){return 5-get.value(card)},
 			},
 			sst_huayu:{
@@ -11365,11 +11365,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return get.color(card)!=get.color(ui.selected.cards[0]);
 						},
 						selectCard:2,
-						position:"he",
+						position:"hes",
 						prompt:"你可以将两张颜色不同的牌当作【杀】使用或打出",
 						viewAs:{name:"sha"},
 						viewAsFilter:function(player){
-							if(!player.countCards("he")) return false;
+							if(!player.countCards("hes")) return false;
 						},
 					},
 					shan:{
@@ -11380,11 +11380,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return get.color(card)!=get.color(ui.selected.cards[0]);
 						},
 						selectCard:2,
-						position:"he",
+						position:"hes",
 						prompt:"你可以将两张颜色不同的牌当作【闪】使用或打出",
 						viewAs:{name:"shan"},
 						viewAsFilter:function(player){
-							if(!player.countCards("he")) return false;
+							if(!player.countCards("hes")) return false;
 						},
 					},
 				},
@@ -12926,7 +12926,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_caijue:"裁决",
 			sst_caijue_info:"锁定技，一名受到过你造成的伤害的角色的结束阶段，若其累计使用【杀】的数量大于全场存活角色数，你将你与其所有牌依次当作【杀】对其使用，然后你失去〖决心〗。",
 			sst_zhamou:"诈谋",
-			sst_zhamou_info:"出牌阶段限一次，你可以令一名其他角色弃置你一张手牌，若为黑色，你视为对其使用一张任意普通锦囊牌，然后你选择一项：1. 收回此牌；2. 令此技能视为此出牌阶段未发动过。",
+			sst_zhamou_info:"出牌阶段限一次，你可以令一名其他角色弃置你一张手牌，若为黑色，视为你对其使用一张任意普通锦囊牌，然后你选择一项：1. 收回此牌；2. 令此技能视为此出牌阶段未发动过。",
 			sst_zhuzai:"主宰",
 			sst_zhuzai2:"主宰",
 			sst_zhuzai3:"主宰",
@@ -12946,7 +12946,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qichang4:"绮裳",
 			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为装备了一张你声明的装备（不可替换原有装备），直到你的下回合开始。",
 			sst_qichang_detail:"技能解释",
-			sst_qichang_detail_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为对你使用一张装备牌（不得替换原装备，不能被弃置或获得），你的回合开始时或失去此牌后，销毁之。",
+			sst_qichang_detail_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为对你装备一张装备牌（不得替换原装备，不能被弃置或获得），你的回合开始时或失去此牌后，销毁之。",
 			sst_shizhu:"拾珠",
 			sst_shizhu_info:"弃牌阶段，你可以令一名其他角色弃置与你数量相同的牌，或其他角色的弃牌阶段，你可以弃置与其等量的牌；然后你可以从此阶段进入弃牌堆的牌中选择任意张对你或其使用。",
 			sst_shizhu_detail:"技能解释",
