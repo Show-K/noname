@@ -1585,17 +1585,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:function(card,player){
 					return get.color(card)=="red";
 				},
-				position:"he",
+				position:"hes",
 				viewAs:{name:"sha",nature:"fire"},
 				viewAsFilter:function(player){
 					if(!player.countCards("he",function(card){
 						return get.color(card)=="red";
 					})) return false;
 				},
-				check:function(card){return 4-get.value(card)},
+				check:function(card){
+					return 5-get.value(card);
+				},
 				ai:{
 					skillTagFilter:function(player){
-						if(!player.countCards("he",function(card){
+						if(!player.countCards("hes",function(card){
 							return get.color(card)=="red";
 						})) return false;
 					},

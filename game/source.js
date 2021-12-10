@@ -16,6 +16,7 @@ window.noname_source_list=[
 	'card/zhulu.js',
 	'card/sst.js',
 	'card/sst_sp.js',
+	'card/sst_land.js',
 	/*
 	'character/diy.js',
 	'character/extra.js',

@@ -32,6 +32,7 @@ window.noname_package={
 	card:{
 		sst:'大乱桌斗',
 		sst_sp:'乱斗SP',
+		sst_land:'乱斗地图',
 		standard:'标准',
 		extra:'军争',
 		sp:'忠胆英杰',

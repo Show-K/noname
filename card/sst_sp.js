@@ -4,613 +4,689 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 		name:"sst_sp",//卡包命名
 		connect:true,//卡包是否可以联机
 		card:{
-			ska_battlefield:{
-				global:["sst_system_card1","sst_system_card2","sst_system_card3"],
-				type:"land",
-				fullborder:"simple",
-				system_card:true,
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_battlefield",player);
-					"step 1"
-					var players=game.filterPlayer().sortBySeat();
-					game.asyncDraw(players);
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_small_battlefield:{
-				type:"land",
-				fullborder:"simple",
-				system_card:true,
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_small_battlefield",player);
-					"step 1"
-					var players=game.filterPlayer().sortBySeat();
-					for(var i=0;i<players.length;i++){
-						players[i].draw("nodelay");
-						players[i].chooseToDiscard("小战场：弃置一张牌","he",true);
-					}
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_big_battlefield:{
-				type:"land",
-				fullborder:"simple",
-				system_card:true,
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_big_battlefield",player);
-					"step 1"
-					var players=game.filterPlayer().sortBySeat();
-					game.asyncDraw(players,2);
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_final_destination:{
-				global:["sst_system_card1","sst_system_card2","sst_system_card3"],
-				type:"land",
-				fullborder:"simple",
-				system_card:true,
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_final_destination",player);
-					"step 1"
-					var players=game.filterPlayer().sortBySeat();
-					for(var i=0;i<players.length;i++){
-						players[i].drawTo(4,"nodelay");
-						if(players[i].hp<3) players[i].recover(3-players[i].hp);
-					}
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_new_donk_city_hall:{
-				type:"land",
-				fullborder:"simple",
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_new_donk_city_hall",player);
-					"step 1"
-					player.draw(2);
-					"step 2"
-					var evt=event.getParent("phaseUse");
-					if(evt){
-						var next=player.phaseUse();
-						event.next.remove(next);
-						evt.next.push(next);
-					}
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_great_plateau_tower:{
-				type:"land",
-				fullborder:"simple",
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_great_plateau_tower",player);
-					"step 1"
-					if(player.hp<player.maxHp) player.recover(player.maxHp-player.hp);
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_moray_towers:{
-				type:"land",
-				fullborder:"simple",
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_moray_towers",player);
-					"step 1"
-					var num=0;
-					game.countPlayer(function(current){
-						if(current.countCards("h")>num) num=current.countCards("h");
-					});
-					var draw=Math.min(num-player.countCards("h"),5);
-					if(draw) player.draw(draw);
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_garreg_mach_monastery:{
-				type:"land",
-				fullborder:"simple",
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_garreg_mach_monastery",player);
-					"step 1"
-					player.chooseCard("加尔古·玛库大修道院：你可以重铸任意张牌","he",[1,Infinity]).set("ai",function(card){
-						return 5-get.value(card);
-					});
-					"step 2"
-					if(result.cards&&result.cards.length) {
-						var cards=result.cards;
-						player.$throw(cards,1000);
-						player.lose(cards,ui.discardPile,"visible").set("type","_chongzhu");
-						game.log(player,"将",cards,"置入了弃牌堆");
-						player.draw(cards.length);
-					}
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_cloud_sea_of_alrest:{
-				type:"land",
-				fullborder:"simple",
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_cloud_sea_of_alrest",player);
-					"step 1"
-					var card=null;
-					for(var i=ui.discardPile.childNodes.length-1;i>=0;i--){
-						if(get.subtype(ui.discardPile.childNodes[i])=="equip1"){
-							card==ui.discardPile.childNodes[i];
-							break;
-						}
-					}
-					if(card){
-						player.gain(card,"gain2");
-					}
-					else{
-						player.chat("无牌可得了吗");
-						game.log("但是弃牌堆里面已经没有武器牌了！");
-					}
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-			ska_spring_stadium:{
-				type:"land",
-				fullborder:"simple",
-				enable:function(card,player){
-					return !player.hasSkill("land_used");
-				},
-				notarget:true,
-				content:function(){
-					"step 0"
-					game.changeLand("ska_spring_stadium",player);
-					"step 1"
-					player.chooseUseTarget("弹簧竞技场：你可以视为对一名角色使用【杀】",{name:"sha",isCard:true},false,"nodistance");
-				},
-				ai:{
-					value:5,
-					useful:3,
-					order:4,
-					result:{
-						player:1,
-					},
-				},
-			},
-		},
-		skill:{
-			//后台技能
-			sst_system_card1:{
-				trigger:{
-					player:"loseEnd",
-					global:"cardsDiscardEnd",
-				},
-				filter:function(event,player){
-					var evt=event.getParent().relatedEvent;
-					if(evt&&evt.name=="useCard") return false;
-					for(var i=0;i<event.cards.length;i++){
-						if(["ska_battlefield","ska_final_destination"].contains(event.cards[i].name)&&get.position(event.cards[i],true)=="d"){
-							return true;
-						}
-					}
-					return false;
-				},
-				forced:true,
-				popup:false,
-				content:function(){
-					var cards=[];
-					for(var i=0;i<trigger.cards.length;i++){
-						if(["ska_battlefield","ska_final_destination"].contains(trigger.cards[i].name)&&get.position(trigger.cards[i],true)=="d"){
-							cards.push(trigger.cards[i]);
-						}
-					}
-					if(cards.length){
-						game.cardsGotoSpecial(cards);
-						game.log(cards,"已被移出游戏");
-						for(var i=0;i<cards.length;i++){
-							_status.system_card=cards[i].name;
-							if(player&&player.popup) player.popup(cards[i].name);
-							if(cards[i].name=="ska_battlefield"&&!lib.inpile.contains("ska_final_destination")){
-								lib.inpile.push("ska_final_destination");
-								var card=game.createCard2("ska_final_destination","spade",13);
-								//card.set("cardtag",["sst_ultimate"]);
-								if(!_status.cardtag) _status.cardtag={};
-								if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
-								_status.cardtag["sst_ultimate"].push(card.cardid);
-								game.log(card,"被置于了牌堆底");
-								ui.cardPile.appendChild(card);
-								game.updateRoundNumber();
-							}
-							else if(cards[i].name=="ska_final_destination"&&!lib.inpile.contains("ska_battlefield")){
-								lib.inpile.push("ska_battlefield");
-								var card=game.createCard2("ska_battlefield","diamond",5);
-								//card.set("cardtag",["sst_ultimate"]);
-								if(!_status.cardtag) _status.cardtag={};
-								if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
-								_status.cardtag["sst_ultimate"].push(card.cardid);
-								game.log(card,"被置于了牌堆底");
-								ui.cardPile.appendChild(card);
-								game.updateRoundNumber();
-							}
-						}
-					}
-				},
-			},
-			sst_system_card2:{},
-			sst_system_card3:{
-				trigger:{player:"phaseAfter"},
-				forced:true,
-				popup:false,
-				filter:function(){
-					//game.log(_status.system_card);
-					return _status.system_card;
-				},
-				content:function(){
-					"step 0"
-					event.system_card=_status.system_card;
-					_status.system_card=false;
-					game.changeLand(event.system_card);
-					switch(event.system_card){
-						case "ska_battlefield":{
-							event.goto(1);
-							break;
-						}
-						case "ska_final_destination":{
-							event.goto(2);
-							break;
-						}
-					}
-					"step 1"
-					//Battlefield
-					var players=game.filterPlayer().sortBySeat();
-					game.asyncDraw(players);
-					event.finish();
-					"step 2"
-					//Final Destination
-					var players=game.filterPlayer().sortBySeat();
-					for(var i=0;i<players.length;i++){
-						players[i].drawTo(4,"nodelay");
-						if(players[i].hp<3) players[i].recover(3-players[i].hp,"nosource");
-					}
-					event.finish();
-				}
-			},
-			//地图技能
-			ska_battlefield_skill:{
-				mod:{
-					maxHandcard:function(player,num){
-						return num+1;
-					}
-				},
-				trigger:{player:"phaseJieshuBegin"},
-				forced:true,
-				filter:function(event,player){
-					return player.countCards("h")<player.getHandcardLimit();
-				},
-				content:function(){
-					player.draw();
-				},
-				ai:{
-					mapValue:2,
-				},
-			},
-			ska_small_battlefield_skill:{
-				mod:{
-					maxHandcard:function(player,num){
-						return num+1;
-					}
-				},
-			},
-			ska_big_battlefield_skill:{
-				mod:{
-					maxHandcard:function(player,num){
-						return num+2;
-					}
-				},
-				trigger:{player:"phaseJieshuBegin"},
-				forced:true,
-				filter:function(event,player){
-					return player.countCards("h")<player.getHandcardLimit();
-				},
-				content:function(){
-					player.draw(2);
-				},
-				ai:{
-					mapValue:2,
-				},
-			},
-			ska_final_destination_skill:{
-				trigger:{player:"phaseUseBegin"},
-				forced:true,
-				content:function(){
-					var players=game.filterPlayer().sortBySeat();
-					for(var i=0;i<players.length;i++){
-						players[i].addTempSkill("fengyin","phaseUseAfter");
-					}
-				},
-				ai:{
-					mapValue:-4,
-				},
-			},
-			ska_new_donk_city_hall_skill:{
-				trigger:{player:["useCard","respond"]},
-				frequent:true,
-				filter:function(event,player){
-					return get.number(event.card)==7;
-				},
-				content:function(){
-					player.draw(2,"nodelay");
-				},
-				ai:{
-					mapValue:2,
-				},
-			},
-			ska_great_plateau_tower_skill:{
-				trigger:{player:"phaseZhunbeiBegin"},
-				filter:function(event,player){
-					return player.countCards("h");
-				},
-				check:function(event,player){
-					if(!player.getDamagedHp()) return false;
-					var cards=player.getCards("h");
-					var color=get.color(cards[0],player);
-					for(var i=1;i<cards.length;i++){
-						if(get.color(cards[i],player)!=color) return false;
-					}
-					return true;
-				},
-				content:function(){
-					"step 0"
-					player.showHandcards();
-					"step 1"
-					var cards=player.getCards("h");
-					var color=get.color(cards[0],player);
-					for(var i=1;i<cards.length;i++){
-						if(get.color(cards[i],player)!=color) return;
-					}
-					player.recover();
-				},
-				ai:{
-					mapValue:2,
-				},
-			},
-			ska_moray_towers_skill:{
-				trigger:{source:"damageSource"},
-				logSkill:"player",
-				filter:function(event,player){
-					return player.countCards("h")<event.player.countCards("h");
-				},
-				check:function(event,player){
-					return get.attitude(player,event.player)<0;
-				},
-				content:function(){
-					"step 0"
-					player.draw();
-					"step 1"
-					player.discardPlayerCard("时钟塔：弃置"+get.translation(trigger.player)+"一张手牌",trigger.player,"h",true);
-				},
-				ai:{
-					mapValue:2,
-				},
-			},
-			ska_garreg_mach_monastery_skill:{
-				enable:"phaseUse",
+			ska_grab:{
+				//fullskin:true,
+				type:"basic",
+				enable:true,
 				usable:1,
+				updateUsable:"phaseUse",
+				range:{attack:1},
+				selectTarget:1,
+				yingbian_prompt:function(card){
+					var str="";
+					if(get.cardtag(card,"yingbian_gain")){
+						str+="当你声明使用此牌时，你获得此牌响应的目标牌";
+					}
+					if(get.cardtag(card,"yingbian_hit")){
+						str+="此牌不可被响应";
+					}
+					if(get.cardtag(card,"yingbian_draw")){
+						if(str.length) str+="；";
+						str+="当你声明使用此牌时，你摸一张牌";
+					}
+					if(get.cardtag(card,"yingbian_remove")){
+						if(str.length) str+="；";
+						str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
+					}
+					if(!str.length||get.cardtag(card,"yingbian_add")){
+						if(str.length) str+="；";
+						str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
+					}
+					return str;
+				},
+				yingbian:function(event){
+					var card=event.card,bool=false;
+					if(get.cardtag(event.card,"yingbian_gain")){
+						bool=true;
+						var cardx=event.respondTo;
+						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("od").length) event.player.gain(cardx[1].cards.filterInD("od"),"gain2","log");
+					}
+					if(get.cardtag(card,"yingbian_hit")){
+						bool=true;
+						event.directHit.addArray(game.players);
+						game.log(card,"不可被响应");
+					}
+					if(get.cardtag(event.card,"yingbian_draw")){
+						bool=true;
+						event.player.draw();
+					}
+					if(get.cardtag(card,"yingbian_remove")){
+						bool=true;
+						event.yingbian_removeTarget=true;
+					}
+					if(!bool||get.cardtag(card,"yingbian_add")){
+						event.yingbian_addTarget=true;
+					}
+				},
+				yingbian_tags:["gain","hit","draw","remove","add"],
 				filterTarget:function(card,player,target){
 					return player!=target;
 				},
-				viewAsfilter:function(player){
-					if(!player.countCards("he")) return false;
-				},
-				filterCard:true,
-				selectCard:1,
-				discard:false,
-				lose:false,
-				delay:false,
-				position:"he",
 				content:function(){
 					"step 0"
-					target.gain(cards,player,"giveAuto");
+					if(typeof event.shanRequired!="number"||!event.shanRequired||event.shanRequired<0){
+						event.shanRequired=1;
+					}
+					event.shan=[];
 					"step 1"
-					player.draw();
+					if(!_status.connectMode&&lib.config.skip_shan&&!target.hasShan()){
+						event._result={bool:false};
+					}
+					else if(event.skipShan){
+						event._result={bool:true,result:"shaned"};
+					}
+					else{
+						var next=target.chooseCard("抓：请展示一张【闪】");
+						next.set("position","he");
+						next.set("filterCard",function(card,player){
+							return get.name(card)=="shan"&&!_status.event.shan.contains(card);
+						});
+						next.set("shan",event.shan);
+						if(event.shanRequired>1){
+							next.set("prompt2","（共需展示"+event.shanRequired+"张不同的【闪】）");
+						}
+					}
+					"step 2"
+					if(!result||!result.bool){
+						event.trigger("ska_grabHit");
+					}
+					else{
+						event.shanRequired--;
+						target.showCards(result.cards);
+						event.shan.push(result.cards[0]);
+						if(event.shanRequired>0){
+							event.goto(1);
+						}
+						else{
+							event.trigger("ska_grabMiss");
+						}
+					}
+					"step 3"
+					if((!result||!result.bool)){
+						player.discardPlayerCard("抓：弃置"+get.translation(target)+"一张牌",target,"he",true);
+						event.result={bool:true}
+						event.trigger("ska_grabDiscard");
+					}
+					else{
+						event.result={bool:false}
+						event.trigger("ska_grabNoDiscard");
+					}
 				},
 				ai:{
-					mapValue:2,
-					order:3,
-					expose:0.2,
+					yingbian:function(card,player,targets,viewer){
+						if(get.attitude(viewer,player)<=0) return 0;
+						var base=0,hit=false;
+						if(get.cardtag(card,"yingbian_hit")){
+							hit=true;
+							if(targets.filter(function(target){
+								return target.hasShan()&&get.attitude(viewer,target)<0&&target.countCards("he")>0;
+							})) base+=5;
+						}
+						if(get.cardtag(card,"yingbian_add")){
+							if(game.hasPlayer(function(current){
+								return !targets.contains(current)&&lib.filter.targetEnabled2(card,player,current)&&get.effect(current,card,player,player)>0;
+							})) base+=5;
+						}
+						return base;
+					},
+					basic:{
+						useful:[5,3,1],
+						value:[5,3,1],
+					},
+					order:function(item,player){
+						if(player.hasSkillTag("presha",true,null,true)) return 10;
+						return 3.05;
+					},
 					result:{
-						target:function(player,target){
-							if(target.hasSkillTag("nogain")) return 0;
-							if(player.countCards("h")==player.countCards("h","du")) return -1;
-							return 1;
+						target:function(player,target,card,isLink){
+							var eff=function(){
+								if(!target.countDiscardableCards("he")) return 0;
+								return -1.5;
+							}();
+							if(target.mayHaveShan()&&!player.hasSkillTag("directHit_ai",true,{
+								target:target,
+								card:card,
+							},true)) return eff/1.2;
+							return eff;
 						},
 					},
-				},
-			},
-			ska_cloud_sea_of_alrest_skill:{
-				trigger:{player:"phaseZhunbeiBegin"},
-				filter:function(event,player){
-					return ui.discardPile.childNodes.length;
-				},
-				frequent:true,
-				content:function(){
-					player.gain(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],"gain2");
-				},
-				ai:{
-					mapValue:2,
-				},
-			},
-			ska_spring_stadium_skill:{
-				mod:{
-					targetInRange:function(card,player){
-						if(card.name=="sha"&&player.countUsed("sha",true)==0) return true;
+					tag:{
+						loseCard:1,
+						discard:1,
 					},
-				},
-				trigger:{player:"useCard"},
-				filter:function(event,player){
-					return get.name(event.card)=="sha"&&player.countUsed("sha",true)==1;
-				},
-				forced:true,
+				}
+			},
+			ska_shield:{
+				type:"basic",
+				cardcolor:"black",
+				notarget:true,
+				nodelay:true,
+				usable:3,
+				updateUsable:"roundStart",
+				global:"ska_shield_skill",
 				content:function(){
-					player.draw();
+					event.getParent().delayx=false;
+					var evt=event.getParent("damage");
+					if(evt&&typeof evt.num=="number"){
+						evt.num--;
+						if(evt.num>=2) player.turnOver();
+					}
 				},
 				ai:{
-					mapValue:2,
+					order:3,
+					basic:{
+						useful:[7,5.1,2],
+						value:[7,5.1,2],
+					},
+					result:{player:1},
+				},
+			},
+			ska_smash:{
+				//fullskin:true,
+				nature:["thunder","fire","kami","ice"],
+				type:"basic",
+				enable:true,
+				usable:1,
+				updateUsable:"phaseUse",
+				global:["icesha_skill","ska_smash_skill"],
+				range:{attack:1},
+				selectTarget:1,
+				cardPrompt:function(card){
+					if(card.nature=="stab") return "出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），且在此之后需弃置一张手牌（没有则不弃）。否则你对其造成2点伤害。";
+					if(lib.linked.contains(card.nature)) return "出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点"+get.translation(card.nature)+"属性伤害。";
+					return "出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。";
+				},
+				yingbian_prompt:function(card){
+					var str="";
+					if(get.cardtag(card,"yingbian_damage")){
+						if(str.length) str+="；";
+						str+="此牌的伤害值基数+1";
+					}
+					if(get.cardtag(card,"yingbian_gain")){
+						str+="当你声明使用此牌时，你获得此牌响应的目标牌";
+					}
+					if(get.cardtag(card,"yingbian_hit")){
+						str+="此牌不可被响应";
+					}
+					if(get.cardtag(card,"yingbian_draw")){
+						if(str.length) str+="；";
+						str+="当你声明使用此牌时，你摸一张牌";
+					}
+					if(get.cardtag(card,"yingbian_remove")){
+						if(str.length) str+="；";
+						str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
+					}
+					if(!str.length||get.cardtag(card,"yingbian_add")){
+						if(str.length) str+="；";
+						str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
+					}
+					return str;
+				},
+				yingbian:function(event){
+					var card=event.card,bool=false;
+					if(get.cardtag(card,"yingbian_damage")){
+						bool=true;
+						if(typeof event.baseDamage!="number") event.baseDamage=1;
+						event.baseDamage+=2;
+						game.log(event.card,"的伤害值基数+1");
+					}
+					if(get.cardtag(event.card,"yingbian_gain")){
+						bool=true;
+						var cardx=event.respondTo;
+						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("od").length) event.player.gain(cardx[1].cards.filterInD("od"),"gain2","log");
+					}
+					if(get.cardtag(card,"yingbian_hit")){
+						bool=true;
+						event.directHit.addArray(game.players);
+						game.log(card,"不可被响应");
+					}
+					if(get.cardtag(event.card,"yingbian_draw")){
+						bool=true;
+						event.player.draw();
+					}
+					if(get.cardtag(card,"yingbian_remove")){
+						bool=true;
+						event.yingbian_removeTarget=true;
+					}
+					if(!bool||get.cardtag(card,"yingbian_add")){
+						event.yingbian_addTarget=true;
+					}
+				},
+				yingbian_tags:["damage","gain","hit","draw","remove","add"],
+				filterTarget:function(card,player,target){return player!=target},
+				content:function(){
+					"step 0"
+					if(typeof event.shanRequired!="number"||!event.shanRequired||event.shanRequired<0){
+						event.shanRequired=1;
+					}
+					if(typeof event.baseDamage!="number") event.baseDamage=1;
+					event.baseDamage++;
+					if(typeof event.extraDamage!="number") event.extraDamage=0;
+					"step 1"
+					if(event.directHit||event.directHit2||(!_status.connectMode&&lib.config.skip_shan&&!target.hasShan())){
+						event._result={bool:false};
+					}
+					else if(event.skipShan){
+						event._result={bool:true,result:"shaned"};
+					}
+					else{
+						var next=target.chooseToUse("请使用一张闪响应猛击");
+						next.set("type","respondShan");
+						next.set("filterCard",function(card,player){
+							if(get.name(card)!="shan") return false;
+							return lib.filter.cardEnabled(card,player,"forceEnable");
+						});
+						if(event.shanRequired>1){
+							next.set("prompt2","（共需使用"+event.shanRequired+"张闪）");
+						}
+						else if(event.card.nature=="stab"){
+							next.set("prompt2","（在此之后仍需弃置一张手牌）");
+						}
+						next.set("ai1",function(card){
+							var target=_status.event.player;
+							var evt=_status.event.getParent();
+							var bool=true;
+							if(_status.event.shanRequired>1&&!get.is.object(card)&&target.countCards("h","shan")<_status.event.shanRequired){
+								bool=false;
+							}
+							else if(target.hasSkillTag("useShan")){
+								bool=true;
+							}
+							else if(target.hasSkillTag("noShan")){
+								bool=false;
+							}
+							else if(get.damageEffect(target,evt.player,target,evt.card.nature)>=0) bool=false;
+							if(bool){
+								return get.order(card);
+							}
+							return 0;
+						}).set("shanRequired",event.shanRequired);
+						next.set("respondTo",[player,card]);
+						//next.autochoose=lib.filter.autoRespondShan;
+					}
+					"step 2"
+					if(!result||!result.bool||!result.result||result.result!="shaned"){
+						event.trigger("ska_smashHit");
+					}
+					else{
+						event.shanRequired--;
+						if(event.shanRequired>0){
+							event.goto(1);
+						}
+						else if(event.card.nature=="stab"&&target.countCards("h")>0){
+							event.responded=result;
+							event.goto(4);
+						}
+						else{
+							event.trigger("ska_smashMiss");
+							event.responded=result;
+						}
+					}
+					"step 3"
+					if((!result||!result.bool||!result.result||result.result!="shaned")&&!event.unhurt){
+						target.damage(get.nature(event.card),event.baseDamage+event.extraDamage);
+						event.result={bool:true}
+						event.trigger("ska_smashDamage");
+					}
+					else{
+						event.result={bool:false}
+						event.trigger("ska_smashUnhirt");
+					}
+					event.finish();
+					"step 4"
+					target.chooseToDiscard("刺猛击：请弃置一张牌，否则此【猛击】依然造成伤害").set("ai",function(card){
+						var target=_status.event.player;
+						var evt=_status.event.getParent();
+						var bool=true;
+						if(get.damageEffect(target,evt.player,target,evt.card.nature)>=0) bool=false;
+						if(bool){
+							return 8-get.useful(card);
+						}
+						return 0;
+					});
+					"step 5"
+					if((!result||!result.bool)&&!event.unhurt){
+						target.damage(get.nature(event.card),event.baseDamage+event.extraDamage);
+						event.result={bool:true}
+						event.trigger("ska_smashDamage");
+						event.finish();
+					}
+					else{
+						event.trigger("ska_smashMiss");
+					}
+					"step 6"
+					if((!result||!result.bool)&&!event.unhurt){
+						target.damage(get.nature(event.card),event.baseDamage+event.extraDamage);
+						event.result={bool:true}
+						event.trigger("ska_smashDamage");
+						event.finish();
+					}
+					else{
+						event.result={bool:false}
+						event.trigger("ska_smashUnhirt");
+					}
+				},
+				ai:{
+					yingbian:function(card,player,targets,viewer){
+						if(get.attitude(viewer,player)<=0) return 0;
+						var base=0,hit=false;
+						if(get.cardtag(card,"yingbian_hit")){
+							hit=true;
+							if(targets.filter(function(target){
+								return target.hasShan()&&get.attitude(viewer,target)<0&&get.damageEffect(target,player,viewer,get.nature(card))>0;
+							})) base+=5;
+						}
+						if(get.cardtag(card,"yingbian_add")){
+							if(game.hasPlayer(function(current){
+								return !targets.contains(current)&&lib.filter.targetEnabled2(card,player,current)&&get.effect(current,card,player,player)>0;
+							})) base+=5;
+						}
+						if(get.cardtag(card,"yingbian_damage")){
+							if(targets.filter(function(target){
+								return get.attitude(player,target)<0&&(hit||!target.mayHaveShan()||player.hasSkillTag("directHit_ai",true,{
+								target:target,
+								card:card,
+								},true))&&!target.hasSkillTag("filterDamage",null,{
+									player:player,
+									card:card,
+									jiu:true,
+								})
+							})) base+=5;
+						}
+						return base;
+					},
+					canLink:function(player,target,card){
+						if(!target.isLinked()&&!player.hasSkill("wutiesuolian_skill")) return false;
+						if(target.mayHaveShan()&&!player.hasSkillTag("directHit_ai",true,{
+							target:target,
+							card:card,
+						},true)) return false;
+						if(player.hasSkill("jueqing")||player.hasSkill("gangzhi")||target.hasSkill("gangzhi")) return false;
+						return true;
+					},
+					basic:{
+						useful:[5,3,1],
+						value:[5,3,1],
+					},
+					order:function(item,player){
+						if(player.hasSkillTag("presha",true,null,true)) return 10;
+						if(lib.linked.contains(get.nature(item))){
+							if(game.hasPlayer(function(current){
+								return current!=player&&current.isLinked()&&player.canUse(item,current,null,true)&&get.effect(current,item,player,player)>0&&lib.card.sha.ai.canLink(player,current,item);
+							})&&game.countPlayer(function(current){
+								return current.isLinked()&&get.damageEffect(current,player,player,get.nature(item))>0;
+							})>1) return 3.1;
+							return 3;
+						}
+						return 3.05;
+					},
+					result:{
+						target:function(player,target,card,isLink){
+							var eff=function(){
+								if(!isLink){
+									if(!target.hasSkillTag("filterDamage",null,{
+										player:player,
+										card:card,
+										jiu:true,
+									})){
+										if(get.attitude(player,target)>0){
+											return -7;
+										}
+										else{
+											return -4;
+										}
+									}
+									return -0.5;
+								}
+								return -1.5;
+							}();
+							if(!isLink&&target.mayHaveShan()&&!player.hasSkillTag("directHit_ai",true,{
+								target:target,
+								card:card,
+							},true)) return eff/1.2;
+							return eff;
+						},
+					},
+					tag:{
+						respond:1,
+						respondShan:1,
+						damage:function(card){
+							if(card.nature=="poison") return;
+							return 2;
+						},
+						natureDamage:function(card){
+							if(card.nature) return 2;
+						},
+						fireDamage:function(card,nature){
+							if(card.nature=="fire") return 2;
+						},
+						thunderDamage:function(card,nature){
+							if(card.nature=="thunder") return 2;
+						},
+						poisonDamage:function(card,nature){
+							if(card.nature=="poison") return 2;
+						}
+					}
+				}
+			},
+		},
+		skill:{
+			/*
+			_ska_counter:{
+				ruleSkill:true,
+				forceLoad:true,
+				group:["ska_counter_suit1","ska_counter_suit2","ska_counter_suit3"],
+			},
+			*/
+			_ska_counter_suit1:{
+				ruleSkill:true,
+				direct:true,
+				trigger:{target:"useCardToTarget"},
+				filter:function(event,player){
+					if(!["sha","ska_smash"].contains(get.name(event.card))) return false;
+					if(player.countCards("hs",function(card){
+						return get.name(card)=="ska_shield"&&get.suit(card)==get.suit(event.card);
+					})) return true;
+					if(player.hasSkillTag("respondska_shield",true,"respond",true)) return true;
+					return false;
+				},
+				content:function(){
+					"step 0"
+					var next=player.chooseToRespond();
+					next.set("logSkill",["ska_counter_suit1",trigger.player]);
+					next.set("prompt",get.prompt("ska_counter_suit1",trigger.player));
+					next.set("prompt2",get.translation("ska_counter_suit1_info"));
+					next.set("filterCard",function(card){
+						return get.name(card)=="ska_shield"&&get.suit(card)==_status.event.suit;
+					});
+					next.set("suit",get.suit(trigger.card));
+					next.set("ai",function(card){
+						var player=_status.event.player;
+						var evt=_status.event.getParent("useCard");
+						if(evt&&get.effect(player,evt.card,evt.player,player)>=0) return 0;
+						return get.order(card);
+					});
+					"step 1"
+					if(result.card){
+						var evt=trigger.getParent();
+						evt.excluded.add(player);
+						var cards=evt.cards.filterInD("o");
+						if(cards&&cards.length) player.gain(cards,"gain2");
+					}
+				},
+			},
+			_ska_counter_suit2:{
+				ruleSkill:true,
+				direct:true,
+				trigger:{global:"useCard"},
+				filter:function(event,player){
+					if(get.name(event.card)!="ska_shield") return false;
+					var evt=event.getParent("damage");
+					if(!evt||evt.source!=player) return false;
+					if(player.countCards("hs",function(card){
+						return get.name(card)=="ska_grab"&&get.suit(card)==get.suit(event.card);
+					})) return true;
+					if(player.hasSkillTag("respondska_grab",true,"respond",true)) return true;
+					return false;
+				},
+				content:function(){
+					"step 0"
+					var next=player.chooseToRespond();
+					next.set("logSkill",["ska_counter_suit2",trigger.player]);
+					next.set("prompt",get.prompt("ska_counter_suit2",trigger.player));
+					next.set("prompt2",get.translation("ska_counter_suit2_info"));
+					next.set("filterCard",function(card){
+						return get.name(card)=="ska_grab"&&get.suit(card)==_status.event.suit;
+					});
+					next.set("suit",get.suit(trigger.card));
+					next.set("ai",function(card){
+						var player=_status.event.player;
+						var evt=_status.event.getParent("damage");
+						if(evt&&get.damageEffect(evt.player,evt.source,player)<0) return 0;
+						return get.order(card);
+					});
+					"step 1"
+					if(result.card){
+						trigger.cancel();
+						player.gainPlayerCard("花色反制：获得"+get.translation(trigger.player)+"一张牌",trigger.player,"he",true);
+					}
+				},
+			},
+			_ska_counter_suit3:{
+				ruleSkill:true,
+				direct:true,
+				trigger:{target:"useCardToTarget"},
+				filter:function(event,player){
+					if(get.name(event.card)!="ska_grab") return false;
+					if(player.countCards("hs",function(card){
+						return get.name(card)=="sha"&&get.suit(card)==get.suit(event.card);
+					})) return true;
+					if(player.countCards("hs","hufu")) return true;
+					if(player.countCards("hs","yuchanqian")) return true;
+					if(player.hasSkillTag("respondSha",true,"respond",true)) return true;
+					return false;
+				},
+				content:function(){
+					"step 0"
+					var next=player.chooseToRespond();
+					next.set("logSkill",["ska_counter_suit3",trigger.player]);
+					next.set("prompt",get.prompt("ska_counter_suit3",trigger.player));
+					next.set("prompt2",get.translation("ska_counter_suit3_info"));
+					next.set("filterCard",function(card){
+						return get.name(card)=="sha"&&get.suit(card)==_status.event.suit;
+					});
+					next.set("suit",get.suit(trigger.card));
+					next.set("ai",function(card){
+						var player=_status.event.player;
+						var evt=_status.event.getParent("useCard");
+						if(evt&&get.effect(player,evt.card,evt.player,player)>=0) return 0;
+						return get.order(card);
+					});
+					"step 1"
+					if(result.card){
+						trigger.getParent().excluded.add(player);
+						trigger.player.damage(player);
+					}
+				},
+			},
+			ska_shield_skill:{
+				cardSkill:true,
+				trigger:{player:"damageBegin3"},
+				forced:true,
+				popup:false,
+				filter:function(event,player){
+					return player.hasUsableCard("ska_shield");
+				},
+				content:function(){
+					"step 0"
+					player.chooseToUse("即将受到"+(trigger.source?(get.translation(trigger.source)+"造成的"):"")+trigger.num+"点伤害，是否使用【盾】？").set("ai1",function(card){
+						return _status.event.bool;
+					}).set("bool",-get.damageEffect(trigger.player,trigger.source,player,trigger.nature)).set("filterCard",function(card,player){
+						if(get.name(card)!="ska_shield") return false;
+						return lib.filter.cardEnabled(card,player,"forceEnable");
+					});
+				},
+			},
+			ska_smash_skill:{
+				forced:true,
+				popup:false,
+				trigger:{player:"useCardAfter"},
+				filter:function(event,player){
+					return event.respondTo&&event.respondTo[0]&&event.respondTo[1]&&get.name(event.respondTo[1])=="ska_smash";
+				},
+				content:function(){
+					var target=trigger.respondTo[0];
+					player.gainPlayerCard("猛击：获得"+get.translation(target)+"一张牌",target,"he");
 				},
 			},
 		},
 		translate:{
+			//技能
+			ska_counter_suit1:"花色反制",
+			ska_counter_suit1_info:"当你成为一名角色使用【杀】/【猛击】的目标时，你可以打出一张相同花色的【盾】，令此牌对你无效，且获得此牌。",
+			ska_counter_suit2:"花色反制",
+			ska_counter_suit2_info:"一名角色使用【盾】时，若伤害来源为你，你可以打出一张相同花色的【抓】，取消之，且获得其一张牌。",
+			ska_counter_suit3:"花色反制",
+			ska_counter_suit3_info:"当你成为一名角色使用【抓】的目标时，你可以打出一张相同花色的【杀】，令此牌对你无效，且对其造成1点伤害。",
 			//卡牌
-			ska_battlefield:"战场",
-			ska_battlefield_info:"所有角色依次摸一张牌。当【战场】因判定或弃置而置入弃牌堆时，系统将之移出游戏并将【终点】置于牌堆底，然后系统于当前回合结束后视为使用【战场】。地图效果：锁定技，你的手牌上限+1。结束阶段，若你的手牌数小于手牌上限，你摸一张牌。",
-			ska_battlefield_skill:"战场",
-			ska_battlefield_skill_info:"锁定技，你的手牌上限+1。结束阶段，若你的手牌数小于手牌上限，你摸一张牌。",
-			ska_small_battlefield:"小战场",
-			ska_small_battlefield_info:"所有角色依次摸一张牌，然后弃置一张牌。地图效果：锁定技，你的手牌上限+1。",
-			ska_small_battlefield_skill:"小战场",
-			ska_small_battlefield_skill_info:"地图效果：锁定技，你的手牌上限+1。",
-			ska_big_battlefield:"大战场",
-			ska_big_battlefield_info:"所有角色依次摸两张牌。地图效果：锁定技，你的手牌上限+2。结束阶段，若你的手牌数小于手牌上限，你摸两张牌。",
-			ska_big_battlefield_skill:"大战场",
-			ska_big_battlefield_skill_info:"锁定技，你的手牌上限+2。结束阶段，若你的手牌数小于手牌上限，你摸两张牌。",
-			ska_final_destination:"终点",
-			ska_final_destination_info:"所有角色依次将手牌补至四张，然后将体力回复至3点。当【终点】因判定或弃置而置入弃牌堆时，系统将之移出游戏并将【战场】置于牌堆底，然后系统于当前回合结束后视为使用【终点】。地图效果：锁定技，出牌阶段开始时，所有角色非锁定技失效直到出牌阶段结束。",
-			ska_final_destination_skill:"终点",
-			ska_final_destination_skill_info:"锁定技，出牌阶段开始时，所有角色非锁定技失效直到出牌阶段结束。",
-			ska_new_donk_city_hall:"纽敦市政厅",
-			ska_new_donk_city_hall_info:"你摸两张牌，然后你的出牌阶段结束后，你执行一个额外的出牌阶段。地图效果：当你使用或打出一张点数为7的牌时，你可以摸两张牌。",
-			ska_new_donk_city_hall_skill:"纽敦市政厅",
-			ska_new_donk_city_hall_skill_info:"当你使用或打出一张点数为7的牌时，你可以摸两张牌。",
-			ska_great_plateau_tower:"初始之塔",
-			ska_great_plateau_tower_info:"你将体力回复至体力上限。地图效果：准备阶段，你可以展示自己手牌，若颜色均相同，你回复1点体力。",
-			ska_great_plateau_tower_skill:"初始之塔",
-			ska_great_plateau_tower_skill_info:"准备阶段，你可以展示自己手牌，若其中颜色均相同，你回复1点体力。",
-			ska_moray_towers:"时钟塔",
-			ska_moray_towers_info:"你将手牌摸至与全场手牌数最多的人相同（最多摸五张）。地图效果：当你造成伤害后，若你的手牌数小于目标，你可以摸一张牌，然后弃置目标一张手牌。",
-			ska_moray_towers_skill:"时钟塔",
-			ska_moray_towers_skill_info:"当你造成伤害后，若你的手牌数小于目标，你可以摸一张牌，然后弃置目标一张手牌。",
-			ska_garreg_mach_monastery:"加尔古·玛库大修道院",
-			ska_garreg_mach_monastery_info:"你可以重铸任意张牌。地图效果：出牌阶段限一次，你可以将一张牌交给一名其他角色，然后你摸一张牌。",
-			ska_garreg_mach_monastery_skill:"加尔古·玛库大修道院",
-			ska_garreg_mach_monastery_skill_info:"出牌阶段限一次，你可以将一张牌交给一名其他角色，然后你摸一张牌。",
-			ska_cloud_sea_of_alrest:"幽界云海",
-			ska_cloud_sea_of_alrest_info:"你从弃牌堆获得一张最顶端的武器牌。地图效果：准备阶段，你可以获得弃牌堆顶一张牌。",
-			ska_cloud_sea_of_alrest_skill:"幽界云海",
-			ska_cloud_sea_of_alrest_skill_info:"准备阶段，你可以获得弃牌堆顶一张牌。",
-			ska_spring_stadium:"弹簧竞技场",
-			ska_spring_stadium_info:"你可以视为对一名角色使用【杀】。地图效果：锁定技，你于一个回合使用的第一张【杀】无距离限制。当你于一个回合使用第一张【杀】时，你摸一张牌。",
-			ska_spring_stadium_skill:"弹簧竞技场",
-			ska_spring_stadium_skill_info:"锁定技，你于一个回合使用的第一张【杀】无距离限制。当你于一个回合使用第一张【杀】时，你摸一张牌。",
+			ska_grab:"抓",
+			ska_grab_info:"出牌阶段，对你攻击范围内的一名角色使用。其须展示一张【闪】，否则你弃置其一张牌。",
+			ska_shield:"盾",
+			ska_shield_info:"当你受到伤害时，你令伤害值-1，然后若伤害值不小于2，你翻面。",
+			ska_smash:"猛击",
+			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。",
 		},
 		list:[
-			["diamond",5,"ska_battlefield",null,["sst_ultimate"]],
-			["diamond",4,"ska_small_battlefield",null,["sst_ultimate"]],
-			["diamond",6,"ska_big_battlefield",null,["sst_ultimate"]],
-			//["spade",13,"ska_final_destination",null,["sst_ultimate"]],
-			["heart",7,"ska_new_donk_city_hall",null,["sst_ultimate"]],
-			["heart",1,"ska_great_plateau_tower",null,["sst_ultimate"]],
-			["spade",8,"ska_moray_towers",null,["sst_ultimate"]],
-			["spade",3,"ska_garreg_mach_monastery",null,["sst_ultimate"]],
-			["club",2,"ska_cloud_sea_of_alrest",null,["sst_ultimate"]],
-			["club",11,"ska_spring_stadium",null,["sst_ultimate"]],
+			["diamond",7,"ska_grab"],
+			["diamond",6,"ska_grab"],
+			["diamond",6,"ska_grab"],
+			["diamond",5,"ska_grab"],
+			["diamond",5,"ska_grab"],
+			["diamond",4,"ska_grab"],
+			["diamond",4,"ska_grab"],
+			["heart",12,"ska_grab"],
+			["heart",11,"ska_grab"],
+			["heart",10,"ska_grab"],
+			["heart",9,"ska_grab"],
+			["heart",8,"ska_grab"],
+			["heart",7,"ska_grab"],
+			["heart",6,"ska_grab"],
+			["heart",6,"ska_grab"],
+			["heart",5,"ska_grab"],
+			["heart",5,"ska_grab"],
+			["heart",4,"ska_grab"],
+			["heart",4,"ska_grab"],
+			["heart",3,"ska_grab"],
+			["heart",3,"ska_grab"],
+			["club",4,"ska_grab"],
+			["club",4,"ska_grab"],
+			["club",3,"ska_grab"],
+			["spade",8,"ska_grab"],
+			["spade",7,"ska_grab"],
+			["spade",6,"ska_grab"],
+			["spade",5,"ska_grab"],
+			["spade",4,"ska_grab"],
+			["spade",1,"ska_grab"],
+			["spade",12,"ska_shield"],
+			["spade",12,"ska_shield"],
+			["spade",1,"ska_shield"],
+			["club",12,"ska_shield"],
+			["club",12,"ska_shield"],
+			["club",11,"ska_shield"],
+			["club",10,"ska_shield"],
+			["club",9,"ska_shield"],
+			["club",8,"ska_shield"],
+			["club",7,"ska_shield"],
+			["club",6,"ska_shield"],
+			["club",5,"ska_shield"],
+			["club",4,"ska_shield"],
+			["club",3,"ska_shield"],
+			["club",3,"ska_shield"],
+			["club",5,"ska_smash"],
+			["heart",11,"ska_smash"],
+			["heart",5,"ska_smash"],
+			["diamond",11,"ska_smash"],
+			["diamond",5,"ska_smash"],
 		],
 	};
 	return sst_sp;

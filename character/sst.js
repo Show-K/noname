@@ -1045,7 +1045,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//后台技能
 			_sst_start:{
 				trigger:{global:"gameStart"},
-				charlotte:true,
+				ruleSkill:true,
 				silent:true,
 				content:function(){
 					_status.sst_started=true;
@@ -1053,7 +1053,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			_sst_sex_select:{
 				trigger:{global:"gameStart"},
-				charlotte:true,
+				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2020,
@@ -1073,7 +1073,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			_sst_group_select:{
 				trigger:{global:"gameStart"},
-				charlotte:true,
+				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2019,
@@ -1090,7 +1090,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			_sst_sonic_phase:{
 				trigger:{player:"phaseBegin"},
-				charlotte:true,
+				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2020,
@@ -1099,11 +1099,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_phase_sonic:{
-				charlotte:true,
+				ruleSkill:true,
 			},
 			_sst_judge_count:{
 				trigger:{player:"judgeBegin"},
-				charlotte:true,
+				ruleSkill:true,
 				silent:true,
 				content:function(){
 					if(!_status.sst_judge_count) _status.sst_judge_count=0;
@@ -4709,16 +4709,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return (player.maxHp-player.hp<2)||!player.hasUsableCard("shan");
 				},
 				content:function(){
-					player.addTempSkill("sst_fuchou1","roundStart");
+					//player.addTempSkill("sst_fuchou1","roundStart");
 					player.addTempSkill("sst_fuchou5","roundStart");
+					player.markSkillCharacter("sst_fuchou5",player,"复仇","本轮你不能响应牌");
 				},
-				group:["sst_fuchou2","sst_fuchou3","sst_fuchou4"],
+				group:["sst_fuchou1","sst_fuchou2","sst_fuchou3","sst_fuchou4"],
 			},
 			sst_fuchou1:{
 				trigger:{player:"damageEnd"},
 				frequent:true,
 				filter:function(event,player){
-					return get.itemtype(event.cards)=="cards"&&get.position(event.cards[0],true)=="o";
+					return player.hasSkill("sst_fuchou5")&&get.itemtype(event.cards)=="cards"&&get.position(event.cards[0],true)=="o";
 				},
 				content:function(){
 					if(get.itemtype(trigger.cards)=="cards"&&get.position(trigger.cards[0],true)=="o"){
@@ -4808,6 +4809,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 			},
 			sst_fuchou5:{
+				onremove:function(player){
+					player.unmarkSkill("sst_fuchou5");
+				},
 				trigger:{global:"useCard"},
 				forced:true,
 				popup:false,
@@ -6652,7 +6656,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				check:function(event,player){
-					return (player.hp>2||player.hasUsableCard("tao"))&&event.player.countCards("h")>=4;
+					return player.hp>1&&event.player.countCards("h")>=4;
 				},
 				group:["sst_jingyue2","sst_jingyue3"],
 			},
@@ -8012,7 +8016,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				forceDie:true,
 				content:function(){
-					player.lose(player.storage.sst_qichang).getlx=false;
+					game.cardsGotoSpecial(player.storage.sst_qichang,false);
 					player.storage.sst_qichang.delete();
 					delete player.storage.sst_qichang;
 				},
@@ -8175,7 +8179,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//game.log(player.storage.sst_yufeng_color);
 						//game.log(suit);
 						//game.log(player.storage.sst_yufeng_suit);
-						if(player.storage.sst_yufeng&&color(suit)==color(player.storage.sst_yufeng)&&suit!=player.storage.sst_yufeng) return player.storage.sst_yufeng;
+						if(player&&player.storage.sst_yufeng&&color(suit)==color(player.storage.sst_yufeng)&&suit!=player.storage.sst_yufeng) return player.storage.sst_yufeng;
 					},
 				},
 			},
@@ -8186,7 +8190,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"phaseUseBegin"},
 				direct:true,
 				filter:function(event,player){
-					return player.countCards("he");
+					return game.hasPlayer(function(current){
+						return current.hasSkill("sst_chihang");
+					})&&player.countCards("he");
 				},
 				content:function(){
 					"step 0"
