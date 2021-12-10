@@ -253,7 +253,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 										return -att;
 									}
 									case 2:{
-										return get.damageEffect(target,player);
+										return get.damageEffect(target,player,player);
 									}
 									case 3:{
 										if(target.hasSkillTag("noturn")) return 0;

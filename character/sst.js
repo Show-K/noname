@@ -6961,7 +6961,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					trigger.player.gainPlayerCard("辑略：你可以获得"+get.translation(player)+"任意张手牌",player,[1,Infinity]).set("ai",function(button){
+					trigger.player.gainPlayerCard("辑略：你可以获得"+get.translation(player)+"任意张手牌",player,[1,Infinity],"h").set("ai",function(button){
 						return _status.event.player.getUseValue(button.link);
 					});
 					"step 1"
@@ -7666,8 +7666,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								var player=_status.event.player;
 								var target=_status.event.targetx;
 								var card={name:button.link[2],isCard:true};
-								//return lib.filter.targetEnabled2(card,player,target);
-								return player.canUse(card,target,false);
+								return lib.filter.targetEnabled2(card,player,target);
+								//return player.canUse(card,target,false);
 							}).set("ai",function(button){
 								var player=_status.event.player;
 								var target=_status.event.targetx;
