@@ -292,6 +292,52 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(suit=="spade") return "diamond";
 					},
 				},
+				group:["ska_daishi2"],
+			},
+			ska_daishi2:{
+				trigger:{global:"judgeAfter"},
+				filter:function(event,player){
+					//game.log(player.storage.ska_yangxun_count);
+					return _status.sst_judge_count==11;
+				},
+				forced:true,
+				content:function(){
+					"step 0"
+					//player.draw(2);
+					if(ui.discardPile.childNodes.length>1){
+						var cards=[];
+						cards.push(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1]);
+						cards.push(ui.discardPile.childNodes[ui.discardPile.childNodes.length-2]);
+						if(cards.length) player.gain(cards,"gain2");
+					}
+					else if(ui.discardPile.childNodes.length){
+						var card=ui.discardPile.childNodes[ui.discardPile.childNodes.length-1];
+						if(card) player.gain(card,"gain2");
+						player.chat("只有一张牌可得了吗");
+						game.log("但是弃牌堆里面已经只有一张牌了！");
+					}
+					else{
+						player.chat("无牌可得了吗");
+						game.log("但是弃牌堆里面已经没有牌了！");
+					}
+					"step 1"
+					player.chooseCard("he","洋寻：重铸一张牌",true).set("ai",function(card){
+						return 8-get.value(card);
+					});
+					"step 2"
+					if(result.cards&&result.cards.length>0){
+						var card=result.cards[0];
+						player.lose(card,ui.discardPile,"visible","_chongzhu");
+						player.$throw(card,1000);
+						game.log(player,"将",card,"置入弃牌堆");
+						player.draw();
+					}
+					"step 3"
+					if(player.getDamagedHp()) player.recover(player.maxHp-player.hp);
+					"step 4"
+					player.removeSkill("ska_daishi");
+					game.log(player,"失去了技能","#g【怠事】");
+				},
 			},
 			ska_yangxun:{
 				trigger:{global:"judgeEnd"},
@@ -344,52 +390,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					expose:0.2,
-				},
-				group:["ska_yangxun2"],
-			},
-			ska_yangxun2:{
-				trigger:{global:"judgeAfter"},
-				filter:function(event,player){
-					//game.log(player.storage.ska_yangxun_count);
-					return _status.sst_judge_count==11;
-				},
-				forced:true,
-				content:function(){
-					"step 0"
-					//player.draw(2);
-					if(ui.discardPile.childNodes.length>1){
-						var cards=[];
-						cards.push(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1]);
-						cards.push(ui.discardPile.childNodes[ui.discardPile.childNodes.length-2]);
-						if(cards.length) player.gain(cards,"gain2");
-					}
-					else if(ui.discardPile.childNodes.length){
-						var card=ui.discardPile.childNodes[ui.discardPile.childNodes.length-1];
-						if(card) player.gain(card,"gain2");
-						player.chat("只有一张牌可得了吗");
-						game.log("但是弃牌堆里面已经只有一张牌了！");
-					}
-					else{
-						player.chat("无牌可得了吗");
-						game.log("但是弃牌堆里面已经没有牌了！");
-					}
-					"step 1"
-					player.chooseCard("he","洋寻：重铸一张牌",true).set("ai",function(card){
-						return 8-get.value(card);
-					});
-					"step 2"
-					if(result.cards&&result.cards.length>0){
-						var card=result.cards[0];
-						player.lose(card,ui.discardPile,"visible","_chongzhu");
-						player.$throw(card,1000);
-						game.log(player,"将",card,"置入弃牌堆");
-						player.draw();
-					}
-					"step 3"
-					if(player.getDamagedHp()) player.recover(player.maxHp-player.hp);
-					"step 4"
-					player.removeSkill("ska_daishi");
-					game.log(player,"失去了技能","#g【怠事】");
 				},
 			},
 			ska_shenqi:{
@@ -789,7 +789,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				init:function(player){
 					if(!player.storage.ska_jiyan||!player.storage.ska_jiyan.length) player.storage.ska_jiyan=["sha","shan","tao","jiu"];
 				},
-				group:["ska_jiyan_sha","ska_jiyan_shan","ska_jiyan_tao","ska_jiyan_jiu"],
+				group:["ska_jiyan_sha","ska_jiyan_shan","ska_jiyan_tao","ska_jiyan_jiu","ska_jiyan2"],
 				subSkill:{
 					sha:{
 						enable:["chooseToUse","chooseToRespond"],
@@ -801,16 +801,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},
 						prompt:"视为使用或打出一张【杀】",
 						onuse:function(result,player){
-							player.logSkill("ska_jiyan");
 							player.popup("《话语权》");
 							player.chat("《话语权》");
 							player.storage.ska_jiyan.remove("sha");
-							if(!player.storage.ska_jiyan.length){
-								player.gainMaxHp();
-								player.recover();
-								player.removeSkill("ska_jiyan");
-								game.log(player,"失去了技能","#g【籍验】");
-							}
 						},
 						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
@@ -836,16 +829,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("shan");
 						},
 						onuse:function(result,player){
-							player.logSkill("ska_jiyan");
 							player.popup("《理解》");
 							player.chat("《理解》");
 							player.storage.ska_jiyan.remove("shan");
-							if(!player.storage.ska_jiyan.length){
-								player.gainMaxHp();
-								player.recover();
-								player.removeSkill("ska_jiyan");
-								game.log(player,"失去了技能","#g【籍验】");
-							}
 						},
 						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
@@ -871,16 +857,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("tao");
 						},
 						onuse:function(result,player){
-							player.logSkill("ska_jiyan");
 							player.popup("《硬气》");
 							player.chat("《硬气》");
 							player.storage.ska_jiyan.remove("tao");
-							if(!player.storage.ska_jiyan.length){
-								player.gainMaxHp();
-								player.recover();
-								player.removeSkill("ska_jiyan");
-								game.log(player,"失去了技能","#g【籍验】");
-							}
 						},
 						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
@@ -906,16 +885,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("jiu");
 						},
 						onuse:function(result,player){
-							player.logSkill("ska_jiyan");
 							player.popup("《压迫感》");
 							player.chat("《压迫感》");
 							player.storage.ska_jiyan.remove("jiu");
-							if(!player.storage.ska_jiyan.length){
-								player.gainMaxHp();
-								player.recover();
-								player.removeSkill("ska_jiyan");
-								game.log(player,"失去了技能","#g【籍验】");
-							}
 						},
 						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
@@ -931,6 +903,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},
 						sub:true,
 					},
+				},
+			},
+			ska_jiyan2:{
+				forced:true,
+				trigger:{player:"useCardAfter"},
+				filter:function(event,player){
+					return !player.storage.ska_jiyan.length;
+				},
+				content:function(){
+					player.gainMaxHp();
+					player.recover();
+					player.removeSkill("ska_jiyan");
+					game.log(player,"失去了技能","#g【籍验】");
 				},
 			},
 			ska_lunli:{
@@ -1560,7 +1545,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.num--;
 					if(event.num>=0){
 						var next=player.chooseToUse("十拳：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
-						next.set("logSkill","alz_wushi");
+						//next.set("logSkill","alz_wushi");
 						next.set("addCount",false);
 						next.set("targetx",trigger.target);
 						next.set("filterCard",function(card){
@@ -1894,10 +1879,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_jixing:"激行",
 			ska_jixing_info:"出牌阶段限一次，你可以弃置一张牌并指定攻击范围内一名角色，然后你判定，若结果不为♦，你对其造成1点伤害。",
 			ska_daishi:"怠事",
-			ska_daishi_info:"锁定技，你区域内的♠牌和♠判定牌均视为♦。",
+			ska_daishi2:"怠事",
+			ska_daishi_info:"锁定技，你区域内的♠牌和♠判定牌均视为♦。当一名角色判定结算后，若此判定为本局游戏第11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限，失去〖怠事〗。",
 			ska_yangxun:"洋寻",
-			ska_yangxun2:"洋寻",
-			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若花色为♦，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其须弃置一张牌。当一名角色判定结算后，若此判定为本局游戏第11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限，失去〖怠事〗。",
+			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若花色为♦，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其须弃置一张牌。",
 			ska_shenqi:"神祇",
 			ska_shenqi2:"神祇",
 			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若武将牌上的“祇”少于6张，你可以判定，然后将判定牌置于武将牌上称为“祇”；当你使用牌时，你可以获得武将牌上的一张“祇”。",
@@ -1916,6 +1901,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以将一张牌当作此牌使用并失去1点体力。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_kezhi2_info:"每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
 			ska_jiyan:"籍验",
+			ska_jiyan2:"籍验",
 			ska_jiyan_sha:"籍验·杀",
 			ska_jiyan_shan:"籍验·闪",
 			ska_jiyan_tao:"籍验·桃",

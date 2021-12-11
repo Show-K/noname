@@ -352,7 +352,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
 					game.updateRoundNumber();
 					"step 4"
-					player.chooseUseTarget(event.card,false).logSkill="sst_fuyuan";
+					player.chooseUseTarget(event.card,false);
 				},
 				group:"sst_fuyuan2",
 				ai:{
@@ -363,7 +363,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCard1"},
 				forced:true,
 				filter:function(event,player){
-					return event.skill=="sst_fuyuan"&&!event.card.yingbian&&get.is.yingbian(event.card);
+					return event.getParent(2).name=="sst_fuyuan"&&!event.card.yingbian&&get.is.yingbian(event.card);
 				},
 				content:function(){
 					trigger.card.yingbian=true;

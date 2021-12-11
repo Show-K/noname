@@ -616,7 +616,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					var target=trigger.respondTo[0];
-					player.gainPlayerCard("猛击：获得"+get.translation(target)+"一张牌",target,"he");
+					player.gainPlayerCard("猛击：你可以获得"+get.translation(target)+"一张牌",target,"he");
 				},
 			},
 		},

@@ -5288,7 +5288,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					num=Math.ceil(num/2)+1;
 					if(num<=1) return false;
 					var rand=0.95;
-					game.log("收益：",get.effect(event.targets[0],event.card,player,player));
+					//game.log("收益：",get.effect(event.targets[0],event.card,player,player));
 					if(get.effect(event.targets[0],event.card,player,player)>5) rand=0.05;
 					if(!event.targets[0].countCards("h")) rand=0;
 					return Math.random()>rand?true:false;
@@ -5795,7 +5795,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					});
 					"step 1"
-					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){return false;});
+					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){return 0;});
 				},
 				group:["sst_cuifeng2"],
 			},
