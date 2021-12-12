@@ -130,6 +130,6 @@ window.noname_character_rank={
 			"sst_yoshi",
 			"sst_villager",
 			"sst_krystal"
-		],
+		]
 	}
 };

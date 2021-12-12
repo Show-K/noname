@@ -3,31 +3,7 @@ window.noname_package={
 		sst:'大乱桌斗',
 		sst_yingbian:'乱斗应变',
 		sst_sp:'乱斗SP',
-		sst_old:'乱斗怀旧',
-		/*
-		standard:'标准',
-		refresh:'界限突破',
-		shenhua:'神话再临',
-		xinghuoliaoyuan:'星火燎原',
-		yijiang:'一将成名',
-		sp:'璀璨星河',
-		yingbian:'文德武备',
-		sp2:'系列专属',
-		extra:'神将',		
-		mobile:'移动版',
-		offline:'线下武将',
-		old:'怀旧',
-		diy:'DIY',
-		tw:'外服武将',
-		yxs:'英雄杀',
-		hearth:'炉石传说',
-		gwent:'昆特牌',
-		mtg:'万智牌',
-		ow:'守望先锋',
-		swd:'轩辕剑',
-		gujian:'古剑奇谭',
-		xianjian:'仙剑奇侠传',
-		*/
+		sst_old:'乱斗怀旧'
 	},
 	card:{
 		sst:'大乱桌斗',
@@ -47,13 +23,13 @@ window.noname_package={
 		//hearth:'炉石传说',
 		//gwent:'昆特牌',
 		mtg:'万智牌',
-		huanlekapai:'欢乐卡牌',
+		huanlekapai:'欢乐卡牌'
 	},
 	play:{
 		boss:'诸神降临',
 		cardpile:'牌堆补充',
 		wuxing:'五行生克',
-		coin:'富甲天下',
+		coin:'富甲天下'
 	},
 	mode:{
 		identity:'身份',
@@ -66,13 +42,13 @@ window.noname_package={
 		//chess:'战棋',
 		//tafang:'塔防',
 		//stone:'炉石',
-		brawl:'乱斗',
+		brawl:'乱斗'
 	},
 	submode:{
 		identity:{
 			normal:'身份模式',
 			zhong:'忠胆英杰',
-			purple:'3v3v2',
+			purple:'3v3v2'
 		},
 		guozhan:{
 			normal:'国战模式',
@@ -92,11 +68,11 @@ window.noname_package={
 			leader:'战棋君主'
 		},
 		single:{
-			normal:'新1v1',
-		},
+			normal:'新1v1'
+		}
 	},
 	background:{
-		final_destination_bg:'终点',
+		final_destination_bg:'终点'
 		/*
 		ol_bg:'龙纹',
 		planetarian_bg:'星梦',
@@ -131,7 +107,7 @@ window.noname_package={
 		music_master_hand_crazy_hand:'左右',
 		music_galeem:'吉拉',
 		music_dharkon:'达兹',
-		music_galeem_dharkon:'光暗',
+		music_galeem_dharkon:'光暗'
 		/*
 		music_phliosophy:'Philosophy of ours',
 		music_diaochan:'貂蝉',

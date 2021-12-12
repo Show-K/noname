@@ -131,7 +131,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					},
 					basic:{
 						useful:[5,3,1],
-						value:[5,3,1],
+						value:[5,3,1]
 					},
 					order:function(item,player){
 						if(player.hasSkillTag("presha",true,null,true)) return 10;
@@ -148,12 +148,12 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 								card:card,
 							},true)) return eff/1.2;
 							return eff;
-						},
+						}
 					},
 					tag:{
 						loseCard:1,
-						discard:1,
-					},
+						discard:1
+					}
 				}
 			},
 			ska_shield:{
@@ -161,8 +161,6 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				cardcolor:"black",
 				notarget:true,
 				nodelay:true,
-				usable:3,
-				updateUsable:"roundStart",
 				global:"ska_shield_skill",
 				content:function(){
 					event.getParent().delayx=false;
@@ -176,10 +174,10 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					order:3,
 					basic:{
 						useful:[7,5.1,2],
-						value:[7,5.1,2],
+						value:[7,5.1,2]
 					},
-					result:{player:1},
-				},
+					result:{player:1}
+				}
 			},
 			ska_smash:{
 				//fullskin:true,
@@ -406,7 +404,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					},
 					basic:{
 						useful:[5,3,1],
-						value:[5,3,1],
+						value:[5,3,1]
 					},
 					order:function(item,player){
 						if(player.hasSkillTag("presha",true,null,true)) return 10;
@@ -445,7 +443,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 								card:card,
 							},true)) return eff/1.2;
 							return eff;
-						},
+						}
 					},
 					tag:{
 						respond:1,
@@ -468,7 +466,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
-			},
+			}
 		},
 		skill:{
 			/*
@@ -513,7 +511,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						var cards=evt.cards.filterInD("o");
 						if(cards&&cards.length) player.gain(cards,"gain2");
 					}
-				},
+				}
 			},
 			_ska_counter_suit2:{
 				ruleSkill:true,
@@ -550,7 +548,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						trigger.cancel();
 						player.gainPlayerCard("花色反制：获得"+get.translation(trigger.player)+"一张牌",trigger.player,"he",true);
 					}
-				},
+				}
 			},
 			_ska_counter_suit3:{
 				ruleSkill:true,
@@ -587,7 +585,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						trigger.getParent().excluded.add(player);
 						trigger.player.damage(player);
 					}
-				},
+				}
 			},
 			ska_shield_skill:{
 				cardSkill:true,
@@ -605,7 +603,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						if(get.name(card)!="ska_shield") return false;
 						return lib.filter.cardEnabled(card,player,"forceEnable");
 					});
-				},
+				}
 			},
 			ska_smash_skill:{
 				forced:true,
@@ -617,8 +615,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					var target=trigger.respondTo[0];
 					player.gainPlayerCard("猛击：你可以获得"+get.translation(target)+"一张牌",target,"he");
-				},
-			},
+				}
+			}
 		},
 		translate:{
 			//技能
@@ -634,7 +632,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_shield:"盾",
 			ska_shield_info:"当你受到伤害时，你令伤害值-1，然后若伤害值不小于2，你翻面。",
 			ska_smash:"猛击",
-			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。",
+			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。"
 		},
 		list:[
 			["diamond",7,"ska_grab"],
@@ -686,8 +684,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["heart",11,"ska_smash"],
 			["heart",5,"ska_smash"],
 			["diamond",11,"ska_smash"],
-			["diamond",5,"ska_smash"],
-		],
+			["diamond",5,"ska_smash"]
+		]
 	};
 	return sst_sp;
 });

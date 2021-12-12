@@ -11,10 +11,10 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				distance:{attackFrom:-2},
 				ai:{
 					basic:{
-						equipValue:4.5,
+						equipValue:4.5
 					}
 				},
-				skills:["sst_aegises_skill"],
+				skills:"sst_aegises_skill"
 			},
 		},
 		skill:{
@@ -224,10 +224,10 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					damage:true,
 					result:{
 						target:-1,
-						player:1,
-					},
-				},
-			},
+						player:1
+					}
+				}
+			}
 		},
 		translate:{
 			//标签
@@ -244,10 +244,10 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			sst_aegises_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
 			//技能
 			sst_aegises_skill:"炫奕",
-			sst_aegises_skill_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
+			sst_aegises_skill_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。"
 		},
 		list:[
-		],
+		]
 	};
 	return sst;
 });

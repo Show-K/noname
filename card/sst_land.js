@@ -25,9 +25,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_small_battlefield:{
 				type:"land",
@@ -52,9 +52,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_big_battlefield:{
 				type:"land",
@@ -76,9 +76,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_final_destination:{
 				global:["sst_system_card1","sst_system_card2","sst_system_card3"],
@@ -104,9 +104,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_new_donk_city_hall:{
 				type:"land",
@@ -133,9 +133,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_great_plateau_tower:{
 				type:"land",
@@ -155,9 +155,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_moray_towers:{
 				type:"land",
@@ -182,9 +182,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_garreg_mach_monastery:{
 				type:"land",
@@ -214,9 +214,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_cloud_sea_of_alrest:{
 				type:"land",
@@ -249,9 +249,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
+						player:1
+					}
+				}
 			},
 			ska_spring_stadium:{
 				type:"land",
@@ -271,17 +271,17 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					useful:3,
 					order:4,
 					result:{
-						player:1,
-					},
-				},
-			},
+						player:1
+					}
+				}
+			}
 		},
 		skill:{
 			//后台技能
 			sst_system_card1:{
 				trigger:{
 					player:"loseEnd",
-					global:"cardsDiscardEnd",
+					global:"cardsDiscardEnd"
 				},
 				filter:function(event,player){
 					var evt=event.getParent().relatedEvent;
@@ -332,7 +332,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 							}
 						}
 					}
-				},
+				}
 			},
 			sst_system_card2:{},
 			sst_system_card3:{
@@ -389,15 +389,15 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.draw();
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 			ska_small_battlefield_skill:{
 				mod:{
 					maxHandcard:function(player,num){
 						return num+1;
 					}
-				},
+				}
 			},
 			ska_big_battlefield_skill:{
 				mod:{
@@ -414,8 +414,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.draw(2);
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 			ska_final_destination_skill:{
 				trigger:{player:"phaseUseBegin"},
@@ -427,8 +427,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
-					mapValue:-4,
-				},
+					mapValue:-4
+				}
 			},
 			ska_new_donk_city_hall_skill:{
 				trigger:{player:["useCard","respond"]},
@@ -440,8 +440,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.draw(2,"nodelay");
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 			ska_great_plateau_tower_skill:{
 				trigger:{player:"phaseZhunbeiBegin"},
@@ -469,8 +469,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.recover();
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 			ska_moray_towers_skill:{
 				trigger:{source:"damageSource"},
@@ -488,8 +488,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.discardPlayerCard("时钟塔：弃置"+get.translation(trigger.player)+"一张手牌",trigger.player,"h",true);
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 			ska_garreg_mach_monastery_skill:{
 				enable:"phaseUse",
@@ -521,9 +521,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 							if(target.hasSkillTag("nogain")) return 0;
 							if(player.countCards("h")==player.countCards("h","du")) return -1;
 							return 1;
-						},
-					},
-				},
+						}
+					}
+				}
 			},
 			ska_cloud_sea_of_alrest_skill:{
 				trigger:{player:"phaseZhunbeiBegin"},
@@ -535,14 +535,14 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.gain(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],"gain2");
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 			ska_spring_stadium_skill:{
 				mod:{
 					targetInRange:function(card,player){
 						if(card.name=="sha"&&player.countUsed("sha",true)==0) return true;
-					},
+					}
 				},
 				trigger:{player:"useCard"},
 				filter:function(event,player){
@@ -553,8 +553,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					player.draw();
 				},
 				ai:{
-					mapValue:2,
-				},
+					mapValue:2
+				}
 			},
 		},
 		translate:{
@@ -598,7 +598,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_spring_stadium:"弹簧竞技场",
 			ska_spring_stadium_info:"你可以视为对一名角色使用【杀】。地图效果：锁定技，你于一个回合使用的第一张【杀】无距离限制。当你于一个回合使用第一张【杀】时，你摸一张牌。",
 			ska_spring_stadium_skill:"弹簧竞技场",
-			ska_spring_stadium_skill_info:"锁定技，你于一个回合使用的第一张【杀】无距离限制。当你于一个回合使用第一张【杀】时，你摸一张牌。",
+			ska_spring_stadium_skill_info:"锁定技，你于一个回合使用的第一张【杀】无距离限制。当你于一个回合使用第一张【杀】时，你摸一张牌。"
 		},
 		list:[
 			["diamond",5,"ska_battlefield",null,["sst_ultimate"]],
@@ -610,8 +610,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["spade",8,"ska_moray_towers",null,["sst_ultimate"]],
 			["spade",3,"ska_garreg_mach_monastery",null,["sst_ultimate"]],
 			["club",2,"ska_cloud_sea_of_alrest",null,["sst_ultimate"]],
-			["club",11,"ska_spring_stadium",null,["sst_ultimate"]],
-		],
+			["club",11,"ska_spring_stadium",null,["sst_ultimate"]]
+		]
 	};
 	return sst_land;
 });
