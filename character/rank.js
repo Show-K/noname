@@ -69,7 +69,8 @@ window.noname_character_rank={
 			"ymk_yumikohimi",
 			"sst_donkey_kong",
 			"mnm_edelgard",
-			"sst_kyo_kusanagi"
+			"sst_kyo_kusanagi",
+			"ska_olly"
 		],
 		rare:[
 			"sst_mario",
