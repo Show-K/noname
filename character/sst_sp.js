@@ -1526,7 +1526,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					event.num--;
 					if(event.num>=0){
-						var next=player.chooseToUse("十拳：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
+						var next=player.chooseToUse("荒咬：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
 						//next.set("logSkill","alz_wushi");
 						next.set("addCount",false);
 						next.set("targetx",trigger.target);
@@ -1848,7 +1848,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 									return lib.filter.cardEnabled(links[0],target);
 								}
 								else{
-									return lib.filter.filterTarget(links[0],ui.selected.targets[0],target);
+									return lib.filter.targetEnabled2(links[0],ui.selected.targets[0],target);
 								}
 							},
 							selectTarget:2,
@@ -1907,6 +1907,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:"艾黛尔贾特",
 			alz_kyo_kusanagi:"SP草薙京",
 			mnm_captain_falcon:"飞隼队长",
+			ska_olly:"奥利",
 			//身份技能
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
