@@ -14,7 +14,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						equipValue:4.5
 					}
 				},
-				skills:"sst_aegises_skill"
+				skills:["sst_aegises_skill"]
 			},
 		},
 		skill:{
