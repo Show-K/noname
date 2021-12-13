@@ -1993,7 +1993,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
 			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
-			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad"],
+			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad","ska_olly"],
 			ska_xiaojie:["sst_mario","sst_luigi"]
 		}//珠联璧合武将（选填）
 	};
