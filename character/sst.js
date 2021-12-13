@@ -7106,6 +7106,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseTarget(get.prompt2("sst_shimo")).set("ai",function(target){
 						var player=_status.event.player;
+						if(player.hp<=1) return 0;
 						var num=player.storage.sst_shimo.contains(target)?1:2;
 						if(get.attitude(player,target)<0){
 							if(!target.countCards("he")||target.countCards("he")<2) return 0;
@@ -7172,7 +7173,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return 0;
 					},
 					result:{
-						player:0.5
+						player:function(player){
+							if(player.maxHp<=3) return 0;
+							return 0.5;
+						}
 					}
 				},
 				subSkill:{
