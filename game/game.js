@@ -50934,6 +50934,9 @@
 			else if(str2.indexOf("艾黛尔贾特")==0){
 				str2="艾黛贾特";
 			}
+			else if(str2.indexOf("奥利王")==0){
+				str2="奥利";
+			}
 			//New add end
 			return str2;
 		},
@@ -51017,6 +51020,9 @@
 			else if(str2.indexOf("艾黛尔贾特")==0){
 				str2="艾黛贾特";
 			}
+			else if(str2.indexOf("奥利王")==0){
+				str2="奥利";
+			}
 			//New add end
 			return str2;
 		},
@@ -51099,6 +51105,9 @@
 			}
 			else if(str2.indexOf("艾黛尔贾特")==0){
 				str2="艾黛贾特";
+			}
+			else if(str2.indexOf("奥利王")==0){
+				str2="奥利";
 			}
 			//New add end
 			return get.verticalStr(str2,true);

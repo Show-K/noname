@@ -610,7 +610,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				popup:false,
 				trigger:{player:"useCardAfter"},
 				filter:function(event,player){
-					return event.respondTo&&event.respondTo[0]&&event.respondTo[1]&&get.name(event.respondTo[1])=="ska_smash";
+					return get.name(event.card)=="shan"&&event.respondTo&&event.respondTo[0]&&event.respondTo[1]&&get.name(event.respondTo[1])=="ska_smash";
 				},
 				content:function(){
 					var target=trigger.respondTo[0];

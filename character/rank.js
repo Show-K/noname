@@ -70,7 +70,7 @@ window.noname_character_rank={
 			"sst_donkey_kong",
 			"mnm_edelgard",
 			"sst_kyo_kusanagi",
-			"ska_olly"
+			"ska_king_olly"
 		],
 		rare:[
 			"sst_mario",

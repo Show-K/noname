@@ -116,7 +116,7 @@ window.noname_asset_list=[
 	'image/character/ska_professor_toad.png',
 	'image/character/mnm_edelgard.png',
 	'image/character/alz_kyo_kusanagi.png',
-	'image/character/ska_olly.png',
+	'image/character/ska_king_olly.png',
 
 	'image/card/sst_aegises.png',
 

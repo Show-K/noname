@@ -4712,6 +4712,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				onuse:function(result,player){
 					player.storage.sst_huanbian_used.push(player.storage.sst_huanbian+player.storage.sst_huanbian_nature);
+					var evt=_status.event.getParent("phase");
+					if(evt&&evt.name=="phase"&&!evt.sst_huanbian){
+						var next=game.createEvent("sst_huanbian_clear");
+						_status.event.next.remove(next);
+						evt.after.push(next);
+						evt.sst_huanbian=true;
+						next.player=player;
+						next.setContent(function(){
+							player.storage.sst_huanbian_used=[];
+						});
+					}
 				},
 				check:function(card){return 5-get.value(card)},
 				intro:{
@@ -4742,7 +4753,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondTao:true,
 					save:true
 				},
-				group:["sst_huanbian2","sst_huanbian3","sst_huanbian_use","sst_huanbian_phase"],
+				group:["sst_huanbian2","sst_huanbian3","sst_huanbian_use"],
 				subSkill:{
 					use:{
 						trigger:{player:"useCard1"},
@@ -4759,14 +4770,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.storage.sst_huanbian_nature=trigger.card.nature;
 							//player.updateMarks();
 							//player.markSkill("sst_huanbian");
-						},
-						sub:true
-					},
-					phase:{
-						trigger:{global:"phaseAfter"},
-						silent:true,
-						content:function(){
-							player.storage.sst_huanbian_used=[];
 						},
 						sub:true
 					}
@@ -4852,7 +4855,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					listm=listm.concat(listv);
 					var func=function(skill){
 						var info=get.info(skill);
-						if(get.is.locked(skill)||info.charlotte||info.forced||info.zhuanhuanji||info.zhuSkill||info.unique) return false;
+						if(get.is.locked(skill)||info.charlotte||info.forced||info.zhuanhuanji||info.dutySkill||info.zhuSkill||info.unique) return false;
 						return true;
 					};
 					for(var i=0;i<listm.length;i++){
@@ -6767,7 +6770,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//任天鼠
 			sst_jilve:{
-				global:"sst_jilve2",
 				trigger:{global:"phaseUseBegin"},
 				filter:function(event,player){
 					return event.player!=player;
@@ -6778,7 +6780,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					trigger.player.gainPlayerCard("辑略：你可以获得"+get.translation(player)+"任意张手牌",player,[1,Infinity],"h").set("ai",function(button){
+					trigger.player.storage.sst_jilve_used=true;
+					trigger.player.gainPlayerCard("辑略：你可以获得"+get.translation(player)+"任意张手牌",player,[1,Infinity],"h","visible").set("ai",function(button){
 						return _status.event.player.getUseValue(button.link);
 					});
 					"step 1"
@@ -6815,25 +6818,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				skillAnimation:true,
 				animationColor:"fire",
 				trigger:{player:"die"},
-				filter:function(event,player) {
-					return game.hasPlayer(function(current){
-						return current.storage.sst_jilve_used;
-					});
+				filter:function(event,player){
+					return lib.skill.sst_yuanchuan.logTarget(event,player).length;
 				},
-				direct:true,
-				forced:true,
-				forceDie:true,
-				content:function (){
+				logTarget:function(event,player){
 					var targets=game.filterPlayer(function(current){
 						return current.storage.sst_jilve_used;
 					});
-					targets.sortBySeat();
-					player.logSkill("sst_yuanchuan",targets);
+					targets.sortBySeat(player);
+					return targets;
+				},
+				forced:true,
+				forceDie:true,
+				content:function(){
+					var targets=lib.skill.sst_yuanchuan.logTarget(trigger,player);
 					game.asyncDraw(targets,3);
 				}
 			},
 			//Srf
 			sst_diebu:{
+				init:function(player){
+					player.storage.sst_diebu=false;
+				},
 				zhuanhuanji:true,
 				enable:"chooseToUse",
 				prompt:function(){
@@ -8364,7 +8370,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					for(var i=0;i<skills.length;i++){
 						var info=lib.skill[skills[i]];
-						if(info.zhuanhuanji||info.unique||info.limited||info.mainSkill||info.viceSkill||get.is.locked(skills[i])){
+						if(info.dutySkill||info.zhuanhuanji||info.unique||info.limited||info.mainSkill||info.viceSkill||get.is.locked(skills[i])){
 							skills.splice(i--,1);
 						}
 					}
@@ -11510,6 +11516,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Pyra/Mythra
 			sst_xuanyi:{
+				init:function(player){
+					player.storage.sst_xuanyi=false;
+				},
 				//mark:true,
 				zhuanhuanji:true,
 				equipSkill:true,

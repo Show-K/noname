@@ -7,7 +7,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard","mnm_captain_falcon"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_olly"],
+				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly"],
 				sst_nnk:[],
 				sst_alz:["alz_kyo_kusanagi"]
 			}
@@ -28,7 +28,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 			//mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
-			ska_olly:["male","sst_spirit",3,["ska_shenqi","ska_zhesheng"],[]]
+			ska_king_olly:["male","sst_spirit",3,["ska_shenqi","ska_zhesheng"],[]]
 		},//武将（必填）
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -127,7 +127,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
 			"亮招来见。",
-			ska_olly:"1427. 奥利王/King Olly/オリー王<br>"+
+			ska_king_olly:"1427. 奥利王/King Olly/オリー王<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>"+
 			"武将作者：Show-K<br>"+
@@ -150,7 +150,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:"炎翼的皇女",
 			alz_kyo_kusanagi:"炎之贵公子",
 			mnm_captain_falcon:"风驰电掣",
-			ska_olly:"折纸生望"
+			ska_king_olly:"折纸生望"
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -348,7 +348,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			ska_yangxun:{
-				trigger:{global:"judgeEnd"},
+				trigger:{global:"judgeAfter"},
 				forced:true,
 				filter:function(event,player){
 					return event.result.color=="red";
@@ -503,8 +503,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi2")).set("ai",function(button){
 						var player=_status.event.player;
-						if(player.isPhaseUsing()) return player.getUseValue(button.link);
-						return get.value(button.link);
+						if(player.isPhaseUsing()) return player.getUseValue(button.link)+5;
+						return get.value(button.link)+5;
 					});
 					"step 1"
 					if(result.links&&result.links.length){
@@ -526,7 +526,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return ui.create.dialog("折赋",_status.renku,"hidden");
 					},
 					check:function(button){
-						return get.value(button.link);
+						return get.value(button.link)+5;
 					},
 					backup:function(links,player){
 						return {
@@ -539,7 +539,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							ai:{
 								order:10,
 								result:{
-									target:2
+									target:function(){
+										return get.value(links[0]);
+									}
 								}
 							}
 						}
@@ -1283,9 +1285,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.showCards(event.card_top);
 							"step 1"
 							player.$throw(1);
-							game.log(player,"将",event.card_top,"置于牌堆顶");
+							game.log(player,"将一张牌置于牌堆顶");
 							player.lose(event.card_top,ui.cardPile,"insert");
 							"step 2"
+							delete event.animate;
 							event.card_bottom=get.bottomCards()[0];
 							player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌堆底牌");
 							"step 3"
@@ -1306,8 +1309,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var can_damage=get.color(event.card_top)==get.color(event.card_bottom);
 							player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
 								var player=_status.event.player;
-								if(get.value(event.card_bottom)<=get.damageEffect(target,player)&&_status.event.can_damage) return get.damageEffect(player,target);
-								return get.attitude(player,target);
+								var card=_status.event.cardx;
+								if(get.value(card)<=get.damageEffect(target,player)&&_status.event.can_damage) return get.damageEffect(player,target);
+								return get.attitude(player,target)*get.value(card);
 							}).set("cardx",event.card_bottom).set("can_damage",can_damage);
 							"step 5"
 							if(result.targets&&result.targets.length){
@@ -1367,7 +1371,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(result.cards&&result.cards.length){
 						player.$throw(result.cards.length);
-						game.log(player,"将",result.cards,"置于牌堆底");
+						game.log(player,"将",get.cnNumber(result.cards.length),"张牌置于牌堆底");
 						player.lose(result.cards,ui.cardPile);
 					}
 				}
@@ -1524,7 +1528,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					event.num--;
 					if(event.num>=0){
-						var next=player.chooseToUse("荒咬：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
+						var next=player.chooseToUse("无式：你可以对"+get.translation(trigger.target)+"使用一张【杀】（剩余"+event.num+"次）");
 						//next.set("logSkill","alz_wushi");
 						next.set("addCount",false);
 						next.set("targetx",trigger.target);
@@ -1835,7 +1839,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return ui.create.dialog("折生",_status.renku,"hidden");
 					},
 					check:function(button){
-						return get.value(button.link);
+						return get.value(button.link)+5;
 					},
 					backup:function(links,player){
 						return {
@@ -1854,7 +1858,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							},
 							selectTarget:2,
 							multitarget:true,
-							targetprompt:["使用者","使用目标"],
+							targetprompt:["<span class=\"firetext\">使用者</span>","<span class=\"bluetext\">使用目标</span>"],
 							complexTarget:true,
 							cards:links,
 							delay:false,
@@ -1864,7 +1868,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								result:{
 									target:function(player,target){
 										if(ui.selected.targets.length==0){
-											return Math.abs(get.attitude(target,player));
+											//return Math.abs(get.attitude(target,player));
+											var players=game.filterPlayer();
+											players.remove(target);
+											var val=0;
+											for(var i=0;i<players.length;i++){
+												if(get.attitude(player,target)<0){
+													val=Math.min(val,get.effect(players[i],links[0],target,target));
+												}
+												else{
+													val=Math.max(val,get.effect(players[i],links[0],target,target));
+												}
+											}
+											return val;
 										}
 										else{
 											return get.effect(target,links[0],ui.selected.targets[0],target);
@@ -1878,7 +1894,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				contentx:function(){
 					var card=lib.skill.ska_zhesheng_backup.cards[0];
-					targets[0].useCard(card,"nowuxie",targets[1],"noai");
+					_status.renku.remove(card);
+					game.updateRenku();
+					targets[0].useCard(card,targets[1],false,"noai");
 				},
 				ai:{
 					combo:"ska_shenqi",
@@ -1887,6 +1905,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						player:1
 					}
+				},
+				group:"ska_zhesheng2"
+			},
+			ska_zhesheng2:{
+				forced:true,
+				popup:false,
+				trigger:{global:"useCard"},
+				filter:function(event,player){
+					return event.getParent().name=="ska_zhesheng_backup";
+				},
+				content:function(){
+					trigger.directHit.addArray(game.players);
 				}
 			}
 		},//技能（必填）
@@ -1914,7 +1944,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:"艾黛尔贾特",
 			alz_kyo_kusanagi:"SP草薙京",
 			mnm_captain_falcon:"飞隼队长",
-			ska_olly:"奥利",
+			ska_king_olly:"奥利王",
 			//身份技能
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -1981,6 +2011,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_jijing:"急竞",
 			mnm_jijing_info:"出牌阶段限一次，你可以将武将牌弹飞，其所命中的武将牌对应的角色依次受到你造成的1点伤害。",
 			ska_zhesheng:"折生",
+			ska_zhesheng_backup:"折生",
 			ska_zhesheng_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被【无懈可击】响应）。",
 			//武将分类
 			//sst_sp:"SP",
@@ -1993,7 +2024,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
 			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
-			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad","ska_olly"],
+			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad","ska_king_olly"],
 			ska_xiaojie:["sst_mario","sst_luigi"]
 		}//珠联璧合武将（选填）
 	};
