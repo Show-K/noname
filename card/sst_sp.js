@@ -189,6 +189,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				global:["icesha_skill","ska_smash_skill"],
 				range:{attack:1},
 				selectTarget:1,
+				baseDamage:2,
 				cardPrompt:function(card){
 					if(card.nature=="stab") return "出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），且在此之后需弃置一张手牌（没有则不弃）。否则你对其造成2点伤害。";
 					if(lib.linked.contains(card.nature)) return "出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点"+get.translation(card.nature)+"属性伤害。";
@@ -224,8 +225,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					var card=event.card,bool=false;
 					if(get.cardtag(card,"yingbian_damage")){
 						bool=true;
-						if(typeof event.baseDamage!="number") event.baseDamage=1;
-						event.baseDamage+=2;
+						if(typeof event.baseDamage!="number") event.baseDamage=2;
+						event.baseDamage++;
 						game.log(event.card,"的伤害值基数+1");
 					}
 					if(get.cardtag(event.card,"yingbian_gain")){
@@ -257,8 +258,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					if(typeof event.shanRequired!="number"||!event.shanRequired||event.shanRequired<0){
 						event.shanRequired=1;
 					}
-					if(typeof event.baseDamage!="number") event.baseDamage=1;
-					event.baseDamage++;
+					if(typeof event.baseDamage!="number") event.baseDamage=2;
 					if(typeof event.extraDamage!="number") event.extraDamage=0;
 					"step 1"
 					if(event.directHit||event.directHit2||(!_status.connectMode&&lib.config.skip_shan&&!target.hasShan())){

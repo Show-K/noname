@@ -544,7 +544,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 					},
-					prompt:function(){return "请选择〖折赋〗的目标"},
+					prompt:function(){return "请选择〖折赋〗的目标";},
 				},
 				contentx:function(){
 					"step 0"
@@ -769,7 +769,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_kezhi3:{},
 			ska_jiyan:{
 				init:function(player){
-					if(!player.storage.ska_jiyan||!player.storage.ska_jiyan.length) player.storage.ska_jiyan=["sha","shan","tao","jiu"];
+					player.storage.ska_jiyan=["sha","shan","tao","jiu"];
 				},
 				group:["ska_jiyan_sha","ska_jiyan_shan","ska_jiyan_tao","ska_jiyan_jiu","ska_jiyan2"],
 				subSkill:{
@@ -891,7 +891,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				trigger:{player:"useCardAfter"},
 				filter:function(event,player){
-					return !player.storage.ska_jiyan.length;
+					return event.skill.indexOf("ska_jiyan")==0&&!player.storage.ska_jiyan.length;
 				},
 				content:function(){
 					player.gainMaxHp();
@@ -1157,9 +1157,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(get.attitude(player,target)<0) return player.countCards("h")/2-target.countCards("h")/2;
 							return 2;
 						},
-						player:function(player,target){
-							return 1;
-						}
+						player:1
 					}
 				},
 				group:"ska_mengjin_clear",
@@ -1845,7 +1843,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							selectCard:-1,
 							filterTarget:function(card,player,target){
 								if(ui.selected.targets.length==0){
-									return lib.filter.cardEnabled(links[0],target);
+									//return lib.filter.cardEnabled(links[0],target);
+									return game.hasPlayer(function(current){
+										return current!=target&&lib.filter.targetEnabled2(links[0],target,current);
+									});
 								}
 								else{
 									return lib.filter.targetEnabled2(links[0],ui.selected.targets[0],target);
@@ -1861,22 +1862,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							ai:{
 								order:10,
 								result:{
-									expose:0.2,
-									player:1
+									target:function(player,target){
+										if(ui.selected.targets.length==0){
+											return Math.abs(get.attitude(target,player));
+										}
+										else{
+											return get.effect(target,links[0],ui.selected.targets[0],target);
+										}
+									}
 								}
 							}
 						}
 					},
-					prompt:function(){return "请选择〖折生〗的目标"},
+					prompt:function(){return "请选择〖折生〗的目标";},
 				},
 				contentx:function(){
-					var card=lib.skill.ska_zhefu_backup.cards[0];
+					var card=lib.skill.ska_zhesheng_backup.cards[0];
 					targets[0].useCard(card,"nowuxie",targets[1],"noai");
 				},
 				ai:{
 					combo:"ska_shenqi",
 					expose:0.2,
-					order:8,
+					order:6,
 					result:{
 						player:1
 					}
