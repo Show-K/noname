@@ -28090,6 +28090,27 @@
 		],
 	};
 	var game={
+		//New add
+		causesDamage:function(card,player){
+			var history;
+			if(get.itemtype(player)=='player'){
+				history=player.getHistory('sourceDamage',function(evt){
+					return evt.card==card;
+				});
+				if(history&&history.length) return true;
+			}
+			else{
+				var players=game.filterPlayer();
+				for(var i=0;i<players.length;i++){
+					history=players[i].getHistory('sourceDamage',function(evt){
+						return evt.card==card;
+					});
+					if(history&&history.length) return true;
+				}
+			}
+			return false;
+		},
+		//New add end
 		updateRenku:function(){
 			game.broadcast(function(renku){
 				_status.renku=renku;

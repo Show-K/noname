@@ -893,7 +893,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				trigger:{player:"useCardAfter"},
 				filter:function(event,player){
-					return event.skill.indexOf("ska_jiyan")==0&&!player.storage.ska_jiyan.length;
+					return event.skill&&event.skill.indexOf("ska_jiyan")==0&&!player.storage.ska_jiyan.length;
 				},
 				content:function(){
 					player.gainMaxHp();

@@ -2870,16 +2870,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					var check=false;
 					var cards=player.getCards("he");
 					var val=0;
 					for(var i=0;i<cards.length;i++){
 						val+=get.value(cards[i]);
 					}
 					val=val/cards.length;
-					check=val<=5||player.hasCard(function(card){
-						return get.type(card)=="basic";
-					},"he");
 					player.chooseCard(get.prompt2("sst_potian"),"he",[1,Infinity],function(card){
 						var suit=get.suit(card);
 						//game.log(1,suit);
@@ -2906,19 +2902,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						for(var i=0;i<cards.length;i++){
 							if(get.type(cards[i])=="basic") num++;
 						}
-						player.storage.sst_potian=num;
+						player.storage.sst_potian2=num;
 						player.draw(cards.length);
 						player.addTempSkill("sst_potian2");
-						if(player.storage.sst_shenjiao){
-							player.markSkillCharacter("sst_potian2",player.storage.sst_shenjiao,"破天","你使用的杀基础伤害为"+num+"直到回合结束");
-						}
-						else{
-							player.markSkillCharacter("sst_potian2",player,"破天","你使用的杀基础伤害为"+num+"直到回合结束");
-						}
 					}
 				}
 			},
 			sst_potian2:{
+				mark:true,
+				intro:{
+					content:"你使用的杀基础伤害为#直到回合结束"
+				},
 				trigger:{player:"useCard1"},
 				filter:function(event,player){
 					return event.card&&get.name(event.card)=="sha";
@@ -2928,14 +2922,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.unmarkSkill("sst_potian2");
 				},
 				content:function(){
-					if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
-					trigger.baseDamage+=player.storage.sst_potian-1;
+					trigger.baseDamage=player.storage.sst_potian2;
 				},
 				ai:{
 					damageBonus:true,
 					effect:{
 						player:function(card,player){
-							if(player.storage.sst_potian==0&&get.name(card)=="sha") return [-1,-3];
+							if(player.storage.sst_potian2==0&&get.name(card)=="sha") return [-1,-3];
 						}
 					}
 				}
@@ -2983,7 +2976,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets[0].gain(event.cards,"gain2");
 						//game.log(result.targets[0],"获得了"+event.togive);
 						if(trigger.getParent().name=="sst_potian"){
-							result.targets[0].addTempSkill("sst_shenjiao2",{player:"phaseBefore"});
+							result.targets[0].addTempSkill("sst_shenjiao2",{player:"phaseBegin"});
 							result.targets[0].storage.sst_shenjiao=player;
 							result.targets[0].markSkillCharacter("sst_shenjiao2",player,"身教","下一个回合内拥有【破天】");
 						}
@@ -2995,7 +2988,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_shenjiao2:{
 				silent:true,
-				onremove:function (player) {
+				onremove:function(player){
 					player.unmarkSkill("sst_shenjiao2");
 					player.addTempSkill("sst_potian");
 				}
@@ -5153,9 +5146,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
-					return event.sst_baochui&&!player.getHistory("sourceDamage",function(evt){
-						return evt.card==event.card;
-					}).length;
+					return event.sst_baochui&&!game.causesDamage(event.card);
 				},
 				content:function(){
 					player.storage.sst_baochui++;
@@ -7369,7 +7360,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					name2:"报",
 					content:function(storage,player){
 						return "接下来"+get.cnNumber(player.maxHp-player.hp-storage)+"个回合的回合结束时弃置一张牌";
-					},
+					}
 				},
 				trigger:{global:"phaseEnd"},
 				forced:true,
@@ -8180,43 +8171,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Young Link
-			/*
-			sst_old_shishi:{
-				derivation:"sst_jujian",
-				trigger:{player:"phaseJieshuBegin"},
-				forced:true,
-				content:function(){
-					"step 0"
-					player.showHandcards();
-					event.types=["basic","trick","equip"];
-					event.discards=[];
-					var cards=player.getCards("h");
-					for(var i=0;i<cards.length;i++){
-						if(event.types.contains(get.type(cards[i],"trick"))) event.types.remove(get.type(cards[i],"trick"));
-					}
-					if(!event.types.length) event.goto(3);
-					"step 1"
-					event.card=get.cards()[0];
-					player.showCards(event.card);
-					"step 2"
-					if(event.types.contains(get.type(event.card,"trick"))){
-						event.types.remove(get.type(event.card,"trick"));
-						player.gain(event.card,"gain2");
-						if(event.types.length) event.goto(1);
-					}
-					else{
-						event.discards.push(event.card);
-						game.cardsDiscard(event.card);
-						event.goto(1);
-					}
-					"step 3"
-					if(event.discards.length&&event.discards.filterInD("d").length>7){
-						game.log(player,"将武将变更为","#g"+get.translation("sst_ocarina_of_time_link"));
-						player.reinit(player.name,"sst_ocarina_of_time_link");
-					}
-				},
-			},
-			*/
 			sst_shishi:{
 				trigger:{player:"phaseJieshuBegin"},
 				forced:true,
@@ -8279,7 +8233,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
-					return event.getParent(2).name=="sst_shishi"&&!event.result.bool;
+					return event.getParent(2).name=="sst_shishi"&&!game.causesDamage(event.card);
 				},
 				content:function(){
 					game.log(player,"将武将变更为","#g"+get.translation("sst_ocarina_of_time_link"));
@@ -9521,14 +9475,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					event.card=player.storage.sst_qianlong[player.storage.sst_qianlong.length-1];
+					/*
 					var history=player.getHistory("sourceDamage",function(evt){
 						return evt.card==trigger.card;
 					});
-					if(history.length&&history.length==1){
-						player.showCards(player.storage.sst_qianlong);
-						event.target=history[0].player;
+					*/
+					var history;
+					var players=game.filterPlayer();
+					var bool=false;
+					for(var i=0;i<players.length;i++){
+						history=players[i].getHistory("sourceDamage",function(evt){
+							return evt.card==trigger.card;
+						});
+						if(history.length&&history.length==1){
+							player.showCards(player.storage.sst_qianlong);
+							event.target=history[0].player;
+							bool=true;
+							break;
+						}
 					}
-					else{
+					if(!bool){
 						event.goto(2);
 					}
 					"step 1"
@@ -10387,12 +10353,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chat(trigger.sst_xuhuang[player.playerid].result?"造成伤害":"不造成伤害");
 					game.log(player,"公布了结果","#y"+(trigger.sst_xuhuang[player.playerid].result?"造成伤害":"不造成伤害"));
 					"step 1"
+					/*
 					var bool=false;
-					var history=player.getHistory("sourceDamage",function(evt){
+					var history=trigger.player.getHistory("sourceDamage",function(evt){
 						return evt.card==trigger.card;
 					});
 					if(history&&history.length) bool=true;
-					if(trigger.sst_xuhuang[player.playerid].result==bool){
+					*/
+					/*
+					var players=game.filterPlayer();
+					for(var i=0;i<players.length;i++){
+						history=players[i].getHistory("sourceDamage",function(evt){
+							return evt.card==trigger.card;
+						});
+						if(history&&history.length){
+							bool=true;
+							break;
+						}
+					}
+					*/
+					if(trigger.sst_xuhuang[player.playerid].result==game.causesDamage(trigger.card)){
 						player.popup("猜中");
 						game.log(player,"#y猜中");
 						player.draw(2);
@@ -10571,9 +10551,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return get.tag(event.card,"damage")&&event.targets.length==1&&!player.getHistory("sourceDamage",function(evt){
-						return evt.card==event.card;
-					}).length;
+					return get.tag(event.card,"damage")&&event.targets.length==1&&!game.causesDamage(event.card);
 				},
 				content:function(){
 					"step 0"
@@ -11224,9 +11202,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					//game.log(event.getParent().skill);
 					if(event.skill!="sst_fengcu_sha"&&event.skill!="sst_fengcu_shan") return false;
-					return player.getHistory("sourceDamage",function(evt){
-						return evt.card==event.card;
-					}).length;
+					return game.causesDamage(event.card);
 				},
 				content:function(){
 					player.addTempSkill("sst_fengcu3","roundStart");
@@ -12793,8 +12769,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chihang_info:"一名角色的出牌阶段开始时，其可以展示并交给你一张牌，然后此出牌阶段内，其使用或打出牌时，若与此牌花色：相同，其将手牌补至体力上限；不同，其须失去一点体力或结束出牌阶段。",
 			sst_xishou:"袭狩",
 			sst_xishou_info:"出牌阶段，若你手牌上限不为0，你可以令你本回合手牌上限和计算与其他角色距离均-1，然后你将手牌补至体力上限。若如此做，你每于弃牌阶段弃置一张牌，你失去一点体力。",
-			sst_old_shishi:"时逝",
-			sst_old_shishi_info:"锁定技，结束阶段，你须展示所有手牌，然后若手牌中有没有的牌类型，你按任意顺序举荐你没有的类别的牌。结算完成后，若此阶段进入弃牌堆的牌超过7张，你将武将牌变更为【时光的笛音·林克】。",
 			sst_shishi:"时逝",
 			sst_shishi_info:"锁定技，结束阶段，若你未受伤，你弃置一名角色的一张牌；若你已受伤，你视为使用一张【杀】，然后若未造成伤害，你将武将牌变更为【时光的笛音·林克】 。",
 			sst_jujian:"按任意顺序举荐你没有的类别的牌",
