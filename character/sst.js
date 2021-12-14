@@ -5781,10 +5781,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseToDiscard("###"+get.prompt("sst_manchan",trigger.source)+"###你可以弃置"+get.cnNumber(Math.floor(player.countCards("h")/2))+"张手牌，然后你可以于"+get.translation(trigger.source)+"的下个回合内发动〖任情〗",Math.floor(player.countCards("h")/2)).set("ai",function(card){
 						return 5-get.value(card);
-					});
+					}).set("logSkill",["sst_manchan",trigger.source]);
 					"step 1"
 					if(result.bool){
-						player.logSkill("sst_manchan",trigger.source);
 						if(!trigger.source.storage.sst_manchan) trigger.source.storage.sst_manchan=[];
 						trigger.source.storage.sst_manchan.push(player);
 						trigger.source.addTempSkill("sst_manchan2",{player:"phaseBegin"});
