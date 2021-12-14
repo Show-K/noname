@@ -1076,7 +1076,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
-				priority:2019,
+				priority:2021,
 				filter:function(event,player){
 					return !lib.config.sst_smash&&player.group=="sst_smash";
 				},
@@ -1814,12 +1814,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				position:"he",
 				subSkill:{
-					turn:{
-						sub:true,
-					},
-					discard:{
-						sub:true,
-					}
+					turn:{},
+					discard:{}
 				},
 				ai:{
 					order:function(){
@@ -1884,39 +1880,33 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.target.chooseToDiscard("圣兵：弃置一张牌","he",true);
 					"step 3"
 					if(!event.target.hasSkill("sst_shengbing2")){
-						event.target.addTempSkill("sst_shengbing2",{player:"phaseUseBefore"});
+						event.target.addTempSkill("sst_shengbing2",{player:"phaseUseBegin"});
 					}
 					else{
-						if(!event.target.storage.sst_shengbing2) event.target.storage.sst_shengbing2=0;
+						if(!event.target.storage.sst_shengbing) event.target.storage.sst_shengbing=0;
 					}
-					event.target.storage.sst_shengbing2++;
-					event.target.storage.sst_shengbing=player;
-					event.target.markSkillCharacter("sst_shengbing2",player,"圣兵","下一个出牌阶段你可以额外使用"+get.cnNumber(event.target.storage.sst_shengbing2)+"张【杀】");
+					event.target.storage.sst_shengbing++;
+					event.target.markSkillCharacter("sst_shengbing2",player,"圣兵","下一个出牌阶段你可以额外使用"+get.cnNumber(event.target.storage.sst_shengbing)+"张【杀】");
 				},
 				ai:{
 					expose:0.2
 				}
 			},
 			sst_shengbing2:{
-				silent:true,
+				charlotte:true,
 				init:function(player){
-					player.storage.sst_shengbing2=0;
+					player.storage.sst_shengbing=0;
 				},
 				onremove:function(player){
 					player.unmarkSkill("sst_shengbing2");
 					player.addTempSkill("sst_shengbing3","phaseUseAfter");
-					//player.unmarkSkill("sst_shengbing_check");
-					player.markSkillCharacter("sst_shengbing3", player.storage.sst_shengbing,"圣兵","此出牌阶段你可以额外使用"+get.cnNumber(player.storage.sst_shengbing2)+"张【杀】");
 				}
 			},
 			sst_shengbing3:{
 				onremove:function(player){
-					delete player.storage.sst_shengbing2;
+					delete player.storage.sst_shengbing;
 				},
 				mod:{
-					onremove:function(player){
-						player.unmarkSkill("sst_shengbing3");
-					},
 					cardUsable:function(card,player,num){
 						if(card.name=="sha") return num+1;
 					}
@@ -3141,8 +3131,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							for(var i=0;i<players.length;i++){
 								players[i].storage.sst_tianmai_count=players[i].hp;
 							}
-						},
-						sub:true
+						}
 					},
 					phase:{
 						trigger:{global:"phaseBefore"},
@@ -3162,8 +3151,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								game.log("由",trigger.player,"的回合开始一个新的轮次");
 								player.removeSkill("sst_tianmai_phase");
 							}
-						},
-						sub:true
+						}
 					}
 				}
 			},
@@ -4224,8 +4212,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.storage.sst_yiqing=trigger.targets;
 							//player.updateMarks();
 							//player.markSkill("sst_yiqing");
-						},
-						sub:true
+						}
 					}
 				}
 			},
@@ -4766,8 +4753,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.storage.sst_huanbian_nature=trigger.card.nature;
 							//player.updateMarks();
 							//player.markSkill("sst_huanbian");
-						},
-						sub:true
+						}
 					}
 				}
 			},
@@ -4888,8 +4874,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						silent:true,
 						content:function (){
 							player.removeAdditionalSkill("sst_qushi");
-						},
-						sub:true
+						}
 					}
 				}
 			},
@@ -5169,13 +5154,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var players=game.filterPlayer();
 					var cards=[];
 					for(var i=0;i<players.length;i++){
-						cards=cards.concat(players[i].getCards("h",function(card){
+						cards=players[i].getCards("h",function(card){
 							return card.hasGaintag("sst_shengxi");
-						}));
-					}
-					if(cards.length) for(var i=0;i<cards.length;i++){
-						cards[i].removeGaintag("sst_shengxi");
-						cards[i].removeGaintag("viewHandcard");
+						});
+						players[i].removeGaintag("sst_shengxi",cards);
+						players[i].removeGaintag("viewHandcard",cards);
 					}
 				},
 				ai:{
@@ -5211,8 +5194,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("sst_shengxi",trigger.target);
 						var card=result.cards[0];
 						trigger.target.$give(card,trigger.target,false);
-						card.addGaintag("viewHandcard");
-						card.addGaintag("sst_shengxi");
+						trigger.target.addGaintag(card,"viewHandcard");
+						trigger.target.addGaintag(card,"sst_shengxi");
 						game.log(player,"明置了",trigger.target,"的",card);
 					}
 				},
@@ -5314,9 +5297,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(_status.event.dying) return get.attitude(player,_status.event.dying);
 							return 1;
 						}
-					},
-					useful:-1,
-					value:-1
+					}
 				}
 			},
 			sst_xuelun:{
@@ -5648,114 +5629,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					damageBonus:true
 				}
 			},
-			/*
-			sst_renqing:{
-				trigger:{global:"phaseJudgeAfter"},
-				filter:function(event,player){
-					return event.player==player||(player.storage.sst_manchan2&&player.storage.sst_manchan2.length&&player.storage.sst_manchan2.contains(event.player));
-				},
-				direct:true,
-				content:function(){
-					"step 0"
-					if(trigger.player!=player) player.storage.sst_manchan2.remove(trigger.player);
-					var list=["draw","use","discard"];
-					if(trigger.player.getHistory("skipped").contains("phaseDraw")) list.remove("draw");
-					if(trigger.player.getHistory("skipped").contains("phaseUse")) list.remove("use");
-					if(trigger.player.getHistory("skipped").contains("phaseDiscard")) list.remove("discard");
-					if(!list.length){
-						event.finish();
-					}
-					else{
-						var list2=[];
-						for(var i=0;i<list.length;i++){
-							list2.push(game.createCard("sst_phase_"+list[i]+"_card","",""))
-						}
-						player.chooseButton(["###是否发动【任情】？###你可以声明并修改本回合摸牌阶段、出牌阶段、弃牌阶段的执行顺序（先选择的在前）",list2],list2.length);
-					}
-					"step 1"
-					player.logSkill("sst_renqing",trigger.player);
-					player.addTempSkill("sst_renqing_used");
-					player.storage.sst_renqing={
-						playerx:trigger.player,
-						phaseDraw:false,
-						phaseUse:false,
-						phaseDiscard:false,
-					};
-					//player.storage.sst_renqing["playerx"]=trigger.player;
-					player.$throw(result.links);
-					var order="";
-					for(var i=0;i<result.links.length;i++){
-						switch(get.name(result.links[i])){
-							case "sst_phase_draw_card":{
-								trigger.player.phaseDraw();
-								player.storage.sst_renqing["phaseDraw"]=true;
-								order+="摸牌阶段";
-								break;
-							}
-							case "sst_phase_use_card":{
-								trigger.player.phaseUse();
-								player.storage.sst_renqing["phaseUse"]=true;
-								order+="出牌阶段";
-								break;
-							}
-							case "sst_phase_discard_card":{
-								trigger.player.phaseDiscard();
-								player.storage.sst_renqing["phaseDiscard"]=true;
-								order+="弃牌阶段";
-								break;
-							}
-						}
-						if(i<result.links.length-1) order+="、";
-					}
-					game.log(player,"将顺序修改为",order);
-				},
-				ai:{
-					expose:0.2,
-				},
-				group:["sst_renqing_skip"],
-				subSkill:{
-					skip:{
-						trigger:{
-							global:["phaseDrawBefore","phaseUseBefore","phaseDiscardBefore"],
-						},
-						filter:function(event,player){
-							return player.hasSkill("sst_renqing_used");
-						},
-						silent:true,
-						content:function(){
-							if(player.storage.sst_renqing["playerx"]==trigger.player&&player.storage.sst_renqing[trigger.name]){
-								player.storage.sst_renqing[trigger.name]=false;
-							}
-							else{
-								trigger.cancel();
-							}
-						},
-						sub:true,
-					},
-					used:{
-						sub:true,
-					},
-				},
-			},
-			*/
 			//Daisy
 			sst_renqing:{
 				derivation:"sst_renqing_detail",
 				init:function(player){
 					
 				},
-				trigger:{
-					global:["phaseDrawBefore","phaseUseBefore","phaseDiscardBefore"],
-				},
+				trigger:{global:["phaseDrawBefore","phaseUseBefore","phaseDiscardBefore"]},
 				filter:function(event,player){
 					if(event.getParent().name=="sst_renqing") return false;
-					return event.player==player||(player.storage.sst_manchan2&&player.storage.sst_manchan2.contains(event.player));
+					return event.player==player||(event.player.hasSkill("sst_manchan3")&&event.player.storage.sst_manchan&&event.player.storage.sst_manchan.contains(event.player));
 				},
 				direct:true,
 				content:function(){
 					"step 0"
-					if(trigger.player!=player) player.storage.sst_manchan2.remove(trigger.player);
-					var func=function(name){
+					event.phaseTranslate=function(name){
 						switch(name){
 							case "phaseDraw":{
 								return "摸牌阶段";
@@ -5771,15 +5659,30 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 					};
+					event.phaseTranslateShort=function(name){
+						switch(name){
+							case "phaseDraw":{
+								return "摸牌";
+							}
+							case "phaseUse":{
+								return "出牌";
+							}
+							case "phaseDiscard":{
+								return "弃牌";
+							}
+							default:{
+								return "";
+							}
+						}
+					};
 					var list=["摸牌阶段","出牌阶段","弃牌阶段"];
-					list.remove(func(trigger.name));
-					list.push("cancel2");
+					list.remove(event.phaseTranslate(trigger.name));
 					var prompt="你可以跳过";
-					prompt+=func(trigger.name);
+					prompt+=event.phaseTranslate(trigger.name);
 					prompt+="，改为从",
 					prompt+=get.translation(list);
-					prompt+="选择一个执行。若如此做，本回合结束阶段，若本回合没有执行过弃牌阶段，你失去一点体力",
-					player.chooseControl(list).set("prompt",get.prompt("sst_renqing",trigger.player)).set("prompt2",prompt).set("ai",function(){
+					prompt+="选择一个执行。若如此做，本回合结束阶段，若本回合没有执行过弃牌阶段，你失去1点体力",
+					player.chooseControl(list,"cancel2").set("prompt",get.prompt("sst_renqing",trigger.player)).set("prompt2",prompt).set("ai",function(){
 						var player=_status.event.player;
 						var target=_status.event.targetx;
 						var now=_status.event.now;
@@ -5804,54 +5707,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 						return "cancel2";
-					}).set("targetx",trigger.player).set("now",func(trigger.name));
+					}).set("targetx",trigger.player).set("now",event.phaseTranslate(trigger.name));
 					"step 1"
-					var func=function(name){
-						switch(name){
-							case "phaseDraw":{
-								return "摸牌阶段";
-							}
-							case "phaseUse":{
-								return "出牌阶段";
-							}
-							case "phaseDiscard":{
-								return "弃牌阶段";
-							}
-							default:{
-								return "";
-							}
-						}
-					};
-					var func2=function(name){
-						switch(name){
-							case "phaseDraw":{
-								return "摸牌";
-							}
-							case "phaseUse":{
-								return "出牌";
-							}
-							case "phaseDiscard":{
-								return "弃牌";
-							}
-							default:{
-								return "";
-							}
-						}
-					};
 					if(result.control!="cancel2"){
 						player.logSkill("sst_renqing",trigger.player);
 						trigger.cancel();
 						player.addTempSkill("sst_renqing_phase");
 						switch(result.control){
 							case "摸牌阶段":{
-								game.log(player,"将此","#y"+func(trigger.name),"改为","#y摸牌阶段");
-								player.popup(func2(trigger.name)+"→摸牌");
+								game.log(player,"将此","#y"+event.phaseTranslate(trigger.name),"改为","#y摸牌阶段");
+								player.popup(event.phaseTranslateShort(trigger.name)+"→摸牌","green");
 								trigger.player.phaseDraw();
 								break;
 							}
 							case "出牌阶段":{
-								game.log(player,"将此","#y"+func(trigger.name),"改为","#y出牌阶段");
-								player.popup(func2(trigger.name)+"→出牌");
+								game.log(player,"将此","#y"+event.phaseTranslate(trigger.name),"改为","#y出牌阶段");
+								player.popup(event.phaseTranslateShort(trigger.name)+"→出牌","green");
 								trigger.player.phaseUse();
 								var stat=trigger.player.getStat();
 								stat.card={};
@@ -5867,8 +5738,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								break;
 							}
 							case "弃牌阶段":{
-								game.log(player,"将此","#y"+func(trigger.name),"改为","#y弃牌阶段");
-								player.popup(func2(trigger.name)+"→弃牌");
+								game.log(player,"将此","#y"+event.phaseTranslate(trigger.name),"改为","#y弃牌阶段");
+								player.popup(event.phaseTranslateShort(trigger.name)+"→弃牌","green");
 								trigger.player.phaseDiscard();
 								break;
 							}
@@ -5885,14 +5756,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						silent:true,
 						content:function(){
 							player.addTempSkill("sst_renqing_discard");
-						},
+						}
 					},
-					phase:{
-						sub:true
-					},
-					discard:{
-						sub:true
-					}
+					phase:{},
+					discard:{}
 				}
 			},
 			sst_renqing2:{
@@ -5907,11 +5774,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_manchan:{
 				trigger:{player:"damageEnd"},
-				filter:function (event,player){ 
-					if(player.storage.sst_manchan&&player.storage.sst_manchan.length){
-						if(player.storage.sst_manchan.contains(event.source)) return false;
-					}
-					return event.source&&event.source!=player; 
+				filter:function(event,player){
+					if(!event.source) return false;
+					if(event.source.storage.sst_manchan&&event.source.storage.sst_manchan.length&&event.source.storage.sst_manchan.contains(event.source)) return false;
+					return event.source!=player; 
 				},
 				direct:true,
 				content:function(){
@@ -5922,29 +5788,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						player.logSkill("sst_manchan",trigger.source);
-						if(!player.storage.sst_manchan) player.storage.sst_manchan=[];
-						player.storage.sst_manchan.push(trigger.source);
+						if(!trigger.source.storage.sst_manchan) trigger.source.storage.sst_manchan=[];
+						trigger.source.storage.sst_manchan.push(player);
+						trigger.source.addTempSkill("sst_manchan2",{player:"phaseBegin"});
+						trigger.source.markSkillCharacter("sst_manchan2",player,"蛮缠",get.translation(player)+"可以于你的下个回合内发动〖任情〗");
 					}
 				},
 				ai:{
 					threaten:0.8,
 					maixie_defend:true,
 					combo:"sst_renqing"
-				},
-				group:"sst_manchan_phase",
-				subSkill:{
-					phase:{
-						trigger:{global:"phaseBegin"},
-						filter:function (event,player){ 
-							return player.storage.sst_manchan&&player.storage.sst_manchan.length&&player.storage.sst_manchan.contains(event.player); 
-						},
-						silent:true,
-						content:function(){
-							if(!player.storage.sst_manchan2) player.storage.sst_manchan2=[];
-							player.storage.sst_manchan.remove(trigger.player);
-							player.storage.sst_manchan2.push(trigger.player);
-						}
-					}
+				}
+			},
+			sst_manchan2:{
+				charlotte:true,
+				onremove:function(player){
+					player.unmarkSkill("sst_manchan2");
+					player.addTempSkill("sst_manchan3");
+				}
+			},
+			sst_manchan3:{
+				onremove:function(player){
+					delete player.storage.sst_manchan;
 				}
 			},
 			//Meta Knight
@@ -6111,12 +5976,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				group:["sst_douhun2","sst_douhun3","sst_douhun_clear"],
 				subSkill:{
-					from:{
-						sub:true
-					},
-					to:{
-						sub:true
-					},
+					from:{},
+					to:{},
 					clear:{
 						trigger:{player:"phaseZhunbeiBegin"},
 						silent:true,
@@ -6210,8 +6071,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						silent:true,
 						content:function(){
 							player.storage.sst_suxing=true;
-						},
-						sub:true
+						}
 					}
 				},
 				ai:{
@@ -6753,9 +6613,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						silent:true,
 						content:function(){
 							player.storage.sst_chixing_red=true;
-						},
-						sub:true,
-					},
+						}
+					}
 				},
 				*/
 				ai:{
@@ -8244,6 +8103,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					game.log(player,"将武将变更为","#g"+get.translation("sst_ocarina_of_time_link"));
 					player.reinit(player.name,"sst_ocarina_of_time_link");
+					player.changeGroup("sst_light",false);
 				}
 			},
 			sst_jiamian:{
@@ -8571,6 +8431,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					game.log(player,"将武将变更为","#g"+get.translation("sst_young_link"));
 					player.reinit(player.name,"sst_young_link");
+					player.changeGroup("sst_darkness",false);
 				}
 			},
 			sst_yongfeng:{
@@ -9781,8 +9642,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			sst_anke3:{
-			},
+			sst_anke3:{},
 			//Lucario
 			sst_bodao:{
 				trigger:{player:"useCardToPlayered"},
@@ -10220,8 +10080,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			sst_tankuang2:{
-			},
+			sst_tankuang2:{},
 			//Ma
 			sst_fumiao:{
 				trigger:{global:["damageEnd","loseHpEnd","recoverEnd"]},
@@ -10882,7 +10741,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.card=result.cards[0];
 						//lib.translate[get.name(event.card)+"_tag"]=get.translation(event.card);
 						player.loseToSpecial(cards,"sst_qiaoqi",target);
-						player.popup(get.name(event.card));
+						player.popup(get.name(event.card),"green");
 						game.log(player,"将此牌扣置于",event.card,"上");
 						player.$give(1,target,false);
 					}
@@ -10890,13 +10749,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 3"
-					for(var i=0;i<cards.length;i++){
-						cards[i].addGaintag(get.name(event.card));
-						if(cards[i].destroyed||!cards[i].hasGaintag("sst_qiaoqi")||get.position(cards[i])!="s"){
-							cards[i].remove();
-							cards.splice(i--,1);
+					game.broadcastAll(function(cards,tag){
+						for(var i=0;i<cards.length;i++){
+							cards[i].addGaintag(tag);
 						}
-					}
+					},cards,get.name(event.card));
 					var muniu=event.card;
 					if(!muniu||!cards.length){
 						for(var i=0;i<cards.length;i++){
@@ -12651,12 +12508,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_niming_info:"一名角色的判定牌生效前，你可以用牌堆顶的一张牌代替判定牌。",
 			sst_cuifeng:"摧锋",
 			sst_cuifeng2:"摧锋",
-			sst_cuifeng_info:"准备阶段，你可以判定，然后你可以将此判定牌当作【杀】使用（不计入使用次数）：若此【杀】为黑色，你失去一点体力令此牌伤害+1，若为红色，你回复一点体力。",
+			sst_cuifeng_info:"准备阶段，你可以判定，然后你可以将此判定牌当作【杀】使用（不计入使用次数）：若此【杀】为黑色，你失去1点体力令此牌伤害+1，若为红色，你回复1点体力。",
 			sst_renqing:"任情",
 			sst_renqing2:"任情",
-			sst_renqing_info:"你的回合内，判定阶段结束后，你的每个主要阶段开始前，你可以将其更改为一个其他主要阶段。若如此做，本回合结束时，若本回合没有弃牌阶段，你失去一点体力。",
+			sst_renqing_info:"你的回合内，判定阶段结束后，你的每个主要阶段开始前，你可以将其更改为一个其他主要阶段。若如此做，本回合结束时，若本回合没有弃牌阶段，你失去1点体力。",
 			sst_renqing_detail:"技能解释",
-			sst_renqing_detail_info:"你的回合内，不以此法执行的摸牌阶段，出牌阶段，弃牌阶段开始前，你可以跳过此阶段，改为从上述其他两个阶段选择一个执行。若如此做，本回合结束时，若本回合没有执行过弃牌阶段，你失去一点体力。",
+			sst_renqing_detail_info:"你的回合内，不以此法执行的摸牌阶段，出牌阶段，弃牌阶段开始前，你可以跳过此阶段，改为从上述其他两个阶段选择一个执行。若如此做，本回合结束时，若本回合没有执行过弃牌阶段，你失去1点体力。",
 			sst_manchan:"蛮缠",
 			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整），然后你可以于伤害来源的下个回合内发动〖任情〗。",
 			sst_canyun:"残云",
@@ -12895,7 +12752,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiaoqi4:"巧器",
 			sst_qiaoqi5:"巧器·流马",
 			sst_qiaoqi6:"巧器·木牛流马",
-			sst_qiaoqi6_bg:"<span class=\"bluetext\">辎</span>",
+			sst_qiaoqi6_bg:"<span class=\"greentext\">辎</span>",
 			sst_qiaoqi_info:"出牌阶段限一次，你可以展示一张红色手牌并扣置于场上一张装备牌上，称为“辎”；有“辎”的装备牌视为拥有【木牛流马】的效果。",
 			sst_fumo:"附魔",
 			sst_fumo2:"附魔",
@@ -12948,7 +12805,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_congyun_info:"出牌阶段限一次，你可以视为使用一张【火攻】。",
 			sst_fuzhuo:"祓濯",
 			sst_fuzhuo2:"祓濯",
-			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，你视为依次使用X张火【杀】。（X为你已损失的体力值）",
+			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，视为你依次使用X张火【杀】。（X为你已损失的体力值）",
 			//武将分类
 			sst_64:"64",
 			sst_melee:"Melee",
