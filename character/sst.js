@@ -5632,13 +5632,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Daisy
 			sst_renqing:{
 				derivation:"sst_renqing_detail",
-				init:function(player){
-					
-				},
 				trigger:{global:["phaseDrawBefore","phaseUseBefore","phaseDiscardBefore"]},
 				filter:function(event,player){
 					if(event.getParent().name=="sst_renqing") return false;
-					return event.player==player||(event.player.hasSkill("sst_manchan3")&&event.player.storage.sst_manchan&&event.player.storage.sst_manchan.contains(event.player));
+					return event.player==player||(event.player.hasSkill("sst_manchan3")&&event.player.storage.sst_manchan&&event.player.storage.sst_manchan.contains(player));
 				},
 				direct:true,
 				content:function(){
@@ -5716,13 +5713,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						switch(result.control){
 							case "摸牌阶段":{
 								game.log(player,"将此","#y"+event.phaseTranslate(trigger.name),"改为","#y摸牌阶段");
-								player.popup(event.phaseTranslateShort(trigger.name)+"→摸牌","green");
+								player.popup(event.phaseTranslateShort(trigger.name)+"→摸牌","wood");
 								trigger.player.phaseDraw();
 								break;
 							}
 							case "出牌阶段":{
 								game.log(player,"将此","#y"+event.phaseTranslate(trigger.name),"改为","#y出牌阶段");
-								player.popup(event.phaseTranslateShort(trigger.name)+"→出牌","green");
+								player.popup(event.phaseTranslateShort(trigger.name)+"→出牌","wood");
 								trigger.player.phaseUse();
 								var stat=trigger.player.getStat();
 								stat.card={};
@@ -5739,7 +5736,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 							case "弃牌阶段":{
 								game.log(player,"将此","#y"+event.phaseTranslate(trigger.name),"改为","#y弃牌阶段");
-								player.popup(event.phaseTranslateShort(trigger.name)+"→弃牌","green");
+								player.popup(event.phaseTranslateShort(trigger.name)+"→弃牌","wood");
 								trigger.player.phaseDiscard();
 								break;
 							}
@@ -10741,7 +10738,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.card=result.cards[0];
 						//lib.translate[get.name(event.card)+"_tag"]=get.translation(event.card);
 						player.loseToSpecial(cards,"sst_qiaoqi",target);
-						player.popup(get.name(event.card),"green");
+						player.popup(get.name(event.card),"wood");
 						game.log(player,"将此牌扣置于",event.card,"上");
 						player.$give(1,target,false);
 					}
