@@ -1486,6 +1486,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					player.loseHp();
 				},
+				ai:{
+					halfneg:true
+				},
 				group:["sst_chengli2","sst_chengli3","sst_chengli4"]
 			},
 			sst_chengli2:{
@@ -1534,13 +1537,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					order:8,
-					useful:-1,
-					value:-1,
 					save:true,
 					respondSha:true,
-					halfneg:true,
 					skillTagFilter:function(player){
 						return player.countCards("hes")&&player.getDamagedHp();
+					},
+					result:{
+						player:1
 					}
 				}
 			},
@@ -5146,7 +5149,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
-					return event.sst_baochui&&!game.causesDamage(event.card);
+					return event.sst_baochui&&!game.cardCausedDamage(event.card);
 				},
 				content:function(){
 					player.storage.sst_baochui++;
@@ -5170,7 +5173,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return card.hasGaintag("sst_shengxi");
 						}));
 					}
-					if(cards.length) for(var i=0;i<players.length;i++){
+					if(cards.length) for(var i=0;i<cards.length;i++){
 						cards[i].removeGaintag("sst_shengxi");
 						cards[i].removeGaintag("viewHandcard");
 					}
@@ -7165,7 +7168,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					result:{
 						player:function(player){
-							if(player.maxHp<=3) return 0;
+							if(player.maxHp<=3) return -1;
 							return 0.5;
 						}
 					}
@@ -7266,7 +7269,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					order:3,
 					result:{
-						target:-0.5
+						target:-0.5,
+						player:function(player){
+							return 0.5/((player.getStat("skill").sst_yanyang||0)+1);
+						}
 					}
 				}
 			},
@@ -8233,7 +8239,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
-					return event.getParent(2).name=="sst_shishi"&&!game.causesDamage(event.card);
+					return event.getParent(2).name=="sst_shishi"&&!game.cardCausedDamage(event.card);
 				},
 				content:function(){
 					game.log(player,"将武将变更为","#g"+get.translation("sst_ocarina_of_time_link"));
@@ -9651,7 +9657,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								val+=get.value(cards[i]);
 							}
 							val=val/cards.length;
-							return get.sgn(7-val);
+							return get.sgn(5-val);
 						}
 					},
 					threaten:1.5
@@ -10372,7 +10378,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					*/
-					if(trigger.sst_xuhuang[player.playerid].result==game.causesDamage(trigger.card)){
+					if(trigger.sst_xuhuang[player.playerid].result==game.cardCausedDamage(trigger.card)){
 						player.popup("猜中");
 						game.log(player,"#y猜中");
 						player.draw(2);
@@ -10551,7 +10557,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return get.tag(event.card,"damage")&&event.targets.length==1&&!game.causesDamage(event.card);
+					return get.tag(event.card,"damage")&&event.targets.length==1&&!game.cardCausedDamage(event.card);
 				},
 				content:function(){
 					"step 0"
@@ -10672,7 +10678,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 5"
 					//game.log("结果：",result.bool&&result.targets&&result.targets.length);
-					if(result.bool&&result.targets&&result.targets.length) event.used=true;
+					if(player.getHistory("useCard",function(evt){
+						return evt.cards.contains(event.card);
+					}).length) event.used=true;
 					if(event.goon){
 						event.goto(2);
 					}
@@ -11202,7 +11210,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					//game.log(event.getParent().skill);
 					if(event.skill!="sst_fengcu_sha"&&event.skill!="sst_fengcu_shan") return false;
-					return game.causesDamage(event.card);
+					return game.cardCausedDamage(event.card);
 				},
 				content:function(){
 					player.addTempSkill("sst_fengcu3","roundStart");

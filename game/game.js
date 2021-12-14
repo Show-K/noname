@@ -16551,7 +16551,7 @@
 				},
 			},
 			player:{
-				//SST新增
+				//SST new add
 				canCompareTarget:function(target){
 					if(this==target) return false;
 					if(!target.countCards("h")) return false;
@@ -28091,7 +28091,7 @@
 	};
 	var game={
 		//New add
-		causesDamage:function(card,player){
+		cardCausedDamage:function(card,player){
 			var history;
 			if(get.itemtype(player)=='player'){
 				history=player.getHistory('sourceDamage',function(evt){
