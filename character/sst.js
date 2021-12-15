@@ -5692,7 +5692,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var now=_status.event.now;
 						var att=get.attitude(player,target);
 						if(att<0){
-							return "弃牌阶段";
+							if(now!="弃牌阶段"){
+								return "弃牌阶段";
+							}
+							else{
+								return "cancel2";
+							}
 						}
 						else if(att>0){
 							switch(now){
@@ -5786,15 +5791,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseToDiscard("###"+get.prompt("sst_manchan",trigger.source)+"###你可以弃置"+get.cnNumber(Math.floor(player.countCards("h")/2))+"张手牌，然后你可以于"+get.translation(trigger.source)+"的下个回合内发动〖任情〗",Math.floor(player.countCards("h")/2)).set("ai",function(card){
-						return 5-get.value(card);
-					}).set("logSkill",["sst_manchan",trigger.source]);
+					player.chooseToDiscard("###"+get.prompt("sst_manchan",trigger.source)+"###你可以弃置"+get.cnNumber(Math.floor(player.countCards("h")/2))+"张手牌，然后你可以于"+get.translation(trigger.source)+"的下个回合内发动〖任情〗",Math.floor(player.countCards("h")/2)).set("ai",get.unuseful3).set("logSkill",["sst_manchan",trigger.source]);
 					"step 1"
 					if(result.bool){
 						if(!trigger.source.storage.sst_manchan) trigger.source.storage.sst_manchan=[];
 						trigger.source.storage.sst_manchan.push(player);
 						trigger.source.addTempSkill("sst_manchan2",{player:"phaseBegin"});
-						trigger.source.markSkillCharacter("sst_manchan2",player,"蛮缠",get.translation(player)+"可以于你的下个回合内发动〖任情〗");
+						trigger.source.markSkillCharacter("sst_manchan2",player,"蛮缠",get.translation(trigger.source.storage.sst_manchan)+"可以于你的下个回合内发动〖任情〗");
 					}
 				},
 				ai:{
