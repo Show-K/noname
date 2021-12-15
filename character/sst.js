@@ -1539,7 +1539,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					order:8,
 					save:true,
 					respondSha:true,
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						return player.countCards("hes")&&player.getDamagedHp();
 					},
 					result:{
@@ -1561,7 +1562,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				position:"hes",
 				viewAs:{name:"shan"},
 				ai:{
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						return player.countCards("hes")&&player.getDamagedHp();
 					},
 					respondShan:true
@@ -2573,7 +2575,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					respondSha:true,
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						return game.hasPlayer(function(current){
 							return current.hasZhuSkill("sst_yujun",player)&&current.countCards("h")&&get.attitude(player,current)>0;
 						});
@@ -3572,7 +3575,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				prompt:"将暴征获得的牌当杀使用",
 				check:function(card){return 5-get.value(card)},
 				ai:{
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						if(!player.storage.sst_baozheng) return false;
 						if(!player.hasCard(function(card){
 							return player.storage.sst_baozheng.contains(card);
@@ -4721,7 +4725,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						if(player.storage.sst_huanbian&&player.countCards("he")){
 							if(!lib.filter.cardUsable({name:player.storage.sst_huanbian},player)) return false;
 							if(!player.storage.sst_huanbian_used) return true;
@@ -4771,7 +4776,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				selectCard:1,
 				viewAs:{name:"shan"},
 				ai:{
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						return player.storage.sst_huanbian=="shan"&&player.countCards("he")&&!player.storage.sst_huanbian_used.contains("shan");
 					},
 					respondShan:true
@@ -6723,6 +6729,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
+					},
 					respondSha:true,
 					respondShan:true,
 					order:4
@@ -7565,7 +7574,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					respondSha:true,
 					order:4,
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
 						if(!player.countCards("hes",function(card){
 							return !get.tag(card,"damage");
 						})) return false;
@@ -8508,7 +8518,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return event.skill=="sst_shenbi";
 				},
-				silent:true,
+				true:true,
 				content:function(){
 					"step 0"
 					if(player.storage.sst_shenbi.length){
@@ -8582,6 +8592,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					respondShan:true,
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
+					},
 					order:function(){
 						return get.order({name:"shan"})+0.1;
 					},
@@ -8595,7 +8608,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return event.skill=="sst_lanbo";
 				},
-				silent:true,
+				forced:true,
 				content:function(){
 					"step 0"
 					player.logSkill("sst_lanbo");
@@ -8858,7 +8871,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Cuphead & Mugman
 			sst_zhuizhai:{
-				//global:"sst_zhuizhai2",
+				global:"sst_zhuizhai2",
 				trigger:{global:"roundStart"},
 				direct:true,
 				filter:function(event,player){
@@ -8878,8 +8891,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("sst_zhuizhai",result.targets);
 						game.asyncDraw(result.targets);
 						for(var i=0;i<result.targets.length;i++){
-							//result.targets[i].storage.sst_zhuizhai=player;
-							result.targets[i].addTempSkill("sst_zhuizhai2","roundStart");
+							result.targets[i].addTempSkill("sst_zhuizhai3","roundStart");
 						}
 					}
 				},
@@ -8888,22 +8900,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_zhuizhai2:{
+				trigger:{source:"damageEnd"},
+				direct:true,
+				filter:function(event,player){
+					return event.player.hasSkill("sst_zhuizhai3")&&event.player.countCards("he")>1;
+				},
+				content:function(){
+					player.gainPlayerCard(get.prompt("sst_zhuizhai2",event.player),event.player,"he",2).set("logSkill",["sst_zhuizhai",event.player]);
+				}
+			},
+			sst_zhuizhai3:{
 				mark:true,
 				intro:{
 					content:"当你受到伤害时，伤害来源可以获得你两张牌"
-				},
-				/*
-				onremove:function(player){
-					delete player.storage.sst_zhuizhai;
-				},
-				*/
-				trigger:{player:"damageSource"},
-				direct:true,
-				filter:function(event,player){
-					return player.countCards("he")&&event.source;
-				},
-				content:function(){
-					trigger.source.gainPlayerCard(get.prompt("sst_zhuizhai2",player),player,"he",2).set("logSkill",["sst_zhuizhai",player]);
 				}
 			},
 			sst_fanfei:{
@@ -9299,6 +9308,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:"sst_qianlong2",
 				ai:{
 					respondSha:true,
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
+					},
 					result:{
 						target:function(player,target){
 							return get.effect(target,{name:"sha"},player,target);
@@ -12408,7 +12420,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juezhan_info:"锁定技，｛你带有「伤害」标签的牌均视为【杀】。｝｛你使用牌不能指定与你距离1以外的目标。｝｛你的装备区被废除。｝",
 			sst_baozheng:"暴征",
 			sst_baozheng2:"暴征",
-			sst_baozheng_info:"锁定技，摸牌阶段，你放弃摸牌，失去一点体力，获得X名其他角色区域内的各一张牌（X为你已损失的体力值）；本回合内你可以将这些牌视为【杀】使用。",
+			sst_baozheng_info:"锁定技，摸牌阶段，你放弃摸牌，失去一点体力，获得X名其他角色区域内的各一张牌（X为你已损失的体力值）；本回合内你可以将这些牌当作【杀】使用。",
 			sst_furan:"复燃",
 			sst_furan_info:"锁定技，当你处于濒死状态时，弃置所有手牌，将体力回复至1点，减1点体力上限。",
 			sst_yingliu:"影流",
@@ -12514,7 +12526,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整），然后你可以于伤害来源的下个回合内发动〖任情〗。",
 			sst_canyun:"残云",
 			sst_canyun2:"残云",
-			sst_canyun_info:"出牌阶段，你可以弃置一张牌（不得与本回合以此法弃置过的牌的花色相同），令所有角色本回合不能使用或打出与此牌花色相同的牌，然后你视为使用一张【决斗】。",
+			sst_canyun_info:"出牌阶段，你可以弃置一张牌（不得与本回合以此法弃置过的牌的花色相同），令所有角色本回合不能使用或打出与此牌花色相同的牌，然后视为你使用一张【决斗】。",
 			sst_douhun:"斗魂",
 			sst_douhun2:"斗魂",
 			sst_douhun3:"斗魂",
@@ -12614,9 +12626,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qichang2:"绮裳",
 			sst_qichang3:"绮裳",
 			sst_qichang4:"绮裳",
-			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为装备了一张你声明的装备（不可替换原有装备），直到你的下回合开始。",
+			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后视为你装备了一张你声明的装备（不可替换原有装备），直到你的下回合开始。",
 			sst_qichang_detail:"技能解释",
-			sst_qichang_detail_info:"准备阶段，你可以令你本回合手牌上限-1，然后你视为对你装备一张装备牌（不得替换原装备，不能被弃置或获得），你的回合开始时或失去此牌后，销毁之。",
+			sst_qichang_detail_info:"准备阶段，你可以令你本回合手牌上限-1，然后视为你对你装备一张装备牌（不得替换原装备，不能被弃置或获得），你的回合开始时或失去此牌后，销毁之。",
 			sst_shizhu:"拾珠",
 			sst_shizhu_info:"弃牌阶段，你可以令一名其他角色弃置与你数量相同的牌，或其他角色的弃牌阶段，你可以弃置与其等量的牌；然后你可以从此阶段进入弃牌堆的牌中选择任意张对你或其使用。",
 			sst_shizhu_detail:"技能解释",
@@ -12631,7 +12643,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xishou:"袭狩",
 			sst_xishou_info:"出牌阶段，若你手牌上限不为0，你可以令你本回合手牌上限和计算与其他角色距离均-1，然后你将手牌补至体力上限。若如此做，你每于弃牌阶段弃置一张牌，你失去一点体力。",
 			sst_shishi:"时逝",
-			sst_shishi_info:"锁定技，结束阶段，若你未受伤，你弃置一名角色的一张牌；若你已受伤，你视为使用一张【杀】，然后若未造成伤害，你将武将牌变更为【时光的笛音·林克】 。",
+			sst_shishi_info:"锁定技，结束阶段，若你未受伤，你弃置一名角色的一张牌；若你已受伤，视为你使用一张【杀】，然后若未造成伤害，你将武将牌变更为【时光的笛音·林克】 。",
 			sst_jujian:"按任意顺序举荐你没有的类别的牌",
 			sst_jujian_info:"你重复亮出牌堆顶的一张牌并将此牌置于弃牌堆，若你没有此牌对应类型的手牌，改为你获得此牌，然后若手牌中仍有没有的牌类型，则重新开始此流程，否则结束此流程。",
 			sst_jiamian:"假面",
@@ -12665,13 +12677,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fanfei:"翻飞",
 			sst_fanfei_info:"当你成为红色牌的目标时，你可以弃置一张牌令此牌对你无效，然后对手牌数大于你的一名角色造成1点伤害。",
 			sst_liaoyi:"聊依",
-			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，你视为使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
+			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，视为你使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
 			sst_liaoyi1:"聊依",
-			sst_liaoyi1_info:"当你需要打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，你视为打出一张【杀】，然后其获得你一张牌。",
+			sst_liaoyi1_info:"当你需要打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你打出一张【杀】，然后其获得你一张牌。",
 			sst_liaoyi2:"聊依",
-			sst_liaoyi2_info:"当你需要使用一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，你视为使用一张【杀】，然后其获得你一张牌。",
+			sst_liaoyi2_info:"当你需要使用一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你使用一张【杀】，然后其获得你一张牌。",
 			sst_liaoyi4:"聊依",
-			sst_liaoyi4_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，你视为使用或打出一张【闪】，然后其获得你一张牌。",
+			sst_liaoyi4_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为你使用或打出一张【闪】，然后其获得你一张牌。",
 			sst_shuanghan:"霜寒",
 			sst_shuanghan_info:"你使用牌指定其他角色为目标时，若其手牌数不小于你，你可以令此牌对其无效，改为弃置其区域内两张牌。",
 			sst_qianlong:"潜龙",

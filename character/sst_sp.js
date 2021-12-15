@@ -1550,7 +1550,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			alz_huangyao:{
-				enable:"chooseToUse",
+				enable:["chooseToUse","chooseToRespond"],
 				filterCard:function(card,player){
 					return get.color(card)=="red";
 				},
@@ -2007,7 +2007,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_wushi:"无式",
 			alz_wushi_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张无视距离的杀（X为你与其距离+1）。",
 			alz_huangyao:"荒咬",
-			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用。",
+			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用或打出。",
 			mnm_jijing:"急竞",
 			mnm_jijing_info:"出牌阶段限一次，你可以将武将牌弹飞，其所命中的武将牌对应的角色依次受到你造成的1点伤害。",
 			ska_zhesheng:"折生",
