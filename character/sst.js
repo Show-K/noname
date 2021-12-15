@@ -5702,7 +5702,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						else if(att>0){
 							switch(now){
 								case "摸牌阶段":{
-									if(target.needsToDiscard()<=2) return "cancel2";
+									if(target.needsToDiscard()>2) return "cancel2";
 									return "弃牌阶段";
 								}
 								case "出牌阶段":{
