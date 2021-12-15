@@ -4352,6 +4352,13 @@
 						frequent:true,
 						restart:true,
 					},
+					connect_no_group:{
+						name:'无势力模式',
+						intro:'势力统一为“乱斗”',
+						init:false,
+						frequent:true,
+						restart:true
+					},
 					connect_special_identity:{
 						name:'特殊身份',
 						init:false,
@@ -4530,6 +4537,13 @@
 						init:false,
 						frequent:true,
 						restart:true,
+					},
+					no_group:{
+						name:'无势力模式',
+						intro:'势力统一为“乱斗”',
+						init:false,
+						frequent:true,
+						restart:true
 					},
 					special_identity:{
 						name:'特殊身份',
@@ -28094,21 +28108,18 @@
 		cardCausedDamage:function(card,player){
 			var history;
 			if(get.itemtype(player)=='player'){
-				history=player.getHistory('sourceDamage',function(evt){
+				return player.hasHistory('sourceDamage',function(evt){
 					return evt.card==card;
 				});
-				if(history&&history.length) return true;
 			}
 			else{
 				var players=game.filterPlayer();
 				for(var i=0;i<players.length;i++){
-					history=players[i].getHistory('sourceDamage',function(evt){
+					return players[i].hasHistory('sourceDamage',function(evt){
 						return evt.card==card;
 					});
-					if(history&&history.length) return true;
 				}
 			}
-			return false;
 		},
 		//New add end
 		updateRenku:function(){
