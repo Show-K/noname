@@ -1065,7 +1065,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseControl("male","female").set("prompt","请选择性别").set("ai",function(){return ["male","female"].randomGet()});
 					"step 1"
 					if(["sst_corrin"].contains(player.name)){
-						player.reinit(player.name,player.name+"_"+result.control,false);
+						var name=player.name;
+						player.reinit(name,name+"_"+result.control,false);
+						player.changeGroup(lib.character[name+"_"+result.control][1]);
 					}
 					player.sex=result.control;
 					game.log(player,"将性别变为了","#y"+get.translation(result.control));
@@ -1076,7 +1078,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
-				priority:2021,
+				priority:2019,
 				filter:function(event,player){
 					return !lib.config.sst_smash&&player.group=="sst_smash";
 				},
@@ -1085,7 +1087,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseControl("sst_light","sst_darkness","sst_spirit","sst_reality").set("prompt","请选择势力").set("ai",function(){return ["sst_light","sst_darkness","sst_spirit","sst_reality"].randomGet()});
 					"step 1"
 					player.changeGroup(result.control);
-					//game.log(player,"将性别变为了","#y"+get.translation(result.control));
 				}
 			},
 			_sst_sonic_phase:{
