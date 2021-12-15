@@ -5785,7 +5785,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"damageEnd"},
 				filter:function(event,player){
 					if(!event.source) return false;
-					if(event.source.storage.sst_manchan&&event.source.storage.sst_manchan.length&&event.source.storage.sst_manchan.contains(event.source)) return false;
+					if(event.source.storage.sst_manchan&&event.source.storage.sst_manchan.length&&event.source.storage.sst_manchan.contains(player)) return false;
 					return event.source!=player; 
 				},
 				direct:true,
