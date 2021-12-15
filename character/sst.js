@@ -3979,8 +3979,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{source:"damageSource"},
 				forced:true,
 				filter:function(event,player){
-					//game.log(event.getParent(2));
-					return event.getParent(2).skill=="sst_qixiao";
+					var evt=event.getParent("useCard");
+					return evt&&evt.skill=="sst_qixiao";
 				},
 				content:function(){
 					if(player.storage.sst_qixiao){
