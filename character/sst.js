@@ -2557,7 +2557,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addSkill("sst_yujun3");
 					if(result.control=="允许"){
 						event.request.logSkill("sst_yujun");
-						player.choosePlayerCard("驭军：你可以将"+get.translation(event.request)+"的一张手牌当作【杀】对"+get.translation(target)+"使用","h").set("ai",function(button){
+						player.choosePlayerCard("驭军：你可以将"+get.translation(event.request)+"的一张手牌当作【杀】对"+get.translation(target)+"使用",event.request,"h").set("ai",function(button){
 							var val=get.buttonValue(button);
 							if(get.attitude(_status.event.player,get.owner(button.link))>0) return 10-val;
 							return val;
