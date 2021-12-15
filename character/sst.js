@@ -12344,6 +12344,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qinwei_info:"主公技，锁定技，你视为拥有计算与你距离最近的本势力角色的装备效果。",
 			sst_chengli:"逞力",
 			sst_chengli2:"逞力",
+			sst_chengli2_backup:"逞力",
 			sst_chengli3:"逞力",
 			sst_chengli4:"逞力",
 			sst_chengli_info:"锁定技，若你未受伤，结束阶段，你失去1点体力。若你已受伤，你可以将一张牌当作任意一张基本牌或普通锦囊牌使用。",
