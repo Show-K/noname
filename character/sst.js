@@ -7139,7 +7139,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						target:-0.5,
 						player:function(player){
-							return 0.5/((player.getStat("skill").sst_yanyang||0)+1);
+							return 0.5-(player.getStat("skill").sst_yanyang||0)*0.25;
 						}
 					}
 				}
@@ -12678,6 +12678,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tanyun_info:"每回合限一次，准备阶段或结束阶段，你可以将弃牌堆最上方的一张你指定类别的牌置于牌堆顶。",
 			sst_zhuizhai:"追债",
 			sst_zhuizhai2:"追债",
+			sst_zhuizhai3:"追债",
 			sst_zhuizhai_info:"每轮游戏开始时，你可以令你攻击范围内任意名角色各摸一张牌，若如此做，当本轮这些角色受到伤害时，伤害来源可以获得其两张牌。",
 			sst_fanfei:"翻飞",
 			sst_fanfei_info:"当你成为红色牌的目标时，你可以弃置一张牌令此牌对你无效，然后对手牌数大于你的一名角色造成1点伤害。",
