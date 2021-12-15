@@ -1,11 +1,8 @@
 window.noname_update={
-	version:'1.9.111SST2',
-	update:'1.9.111SST',
+	version:'1.9.111SST3',
+	update:'1.9.111SST2',
 	changeLog:[
-		'（实验）抓 盾 猛击 花色反制',
-		'（实验）仁库 奥莉维亚',
-		'（实验）仁库 奥利',
-		'（实验）使命技 炸弹彬',
+		'（实验）重铸 翻面 慢慢龟',
 		'代码优化',
 		'bug修复',
 		'其他'

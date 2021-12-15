@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.111SST2',
+	'v1.9.111SST3',
 	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -117,6 +117,7 @@ window.noname_asset_list=[
 	'image/character/mnm_edelgard.png',
 	'image/character/alz_kyo_kusanagi.png',
 	'image/character/ska_king_olly.png',
+	'image/character/ska_koopa_troopa.png',
 
 	'image/card/sst_aegises.png',
 

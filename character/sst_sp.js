@@ -7,7 +7,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard","mnm_captain_falcon"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly"],
+				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:[],
 				sst_alz:["alz_kyo_kusanagi"]
 			}
@@ -28,7 +28,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 			//mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
-			ska_king_olly:["male","sst_spirit",3,["ska_shenqi","ska_zhesheng"],[]]
+			ska_king_olly:["male","sst_spirit",3,["ska_shenqi","ska_zhesheng"],[]],
+			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]]
 		},//武将（必填）
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -135,7 +136,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"由掌握赋生折法的匠人制作的折纸，奥莉维亚的哥哥。自称折纸国王，将匠人的所有文具变为了自己的手下，有把整个纸片世界都变成折纸的野心。手段残忍，即使是亲妹妹也会毫不犹豫的下手。骄傲的背后其实是极端的玻璃心和无知。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"--------------------------------<br>"+
-			"马里奥RPG系列中唯二原创最终Boss之一！"
+			"马里奥RPG系列中唯二原创最终Boss之一！",
+			ska_koopa_troopa:"0037. 慢慢龟/Koopa Troopa/ノコノコ<br>"+
+			"系列：Mario（马力欧）<br>"+
+			"初登场：Super Mario Bros.（超级马力欧兄弟）<br>"+
+			"武将作者：Show-K、mario not mary<br>"+
+			"--------------------------------<br>"+
+			"在酷霸王军团里，最常见的不是栗宝宝就是慢慢龟了。它们看起来很温顺，但它们也有奋不顾身地跳崖的勇气。马力欧如果踩到慢慢龟，它们会缩进壳里，这个状态下的它们经常被踢来踢去或者扔来扔去。马力欧游戏的不少地名都是以慢慢龟命名的哦。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"--------------------------------<br>"+
+			"黑历史重铸武将之一。"
 		},//武将介绍（选填）
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -150,7 +160,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:"炎翼的皇女",
 			alz_kyo_kusanagi:"炎之贵公子",
 			mnm_captain_falcon:"风驰电掣",
-			ska_king_olly:"折纸生望"
+			ska_king_olly:"折纸生望",
+			ska_koopa_troopa:"从逸不逾"
 		},//武将标题（用于写称号或注释）（选填）
 		skill:{
 			//标准技能
@@ -1464,7 +1475,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"phaseUseBegin"},
 				content:function(){
 					"step 0"
-					player.chooseToDiscard("天鹫：你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】");
+					player.chooseToDiscard("天鹫：你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】").set("ai",get.unuseful3);
 					"step 1"
 					if(!result.cards||!result.cards.length){
 						player.loseHp();
@@ -1918,6 +1929,91 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					trigger.directHit.addArray(game.players);
 				}
+			},
+			ska_suixuan:{
+				forced:true,
+				trigger:{player:"damageEnd"},
+				content:function(){
+					player.turnOver();
+				},
+				ai:{
+					maixie_defend:true,
+					threaten:0.8
+				},
+				group:"ska_suixuan2"
+			},
+			ska_suixuan2:{
+				forced:true,
+				trigger:{player:"turnOverAfter"},
+				content:function(){
+					"step 0"
+					player.chooseUseTarget("随旋：视为使用一张无距离限制的【杀】",{name:"sha",isCard:true},false,"nodistance",true);
+					"step 1"
+					player.chooseToDiscard("随旋：弃置一张牌","he",true);
+				}
+			},
+			ska_xiangshi:{
+				enable:"phaseUse",
+				usable:1,
+				delay:false,
+				content:function(){
+					"step 0"
+					player.turnOver();
+					"step 1"
+					player.chooseToRespond("向矢：你可以打出一张牌，然后弃置一名角色区域内的一张牌，若这两张牌的花色相同，你翻面").set("ai",function(card){
+						var player=_status.event.player;
+						if(!game.hasPlayer(function(current){
+							return current.countDiscardableCards(player,"hej");
+						})) return 0;
+						if(!game.hasPlayer(function(current){
+							var att=get.attitude(player,current);
+							if(att<0){
+								att=-Math.sqrt(-att);
+							}
+							else{
+								att=Math.sqrt(att);
+							}
+							return att*lib.card.guohe.ai.result.target(player,current)>0;
+						})) return 0;
+						return get.unuseful2(card);
+					}).set("position","hes");
+					"step 2"
+					if(result.card){
+						event.card=result.card;
+						player.chooseTarget("向矢：弃置一名角色区域内的一张牌",function(card,player,target){
+							return target.countDiscardableCards(player,"hej");
+						}).set("ai",function(target){
+							var player=_status.event.player;
+							var att=get.attitude(player,target);
+							if(att<0){
+								att=-Math.sqrt(-att);
+							}
+							else{
+								att=Math.sqrt(att);
+							}
+							return att*lib.card.guohe.ai.result.target(player,target);
+						});
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					if(result.targets&&result.targets.length){
+						player.discardPlayerCard("向矢：弃置"+get.translation(result.targets[0])+"区域内的一张牌",result.targets[0],"hej",true);
+					}
+					else{
+						event.finish();
+					}
+					"step 4"
+					if(result.cards&&result.cards.length&&get.suit(event.card)==get.suit(result.cards[0])) player.turnOver();
+				},
+				ai:{
+					expose:0.2,
+					order:7,
+					result:{
+						player:1
+					}
+				}
 			}
 		},//技能（必填）
 		dynamicTranslate:{
@@ -1945,6 +2041,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_kyo_kusanagi:"SP草薙京",
 			mnm_captain_falcon:"飞隼队长",
 			ska_king_olly:"奥利王",
+			ska_koopa_troopa:"慢慢龟",
 			//身份技能
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2013,6 +2110,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
 			ska_zhesheng_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被【无懈可击】响应）。",
+			ska_suixuan:"随旋",
+			ska_suixuan2:"随旋",
+			ska_suixuan_info:"锁定技，当你受到伤害后，你翻面。当你翻面时，你视为使用一张无距离限制的【杀】，然后弃置一张牌。",
+			ska_xiangshi:"向矢",
+			ska_xiangshi_info:"出牌阶段限一次，你可以翻面。若如此做，你可以打出一张牌，然后弃置一名角色区域内的一张牌。若这两张牌的花色相同，你翻面。",
 			//武将分类
 			//sst_sp:"SP",
 			sst_mnm:"mario not mary",
@@ -2025,7 +2127,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_isabelle:["sst_villager"],
 			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
 			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad","ska_king_olly"],
-			ska_xiaojie:["sst_mario","sst_luigi"]
+			ska_xiaojie:["sst_mario","sst_luigi"],
+			ska_king_olly:["sst_mario"],
+			ska_koopa_troopa:["sst_mario"]
 		}//珠联璧合武将（选填）
 	};
 	/*
