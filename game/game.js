@@ -1043,6 +1043,7 @@
 					// 		document.body.dataset.theme_color_music=color;
 					// 	}
 					// },
+					/*
 					ui_zoom:{
 						name:'界面缩放',
 						unfrequent:true,
@@ -1065,6 +1066,69 @@
 								case 'big':zoom=1.05;break;
 								case 'vbig':zoom=1.1;break;
 								case 'ebig':zoom=1.2;break;
+								default:zoom=1;
+							}
+							game.documentZoom=game.deviceZoom*zoom;
+							ui.updatez();
+						}
+					},
+					*/
+					ui_zoom:{
+						name:'界面缩放',
+						unfrequent:true,
+						init:'normal',
+						item:{
+							normalw:'170%',
+							normalv:'165%',
+							normalu:'160%',
+							normalt:'155%',
+							normals:'150%',
+							normalr:'145%',
+							normalq:'140%',
+							normalp:'135%',
+							normala:'130%',
+							normalb:'125%',
+							normalc:'120%',
+							normald:'115%',
+							normale:'110%',
+							normalf:'105%',
+							normal:'100%',
+							normalg:'95%',
+							normalh:'90%',
+							normali:'85%',
+							normalj:'80%',
+							normalk:'75%',
+							normall:'70%',
+							normalm:'65%',
+							normaln:'60%',
+							normalo:'55%',
+						},
+						onclick:function(zoom){
+							game.saveConfig('ui_zoom',zoom);
+							switch(zoom){
+								case 'normalw':zoom=1.7;break;
+								case 'normalv':zoom=1.65;break;
+								case 'normalu':zoom=1.6;break;
+								case 'normalt':zoom=1.55;break;
+								case 'normals':zoom=1.5;break;
+								case 'normalr':zoom=1.45;break;
+								case 'normalq':zoom=1.4;break;
+								case 'normalp':zoom=1.35;break;
+								case 'normala':zoom=1.3;break;
+								case 'normalb':zoom=1.25;break;
+								case 'normalc':zoom=1.2;break;
+								case 'normald':zoom=1.15;break;
+								case 'normale':zoom=1.1;break;
+								case 'normalf':zoom=1.05;break;
+								case 'normalg':zoom=0.95;break;
+								case 'normalh':zoom=0.9;break;
+								case 'normali':zoom=0.85;break;
+								case 'normalj':zoom=0.8;break;
+								case 'normalk':zoom=0.75;break;
+								case 'normall':zoom=0.7;break;
+								case 'normalm':zoom=0.65;break;
+								case 'normaln':zoom=0.6;break;
+								case 'normalo':zoom=0.55;break;
 								default:zoom=1;
 							}
 							game.documentZoom=game.deviceZoom*zoom;
@@ -4507,7 +4571,16 @@
 							'5':'五人',
 							'6':'六人',
 							'7':'七人',
-							'8':'八人'
+							'8':'八人',
+							'9':'九人',
+							'10':'十人',
+							'11':'十一人',
+							'12':'十二人',
+							'13':'十三人',
+							'14':'十四人',
+							'15':'十五人',
+							'16':'十六人',
+							'17':'十七人'
 						},
 						frequent:true,
 						restart:true,
@@ -4826,6 +4899,147 @@
 							'10':'十',
 						},
 					},
+					nine9Man:{
+						name:"九人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"三忠四反一内","2":"二忠四反二内","3":"四忠四反零内","4":"三忠五反零内"},
+						onclick:function(item){
+							game.saveConfig('nine9Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[7]=['zhu','zhong','zhong','zhong','nei','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[7]=['zhu','zhong','zhong','nei','nei','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[7]=['zhu','zhong','zhong','zhong','zhong','fan','fan','fan','fan'];break;
+								case "4":lib.config.mode_config.identity.identity[7]=['zhu','zhong','zhong','zhong','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					ten10Man:{
+						name:"十人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"三忠四反二内","2":"三忠五反一内","3":"四忠五反零内"},
+						onclick:function(item){
+							game.saveConfig('ten10Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[8]=['zhu','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[8]=['zhu','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[8]=['zhu','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					eleven11Man:{
+						name:"十一人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"四忠五反一内","2":"三忠五反二内","3":"五忠五反零内","4":"四忠六反零内"},
+						onclick:function(item){
+							game.saveConfig('eleven11Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[9]=['zhu','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[9]=['zhu','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[9]=['zhu','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan'];break;
+								case "4":lib.config.mode_config.identity.identity[9]=['zhu','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					twelve12Man:{
+						name:"十二人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"四忠五反二内","2":"四忠六反一内","3":"五忠六反零内"},
+						onclick:function(item){
+							game.saveConfig('twelve12Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[10]=['zhu','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[10]=['zhu','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[10]=['zhu','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					thirteen13Man:{
+						name:"十三人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"五忠六反一内","2":"四忠六反二内","3":"六忠六反零内","4":"五忠七反零内"},
+						onclick:function(item){
+							game.saveConfig('thirteen13Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[11]=['zhu','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[11]=['zhu','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[11]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan'];break;
+								case "4":lib.config.mode_config.identity.identity[11]=['zhu','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					fourteen14Man:{
+						name:"十四人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"五忠六反二内","2":"五忠七反一内","3":"六忠七反零内"},
+						onclick:function(item){
+							game.saveConfig('fourteen14Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[12]=['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[12]=['zhu','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[12]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					fifteen15Man:{
+						name:"十五人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"六忠七反一内","2":"五忠七反二内","3":"七忠七反零内","4":"六忠八反零内"},
+						onclick:function(item){
+							game.saveConfig('fifteen15Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[13]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[13]=['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[13]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "4":lib.config.mode_config.identity.identity[13]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					sixteen16Man:{
+						name:"十六人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"六忠七反二内","2":"六忠八反一内","3":"七忠八反零内","4":"五忠七反三内"},
+						onclick:function(item){
+							game.saveConfig('sixteen16Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[14]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[14]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[14]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','zhong','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "4":lib.config.mode_config.identity.identity[14]=['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','nei','fan','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					},
+					seventeen17Man:{
+						name:"十七人场身份",
+						init:"1",
+						restart:true,
+						item:{"1":"五忠八反三内","2":"六忠八反二内","3":"16反","4":"四忠八反四内"},
+						onclick:function(item){
+							game.saveConfig('seventeen17Man',item,this._link.config.mode);
+							switch(item){
+								case "1":lib.config.mode_config.identity.identity[15]=['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','nei','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "2":lib.config.mode_config.identity.identity[15]=['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "3":lib.config.mode_config.identity.identity[15]=['zhu','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+								case "4":lib.config.mode_config.identity.identity[15]=['zhu','zhong','zhong','zhong','zhong','nei','nei','nei','nei','fan','fan','fan','fan','fan','fan','fan','fan'];break;
+							}
+							game.saveConfig("identity",lib.config.mode_config.identity.identity,this._link.config.mode);
+						}
+					}
 				}
 			},
 			guozhan:{
@@ -4944,12 +5158,21 @@
 						name:'游戏人数',
 						init:'8',
 						item:{
+							'2':'两人',
 							'3':'三人',
 							'4':'四人',
 							'5':'五人',
 							'6':'六人',
 							'7':'七人',
-							'8':'八人'
+							'8':'八人',
+							'10':'十人',
+							'11':'十一人',
+							'12':'十二人',
+							'13':'十三人',
+							'14':'十四人',
+							'15':'十五人',
+							'16':'十六人',
+							'17':'十七人'
 						},
 						frequent:true,
 						restart:true,
@@ -28112,14 +28335,11 @@
 					return evt.card==card;
 				});
 			}
-			else{
-				var players=game.filterPlayer();
-				for(var i=0;i<players.length;i++){
-					return players[i].hasHistory('sourceDamage',function(evt){
-						return evt.card==card;
-					});
-				}
-			}
+			return game.hasPlayer(function(current){
+				return current.hasHistory('sourceDamage',function(evt){
+					return evt.card==card;
+				})
+			});
 		},
 		//New add end
 		updateRenku:function(){
@@ -44265,12 +44485,29 @@
 
 				var zoom;
 				switch(lib.config.ui_zoom){
-					case 'esmall':zoom=0.8;break;
-					case 'vsmall':zoom=0.9;break;
-					case 'small':zoom=0.93;break;
-					case 'big':zoom=1.05;break;
-					case 'vbig':zoom=1.1;break;
-					case 'ebig':zoom=1.2;break;
+					case 'normalw':zoom=1.7;break;
+					case 'normalv':zoom=1.65;break;
+					case 'normalu':zoom=1.6;break;
+					case 'normalt':zoom=1.55;break;
+					case 'normals':zoom=1.5;break;
+					case 'normalr':zoom=1.45;break;
+					case 'normalq':zoom=1.4;break;
+					case 'normalp':zoom=1.35;break;
+					case 'normala':zoom=1.3;break;
+					case 'normalb':zoom=1.25;break;
+					case 'normalc':zoom=1.2;break;
+					case 'normald':zoom=1.15;break;
+					case 'normale':zoom=1.1;break;
+					case 'normalf':zoom=1.05;break;
+					case 'normalg':zoom=0.95;break;
+					case 'normalh':zoom=0.9;break;
+					case 'normali':zoom=0.85;break;
+					case 'normalj':zoom=0.8;break;
+					case 'normalk':zoom=0.75;break;
+					case 'normall':zoom=0.7;break;
+					case 'normalm':zoom=0.65;break;
+					case 'normaln':zoom=0.6;break;
+					case 'normalo':zoom=0.55;break;
 					default:zoom=1;
 				}
 				game.documentZoom=game.deviceZoom*zoom;

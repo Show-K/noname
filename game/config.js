@@ -165,9 +165,18 @@ window.config={
 				['zhu','nei','fan'],
 				['zhu','zhong','nei','fan'],
 				['zhu','zhong','nei','fan','fan'],
-				['zhu','zhong','nei','nei','fan','fan'],
+				['zhu','zhong','nei','fan','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan'],
-				['zhu','zhong','zhong','nei','fan','fan','fan','fan']
+				['zhu','zhong','zhong','nei','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','nei','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','nei','fan','fan','fan','fan','fan','fan','fan','fan']
 			],
 			choice:{
 				zhu:3,

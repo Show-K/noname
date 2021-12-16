@@ -1379,17 +1379,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				mod:{
 					globalFrom:function(from,to,num){
-						if(from.storage.sst_yinjie==to){
+						if(to.storage.sst_yinjie.contains(from)){
 							return -Infinity;
 						}
 					},
 					globalTo:function(from,to,num){
-						if(from==to.storage.sst_yinjie){
+						if(from.storage.sst_yinjie.contains(to)){
 							return -Infinity;
 						}
 					},
 					playerEnabled:function(card,player,target){
-						if(player.storage.sst_yinjie!=target) return false;
+						if(!target.storage.sst_yinjie||!target.storage.sst_yinjie.contains(player)) return false;
 					}
 				},
 				ai:{
@@ -2491,54 +2491,72 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yujun:{
 				unique:true,
 				zhuSkill:true,
-				global:"sst_yujun2"
+				global:["sst_yujun1","sst_yujun2"]
 			},
-			sst_yujun2:{
+			sst_yujun1:{
 				enable:"chooseToUse",
+				filter:function(event,player){
+					if(!game.hasPlayer(function(current){
+						return current.hasZhuSkill("sst_yujun",player)&&current.group==player.group&&current.countCards("h");
+					})) return false;
+					return !event.sst_yujun&&(event.type!="phase"||!player.hasSkill("sst_yujun3"));
+				},
+				viewAs:{name:"sha"},
+				filterCard:function(){return false},
+				selectCard:-1,
 				prompt:function(){
 					var player=_status.event.player;
-					var list=game.filterPlayer(function(target){
-						return target.hasZhuSkill("sst_yujun",player);
+					var list=game.filterPlayer(function(current){
+						return current.hasZhuSkill("sst_yujun",player);
 					});
-					var str="选择一名目标角色。若"+get.translation(list);
+					var str="若"+get.translation(list);
 					if(list.length>1) str+="中的一人";
-					str+="允许，则你可以将允许的角色";
-					str+="的一张手牌当【杀】对目标角色使用";
+					str+="允许，则你可以将允许角色的一张手牌当作【杀】使用";
 					return str;
 				},
-				filter:function(event,player){
-					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
-					if(player.hasZhuSkill("sst_yujun")) return false;
-					//if(player.group!="shu") return false;
-					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
-					return game.hasPlayer(function(target){
-						return target.hasZhuSkill("sst_yujun",player)&&target.group==player.group&&target.countCards("h");
-					});
-				},
-				filterTarget:function(card,player,target){
-					if(_status.event._backup&&
-						typeof _status.event._backup.filterTarget=="function"&&
-						!_status.event._backup.filterTarget({name:"sha"},player,target)){
-						return false;
+				ai:{
+					order:function(){
+						return get.order({name:"sha"})-0.1;
+					},
+					respondSha:true,
+					result:{
+						target:function(player,target,card,isLink){
+							if(!game.hasPlayer(function(current){
+								return current.hasZhuSkill("sst_yujun",player)&&current.group==player.group&&current.countCards("h")&&get.attitude(current,player)>0;
+							})) return 0;
+							return lib.card.sha.ai.result.target(player,target,card,isLink);
+						}
+					},
+					skillTagFilter:function(player,tag,arg){
+						if(arg=="respond") return false;
+						if(!game.hasPlayer(function(current){
+							return current.hasZhuSkill("sst_yujun",player)&&current.group==player.group&&current.countCards("h");
+						})) return false;
 					}
-					return player.canUse({name:"sha"},target);
+				}
+			},
+			sst_yujun2:{
+				trigger:{player:"useCardBegin"},
+				filter:function(event,player){
+					return event.skill=="sst_yujun1";
 				},
-				direct:false,
+				silent:true,
 				content:function(){
 					"step 0"
-					game.log(player,"请求","#g【驭军】（对",get.translation(target),"）");
+					delete trigger.skill;
+					trigger.getParent().set("sst_yujun",true);
+					"step 1"
 					player.chooseTarget("请选择一位拥有驭军的角色",true,function(card,player,target){
-						var list=game.filterPlayer(function(target){
-							return target.hasZhuSkill("sst_yujun",player);
-						});
-						return list.contains(target)&&target.countCards("h");
+						return target.hasZhuSkill("sst_yujun",player)&&target.countCards("h");
 					}).set("ai",function(target){
 						return get.attitude(_status.event.player,target);
 					});
-					"step 1"
-					if(result.bool){
-						player.line(result.targets[0],"green");
-						result.targets[0].chooseControl("允许","拒绝").set("prompt","是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(target)+"使用？").set("ai",function(){
+					"step 2"
+					if(result.targets&&result.targets.length){
+						event.request=result.targets[0];
+						game.log(player,"请求",event.request,"发动","#g【驭军】","（对",trigger.targets,"）");
+						player.line(event.request,"green");
+						event.request.chooseControl("允许","拒绝").set("prompt","是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(trigger.targets)+"使用？").set("ai",function(){
 							var player=_status.event.player;
 							var target=_status.event.targetx;
 							if(get.attitude(player,target)>0){
@@ -2548,16 +2566,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								return "拒绝";
 							}
 						}).set("targetx",player);
-						event.request=result.targets[0];
 					}
 					else{
 						event.finish();
 					}
-					"step 2"
-					player.addSkill("sst_yujun3");
+					"step 3"
 					if(result.control=="允许"){
 						event.request.logSkill("sst_yujun");
-						player.choosePlayerCard("驭军：你可以将"+get.translation(event.request)+"的一张手牌当作【杀】对"+get.translation(target)+"使用",event.request,"h").set("ai",function(button){
+						player.choosePlayerCard("驭军：你可以将"+get.translation(event.request)+"的一张手牌当作【杀】使用（对"+get.translation(trigger.targets)+"）",event.request,"h").set("ai",function(button){
 							var val=get.buttonValue(button);
 							if(get.attitude(_status.event.player,get.owner(button.link))>0) return 10-val;
 							return val;
@@ -2565,56 +2581,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					else{
 						game.log(event.request,"拒绝了",player,"的请求");
-						event.request.chat("拒绝");
+						event.request.chat("搭嘎，口头瓦路！");
+						player.addSkill("sst_yujun3");
+						trigger.cancel();
+						trigger.getParent().goto(0);
 						event.finish();
 					}
-					"step 3"
+					"step 4"
 					if(result.cards&&result.cards.length){
-						event.request.line(player,"green");
-						event.request.lose(result.cards,"visible",ui.ordering).set("type","use");
-						player.useCard({name:"sha"},result.cards,target);
+						trigger.card.cards=[result.card];
+						trigger.cards=result.cards;
 					}
-				},
-				ai:{
-					respondSha:true,
-					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
-						return game.hasPlayer(function(current){
-							return current.hasZhuSkill("sst_yujun",player)&&current.countCards("h")&&get.attitude(player,current)>0;
-						});
-					},
-					result:{
-						target:function(player,target){
-							//if(player.hasSkill("sst_yujun_deny")) return 0;
-							if(!game.hasPlayer(function(current){
-								return current.hasZhuSkill("sst_yujun",player)&&current.countCards("h");
-							})) return 0;
-							if(player.hasSkill("sst_yujun3")) return 0;
-							var list=game.filterPlayer(function(current){
-								return current.hasZhuSkill("sst_yujun",player);
-							});
-							var bool=false;
-							for(var i=0;i<list.length;i++){
-								if(get.attitude(player,list[i])>0){
-									bool=true;
-									break;
-								}
-							}
-							if(!bool) return 0;
-							return get.effect(target,{name:"sha"},player,target);
-						}
-					},
-					order:function(){
-						return get.order({name:"sha"})-0.1;
-					},
-					expose:0.5
 				}
 			},
 			sst_yujun3:{
 				trigger:{global:["useCardAfter","useSkillAfter","phaseAfter"]},
 				silent:true,
+				charlotte:true,
 				filter:function(event){
-					return event.skill!="sst_yujun2";
+					return event.skill!="sst_yujun1";
 				},
 				content:function(){
 					player.removeSkill("sst_yujun3");
@@ -2920,7 +2905,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.unmarkSkill("sst_potian2");
 				},
 				content:function(){
-					trigger.baseDamage=player.storage.sst_potian2;
+					if(typeof trigger.baseDamage!="number"){
+						trigger.baseDamage=1;
+					}
+					trigger.baseDamage+=player.storage.sst_potian2-1;
 				},
 				ai:{
 					damageBonus:true,
@@ -7419,7 +7407,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					var next=player.choosePlayerCard("主宰：展示"+get.translation(trigger.player)+"一张手牌",trigger.player,"h",true).set("ai",function(button){
-						return get.useful(button.link);
+						return get.buttonValue(button);
 					});
 					if(player.hasZhuSkill("sst_zhixu",player)&&trigger.player.group==player.group) next.set("visible",true);
 					"step 1"
@@ -7682,7 +7670,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result&&result.bool&&result.links[0]){
 						var card=game.createCard(result.links[0][2],"","");
 						player.storage.sst_qichang=card;
-						player.equip(card);
+						game.log(player,"视为装备了",card);
+						//player.equip(card);
+						player.directequip([card]);
 					}
 				},
 				mod:{
@@ -7703,7 +7693,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_qichang3:{
-				trigger:{player:"phaseBegin"},
+				trigger:{player:["phaseBegin","die"]},
 				filter:function(event,player){
 					return player.storage.sst_qichang;
 				},
@@ -7717,17 +7707,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_qichang4:{
 				trigger:{
-					player:["loseAfter","die"],
-					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter"]
+					player:"loseEnd",
+					global:["equipEnd","addJudgeEnd","gainEnd","loseAsyncEnd"]
 				},
 				filter:function(event,player){
 					if(!player.storage.sst_qichang) return false;
-					if(event.name=="die") return true;
 					var evt=event.getl(player);
 					return evt&&evt.player==player&&evt.es&&evt.es.length>0&&evt.es.contains(player.storage.sst_qichang);
 				},
 				forced:true,
-				forceDie:true,
 				content:function(){
 					game.cardsGotoSpecial(player.storage.sst_qichang,false);
 					player.storage.sst_qichang.delete();
@@ -7746,7 +7734,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.storage.sst_qichang) event.qichang=player.storage.sst_qichang;
 					if(trigger.player==player){
 						player.chooseTarget(get.prompt("sst_shizhu"),"你可以令一名其他角色弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用",function(card,player,target){
-							return target!=player&&target.countCards("he")>=_status.event.num;
+							return target!=player;
 						}).set("ai",function(target){
 							return -get.attitude(_status.event.player,target);
 						}).set("num",trigger.cards.length);
@@ -7805,9 +7793,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 5"
-					player.chooseTarget("选择"+get.translation(result.links[0])+"的目标",[1,2],function(card,player,target){
+					player.chooseTarget("拾珠：选择"+get.translation(result.links[0])+"的目标",[1,2],function(card,player,target){
 						return _status.event.targetsx.contains(target)&&lib.filter.targetEnabled2(_status.event.cardx,player,target);
-					},true).set("targetsx",event.targets).set("cardx",event.card);
+					}).set("targetsx",event.targets).set("cardx",event.card);
 					"step 6"
 					if(result.targets&&result.targets.length){
 						player.useCard(event.card,result.targets[0],false);
@@ -8971,226 +8959,80 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:["sst_liaoyi1","sst_liaoyi2","sst_liaoyi4"]
 			},
 			sst_liaoyi1:{
-				trigger:{player:"chooseToRespondBegin"},
-				direct:true,
+				enable:["chooseToUse","chooseToRespond"],
 				filter:function(event,player){
-					if(event.responded) return false;
-					if(player.storage.sst_liaoyiing) return false;
-					if(!event.filterCard({name:"sha"},player,event)) return false;
-					return game.hasPlayer(function(current){
-						return current.sex=="male";
+					return !event.sst_liaoyi&&(event.type!="phase"||!player.hasSkill("sst_liaoyi3"))&&player.countCards("he",{name:"sha"})&&game.hasPlayer(function(current){
+						return current.hasSex("male");
 					});
 				},
-				content:function(){
-					"step 0"
-					player.chooseCard("he",get.prompt2("sst_liaoyi1"),function(card){
-						return get.name(card)=="sha";
-					}).set("ai",function(card){
-						var evt=_status.event.evt;
-						if(evt.sst_liaoyi) return false;
-						return true;
-					}).set("evt",trigger);
-					"step 1"
-					if(result.cards&&result.cards.length){
-						player.logSkill("sst_liaoyi");
-						player.showCards(result.cards);
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					player.chooseTarget("聊依：指定一名男性角色",function(card,player,target){
-						return target.sex=="male";
-					},true).set("ai",function(target){
-						var player=_status.event.player;
-						return get.attitude(player,target);
-					});
-					"step 3"
-					if(result.targets&&result.targets.length){
-						event.current=result.targets[0];
-						player.line(event.current,"green");
-						player.storage.sst_liaoyiing=true;
-						var next=event.current.chooseToRespond("是否替"+get.translation(player)+"打出一张杀？",{name:"sha"});
-						next.set("ai",function(){
-							var event=_status.event;
-							return (get.attitude(event.player,event.source)-2);
-						});
-						next.set("source",player);
-						next.set("sst_liaoyi",true);
-						next.set("skillwarn","替"+get.translation(player)+"打出一张杀");
-						next.noOrdering=true;
-						next.autochoose=lib.filter.autoRespondSha;
-					}
-					else{
-						event.finish();
-					}
-					"step 4"
-					player.storage.sst_liaoyiing=false;
-					if(result.bool){
-						trigger.result=result;
-						trigger.responded=true;
-						trigger.animate=false;
-						if(typeof event.current.ai.shown=="number"&&event.current.ai.shown<0.95){
-							event.current.ai.shown+=0.3;
-							if(event.current.ai.shown>0.95) event.current.ai.shown=0.95;
-						}
-					}
-					else{
-						event.finish();
-					}
-					"step 5"
-					event.current.gainPlayerCard(player,"he",true);
-				}
-			},
-			sst_liaoyi2:{
-				enable:"chooseToUse",
-				prompt:"选择一名目标角色。你展示一张【杀】并指定一名男性角色，若此男性角色打出【杀】响应，则视为你对目标角色使用此【杀】，然后此男性角色获得你一张牌。",
-				filter:function(event,player){
-					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
-					if(player.hasSkill("sst_liaoyi3")) return false;
-					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
-					return player.hasCard(function(card){
-						return get.name(card)=="sha";
-					})&&game.hasPlayer(function(current){
-						return current.sex=="male";
-					});
-				},
-				filterTarget:function(card,player,target){
-					if(_status.event._backup&&
-						typeof _status.event._backup.filterTarget=="function"&&
-						!_status.event._backup.filterTarget({name:"sha"},player,target)){
-						return false;
-					}
-					return player.canUse({name:"sha"},target);
-				},
+				viewAs:{name:"sha"},
 				filterCard:function(card){
 					return get.name(card)=="sha";
 				},
-				check:function(card){
-					return 10;
-				},
-				discard:false,
-				lose:false,
-				delay:false,
-				position:"he",
-				content:function(){
-					"step 0"
-					player.showCards(cards);
-					"step 1"
-					player.chooseTarget("聊依：指定一名男性角色",function(card,player,target){
-						return target.sex=="male";
-					},true).set("ai",function(target){
-						var player=_status.event.player;
-						return get.attitude(player,target);
-					});
-					"step 2"
-					if(result.targets&&result.targets.length){
-						event.current=result.targets[0];
-						player.line(event.current,"green");
-						var next=event.current.chooseToRespond("是否替"+get.translation(player)+"对"+get.translation(target)+"使用一张杀",
-						function(card,player,event){
-							event=event||_status.event;
-							return card.name=="sha"&&event.source.canUse(card,event.target);
-						});
-						next.set("ai",function(card){
-							var event=_status.event;
-							return get.effect(event.target,card,event.source,event.player);
-						});
-						next.set("source",player);
-						next.set("target",target);
-						next.set("sst_liaoyi",true);
-						next.set("skillwarn","替"+get.translation(player)+"打出一张杀");
-						next.noOrdering=true;
-						next.autochoose=lib.filter.autoRespondSha;
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					if(result.bool){
-						if(result.cards&&result.cards.length){
-							player.useCard({name:"sha",isCard:true},result.cards,target).animate=false;
-						}
-						else{
-							player.useCard({name:"sha",isCard:true},target).animate=false;
-						}
-						if(typeof event.current.ai.shown=="number"&&event.current.ai.shown<0.95){
-							event.current.ai.shown+=0.3;
-							if(event.current.ai.shown>0.95) event.current.ai.shown=0.95;
-						}
-					}
-					else{
-						player.addSkill("sst_liaoyi3");
-						event.getParent(2).step=0;
-						event.finish();
-					}
-					"step 4"
-					event.current.gainPlayerCard(player,"he",true);
-				},
 				ai:{
+					order:function(){
+						return get.order({name:"sha"})+0.3;
+					},
 					respondSha:true,
 					skillTagFilter:function(player){
-						return player.hasCard(function(card){
-							return get.name(card)=="sha";
-						})&&game.hasPlayer(function(current){
-							return current.sex=="male";
-						});
-					},
-					result:{
-						target:function(player,target){
-							if(player.hasSkill("sst_liaoyi3")) return 0;
-							return get.effect(target,{name:"sha"},player,target);
-						}
-					},
+						if(!player.countCards("he",{name:"sha"})||!game.hasPlayer(function(current){
+							return current.hasSex("male");
+						})) return false;
+					}
+				}
+			},
+			sst_liaoyi2:{
+				enable:["chooseToUse","chooseToRespond"],
+				filter:function(event,player){
+					return !event.sst_liaoyi&&(event.type!="phase"||!player.hasSkill("sst_liaoyi3"))&&player.countCards("he",{name:"shan"})&&game.hasPlayer(function(current){
+						return current.hasSex("male");
+					});
+				},
+				viewAs:{name:"shan"},
+				filterCard:function(card){
+					return get.name(card)=="shan";
+				},
+				ai:{
 					order:function(){
-						return get.order({name:"sha"})-0.1;
+						return get.order({name:"shan"})+0.3;
+					},
+					respondSha:true,
+					skillTagFilter:function(player){
+						if(!player.countCards("he",{name:"shan"})||!game.hasPlayer(function(current){
+							return current.hasSex("male");
+						})) return false;
 					}
 				}
 			},
 			sst_liaoyi3:{
 				trigger:{global:["useCardAfter","useSkillAfter","phaseAfter"]},
 				silent:true,
+				charlotte:true,
 				filter:function(event){
-					return event.skill!="sst_liaoyi2";
+					return event.skill!="sst_liaoyi1"&&event.skill!="sst_liaoyi2";
 				},
 				content:function(){
 					player.removeSkill("sst_liaoyi3");
 				}
 			},
 			sst_liaoyi4:{
-				trigger:{player:["chooseToRespondBefore","chooseToUseBefore"]},
+				trigger:{player:["useCardBegin","respondBegin"]},
 				filter:function(event,player){
-					if(event.responded) return false;
-					if(player.storage.sst_liaoyi4ing) return false;
-					if(!event.filterCard({name:"shan"},player,event)) return false;
-					return player.hasCard(function(card){
-						return get.name(card)=="shan";
-					})&&game.hasPlayer(function(current){
-						return current.sex=="male";
-					});
+					return event.skill=="sst_liaoyi1"||event.skill=="sst_liaoyi2";
 				},
-				direct:true,
+				logTarget:"targets",
+				forced:true,
 				content:function(){
 					"step 0"
-					player.chooseCard("he",get.prompt2("sst_liaoyi4"),function(card){
-						return get.name(card)=="shan";
-					}).set("ai",function(card){
-						var player=_status.event.player;
-						var evt=_status.event.evt;
-						if(get.damageEffect(player,evt.player,player)>=0) return false;
-						return true;
-					}).set("evt",trigger);
+					delete trigger.skill;
+					trigger.getParent().set("sst_liaoyi",true);
 					"step 1"
-					if(result.cards&&result.cards.length){
-						player.logSkill("sst_liaoyi");
-						player.showCards(result.cards);
-					}
-					else{
-						event.finish();
-					}
+					var card=trigger.cards[0];
+					player.showCards(card);
 					"step 2"
-					player.chooseTarget("聊依：指定一名男性角色",function(card,player,target){
-						return target.sex=="male";
+					event.card_name=get.name(trigger.card);
+					player.chooseTarget("聊依：指定一名男性角色，其可以打出一张【"+get.translation(event.card_name)+"】，若其如此做，视为你"+(trigger.name=="useCard"?"使用":"打出")+"一张【"+get.translation(event.card_name)+"】，然后其获得你一张牌",function(card,player,target){
+						return target.hasSex("male");
 					},true).set("ai",function(target){
 						var player=_status.event.player;
 						return get.attitude(player,target);
@@ -9199,42 +9041,43 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.current=result.targets[0];
 						player.line(event.current,"green");
-						player.storage.sst_liaoyi4ing=true;
-						var next=event.current.chooseToRespond("是否替"+get.translation(player)+"打出一张闪？",{name:"shan"});
+						game.log(player,"请求",event.current,"打出一张","#y"+get.translation(event.card_name),"（发动","#g【聊依】","）");
+						var next=event.current.chooseToRespond("是否替"+get.translation(player)+"打出一张【"+get.translation(event.card_name)+"】？",{name:event.card_name});
 						next.set("ai",function(){
 							var event=_status.event;
 							return (get.attitude(event.player,event.source)-2);
 						});
-						next.set("skillwarn","替"+get.translation(player)+"打出一张闪");
-						next.autochoose=lib.filter.autoRespondShan;
 						next.set("source",player);
+						next.set("sst_liaoyi",true);
+						next.set("skillwarn","替"+get.translation(player)+"打出一张【"+get.translation(event.card_name)+"】");
+						next.noOrdering=true;
+						next.autochoose=event.card_name=="sha"?lib.filter.autoRespondSha:lib.filter.autoRespondShan;
 					}
 					"step 4"
-					player.storage.sst_liaoyi4ing=false;
-					if(result.bool){
-						trigger.result={bool:true,card:{name:"shan",isCard:true}};
-						trigger.responded=true;
-						trigger.animate=false;
+					if(result.card){
+						trigger.card=result.card;
+						trigger.cards=result.cards;
+						trigger.throw=false;
 						if(typeof event.current.ai.shown=="number"&&event.current.ai.shown<0.95){
 							event.current.ai.shown+=0.3;
 							if(event.current.ai.shown>0.95) event.current.ai.shown=0.95;
 						}
+						var next=game.createEvent("sst_liaoyi_clear");
+						event.next.remove(next);
+						trigger.after.push(next);
+						next.player=event.current;
+						next.target=player;
+						next.setContent(function(){
+							player.gainPlayerCard("聊依：获得"+get.translation(target)+"一张牌",target,"he",true);
+						});
 					}
 					else{
+						game.log(event.current,"拒绝了",player,"的请求");
+						event.current.chat("搭嘎，口头瓦路！");
+						player.addTempSkill("sst_liaoyi3");
 						event.finish();
-					}
-					"step 5"
-					event.current.gainPlayerCard(player,"he",true);
-				},
-				ai:{
-					respondShan:true,
-					skillTagFilter:function(player){
-						if(player.storage.sst_liaoyi4ing) return false;
-						return player.hasCard(function(card){
-							return get.name(card)=="shan";
-						})&&game.hasPlayer(function(current){
-							return current.sex=="male";
-						});
+						trigger.cancel();
+						trigger.getParent().goto(0);
 					}
 				}
 			},
@@ -12393,9 +12236,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiongao:"雄傲",
 			sst_xiongao_info:"锁定技，若你的手牌数不小于体力值，你不能响应其他角色使用的牌。",
 			sst_yujun:"驭军",
+			sst_yujun1:"驭军",
 			sst_yujun2:"驭军",
-			sst_yujun3:"驭军",
 			sst_yujun_info:"主公技，本势力角色需要使用【杀】时，经你允许后，其可以将你的一张手牌当作【杀】使用。",
+			sst_yujun1_info:"经拥有〖驭军〗的角色允许后，你可以将其一张手牌当作【杀】使用。",
 			sst_hongyan:"红颜",
 			sst_hongyan_info:"锁定技，你区域内的♠牌和♠判定牌均视为♥。",
 			sst_yice:"议策",
@@ -12685,13 +12529,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fanfei:"翻飞",
 			sst_fanfei_info:"当你成为红色牌的目标时，你可以弃置一张牌令此牌对你无效，然后对手牌数大于你的一名角色造成1点伤害。",
 			sst_liaoyi:"聊依",
-			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，视为你使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
 			sst_liaoyi1:"聊依",
-			sst_liaoyi1_info:"当你需要打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你打出一张【杀】，然后其获得你一张牌。",
 			sst_liaoyi2:"聊依",
-			sst_liaoyi2_info:"当你需要使用一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你使用一张【杀】，然后其获得你一张牌。",
 			sst_liaoyi4:"聊依",
-			sst_liaoyi4_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为你使用或打出一张【闪】，然后其获得你一张牌。",
+			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，视为你使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
+			sst_liaoyi1_info:"当你需要使用或打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你使用或打出一张【杀】，然后其获得你一张牌。",
+			sst_liaoyi2_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为你使用或打出一张【闪】，然后其获得你一张牌。",
 			sst_shuanghan:"霜寒",
 			sst_shuanghan_info:"你使用牌指定其他角色为目标时，若其手牌数不小于你，你可以令此牌对其无效，改为弃置其区域内两张牌。",
 			sst_qianlong:"潜龙",
