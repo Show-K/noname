@@ -717,14 +717,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					next.set("norestore",true);
 					next.set("_backupevent","ska_kezhix");
 					next.backup("ska_kezhix");
-					//next.set("viewAs",trigger.card);
 					next.set("addCount",false);
-					/*
-					next.set("filterTarget",function(card,player,target){
-						return target==_status.event.targetx&&lib.filter.targetEnabled2({name:"sha"},player,target);
-					});
-					*/
-					//next.set("targetx",trigger.target);
 					next.set("cardx",trigger.card);
 				},
 				group:["ska_kezhi_respond","ska_kezhi2"],
@@ -1544,10 +1537,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						next.set("addCount",false);
 						next.set("targetx",trigger.target);
 						next.set("filterCard",function(card){
-							return get.name(card)=="sha"&&lib.filter.targetEnabled2(card,_status.event.player,_status.event.targetx);
+							return get.name(card)=="sha"&&lib.filter.targetEnabled(card,_status.event.player,_status.event.targetx);
 						});
 						next.set("filterTarget",function(card,player,target){
-							return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
+							return target==_status.event.targetx&&lib.filter.targetEnabled(card,player,target);
 						});
 					}
 					else{
@@ -1860,11 +1853,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(ui.selected.targets.length==0){
 									//return lib.filter.cardEnabled(links[0],target);
 									return game.hasPlayer(function(current){
-										return current!=target&&lib.filter.targetEnabled2(links[0],target,current);
+										return current!=target&&lib.filter.targetEnabled3(links[0],target,current);
 									});
 								}
 								else{
-									return lib.filter.targetEnabled2(links[0],ui.selected.targets[0],target);
+									return lib.filter.targetEnabled3(links[0],ui.selected.targets[0],target);
 								}
 							},
 							selectTarget:2,

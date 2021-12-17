@@ -1143,13 +1143,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					var next=player.chooseToUse("倾勇：你可以将一张牌当【杀】对一名其他角色使用（不受距离限制，不计入使用次数）");
 					next.set("logSkill","sst_qingyong");
-					//next.set("openskilldialog",get.prompt2("sst_qingyong"));
 					next.set("norestore",true);
 					next.set("_backupevent","sst_qingyongx");
 					next.backup("sst_qingyongx");
 					next.set("addCount",false);
 					next.set("filterTarget",function(card,player,target){
-						return lib.filter.targetEnabled2({name:"sha"},player,target);
+						return lib.filter.targetEnabled({name:"sha"},player,target);
 					});
 				}
 			},
@@ -2789,7 +2788,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiuyuan2:{
 				trigger:{global:"useCard2"},
 				filter:function(event,player){
-					if(event.targets.contains(player)&&!lib.filter.targetEnabled2(event.card,event.player,player)) return false;
+					if(event.targets.contains(player)||!lib.filter.targetEnabled2(event.card,event.player,player)) return false;
 					var bool=false;
 					for(var i=0;i<event.targets.length;i++){
 						if(event.targets[i]!=player&&event.targets[i].hasZhuSkill("sst_qiuyuan",player)&&event.targets[i].group==player.group){
@@ -3911,7 +3910,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return true;
 				},
 				filterTarget:function(card,player,target){
-					return lib.filter.targetEnabled2({name:"sha",nature:"fire"},player,target);
+					return lib.filter.targetEnabled({name:"sha",nature:"fire"},player,target);
 				},
 				selectTarget:function(){
 					if(_status.event.player.storage.sst_qixiao) return [1,2];
@@ -4039,7 +4038,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				enable:"phaseUse",
 				usable:1,
 				filterTarget:function(card,player,target){
-					return lib.filter.targetEnabled2({name:"sha"},player,target);
+					return lib.filter.targetEnabled({name:"sha"},player,target);
 				},
 				line:false,
 				delay:false,
@@ -5939,9 +5938,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(event.players[event.num].isAlive()){
 							//game.log("yes");
 							event.players[event.num].chooseToUse("斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌").set("filterTarget",function(card,player,target){
-								return target==_status.event.targetx&&lib.filter.targetEnabled2(card,player,target);
+								return target==_status.event.targetx&&lib.filter.targetEnabled3(card,player,target);
 							}).set("filterCard",function(card){
-								return get.name(card)=="sha"&&lib.filter.targetEnabled2(card,_status.event.player,_status.event.targetx);
+								return get.name(card)=="sha"&&lib.filter.targetEnabled3(card,_status.event.player,_status.event.targetx);
 							}).set("targetx",player);
 							/*
 							event.players[event.num].chooseToUse({name:"sha"},"斗魂：对"+get.translation(player)+"使用一张【杀】，若如此做，你计算与"+get.translation(player)+"距离为1直到"+get.translation(player)+"的下个准备阶段，否则本回合你不能响应"+get.translation(player)+"使用的牌").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
@@ -7236,26 +7235,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_caijue:{
 				trigger:{global:"phaseJieshuBegin"},
 				filter:function(event,player){
-					/*
-					game.log(event.player.getAllHistory("damage",function(evt){
-						return evt.source==player;
-					}).length);
-					game.log(event.player.getAllHistory("useCard",function(evt){
-						return get.name(evt.card)=="sha";
-					}).length);
-					game.log(game.players.length);
-					game.log(lib.filter.targetEnabled2({name:"sha"},player,event.player));
-					game.log(event.player.getAllHistory("damage",function(evt){
-						return evt.source==player;
-					}).length&&event.player.getAllHistory("useCard",function(evt){
-						return get.name(evt.card)=="sha";
-					}).length>game.players.length&&lib.filter.targetEnabled2({name:"sha"},player,event.player));
-					*/
 					return event.player.getAllHistory("damage",function(evt){
 						return evt.source==player;
 					}).length&&event.player.getAllHistory("useCard",function(evt){
 						return get.name(evt.card)=="sha";
-					}).length>game.players.length&&lib.filter.targetEnabled2({name:"sha"},player,event.player)&&!event.player.isDead();
+					}).length>game.players.length&&lib.filter.targetEnabled({name:"sha"},player,event.player)&&event.player.isAlive();
 				},
 				forced:true,
 				logTarget:"player",
@@ -7266,16 +7250,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var cards=player.getCards("he").concat(target.getCards("he"));
 						var card=cards[0];
 						var owner=get.owner(card);
-						//if(lib.filter.targetEnabled2({name:"sha"},player,target)){
 						if(owner&&owner!=player) owner.lose(card,"visible",ui.ordering).set("type","use");
 						player.useCard({name:"sha"},[card],target,false);
-						//}
-						/*
-						else{
-							game.cardsDiscard(card);
-							//owner.$throw(card);
-						}
-						*/
 						if(cards.length){
 							event.redo();
 						}
@@ -7347,7 +7323,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								var player=_status.event.player;
 								var target=_status.event.targetx;
 								var card={name:button.link[2],isCard:true};
-								return lib.filter.targetEnabled2(card,player,target);
+								return lib.filter.targetEnabled3(card,player,target);
 								//return player.canUse(card,target,false);
 							}).set("ai",function(button){
 								var player=_status.event.player;
@@ -7378,7 +7354,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					else{
 						var stat=player.getStat().skill;
-						if(stat["sst_zhamou"]) stat["sst_zhamou"]--;
+						if(stat["sst_zhamou"]) stat["sst_zhamou"]=0;
 						game.log(player,"令","#g【"+get.translation("sst_zhamou")+"】","视为此出牌阶段未发动过");
 					}
 				},
@@ -7386,7 +7362,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					order:6,
 					result:{
 						target:function(player,target){
-							return Math.sqrt(get.attitude(player,target));
+							return get.attitude(player,target);
 						},
 						player:function(player,target){
 							if(player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})>=0) return player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})+1;
@@ -7432,17 +7408,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zhuzai2:{
 				trigger:{global:"useCard2"},
 				filter:function(event,player){
-					/*
-					game.log(!["basic","trick"].contains(get.type(event.card)));
-					game.log(event.card);
-					game.log(player.storage.sst_zhuzai);
-					game.log(event.card!=player.storage.sst_zhuzai);
-					game.log(event.player!=_status.currentPhase);
-					*/
-					//game.log(event.card.card);
 					if(!["basic","trick"].contains(get.type(event.card))||!event.cards.contains(player.storage.sst_zhuzai)||event.player!=_status.currentPhase) return false;
 					return game.hasPlayer(function(current){
-						//return !event.targets.contains(current)&&player.canUse(event.card,current);
 						return !event.targets.contains(current)&&lib.filter.targetEnabled2(event.card,event.player,current);
 					});
 				},
@@ -7659,7 +7626,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.chooseButton(["绮裳：视为对你使用一张装备牌",[list,"vcard"]],true).set("filterButton",function(button){
 							var player=_status.event.player;
 							var card={name:button.link[2],isCard:true};
-							return lib.filter.targetEnabled2(card,player,player);
+							return lib.filter.targetEnabled3(card,player,player);
 						}).set("ai",function(button){
 							var player=_status.event.player;
 							var card={name:button.link[2],isCard:true};
@@ -7776,7 +7743,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var player=_status.event.player;
 						var target=_status.event.targetx;
 						//return player.canUse(button.link,player,false)||player.canUse(button.link,target,false);
-						return lib.filter.targetEnabled2(button.link,player,player)||lib.filter.targetEnabled2(button.link,player,target);
+						return lib.filter.targetEnabled3(button.link,player,player)||lib.filter.targetEnabled3(button.link,player,target);
 					}).set("ai",function(button){
 						var player=_status.event.player;
 						var target=_status.event.targetx;
@@ -7793,8 +7760,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 5"
-					player.chooseTarget("拾珠：选择"+get.translation(result.links[0])+"的目标",[1,2],function(card,player,target){
-						return _status.event.targetsx.contains(target)&&lib.filter.targetEnabled2(_status.event.cardx,player,target);
+					player.chooseTarget("拾珠：选择"+get.translation(result.links[0])+"的目标",function(card,player,target){
+						return _status.event.targetsx.contains(target)&&lib.filter.targetEnabled3(_status.event.cardx,player,target);
 					}).set("targetsx",event.targets).set("cardx",event.card);
 					"step 6"
 					if(result.targets&&result.targets.length){
@@ -9222,7 +9189,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 1"
 					player.storage.sst_qianlong.remove(event.card);
-					if(lib.filter.targetEnabled2(event.card,player,event.target)){
+					if(lib.filter.targetEnabled3(event.card,player,event.target)){
 						player.useCard(event.card,event.target,false);
 						event.finish();
 					}
@@ -9966,7 +9933,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					next.backup("sst_fumiaox");
 					next.set("addCount",false);
 					next.set("filterTarget",function(card,player,target){
-						return lib.filter.targetEnabled2({name:"sha"},player,target);
+						return lib.filter.targetEnabled({name:"sha"},player,target);
 					});
 				}
 			},
@@ -10233,13 +10200,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					if(list.length){
 						player.chooseButton(["诵魔：视为"+get.translation(trigger.player)+"使用一张锦囊牌",[list,"vcard"]],true).set("filterButton",function(button){
-							//var player=_status.event.player;
 							var source=_status.event.sourcex;
 							var card={name:button.link[2],isCard:true};
-							//return lib.filter.targetEnabled2(card,player,target);
 							return lib.filter.cardEnabled(card,source);
 						}).set("ai",function(button){
-							//var player=_status.event.player;
 							var source=_status.event.sourcex;
 							var card={name:button.link[2],isCard:true};
 							return source.getUseValue(card);
@@ -12338,7 +12302,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xinghuo2:"星火",
 			sst_xinghuo_info:"其他角色死亡后，其可以令你摸一张牌或回复一点体力。",
 			sst_badao:"霸岛",
-			sst_badao_info:"准备阶段，你可以获得一名其他角色区域内的一张牌，然后攻击范围内有你的角色可以依次对你使用一张基本牌。",
+			sst_badao_info:"准备阶段，你可以获得一名其他角色区域内的一张牌，然后攻击范围内有你的角色可以依次以你为目标使用一张基本牌。",
 			sst_jinjia:"金甲",
 			sst_jinjia_info:"锁定技，每当你受到一点伤害前，你令此伤害减1，若此前你于本回合以此法减少过伤害，你翻面，失去〖金甲〗。",
 			sst_baochui:"爆锤",
@@ -12381,7 +12345,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_douhun:"斗魂",
 			sst_douhun2:"斗魂",
 			sst_douhun3:"斗魂",
-			sst_douhun_info:"锁定技，准备阶段，你令你计算与其他角色的距离为1直到回合结束；其他角色须依次对你使用一张【杀】，否则本回合不能响应你使用的牌。以此法对你使用【杀】的角色计算与你距离为1直到你的下个准备阶段。",
+			sst_douhun_info:"锁定技，准备阶段，你令你计算与其他角色的距离为1直到回合结束；其他角色需依次以你为目标使用一张【杀】，否则本回合不能响应你使用的牌。以此法对你使用【杀】的角色计算与你距离为1直到你的下个准备阶段。",
 			sst_juejing:"绝境",
 			sst_juejing_info:"锁定技，每当你获得或失去牌后，将你的手牌数摸至或弃置至4张。",
 			sst_suxing:"溯行",
