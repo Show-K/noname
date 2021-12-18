@@ -118,12 +118,12 @@ window.noname_package={
 		*/
 	},
 	font:{
-		fzhtk:"黑体"
+		fzhtk:"黑体",
+		fzktk:'楷体'
 		/*
 		xiaozhuan:'小篆',
 		xinwei:'新魏',
 		huangcao:'黄草',
-		yuanli:'楷体',
 		xingkai:'行楷',
 		shousha:'手杀',
 		*/

@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.111SST3',
+	'v1.9.111SST4',
 	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -141,18 +141,6 @@ window.noname_asset_list=[
 	'audio/background/music_dharkon.mp3',
 	'audio/background/music_galeem_dharkon.mp3',
 	//New add end
-	/*
-	'audio/background/aozhan_chaoming.mp3',
-	'audio/background/aozhan_online.mp3',
-	'audio/background/aozhan_rewrite.mp3',
-	'audio/background/music_danji.mp3',
-	'audio/background/music_battlefield.mp3',
-	'audio/background/music_diaochan.mp3',
-	'audio/background/music_shezhan.mp3',
-	'audio/background/music_jifeng.mp3',
-	'audio/background/music_phliosophy.mp3',
-	'audio/background/music_jilve.mp3',
-	*/
 	'audio/card/default.mp3',
 	
 	'audio/card/female/caomu.mp3',
@@ -390,39 +378,9 @@ window.noname_asset_list=[
 	
 	//New add
 	'font/fzhtk.ttf',
+	'font/fzktk.ttf',
 	'image/background/final_destination_bg.png',
 	//New add end
-	/*
-	'font/huangcao.ttf',
-	'font/shousha.ttf',
-	'font/xiaozhuan.ttf',
-	'font/xingkai.ttf',
-	'font/xinwei.ttf',
-	'font/yuanli.ttf',
-	'image/background/huangtian_bg.jpg',
-	'image/background/key_bg.jpg',
-	'image/background/kyoani_bg.jpg',
-	'image/background/planetarian_bg.jpg',
-	'image/background/ol_bg.jpg',
-	'image/background/heaven_bg.jpg',
-	'image/background/noname_bg.jpg',
-	'image/background/wuming_bg.jpg',
-	'image/background/september_bg.jpg',
-	'image/background/shengshi_bg.jpg',
-	'image/background/taoyuan_bg.jpg',
-	'image/background/yinxiang_bg.jpg',
-	'image/background/zhanhuo_bg.jpg',
-	'image/background/zhulin_bg.jpg',	
-	'image/background/beipan_bg.jpg',
-	'image/background/lanting_bg.jpg',
-	'image/background/lingju_bg.jpg',
-	'image/background/sanying_bg.jpg',
-	'image/background/wangshi_bg.jpg',
-	'image/background/xiongxin_bg.jpg',
-	'image/background/zhanyun_bg.jpg',
-	'image/background/xinsha_bg.jpg',
-	'image/background/xiaowu_bg.jpg',
-	*/
 
 	'image/card/minguangkai.png',
 	'image/card/db_atk1.jpg',

@@ -411,9 +411,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.cards&&result.cards.length){
 						event.target.give(result.cards,player);
 					}
-				},
-				ai:{
-					expose:0.2
 				}
 			},
 			ska_shenqi:{
@@ -514,6 +511,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi2")).set("ai",function(button){
 						var player=_status.event.player;
+						if(get.name(button.link)=="du") return -10;
 						if(player.isPhaseUsing()) return player.getUseValue(button.link)+5;
 						return get.value(button.link)+5;
 					});
@@ -712,13 +710,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return event.ska_kezhi&&player.countCards("he");
 				},
 				content:function(){
+					var card=Object.assign({},trigger.card);
+					delete card.isCard;
 					var next=player.chooseToUse("###"+get.prompt("ska_kezhi")+"###你可以将一张牌当作"+get.translation(trigger.card)+"使用并失去1点体力",-1);
 					next.set("logSkill","ska_kezhi");
 					next.set("norestore",true);
 					next.set("_backupevent","ska_kezhix");
 					next.backup("ska_kezhix");
 					next.set("addCount",false);
-					next.set("cardx",trigger.card);
+					next.set("cardx",card);
 				},
 				group:["ska_kezhi_respond","ska_kezhi2"],
 				subSkill:{
@@ -732,7 +732,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						silent:true,
 						content:function(){
 							//game.log(trigger.getParent(3));
-							trigger.getParent("useCard").ska_kezhi=true;
+							trigger.getParent("useCard").set("ska_kezhi",true);
 						},
 						sub:true
 					}
@@ -1992,6 +1992,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 3"
 					if(result.targets&&result.targets.length){
+						player.line(result.targets,"green");
 						player.discardPlayerCard("向矢：弃置"+get.translation(result.targets[0])+"区域内的一张牌",result.targets[0],"hej",true);
 					}
 					else{
@@ -2078,7 +2079,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shubian_info:"出牌阶段限一次，你可以弃置任意张点数和等于13的牌，然后指定等量角色，你依次令其回复1点体力或受到你造成的1点伤害。",
 			ymk_qiuyi:"求艺",
 			ymk_qiuyi2:"求艺",
-			ymk_qiuyi_info:"每回合限一次，当一名角色使用的基本牌或普通锦囊牌（闪，无懈可击除外）结算完毕后，若其体力值或手牌数不小于你，你可以交给其一张牌并令其本回合手牌上限+1，然后你可以视为使用此牌。",
+			ymk_qiuyi_info:"每回合限一次，当一名角色使用的基本牌或普通锦囊牌（【闪】【无懈可击】除外）结算完毕后，若其体力值或手牌数不小于你，你可以交给其一张牌并令其本回合手牌上限+1，然后你可以视为使用此牌。",
 			ymk_xifang:"析方",
 			ymk_xifang_info:"每回合限一次，一名角色获得你的牌后，你可以观看其手牌，若其满足类别不同或颜色不同，你摸一张牌。",
 			ska_mengjin:"盟进",

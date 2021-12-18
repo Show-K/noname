@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.111SST3',
-	update:'1.9.111SST2',
+	version:'1.9.111SST4',
+	update:'1.9.111SST3',
 	changeLog:[
-		'（实验）重铸 翻面 慢慢龟',
+		'（实验）九至十七人局',
 		'代码优化',
 		'bug修复',
 		'其他'

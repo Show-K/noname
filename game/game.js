@@ -1516,8 +1516,9 @@
 					cardback_style:{
 						name:'卡背样式',
 						intro:'设置背面朝上的卡牌的样式',
-						init:'ol',
+						init:'noname',
 						item:{
+							noname:'无名',
 							// wood:'木纹',
 							// music:'音乐',
 							official:'原版',
@@ -1592,6 +1593,7 @@
 									node.className='button character dashedmenubutton';
 									break;
 								}
+								case 'noname':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/noname.png');break;
 								case 'new':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/new.png');break;
 								case 'feicheng':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/feicheng.png');break;
 								case 'official':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/official.png');break;
@@ -2867,7 +2869,7 @@
 					},
 					cardtext_font:{
 						name:'卡牌字体',
-						init:'default',
+						init:'fzhtk',
 						unfrequent:true,
 						item:{},
 						textMenu:function(node,link){
@@ -2883,7 +2885,7 @@
 					},
 					global_font:{
 						name:'界面字体',
-						init:'default',
+						init:'fzhtk',
 						unfrequent:true,
 						item:{},
 						textMenu:function(node,link){
@@ -53161,8 +53163,8 @@
 							}
 						}
 						if(lib.card[name].yingbian_prompt&&get.is.yingbian(node.link||node)){
-							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: fzhtk">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
-							else uiintro.add('<div class="text" style="font-family: fzhtk">应变：'+lib.card[name].yingbian_prompt+'</div>');
+							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: fzktk">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
+							else uiintro.add('<div class="text" style="font-family: fzktk">应变：'+lib.card[name].yingbian_prompt+'</div>');
 						}
 						if(lib.translate[name+'_append']){
 							uiintro.add('<div class="text" style="display:inline">'+lib.translate[name+'_append']+'</div>');
