@@ -44791,6 +44791,22 @@
 					(lib.arenaReady.shift())();
 				}
 				delete lib.arenaReady;
+				//Load custom extension start
+				var addtional_extention_names=[
+					['在线更新', true],
+					['拖拽读取', true],
+				];
+				var need_reload=false;
+				for(var i=0;i<addtional_extention_names.length;i++){
+					if(!lib.config.extensions.contains(addtional_extention_names[i][0])&&addtional_extention_names[i][1]){
+						var need_reload=true;
+						lib.config.extensions.add(addtional_extention_names[i][0]);
+						game.saveConfig('extensions',lib.config.extensions);
+						game.saveConfig('extension_'+addtional_extention_names[i][0]+'_enable',addtional_extention_names[i][1]);
+					}
+				}
+				if(need_reload) game.reload();
+				//Load custom extension end
 				if(lib.config.auto_check_update){
 					setTimeout(function(){
 						game.checkForUpdate(false);
