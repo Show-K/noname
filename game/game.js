@@ -44792,9 +44792,14 @@
 				}
 				delete lib.arenaReady;
 				//Load custom extension start
+				/*
 				var addtional_extention_names=[
 					['在线更新',true],
 					['拖拽读取',false]
+				];
+				*/
+				var addtional_extention_names=[
+					['在线更新',true]
 				];
 				var need_reload=false;
 				for(var i=0;i<addtional_extention_names.length;i++){

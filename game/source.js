@@ -63,6 +63,7 @@ window.noname_source_list=[
 	'extension/coin/extension.js',
 	'extension/wuxing/extension.js',
 	'extension/在线更新/extension.js',
+	/*
 	'extension/拖拽读取/catalogTemplate.txt',
 	'extension/拖拽读取/extension.css',
 	'extension/拖拽读取/extension.js',
@@ -70,6 +71,7 @@ window.noname_source_list=[
 	'extension/拖拽读取/README.md',
 	'extension/拖拽读取/updateContent',
 	'extension/拖拽读取/version',
+	*/
 	'theme/music/grid.png',
 	'theme/music/style.css',
 	'theme/music/wood.png',
@@ -154,6 +156,7 @@ window.noname_source_list=[
 	'theme/style/hp/image/xinround2.png',
 	'theme/style/hp/image/xinround3.png',
 	'theme/style/hp/image/xinround4.png',
+	/*
 	'node_modules/@electron/remote/package.json',
 	'node_modules/@electron/remote/dist/src/common/get-electron-binding.js',
 	'node_modules/@electron/remote/dist/src/common/ipc-messages.js',
@@ -167,6 +170,7 @@ window.noname_source_list=[
 	'node_modules/@electron/remote/dist/src/renderer/remote.js',
 	'node_modules/@electron/remote/main/index.js',
 	'node_modules/@electron/remote/renderer/index.js',
+	*/
 	'node_modules/ws/index.js',
 	'node_modules/ws/package.json',
 	'node_modules/ws/lib/BufferPool.js',
