@@ -5468,6 +5468,12 @@
 							'5':'5人',
 						}
 					},
+					connect_change_card:{
+						name:'启用手气卡',
+						init:false,
+						frequent:true,
+						restart:true,
+					},
 					// connect_ban_weak:{
 					// 	name:'屏蔽弱将',
 					// 	init:true,
@@ -5708,6 +5714,16 @@
 							}
 						},
 						frequent:true,
+					},
+					change_card:{
+						name:'开启手气卡',
+						init:'disabled',
+						item:{
+							disabled:'禁用',
+							once:'一次',
+							twice:'两次',
+							unlimited:'无限',
+						},
 					},
 					double_character_jiange:{
 						name:'双将模式',
