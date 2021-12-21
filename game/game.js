@@ -44815,7 +44815,8 @@
 				];
 				*/
 				var addtional_extention_names=[
-					['在线更新',true]
+					['在线更新',true],
+					['十周年UI',true]
 				];
 				var need_reload=false;
 				for(var i=0;i<addtional_extention_names.length;i++){

@@ -62,7 +62,9 @@ window.noname_source_list=[
 	'extension/cardpile/extension.js',
 	'extension/coin/extension.js',
 	'extension/wuxing/extension.js',
+	//Online Update
 	'extension/在线更新/extension.js',
+	//Drag Read
 	/*
 	'extension/拖拽读取/catalogTemplate.txt',
 	'extension/拖拽读取/extension.css',
@@ -72,6 +74,28 @@ window.noname_source_list=[
 	'extension/拖拽读取/updateContent',
 	'extension/拖拽读取/version',
 	*/
+	//Decade UI
+	'extension/十周年UI/animation.css',
+	'extension/十周年UI/animation.js',
+	'extension/十周年UI/card.css',
+	'extension/十周年UI/component.css',
+	'extension/十周年UI/component.js',
+	'extension/十周年UI/content.js',
+	'extension/十周年UI/decadeLayout.css',
+	'extension/十周年UI/dialog.css',
+	'extension/十周年UI/dynamicSkin.js',
+	'extension/十周年UI/dynamicWorker.js',
+	'extension/十周年UI/effect.css',
+	'extension/十周年UI/effect.js',
+	'extension/十周年UI/equip.css',
+	'extension/十周年UI/eruda.js',
+	'extension/十周年UI/extension.js',
+	'extension/十周年UI/font.css',
+	'extension/十周年UI/icon.css',
+	'extension/十周年UI/layout.css',
+	'extension/十周年UI/player.css',
+	'extension/十周年UI/skill.js',
+	'extension/十周年UI/spine.js',
 	'theme/music/grid.png',
 	'theme/music/style.css',
 	'theme/music/wood.png',
