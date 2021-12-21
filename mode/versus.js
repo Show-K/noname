@@ -353,7 +353,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				if(_status.mode=='1v1'){
 					_status.first_less=true;
 					game.gameDraw(_status.firstChoose.next);
-					if(_status.connectMode&&lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
+					if(lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
 					game.phaseLoop(_status.firstChoose.next);
 				}
 				else if(_status.mode=='2v2'||_status.mode=='3v3'){
@@ -368,7 +368,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						}
 						return 4;
 					});
-					if(_status.connectMode&&lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
+					if(lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
 					game.phaseLoop(firstChoose);
 				}
 				else if(_status.mode=='guandu'){

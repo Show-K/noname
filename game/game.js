@@ -5445,7 +5445,7 @@
 					},
 					connect_choice_num:{
 						name:'侯选武将数',
-						init:'20',
+						init:'40',
 						frequent:true,
 						item:{
 							'12':'12人',
@@ -5457,7 +5457,7 @@
 					},
 					connect_replace_number:{
 						name:'替补人数',
-						init:'2',
+						init:'0',
 						frequent:true,
 						item:{
 							'0':'无',
