@@ -1050,7 +1050,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					player.chooseUseTarget("求艺：使用"+get.translation(trigger.card),trigger.card,true,false);
+					player.chooseUseTarget("求艺：使用"+get.translation(trigger.card),trigger.card,false);
 				}
 			},
 			ymk_qiuyi2:{

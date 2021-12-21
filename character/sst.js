@@ -7670,6 +7670,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoSpecial(player.storage.sst_qichang,false);
 					player.storage.sst_qichang.delete();
 					delete player.storage.sst_qichang;
+					player.update();
 				}
 			},
 			sst_qichang4:{
@@ -7687,6 +7688,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoSpecial(player.storage.sst_qichang,false);
 					player.storage.sst_qichang.delete();
 					delete player.storage.sst_qichang;
+					player.update();
 				}
 			},
 			sst_shizhu:{
