@@ -216,7 +216,7 @@
 					},
 					enable_touchdragline:{
 						name:'拖拽指示线',
-						init:false,
+						init:true,
 						unfrequent:true,
 						intro:'拖拽时显示虚线，可能降低游戏速度',
 					},
