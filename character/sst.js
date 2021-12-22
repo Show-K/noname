@@ -1,5 +1,6 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
+	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst={
 		name:"sst",//武将包命名（必填）
 		connect:true,//该武将包是否可以联机（必填）
@@ -4964,7 +4965,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			//K. Rool
+			//King K. Rool
 			sst_badao:{
 				trigger:{player:"phaseZhunbeiBegin"},
 				filter:function(event,player){
@@ -6395,7 +6396,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{global:"gameStart"},
 			},
 			*/
-			//Kyuukou
+			//c
 			sst_jianxiang:{
 				trigger:{player:"phaseJieshuAfter"},
 				forced:true,
@@ -8482,7 +8483,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return event.skill=="sst_shenbi";
 				},
-				true:true,
+				forced:true,
 				content:function(){
 					"step 0"
 					if(player.storage.sst_shenbi.length){
@@ -9638,7 +9639,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.card.delete();
 				}
 			},
-			//Dedede
+			//King Dedede
 			sst_baoshi:{
 				trigger:{player:"useCardEnd"},
 				forced:true,
@@ -10348,12 +10349,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						if(event.used){
 							event.used=false;
-							event.goto(0);
+							player.chooseBool("破围：是否继续？").set("frequentSkill","sst_powei");
+						}
+						else{
+							event.finish();
 						}
 					}
+					"step 6"
+					if(result.bool) event.goto(0);
 				}
 			},
-			//mii Fighters
+			//Mii Fighters
 			sst_bianshe:{
 				derivation:["sst_miquan","sst_mijian","sst_miqiang"],
 				trigger:{global:"roundStart"},
@@ -12204,7 +12210,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_byleth_male:["sst_byleth_male","sst_byleth_female"],
 		},//武将替换
 		*/
-		translate: {
+		translate:{
 			//士兵
 			shibing1sst_light:"士兵",
 			shibing2sst_light:"士兵",
@@ -12752,7 +12758,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiaoqi4:"巧器",
 			sst_qiaoqi5:"巧器·流马",
 			sst_qiaoqi6:"巧器·木牛流马",
-			sst_qiaoqi6_bg:"<span class=\"greentext\">辎</span>",
+			sst_qiaoqi6_bg:"<span class=\"bluetext\">辎</span>",
 			sst_qiaoqi_info:"出牌阶段限一次，你可以展示一张红色手牌并扣置于场上一张装备牌上，称为“辎”；有“辎”的装备牌视为拥有【木牛流马】的效果。",
 			sst_fumo:"附魔",
 			sst_fumo2:"附魔",
@@ -12819,6 +12825,113 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_dlc:"DLC",
 			sst_spirits:"命魂",
 			sst_players:"玩家"
+		},
+		translateEnglish:{
+			//Soldier
+			shibing1sst_light:"Soldier",
+			shibing2sst_light:"Soldier",
+			shibing1sst_darkness:"Soldier",
+			shibing2sst_darkness:"Soldier",
+			shibing1sst_spirit:"Soldier",
+			shibing2sst_spirit:"Soldier",
+			shibing1sst_reality:"Soldier",
+			shibing2sst_reality:"Soldier",
+			shibing1sst_smash:"Soldier",
+			shibing2sst_smash:"Soldier",
+			//Character
+			sst_mario:"Mario",
+			sst_link:"Link",
+			sst_yoshi:"Yoshi",
+			sst_wario:"Wario",
+			sst_villager:"Villager",
+			sst_zelda:"Zelda",
+			sst_ganondorf:"Ganondorf",
+			sst_dr_mario:"Dr. Mario",
+			sst_palutena:"Palutena",
+			sst_marth:"Marth",
+			sst_rosalina:"Rosalina",
+			sst_zero_suit_samus:"Zero Suit Samus",
+			sst_luigi:"Luigi",
+			sst_bowser:"Bowser",
+			sst_peach:"Peach",
+			sst_byleth_female:"Byleth (Female)",
+			sst_byleth_male:"Byleth (Male)",
+			sst_massy:"Massy",
+			sst_samus:"Samus",
+			sst_ridley:"Ridley",
+			sst_dark_samus:"Dark Samus",
+			sst_mr_game_watch:"Mr. Game & Watch",
+			sst_mario_not_mary:"mario not mary",
+			sst_yumikohimi:"Yumikohimi",
+			sst_haine:"Haine",
+			sst_terry:"Terry",
+			sst_simon:"Simon",
+			sst_incineroar:"Incineroar",
+			sst_greninja:"Greninja",
+			sst_kirby:"Kirby",
+			sst_king_k_rool:"King K. Rool",
+			sst_donkey_kong:"Donkey Kong",
+			sst_richter:"Richter",
+			sst_pokemon_trainer_red:"Red",
+			sst_isabelle:"Isabelle",
+			sst_chrom:"Chrom",
+			sst_daisy:"Daisy",
+			sst_meta_knight:"Meta Knight",
+			sst_little_mac:"Little Mac",
+			sst_lucina:"Lucina",
+			sst_oc:"OC",
+			sst_mr_8:"Mr. 8",
+			sst_dark_link:"Dark Link",
+			sst_kyuukou:"Kyuukou",
+			sst_windier:"Windier",
+			sst_rentianshu:"Rentianshu",
+			sst_srf:"Srf",
+			sst_bowser_jr:"Bowser Jr.",
+			sst_koopalings:"Koopalings",
+			sst_ryu:"Ryu",
+			sst_ken:"Ken",
+			sst_sans:"Sans",
+			sst_waluigi:"Waluigi",
+			sst_master_hand:"Master Hand",
+			sst_ike:"Ike",
+			sst_sheik:"Sheik",
+			sst_miumiu:"Miumiu",
+			sst_toon_link:"Toon Link",
+			sst_wolf:"Wolf",
+			sst_young_link:"Young Link",
+			sst_ocarina_of_time_link:"Ocarina of Time Link",
+			sst_spring_man:"Springman",
+			sst_joker:"Joker",
+			sst_rex:"Rex",
+			sst_cuphead_mugman:"Cuphead & Mugman",
+			sst_krystal:"Krystal",
+			sst_snake:"Snake",
+			sst_mega_man:"Mega Man",
+			sst_captain_falcon:"Captain Falcon",
+			sst_jigglypuff:"Jigglypuff",
+			sst_lucario:"Lucario",
+			sst_pichu:"Pichu",
+			sst_king_dedede:"King Dedede",
+			sst_corrin:"Corrin",
+			sst_corrin_male:"Corrin",
+			sst_corrin_female:"Corrin",
+			sst_steve:"Steve",
+			sst_ma:"Ma",
+			sst_feiji:"Feiji",
+			sst_sonic:"Sonic",
+			sst_hero:"Hero",
+			sst_fox:"Fox",
+			sst_mii_fighters:"Mii Fighters",
+			sst_alex:"Alex",
+			sst_min_min:"Min Min",
+			sst_pikachu:"Pikachu",
+			sst_falco:"Falco",
+			sst_pyra_mythra:"Pyra/Mythra",
+			sst_enderman:"Enderman",
+			sst_sephiroth:"Sephiroth",
+			sst_pokemon_trainer_blue:"Blue",
+			sst_kyo_kusanagi:"Kyo Kusanagi",
+			sst_geno:"Geno"
 		},
 		perfectPair:{
 			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi"],

@@ -111,7 +111,7 @@ window.noname_asset_list=[
 	'image/character/ska_bobby.png',
 	'image/character/ska_olivia.png',
 	'image/character/ymk_577.png',
-	'image/character/ska_xiaojie.png',
+	'image/character/ska_super_xiaojie.png',
 	'image/character/ymk_yumikohimi.png',
 	'image/character/ska_professor_toad.png',
 	'image/character/mnm_edelgard.png',

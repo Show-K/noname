@@ -1,5 +1,6 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
+	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_old={
 		name:"sst_old",//武将包命名（必填）
 		connect:true,//该武将包是否可以联机（必填）
@@ -722,6 +723,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_players:"玩家",
 			old_sst_ymk:"Yumikohimi",
 			*/
+		},
+		translateEnglish:{
+			old_sst_samus:"Old Samus",
+			old_sst_ken:"Old Ken",
+			old_ymk_claude:"Old Claude",
+			old_sst_donkey_kong:"Old Donkey Kong"
 		},
 		perfectPair:{
             old_sst_ken:["sst_ryu"],

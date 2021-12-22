@@ -48,7 +48,7 @@ window.noname_character_rank={
 			"sst_master_hand",
 			"ymk_577",
 			"sst_miumiu",
-			"ska_xiaojie",
+			"ska_super_xiaojie",
 			"sst_spring_man",
 			"sst_joker",
 			"sst_captain_falcon",

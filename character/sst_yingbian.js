@@ -1,5 +1,6 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
+	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_yingbian={
 		name:"sst_yingbian",//武将包命名（必填）
 		connect:true,//该武将包是否可以联机（必填）
@@ -181,6 +182,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou5:"鬼谋",
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。"
 			//武将分类
+		},
+		translateEnglish:{
+			sst_claude:"Claude"
 		},
 		perfectPair:{
 			sst_claude:["sst_byleth_male","sst_byleth_female"]

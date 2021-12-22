@@ -10571,6 +10571,7 @@
 			group_sst_reality_bg:'现',
 			group_sst_smash_bg:'斗',
 		},
+		translateEnglish:{},
 		element:{
 			content:{
 				emptyEvent:function(){

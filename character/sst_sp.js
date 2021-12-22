@@ -1,5 +1,6 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
+	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_sp={
 		name:"sst_sp",//武将包命名（必填）
 		connect:true,//该武将包是否可以联机（必填）
@@ -7,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard","mnm_captain_falcon"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:[],
 				sst_alz:["alz_kyo_kusanagi"]
 			}
@@ -20,7 +21,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_wangshi","ska_yangxun"],[]],
 			ska_olivia:["female","sst_spirit",3,["ska_shenqi","ska_zhefu"],[]],
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
-			ska_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
+			ska_super_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
 			//ska_show_k:["male","sst_reality",3,["ska_lunli","ska_shubian"],[]],
 			ymk_yumikohimi:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
 			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
@@ -83,7 +84,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:"武将作者：Yumikohimi<br>"+
 			"--------------------------------<br>"+
 			"柚子设计的577，估计又要偏强……意外的还行？",
-			ska_xiaojie:"武将作者：Show-K<br>"+
+			ska_super_xiaojie:"武将作者：Show-K<br>"+
 			"--------------------------------<br>"+
 			"喜欢没事说嬲，但更喜欢不放弃。",
 			ska_show_k:"武将作者：Show-K<br>"+
@@ -152,7 +153,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bobby:"枫海思忆",
 			ska_olivia:"折纸赋情",
 			ymk_577:"生电妙手",
-			ska_xiaojie:"永不言弃",
+			ska_super_xiaojie:"永不言弃",
 			ska_show_k:"灵跃文理",
 			ymk_yumikohimi:"新厨明灶",
 			ska_bowser:"联挚之火",
@@ -270,6 +271,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			//Bobby
 			ska_jixing:{
 				enable:"phaseUse",
 				usable:1,
@@ -413,6 +415,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			//Olivia
 			ska_shenqi:{
 				audio:2,
 				trigger:{global:["roundStart","damageEnd"]},
@@ -439,68 +442,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				group:"ska_shenqi2"
 			},
-			/*
-			old_ska_shenqi2:{
-				enable:"phaseUse",
-				filter:function(event,player){
-					return player.storage.ska_shenqi&&player.storage.ska_shenqi.length>0;
-				},
-				chooseButton:{
-					dialog:function(event,player){
-						return ui.create.dialog("神祇",player.storage.ska_shenqi,"hidden")
-					},
-					select:[1,Infinity],
-					backup:function(links,player){
-						return {
-							filterCard:function(){return false;},
-							selectCard:-1,
-							cards:links,
-							delay:false,
-							content:lib.skill.ska_shenqi2.contentx,
-							ai:{
-								order:10,
-								result:{
-									player:function(player,target){
-										return 1;
-									}
-								},
-							},
-						}
-					},
-					//prompt:function(){return "请选择〖排异〗的目标"},
-				},
-				contentx:function(){
-					"step 0"
-					var cards=lib.skill.ska_shenqi2_backup.cards;
-					game.cardsDiscard(cards);
-					player.$throw(cards);
-					for(var i=0;i<cards.length;i++){
-						player.storage.ska_shenqi.remove(cards[i]);
-					}
-					game.log(cards,"进入了弃牌堆");
-					if(!player.storage.ska_shenqi.length){
-						player.unmarkSkill("ska_shenqi");
-					}
-					else{
-						player.markSkill("ska_shenqi");
-					}
-					player.syncStorage("ska_shenqi");
-					event.cards=cards;
-					"step 1"
-					player.draw(event.cards.length);
-				},
-				ai:{
-					order:1,
-					result:{
-						player:function(player,target){
-							var num=player.getStat("skill").ska_shenqi2||0;
-							num++;
-							return 2/num;
-						},
-					},
-				},
-			},
-			*/
 			ska_shenqi2:{
 				trigger:{player:"useCard"},
 				filter:function(event,player){
@@ -703,6 +644,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.phaseDraw();
 				}
 			},
+			//Super Xiaojie
 			ska_kezhi:{
 				trigger:{player:"useCardAfter"},
 				direct:true,
@@ -712,8 +654,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					var card=Object.assign({},trigger.card);
 					delete card.isCard;
-					var next=player.chooseToUse("###"+get.prompt("ska_kezhi")+"###你可以将一张牌当作"+get.translation(trigger.card)+"使用并失去1点体力",-1);
+					var next=player.chooseToUse();
 					next.set("logSkill","ska_kezhi");
+					next.set("prompt",get.prompt("ska_kezhi"));
+					next.set("prompt2","你可以将一张牌当作"+get.translation(trigger.card)+"使用并失去1点体力");
 					next.set("norestore",true);
 					next.set("_backupevent","ska_kezhix");
 					next.backup("ska_kezhix");
@@ -744,12 +688,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return _status.event.cardx;
 				},
 				filterCard:true,
+				/*
 				filterTarget:function(){
 					return lib.filter.filterTarget.apply(this,arguments);
 				},
 				selectTarget:function(){
 					return lib.filter.selectTarget.apply(this,arguments);
 				},
+				*/
 				position:"he",
 				check:function(card){return 5-get.value(card)},
 				onuse:function(result,player){
@@ -1024,6 +970,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			//Yumikohimi
 			ymk_qiuyi:{
 				trigger:{global:"useCardAfter"},
 				direct:true,
@@ -1177,6 +1124,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			//Professor Toad
 			ska_juegu:{
 				group:["ska_juegu_sha","ska_juegu_shan"],
 				subSkill:{
@@ -1832,6 +1780,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			*/
+			//King Olly
 			ska_zhesheng:{
 				enable:"phaseUse",
 				usable:1,
@@ -1923,6 +1872,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					trigger.directHit.addArray(game.players);
 				}
 			},
+			//Koopa Troopa
 			ska_suixuan:{
 				forced:true,
 				trigger:{player:"damageEnd"},
@@ -2020,13 +1970,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
 		},//武将替换
 		*/
-		translate: {
+		translate:{
 			//武将
 			ymk_isabelle:"SP西施惠",
 			ska_bobby:"炸弹彬",
 			ska_olivia:"奥莉维亚",
 			ymk_577:"方块君",
-			ska_xiaojie:"小桀",
+			ska_super_xiaojie:"超级小桀",
 			ska_show_k:"小溪",
 			ymk_yumikohimi:"SP柚子",
 			ska_bowser:"☆SP酷霸王",
@@ -2117,11 +2067,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_nnk:"南柯",
 			sst_alz:"Axel_Zhai"
 		},
+		translateEnglish:{
+			//Character
+			ymk_isabelle:"SP Isabelle",
+			ska_bobby:"Bobby",
+			ska_olivia:"Olivia",
+			ymk_577:"577",
+			ska_super_xiaojie:"Super Xiaojie",
+			ska_show_k:"Show-K",
+			ymk_yumikohimi:"SP Yumikohimi",
+			ska_bowser:"☆SP Bowser",
+			ska_professor_toad:"Professor Toad",
+			mnm_edelgard:"Edelgard",
+			alz_kyo_kusanagi:"SP Kyo Kusanagi",
+			mnm_captain_falcon:"SP Captain Falcon",
+			ska_king_olly:"King Olly",
+			ska_koopa_troopa:"Koopa Troopa"
+		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
 			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
 			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad","ska_king_olly"],
-			ska_xiaojie:["sst_mario","sst_luigi"],
+			ska_super_xiaojie:["sst_mario","sst_luigi"],
 			ska_king_olly:["sst_mario"],
 			ska_koopa_troopa:["sst_mario"]
 		}//珠联璧合武将（选填）
