@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.111SST4',
-	update:'1.9.111SST3',
+	version:'1.9.111SST5',
+	update:'1.9.111SST4',
 	changeLog:[
-		'（实验）九至十七人局',
+		'（实验）内置扩展',
 		'代码优化',
 		'bug修复',
 		'其他'

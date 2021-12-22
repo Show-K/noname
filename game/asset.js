@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.111SST4',
+	'v1.9.111SST5',
 	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -1872,12 +1872,6 @@ window.noname_asset_list=[
 	'extension/十周年UI/assets/dynamic/skin_zhugeguo_LanHeAiLian.png',
 	'extension/十周年UI/assets/dynamic/skin_zhugeguo_LanHeAiLian.skel',
 	'extension/十周年UI/assets/dynamic/skin_zhugeguo_LanHeAiLian_bg.png',
-	'extension/十周年UI/assets/dynamic/skin_zhugeguo_XianChiQiWu.atlas',
-	'extension/十周年UI/assets/dynamic/skin_zhugeguo_XianChiQiWu.png',
-	'extension/十周年UI/assets/dynamic/skin_zhugeguo_XianChiQiWu.skel',
-	'extension/十周年UI/assets/dynamic/skin_zhugeguo_XianChiQiWu2.png',
-	'extension/十周年UI/assets/dynamic/skin_zhugeguo_XianChiQiWu3.png',
-	'extension/十周年UI/assets/dynamic/skin_zhugeguo_XianChiQiWu_bg.png',
 	'extension/十周年UI/assets/dynamic/skin_zhugeguo_YingZhuangSuGuo.atlas',
 	'extension/十周年UI/assets/dynamic/skin_zhugeguo_YingZhuangSuGuo.png',
 	'extension/十周年UI/assets/dynamic/skin_zhugeguo_YingZhuangSuGuo.skel',
