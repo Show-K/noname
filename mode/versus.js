@@ -30,6 +30,59 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		},
 		start:function(){
 			"step 0"
+			if(get.config('realtime')){
+				if(!window.pinyin_dict_notone) require("./game/pinyin_dict_notone.js");
+				if(!window.pinyin_dict_polyphone) require("./game/pinyin_dict_polyphone.js");
+				if(!window.pinyinUtil) require("./game/pinyinUtil.js");
+				lib.element.content.phaseLoop=lib.element.content.phaseLoopRealtime;
+				lib.element.content.phase=lib.element.content.phaseRealtime;
+				lib.element.content.phaseDraw=lib.element.content.phaseDrawRealtime;
+				lib.element.content.phaseUse=lib.element.content.phaseUseRealtime;
+				lib.element.content.phaseDiscard=lib.element.content.phaseDiscardRealtime;
+				lib.element.player.phase=lib.element.player.phaseRealtime;
+				lib.element.player.phaseDraw=lib.element.player.phaseDrawRealtime;
+				lib.element.player.phaseUse=lib.element.player.phaseUseRealtime;
+				lib.element.player.phaseDiscard=lib.element.player.phaseDiscardRealtime;
+				lib.skill._turnover={
+					trigger:{player:"phaseBefore"},
+					forced:true,
+					priority:100,
+					popup:false,
+					firstDo:true,
+					content:function(){
+						// for(var i=0;i<game.players.length;i++){
+						// 	game.players[i].in();
+						// }
+						if(player.isTurnedOver()){
+							trigger.cancel();
+							player.turnOver();
+							player.phaseSkipped=true;
+						}
+						else{
+							player.phaseSkipped=false;
+						}
+						var players=game.players.slice(0)
+						if(_status.roundStart) players.sortBySeat(_status.roundStart);
+						var positionPlayer=players.indexOf(player);
+						var positionPhasePrevious=players.indexOf(_status.phasePrevious);
+						if(((!_status.phasePrevious)||(positionPlayer!=-1&&positionPhasePrevious!=-1&&positionPlayer<=positionPhasePrevious)||_status.roundSkipped)&&!trigger.skill){
+							delete _status.roundSkipped;
+							game.roundNumber++;
+							trigger._roundStart=true;
+							game.updateRoundNumber();
+							for(var i=0;i<game.players.length;i++){
+								if(game.players[i].isOut()&&game.players[i].outCount>0){
+									game.players[i].outCount--;
+									if(game.players[i].outCount==0&&!game.players[i].outSkills){
+										game.players[i].in();
+									}
+								}
+							}
+							event.trigger("roundStart");
+						}
+					}
+				};
+			}
 			_status.mode=get.config('versus_mode');
 			if(_status.connectMode) _status.mode=lib.configOL.versus_mode;
 			if(_status.brawl&&_status.brawl.submode){

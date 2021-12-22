@@ -3245,7 +3245,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
 					//return !player.getStat("damage");
-					var history=player.getHistory("damageSource").length;
+					var history=player.getHistory("damageSource");
 					return !history||!history.length;
 				},
 				forced:true,
