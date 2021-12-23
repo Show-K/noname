@@ -12151,7 +12151,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					str+="。";
 				}
 				else{
-					str+="，然后选择你未选择过的一项：";
+					str+="，此时选择你未选择过的一项：";
 					for(var i=0;i<player.storage.sst_shenbi_ready.length;i++){
 						switch(player.storage.sst_shenbi_ready[i]){
 							case "下一张【杀】伤害+1":{
