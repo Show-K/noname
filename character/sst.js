@@ -2124,7 +2124,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.group=group;
 					"step 2"
 					var name=event.toChange;
-					game.log(trigger.player,"将武将变更为","#g"+get.translation(name));
+					game.log(trigger.player,"将武将变更为","#b"+get.translation(name));
 					trigger.player.reinit(trigger.player.name,name);
 					if(event.group!="shen") trigger.player.changeGroup(event.group,false);
 					//player.update();
@@ -2548,7 +2548,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(result.targets&&result.targets.length){
 						event.request=result.targets[0];
-						game.log(player,"请求",event.request,"发动","#g【驭军】","（对",trigger.targets,"）");
+						game.log(player,"请求",event.request,"发动技能","#g【驭军】","（对",trigger.targets,"）");
 						player.line(event.request,"green");
 						event.request.chooseControl("允许","拒绝").set("prompt","是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(trigger.targets)+"使用？").set("ai",function(){
 							var player=_status.event.player;
@@ -3256,7 +3256,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.storage.sst_shenfa1){
 						if(!player.storage.sst_shenfa2){
 							player.loseMaxHp();
-							game.log(player,"升级了","#g【神罚】");
+							game.log(player,"升级了技能","#g【神罚】");
 							player.popup("技能升级");
 							/*
 							game.broadcastAll(function(){
@@ -3268,7 +3268,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					else{
 						player.loseMaxHp();
-						game.log(player,"升级了","#g【神罚】");
+						game.log(player,"升级了技能","#g【神罚】");
 						player.popup("技能升级");
 						/*
 						game.broadcastAll(function(){
@@ -3364,7 +3364,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								break;
 							}
 						}
-						game.log(player,"更改了","#g【绝战】","的描述");
+						game.log(player,"更改了技能","#g【绝战】","的描述");
 						player.popup("更改描述");
 					}
 				},
@@ -4002,7 +4002,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				//priority:3,
 				content:function(){
 					player.gainMaxHp();
-					game.log(player,"更改了","#g【奇嚣】","的描述");
+					game.log(player,"更改了技能","#g【奇嚣】","的描述");
 					player.popup("更改描述");
 					player.storage.sst_qixiao=true;
 					player.markSkill("sst_qixiao");
@@ -7351,7 +7351,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						var stat=player.getStat().skill;
 						if(stat["sst_zhamou"]) stat["sst_zhamou"]=0;
-						game.log(player,"令","#g【"+get.translation("sst_zhamou")+"】","视为此出牌阶段未发动过");
+						game.log(player,"令技能","#g【诈谋】","视为此出牌阶段未发动过");
 					}
 				},
 				ai:{
@@ -8072,7 +8072,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return event.getParent(2).name=="sst_shishi"&&!game.cardCausedDamage(event.card);
 				},
 				content:function(){
-					game.log(player,"将武将变更为","#g"+get.translation("sst_ocarina_of_time_link"));
+					game.log(player,"将武将变更为","#b"+get.translation("sst_ocarina_of_time_link"));
 					player.reinit(player.name,"sst_ocarina_of_time_link");
 					player.changeGroup("sst_light",false);
 				}
@@ -8400,7 +8400,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				content:function(){
-					game.log(player,"将武将变更为","#g"+get.translation("sst_young_link"));
+					game.log(player,"将武将变更为","#b"+get.translation("sst_young_link"));
 					player.reinit(player.name,"sst_young_link");
 					player.changeGroup("sst_darkness",false);
 				}
@@ -8481,7 +8481,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenbi2:{
 				trigger:{player:["useCard","respond"]},
 				filter:function(event,player){
-					return event.skill=="sst_shenbi";
+					return event.skill=="sst_shenbi"&&player.storage.sst_shenbi_ready.length;
 				},
 				forced:true,
 				content:function(){
@@ -8516,7 +8516,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(!player.storage.sst_shenbi.length||Math.max(0,player.hp)==1){
-						player.storage.sst_shenbi.addArray(player.storage.sst_shenbi_ready);
+						player.storage.sst_shenbi=player.storage.sst_shenbi_ready.slice(0);
+						game.log(player,"重置了技能","#g【神臂】");
 					}
 				}
 			},
@@ -9018,7 +9019,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.current=result.targets[0];
 						player.line(event.current,"green");
-						game.log(player,"请求",event.current,"打出一张","#y"+get.translation(event.card_name),"（发动","#g【聊依】","）");
+						game.log(player,"请求",event.current,"打出一张","#y"+get.translation(event.card_name),"（发动技能","#g【聊依】","）");
 						var next=event.current.chooseToRespond("是否替"+get.translation(player)+"打出一张【"+get.translation(event.card_name)+"】？",{name:event.card_name});
 						next.set("ai",function(){
 							var event=_status.event;
@@ -11667,14 +11668,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.storage.sst_fenshi[0]&&!event.targets.contains(player)){
 						player.storage.sst_fenshi[0]=false;
 						player.loseMaxHp();
-						game.log(player,"更改了","#g【焚世】","的描述");
+						game.log(player,"更改了技能","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
 					"step 5"
 					if(player.storage.sst_fenshi[1]&&event.targets.length>1&&event.targets[0]==event.targets[1]){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
-						game.log(player,"更改了","#g【焚世】","的描述");
+						game.log(player,"更改了技能","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
 				},
