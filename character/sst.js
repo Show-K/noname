@@ -7147,7 +7147,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Sans
 			sst_juexin:{
-				trigger:{player:["damageBegin4","loseHpBefore"]},
+				trigger:{player:"changeHpBefore"},
+				filter:function(event,player){
+					return event.num<0;
+				},
 				forced:true,
 				content:function(){
 					trigger.cancel();
@@ -7241,7 +7244,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				logTarget:"player",
 				content:function(){
 					"step 0"
-					if(!trigger.player.isDead()&&(player.countCards("he")||trigger.player.countCards("he"))){
+					if(trigger.player.isAlive()&&(player.countCards("he")||trigger.player.countCards("he"))){
 						var target=trigger.player;
 						var cards=player.getCards("he").concat(target.getCards("he"));
 						var card=cards[0];
@@ -12600,7 +12603,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenglong:"升龙",
 			sst_shenglong_info:"锁定技，与你距离最近的角色不能响应你使用的牌。",
 			sst_juexin:"决心",
-			sst_juexin_info:"锁定技，你不能受到伤害或失去体力。",
+			sst_juexin_info:"锁定技，你的体力不会减少。",
 			sst_yebao:"业报",
 			sst_yebao2:"业报",
 			sst_yebao3:"业报",
