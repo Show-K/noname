@@ -632,7 +632,6 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.removeMark(player.hasMark('xianqu_mark')?'xianqu_mark':'yexinjia_mark',1);
-					event.trigger("xianqu_mark");
 					var num=4-player.countCards('h');
 					if(num) player.draw(num);
 					"step 1"
@@ -1366,7 +1365,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){//trigger.source
 					var target=trigger.source;
 					target.addSkillLog("gz_sst_shengxi");
-				},
+				}
 			},
 			//国战技能
 			gz_sst_qixiao:{
@@ -1379,35 +1378,35 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					player.addMark("xianqu_mark",1);
 					//game.log(player,"获得了","#g【先驱】","标记");
 				},
-				group:["gz_sst_qixiao2","gz_sst_qixiao3","gz_sst_qixiao_clear"],
-				subSkill:{
-					clear:{
-						trigger:{player:"phaseAfter"},
-						silent:true,
-						content:function(){
-							delete player.storage.gz_sst_qixiao;
-						},
-					},
-				},
+				group:["gz_sst_qixiao2","gz_sst_qixiao3"]
 			},
 			gz_sst_qixiao2:{
-				trigger:{player:"xianqu_mark"},
+				trigger:{player:"_guozhan_marks_backupBegin"},
 				forced:true,
-				/*
 				filter:function(event,player){
-					return event.name=="xianqu_mark";
+					return get.translation(event.content).indexOf("xianqu_mark")!=-1;
 				},
-				*/
 				content:function(){
 					player.storage.gz_sst_qixiao=Math.min(4,player.countCards("h"));
+					var evt=event.getParent("phase");
+					if(evt&&evt.name=="phase"&&!evt.gz_sst_qixiao){
+						evt.set("gz_sst_qixiao",true);
+						var next=game.createEvent("gz_sst_qixiao_clear");
+						event.next.remove(next);
+						evt.after.push(next);
+						next.set("player",player);
+						next.setContent(function(){
+							delete player.storage.gz_sst_qixiao;
+						});
+					}
 				},
 				mod:{
 					maxHandcardBase:function(player,num){
 						if(typeof player.storage.gz_sst_qixiao=="number"){
 							return player.storage.gz_sst_qixiao;
 						}
-					},
-				},
+					}
+				}
 			},
 			gz_sst_qixiao3:{
 				trigger:{player:"phaseJieshuBegin"},
@@ -1417,10 +1416,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.loseHp();
-				},
+				}
 			},
-			gz_sst_zhongpao:{
-				trigger:{source:"damageEnd"},
+			sst_zhongpao:{
+				trigger:{source:"damageSource"},
 				forced:true,
 				logTarget:"player",
 				filter:function(event,player){
@@ -1428,12 +1427,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseToDiscard("重炮：弃置一张牌，否则失去一点体力","he");
+					player.chooseToDiscard("重炮：弃置一张牌，否则失去一点体力","he").set("ai",get.unuseful3);
 					"step 1"
-					if(!result.bool) player.loseHp();
+					if(!result.cards||!result.cards.length) player.loseHp();
 					"step 2"
 					if(trigger.player.isAlive()) trigger.player.damage(player);
-				},
+				}
 			},
 			sst_zhengshi:{
 				trigger:{player:"showCharacterAfter"},
@@ -1442,25 +1441,23 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					var list=game.filterPlayer(function(current){
 						return current.isFriendOf(player);
 					});
+					list.sortBySeat(player);
 					return list;
 				},
 				filter:function(event,player){
-					return event.toShow.contains("sst_yumikohimi")&&lib.skill.sst_zhengshi.logTarget(event,player)&&lib.skill.sst_zhengshi.logTarget(event,player).length;
+					var list=lib.skill.sst_zhengshi.logTarget(event,player);
+					return event.toShow.contains("gz_sst_yumikohimi")&&list&&list.length;
 				},
 				content:function(){
 					var list=lib.skill.sst_zhengshi.logTarget(trigger,player);
-					if(list&&list.length){
-						list.sort(lib.sort.seat);
-						player.line(list,"thunder");
-						for(var i=0;i<list.length;i++){
-							list[i].addMark("zhulianbihe_mark",1);
-						}
+					for(var i=0;i<list.length;i++){
+						list[i].addMark("zhulianbihe_mark",1);
 					}
-				},
+				}
 			},
 			sst_muyuan:{
 				global:"sst_muyuan2",
-				locked:true,
+				locked:true
 			},
 			sst_muyuan2:{
 				trigger:{player:"phaseDrawBegin2"},
@@ -1482,7 +1479,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						})) return 1;
 						var num=player.countMark("zhulianbihe_mark")+player.countMark("xianqu_mark");
 						return 1+num*0.2;
-					},
+					}
 				},
 				mod:{
 					cardUsable:function(card,player,num){
@@ -1492,8 +1489,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							var count=player.countMark("zhulianbihe_mark")+player.countMark("xianqu_mark");
 							return num+count;
 						}
-					},
-				},
+					}
+				}
 			},
 			/*
 			sst_zhulianbihe_skill:{
@@ -2181,7 +2178,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				trigger:{player:"showCharacterAfter"},
 				direct:true,
 				filter:function(event,player){
-					return event.toShow.contains("sst_kirby");
+					return event.toShow.contains("gz_sst_kirby");
 				},
 				content:function(){
 					"step 0"
@@ -3967,7 +3964,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_sst_qixiao3:"奇嚣",
 			gz_sst_qixiao_info:"锁定技，准备阶段，若你没有先驱标记，你获得一个先驱标记；你使用先驱标记时，将你本回合手牌上限改为X；结束阶段，若你有先驱标记，你失去一点体力。（X为使用先驱标记时你的手牌数且至多为4）",
 			sst_zhongpao:"重炮",
-			sst_zhongpao_info:"锁定技，你使用牌对一名角色造成伤害后，你须弃置一张牌或失去一点体力，然后对该角色造成一点伤害。",
+			sst_zhongpao_info:"锁定技，你使用牌对一名角色造成伤害后，你须弃置一张牌或失去1点体力，然后对该角色造成1点伤害。",
 			sst_zhengshi:"整势",
 			sst_zhengshi_info:"锁定技，当你明置此武将牌时，所有同势力角色获得一个珠联璧合标记。",
 			sst_muyuan:"睦援",
