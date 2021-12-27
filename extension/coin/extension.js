@@ -316,7 +316,7 @@ game.import('play',function(lib,game,ui,get,ai,_status){
 							emissionRate = 1,
 							minParticleSize = 2;
 
-						//-------------------------------------------------------
+						//-----------------------------------------------------
 						// Vectors, and not the kind you put stuff in
 						var Vector=function(x, y, z) {
 						  this.x = x || 0;

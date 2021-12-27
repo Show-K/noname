@@ -20893,7 +20893,7 @@
 					return next;
 				},
 				changeHp:function(num,popup){
-					var next=game.createEvent('changeHp',false);
+					var next=game.createEvent('changeHp');
 					next.num=num;
 					if(popup!=undefined) next.popup=popup;
 					next.player=this;
@@ -51569,6 +51569,9 @@
 			else if(str2.indexOf("酷霸王7人帮")==0){
 				str2="七人帮";
 			}
+			else if(str2.indexOf("Sans")==0){
+				str2="衫斯";
+			}
 			else if(str2.indexOf("卡通")==0){
 				str2=str2.slice(2);
 			}
@@ -51655,6 +51658,9 @@
 			else if(str2.indexOf("酷霸王7人帮")==0){
 				str2="七人帮";
 			}
+			else if(str2.indexOf("Sans")==0){
+				str2="衫斯";
+			}
 			else if(str2.indexOf("卡通")==0){
 				str2=str2.slice(2);
 			}
@@ -51740,6 +51746,9 @@
 			}
 			else if(str2.indexOf("酷霸王7人帮")==0){
 				str2="七人帮";
+			}
+			else if(str2.indexOf("Sans")==0){
+				str2="衫斯";
 			}
 			else if(str2.indexOf("卡通")==0){
 				str2=str2.slice(2);

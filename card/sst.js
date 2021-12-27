@@ -65,6 +65,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						return -1;
 					}
 				},
+				delay:false,
 				content:function(){
 					"step 0"
 					if(!player.storage.sst_aegises_skill){

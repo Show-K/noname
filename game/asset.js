@@ -105,6 +105,9 @@ window.noname_asset_list=[
 	'image/character/sst_pokemon_trainer_blue.png',
 	'image/character/sst_geno.png',
 	'image/character/sst_kyo_kusanagi.png',
+	'image/character/sst_pauline.png',
+	'image/character/sst_dr_wily.png',
+	'image/character/sst_9_volt_18_volt.png',
 
 	'image/character/sst_claude.png',
 	'image/character/ymk_isabelle.png',
