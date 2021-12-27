@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.111SST5',
-	update:'1.9.111SST4',
+	version:'1.9.111.1SST',
+	update:'1.9.111SST5',
 	changeLog:[
 		'（实验）内置扩展',
 		'代码优化',
@@ -17,7 +17,7 @@ window.noname_update={
 		'character/sst_old.js',
 		'card/extra.js',
 		//'card/gujian.js',
-		'card/guozhan.js',
+		//'card/guozhan.js',
 		//'card/gwent.js',
 		//'card/huanlekapai.js',
 		//'card/mtg.js',
