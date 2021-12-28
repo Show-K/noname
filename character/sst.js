@@ -12324,6 +12324,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var nearests=_status.event.nearests.slice(0);
 						var eff=0;
 						for(var i=0;i<nearests.length;i++){
+							if(!nearests[i].countGainableCards(target,"he")) continue;
 							var shunshou=function(player,target){
 								if(get.attitude(player,target)<=0) return (target.countCards("he",function(card){
 									return get.value(card,target)>0&&card!=target.getEquip("jinhe");
