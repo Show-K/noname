@@ -20893,7 +20893,7 @@
 					return next;
 				},
 				changeHp:function(num,popup){
-					var next=game.createEvent('changeHp');
+					var next=game.createEvent('changeHp',false);
 					next.num=num;
 					if(popup!=undefined) next.popup=popup;
 					next.player=this;
@@ -51584,7 +51584,7 @@
 			else if(str2.indexOf("Joker")==0){
 				str2="雨宫莲";
 			}
-			else if(str2.indexOf("茶杯头马克杯人")==0){
+			else if(str2.indexOf("茶杯头&马克杯人")==0){
 				str2="杯子兄弟";
 			}
 			else if(str2.indexOf("Snake")==0){
@@ -51607,6 +51607,9 @@
 			}
 			else if(str2.indexOf("奥利王")==0){
 				str2="奥利";
+			}
+			else if(str2.indexOf("九伏特&十八伏特")==0){
+				str2="九十八伏";
 			}
 			//New add end
 			return str2;
@@ -51673,7 +51676,7 @@
 			else if(str2.indexOf("Joker")==0){
 				str2="雨宫莲";
 			}
-			else if(str2.indexOf("茶杯头马克杯人")==0){
+			else if(str2.indexOf("茶杯头&马克杯人")==0){
 				str2="杯子兄弟";
 			}
 			else if(str2.indexOf("Snake")==0){
@@ -51696,6 +51699,9 @@
 			}
 			else if(str2.indexOf("奥利王")==0){
 				str2="奥利";
+			}
+			else if(str2.indexOf("九伏特&十八伏特")==0){
+				str2="九十八伏";
 			}
 			//New add end
 			return str2;
@@ -51762,7 +51768,7 @@
 			else if(str2.indexOf("Joker")==0){
 				str2="雨宫莲";
 			}
-			else if(str2.indexOf("茶杯头马克杯人")==0){
+			else if(str2.indexOf("茶杯头&马克杯人")==0){
 				str2="杯子兄弟";
 			}
 			else if(str2.indexOf("Snake")==0){
@@ -51785,6 +51791,9 @@
 			}
 			else if(str2.indexOf("奥利王")==0){
 				str2="奥利";
+			}
+			else if(str2.indexOf("九伏特&十八伏特")==0){
+				str2="九十八伏";
 			}
 			//New add end
 			return get.verticalStr(str2,true);

@@ -70,7 +70,9 @@ window.noname_character_rank={
 			"sst_donkey_kong",
 			"mnm_edelgard",
 			"sst_kyo_kusanagi",
-			"ska_king_olly"
+			"ska_king_olly",
+			"sst_dr_wily",
+			"sst_9_volt_18_volt"
 		],
 		rare:[
 			"sst_mario",
@@ -127,7 +129,8 @@ window.noname_character_rank={
 			"sst_claude",
 			"alz_kyo_kusanagi",
 			"ska_koopa_troopa",
-			"sst_krystal"
+			"sst_krystal",
+			"sst_pauline"
 		],
 		junk:[
 			"sst_yoshi",
