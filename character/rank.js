@@ -72,7 +72,8 @@ window.noname_character_rank={
 			"sst_kyo_kusanagi",
 			"ska_king_olly",
 			"sst_dr_wily",
-			"sst_9_volt_18_volt"
+			"sst_9_volt_18_volt",
+			"ska_show_k"
 		],
 		rare:[
 			"sst_mario",

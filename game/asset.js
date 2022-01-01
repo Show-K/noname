@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.111.1SST',
+	'v1.9.111.1SST2',
 	//New add
 	'image/character/shibing1sst_light.png',
 	'image/character/shibing2sst_light.png',
@@ -115,6 +115,7 @@ window.noname_asset_list=[
 	'image/character/ska_olivia.png',
 	'image/character/ymk_577.png',
 	'image/character/ska_super_xiaojie.png',
+	'image/character/ska_show_k.png',
 	'image/character/ymk_yumikohimi.png',
 	'image/character/ska_professor_toad.png',
 	'image/character/mnm_edelgard.png',

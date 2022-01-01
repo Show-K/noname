@@ -1267,8 +1267,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ruleSkill:true,
 				silent:true,
 				content:function(){
-					if(!_status.sst_judge_count) _status.sst_judge_count=0;
-					_status.sst_judge_count++;
+					if(!_status.sstJudgeCount) _status.sstJudgeCount=0;
+					_status.sstJudgeCount++;
 				}
 			},
 			//标准技能
@@ -1316,7 +1316,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_qingyongx:{
 				viewAs:{name:"sha"},
-				filterCard:true,
+				filterCard:function(card){
+					return get.itemtype(card)=="card";
+				},
 				position:"hes",
 				check:function(card){return 5-get.value(card);}
 			},
@@ -3165,10 +3167,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					result:{
 						target:function(player,target){
+							if(!ui.selected.cards||!ui.selected.cards.length) return;
 							if(target.hasSkillTag("nogain")) return 0;
-							//if(player.countCards("h")==player.countCards("h","du")) return -1;
-							//return 1;
-							if(ui.selected.cards&&ui.selected.cards.length) return get.value(ui.selected.cards[0]);
+							return get.value(ui.selected.cards[0]);
 						},
 						player:function(player,target){
 							var num=0;
@@ -3388,9 +3389,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenwu:{
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					//return !player.getStat("damage");
+					return !player.getStat("damage");
+					/*
 					var history=player.getHistory("damageSource");
 					return !history||!history.length;
+					*/
 				},
 				forced:true,
 				content:function(){
@@ -3716,7 +3719,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},"he")) return false;
 				},
 				prompt:"将暴征获得的牌当杀使用",
-				check:function(card){return 5-get.value(card)},
+				check:function(card){return 5-get.value(card);},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
 						if(arg=="respond") return false;
@@ -10069,7 +10072,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_fumiaox:{
 				viewAs:{name:"sha"},
-				filterCard:true,
+				filterCard:function(card){
+					return get.itemtype(card)=="card";
+				},
 				position:"hes",
 				check:function(card){return 5-get.value(card)},
 			},
@@ -10444,6 +10449,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Fox
 			sst_powei:{
+				frequent:true,
 				trigger:{player:"phaseDrawBegin2"},
 				check:function(event,player){
 					return player.countCards("h");
@@ -10972,8 +10978,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				mod:{
 					cardUsableTarget:function(card,player,target){
 						if(target==player) return;
-						if(get.color(card)=="red"&&get.distance(player,target,"absolute")>=Math.floor(game.countPlayer()/2)) return true;
-						if(get.color(card)=="black"&&get.distance(player,target,"absolute")<=Math.ceil(game.countPlayer()/2)) return true;
+						if(get.color(card)=="red"&&get.distance(player,target,"pure")>=Math.floor(game.countPlayer()/2)) return true;
+						if(get.color(card)=="black"&&get.distance(player,target,"pure")<=Math.ceil(game.countPlayer()/2)) return true;
 					},
 					targetInRange:function(card,player,target,now){
 						return true;
@@ -12362,7 +12368,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					order:10,
 					result:{
 						target:function(player,target){
-							if(ui.selected.cards&&ui.selected.cards.length) return get.value(ui.selected.cards[0]);
+							if(!ui.selected.cards||!ui.selected.cards.length) return;
+							return get.value(ui.selected.cards[0]);
 						}
 					}
 				}
@@ -12648,23 +12655,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<player.storage.sst_shenbi_ready.length;i++){
 						switch(player.storage.sst_shenbi_ready[i]){
 							case "下一张【杀】伤害+1":{
-								str+="<span class=\"bluetext\">1. 你使用的下一张【杀】伤害+1</span>";
+								str+="<span class=\"bluetext\">1. 你使用的下一张【杀】伤害+1";
 								break;
 							}
 							case "此【杀】不可被响应":{
-								str+="<span class=\"bluetext\">2. 此【杀】不可被响应</span>";
+								str+="<span class=\"bluetext\">2. 此【杀】不可被响应";
 								break;
 							}
 							case "失去1点体力":{
-								str+="<span class=\"bluetext\">3. 失去1点体力</span>";
+								str+="<span class=\"bluetext\">3. 失去1点体力";
 								break;
 							}
 						}
 						if(i==player.storage.sst_shenbi_ready.length-1){
-							str+="。";
+							str+="。</span>";
 						}
 						else{
-							str+="；";
+							str+="；</span>";
 						}
 					}
 					str+="然后若均已选择过或你体力值为1，重置此技能。";
@@ -12676,21 +12683,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return "转换技，出牌阶段限一次，你可以与<span class=\"bluetext\">①一名角色</span>②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点<span class=\"bluetext\">①火焰</span>②雷电伤害。";
 			},
 			sst_juezhan:function(player){
-				var str="锁定技，｛<span class=\"bluetext\">";
-				if(player.storage.sst_juezhan[0]) str+="你带有「伤害」标签的牌均视为【杀】。";
-				str+="</span>｝｛<span class=\"bluetext\">";
-				if(player.storage.sst_juezhan[1]) str+="你使用牌不能指定与你距离1以外的目标。";
-				str+="</span>｝｛<span class=\"bluetext\">";
-				if(player.storage.sst_juezhan[2]) str+="你的装备区被废除。";
-				str+="</span>｝";
+				if(!player.storage.sst_juezhan[0]&&!player.storage.sst_juezhan[1]&&!player.storage.sst_juezhan[2]) return "<span style=\"opacity:0.5\">锁定技，｛你带有「伤害」标签的牌均视为【杀】。｝｛你使用牌不能指定与你距离1以外的目标。｝｛你的装备区被废除。｝</span>";
+				var str="锁定技，";
+				if(player.storage.sst_juezhan[0]) str+="<span class=\"bluetext\">｛你带有「伤害」标签的牌均视为【杀】。｝</span>";
+				if(player.storage.sst_juezhan[1]) str+="<span class=\"bluetext\">｛你使用牌不能指定与你距离1以外的目标。｝</span>";
+				if(player.storage.sst_juezhan[2]) str+="<span class=\"bluetext\">｛你的装备区被废除。｝</span>";
 				return str;
 			},
 			sst_fenshi:function(player){
-				var str="准备阶段各限一次：1. 你可以对一名角色造成1点伤害；2. 你可以弃置一名角色两张牌。｛<span class=\"bluetext\">";
-				if(player.storage.sst_fenshi[0]) str+="若你没有指定自己，你减1点体力上限并删除此内容。";
-				str+="</span>｝｛<span class=\"bluetext\">";
-				if(player.storage.sst_fenshi[1]) str+="若你一回合两次指定了同一名角色，你减1点体力上限并删除此内容。";
-				str+="</span>｝";
+				var str="准备阶段各限一次：1. 你可以对一名角色造成1点伤害；2. 你可以弃置一名角色两张牌。";
+				if(player.storage.sst_fenshi[0]) str+="<span class=\"bluetext\">｛若你没有指定自己，你减1点体力上限并删除此内容。｝</span>";
+				if(player.storage.sst_fenshi[1]) str+="<span class=\"bluetext\">｛若你一回合两次指定了同一名角色，你减1点体力上限并删除此内容。｝</span>";
 				return str;
 			}
 		},
