@@ -1708,7 +1708,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					save:true,
 					respondSha:true,
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						return player.countCards("hes")&&player.getDamagedHp();
 					},
 					result:{
@@ -1731,7 +1731,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				viewAs:{name:"shan"},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						return player.countCards("hes")&&player.getDamagedHp();
 					},
 					respondShan:true
@@ -1828,6 +1828,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:"sst_quji2"
 			},
 			sst_quji2:{
+				preHidden:true,
 				trigger:{global:"useCard"},
 				filter:function(event,player){
 					return !player.hasSkill("sst_quji3")&&(player.countCards("h")||get.itemtype(_status.pileTop)=="card");
@@ -2429,7 +2430,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						player.logSkill("sst_que",result.targets);
-						player.gainPlayerCard("驱厄：你可以获得最多"+get.cnNumber(player.getDamagedHp()+1)+"张黑色牌",result.targets[0],[1,player.getDamagedHp()+1],"visible").set("filterButton",function(button){
+						player.gainPlayerCard("驱厄：你可以获得最多"+get.cnNumber(player.getDamagedHp()+1)+"张黑色牌",result.targets[0],[1,player.getDamagedHp()+1],"h","visible").set("filterButton",function(button){
 							return get.color(button.link)=="black";
 						});
 					}
@@ -2676,7 +2677,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						if(!game.hasPlayer(function(current){
 							return current.hasZhuSkill("sst_yujun",player)&&current.group==player.group&&current.countCards("h");
 						})) return false;
@@ -3112,8 +3113,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets[0].gain(event.cards,"gain2");
 						//game.log(result.targets[0],"获得了"+event.togive);
 						if(trigger.getParent().name=="sst_potian"){
-							result.targets[0].addTempSkill("sst_shenjiao2",{player:"phaseBegin"});
-							result.targets[0].storage.sst_shenjiao=player;
+							if(!player.hasSkill("sst_shenjiao2")) result.targets[0].addTempSkill("sst_shenjiao2",{player:"phaseBegin"});
 							result.targets[0].markSkillCharacter("sst_shenjiao2",player,"身教","下一个回合内拥有【破天】");
 						}
 					}
@@ -3722,7 +3722,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				check:function(card){return 5-get.value(card);},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						if(!player.storage.sst_baozheng) return false;
 						if(!player.hasCard(function(card){
 							return player.storage.sst_baozheng.contains(card);
@@ -4872,7 +4872,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						if(!player.countCards("hes")) return false;
 						if(!player.storage.sst_huanbian) return false;
 						if(player.storage.sst_huanbian_used.contains(get.name(player.storage.sst_huanbian))) return false;
@@ -4915,7 +4915,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						if(!player.storage.sst_huanbian) return false;
 						if(!(get.name(player.storage.sst_huanbian)=="shan"&&player.countCards("hes")&&!player.storage.sst_huanbian_used.contains("shan"))) return false;
 					},
@@ -6350,8 +6350,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var player=_status.event.player;
 							var target=_status.event.targetx;
 							if(get.attitude(player,target)>0){
-								//if(player.needsToDiscard()) return 11-get.useful(card);
-								return 6-get.useful(card);
+								if(!ui.selected.cards||!ui.selected.cards.length||player.needsToDiscard()>ui.selected.cards.length) return 11-get.useful(card);
+								return 3-get.useful(card);
 							}
 							return 0;
 						}).set("targetx",event.target);
@@ -6855,7 +6855,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 					},
 					respondSha:true,
 					respondShan:true,
@@ -7690,7 +7690,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondSha:true,
 					order:4,
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						if(!player.countCards("hes",function(card){
 							return !get.tag(card,"damage");
 						})) return false;
@@ -8700,7 +8700,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					respondShan:true,
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 					},
 					order:function(){
 						return get.order({name:"shan"})+0.1;
@@ -9261,7 +9261,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					respondSha:true,
 					skillTagFilter:function(player,tag,arg){
-						if(arg=="respond") return false;
+						if(arg!="use") return false;
 						if(!player.isPhaseUsing()) return false;
 					},
 					order:function(){
@@ -10936,8 +10936,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_fumo2:{
 				trigger:{player:"damageBegin2"},
-				filter:function (event,player){
-					return player.getEquip(2)&&!player.inRangeOf(event.source);
+				filter:function(event,player){
+					return player.getEquip(2)&&event.source&&!player.inRangeOf(event.source);
 				},
 				forced:true,
 				content:function(){
@@ -10978,8 +10978,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				mod:{
 					cardUsableTarget:function(card,player,target){
 						if(target==player) return;
-						if(get.color(card)=="red"&&get.distance(player,target,"pure")>=Math.floor(game.countPlayer()/2)) return true;
-						if(get.color(card)=="black"&&get.distance(player,target,"pure")<=Math.ceil(game.countPlayer()/2)) return true;
+						if(get.color(card)=="red"&&get.distance(player,target,"absolute")>=Math.floor(game.countPlayer()/2)) return true;
+						if(get.color(card)=="black"&&get.distance(player,target,"absolute")<=Math.ceil(game.countPlayer()/2)) return true;
 					},
 					targetInRange:function(card,player,target,now){
 						return true;
@@ -11555,6 +11555,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var to="shibing"+(info[0]=="male"?1:2)+info[1];
 						game.log(player,"移除了武将牌","#b"+name);
 						player.reinit(name,to,false);
+						if(_status.characterlist) _status.characterlist.add(name);
 					});
 					"step 1"
 					lib.inpile.push("sst_aegises");
@@ -12389,7 +12390,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				logTarget:function(event,player){
 					var targets=game.filterPlayer(function(current){
-						return get.distance(player,current,"pure")==1;
+						return get.distance(player,current,"absolute")==1;
 					});
 					targets.sortBySeat(player);
 					return targets;
@@ -12606,7 +12607,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.showCards(event.card);
 					"step 3"
 					if(get.suit(event.card)!=event.control) event.goto(2);
-					player.gain(event.card,"gain2");
+					player.gain(event.card);
+					player.$gain2(event.card);
 				}
 			},
 			sst_sutong:{
@@ -13442,7 +13444,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pokemon_trainer_blue:"Blue",
 			sst_kyo_kusanagi:"Kyo Kusanagi",
 			sst_geno:"Geno",
-			sst_pauline:"Pauline"
+			sst_pauline:"Pauline",
+			sst_dr_wily:"Dr. Wily",
+			sst_9_volt_18_volt:"9-Volt & 18-Volt"
 		},
 		perfectPair:{
 			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi","sst_geno","sst_pauline"],

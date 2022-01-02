@@ -1,16 +1,8 @@
 window.noname_asset_list=[
 	'v1.9.111.1SST2',
 	//New add
-	'image/character/shibing1sst_light.png',
-	'image/character/shibing2sst_light.png',
-	'image/character/shibing1sst_darkness.png',
-	'image/character/shibing2sst_darkness.png',
-	'image/character/shibing1sst_spirit.png',
-	'image/character/shibing2sst_spirit.png',
-	'image/character/shibing1sst_reality.png',
-	'image/character/shibing2sst_reality.png',
-	'image/character/shibing1sst_smash.png',
-	'image/character/shibing2sst_smash.png',
+	'image/character/shibing1.png',
+	'image/character/shibing2.png',
 
 	'image/character/sst_mario.png',
 	'image/character/sst_link.png',
@@ -1883,10 +1875,10 @@ window.noname_asset_list=[
 	'extension/十周年UI/assets/dynamic/skin_zhugeliang_KongChengTuiDi.png',
 	'extension/十周年UI/assets/dynamic/skin_zhugeliang_KongChengTuiDi.skel',
 	'extension/十周年UI/assets/image/base_dialog.png',
-	'extension/十周年UI/assets/image/bg_xianding_qun.png',
-	'extension/十周年UI/assets/image/bg_xianding_shu.png',
-	'extension/十周年UI/assets/image/bg_xianding_wei.png',
-	'extension/十周年UI/assets/image/bg_xianding_wu.png',
+	'extension/十周年UI/assets/image/bg_xianding_sst_light.png',
+	'extension/十周年UI/assets/image/bg_xianding_sst_darkness.png',
+	'extension/十周年UI/assets/image/bg_xianding_sst_spirit.png',
+	'extension/十周年UI/assets/image/bg_xianding_sst_reality.png',
 	'extension/十周年UI/assets/image/card_select.png',
 	'extension/十周年UI/assets/image/chat_bubble.png',
 	'extension/十周年UI/assets/image/control_button.png',
@@ -2219,6 +2211,8 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/decoration/vs.png'
 ];
 window.noname_skin_list={
+	shibing1:6,
+	shibing2:6,
 	ska_bobby:2,
 	ska_olivia:1,
 	sst_enderman:1,

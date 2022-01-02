@@ -8211,7 +8211,7 @@ precontent:function(){
 			node.created = true;
 			node.style.overflow = 'scroll';
 			
-			var list = ['re_caocao', 're_liubei', 'sp_zhangjiao', 'sunquan'];
+			var list = ['sst_peach', 'sst_bowser', 'sst_master_hand', 'sst_ma'];
 			for (var i = 0; i < 4; i++) {
 				var player = ui.create.div('.seat-player.fakeplayer', node);
 				ui.create.div('.avatar', player).setBackground(list.randomRemove(), 'character');

@@ -22,7 +22,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						lib.character[i][1]=lib.character[i][4][0];
 					}
 					else{
-						lib.character[i][1]='qun';
+						lib.character[i][1]='sst_smash';
 					}
 				}
 			}
@@ -45,7 +45,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						lib.character[i][1]=lib.character[i][4][0];
 					}
 					else{
-						lib.character[i][1]='qun';
+						lib.character[i][1]='sst_smash';
 					}
 				}
 			}
@@ -136,7 +136,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								lib.character[i][1]=lib.character[i][4][0];
 							}
 							else{
-								lib.character[i][1]='qun';
+								lib.character[i][1]='sst_smash';
 							}
 						}
 					}
@@ -260,30 +260,28 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'gz_sst_meta_knight','gz_sst_kyuukou','gz_sst_bowser_jr','gz_ymk_yumikohimi','gz_sst_fox','gz_sst_king_dedede'
 			],
 			'4':[
-				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_samus','gz_sst_dark_samus','gz_sst_greninja','gz_sst_chrom','gz_sst_mr_8','gz_sst_srf','gz_sst_waluigi','gz_ymk_577','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_captain_falcon','gz_sst_lucario','gz_sst_steve','gz_sst_pikachu','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_richter','gz_sst_ma','gz_sst_claude','gz_ska_olivia'
+				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_samus','gz_sst_dark_samus','gz_sst_greninja','gz_sst_chrom','gz_sst_mr_8','gz_sst_srf','gz_sst_waluigi','gz_ymk_577','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_captain_falcon','gz_sst_lucario','gz_sst_steve','gz_sst_pikachu','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_richter','gz_sst_ma','gz_sst_claude','gz_ska_olivia','gz_sst_kyo_kusanagi','gz_sst_pyra_mythra','gz_sst_donkey_kong'
 			],
 			'3':[
-				'gz_sst_mario','gz_sst_link','gz_sst_dr_mario','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_oc','gz_sst_ryu','gz_sst_ken','gz_sst_toon_link','gz_sst_wolf','gz_sst_snake','gz_sst_jigglypuff','gz_sst_feiji','gz_sst_sonic','gz_sst_alex','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_lucina','gz_sst_master_hand','gz_sst_mii_fighters','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_super_xiaojie'
+				'gz_sst_mario','gz_sst_link','gz_sst_dr_mario','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_oc','gz_sst_ryu','gz_sst_ken','gz_sst_toon_link','gz_sst_wolf','gz_sst_snake','gz_sst_jigglypuff','gz_sst_feiji','gz_sst_sonic','gz_sst_alex','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_lucina','gz_sst_master_hand','gz_sst_mii_fighters','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_super_xiaojie','gz_sst_pokemon_trainer_blue','gz_sst_pauline','gz_sst_9_volt_18_volt','gz_ska_show_k','gz_ska_koopa_troopa'
 			],
 			'2':[
-				'gz_sst_wario','gz_sst_byleth_male','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_donkey_kong','gz_sst_pokemon_trainer_red','gz_sst_isabelle','gz_sst_dark_link','gz_sst_windier','gz_sst_sheik','gz_sst_rex','gz_sst_cuphead_mugman','gz_sst_krystal','gz_sst_mega_man','gz_sst_hero','gz_sst_falco','gz_sst_enderman','gz_sst_king_k_rool','gz_sst_koopalings','gz_sst_pichu','gz_sst_mario_not_mary','gz_sst_ganondorf','gz_sst_daisy','gz_sst_little_mac','gz_sst_sans','gz_ska_bobby'
+				'gz_sst_wario','gz_sst_byleth_male','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_pokemon_trainer_red','gz_sst_isabelle','gz_sst_dark_link','gz_sst_windier','gz_sst_sheik','gz_sst_rex','gz_sst_cuphead_mugman','gz_sst_krystal','gz_sst_mega_man','gz_sst_hero','gz_sst_falco','gz_sst_enderman','gz_sst_king_k_rool','gz_sst_koopalings','gz_sst_pichu','gz_sst_mario_not_mary','gz_sst_ganondorf','gz_sst_daisy','gz_sst_little_mac','gz_sst_sans','gz_ska_bobby'
 			],
 			'1':[
 				'gz_sst_yoshi','gz_sst_villager','gz_sst_rentianshu','gz_sst_ridley','gz_sst_yumikohimi','gz_sst_kirby'
 			],
 		},
 		guozhanRank:{
-			'8':[
-				'gz_ymk_yumikohimi','gz_sst_fox'
-			],
+			'8':[],
 			'7':[
-				'gz_ymk_isabelle','gz_sst_meta_knight','gz_sst_kyuukou','gz_sst_richter','gz_sst_king_dedede','gz_sst_ganondorf'
+				'gz_ymk_isabelle','gz_sst_meta_knight','gz_sst_kyuukou','gz_sst_richter','gz_sst_king_dedede','gz_sst_ganondorf','gz_sst_donkey_kong','gz_sst_dr_wily','gz_sst_fox','gz_ymk_yumikohimi'
 			],
 			'6':[
-				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_dark_samus','gz_sst_greninja','gz_sst_isabelle','gz_sst_mr_8','gz_sst_bowser_jr','gz_sst_waluigi','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_steve','gz_sst_pikachu','gz_sst_enderman','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_king_k_rool','gz_sst_master_hand','gz_sst_yumikohimi','gz_sst_claude','gz_ska_olivia'
+				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_dark_samus','gz_sst_greninja','gz_sst_isabelle','gz_sst_mr_8','gz_sst_bowser_jr','gz_sst_waluigi','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_steve','gz_sst_pikachu','gz_sst_enderman','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_king_k_rool','gz_sst_master_hand','gz_sst_yumikohimi','gz_sst_claude','gz_ska_olivia','gz_sst_kyo_kusanagi','gz_sst_pyra_mythra'
 			],
 			'5':[
-				'gz_sst_mario','gz_sst_link','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_chrom','gz_sst_dark_link','gz_sst_ken','gz_ymk_577','gz_sst_toon_link','gz_sst_snake','gz_sst_lucario','gz_sst_feiji','gz_sst_sonic','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_koopalings','gz_sst_ma','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_bobby','gz_ska_super_xiaojie'
+				'gz_sst_mario','gz_sst_link','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_chrom','gz_sst_dark_link','gz_sst_ken','gz_ymk_577','gz_sst_toon_link','gz_sst_snake','gz_sst_lucario','gz_sst_feiji','gz_sst_sonic','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_koopalings','gz_sst_ma','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_bobby','gz_ska_super_xiaojie','gz_sst_pokemon_trainer_blue','gz_sst_pauline','gz_sst_9_volt_18_volt','gz_ska_show_k','gz_ska_koopa_troopa'
 			],
 			'4':[
 				'gz_sst_wario','gz_sst_dr_mario','gz_sst_byleth_male','gz_sst_samus','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_pokemon_trainer_red','gz_sst_oc','gz_sst_windier','gz_sst_srf','gz_sst_sheik','gz_sst_wolf','gz_sst_rex','gz_sst_captain_falcon','gz_sst_alex','gz_sst_ridley','gz_sst_lucina','gz_sst_pichu','gz_sst_mii_fighters','gz_sst_mario_not_mary','gz_sst_little_mac','gz_sst_sans'
@@ -292,7 +290,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'gz_sst_yoshi','gz_sst_rentianshu','gz_sst_ryu','gz_sst_cuphead_mugman','gz_sst_krystal','gz_sst_mega_man','gz_sst_jigglypuff','gz_sst_hero','gz_sst_falco','gz_sst_kirby','gz_sst_daisy'
 			],
 			'2':[
-				'gz_sst_villager','gz_sst_donkey_kong'
+				'gz_sst_villager'
 			],
 			'1':[
 			],
@@ -303,10 +301,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				sst_melee:["gz_sst_bowser","gz_sst_peach","gz_sst_zelda","gz_sst_sheik","gz_sst_dr_mario","gz_sst_ganondorf","gz_sst_mr_game_watch","gz_sst_marth","gz_sst_young_link","gz_sst_pichu","gz_sst_falco"],
 				sst_brawl:["gz_sst_zero_suit_samus","gz_sst_wario","gz_sst_pokemon_trainer_red","gz_sst_meta_knight","gz_sst_ike","gz_sst_toon_link","gz_sst_wolf","gz_sst_snake","gz_sst_king_dedede","gz_sst_lucario","gz_sst_sonic","gz_sst_pokemon_trainer_blue"],
 				sst_4:["gz_sst_villager","gz_sst_rosalina","gz_sst_little_mac","gz_sst_greninja","gz_sst_palutena","gz_sst_lucina","gz_sst_bowser_jr","gz_sst_koopalings","gz_sst_ryu","gz_sst_mega_man","gz_sst_corrin","gz_sst_mii_fighters"],
-				sst_ultimate:["gz_sst_dark_samus","gz_sst_daisy","gz_sst_chrom","gz_sst_ridley","gz_sst_simon","gz_sst_richter","gz_sst_king_k_rool","gz_sst_isabelle","gz_sst_incineroar","gz_sst_terry","gz_sst_byleth_male","gz_sst_byleth_female","gz_sst_ken","gz_sst_joker","gz_sst_steve","gz_sst_alex","gz_sst_hero","gz_sst_min_min"],
-				sst_spirits:["gz_sst_dark_link","gz_sst_sans","gz_sst_waluigi","gz_sst_master_hand","gz_sst_spring_man","gz_sst_rex","gz_sst_cuphead_mugman","gz_sst_krystal","sst_enderman"],
+				sst_ultimate:["gz_sst_dark_samus","gz_sst_daisy","gz_sst_chrom","gz_sst_ridley","gz_sst_simon","gz_sst_richter","gz_sst_king_k_rool","gz_sst_isabelle","gz_sst_incineroar","gz_sst_ken"],
+				sst_dlc:["gz_sst_terry","gz_sst_byleth_male","gz_sst_byleth_female","gz_sst_joker","gz_sst_steve","gz_sst_alex","gz_sst_hero","gz_sst_min_min","gz_sst_pyra_mythra"],
+				sst_spirits:["gz_sst_dark_link","gz_sst_sans","gz_sst_waluigi","gz_sst_master_hand","gz_sst_spring_man","gz_sst_rex","gz_sst_cuphead_mugman","gz_sst_krystal","gz_sst_enderman","gz_sst_geno","gz_sst_kyo_kusanagi","gz_sst_pauline","gz_sst_dr_wily","gz_sst_9_volt_18_volt"],
 				sst_players:["gz_sst_mario_not_mary","gz_sst_yumikohimi","gz_sst_massy","gz_sst_haine","gz_sst_oc","gz_sst_mr_8","gz_sst_kyuukou","gz_sst_windier","gz_sst_rentianshu","gz_sst_srf","gz_sst_miumiu","gz_sst_ma","gz_sst_feiji"],
-				sst_sp:["gz_sst_claude","gz_ymk_isabelle","gz_ska_bobby","gz_ska_olivia","gz_ymk_577","gz_ska_super_xiaojie","gz_ska_show_k","gz_ymk_yumikohimi","gz_ska_bowser","gz_ska_professor_toad","gz_ska_geno"],
+				sst_special:["gz_sst_claude","gz_ymk_isabelle","gz_ska_bobby","gz_ska_olivia","gz_ymk_577","gz_ska_super_xiaojie","gz_ska_show_k","gz_ymk_yumikohimi","gz_ska_bowser","gz_ska_professor_toad","gz_ska_koopa_troopa","gz_alz_kyo_kusanagi"]
 			}
 		},
 		characterPack:{
@@ -387,29 +386,38 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_steve:["male","sst_light",4,["sst_tankuang"],[]],
 				gz_sst_feiji:["male","sst_reality",4,["sst_xuhuang"],[]],
 				gz_sst_sonic:["male","sst_light",4,["sst_jibu","sst_juechen"],[]],
-				gz_sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],[]],
+				//gz_sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],[]],
 				gz_sst_fox:["male","sst_light",4,["sst_powei"],[]],
 				gz_sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],[]],
 				gz_sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
 				gz_sst_pikachu:["male","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 				gz_sst_falco:["male","sst_light",4,["sst_juao"],[]],
 				gz_ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
-				gz_sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
-				gz_sst_geno:["male","sst_spirit",3,["ska_xingjiang","ska_fuyuan"],[]],
+				gz_sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
 				gz_sst_pokemon_trainer_blue:["female","sst_light",3,["sst_jiliu"],[]],
+				gz_sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
+				gz_sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],[]],
+				gz_sst_geno:["male","sst_spirit",3,["sst_xingjiang","sst_fuyuan"],[]],
+				gz_sst_pokemon_trainer_blue:["female","sst_light",3,["sst_jiliu"],[]],
+				gz_sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],[]],
+				gz_sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],[]],
+				gz_sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],[]],
+				gz_sst_king_k_rool:["male","sst_darkness",4,["sst_badao","sst_jinjia"],[]],
+				gz_ska_show_k:["male","sst_reality",3,["ska_jingli","ska_zhiyi"],[]],
+				gz_ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
+				gz_alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 				//修改武将
-				gz_sst_palutena:["female","sst_light",3,["gz_sst_qiji","sst_shengbing"],[]],
-				gz_sst_rosalina:["female","sst_light",3,["sst_xingchen","gz_sst_zhuansheng"],[]],
-				gz_sst_ridley:["male","sst_darkness",5,["sst_baozheng","gz_sst_furan"],[]],
-				gz_sst_king_k_rool:["male","sst_darkness",4,["sst_badao","gz_sst_jinjia"],[]],
-				gz_sst_richter:["male","sst_darkness",4,["sst_shengxi","gz_sst_xuelun"],[]],
-				gz_sst_lucina:["female","sst_light",4,["sst_suxing","gz_sst_shengyi"],[]],
-				gz_sst_koopalings:["male","sst_darkness",7,["sst_shimo"],[]],
+				//gz_sst_palutena:["female","sst_light",3,["gz_sst_qiji","sst_shengbing"],[]],
+				//gz_sst_rosalina:["female","sst_light",3,["sst_xingchen","gz_sst_zhuansheng"],[]],
+				//gz_sst_ridley:["male","sst_darkness",5,["sst_baozheng","gz_sst_furan"],[]],
+				//gz_sst_richter:["male","sst_darkness",4,["sst_shengxi","gz_sst_xuelun"],[]],
+				//gz_sst_lucina:["female","sst_light",4,["sst_suxing","gz_sst_shengyi"],[]],
+				//gz_sst_koopalings:["male","sst_darkness",7,["sst_shimo"],[]],
 				gz_sst_master_hand:["male","sst_spirit",4,["sst_zhuzai"],[]],
-				gz_sst_pichu:["male","sst_light",3,["sst_tieyan","sst_gaoya"],[]],
-				gz_sst_king_dedede:["male","sst_darkness",4,["sst_baoshi"],[]],
+				//gz_sst_pichu:["male","sst_light",3,["sst_tieyan","sst_gaoya"],[]],
+				//gz_sst_king_dedede:["male","sst_darkness",4,["sst_baoshi"],[]],
 				gz_sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],[]],
-				gz_sst_mii_fighters:["none","sst_light",4,["sst_bianshe"],["doublegroup:sst_light:sst_darkness:sst_spirit:sst_reality"]],
+				gz_sst_mii_fighters:["none","sst_smash",4,["sst_bianshe"],["doublegroup:sst_smash:sst_light:sst_darkness:sst_spirit:sst_reality"]],
 				//国战武将
 				gz_sst_mario_not_mary:["male","sst_reality",5,["gz_sst_qixiao","sst_zhongpao"],[]],
 				gz_sst_yumikohimi:["female","sst_reality",3,["sst_zhengshi","sst_muyuan"],[]],
@@ -425,7 +433,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_sans:["male","sst_spirit",3,["sst_shuangguan","sst_langu"],[]],
 				gz_ska_olivia:["female","sst_spirit",3,["gz_ska_shenqi","gz_ska_zhefu"],[]],
 				gz_ska_bobby:["male","sst_spirit",4,["ska_jixing","ska_sheran"],[]],
-				gz_ska_super_xiaojie:["male","sst_reality",4,["gz_ska_kezhi","gz_ska_jiyan"],[]],
+				gz_ska_super_xiaojie:["male","sst_reality",4,["ska_kezhi","gz_ska_jiyan"],[]]
 			}
 		},
 		skill:{
@@ -757,6 +765,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}).length);
 				},
 				filterCard:function(card){
+					if(_status.event.player.hasSkillTag('lianhengh')) return true;
 					return card.hasTag('lianheng');
 				},
 				filterTarget:function(card,player,target){
@@ -1139,9 +1148,6 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						player.recover(1-player.hp);
 					}
 				},
-			},
-			gz_sst_jinjia:{
-				inherit:"sst_jinjia",
 			},
 			gz_sst_shengyi:{
 				skillAnimation:true,
@@ -1783,6 +1789,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					if(!next.fixedResult) next.fixedResult={};
 					next.fixedResult[player.playerid]=get.cards()[0];
 					"step 1"
+					/*
 					if(result.bool){
 						target.addTempSkill("gz_sst_yinjie2");
 					}
@@ -1793,6 +1800,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					else{
 						player.addTempSkill("gz_sst_yinjie2");
 					}
+					*/
+					if(result.winner!=player) player.addTempSkill("gz_sst_yinjie2");
+					if(result.winner!=target) target.addTempSkill("gz_sst_yinjie2");
 				},
 				ai:{
 					result:{
@@ -1932,60 +1942,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 			/*
 			sst_shenao:{
-				mark:false,
-				enable:"chooseToUse",
-				prompt:"将所有手牌（至少一张）当作无距离限制且不计入使用次数的的【杀】对一名不同势力的角色使用；若以此法造成了伤害，你将手牌补至体力上限",
-				filterCard:true,
-				selectCard:-1,
-				filterTarget:function(card,player,target){
-					if(_status.event._backup&&
-						typeof _status.event._backup.filterTarget=="function"&&
-						!_status.event._backup.filterTarget({name:"sha"},player,target)){
-						return false;
-					}
-					return player.canUse({name:"sha"},target,false);
-				},
-				filter:function(event,player){
-					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
-					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
-					return !player.hasSkill("sst_shenao_disable")&&player.countCards("h");
-				},
-				//addCount:false,
-				content:function(){
-					player.addTempSkill("sst_shenao_disable");
-					player.useCard({name:"sha"},cards,target,false);
-				},
-				group:["sst_shenao2"],
-				ai:{
-					respondSha:true,
-					order:1,
-					effect:{
-						player:function(card,player,target){
-							if(_status.event.skill=="sst_shenao"){
-								if(player.countCards("h")>=3||target.countCards("h")>=3) return "zeroplayertarget";
-								if(player.countCards("h","tao")) return "zeroplayertarget";
-								if(target.countCards("h","shan")>1) return "zeroplayertarget";
-							}
-						}
-					},
-				},
-				subSkill:{
-					disable:{
-						mark:true,
-						intro:{
-							content:"本回合已发动",
-						},
-					},
-				},
-			},
-			*/
-			sst_shenao:{
 				enable:"phaseUse",
 				usable:1,
-				direct:true,
+				popup:true,
 				line:false,
 				delay:false,
-				prompt:"将所有手牌（至少一张）当作无距离限制且不计入使用次数的的【杀】对一名不同势力的角色使用；若以此法造成了伤害，你将手牌补至体力上限",
+				prompt:"将所有手牌（至少一张）当作无距离限制且不计入使用次的【杀】对一名不同势力的角色使用；若以此法造成了伤害，你将手牌补至体力上限",
 				filterTarget:function(card,player,target){
 					return player.canUse({name:"sha"},target,false)&&!target.isFriendOf(player);
 				},
@@ -1997,7 +1959,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				group:["sst_shenao2"],
 				ai:{
-					order:1,
+					order:function(){
+						return get.order({name:"sha"})+0.1;
+					},
 					result:{
 						target:function(player,target){
 							return get.effect(target,{name:"sha"},player,target);
@@ -2011,38 +1975,71 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								if(target.countCards("h","shan")>1) return "zeroplayertarget";
 							}
 						}
-					},
+					}
+				}
+			},
+			*/
+			sst_shenao:{
+				enable:"chooseToUse",
+				usable:1,
+				prompt:"将所有手牌（至少一张）当作无距离限制且不计入使用次数的【杀】对一名不同势力的角色使用；若以此法造成了伤害，你将手牌补至体力上限",
+				filterTarget:function(card,player,target){
+					if(target.isFriendOf(player)) return false;
+					return lib.filter.targetEnabled.apply(this,arguments);
 				},
+				viewAs:{name:"sha"},
+				viewAsFilter:function(player){
+					if(!player.countCards("h")) return false;
+				},
+				filterCard:function(card){
+					return get.position(card)=="h";
+				},
+				selectCard:-1,
+				ai:{
+					skillTagFilter:function(player,tag,arg){
+						if(arg!="use") return false;
+						if(!player.countCards("h")) return false;
+					},
+					respondSha:true,
+					order:function(){
+						return get.order({name:"sha"})+0.1;
+					},
+					effect:{
+						player:function(card,player,target){
+							if(_status.event.skill=="sst_shenao"){
+								if(player.countCards("h")>=3||target.countCards("h")>=3) return "zeroplayertarget";
+								if(player.countCards("h","tao")) return "zeroplayertarget";
+								if(target.countCards("h","shan")>1) return "zeroplayertarget";
+							}
+						}
+					},
+					useful:-1,
+					value:-1
+				},
+				group:"yudun_count",
+				subSkill:{
+					count:{
+						trigger:{player:"useCard1"},
+						silent:true,
+						filter:function(event,player){
+							return event.skill=="sst_shenao"&&_status.currentPhase==player;
+						},
+						content:function(){
+							player.getStat().card.sha--;
+						}
+					}
+				}
 			},
 			sst_shenao2:{
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
-					return event.skill=="sst_shenao"&&player.getHistory("sourceDamage",function(evt){
-						return evt.card==event.card;
-					}).length;
+					return event.skill=="sst_shenao"&&game.cardCausedDamage(event.card);
 				},
 				content:function(){
 					player.drawTo(player.maxHp);
 				}
 			},
-			/*
-			sst_shenao3:{
-				trigger:{player:"useCardBefore"},
-				firstDo:true,
-				silent:true,
-				filter:function(event,player){
-					return event.skill=="sst_shenao";
-				},
-				content:function(){
-					if(trigger.addCount!==false){
-						trigger.addCount=false;
-						var stat=player.getStat().card;
-						if(stat.sha) stat.sha--;
-					}
-				},
-			},
-			*/
 			gz_sst_yujun:{
 				zhenfa:"inline",
 				global:"gz_sst_yujun2",
@@ -2242,38 +2239,27 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					trigger.getParent().cancel();
 					"step 1"
 					var source=lib.skill.gz_sst_douhun.logTarget(trigger,player);
-					source.useCard({name:"juedou",isCard:true},player,false);
+					if(source.canUse({name:"juedou",isCard:true},player,false,false)) source.useCard({name:"juedou",isCard:true},player,false);
 				},
-				group:["gz_sst_douhun2"],
-				/*
+				ai:{
+					effect:{
+						player:function(card,player,target){
+							if(get.name(card)=="sha") return get.effect(target,{name:"juedou",isCard:true},player,player);
+						},
+						target:function(card,player,target){
+							if(get.name(card)=="sha") return get.effect(target,{name:"juedou",isCard:true},player,player);
+						}
+					}
+				},
 				mod:{
 					cardname:function(card,player){
 						//game.log(_status.event.getParent("useCard"));
 						//game.log(_status.event.getParent().name);
 						//if(_status.event.getParent("chooseToRespond")&&_status.event.getParent("chooseToRespond").player==player&&_status.event.getParent("useCard")&&get.name(_status.event.getParent("useCard").card)=="juedou"&&_status.event.getParent("useCard").targets.contains(player)) return "sha";
-						if(_status.event.getParent("useCard")&&get.name(_status.event.getParent("useCard").card)=="juedou"&&_status.event.getParent("useCard").targets.contains(player)) return "sha";
-					},
-				},
-				*/
-			},
-			gz_sst_douhun2:{
-				enable:"chooseToRespond",
-				filterCard:true,
-				//forced:true,
-				viewAs:{name:"sha"},
-				filter:function(event,player){
-					return get.name(event.getParent().card)=="juedou";
-				},
-				check:function(card){return 8-get.value(card)},
-				prompt:"将一张手牌当作【杀】打出",
-				ai:{
-					respondSha:true,
-					order:function(){
-						return get.order({name:"sha"})+0.1;
-					},
-					useful:-1,
-					value:-1,
-				},
+						var evt=_status.event.getParent("juedou");
+						if(evt&&evt.name=="juedou"&&get.position(card)=="h") return "sha";
+					}
+				}
 			},
 			sst_shuangguan:{
 				locked:false,
@@ -2574,7 +2560,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						player.popup(result.control);
 						var cards=[];
 						var num=trigger.player.hp;
-						game.log(player,"观看了","#y"+result.control,"的","#y"+get.cnNumber(trigger.player.hp)+"张牌");
+						game.log(player,"观看了","#y"+result.control,"的"+get.cnNumber(trigger.player.hp)+"张牌");
 						if(ui.cardPile.childNodes.length<num){
 							var discardcards=get.cards(num);
 							game.cardsDiscard(discardcards);
@@ -2630,140 +2616,17 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					},
 				},
 			},
-			/*
-			gz_ska_kezhi:{
-				trigger:{player:"shaMiss"},
-				init:function(player){
-					player.checkMainSkill("gz_ska_kezhi");
-				},
-				mainSkill:true,
-				direct:true,
-				filter:function(event,player){
-					return !player.hasSkill("gz_ska_kezhi_phase")&&player.canUse("sha",event.target,false)&&player.countCards("he");
-				},
-				content:function(){
-					var next=player.chooseToUse(get.prompt2("gz_ska_kezhi"),-1).set("logSkill","gz_ska_kezhi");
-					next.set("norestore",true);
-					next.set("_backupevent","gz_ska_kezhix");
-					next.backup("gz_ska_kezhix");
-					next.set("addCount",false);
-					next.set("filterTarget",function(card,player,target){
-						return target==_status.event.targetx&&lib.filter.targetEnabled2({name:"sha"},player,target);
-					});
-					next.set("targetx",trigger.target);
-				},
-				group:["gz_ska_kezhi2"],
-			},
-			gz_ska_kezhix:{
-				viewAs:{name:"sha"},
-				filterCard:true,
-				position:"he",
-				check:function(card){return 5-get.value(card)},
-				onuse:function(result,player){
-					player.loseHp();
-				},
-			},
-			gz_ska_kezhi2:{
-				trigger:{source:"damageEnd"},
-				forced:true,
-				filter:function(event,player){
-					//game.log(event.getParent().skill);
-					return event.getParent().skill=="gz_ska_kezhix";
-				},
-				content:function(){
-					player.recover();
-					player.draw(2);
-				},
-			},
-			*/
-			gz_ska_kezhi:{
-				init:function(player){
-					player.checkMainSkill("gz_ska_kezhi");
-				},
-				mainSkill:true,
-				trigger:{player:"useCardAfter"},
-				direct:true,
-				filter:function(event,player){
-					return !player.hasSkill("gz_ska_kezhi3")&&event.gz_ska_kezhi&&player.countCards("he");
-				},
-				content:function(){
-					var next=player.chooseToUse("###"+get.prompt("gz_ska_kezhi")+"###你可以将一张牌当作"+get.translation(trigger.card)+"使用并失去1点体力",-1).set("logSkill","gz_ska_kezhi");
-					next.set("norestore",true);
-					next.set("_backupevent","gz_ska_kezhix");
-					next.backup("gz_ska_kezhix");
-					//next.set("viewAs",trigger.card);
-					next.set("addCount",false);
-					/*
-					next.set("filterTarget",function(card,player,target){
-						return target==_status.event.targetx&&lib.filter.targetEnabled2({name:"sha"},player,target);
-					});
-					*/
-					//next.set("targetx",trigger.target);
-					next.set("cardx",trigger.card);
-				},
-				group:["gz_ska_kezhi_respond","gz_ska_kezhi2"],
-				subSkill:{
-					respond:{
-						trigger:{
-							global:["respond","useCard"],
-						},
-						filter:function(event,player){
-							if(!event.respondTo) return false;
-							if(player!=event.respondTo[0]) return false;
-							return true;
-						},
-						silent:true,
-						content:function(){
-							//game.log(trigger.getParent(3));
-							trigger.getParent("useCard").gz_ska_kezhi=true;
-						},
-						sub:true,
-					},
-				},
-			},
-			gz_ska_kezhix:{
-				viewAs:function(){
-					//return {name:_status.event.cardx.name,nature:_status.event.cardx.nature};
-					return _status.event.cardx;
-				},
-				filterCard:true,
-				filterTarget:function(){
-					return lib.filter.filterTarget.apply(this,arguments);
-				},
-				selectTarget:function(){
-					return lib.filter.selectTarget.apply(this,arguments);
-				},
-				position:"he",
-				check:function(card){return 5-get.value(card)},
-				onuse:function(result,player){
-					player.addTempSkill("gz_ska_kezhi3");
-					player.loseHp();
-				},
-			},
-			gz_ska_kezhi2:{
-				trigger:{player:"useCardEnd"},
-				filter:function(event,player){
-					//game.log(event.getParent().skill);
-					return event.skill=="gz_ska_kezhix"&&player.getHistory("sourceDamage",function(evt){
-						return evt.card==event.card;
-					}).length;
-				},
-				frequent:true,
-				content:function(){
-					player.recover();
-					player.draw(2);
-				},
-			},
-			gz_ska_kezhi3:{},
 			gz_ska_jiyan:{
 				init:function(player){
-					player.checkViceSkill("gz_ska_jiyan");
+					if(player.checkViceSkill("gz_ska_jiyan")&&!player.viceChanged){
+						player.removeMaxHp();
+					}
 				},
 				viceSkill:true,
 				group:["gz_ska_jiyan_sha","gz_ska_jiyan_shan","gz_ska_jiyan_tao","gz_ska_jiyan_jiu"],
 				subSkill:{
 					sha:{
-						enable:["chooseToUse"],
+						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false},
 						selectCard:-1,
 						viewAs:{name:"sha"},
@@ -2771,14 +2634,18 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							return !player.hasSkill("gz_ska_jiyan_disable");
 						},
 						mark:false,
-						prompt:"视为使用一张【杀】",
+						prompt:"视为使用或打出一张【杀】",
 						onuse:function(result,player){
 							player.popup("《话语权》");
 							player.chat("《话语权》");
 							player.addTempSkill("gz_ska_jiyan_disable","roundStart");
 						},
+						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							respondSha:true,
+							skillTagFilter:function(player){
+								if(player.hasSkill("gz_ska_jiyan_disable")) return false;
+							},
 							order:function(){
 								return get.order({name:"sha"})-0.1;
 							},
@@ -2787,11 +2654,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						},
 					},
 					shan:{
-						enable:["chooseToUse"],
+						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false},
 						selectCard:-1,
 						viewAs:{name:"shan"},
-						prompt:"视为使用一张【闪】",
+						prompt:"视为使用或打出一张【闪】",
 						filter:function(event,player){
 							return !player.hasSkill("gz_ska_jiyan_disable");
 						},
@@ -2801,8 +2668,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							player.chat("《理解》");
 							player.addTempSkill("gz_ska_jiyan_disable","roundStart");
 						},
+						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							respondShan:true,
+							skillTagFilter:function(player){
+								if(player.hasSkill("gz_ska_jiyan_disable")) return false;
+							},
 							order:function(){
 								return get.order({name:"shan"})-0.1;
 							},
@@ -2811,11 +2682,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						},
 					},
 					tao:{
-						enable:["chooseToUse"],
+						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false},
 						selectCard:-1,
 						viewAs:{name:"tao"},
-						prompt:"视为使用一张【桃】",
+						prompt:"视为使用或打出一张【桃】",
 						filter:function(event,player){
 							return !player.hasSkill("gz_ska_jiyan_disable");
 						},
@@ -2825,8 +2696,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							player.chat("《硬气》");
 							player.addTempSkill("gz_ska_jiyan_disable","roundStart");
 						},
+						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							save:true,
+							skillTagFilter:function(player){
+								if(player.hasSkill("gz_ska_jiyan_disable")) return false;
+							},
 							order:function(){
 								return get.order({name:"tao"})-0.1;
 							},
@@ -2835,11 +2710,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						},
 					},
 					jiu:{
-						enable:["chooseToUse"],
+						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false},
 						selectCard:-1,
 						viewAs:{name:"jiu"},
-						prompt:"视为使用一张【酒】",
+						prompt:"视为使用或打出一张【酒】",
 						filter:function(event,player){
 							return !player.hasSkill("gz_ska_jiyan_disable");
 						},
@@ -2849,8 +2724,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							player.chat("《压迫感》");
 							player.addTempSkill("gz_ska_jiyan_disable","roundStart");
 						},
+						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							save:true,
+							skillTagFilter:function(player){
+								if(player.hasSkill("gz_ska_jiyan_disable")) return false;
+							},
 							order:function(){
 								return get.order({name:"jiu"})-0.1;
 							},
@@ -2866,6 +2745,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					},
 				},
 			},
+			/*
 			sst_paozhi:{
 				enable:"phaseUse",
 				usable:1,
@@ -2898,7 +2778,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					basic:{
-						order:2,
+						order:2
 					},
 					result:{
 						player:function(player,target){
@@ -2914,10 +2794,54 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						target:function(player,target){
 							if(target.isUnseen()) return 0;
 							return 1;
-						},
-					},
-				},
+						}
+					}
+				}
 			},
+			*/
+			sst_paozhi:{
+				locked:true,
+				ai:{
+					lianhengh:true
+				}
+			},
+			sst_fuxin:{
+				skillAnimation:true,
+				animationStr:"付心",
+				animationColor:"fire",
+				line:"fire",
+				enable:"phaseUse",
+				usable:1,
+				filterTarget:function(card,player,target){
+					return target!=player;
+				},
+				content:function(){
+					"step 0"
+					if(player.checkMainSkill('sst_fuxin',false)){
+						player.removeCharacter(0);
+					}
+					else{
+						player.removeCharacter(1);
+					}
+					"step 1"
+					lib.inpile.push("sst_aegises");
+					var card=game.createCard2("sst_aegises","","");
+					//card.set("cardtag",["sst_ultimate"]);
+					if(!_status.cardtag) _status.cardtag={};
+					if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
+					_status.cardtag["sst_ultimate"].push(card.cardid);
+					player.give(card,target,"give",true);
+					target.addAdditionalSkill("sst_fuxin","sst_fuxin_card");
+				},
+				ai:{
+					order:1,
+					expose:0.2,
+					damage:true,
+					result:{
+						target:3
+					}
+				}
+			}
 		},
 		game:{
 			showYexings:function(){
@@ -3841,105 +3765,6 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		},
 		translate:{
 			//国战武将
-			/*
-			gz_sst_mario:"马力欧",
-			gz_sst_link:"林克",
-			gz_sst_yoshi:"耀西",
-			gz_sst_wario:"瓦力欧",
-			gz_sst_villager:"村民",
-			gz_sst_zelda:"塞尔达",
-			gz_sst_claude:"库罗德",
-			gz_sst_ganondorf:"盖侬多夫",
-			gz_sst_dr_mario:"SP马力欧",
-			gz_sst_palutena:"帕露蒂娜",
-			gz_sst_marth:"马尔斯",
-			gz_sst_rosalina:"罗莎塔",
-			gz_sst_zero_suit_samus:"SP萨姆斯",
-			gz_sst_luigi:"路易吉",
-			gz_sst_bowser:"酷霸王",
-			gz_sst_peach:"桃花公主",
-			gz_sst_byleth_female:"贝雷丝",
-			gz_sst_byleth_male:"贝雷特",
-			gz_sst_massy:"绯和雅也",
-			gz_sst_samus:"萨姆斯",
-			gz_sst_ridley:"利德雷",
-			gz_sst_dark_samus:"黑暗萨姆斯",
-			gz_sst_mr_game_watch:"代码人",
-			gz_sst_mario_not_mary:"莫奈门",
-			gz_sst_yumikohimi:"柚子",
-			gz_sst_haine:"海涅",
-			gz_sst_terry:"特瑞",
-			gz_sst_simon:"西蒙",
-			gz_sst_incineroar:"炽焰咆哮虎",
-			gz_sst_greninja:"甲贺忍蛙",
-			gz_sst_kirby:"卡比",
-			gz_sst_king_k_rool:"库鲁鲁",
-			gz_sst_donkey_kong:"森喜刚",
-			gz_sst_richter:"里希特",
-			gz_sst_pokemon_trainer_red:"赤红",
-			gz_sst_isabelle:"西施惠",
-			gz_ymk_isabelle:"SP西施惠",
-			gz_sst_chrom:"库洛姆",
-			gz_sst_daisy:"菊花公主",
-			gz_sst_meta_knight:"魅塔骑士",
-			gz_sst_little_mac:"小麦克",
-			gz_sst_lucina:"露琪娜",
-			gz_ska_bobby:"炸弹彬",
-			gz_sst_oc:"欧西",
-			gz_ska_olivia:"奥莉维亚",
-			gz_sst_mr_8:"八爷",
-			gz_sst_dark_link:"暗黑林克",
-			gz_sst_kyuukou:"鸿渐",
-			gz_sst_windier:"翎烈",
-			gz_sst_rentianshu:"任天鼠",
-			gz_sst_srf:"希尔凡",
-			gz_sst_bowser_jr:"小酷霸王",
-			gz_sst_koopalings:"酷霸王七子",
-			gz_sst_ryu:"隆",
-			gz_sst_ken:"肯",
-			gz_sst_sans:"衫斯",
-			gz_sst_waluigi:"瓦路易吉",
-			gz_sst_master_hand:"大师之手",
-			gz_ymk_577:"方块君",
-			gz_sst_ike:"艾克",
-			gz_sst_sheik:"希克",
-			gz_sst_miumiu:"缪缪",
-			gz_ska_super_xiaojie:"超级小桀",
-			gz_sst_toon_link:"SP林克",
-			gz_sst_wolf:"沃鲁夫",
-			gz_sst_young_link:"幼年林克",
-			gz_sst_ocarina_of_time_link:"时笛林克",
-			gz_sst_spring_man:"弹簧人",
-			gz_sst_joker:"雨宫莲",
-			gz_sst_rex:"莱克斯",
-			gz_sst_cuphead_mugman:"杯子兄弟",
-			gz_sst_krystal:"水晶",
-			gz_sst_snake:"固蛇",
-			gz_ska_show_k:"小溪",
-			gz_ymk_yumikohimi:"SP柚子",
-			gz_sst_mega_man:"洛克人",
-			gz_sst_captain_falcon:"飞隼队长",
-			gz_sst_jigglypuff:"胖丁",
-			gz_sst_lucario:"路卡利欧",
-			gz_sst_pichu:"皮丘",
-			gz_sst_king_dedede:"帝帝帝",
-			gz_sst_corrin:"神威",
-			gz_sst_corrin_male:"神威",
-			gz_sst_corrin_female:"神威",
-			gz_sst_steve:"史蒂夫",
-			gz_sst_ma:"马老师",
-			gz_sst_feiji:"飞机",
-			gz_sst_sonic:"索尼克",
-			gz_sst_hero:"勇者",
-			gz_sst_fox:"火狐",
-			gz_sst_mii_fighters:"秘斗士",
-			gz_sst_alex:"艾莉克斯",
-			gz_sst_min_min:"面面",
-			gz_sst_pikachu:"皮卡丘",
-			gz_sst_falco:"佛克",
-			gz_ska_professor_toad:"考古学家奇诺比奥",
-			gz_ska_geno:"基诺",
-			*/
 			//修改技能
 			gz_sst_qiji:"奇迹",
 			gz_sst_qiji_info:"出牌阶段每种选项各限一次：1. 你可以叠置，令一名角色摸三张牌；2. 你可以弃置三张牌，令一名角色叠置。",
@@ -3947,8 +3772,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_sst_zhuansheng_info:"限定技，一名角色死亡前，你可以弃置你区域内的所有牌，令其变更副将，然后回复体力至上限的一半。",
 			gz_sst_furan:"复燃",
 			gz_sst_furan_info:"限定技，锁定技，当你处于濒死状态时，弃置所有手牌，将体力回复至1点。",
-			gz_sst_jinjia:"金甲",
-			gz_sst_jinjia_info:"锁定技，每当你受到一点伤害前，你令此伤害减1，若此前你于本回合以此法减少过伤害，你叠置，失去〖金甲〗。",
+			sst_jinjia_info:"锁定技，每当你受到一点伤害前，你令此伤害减1，若此前你于本回合以此法减少过伤害，你叠置，失去〖金甲〗。",
 			gz_sst_shengxi:"圣袭",
 			gz_sst_shengxi2:"圣袭",
 			gz_sst_shengxi4:"圣袭",
@@ -4010,7 +3834,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			sst_tunxing_info:"你明置此武将牌时，你可以弃置任意名手牌数大于你的角色的两张牌。",
 			gz_sst_douhun:"斗魂",
 			gz_sst_douhun2:"斗魂",
-			gz_sst_douhun_info:"锁定技，你使用【杀】指定唯一目标或你成为【杀】的唯一目标时，取消之，然后视为对方对你使用一张【决斗】；【决斗】流程内，你可以将一张手牌当作【杀】打出。",
+			gz_sst_douhun_info:"锁定技，你使用【杀】指定唯一目标或你成为【杀】的唯一目标时，取消之，然后视为对方对你使用一张【决斗】；【决斗】流程内，你的手牌均视为【杀】。",
 			sst_shuangguan:"双关",
 			sst_shuangguan_info:"出牌阶段，当你使用第偶数张牌时，若此牌名称的字数与你使用的上一张牌相同，你可以弃置一名角色一张牌。",
 			sst_langu:"懒骨",
@@ -4026,18 +3850,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_ymk_yunchou_info:"弃牌阶段开始前，你可以弃置至多为你体力上限的牌，若如此做，结束阶段，你摸等量的牌。",
 			gz_ymk_guimou:"鬼谋",
 			gz_ymk_guimou_info:"一名角色的判定结果生效前，你可观看牌堆顶或牌堆底的X张牌（X为此角色的体力值），然后用其中一张牌代替之。",
-			gz_ska_kezhi:"恪志",
-			gz_ska_kezhi2:"恪志",
-			gz_ska_kezhi_info:"主将技，每回合限一次，你使用牌结算后，若此牌被响应，你可以将一张牌当作此牌使用并失去1点体力。你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
-			gz_ska_kezhi2_info:"你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
 			gz_ska_jiyan:"籍验",
 			gz_ska_jiyan_sha:"籍验·杀",
 			gz_ska_jiyan_shan:"籍验·闪",
 			gz_ska_jiyan_tao:"籍验·桃",
 			gz_ska_jiyan_jiu:"籍验·酒",
-			gz_ska_jiyan_info:"副将技，每轮限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。",
+			gz_ska_jiyan_info:"副将技，此武将牌减少半个阴阳鱼。每轮限一次，你可以视为使用或打出一张【杀】/【闪】/【桃】/【酒】。",
 			sst_paozhi:"抛枝",
-			sst_paozhi_info:"出牌阶段限一次，你可以将至多三张手牌交给一名与你势力不同的角色，或未确定势力的角色，若你交给与你势力不同的角色，则你摸等量的牌。",
+			sst_paozhi_info:"锁定技，你的手牌均可合纵。",
 
 			ye:'野',
 			ye2:'野心家',

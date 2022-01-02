@@ -460,7 +460,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("ska_shenqi");
 						_status.renku.removeArray(result.links);
 						game.updateRenku();
-						player.gain(result.links,"gain2","fromRenku");
+						player.gain(result.links,"fromRenku");
+						player.$gain2(result.links);
 					}
 				}
 			},
@@ -748,7 +749,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						ai:{
 							respondSha:true,
 							skillTagFilter:function(player){
-								return player.storage.ska_jiyan.contains("sha");
+								if(!player.storage.ska_jiyan.contains("sha")) return false;
 							},
 							order:function(){
 								return get.order({name:"sha"})+0.1;
@@ -775,7 +776,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						ai:{
 							respondShan:true,
 							skillTagFilter:function(player){
-								return player.storage.ska_jiyan.contains("shan");
+								if(!player.storage.ska_jiyan.contains("shan")) return false;
 							},
 							order:function(){
 								return get.order({name:"shan"})+0.1;
@@ -802,7 +803,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						ai:{
 							save:true,
 							skillTagFilter:function(player){
-								return player.storage.ska_jiyan.contains("tao");
+								if(!player.storage.ska_jiyan.contains("tao")) return false;
 							},
 							order:function(){
 								return get.order({name:"tao"})+0.1;
@@ -829,7 +830,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						ai:{
 							save:true,
 							skillTagFilter:function(player){
-								return player.storage.ska_jiyan.contains("jiu");
+								if(!player.storage.ska_jiyan.contains("jiu")) return false;
 							},
 							order:function(){
 								return get.order({name:"jiu"})+0.1;
@@ -2223,7 +2224,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_xiangshi:"向矢",
 			ska_xiangshi_info:"出牌阶段限一次，你可以翻面。若如此做，你可以打出一张牌，然后弃置一名角色区域内的一张牌。若这两张牌的花色相同，你翻面。",
 			//武将分类
-			//sst_sp:"SP",
+			sst_special:"SP",
 			sst_mnm:"mario not mary",
 			sst_ymk:"Yumikohimi",
 			sst_ska:"Show-K",
@@ -2254,7 +2255,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_super_xiaojie:["sst_mario","sst_luigi"],
 			ska_show_k:["sst_mario"],
 			ska_king_olly:["sst_mario"],
-			ska_koopa_troopa:["sst_mario"]
+			ska_koopa_troopa:["sst_mario"],
+			alz_kyo_kusanagi:["sst_kyo_kusanagi"]
 		}//珠联璧合武将（选填）
 	};
 	/*

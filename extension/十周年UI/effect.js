@@ -267,7 +267,7 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 				
 				bgImage.onerror = function () {
 					bgImage.onerror = void 0;
-					bgImage.src = decadeUIPath + 'assets/image/bg_xianding_qun.png';
+					bgImage.src = decadeUIPath + 'assets/image/bg_xianding_sst_light.png';
 				};
 				
 				bgImage.src = decadeUIPath + 'assets/image/bg_xianding_' + camp + '.png';
