@@ -4169,7 +4169,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						target:function(card,player,target){
 							if(!target.hasFriend()) return;
 							if(get.tag(card,"damage")==1&&target.hp==2&&!target.isTurnedOver()&&
-							_status.currentPhase!=target&&get.distance(_status.currentPhase,target,"absolute")<=3) return [0.5,1];
+							_status.currentPhase!=target&&get.distance(_status.currentPhase,target,"pure")<=3) return [0.5,1];
 						}
 					}
 				}
@@ -10978,8 +10978,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				mod:{
 					cardUsableTarget:function(card,player,target){
 						if(target==player) return;
-						if(get.color(card)=="red"&&get.distance(player,target,"absolute")>=Math.floor(game.countPlayer()/2)) return true;
-						if(get.color(card)=="black"&&get.distance(player,target,"absolute")<=Math.ceil(game.countPlayer()/2)) return true;
+						if(get.color(card)=="red"&&get.distance(player,target,"pure")>=Math.floor(game.countPlayer()/2)) return true;
+						if(get.color(card)=="black"&&get.distance(player,target,"pure")<=Math.ceil(game.countPlayer()/2)) return true;
 					},
 					targetInRange:function(card,player,target,now){
 						return true;
@@ -12375,6 +12375,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			/*
 			sst_yinyuan:{
 				direct:true,
 				trigger:{player:"damageBegin"},
@@ -12390,7 +12391,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				logTarget:function(event,player){
 					var targets=game.filterPlayer(function(current){
-						return get.distance(player,current,"absolute")==1;
+						return get.distance(player,current,"pure")==1;
 					});
 					targets.sortBySeat(player);
 					return targets;
@@ -12419,6 +12420,47 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
+					trigger.cancel();
+				}
+			},
+			*/
+			sst_yinyuan:{
+				trigger:{player:"damageBegin"},
+				filter:function(event,player){
+					if(player.hasSkill("sst_yinyuan2")) return false;
+					if(!player.countCards()) return false;
+					var targets=lib.skill.sst_yinyuan.logTarget(event,player);
+					if(!targets||!targets.length) return true;
+					for(var i=0;i<targets.length;i++){
+						if(!targets[i].countCards()) return false;
+					}
+					return true;
+				},
+				logTarget:function(event,player){
+					var targets=game.filterPlayer(function(current){
+						return get.distance(player,current,"pure")==1;
+					});
+					targets.push(player);
+					targets.sortBySeat(player);
+					return targets;
+				},
+				check:function(event,player){
+					var targets=lib.skill.sst_yinyuan.logTarget(event,player);
+					var eff=-get.damageEffect(event.player,event.source,player);
+					for(var i=0;i<targets.length;i++){
+						if(targets[i]==player) continue;
+						eff-=get.attitude(player,targets[i]);
+					}
+					return eff>0;
+				},
+				content:function(){
+					"step 0"
+					player.addTempSkill("sst_yinyuan2");
+					var targets=lib.skill.sst_yinyuan.logTarget(trigger,player);
+					for(var i=0;i<targets.length;i++){
+						targets[i].chooseToDiscard("引援：弃置一张手牌",true);
+					}
+					"step 1"
 					trigger.cancel();
 				}
 			},

@@ -3,6 +3,16 @@ window.noname_asset_list=[
 	//New add
 	'image/character/shibing1.png',
 	'image/character/shibing2.png',
+	'image/character/shibing1sst_light.png',
+	'image/character/shibing2sst_light.png',
+	'image/character/shibing1sst_darkness.png',
+	'image/character/shibing2sst_darkness.png',
+	'image/character/shibing1sst_spirit.png',
+	'image/character/shibing2sst_spirit.png',
+	'image/character/shibing1sst_reality.png',
+	'image/character/shibing2sst_reality.png',
+	'image/character/shibing1sst_smash.png',
+	'image/character/shibing2sst_smash.png',
 
 	'image/character/sst_mario.png',
 	'image/character/sst_link.png',

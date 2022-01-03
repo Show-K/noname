@@ -994,7 +994,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				position:"he",
 				content:function(){
 					"step 0"
-					target.gain(cards,player,"giveAuto");
+					if(cards&&cards.length) target.gain(cards,player,"giveAuto");
 					"step 1"
 					var num=Math.ceil(target.countCards()/2);
 					if(num){
