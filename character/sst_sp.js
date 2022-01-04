@@ -1009,7 +1009,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
-					order:5,
+					order:7,
 					result:{
 						target:function(player,target){
 							if(!ui.selected.cards||!ui.selected.cards.length) return;
