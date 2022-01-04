@@ -12526,7 +12526,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage.sst_zaowu=player.storage.sst_zaowu.concat(result.cards);
 						player.syncStorage("sst_zaowu");
 						player.markSkill("sst_zaowu");
-						game.log(player,"将",result.cards.length,"张牌置于武将牌上作为“机器”");
+						game.log(player,"将",result.cards,"张牌置于武将牌上作为“机器”");
 					}
 				},
 				mod:{
