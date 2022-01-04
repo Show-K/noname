@@ -7496,7 +7496,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseBool("诈谋：收回"+get.translation(event.card)+"，否则令此技能视为此出牌阶段未发动过").set("ai",function(){
 						if(!_status.event.player.countCards("h",{color:"black"})) return true;
 						var card=_status.event.cardx;
-						if(get.position(event.card)=="d") return get.value(card)>5;
+						if(get.position(event.card)=="d") return get.value(card)>0;
 						return false;
 					}).set("cardx",event.card);
 					"step 4"
@@ -7832,14 +7832,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				content:function(){
-					//player.lose(player.storage.sst_qichang,ui.ordering);
+					player.lose(player.storage.sst_qichang,ui.ordering).set("_triggered",null);
 					player.$throw(player.storage.sst_qichang);
+					/*
 					player.storage.sst_qichang.delete();
 					player.storage.sst_qichang.destroyed=true;
 					game.broadcast(function(card){
 						card.delete();
 						card.destroyed=true;
 					},player.storage.sst_qichang);
+					*/
 					player.storage.sst_qichang=null;
 					player.update();
 				}
