@@ -348,7 +348,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							"step 2"
 							if(result.cards&&result.cards.length>0){
 								var card=result.cards[0];
-								player.lose(card,ui.discardPile,"visible","_chongzhu");
+								player.lose(card,ui.discardPile,"visible","chongzhu");
 								player.$throw(card,1000);
 								game.log(player,"将",card,"置入弃牌堆");
 								player.draw();
