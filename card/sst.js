@@ -19,9 +19,6 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 		},
 		skill:{
 			sst_aegises_skill:{
-				init:function(player){
-					player.storage.sst_aegises_skill=false;
-				},
 				//mark:true,
 				zhuanhuanji:true,
 				equipSkill:true,

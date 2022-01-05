@@ -1026,6 +1026,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			ska_zhiyi:{
+				init:function(player){
+					if(!player.hasSkill("ska_zhiyi2")) player.addSkill("ska_zhiyi2");
+				},
 				frequent:true,
 				trigger:{player:"useCardAfter"},
 				direct:true,
@@ -1069,7 +1072,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.draw("nodelay");
 					}
 				},
-				group:["ska_zhiyi_respond","ska_zhiyi2"],
+				group:"ska_zhiyi_respond",
 				subSkill:{
 					respond:{
 						trigger:{global:["respond","useCard"]},
@@ -1110,7 +1113,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			ska_zhiyi2:{
-				trigger:{player:"gainAfter"},
+				charlotte:true,
+				superCharlotte:true,
+				trigger:{player:"gainEnd"},
 				silent:true,
 				filter:function(event,player){
 					return event.source;
