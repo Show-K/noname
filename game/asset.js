@@ -301,6 +301,7 @@ window.noname_asset_list=[
 	'audio/effect/equip3.mp3',
 	'audio/effect/equip4.mp3',
 	'audio/effect/equip5.mp3',
+	'audio/effect/equip6.mp3',
 	'audio/effect/judge.mp3',
 	'audio/effect/link.mp3',
 	'audio/effect/lose.mp3',

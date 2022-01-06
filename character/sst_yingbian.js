@@ -105,7 +105,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						list[i]="yingbian_"+list[i]+"_tag";
 					}
 					player.chooseControl(list,"cancel2").set("ai",function(){
-						var choices=["yingbian_damage_tag","yingbian_hit_tag","yingbian_draw_tag","yingbian_gain_tag","yingbian_add_tag","yingbian_all_tag","yingbian_remove_tag"];
+						var choices=["yingbian_all_tag","yingbian_damage_tag","yingbian_hit_tag","yingbian_draw_tag","yingbian_gain_tag","yingbian_add_tag","yingbian_remove_tag"];
 						var list=_status.event.list;
 						var card=_status.event.card;
 						for(var i=0;i<choices.length;i++){

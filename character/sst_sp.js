@@ -460,7 +460,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("ska_shenqi");
 						_status.renku.removeArray(result.links);
 						game.updateRenku();
-						player.gain(result.links,"fromRenku");
+						player.gain(result.links,"log","fromRenku");
 						player.$gain2(result.links);
 					}
 				}
@@ -802,6 +802,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							save:true,
+							respondTao:true,
 							skillTagFilter:function(player){
 								if(!player.storage.ska_jiyan.contains("tao")) return false;
 							},
@@ -1070,6 +1071,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.bool){
 						player.logSkill("ska_zhiyi");
 						player.draw("nodelay");
+					}
+				},
+				ai:{
+					effect:{
+						player:function(card){
+							if(card.hasGaintag("ska_zhiyi")) return [1,1];
+						}
 					}
 				},
 				group:"ska_zhiyi_respond",
