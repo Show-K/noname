@@ -8225,7 +8225,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					effect:{
 						player:function(card,player){
-							if(player.storage.hasMark("sst_xishou_effect")&&player.needsToDiscard()) return [1,1];
+							if(player.hasMark("sst_xishou_effect")&&player.needsToDiscard()) return [1,1];
 						}
 					}
 				}
