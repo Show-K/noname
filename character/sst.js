@@ -3051,7 +3051,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				shaRelated:true,
 				mark:true,
 				intro:{
-					content:"你使用的杀基础伤害为#直到回合结束"
+					content:"你使用的杀伤害值基数为#直到回合结束"
 				},
 				trigger:{player:"useCard1"},
 				filter:function(event,player){
@@ -6173,10 +6173,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juejing:{
 				mod:{
 					aiValue:function(player,card,num){
-						if(card.name=="zhuge") return 15;
+						if(card.name=="zhuge") return 20;
 					}
 				},
-				trigger:{player:["gainEnd","loseEnd"]},
+				trigger:{
+					player:"loseAfter",
+					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter"]
+				},
 				forced:true,
 				filter:function(event,player){
 					return player.countCards("h")!=4;
@@ -8590,8 +8593,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Springman
 			sst_shenbi:{
 				init:function(player){
-					player.storage.sst_shenbi=["下一张【杀】伤害+1","此【杀】不可被响应","失去1点体力"];
-					player.storage.sst_shenbi_ready=["下一张【杀】伤害+1","此【杀】不可被响应","失去1点体力"];
+					player.storage.sst_shenbi=["下一张【杀】伤害基数+1","此【杀】不可被响应","失去1点体力"];
+					player.storage.sst_shenbi_ready=["下一张【杀】伤害基数+1","此【杀】不可被响应","失去1点体力"];
 				},
 				locked:false,
 				mod:{
@@ -8646,7 +8649,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chat(result.control);
 					player.storage.sst_shenbi.remove(result.control);
 					switch(result.control){
-						case "下一张【杀】伤害+1":{
+						case "下一张【杀】伤害基数+1":{
 							if(!player.hasSkill("sst_shenbi_effect")) player.addSkill("sst_shenbi_effect");
 							player.addMark("sst_shenbi_effect",1,false);
 							break;
@@ -8670,7 +8673,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenbi_effect:{
 				shaRelated:true,
 				intro:{
-					content:"下一张【杀】的伤害基数+#"
+					content:"下一张【杀】伤害基数+#"
 				},
 				trigger:{player:"useCard1"},
 				filter:function(event){
@@ -12088,7 +12091,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoOrdering(event.card);
 					player.showCards(event.card);
 					"step 1"
-					player.chooseToRespond("星降：你可以打出一张牌，然后若与"+get.translation(event.card)+"的类型相同，你可以弃置场上一张牌；花色相同，你可以对一名角色造成1点伤害；点数相同，你可以令一名角色翻面。").set("ai",function(card){
+					player.chooseToRespond("星降：你可以打出一张牌，然后若与"+get.translation(event.card)+"的：类型相同，你可以弃置场上一张牌；花色相同，你使用下一张带有「伤害」标签的牌伤害值基数+1；点数相同，你可以令一名角色翻面。").set("ai",function(card){
 						var player=_status.event.player;
 						var cardx=_status.event.cardx;
 						var num=0;
@@ -12128,50 +12131,50 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.num++;
 					if(event.num<=3){
 						if(event.conditions[event.num-1]){
-							var str="";
-							switch(event.num){
-								case 1:{
-									str="弃置场上一张牌";
-									break;
-								}
-								case 2:{
-									str="对一名角色造成1点伤害";
-									break;
-								}
-								case 3:{
-									str="令一名角色翻面";
-									break;
-								}
+							if(event.num==2){
+								if(!player.hasSkill("sst_xingjiang_effect")) player.addSkill("sst_xingjiang_effect");
+								player.addMark("sst_xingjiang_effect",1,false);
+								event.redo();
 							}
-							player.chooseTarget("星降：你可以"+str,function(card,player,target){
-								var num=_status.event.num;
-								if(num==1) return target.countDiscardableCards(player,"ej");
-								return true;
-							}).set("ai",function(target){
-								var player=_status.event.player;
-								var num=_status.event.num;
-								switch(num){
+							else{
+								var str="";
+								switch(event.num){
 									case 1:{
-										var att=get.attitude(player,target);
-										if(att>0&&target.countCards("ej",function(card){
-											return get.position(card)=="j"||get.value(card,target)<=0;
-										})) return 2*att;
-										else if(att<0&&target.countCards("e",function(card){
-											return get.value(card,target)>5;
-										})) return -att;
-										return -att;
-									}
-									case 2:{
-										return get.damageEffect(target,player,player);
+										str="弃置场上一张牌";
+										break;
 									}
 									case 3:{
-										if(target.hasSkillTag("noturn")) return 0;
-										if(target.classList.contains("turnedover")) return get.attitude(player,target);
-										return -get.attitude(player,target);
+										str="令一名角色翻面";
+										break;
 									}
 								}
-								return 0;
-							}).set("num",event.num);
+								player.chooseTarget("星降：你可以"+str,function(card,player,target){
+									var num=_status.event.num;
+									if(num==1) return target.countDiscardableCards(player,"ej");
+									return true;
+								}).set("ai",function(target){
+									var player=_status.event.player;
+									var num=_status.event.num;
+									switch(num){
+										case 1:{
+											var att=get.attitude(player,target);
+											if(att>0&&target.countCards("ej",function(card){
+												return get.position(card)=="j"||get.value(card,target)<=0;
+											})) return 2*att;
+											else if(att<0&&target.countCards("e",function(card){
+												return get.value(card,target)>5;
+											})) return -att;
+											return -att;
+										}
+										case 3:{
+											if(target.hasSkillTag("noturn")) return 0;
+											if(target.classList.contains("turnedover")) return get.attitude(player,target);
+											return -get.attitude(player,target);
+										}
+									}
+									return 0;
+								}).set("num",event.num);
+							}
 						}
 					}
 					else{
@@ -12184,10 +12187,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						switch(event.num){
 							case 1:{
 								player.discardPlayerCard("星降：弃置"+get.translation(target)+"场上一张牌",target,"ej",true);
-								break;
-							}
-							case 2:{
-								target.damage(player);
 								break;
 							}
 							case 3:{
@@ -12205,6 +12204,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player:1
 					},
 					expose:0.2
+				}
+			},
+			sst_xingjiang_effect:{
+				charlotte:true,
+				intro:{
+					content:"你使用下一张带有「伤害」标签的牌伤害值基数+#"
+				},
+				onremove:function(player){
+					player.removeMark("sst_xingjiang_effect",player.countMark("sst_xingjiang_effect"),false);
+				},
+				trigger:{player:"useCard1"},
+				filter:function(event,player){
+					return event.card&&get.tag(event.card,"damage");
+				},
+				content:function(){
+					trigger.baseDamage+=player.countMark("sst_xingjiang_effect");
+					player.removeSkill("sst_xingjiang_effect");
 				}
 			},
 			sst_fuyuan:{
@@ -12647,8 +12663,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					str+="，此时选择你未选择过的一项：";
 					for(var i=0;i<player.storage.sst_shenbi_ready.length;i++){
 						switch(player.storage.sst_shenbi_ready[i]){
-							case "下一张【杀】伤害+1":{
-								str+="<span class=\"bluetext\">1. 你使用的下一张【杀】伤害+1";
+							case "下一张【杀】伤害基数+1":{
+								str+="<span class=\"bluetext\">1. 你使用的下一张【杀】伤害基数+1";
 								break;
 							}
 							case "此【杀】不可被响应":{
@@ -12891,7 +12907,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiuyuan_info:"主公技，你成为带有「伤害」标签的锦囊或【杀】的目标前，其他本势力角色可以摸一张牌，将目标改为自己。",
 			sst_potian:"破天",
 			sst_potian2:"破天",
-			sst_potian_info:"准备阶段，你可以重铸任意张花色不同的牌，然后你令你使用的【杀】基础伤害为X直到回合结束（X为你以此法置入弃牌堆的基本牌数量）。",
+			sst_potian_info:"准备阶段，你可以重铸任意张花色不同的牌，然后你令你使用的【杀】伤害值基数为X直到回合结束（X为你以此法置入弃牌堆的基本牌数量）。",
 			sst_shenjiao:"身教",
 			sst_shenjiao2:"身教",
 			sst_shenjiao_info:"你重铸的牌置入弃牌堆前，你可以将这些牌交给一名其他角色，若这些牌是因〖破天〗重铸的，你令该角色于其下一个回合内拥有〖破天〗。",
@@ -12988,7 +13004,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_baochui:"爆锤",
 			sst_baochui2:"爆锤",
 			sst_baochui_effect:"爆锤",
-			sst_baochui_info:"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其基础伤害为X+1。然后若此牌没有造成伤害，本局游戏你的手牌上限-1。（X为你本回合失去牌的数量除以2且向上取整）",
+			sst_baochui_info:"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为X+1。然后若此牌没有造成伤害，本局游戏你的手牌上限-1。（X为你本回合失去牌的数量除以2且向上取整）",
 			sst_shengxi:"圣袭",
 			sst_shengxi2:"圣袭",
 			sst_shengxi3:"圣袭",
@@ -13141,7 +13157,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenbi:"神臂",
 			sst_shenbi2:"神臂",
 			sst_shenbi_effect:"神臂",
-			sst_shenbi_info:"你可以将手牌数调整至比当前回合角色少1，视为使用或打出一张无距离限制的【杀】，此时你选择未选择过的一项：1. 你使用的下一张【杀】伤害+1；2. 此【杀】不可被响应；3. 失去一点体力。然后若均已选择过或你体力值为1，重置此技能。",
+			sst_shenbi_info:"你可以将手牌数调整至比当前回合角色少1，视为使用或打出一张无距离限制的【杀】，此时你选择未选择过的一项：1. 你使用的下一张【杀】伤害基数+1；2. 此【杀】不可被响应；3. 失去一点体力。然后若均已选择过或你体力值为1，重置此技能。",
 			sst_lanbo:"蓝波",
 			sst_lanbo2:"蓝波",
 			sst_lanbo_info:"你可以弃置超出你手牌上限的牌或删除〖神臂〗的一个选项，视为使用一张【闪】。",
@@ -13302,7 +13318,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fuzhuo2:"祓濯",
 			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，视为你依次使用X张火【杀】。（X为你已损失的体力值）",
 			sst_xingjiang:"星降",
-			sst_xingjiang_info:"出牌阶段限一次，你可以亮出牌堆顶一张牌。若如此做，你可以打出一张牌，然后若这两张牌的：类型相同，你可以弃置场上一张牌；花色相同，你可以对一名角色造成1点伤害；点数相同，你可以令一名角色翻面。",
+			sst_xingjiang_effect:"星降",
+			sst_xingjiang_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌。若这两张牌的：类型相同，你可以弃置场上一张牌；花色相同，你使用下一张带有「伤害」标签的牌伤害值基数+1；点数相同，你可以令一名角色翻面。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan2:"复愿",
 			sst_fuyuan_info:"一名角色的结束阶段，你可以令一名角色摸X张牌，然后弃置Y张牌。若因此其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌，然后你可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量且至多为7）",
