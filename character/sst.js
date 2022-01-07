@@ -3041,7 +3041,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						for(var i=0;i<cards.length;i++){
 							if(get.type(cards[i])=="basic") num++;
 						}
-						player.addMark("sst_potian2",num,false);
+						if(num){
+							player.addMark("sst_potian2",num,false);
+						}
+						else{
+							player.storage.sst_potian2=0;
+							player.syncStorage("sst_potian2");
+							player.markSkill("sst_potian2");
+						}
 						player.draw(cards.length);
 						player.addTempSkill("sst_potian2");
 					}
@@ -5803,6 +5810,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							case "red":return 1;
 							default:return 0;
 						}
+					}).set("judge2",function(){
+						return true;
 					});
 					"step 1"
 					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){return 0;});
@@ -7293,11 +7302,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yanyang:{
 				enable:"phaseUse",
 				filterTarget:function(card,player,target){
-					return target.countDiscardableCards(player,"he")&&target.countCards("h")>=player.countCards("h");
+					return target.countCards("he",function(card){
+						return lib.filter.cardDiscardable(card,target);
+					})&&target.countCards("h")>=player.countCards("h");
 				},
+				delay:false,
 				content:function(){
 					"step 0"
-					target.chooseToDiscard("焰扬：弃置一张牌","he",true);
+					target.chooseToDiscard("焰扬：弃置一张牌","he",true).set("ai",function(card){
+						if(get.name(card)=="sha") return 10;
+						return get.unuseful(card);
+					});
 					"step 1"
 					if(result.cards&&result.cards.length&&get.name(result.cards[0])=="sha"){
 						var num=player.getStat("skill").sst_yanyang||1;
@@ -7309,7 +7324,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					order:3,
 					result:{
-						target:-0.5,
+						target:function(player){
+							if(player.hasSkill("sst_yanyang_ai")) return 0;
+							return -0.5;
+						},
 						player:function(player){
 							if(player.hasSkill("sst_yanyang_ai")) return 0;
 							return 0.5-(player.getStat("skill").sst_yanyang||0)*0.25;
@@ -7481,7 +7499,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				locked:false,
 				mod:{
 					aiOrder:function(player,card,num){
-						if(typeof card=="object"&&player==_status.currentPhase){
+						if(get.itemtype(card)=="card"&&player==_status.currentPhase){
 							if(get.color(card)=="red"){
 								return num+3;
 							}
@@ -7496,6 +7514,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterTarget:function(card,player,target){
 					return target!=player;
 				},
+				delay:false,
 				content:function(){
 					"step 0"
 					target.discardPlayerCard("诈谋：弃置"+get.translation(player)+"一张手牌",player,"h",true);
@@ -9030,7 +9049,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					"step 1"
-					player.chooseCardButton(event.cards,get.prompt("sst_tanyun")).set("ai",function(button){
+					player.chooseCardButton(event.cards,get.prompt2("sst_tanyun")).set("ai",function(button){
 						var player=_status.event.player;
 						var judges=player.getCards("j");
 						if(judges&&judges.length&&!player.hasWuxie()){
@@ -9089,7 +9108,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return event.player.hasSkill("sst_zhuizhai3")&&event.player.countCards("he")>1;
 				},
 				content:function(){
-					player.gainPlayerCard(get.prompt("sst_zhuizhai2",event.player),event.player,"he",2).set("logSkill",["sst_zhuizhai",event.player]);
+					player.gainPlayerCard(get.prompt("sst_zhuizhai2",trigger.player),"你可以获得"+get.translation(trigger.player)+"两张牌",trigger.player,"he",2).set("logSkill",["sst_zhuizhai",trigger.player]);
 				}
 			},
 			sst_zhuizhai3:{
@@ -12173,7 +12192,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					event.card=get.cards()[0];
-					game.cardsGotoOrdering(event.card);
+					//game.cardsGotoOrdering(event.card);
 					player.showCards(event.card);
 					"step 1"
 					player.chooseToRespond("星降：你可以打出一张牌，然后若与"+get.translation(event.card)+"的：类别相同，你可以弃置场上一张牌；花色相同，你使用下一张带有「伤害」标签的牌伤害值基数+1；点数相同，你可以令一名角色翻面。").set("ai",function(card){
@@ -12282,6 +12301,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets.length=0;
 					}
 					event.goto(3);
+					"step 5"
+					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
+					game.updateRoundNumber();
 				},
 				ai:{
 					order:5,
@@ -13335,7 +13357,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pojun:"破军",
 			sst_pojun_info:"你将牌置于你的武将牌上，回合结束时你获得武将牌上的这些牌。",
 			sst_powei:"破围",
-			sst_powei_info:"摸牌阶段，你可以令摸牌数-1（无视最低限制，若场上已受伤角色超过一半，改为令摸牌数-2），然后展示牌堆顶的等量牌且可以使用之（不能指定自己为目标）。你重复此流程直到你没有以此法使用牌。",
+			sst_powei_info:"摸牌阶段，你可以令摸牌数-1（无视最低限制，若场上已受伤角色超过一半，改为令摸牌数-2），然后亮出牌堆顶的等量牌且可以使用之（不能指定自己为目标）。你重复此流程直到你没有以此法使用牌。",
 			sst_bianshe:"编设",
 			sst_bianshe_info:"锁定技，每轮游戏开始时，你选择以下任意两个技能，本轮内视为拥有之。",
 			sst_miquan:"秘拳",

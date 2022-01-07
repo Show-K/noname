@@ -4,7 +4,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		name:'identity',
 		start:function(){
 			"step 0"
-			if(parseInt(get.config('player_number'))>=13){
+			if(!['zhong','purple'].contains(get.config('identity_mode'))&&parseInt(get.config('player_number'))>=13){
 				ui.arenalog.style.display='';
 				ui.arenalog.dataset.position='center';
 			}
