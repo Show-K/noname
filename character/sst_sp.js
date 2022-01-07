@@ -29,7 +29,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 			//mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
-			ska_king_olly:["male","sst_spirit",3,["ska_shenqi","ska_zhesheng"],[]],
+			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]]
 		},//武将（必填）
 		characterFilter:{
@@ -416,7 +416,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Olivia
 			ska_shenqi:{
-				audio:2,
+				preHidden:true,
 				trigger:{global:["roundStart","damageEnd"]},
 				frequent:true,
 				init:function(player){
@@ -439,9 +439,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					maixie:true
 				},
-				group:"ska_shenqi2"
+				group:"ska_shenqi3"
 			},
-			ska_shenqi2:{
+			ska_shenqi3:{
 				trigger:{player:"useCard"},
 				filter:function(event,player){
 					return _status.renku&&_status.renku.length;
@@ -449,7 +449,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi2")).set("ai",function(button){
+					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi3")).set("ai",function(button){
 						var player=_status.event.player;
 						if(get.name(button.link)=="du") return -10;
 						if(player.isPhaseUsing()) return player.getUseValue(button.link)+5;
@@ -525,7 +525,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
-					combo:"ska_shenqi",
+					combo:["ska_shenqi","ska_shenqi2"],
 					expose:0.2,
 					order:8,
 					result:{
@@ -1079,7 +1079,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					effect:{
 						player:function(card){
-							if(card.hasGaintag("ska_zhiyi")) return [1,1];
+							if(get.itemtype(card)=="card"&&card.hasGaintag("ska_zhiyi")) return [1,1];
 						}
 					}
 				},
@@ -1292,6 +1292,70 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Professor Toad
 			ska_juegu:{
 				group:["ska_juegu_sha","ska_juegu_shan"],
+				contentx:function(){
+					"step 0"
+					player.logSkill("ska_juegu");
+					event.card_top=event.result.cards[0];
+					player.showCards(event.card_top);
+					"step 1"
+					player.$throw(1);
+					game.log(player,"将一张牌置于牌堆顶");
+					player.lose(event.card_top,ui.cardPile,"insert");
+					"step 2"
+					event.card_bottom=get.bottomCards()[0];
+					game.cardsGotoOrdering(event.card_bottom);
+					player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌（牌堆底牌）");
+					"step 3"
+					if(ui.discardPile.childNodes.length&&get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
+						//event.result.card={name:event.result.card.name,isCard:true};
+						event.result.card.cards=[];
+						event.result.cards=[];
+						delete event.result.card.suit;
+						delete event.result.card.number;
+					}
+					else{
+						if(!ui.discardPile.childNodes.length){
+							player.chat("无牌可比较了吗");
+							game.log("但是弃牌堆里面已经没有牌了！");
+						}
+						var evt=event.getParent();
+						evt.set("ska_juegu",true);
+						evt.goto(0);
+						player.addTempSkill("ska_juegu_disable");
+					}
+					"step 4"
+					event.can_damage=get.color(event.card_top)!=get.color(event.card_bottom);
+					player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(event.can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
+						var player=_status.event.player;
+						if(get.value(event.card_bottom)<=get.damageEffect(target,player,player)&&_status.event.can_damage) return get.damageEffect(target,player,player);
+						return get.attitude(player,target);
+					}).set("cardx",event.card_bottom).set("can_damage",event.can_damage);
+					"step 5"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.line(event.target,"green");
+						event.target.gain(event.card_bottom,"gain2",false);
+					}
+					else{
+						event.finish();
+					}
+					"step 6"
+					if(event.can_damage){
+						player.chooseBool("掘古：是否对"+get.translation(event.target)+"造成1点伤害？").set("ai",function(){
+							var player=_status.event.player;
+							var target=_status.event.targetx;
+							return get.damageEffect(target,player,player)>0;
+						}).set("targetx",event.target);
+					}
+					else{
+						event.finish();
+					}
+					"step 7"
+					if(result.bool){
+						player.line(event.target,"green");
+						event.target.damage(player);
+					}
+				},
 				subSkill:{
 					sha:{
 						enable:["chooseToUse","chooseToRespond"],
@@ -1308,68 +1372,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return 5-get.value(card);
 						},
 						precontent:function(){
-							"step 0"
-							player.logSkill("ska_juegu");
-							event.card_top=event.result.cards[0];
-							player.showCards(event.card_top);
-							"step 1"
-							player.$throw(1);
-							game.log(player,"将一张牌置于牌堆顶");
-							player.lose(event.card_top,ui.cardPile,"insert");
-							"step 2"
-							event.card_bottom=get.bottomCards()[0];
-							game.cardsGotoOrdering(event.card_bottom);
-							player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌（牌堆底牌）");
-							"step 3"
-							if(ui.discardPile.childNodes.length&&get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
-								//event.result.card={name:event.result.card.name,isCard:true};
-								event.result.card.cards=[];
-								event.result.cards=[];
-								delete event.result.card.suit;
-								delete event.result.card.number;
-							}
-							else{
-								if(!ui.discardPile.childNodes.length){
-									player.chat("无牌可比较了吗");
-									game.log("但是弃牌堆里面已经没有牌了！");
-								}
-								var evt=event.getParent();
-								evt.set("ska_juegu",true);
-								evt.goto(0);
-								player.addTempSkill("ska_juegu_disable");
-							}
-							"step 4"
-							event.can_damage=get.color(event.card_top)!=get.color(event.card_bottom);
-							player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(event.can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
-								var player=_status.event.player;
-								if(get.value(event.card_bottom)<=get.damageEffect(target,player,player)&&_status.event.can_damage) return get.damageEffect(target,player,player);
-								return get.attitude(player,target);
-							}).set("cardx",event.card_bottom).set("can_damage",event.can_damage);
-							"step 5"
-							if(result.targets&&result.targets.length){
-								event.target=result.targets[0];
-								player.line(event.target,"green");
-								event.target.gain(event.card_bottom,"gain2",false);
-							}
-							else{
-								event.finish();
-							}
-							"step 6"
-							if(event.can_damage){
-								player.chooseBool("掘古：是否对"+get.translation(event.target)+"造成1点伤害？").set("ai",function(){
-									var player=_status.event.player;
-									var target=_status.event.targetx;
-									return get.damageEffect(target,player,player)>0;
-								}).set("targetx",event.target);
-							}
-							else{
-								event.finish();
-							}
-							"step 7"
-							if(result.bool){
-								player.line(event.target,"green");
-								event.target.damage(player);
-							}
+							return lib.skill.ska_juegu.contentx.apply(this,arguments);
 						},
 						prompt:"当你需要使用或打出一张【杀】时，你可以展示一张牌并将其置于牌堆顶，然后展示牌堆底一张牌，1. 若你置于牌堆顶的牌花色与弃牌堆顶的花色相同，你视为使用或打出一张【杀】，否则你不能发动此技能直到回合结束；2. 你可以令一名角色获得展示的牌堆底牌，然后若你置于牌堆顶的牌颜色与此牌相同，你可以对其造成1点伤害",
 						ai:{
@@ -1397,65 +1400,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return 5-get.value(card);
 						},
 						precontent:function(){
-							"step 0"
-							player.logSkill("ska_juegu");
-							event.card_top=event.result.cards[0];
-							player.showCards(event.card_top);
-							"step 1"
-							player.$throw(1);
-							game.log(player,"将一张牌置于牌堆顶");
-							player.lose(event.card_top,ui.cardPile,"insert");
-							"step 2"
-							delete event.animate;
-							event.card_bottom=get.bottomCards()[0];
-							player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌堆底牌");
-							"step 3"
-							if(get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
-								event.result.card={name:event.result.card.name,isCard:true};
-								event.result.cards=[];
-							}
-							else{
-								var evt=event.getParent();
-								evt.set("ska_juegu",true);
-								evt.goto(0);
-								player.addTempSkill("ska_juegu_disable");
-							}
-							//delete event.result.skill;
-							//delete event.result.card.suit;
-							//delete event.result.card.number;
-							"step 4"
-							var can_damage=get.color(event.card_top)==get.color(event.card_bottom);
-							player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
-								var player=_status.event.player;
-								var card=_status.event.cardx;
-								if(get.value(card)<=get.damageEffect(target,player)&&_status.event.can_damage) return get.damageEffect(player,target);
-								return get.attitude(player,target)*get.value(card);
-							}).set("cardx",event.card_bottom).set("can_damage",can_damage);
-							"step 5"
-							if(result.targets&&result.targets.length){
-								event.target=result.targets[0];
-								player.line(event.target,"green");
-								event.target.gain(event.card_bottom,"gain2").set("delay",false);
-							}
-							else{
-								event.finish();
-							}
-							"step 6"
-							if(get.color(event.card_top)==get.color(event.card_bottom)){
-								player.chooseBool("掘古：是否对"+get.translation(event.target)+"造成1点伤害？").set("ai",function(){
-									var player=_status.event.player;
-									var target=_status.event.targetx;
-									return get.damageEffect(target,player)>0;
-								}).set("targetx",event.target);
-							}
-							else{
-								event.finish();
-							}
-							"step 7"
-							if(result.bool){
-								player.line(event.target,"green");
-								event.target.damage(player);
-							}
+							return lib.skill.ska_juegu.contentx.apply(this,arguments);
 						},
 						selectCard:1,
 						position:"he",
@@ -1483,7 +1428,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.gain(get.bottomCards(trigger.cards.length),"draw");
+					player.gain(get.bottomCards(trigger.cards.length));
+					player.$draw(trigger.cards.length);
 					"step 1"
 					player.chooseCard("窥往：将"+get.cnNumber(trigger.cards.length)+"张牌置于牌堆底（后选择的在下）",trigger.cards.length,true);
 					"step 2"
@@ -1947,6 +1893,37 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			*/
 			//King Olly
+			ska_shenqi2:{
+				preHidden:true,
+				trigger:{global:["roundStart","damageSource"]},
+				frequent:true,
+				init:function(player){
+					player.storage.renku=true;
+				},
+				content:function(){
+					"step 0"
+					event.cards=get.bottomCards(2);
+					player.chooseCardButton("神祇：将其中一张牌置入仁库中",event.cards,true).set("ai",function(player){
+						return get.value(button.link);
+					});
+					"step 1"
+					if(result.links&&result.links.length){
+						event.card=result.links[0];
+						event.cards.remove(event.card);
+						game.cardsGotoSpecial(event.card,"toRenku");
+						player.$throw(event.card);
+						game.log(player,"将",event.card,"置入了仁库");
+					}
+					"step 2"
+					for(var i=0;i<event.cards.length;i++){
+						ui.cardPile.appendChild(event.cards[i]);
+					}
+				},
+				ai:{
+					maixie:true
+				},
+				group:"ska_shenqi3"
+			},
 			ska_zhesheng:{
 				enable:"phaseUse",
 				usable:1,
@@ -2018,7 +1995,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					targets[0].useCard(card,targets[1],false,"noai");
 				},
 				ai:{
-					combo:"ska_shenqi",
+					combo:["ska_shenqi","ska_shenqi2"],
 					expose:0.2,
 					order:6,
 					result:{
@@ -2030,7 +2007,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhesheng2:{
 				forced:true,
 				popup:false,
-				trigger:{global:"useCard"},
+				trigger:{global:"useCard1"},
 				filter:function(event,player){
 					return event.getParent().name=="ska_zhesheng_backup";
 				},
@@ -2176,7 +2153,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_yangxun:"洋寻",
 			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其交给你一张牌。",
 			ska_shenqi:"神祇",
-			ska_shenqi2:"神祇",
+			ska_shenqi3:"神祇",
 			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
@@ -2232,9 +2209,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用或打出。",
 			mnm_jijing:"急竞",
 			mnm_jijing_info:"出牌阶段限一次，你可以将武将牌弹飞，其所命中的武将牌对应的角色依次受到你造成的1点伤害。",
+			ska_shenqi2:"神祇",
+			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
-			ska_zhesheng_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被【无懈可击】响应）。",
+			ska_zhesheng_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
 			ska_suixuan:"随旋",
 			ska_suixuan2:"随旋",
 			ska_suixuan_info:"锁定技，当你受到伤害后，你翻面。当你翻面时，你视为使用一张无距离限制的【杀】，然后弃置一张牌。",

@@ -3955,7 +3955,7 @@ span[data-nature='firemx'] {
 }
 
 .player .identity[data-color="zhong"],
-.player .identity[data-color="qun"],
+.player .identity[data-color="sst_light"],
 .player .identity[data-color="neutral"],
 .player .identity[data-color="friend2"],
 div[data-nature='metal'],
@@ -3995,7 +3995,7 @@ span[data-nature='keymm'] {
 .player .identity[data-color="ye"],
 .player .identity[data-color="rYe"],
 .player .identity[data-color="bYe"],
-.player .identity[data-color="jin"],
+.player .identity[data-color="sst_smash"],
 div[data-nature='thunder'],
 span[data-nature='thunder'] {
 	text-shadow: rgba(100, 74, 139,1) 0 0 2px,rgba(100, 74, 139,1) 0 0 5px,rgba(100, 74, 139,1) 0 0 10px,
@@ -4030,7 +4030,7 @@ span[data-nature='kamimm'] {
 }
 
 .player .identity[data-color="fan"],
-.player .identity[data-color="wu"],
+.player .identity[data-color="sst_spirit"],
 div[data-nature='wood'],
 span[data-nature='wood'] {
 	text-shadow: rgba(57, 123, 4,1) 0 0 2px,rgba(57, 123, 4,1) 0 0 5px,rgba(57, 123, 4,1) 0 0 10px,
@@ -4051,7 +4051,7 @@ span[data-nature='woodmm'] {
 .player .identity[data-color="bZhu"],
 .player .identity[data-color="bZhong"],
 .player .identity[data-color="bNei"],
-.player .identity[data-color="wei"],
+.player .identity[data-color="sst_darkness"],
 .player .identity[data-color="falsezhu"],
 .player .identity[data-color="friend"],
 .water,
@@ -4076,7 +4076,7 @@ span[data-nature='watermx'] {
 		rgba(20, 83, 140,1) 0 0 5px,black 0 0 1px;
 }
 
-.player .identity[data-color="shu"],
+.player .identity[data-color="sst_reality"],
 div[data-nature='soil'],
 span[data-nature='soil'] {
 	text-shadow: rgba(128, 59, 2,1) 0 0 2px,rgba(128, 59, 2,1) 0 0 5px,rgba(128, 59, 2,1) 0 0 10px,

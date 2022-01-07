@@ -8426,7 +8426,7 @@ config:{
     },
 	dynamicSkinOutcrop:{
 		name: '动皮露头',
-        init: true,
+        init: false,
 		update:function(){
 			if (window.decadeUI) {
 				var enable = lib.config['extension_十周年UI_dynamicSkinOutcrop'];
@@ -8457,7 +8457,7 @@ config:{
     },
 	campIdentityImageMode:{
         name: '势力身份美化',
-        init: true,
+        init: false,
     },
 	playerKillEffect:{
 		name: '玩家击杀特效',

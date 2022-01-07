@@ -2189,7 +2189,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 1"
 					if(event.cards.length>1){
-						player.chooseCardButton("将“星尘”牌分配给其他角色",true,event.cards,[1,event.cards.length]).set("ai",function(button){
+						player.chooseCardButton("星尘：将“星尘”牌分配给其他角色",true,event.cards,[1,event.cards.length]).set("ai",function(button){
 							if(ui.selected.buttons.length==0) return 1;
 							return 0;
 						});
@@ -12369,12 +12369,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
 					str+="。若因此其手牌数与其体力值或体力上限相等，你可以观看牌堆顶一张牌，然后你可以使用此牌（其应变效果直接生效）";
 					player.chooseTarget(get.prompt("sst_fuyuan"),str).set("ai",function(target){
+						var att=get.sgnAttitude(_status.event.player,target);
 						if(_status.event.num_draw<_status.event.num_discard){
 							if(!target.countCards("he")) return 0;
-							return -get.attitude(_status.event.player,target);
+							return -att;
 						}
 						if(_status.event.num_draw==_status.event.num_discard&&!target.countCards("he")) return 0;
-						return get.attitude(_status.event.player,target);
+						return att;
 					}).set("num_draw",event.num_draw).set("num_discard",event.num_discard);
 					"step 1"
 					if(result.targets&&result.targets.length){
