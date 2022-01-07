@@ -657,7 +657,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var next=player.chooseToUse();
 					next.set("logSkill","ska_kezhi");
 					next.set("prompt",get.prompt("ska_kezhi"));
-					next.set("prompt2","你可以将一张牌当作"+get.translation(trigger.card)+"使用并失去1点体力");
+					next.set("prompt2","你可以失去1点体力并将一张牌当作"+get.translation(trigger.card)+"使用");
 					next.set("norestore",true);
 					next.set("_backupevent","ska_kezhix");
 					next.backup("ska_kezhix");
@@ -667,6 +667,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						replace:{window:function(){}}
 					});
 					next.set("cardx",card);
+					next.set("ai2",player.hp>1?get.effect_use:function(){
+						return 0;
+					})
 				},
 				group:["ska_kezhi_respond","ska_kezhi2"],
 				subSkill:{
@@ -2186,7 +2189,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_jicai_info:"锁定技，你跳过判定阶段，改为执行一个弃牌阶段；你跳过不以此法执行的弃牌阶段，改为执行一个摸牌阶段。",
 			ska_kezhi:"恪志",
 			ska_kezhi2:"恪志",
-			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以将一张牌当作此牌使用并失去1点体力。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
+			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以失去1点体力并将一张牌当作此牌使用。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_kezhi2_info:"每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
 			ska_jiyan:"籍验",
 			ska_jiyan2:"籍验",

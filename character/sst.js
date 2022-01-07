@@ -4459,7 +4459,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				direct:true,
 				content:function(){
-					player.chooseUseTarget("###"+get.prompt("sst_elang")+"###视为对一名手牌数不小于你的角色使用一张【决斗】，若如此做，结算结束后，你可以获得此【决斗】流程内打出的所有【杀】",{name:"juedou",isCard:true},game.filterPlayer(function(current){
+					player.chooseUseTarget(get.prompt2("sst_elang"),{name:"juedou",isCard:true},game.filterPlayer(function(current){
 						return current.countCards("h")>=player.countCards("h");
 					}),false).set("logSkill","sst_elang");
 				},
@@ -5814,7 +5814,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return true;
 					});
 					"step 1"
-					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){return 0;});
+					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){
+						return 0;
+					});
 				},
 				group:"sst_cuifeng2"
 			},
@@ -6415,10 +6417,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseCardTarget({
 						filterCard:true,
+						selectCard:[0,Infinity],
 						position:"he",
 						filterTarget:function(card,player,target){
-							if(!ui.selected.cards||!ui.selected.cards.length) return false;
-							for(var i=0;i<ui.selected.cards.length;i++){
+							if(target==player) return false;
+							var selected=(ui.selected.cards&&ui.selected.cards.length)?ui.selected.cards.length:0;
+							for(var i=0;i<selected;i++){
 								if(!lib.filter.canBeGained(ui.selected.cards[i],target,player)) return false;
 							}
 							return true;
@@ -7415,7 +7419,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				logTarget:"player",
 				content:function(){
-					trigger.player.addSkill("sst_yebao","sst_yebao3",true);
+					trigger.player.addSkill("sst_yebao3");
 				},
 				ai:{
 					effect:{
@@ -7971,7 +7975,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.qichang) event.cards.remove(event.qichang);
 					event.cards=event.cards.filterInD("d");
 					"step 3"
-					player.chooseCardButton("拾珠：选择一张牌对你或其使用",event.cards).set("filterButton",function(button){
+					player.chooseCardButton("拾珠：选择一张牌",event.cards).set("filterButton",function(button){
 						var player=_status.event.player;
 						var target=_status.event.targetx;
 						//return player.canUse(button.link,player,false)||player.canUse(button.link,target,false);
@@ -10464,7 +10468,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(result&&result.bool&&result.links[0]){
 						var card={name:result.links[0][2],isCard:true};
-						trigger.player.chooseUseTarget("诵魔：使用"+get.translation(card),card,true,false);
+						trigger.player.chooseUseTarget(card,true,false);
 					}
 				},
 				ai:{
@@ -10580,7 +10584,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.showCards(event.cards);
 					"step 2"
 					if(event.cards.length>1){
-						player.chooseCardButton("破围：你可以使用其中的牌",event.cards,true).set("ai",function(button){
+						player.chooseCardButton("破围：选择一张牌",event.cards,true).set("ai",function(button){
 							return _status.event.player.getUseValue(button.link);
 						});
 					}
@@ -10599,9 +10603,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 4"
 					if(event.card){
-						player.chooseUseTarget("破围：你可以使用"+get.translation(event.card),event.card,game.filterPlayer(function(current){
+						player.chooseUseTarget(event.card,game.filterPlayer(function(current){
 							return current!=player;
 						}),false);
+					}
+					else{
+						event.finish();
 					}
 					"step 5"
 					//game.log("结果：",result.bool&&result.targets&&result.targets.length);
@@ -10620,6 +10627,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.finish();
 						}
 					}
+					event.card=null;
 					"step 6"
 					if(result.bool) event.goto(0);
 				}
@@ -12315,6 +12323,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_xingjiang_effect:{
 				charlotte:true,
+				forced:true,
 				intro:{
 					content:"你使用下一张带有「伤害」标签的牌伤害值基数+#"
 				},
@@ -12372,7 +12381,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					if(event.target.countCards("h")==Math.max(0,event.target.hp)||event.target.countCards("h")==event.target.maxHp){
+					if(event.target.isAlive()&&(event.target.countCards("h")==Math.max(0,event.target.hp)||event.target.countCards("h")==event.target.maxHp)){
 						event.card=get.cards()[0];
 						game.log(player,"观看了牌堆顶的一张牌");
 						//player.chooseControl("ok").set("dialog",["复愿",event.card]);
@@ -13357,7 +13366,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pojun:"破军",
 			sst_pojun_info:"你将牌置于你的武将牌上，回合结束时你获得武将牌上的这些牌。",
 			sst_powei:"破围",
-			sst_powei_info:"摸牌阶段，你可以令摸牌数-1（无视最低限制，若场上已受伤角色超过一半，改为令摸牌数-2），然后亮出牌堆顶的等量牌且可以使用之（不能指定自己为目标）。你重复此流程直到你没有以此法使用牌。",
+			sst_powei_info:"摸牌阶段，你可以令摸牌数-1（若场上已受伤角色超过一半，改为令摸牌数-2；若因此摸牌数小于0，则改为令摸牌数为0），然后亮出牌堆顶的等量牌且可以使用之（不能指定自己为目标）。你重复此流程直到你没有以此法使用牌。",
 			sst_bianshe:"编设",
 			sst_bianshe_info:"锁定技，每轮游戏开始时，你选择以下任意两个技能，本轮内视为拥有之。",
 			sst_miquan:"秘拳",
