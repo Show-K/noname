@@ -1313,16 +1313,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.card_top=event.result.cards[0];
 							player.showCards(event.card_top);
 							"step 1"
-							player.$throw(event.card_top);
-							game.log(player,"将",event.card_top,"置于牌堆顶");
+							player.$throw(1);
+							game.log(player,"将一张牌置于牌堆顶");
 							player.lose(event.card_top,ui.cardPile,"insert");
 							"step 2"
 							event.card_bottom=get.bottomCards()[0];
-							player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌堆底牌");
+							game.cardsGotoOrdering(event.card_bottom);
+							player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌（牌堆底牌）");
 							"step 3"
 							if(ui.discardPile.childNodes.length&&get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
-								event.result.card={name:event.result.card.name,isCard:true};
+								//event.result.card={name:event.result.card.name,isCard:true};
+								event.result.card.cards=[];
 								event.result.cards=[];
+								delete event.result.card.suit;
+								delete event.result.card.number;
 							}
 							else{
 								if(!ui.discardPile.childNodes.length){
@@ -1334,16 +1338,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								evt.goto(0);
 								player.addTempSkill("ska_juegu_disable");
 							}
-							//delete event.result.skill;
-							//delete event.result.card.suit;
-							//delete event.result.card.number;
 							"step 4"
-							var can_damage=get.color(event.card_top)==get.color(event.card_bottom);
-							player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
+							event.can_damage=get.color(event.card_top)!=get.color(event.card_bottom);
+							player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(event.can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
 								var player=_status.event.player;
-								if(get.value(event.card_bottom)<=get.damageEffect(target,player)&&_status.event.can_damage) return get.damageEffect(target,player);
+								if(get.value(event.card_bottom)<=get.damageEffect(target,player,player)&&_status.event.can_damage) return get.damageEffect(target,player,player);
 								return get.attitude(player,target);
-							}).set("cardx",event.card_bottom).set("can_damage",can_damage);
+							}).set("cardx",event.card_bottom).set("can_damage",event.can_damage);
 							"step 5"
 							if(result.targets&&result.targets.length){
 								event.target=result.targets[0];
@@ -1354,11 +1355,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								event.finish();
 							}
 							"step 6"
-							if(get.color(event.card_top)==get.color(event.card_bottom)){
+							if(event.can_damage){
 								player.chooseBool("掘古：是否对"+get.translation(event.target)+"造成1点伤害？").set("ai",function(){
 									var player=_status.event.player;
 									var target=_status.event.targetx;
-									return get.damageEffect(target,player)>0;
+									return get.damageEffect(target,player,player)>0;
 								}).set("targetx",event.target);
 							}
 							else{
@@ -2217,7 +2218,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_juegu:"掘古",
 			ska_juegu_sha:"掘古·杀",
 			ska_juegu_shan:"掘古·闪",
-			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌并将其置于牌堆顶，然后展示牌堆底一张牌，1. 若你置于牌堆顶的牌花色与弃牌堆顶的花色相同，你视为使用或打出一张【杀】/【闪】，否则你不能发动此技能直到回合结束；2. 你可以令一名角色获得展示的牌堆底牌，然后若你置于牌堆顶的牌颜色与此牌相同，你可以对其造成1点伤害。",
+			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】/【闪】，否则本回合此技能失效；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害。",
 			ska_kuiwang:"窥往",
 			ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。",
 			mnm_tianjiu:"天鹫",
