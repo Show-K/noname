@@ -6,84 +6,12 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 			return '此版本大乱桌斗不支持写入文件！';
 		}
 		
-		if (!navigator.onLine) {
-			return '此设备未联网！';
-		}
+		// if (!navigator.onLine) {
+		// 	return '此设备未联网！';
+		// }
 		
 		return true;
 	}
-	
-	game.shijianDownload = async (url, onsuccess, onerror) => {
-		//是否可以更新，每次都调用的原因是判断网络问题
-		let alertStr;
-		if( (alertStr = canUpdate()) !== true ) {
-			return alert(alertStr);
-		}
-		
-		let downloadUrl = url, path = '', name = url;
-		if (url.indexOf('/') != -1) {
-			path = url.slice(0, url.lastIndexOf('/'));
-			name = url.slice(url.lastIndexOf('/') + 1);
-		}
-		
-		lib.config.brokenFile.add(url);
-		
-		if(url.indexOf('http') != 0){
-			url = lib.updateURL + '/' + url;
-		}
-		
-		function success(status) {
-			lib.config.brokenFile.remove(downloadUrl);
-			game.saveConfigValue('brokenFile');
-			if(typeof onsuccess == 'function'){
-				onsuccess(status);
-			}
-		}
-		
-		function error(e, statusText) {
-			if(typeof onerror == 'function'){
-				onerror(e, statusText);
-			} else console.error(e);
-		}
-		
-		await fetch(url)
-			.then(response => {
-				const { ok, status, statusText } = response;
-				if (!ok) {
-					return error(status, statusText);
-				} else {
-					return response.arrayBuffer();
-				}
-			})
-			.then(arrayBuffer => {
-				// 写入文件
-				if (!arrayBuffer) return;
-				game.ensureDirectory(path, () => {});
-				if(lib.node && lib.node.fs) {
-					lib.node.fs.writeFile(__dirname + '/' + path + '/' + name, new Buffer(arrayBuffer), null, e => {
-						if(e) {
-							error(e, 'writeFile');
-						} else {
-							success(200);
-						}
-					});
-				} else if(typeof window.resolveLocalFileSystemURL == 'function') {
-					window.resolveLocalFileSystemURL(lib.assetURL + path, entry => {
-						entry.getFile(name, {create: true}, fileEntry => {
-							fileEntry.createWriter(fileWriter => {
-								fileWriter.onwriteend = () => {
-									success(200);
-								};
-								fileWriter.write(arrayBuffer);
-							}, e => {
-								error(e, 'writeFile');
-							});
-						});
-					});
-				}
-			})
-			.catch(error);
-	};
 
 	let brokenFileArr = lib.config.extension_在线更新_brokenFile || [];
 	brokenFileArr = Array.from(new Set([...brokenFileArr, ...lib.config.brokenFile]));
@@ -105,115 +33,27 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 		}
 		game.saveExtensionConfig('在线更新', 'brokenFile', Array.from(new Set([...brokenFileArr, ...lib.config.brokenFile])));
 	});
-
-   
-	game.shijianDownloadFile = (current, onsuccess, onerror) => {
-		//是否可以更新，每次都调用的原因是判断网络问题
-		let alertStr;
-		if( (alertStr = canUpdate()) !== true ) {
-			return alert(alertStr);
-		}
-		// 重新下载
-		let reload = (err, statusText) => {
-			onerror(current, statusText);
-			setTimeout(() => {
-				let str1 = "正在下载：";
-				let current3 = current.replace(lib.updateURL, '');
-
-				if (current3.indexOf('theme') == 0) {
-					game.print(str1 + current3.slice(6));
-				} else if (current3.indexOf('image/skin') == 0) {
-					game.print(str1 + current3.slice(11));
-				} else {
-					game.print(str1 + current3.slice(current3.lastIndexOf('/') + 1));
-				}
-
-				game.shijianDownloadFile(current, onsuccess, onerror);
-			}, 500);
-		};
-		// 通过url下载文件
-		game.shijianDownload(current, function success(status) {
-			onsuccess(current);
-		}, function error(e, statusText) {
-			if (typeof e == 'number') {
-				//状态码
-				switch(e) {
-					case 404 :
-						game.print("文件不存在，不需要重新下载");
-						console.log({current, e, statusText: "文件不存在，不需要重新下载"});
-						return onsuccess(current, true);
-					case 429 :
-						game.print("请求太多，稍后重新下载");
-						//console.error({current, e, statusText: "请求太多，稍后重新下载"});
-						onerror(current, e, "请求太多，请稍后重新下载");
-						break;
-					default:
-						game.print(e);
-						//console.error(current, e);
-						onerror(current, e, statusText);
-				}
-			} else if (statusText === 'writeFile') {
-				game.print("写入文件失败");
-				//console.error(current, '写入文件失败');
-				onerror(current, e, '写入文件失败');
-			} else {
-				game.print(e);
-				//console.error(current, e);
-				onerror(current, e, statusText);
-			}
-			reload(e, statusText);
-		});
-	};
-
-	game.shijianMultiDownload = (list, onsuccess, onerror, onfinish) => {
-		//是否可以更新，每次都调用的原因是判断网络问题
-		let alertStr;
-		if( (alertStr = canUpdate()) !== true ) {
-			return alert(alertStr);
-		}
-		//不修改原数组
-		list = list.slice(0);
-		let download = () => {
-			if (list.length) {
-				let current = list.shift();
-				let str1 = "正在下载：";
-
-				if (current.indexOf('theme') == 0) {
-					game.print(str1 + current.slice(6));
-				} else if (current.indexOf('image/skin') == 0) {
-					game.print(str1 + current.slice(11));
-				} else {
-					game.print(str1 + current.slice(current.lastIndexOf('/') + 1));
-				}
-
-				game.shijianDownloadFile(current, (c, bool) => {
-					onsuccess(current, bool);
-					//自调用
-					download();
-				}, (e, statusText) => {
-					onerror(current, e, statusText);
-				});
-
-			} else {
-				onfinish();
-			}
-		};
-		download();
-	};
-
+	
 	const response_then = (current, response) => {
-		const { ok, status, statusText } = response;
+		const ok = response.ok, 
+		status = response.status, 
+		statusText = response.statusText;
+		//const { ok, status, statusText } = response;
 		if (!ok) {
 			//状态码
 			switch(status) {
+				case 400 :
+					game.print("客户端请求报文中存在语法错误，服务器无法理解");
+					throw {current, status, statusText: "客户端请求报文中存在语法错误，服务器无法理解"};
+				case 403 :
+					game.print("服务器拒绝执行此请求");
+					throw {current, status, statusText: "服务器拒绝执行此请求"};
 				case 404 :
 					game.print("更新内容文件不存在");
 					throw {current, status, statusText: "更新内容文件不存在"};
-					break;
 				case 429 :
 					game.print("当前请求太多，稍后再试");
 					throw {current, status, statusText: "当前请求太多，请稍后再试"};
-					break;
 				default:
 					game.print(statusText);
 					throw {current, status, statusText};
@@ -227,9 +67,13 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 		console.error(err);
 		game.print(err);
 		if (typeof err  === 'object' && err.constructor != Error) {
-			const { current, status, statusText } = err;
-			if (!current || !status || ! statusText) {
-				const { stack } = err;
+			const current = err.current, 
+			status = err.status, 
+			statusText = err.statusText;
+			//const { current, status, statusText } = err;
+			if (typeof current == 'undefined' || typeof status == 'undefined' || typeof statusText == 'undefined') {
+				const stack = err.stack;
+				//const { stack } = err;
 				if (!stack) {
 					alert( JSON.stringify(err) );
 				} else {
@@ -248,20 +92,32 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 		editable: false,
 		content: function(config, pack) {
             //替换无名杀自带的更新功能
-            const { checkForUpdate, checkForAssetUpdate } = this[4].code.config;
+			const checkForUpdate = this[4].code.config.checkForUpdate, 
+			checkForAssetUpdate = this[4].code.config.checkForAssetUpdate;
+            //const { checkForUpdate, checkForAssetUpdate } = this[4].code.config;
             const interval = setInterval(() => {
-                const menu = ui ?. menuContainer ?. childNodes ?. [0];
+                /*const menu = ui ?. menuContainer ?. childNodes ?. [0];
                 const help = menu ?. querySelector('.menu-help');
                 const liArray = [...(help ?. querySelectorAll('li') || [])];
-                if (!menu || !help || !liArray || !liArray.length) return;
+                if (!menu || !help || !liArray || !liArray.length) return;*/
+				if (!ui.menuContainer) return;
+				if (!ui.menuContainer.childNodes || !ui.menuContainer.childNodes[0]) return;
+				const menu = ui.menuContainer.childNodes[0];
+				if (!menu.querySelector('.menu-help')) return;
+				const help = menu.querySelector('.menu-help');
+				if (typeof help.querySelectorAll != 'function' || !help.querySelectorAll('li').length) return;
+				const liArray = Array.from(help.querySelectorAll('li'));
                 
                 const updateButton = liArray[0].childNodes[1].firstElementChild;
                 const assetUpdateButton = liArray[1].childNodes[1].firstElementChild;
                 updateButton.onclick = checkForUpdate.onclick.bind(updateButton);
                 assetUpdateButton.onclick = checkForAssetUpdate.onclick.bind(assetUpdateButton);
-                const checkBoxArray = [...liArray[1].childNodes[1].childNodes].filter(item => {
+                /*const checkBoxArray = [...liArray[1].childNodes[1].childNodes].filter(item => {
                     return item instanceof HTMLInputElement && item.type == 'checkbox';
-                });
+                });*/
+				const checkBoxArray = Array.from(liArray[1].childNodes[1].childNodes).filter(item => {
+				    return item instanceof HTMLInputElement && item.type == 'checkbox';
+				});
                 checkBoxArray.forEach((item, index) => {
                     //字体素材
                     if (index == 0) {
@@ -335,9 +191,181 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 					},
 				};
 			}
+			
 			/*if(lib.updateURL == 'https://raw.githubusercontent.com/libccy/noname') {
 				lib.updateURL = lib.updateURLS.github;
 			}*/
+			
+			game.shijianDownload = (url, onsuccess, onerror) => {
+				//是否可以更新，每次都调用的原因是判断网络问题
+				let alertStr;
+				if( (alertStr = canUpdate()) !== true ) {
+					return alert(alertStr);
+				}
+				
+				let downloadUrl = url, path = '', name = url;
+				if (url.indexOf('/') != -1) {
+					path = url.slice(0, url.lastIndexOf('/'));
+					name = url.slice(url.lastIndexOf('/') + 1);
+				}
+				
+				lib.config.brokenFile.add(url);
+				
+				if(url.indexOf('http') != 0){
+					url = lib.updateURL + '/' + url;
+				}
+				
+				function success(status) {
+					lib.config.brokenFile.remove(downloadUrl);
+					game.saveConfigValue('brokenFile');
+					if(typeof onsuccess == 'function'){
+						onsuccess(status);
+					}
+				}
+				
+				function error(e, statusText) {
+					if(typeof onerror == 'function'){
+						onerror(e, statusText);
+					} else console.error(e);
+				}
+				
+				fetch(url)
+					.then(response => {
+						const ok = response.ok, 
+						status = response.status, 
+						statusText = response.statusText;
+						//const { ok, status, statusText } = response;
+						if (!ok) {
+							return error(status, statusText);
+						} else {
+							return response.arrayBuffer();
+						}
+					})
+					.then(arrayBuffer => {
+						// 写入文件
+						if (!arrayBuffer) return;
+						game.ensureDirectory(path, () => {
+			                if (lib.node && lib.node.fs) {
+			                    lib.node.fs.writeFile(__dirname + '/' + path + '/' + name, Buffer.from(arrayBuffer), null, e => {
+			                        if (e) {
+			                            error(e, 'writeFile');
+			                        } else {
+			                            success(200);
+			                        }
+			                    });
+			                } else if (typeof window.resolveLocalFileSystemURL == 'function') {
+			                    window.resolveLocalFileSystemURL(lib.assetURL + path, entry => {
+			                        entry.getFile(name, { create: true }, fileEntry => {
+			                            fileEntry.createWriter(fileWriter => {
+			                                fileWriter.onwriteend = () => {
+			                                    success(200);
+			                                };
+			                                fileWriter.write(arrayBuffer);
+			                            }, e => {
+			                                error(e, 'writeFile');
+			                            });
+			                        });
+			                    });
+			                }
+			            });
+						
+					})
+					.catch(error);
+			};
+			
+			game.shijianDownloadFile = (current, onsuccess, onerror) => {
+				//是否可以更新，每次都调用的原因是判断网络问题
+				let alertStr;
+				if( (alertStr = canUpdate()) !== true ) {
+					return alert(alertStr);
+				}
+				// 重新下载
+				let reload = (err, statusText) => {
+					onerror(current, statusText);
+					setTimeout(() => {
+						let str1 = "正在下载：";
+						let current3 = current.replace(lib.updateURL, '');
+			
+						if (current3.indexOf('theme') == 0) {
+							game.print(str1 + current3.slice(6));
+						} else if (current3.indexOf('image/skin') == 0) {
+							game.print(str1 + current3.slice(11));
+						} else {
+							game.print(str1 + current3.slice(current3.lastIndexOf('/') + 1));
+						}
+			
+						game.shijianDownloadFile(current, onsuccess, onerror);
+					}, 500);
+				};
+				// 通过url下载文件
+				game.shijianDownload(current, function success(status) {
+					onsuccess(current);
+				}, function error(e, statusText) {
+					if (typeof e == 'number') {
+						//状态码
+						switch(e) {
+							case 404 :
+								game.print("文件不存在，不需要重新下载");
+								console.log({current, e, statusText: "文件不存在，不需要重新下载"});
+								return onsuccess(current, true);
+							case 429 :
+								game.print("请求太多，稍后重新下载");
+								//console.error({current, e, statusText: "请求太多，稍后重新下载"});
+								onerror(current, e, "请求太多，请稍后重新下载");
+								break;
+							default:
+								game.print(e);
+								//console.error(current, e);
+								onerror(current, e, statusText);
+						}
+					} else if (statusText === 'writeFile') {
+						game.print("写入文件失败");
+						//console.error(current, '写入文件失败');
+						onerror(current, e, '写入文件失败');
+					} else {
+						game.print(e);
+						//console.error(current, e);
+						onerror(current, e, statusText);
+					}
+					reload(e, statusText);
+				});
+			};
+			
+			game.shijianMultiDownload = (list, onsuccess, onerror, onfinish) => {
+				//是否可以更新，每次都调用的原因是判断网络问题
+				let alertStr;
+				if( (alertStr = canUpdate()) !== true ) {
+					return alert(alertStr);
+				}
+				//不修改原数组
+				list = list.slice(0);
+				let download = () => {
+					if (list.length) {
+						let current = list.shift();
+						let str1 = "正在下载：";
+			
+						if (current.indexOf('theme') == 0) {
+							game.print(str1 + current.slice(6));
+						} else if (current.indexOf('image/skin') == 0) {
+							game.print(str1 + current.slice(11));
+						} else {
+							game.print(str1 + current.slice(current.lastIndexOf('/') + 1));
+						}
+			
+						game.shijianDownloadFile(current, (c, bool) => {
+							onsuccess(current, bool);
+							//自调用
+							download();
+						}, (e, statusText) => {
+							onerror(current, e, statusText);
+						});
+			
+					} else {
+						onfinish();
+					}
+				};
+				download();
+			};
 			
 			if (brokenFileArr && brokenFileArr.length) {
 				//如果有没下载完就重启的文件
@@ -368,7 +396,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 				item:{
 					coding: 'Coding',
 					github: 'GitHub',
-					fastgit: 'GitHub镜像',
+					fastgit: 'GitHub镜像'
 				},
 				onclick: function(item) {
 					game.saveConfig('update_link', item);
@@ -491,7 +519,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 													let entry = updates[i];
 													lib.node.fs.access(__dirname + '/' + entry, function(err) {
 														if (!err) {
-															const { size } = lib.node.fs.statSync(__dirname + '/' + entry);
+															const size = lib.node.fs.statSync(__dirname + '/' + entry).size;
 															size == 0 && (err = true);
 														}
 														!err && updates.splice(i--, 1);
@@ -926,7 +954,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 			author: "诗笺、Show-K（修改）",
 			diskURL: "",
 			forumURL: "",
-			version: "1.22SST",
+			version: "1.23SST",
 		},
 	}
 });

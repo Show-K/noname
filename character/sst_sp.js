@@ -1903,7 +1903,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					event.cards=get.bottomCards(2);
-					player.chooseCardButton("神祇：将其中一张牌置入仁库中",event.cards,true).set("ai",function(player){
+					player.chooseCardButton("神祇：将其中一张牌置入仁库中",event.cards,true).set("ai",function(button){
 						return get.value(button.link);
 					});
 					"step 1"
@@ -1942,7 +1942,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							filterCard:function(){return false;},
 							selectCard:-1,
 							filterTarget:function(card,player,target){
-								if(ui.selected.targets.length==0){
+								if(!ui.selected.targets||!ui.selected.targets.length){
 									//return lib.filter.cardEnabled(links[0],target);
 									return game.hasPlayer(function(current){
 										return current!=target&&lib.filter.targetEnabled3(links[0],target,current);
@@ -1963,7 +1963,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								order:10,
 								result:{
 									target:function(player,target){
-										if(ui.selected.targets.length==0){
+										if(!ui.selected.targets||!ui.selected.targets.length){
 											//return Math.abs(get.attitude(target,player));
 											var players=game.filterPlayer();
 											players.remove(target);

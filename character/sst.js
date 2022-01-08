@@ -2370,7 +2370,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:function(){return false;},
 				selectCard:-1,
 				filterTarget:function(card,player,target){
-					return target.countCards("ej");
+					return target.countDiscardableCards(player,"ej");
 				},
 				delay:false,
 				content:function(){
@@ -2379,8 +2379,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(target==player){
 						player.draw(2);
-						player.addTempSkill("sst_qingying2");
-						player.markSkillCharacter("sst_qingying2",player,"轻影","你本回合使用牌无距离与次数限制");
+						player.addTempSkill("sst_qingying_effect");
+						player.markSkillCharacter("sst_qingying_effect",player,"轻影","你本回合使用牌无距离与次数限制");
 					}
 				},
 				ai:{
@@ -2402,15 +2402,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					order:5
 				}
 			},
-			sst_qingying2:{
+			sst_qingying_effect:{
+				charlotte:true,
 				onremove:function(player){
-					player.unmarkSkill("sst_qingying2");
+					player.unmarkSkill("sst_qingying_effect");
 				},
 				mod:{
-					targetInRange:function(card,player,target){
+					targetInRange:function(){
 						return true;
 					},
-					cardUsable:function(card,player,num){
+					cardUsable:function(){
 						return Infinity;
 					}
 				}
@@ -3761,6 +3762,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.loseMaxHp();
 				},
 				ai:{
+					filterDamage:true,
+					skillTagFilter:function(player,tag,arg){
+						if(tag=="filterDamage"&&player.hp>1) return false;
+					},
 					halfneg:true
 				}
 			},
@@ -6470,6 +6475,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{player:["phaseBegin","die"]},
+				forceDie:true,
 				silent:true,
 				content:function(){
 					for(var i=0;i<game.players.length;i++){
@@ -10505,12 +10511,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return get.tag(event.card,"damage")&&event.targets.length==1&&!game.cardCausedDamage(event.card);
+					return get.tag(event.card,"damage")&&event.targets&&event.targets.length==1&&!player.hasHistory("sourceDamage",function(evt){
+						return evt.card==card&&evt.player==event.targets[0];
+					});
 				},
 				content:function(){
 					"step 0"
 					player.chooseCard("he",get.prompt2("sst_yonghun")).set("ai",function(card){
-						if(get.tag(card,"damage")) return 16-get.value(card);
+						if(!get.tag(card,"damage")) return get.value(card)+5;
 						var selected=(ui.selected.cards&&ui.selected.cards.length)?ui.selected.cards.length:0;
 						if(_status.event.player.needsToDiscard()>selected) return 11-get.value(card);
 					});
@@ -12363,18 +12371,33 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.num_discard+=evt.cards.length;
 					});
 					event.num_discard=Math.min(7,event.num_discard);
-					var str="一名角色的结束阶段，你可以令一名角色";
+					var str="你可以令一名角色";
 					if(event.num_draw) str+="摸"+get.cnNumber(event.num_draw)+"张牌";
 					if(event.num_draw&&event.num_discard) str+="，然后";
 					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
 					str+="。若因此其手牌数与其体力值或体力上限相等，你可以观看牌堆顶一张牌，然后你可以使用此牌（其应变效果直接生效）";
 					player.chooseTarget(get.prompt("sst_fuyuan"),str).set("ai",function(target){
 						var att=get.sgnAttitude(_status.event.player,target);
+						var diff_hp=target.countCards("h",function(card){
+							return lib.filter.cardDiscardable(card,player);
+						})+_status.event.num_draw-target.hp;
+						var diff_max_hp=target.countCards("h",function(card){
+							return lib.filter.cardDiscardable(card,player);
+						})+_status.event.num_draw-target.maxHp;
+						var expectation_num_discard=_status.event.num_discard-target.countCards("e",function(card){
+							return lib.filter.cardDiscardable(card,player);
+						});
+						if(_status.event.num_discard>=diff_hp&&expectation_num_discard<=diff_hp) att*=2;
+						if(_status.event.num_discard>=diff_max_hp&&expectation_num_discard<=diff_max_hp) att*=2;
 						if(_status.event.num_draw<_status.event.num_discard){
-							if(!target.countCards("he")) return 0;
+							if(!target.countCards("he",function(card){
+								return lib.filter.cardDiscardable(card,player);
+							})) return 0;
 							return -att;
 						}
-						if(_status.event.num_draw==_status.event.num_discard&&!target.countCards("he")) return 0;
+						if(_status.event.num_draw==_status.event.num_discard&&!target.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player);
+						})) return 0;
 						return att;
 					}).set("num_draw",event.num_draw).set("num_discard",event.num_discard);
 					"step 1"
@@ -13006,7 +13029,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guangsuo2:"光索",
 			sst_guangsuo_info:"你使用【杀】结算完成后，你可以横置目标。你的回合内，已横置的其他角色不能使用或打出牌。",
 			sst_qingying:"轻影",
-			sst_qingying2:"轻影",
+			sst_qingying_effect:"轻影",
 			sst_qingying_info:"出牌阶段限一次，你可以弃置场上的一张牌，若你以此法弃置了你区域内的牌，你摸两张牌且本回合使用牌无距离与次数限制。",
 			sst_que:"驱厄",
 			sst_que_info:"准备阶段，你可以观看一名其他角色的手牌，然后获得其中至多X+1张黑色牌。（X为你已损失的体力值）",
