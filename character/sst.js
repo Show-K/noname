@@ -645,7 +645,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"《塞尔达传说：时之笛》中的林克，在原作中可以通过时之笛切换幼年和成年两个形态。幼年形态是不能使用大师剑的。在大乱斗中，他的通常必杀技射出的是火箭，相比另两个林克的箭性能更好。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"------------------------------<br>"+
-			"老摸有时候能写出让我吐血的武将……比如这个……",
+			"老摸有时候能写出让我吐血的武将……比如这个……现在〖假面〗好像废了，在找解决方法。",
 			sst_ocarina_of_time_link:"0176. 幼年林克/Young Link/こどもリンク<br>"+
 			"系列：The Legend of Zelda（塞尔达传说）<br>"+
 			"初登场：The Legend of Zelda: Ocarina of Time（塞尔达传说 时之笛）<br>"+
@@ -735,7 +735,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"胖丁是一般+妖精属性的宝可梦，以其催眠性的歌声闻名。在大乱斗中，它空战很强，还有多段跳的能力。不过它的缺点是太轻了，如果露出破绽，很容易就会被击飞。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"------------------------------<br>"+
-			"睡觉即死连！另外唱歌真好zzzzzzzz……",
+			"什么叫超级方差斗士啊！",
 			sst_lucario:"0417. 路卡利欧/Lucario/ルカリオ<br>"+
 			"系列：Pokémon（宝可梦）<br>"+
 			"初登场：（）<br>"+
@@ -850,7 +850,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"1091. Mii剑术类型/Mii Swordfighter/Miiファイター 剣術タイプ<br>"+
 			"1092. Mii射击类型/Mii Gunner/Miiファイター 射撃タイプ<br>"+
 			"系列：Super Smash Bros.（任天堂明星大乱斗）<br>"+
-			"初登场：Super Smash Bros. for Nintendo 3DS/Super Smash Bros. for Wii U（任天堂明星大乱斗3DS/任天堂明星大乱斗Wii U）<br>"+
+			"初登场：Super Smash Bros. for Nintendo 3DS / Super Smash Bros. for Wii U（任天堂明星大乱斗3DS/任天堂明星大乱斗Wii U）<br>"+
 			"武将作者：mario not mary<br>"+
 			"------------------------------<br>"+
 			"这个斗士的形象以玩家的Mii形象为基准。他/她擅长近身格斗，十分敏捷，以各种高机动性的技能灵活应战，并且冲刺和跳跃性能非常优秀。和对手贴身大干一场吧——你很快就能击败他们的！<br>"+
@@ -1219,7 +1219,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseControl("male","female").set("prompt","请选择性别").set("ai",function(){return ["male","female"].randomGet()});
+					player.chooseControl("male","female").set("prompt","选择性别").set("ai",function(){return ["male","female"].randomGet()});
 					"step 1"
 					if(["sst_corrin"].contains(player.name)){
 						var name=player.name;
@@ -1241,7 +1241,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseControl("sst_light","sst_darkness","sst_spirit","sst_reality").set("prompt","请选择势力").set("ai",function(){return ["sst_light","sst_darkness","sst_spirit","sst_reality"].randomGet()});
+					player.chooseControl("sst_light","sst_darkness","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",function(){return ["sst_light","sst_darkness","sst_spirit","sst_reality"].randomGet()});
 					"step 1"
 					player.changeGroup(result.control);
 				}
@@ -1850,11 +1850,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					//game.log("收益：",effect);
-					var info=[get.prompt2("sst_quji2",trigger.player)];
+					var info=["###"+get.prompt("sst_quji2",trigger.player)+"###你可以弃置牌堆顶或手牌中的一张花色与"+get.translation(trigger.card)+"相同的牌，取消之"];
 					if(get.itemtype(_status.pileTop)=="card"){
 						info.push("<div class=\"text center\">牌堆顶的牌</div>");
-						info.push(ui.cardPile.childNodes[0]);
-						event.card=ui.cardPile.childNodes[0];
+						//var top=get.cards();
+						event.card=_status.pileTop;
+						//ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);
+						info.push([_status.pileTop]);
 					}
 					if(player.countCards("h",function(card){
 						return lib.filter.cardDiscardable(card,player);
@@ -1890,7 +1892,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						if(bool){
 							if(button.link==_status.pileTop) return 10;
-							return 5-get.useful(button.link);
+							return 5-get.value(button.link);
 						}
 						else{
 							return 0;
@@ -1899,7 +1901,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					next.set("cardx",trigger.card);
 					next.set("effect",effect);
 					"step 1"
-					if(result.bool){
+					if(result.links&&result.links.length){
 						player.logSkill("sst_quji",trigger.player);
 						player.addTempSkill("sst_quji3");
 						//delete player.storage.sst_quji;
@@ -1918,6 +1920,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
+					game.updateRoundNumber();
 					game.delayx();
 				}
 			},
@@ -2701,7 +2704,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					delete trigger.skill;
 					trigger.getParent().set("sst_yujun",true);
 					"step 1"
-					player.chooseTarget("驭军：请选择一位拥有〖驭军〗的角色",true,function(card,player,target){
+					player.chooseTarget("驭军：选择一位拥有〖驭军〗的角色",true,function(card,player,target){
 						return target.hasZhuSkill("sst_yujun",player)&&target.countCards("h");
 					}).set("ai",function(target){
 						return get.attitude(_status.event.player,target);
@@ -2804,7 +2807,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.wait(sendback);
 							event.ol=true;
 							player.send(function(){
-								game.me.chooseCard("议策：请选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
+								game.me.chooseCard("议策：选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
 									return 11-get.useful(card);
 								};
 								game.resume();
@@ -2812,7 +2815,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						else{
 							event.localPlayer=true;
-							player.chooseCard("议策：请选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
+							player.chooseCard("议策：选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
 								return 11-get.useful(card);
 							};
 						}
@@ -2820,7 +2823,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.target.wait(sendback);
 							event.ol=true;
 							event.target.send(function(){
-								game.me.chooseCard("议策：请选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
+								game.me.chooseCard("议策：选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
 									return 11-get.useful(card);
 								};
 								game.resume();
@@ -2839,7 +2842,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					if(event.localTarget){
 						var rand=Math.random()<0.4;
-						event.target.chooseCard("议策：请选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
+						event.target.chooseCard("议策：选择一张要展示并交换的手牌",true).set("glow_result",true).ai=function(card){
 							return 11-get.useful(card);
 						};
 					}
@@ -3327,7 +3330,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								else{
 									return "此【杀】不可被响应";
 								}
-							});
+							}).set("prompt","神罚：选择一项");
 						}
 						else{
 							event.finish();
@@ -3365,7 +3368,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(!target.hasUsableCard("shan")) rand=0.05;
 								if(!target.countCards("h")) rand=0;
 								return Math.random()>rand?"此【杀】伤害+1":"此【杀】不可被响应";
-						}).set("targetx",trigger.target);
+						}).set("targetx",trigger.target).set("prompt","神罚：选择一项");
 					}
 					else if(player.storage.sst_shenfa2){
 						//game.log("trigger.directHit.addArray");
@@ -3901,7 +3904,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.cancel();
 						player.logSkill("sst_shunxing");
 						game.log(player,"跳过了此出牌阶段");
-						player.chooseCard("h",[1,Infinity],"瞬形：请选择要重铸的红色手牌",function(card){
+						player.chooseCard("h",[1,Infinity],"瞬形：你可以重铸任意张红色手牌",function(card){
 							return get.color(card)=="red";
 						}).set("ai",function(card){
 							return 8-get.value(card);
@@ -4042,6 +4045,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							target.getLeft()+target.offsetWidth/2+Math.floor(Math.random()*256)-128,
 							target.getTop()+target.offsetHeight/2+Math.floor(Math.random()*256)-128
 						],{color:[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)],duration:250},true);
+						game.broadcast(function(player,target){
+							game.linexy([
+								player.getLeft()+player.offsetWidth/2,
+								player.getTop()+player.offsetHeight/2,
+								target.getLeft()+target.offsetWidth/2+Math.floor(Math.random()*256)-128,
+								target.getTop()+target.offsetHeight/2+Math.floor(Math.random()*256)-128
+							],{color:[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)],duration:250},true);
+						},player,target);
 					}
 					//if(event.others&&event.others.length) event.others.randomGet().line(target,{color:[Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)]});
 					if(lib.config.background_audio){
@@ -5042,26 +5053,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<listm.length;i++){
 						if(func(listm[i])&&!player.hasSkill(listm[i])) list.add(listm[i]);
 					}
-					if(list.length){
-						player.chooseControl(list,"摸一张牌","cancel2").set("prompt",get.prompt("sst_qushi",trigger.player)).set("prompt2",get.translation("sst_qushi_info")).set("ai",function(){
-							return list.randomGet();
-						});
-					}
-					else{
-						player.logSkill("sst_qushi");
-						player.draw();
-						event.finish();
-					}
+					player.chooseControl(list,"摸一张牌","cancel2").set("prompt",get.prompt("sst_qushi",trigger.player)).set("prompt2",get.translation("sst_qushi_info")).set("ai",function(){
+						return list.randomGet();
+					});
 					"step 1"
 					if(result.control!="cancel2"){
+						player.logSkill("sst_qushi",trigger.player);
 						if(result.control!="摸一张牌"){
-							player.logSkill("sst_qushi",trigger.player);
 							player.popup(result.control,"thunder");
 							game.log(player,"获得了技能","#g【"+get.translation(result.control)+"】");
 							player.addAdditionalSkill("sst_qushi",result.control,true);
 						}
 						else{
-							player.logSkill("sst_qushi");
 							player.draw();
 						}
 					}
@@ -5643,7 +5646,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							else{
 								return "摸两张牌";
 							}
-						}).set("targetx",trigger.player);
+						}).set("targetx",trigger.player).set("prompt","先读：选择一项");
 					}
 					else{
 						trigger.player.line(player,"green");
@@ -6074,17 +6077,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.delayx();
 					"step 1"
 					player.chooseUseTarget(true,{name:"juedou",isCard:true},false);
-					/*
-					player.chooseTarget(true,function(card,player,target){
-						return player.canUse({name:"juedou"},target)
-					},"请选择一名角色，视为对其使用【决斗】").set("ai",function(target){
-						return get.effect(target,{name:"juedou"},_status.event.player,_status.event.player);
-					});
-					"step 2"
-					if(result.targets){
-						player.useCard({name:"juedou",isCard:true},result.targets[0]);
-					}
-					*/
 				},
 				ai:{
 					order:5,
@@ -6361,7 +6353,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							//game.log(val);
 							//game.log(get.damageEffect(player,source,player));
 							return get.damageEffect(player,source,player)+val*2>0?0:1;
-						}).set("sourcex",player);
+						}).set("sourcex",player).set("prompt","霸凌：选择一项");
 					}
 					"step 1"
 					if(event.directcontrol||result.index==0){
@@ -6562,7 +6554,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_jingyue2:{
 				trigger:{global:"useCardAfter"},
 				filter:function(event,player){
-					return event.player.isPhaseUsing()&&event.player==player.storage.sst_jingyue_target&&get.itemtype(event.cards)=="cards"&&get.position(event.cards[0],true)=="od";
+					return event.player.isPhaseUsing()&&event.player==player.storage.sst_jingyue_target&&get.itemtype(event.cards)=="cards"&&["o","d"].contains(get.position(event.cards[0],true));
 				},
 				forced:true,
 				logTarget:"player",
@@ -7187,7 +7179,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var str2="弃置"+get.cnNumber(event.num)+"张牌";
 							player.chooseControl(str1,str2,function(event,player){
 								return _status.event.choice;
-							}).set("choice",get.attitude(player,event.target)>0?str1:str2);
+							}).set("choice",get.attitude(player,event.target)>0?str1:str2).set("prompt","施魔：选择一项");
 							event.str=str1;
 						}
 					}
@@ -7266,23 +7258,39 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tandao:{
 				enable:"phaseUse",
 				usable:1,
-				delay:false,
-				content:function(){
-					"step 0"
-					player.chooseControl("red","black").set("ai",function(){
+				chooseButton:{
+					dialog:function(event,player){
+						return ui.create.dialog("###探道###选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌（X为你本回合使用的牌类别数量）");
+					},
+					chooseControl:function(event,player){
+						return ["red","black"];
+					},
+					check:function(){
 						var player=_status.event.player;
-						//if(player.countCards("h",{color:"red"})==1&&player.countCards("h",{color:"black"})>1) return "红色";
-						return player.countCards("he",{color:"red"})<player.countCards("he",{color:"black"})?"red":"black";
-					});
+						return player.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player)&&get.color(card)=="red";
+						})<player.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player)&&get.color(card)=="black";
+						})?"red":"black";
+					},
+					backup:function(result,player){
+						return {
+							delay:false,
+							color:result.control,
+							content:lib.skill.sst_tandao.contentx
+						}
+					}
+				},
+				contentx:function(){
+					"step 0"
+					event.color=lib.skill.sst_tandao_backup.color;
+					player.popup(event.color);
+					game.log(player,"选择了","#y"+get.translation(event.color));
+					player.showHandcards(get.translation(player.name)+"的手牌（声明了"+get.translation(event.color)+"）");
 					"step 1"
-					event.control=result.control;
-					player.popup(event.control);
-					game.log(player,"选择了","#y"+get.translation(event.control));
-					player.showHandcards(get.translation(player.name)+"的手牌（声明了"+get.translation(event.control)+"）");
-					"step 2"
-					if(result.control){
+					if(event.color){
 						var cards=player.getCards("he",function(card){
-							return lib.filter.cardDiscardable(card,player)&&get.color(card)==result.control;
+							return lib.filter.cardDiscardable(card,player)&&get.color(card)==event.color;
 						});
 						player.discard(cards);
 					}
@@ -7294,7 +7302,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(types.length) player.draw(types.length);
 				},
 				ai:{
-					order:3,
+					order:1,
 					result:{
 						player:function(player){
 							var types=[];
@@ -7302,7 +7310,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							for(var i=0;i<history.length;i++){
 								if(!types.contains(get.type(history[i].card,"trick"))) types.push(get.type(history[i].card,"trick"));
 							}
-							return types.length-Math.min(player.countCards("he",{color:"red"}),player.countCards("he",{color:"black"}));
+							return types.length-Math.min(player.countCards("he",function(card){
+								return lib.filter.cardDiscardable(card,player)&&get.color(card)=="red";
+							}),player.countCards("he",function(card){
+								return lib.filter.cardDiscardable(card,player)&&get.color(card)=="black";
+							}));
 						}
 					}
 				}
@@ -8174,7 +8186,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.chooseControl("失去1点体力","结束出牌阶段",true).set("ai",function(){
 							if(_status.event.player.hp<=1) return "结束出牌阶段";
 							return "失去1点体力";
-						}).set("prompt","驰航：请选择一项");
+						}).set("prompt","驰航：选择一项");
 					}
 					"step 1"
 					if(result.control=="失去1点体力"){
@@ -8839,7 +8851,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var choices=_status.event.choices;
 						if(player.storage.sst_shenbi_ready.contains("失去1点体力")) return "删除选项";
 						return choices[0];
-					}).set("choices",list);
+					}).set("choices",list).set("prompt","蓝波：选择一项");
 					"step 1"
 					if(result.control=="弃置手牌"){
 						player.chooseToDiscard("蓝波：弃置"+get.cnNumber(player.needsToDiscard())+"张牌",player.needsToDiscard(),true,"h");
@@ -9080,8 +9092,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var card=result.links[0];
 						//player.lose(card,ui.special,"visible");
 						player.$throw(card,1000);
-						card.fix();
-						ui.cardPile.insertBefore(card,ui.cardPile.firstChild);
+						ui.cardPile.insertBefore(card.fix(),ui.cardPile.firstChild);
 						game.log(player,"将",card,"置于牌堆顶");
 						game.updateRoundNumber();
 					}
@@ -9844,8 +9855,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						*/
 						event.cards=result.cards;
 						player.logSkill("sst_tieyan");
-						player.$throw(event.cards,1000);
-						game.log(player,"将",event.cards,"置于牌堆顶");
+						player.$throw(event.cards.length);
+						game.log(player,"将"+get.cnNumber(event.cards.length)+"张牌置于牌堆顶");
 						player.lose(event.cards,ui.cardPile,"insert");
 					}
 					else{
@@ -10109,7 +10120,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							value=0;
 						}
 						return choice.randomGet();
-					});
+					}).set("prompt","探矿：按花色或类别举荐一张牌，其间若本回合亮出的牌超过十张，中止此流程且本回合不能再发动此技能，然后你受到1点伤害");
 					"step 1"
 					event.control=result.control;
 					player.popup(event.control);
@@ -10511,9 +10522,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return get.tag(event.card,"damage")&&event.targets&&event.targets.length==1&&!player.hasHistory("sourceDamage",function(evt){
-						return evt.card==card&&evt.player==event.targets[0];
-					});
+					return get.tag(event.card,"damage")&&event.targets&&event.targets.length==1&&!game.cardCausedDamage(event.card,player,event.targets[0]);
 				},
 				content:function(){
 					"step 0"
@@ -10671,7 +10680,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<descriptions.length;i++){
 						descriptions[i]="【"+get.translation(descriptions[i])+"】"+lib.translate[descriptions[i]+"_info"];
 					}
-					player.chooseControl().set("choiceList",descriptions);
+					player.chooseControl(event.list).set("choiceList",descriptions).set("prompt","编设：选择一个技能，本轮内视为拥有之");
 					"step 2"
 					/*
 					if(result.control){
@@ -10683,12 +10692,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(event.num>=0) event.goto(1);
 					}
 					*/
-					if(result.index!=undefined){
-						player.popup(event.list[result.index],"thunder");
-						game.log(player,"获得了技能","#g【"+get.translation(event.list[result.index])+"】");
-						player.addTempSkill(event.list[result.index],"roundStart");
+					if(result.control!=undefined){
+						player.popup(result.control,"thunder");
+						game.log(player,"获得了技能","#g【"+get.translation(result.control)+"】");
+						player.addTempSkill(result.control,"roundStart");
 						event.num--;
-						event.list.splice(result.index,1);
+						event.list.remove(result.control);
 						if(event.num>=0) event.goto(1);
 					}
 				}
@@ -11295,7 +11304,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.do_player){
 						player.chooseControl().set("choiceList",[get.translation(player)+"受到1点雷电伤害",get.translation(player)+"判定一次【闪电】"]).set("ai",function(){
 							return 1;
-						});
+						}).set("prompt","伏雷：选择一项");
 					}
 					else{
 						event.goto(11);
@@ -11331,7 +11340,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.do_target){
 						player.chooseControl().set("choiceList",[get.translation(event.target)+"受到1点雷电伤害",get.translation(event.target)+"判定一次【闪电】"]).set("ai",function(){
 							return 0;
-						});
+						}).set("prompt","伏雷：选择一项");
 					}
 					else{
 						event.finish();
@@ -12024,7 +12033,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(player.isTurnedOver()) return 1;
 						if(player.hp>3||player.hp==1) return 0;
 						return 1;
-					}).set("choiceList",["失去一半体力（向下取整）","翻面"]);
+					}).set("choiceList",["失去一半体力（向下取整）","翻面"]).set("prompt","星堕：选择一项");
 					"step 4"
 					if(result.index!=undefined){
 						switch(result.index){
@@ -12214,6 +12223,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					event.card=get.cards()[0];
+					ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);
 					//game.cardsGotoOrdering(event.card);
 					player.showCards(event.card);
 					"step 1"
@@ -12323,9 +12333,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets.length=0;
 					}
 					event.goto(3);
-					"step 5"
-					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
-					game.updateRoundNumber();
 				},
 				ai:{
 					order:5,
@@ -12412,18 +12419,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(event.target.isAlive()&&(event.target.countCards("h")==Math.max(0,event.target.hp)||event.target.countCards("h")==event.target.maxHp)){
-						event.card=get.cards()[0];
-						game.log(player,"观看了牌堆顶的一张牌");
-						//player.chooseControl("ok").set("dialog",["复愿",event.card]);
-						player.viewCards("复愿",[event.card]);
+						var top=get.cards();
+						event.card=top[0];
+						ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);
+						//game.log(player,"观看了牌堆顶的一张牌");
+						player.viewCards("复愿",top);
 					}
 					else{
 						event.finish();
 					}
 					"step 3"
-					ui.cardPile.insertBefore(event.card,ui.cardPile.firstChild);
-					game.updateRoundNumber();
-					"step 4"
 					player.chooseUseTarget(event.card,false);
 				},
 				group:"sst_fuyuan2",
@@ -12615,7 +12620,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				intro:{
 					content:function(storage,player){
-						return "已销毁“机器”类别："+get.translation(storage);
+						return "已销毁“机器”名称："+get.translation(storage);
 					}
 				},
 				onremove:function(player){
@@ -12659,7 +12664,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 					},
-					prompt:function(){return "请选择〖造物〗的目标"}
+					prompt:function(){return "选择〖造物〗的目标"}
 				},
 				contentx:function(){
 					"step 0"
@@ -13008,7 +13013,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yane_info:"主公技，同势力角色的准备阶段，你可以对其造成1点伤害，令其摸两张牌。",
 			sst_quji:"祛疾",
 			sst_quji2:"祛疾",
-			sst_quji_info:"牌堆顶的牌始终对你可见；每回合限一次，一名角色使用牌时，你可以弃置牌堆顶或你手牌中的一张花色与之相同的牌，取消之。",
+			sst_quji_info:"牌堆顶的牌始终对你可见；每回合限一次，一名角色使用牌时，你可以弃置牌堆顶或手牌中的一张花色与之相同的牌，取消之。",
 			sst_qiji:"奇迹",
 			sst_qiji_info:"出牌阶段每种选项各限一次：1. 你可以翻面，令一名角色摸三张牌；2. 你可以弃置三张牌，令一名角色翻面。",
 			sst_shengbing:"圣兵",
@@ -13239,6 +13244,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_duzhi2:"渎职",
 			sst_duzhi_info:"锁定技，结束阶段，若你本回合未发动过〖施魔〗或〖窃宝〗，你不能响应其他角色使用的牌直到你的下回合开始。",
 			sst_tandao:"探道",
+			sst_tandao_backup:"探道",
 			sst_tandao_info:"出牌阶段限一次，你可以选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌。（X为你本回合使用的牌类别数量）",
 			sst_bodong:"波动",
 			sst_bodong_info:"锁定技，你使用牌无距离限制。",

@@ -224,7 +224,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					expose:0.2,
 					damage:true,
 					result:{
-						target:-1,
+						target:function(player){
+							if(!player.storage.sst_xuanyi) return -1;
+						},
 						player:1
 					}
 				}
