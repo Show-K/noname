@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.111.1SST2',
+	'v1.9.111.1SST3',
 	//New add
 	'image/character/shibing1.png',
 	'image/character/shibing2.png',

@@ -1,9 +1,7 @@
 window.noname_update={
-	version:'1.9.111.1SST2',
-	update:'1.9.111.1SST',
+	version:'1.9.111.1SST3',
+	update:'1.9.111.1SST2',
 	changeLog:[
-		'（实验） 使命技 超级小桀',
-		'（实验） 响应 小溪',
 		'代码优化',
 		'bug修复',
 		'其他'
