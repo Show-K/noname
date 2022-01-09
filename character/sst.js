@@ -5569,7 +5569,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(_status.event.dying) return get.attitude(player,_status.event.dying);
 							return 1;
 						}
-					}
+					},
+					useful:-1,
+					value:-1
 				}
 			},
 			sst_shengxi4:{},
