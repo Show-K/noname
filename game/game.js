@@ -28709,12 +28709,12 @@
 			var history;
 			if(get.itemtype(player)=='player'){
 				return player.hasHistory('sourceDamage',function(evt){
-					return evt.card==card&&get.itemtype(target)=='player'?evt.player==target:true;
+					return evt.card==card&&(get.itemtype(target)=='player'?evt.player==target:true);
 				});
 			}
 			return game.hasPlayer(function(current){
 				return current.hasHistory('sourceDamage',function(evt){
-					return evt.card==card&&get.itemtype(target)=='player'?evt.player==target:true;
+					return evt.card==card&&(get.itemtype(target)=='player'?evt.player==target:true);
 				})
 			});
 		},

@@ -66,7 +66,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						return;
 					}
 					event.current=current;
-					if(current.identity!='wei'){
+					if(current.identity!='sst_darkness'){
 						current.chooseToDiscard('he','弃置一张牌，并视为对'+get.translation(target)+'使用一张【杀】，或点击「取消」弃置其一张牌').set('ai',function(card){
 							if(!_status.event.goon) return 0;
 							return 5-get.value(card);
@@ -88,7 +88,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						if(current.isIn()&&current.canUse({name:'sha',isCard:true},target,false)) current.useCard({name:'sha',isCard:true},target,false);
 					}
 					else{
-						current[current.identity=='wei'?'gainPlayerCard':'discardPlayerCard'](target,true,'he').set('boolline',true);
+						current[current.identity=='sst_darkness'?'gainPlayerCard':'discardPlayerCard'](target,true,'he').set('boolline',true);
 					}
 					if(event.list.length) event.goto(1);
 				},
@@ -119,17 +119,17 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					'step 0'
 					var p1='请选择【杀】的目标',p2='或点击「取消」摸一张牌';
-					if(target.identity=='shu'){
+					if(target.identity=='sst_reality'){
 						p1+='（伤害+1）';
 						p2='或点击「取消」摸两张牌';
 					}
 					var next=target.chooseUseTarget('sha',p1,p2,false);
-					if(target.identity=='shu') next.set('oncard',function(){
+					if(target.identity=='sst_reality') next.set('oncard',function(){
 						_status.event.baseDamage++;
 					});
 					'step 1'
 					if(!result.bool){
-						target.draw(target.identity=='shu'?2:1);
+						target.draw(target.identity=='sst_reality'?2:1);
 					}
 				},
 				ai:{
@@ -159,7 +159,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					target.draw(8);
 					'step 1'
 					target.chooseToDiscard('请弃置至少六张手牌',[6,target.countCards('h')],true,'h');
-					if(target.identity!='wu') event.finish();
+					if(target.identity!='sst_spirit') event.finish();
 					'step 2'
 					if(!result.cards||!result.cards.length) event.finish();
 					event.give_cards=result.cards;
@@ -167,16 +167,16 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					'step 3'
 					event.give_cards=event.give_cards.filterInD('d');
 					if(!event.give_cards.length||!game.hasPlayer(function(current){
-						return current!=target&&current.identity=='wu'&&!event.given_list.contains(current);
+						return current!=target&&current.identity=='sst_spirit'&&!event.given_list.contains(current);
 					})) event.finish();
 					else{
-						target.chooseButton(['是否将弃置的牌交给其他吴势力角色？',event.give_cards],[1,2]);
+						target.chooseButton(['是否将弃置的牌交给其他魂势力角色？',event.give_cards],[1,2]);
 					}
 					'step 4'
 					if(result.bool){
 						event.cards2=result.links;
 						target.chooseTarget(true,'选择获得'+get.translation(event.cards2)+'的角色',function(card,player,target){
-							return target!=player&&target.identity=='wu'&&!_status.event.targets.contains(target);
+							return target!=player&&target.identity=='sst_spirit'&&!_status.event.targets.contains(target);
 						}).set('targets',event.given_list);
 					}
 					else event.finish();
@@ -200,9 +200,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					},
 					result:{
 						target:function(player,target){
-							if(target.identity!='wu') return 3;
+							if(target.identity!='sst_spirit') return 3;
 							return Math.max(3,Math.min(8,2*game.countPlayer(function(current){
-								return current.identity=='wu';
+								return current.identity=='sst_spirit';
 							})));
 						},
 					},
@@ -247,7 +247,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						player.discardPlayerCard(target,'h',true,'visible');
 					}
 					'step 3'
-					if(target.identity!='qun'||!result.bool||!result.cards||!result.cards.length||target.countCards('h')>0||target.hp<1) event.finish();
+					if(target.identity!='sst_light'||!result.bool||!result.cards||!result.cards.length||target.countCards('h')>0||target.hp<1) event.finish();
 					else target.draw(Math.min(5,target.hp));
 				},
 				ai:{
@@ -1928,13 +1928,13 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			huxinjing_info:'此牌可对其他角色使用。当你受到伤害时，若伤害值大于1或大于等于你的体力值，则你可以将【护心镜】置入弃牌堆，然后防止此伤害。',
 			huxinjing_info_guozhan:'当你受到伤害时，若伤害值大于或等于你的体力值，则你可以将【护心镜】置入弃牌堆，然后防止此伤害。',
 			gz_haolingtianxia:'号令天下',
-			gz_haolingtianxia_info:'出牌阶段，对一名体力值不为全场最少的角色使用。所有其他角色依次选择一项：①弃置一张牌（魏势力角色无需弃牌），视为对目标角色使用一张【杀】；②弃置目标角色的一张牌（魏势力角色改为获得其一张牌）。',
+			gz_haolingtianxia_info:'出牌阶段，对一名体力值不为全场最少的角色使用。所有其他角色依次选择一项：①弃置一张牌（暗势力角色无需弃牌），视为对目标角色使用一张【杀】；②弃置目标角色的一张牌（暗势力角色改为获得其一张牌）。',
 			gz_kefuzhongyuan:'克复中原',
-			gz_kefuzhongyuan_info:'出牌阶段，对任意名角色使用。目标角色选择一项：①视为使用一张【杀】（蜀势力角色以此法使用【杀】的伤害值基数+1）；②摸一张牌（蜀势力角色改为摸两张牌）。',
+			gz_kefuzhongyuan_info:'出牌阶段，对任意名角色使用。目标角色选择一项：①视为使用一张【杀】（现势力角色以此法使用【杀】的伤害值基数+1）；②摸一张牌（现势力角色改为摸两张牌）。',
 			gz_guguoanbang:'固国安邦',
-			gz_guguoanbang_info:'出牌阶段，对你自己使用。你摸八张牌，然后弃置至少六张手牌。然后若你的势力为吴，则你可以将你以此法弃置的牌交给其他吴势力角色（每名角色至多获得两张牌）。',
+			gz_guguoanbang_info:'出牌阶段，对你自己使用。你摸八张牌，然后弃置至少六张手牌。然后若你的势力为魂，则你可以将你以此法弃置的牌交给其他魂势力角色（每名角色至多获得两张牌）。',
 			gz_wenheluanwu:'文和乱武',
-			gz_wenheluanwu_info:'出牌阶段，对所有角色使用。目标角色展示所有手牌，然后你选择一项：①令其弃置两张类型不同的手牌；②你弃置其一张手牌。然后若其为群势力角色且其没有手牌，则其将手牌摸至当前体力值（至多为5）。',
+			gz_wenheluanwu_info:'出牌阶段，对所有角色使用。目标角色展示所有手牌，然后你选择一项：①令其弃置两张类型不同的手牌；②你弃置其一张手牌。然后若其为光势力角色且其没有手牌，则其将手牌摸至当前体力值（至多为5）。',
 			zhaoshu:'诏书',
 			zhaoshu_skill:'锦囊召唤',
 			zhaoshu_global:'诏书',

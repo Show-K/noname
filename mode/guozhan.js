@@ -1637,7 +1637,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:function(){return false},
 				selectCard:-1,
-				viewAs:{name:"wuxie"},
+				viewAs:{name:"wuxie",isCard:true},
 			},
 			gz_sst_chengli3:{
 				prompt:"视为使用一张闪",
@@ -1650,7 +1650,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:function(){return false},
 				selectCard:-1,
-				viewAs:{name:"shan"},
+				viewAs:{name:"shan",isCard:true},
 				ai:{
 					skillTagFilter:function(player){
 						return !player.storage.gz_sst_chengli.contains(player.hp);
@@ -1849,7 +1849,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				viewAs:{name:"zhibi"},
 				//prepare:"throw",
 				filterCard:function(){return true},
-				position:"he",
+				position:"hes",
 				check:function(card){
 					return 5-get.value(card);
 				},
@@ -1906,10 +1906,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 			gz_sst_yicex:{
 				filterCard:function(card){
-					return get.color(card)!=_status.event.color;
+					return get.itemtype(card)=="card"&&get.color(card)!=_status.event.color;
 					//return true;
 				},
-				position:"he",
+				position:"hes",
 				viewAs:{
 					name:"yuanjiao",
 				},
@@ -4335,10 +4335,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			['diamond',6,'dinglanyemingzhu'],
 			['heart',13,'liulongcanjia'],
 			
-			//['spade',12,'gz_haolingtianxia'],
-			//['diamond',1,'gz_kefuzhongyuan'],
-			//['heart',1,'gz_guguoanbang'],
-			//['club',12,'gz_wenheluanwu'],
+			['spade',12,'gz_haolingtianxia'],
+			['diamond',1,'gz_kefuzhongyuan'],
+			['heart',1,'gz_guguoanbang'],
+			['club',12,'gz_wenheluanwu'],
 		],
 		element:{
 			content:{
