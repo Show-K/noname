@@ -90,6 +90,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<event.cardtag.length;i++){
 						_status.cardtag[event.cardtag[i]].remove(card.cardid);
 					}
+				},
+				ai:{
+					effect:{
+						player:function(card){
+							if(get.is.yingbian(card)) return [1,1];
+						}
+					}
 				}
 			},
 			sst_guimou:{

@@ -1137,10 +1137,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Yumikohimi
 			ymk_qiuyi:{
+				preHidden:true,
 				trigger:{global:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return !player.hasSkill("ymk_qiuyi3")&&!["shan","wuxie"].contains(get.name(event.card))&&["basic","trick"].contains(get.type(event.card))&&(event.player.hp>=player.hp||event.player.countCards("h")>=player.countCards("h"));
+					return !player.hasSkill("ymk_qiuyi2")&&!["shan","wuxie"].contains(get.name(event.card))&&["basic","trick"].contains(get.type(event.card))&&(event.player.hp>=player.hp||event.player.countCards("h")>=player.countCards("h"));
 				},
 				content:function(){
 					"step 0"
@@ -1152,32 +1153,38 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.cards&&result.cards.length){
 						player.logSkill("ymk_qiuyi",trigger.player);
-						player.addTempSkill("ymk_qiuyi3");
+						player.addTempSkill("ymk_qiuyi2");
 						player.give(result.cards,trigger.player);
-						if(!trigger.player.storage.ymk_qiuyi) trigger.player.storage.ymk_qiuyi=0;
-						trigger.player.storage.ymk_qiuyi++;
-						trigger.player.addTempSkill("ymk_qiuyi2");
+						if(!trigger.player.hasSkill("ymk_qiuyi_effect")) trigger.player.addTempSkill("ymk_qiuyi_effect");
+						trigger.player.addMark("ymk_qiuyi_effect",1,false);
 					}
 					else{
 						event.finish();
 					}
 					"step 2"
 					player.chooseUseTarget("求艺：使用"+get.translation(trigger.card),trigger.card,false);
+				},
+				ai:{
+					threaten:2
 				}
 			},
-			ymk_qiuyi2:{
+			ymk_qiuyi_effect:{
+				charlotte:true,
+				intro:{
+					content:function(storage,player){
+						return "本回合你的手牌上限-"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
+					}
+				},
 				onremove:function(player){
-					delete player.storage.ymk_qiuyi;
+					player.removeMark("ymk_qiuyi_effect",player.countMark("ymk_qiuyi_effect"),false);
 				},
 				mod:{
 					maxHandcard:function(player,num){
-						if(typeof player.storage.ymk_qiuyi=="number"){
-							return num+player.storage.ymk_qiuyi;
-						}
+						return num+player.countMark("ymk_qiuyi_effect");
 					}
 				}
 			},
-			ymk_qiuyi3:{},
+			ymk_qiuyi2:{},
 			ymk_xifang:{
 				usable:1,
 				trigger:{source:"gainAfter"},
@@ -1291,11 +1298,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Professor Toad
 			ska_juegu:{
-				group:["ska_juegu_sha","ska_juegu_shan"],
-				contentx:function(){
+				trigger:{player:["useCardBegin","respondBegin"]},
+				filter:function(event,player){
+					return event.skill=="ska_juegu_sha"||event.skill=="ska_juegu_shan";
+				},
+				logTarget:"targets",
+				forced:true,
+				content:function(){
 					"step 0"
-					player.logSkill("ska_juegu");
-					event.card_top=event.result.cards[0];
+					delete trigger.skill;
+					trigger.getParent().set("ska_juegu",true);
+					event.card_top=trigger.cards[0];
 					player.showCards(event.card_top);
 					"step 1"
 					player.$throw(1);
@@ -1307,21 +1320,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌（牌堆底牌）");
 					"step 3"
 					if(ui.discardPile.childNodes.length&&get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
-						//event.result.card={name:event.result.card.name,isCard:true};
-						event.result.card.cards=[];
-						event.result.cards=[];
-						delete event.result.card.suit;
-						delete event.result.card.number;
+						trigger.card.cards=[];
+						trigger.cards=[];
+						delete trigger.card.suit;
+						delete trigger.card.number;
 					}
 					else{
 						if(!ui.discardPile.childNodes.length){
 							player.chat("无牌可比较了吗");
 							game.log("但是弃牌堆里面已经没有牌了！");
 						}
-						var evt=event.getParent();
-						evt.set("ska_juegu",true);
-						evt.goto(0);
 						player.addTempSkill("ska_juegu_disable");
+						trigger.cancel();
+						trigger.getParent().goto(0);
 					}
 					"step 4"
 					event.can_damage=get.color(event.card_top)!=get.color(event.card_bottom);
@@ -1334,7 +1345,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
 						player.line(event.target,"green");
-						event.target.gain(event.card_bottom,"gain2",false);
+						event.target.gain(event.card_bottom);
+						event.target.$gain2(event.card_bottom);
 					}
 					else{
 						event.finish();
@@ -1352,38 +1364,36 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 7"
 					if(result.bool){
-						player.line(event.target,"green");
+						//player.line(event.target,"green");
 						event.target.damage(player);
 					}
 				},
+				group:["ska_juegu_sha","ska_juegu_shan"],
 				subSkill:{
 					sha:{
 						enable:["chooseToUse","chooseToRespond"],
 						viewAs:{name:"sha",isCard:true},
 						filterCard:true,
 						filter:function(event,player){
-							if(player.hasSkill("ska_juegu_disable")||event.ska_juegu||!player.countCards("he")) return false;
-							return true;
+							return !event.ska_juegu&&(event.type!="phase"||!player.hasSkill("ska_juegu_disable"));
 						},
-						selectCard:1,
+						viewAsFilter:function(player){
+							if(!player.countCards("he")) return false;
+						},
 						position:"he",
 						check:function(card){
 							if(ui.discardPile.childNodes.length&&get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
 							return 5-get.value(card);
 						},
-						precontent:function(){
-							return lib.skill.ska_juegu.contentx.apply(this,arguments);
-						},
-						prompt:"当你需要使用或打出一张【杀】时，你可以展示一张牌并将其置于牌堆顶，然后展示牌堆底一张牌，1. 若你置于牌堆顶的牌花色与弃牌堆顶的花色相同，你视为使用或打出一张【杀】，否则你不能发动此技能直到回合结束；2. 你可以令一名角色获得展示的牌堆底牌，然后若你置于牌堆顶的牌颜色与此牌相同，你可以对其造成1点伤害",
+						prompt:"当你需要使用或打出一张【杀】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】，否则本回合此技能失效；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害",
 						ai:{
 							order:function(){
 								return get.order({name:"sha"})+0.1;
 							},
 							skillTagFilter:function(player,tag,arg){
-								if(player.hasSkill("ska_juegu_disable")||_status.event.ska_juegu||!player.countCards("he")) return false;
+								if(!player.countCards("he")) return false;
 							},
 							respondSha:true,
-							guanxing:true,
 							expose:0.2
 						}
 					},
@@ -1392,32 +1402,40 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						viewAs:{name:"shan",isCard:true},
 						filterCard:true,
 						filter:function(event,player){
-							if(player.hasSkill("ska_juegu_disable")||event.ska_juegu||!player.countCards("he")) return false;
-							return true;
+							return !event.ska_juegu&&(event.type!="phase"||!player.hasSkill("ska_juegu_disable"));
+						},
+						viewAsFilter:function(player){
+							if(!player.countCards("he")) return false;
 						},
 						check:function(card){
 							if(get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
 							return 5-get.value(card);
 						},
-						precontent:function(){
-							return lib.skill.ska_juegu.contentx.apply(this,arguments);
-						},
-						selectCard:1,
 						position:"he",
-						prompt:"当你需要使用或打出一张【闪】时，你可以展示一张牌并将其置于牌堆顶，然后展示牌堆底一张牌，1. 若你置于牌堆顶的牌花色与弃牌堆顶的花色相同，你视为使用或打出一张【闪】，否则你不能发动此技能直到回合结束；2. 你可以令一名角色获得展示的牌堆底牌，然后若你置于牌堆顶的牌颜色与此牌相同，你可以对其造成1点伤害",
+						prompt:"当你需要使用或打出一张【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【闪】，否则本回合此技能失效；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害",
 						ai:{
 							order:function(){
 								return get.order({name:"shan"})+0.1;
 							},
 							skillTagFilter:function(player){
-								if(player.hasSkill("ska_juegu_disable")||_status.event.ska_juegu||!player.countCards("he")) return false;
+								if(!player.countCards("he")) return false;
 							},
 							respondShan:true,
 							guanxing:true,
 							expose:0.2
 						}
 					},
-					disable:{}
+					disable:{
+						trigger:{global:["useCardAfter","useSkillAfter","phaseAfter"]},
+						silent:true,
+						charlotte:true,
+						filter:function(event){
+							return event.skill!="ska_juegu_sha"&&event.skill!="ska_juegu_shan";
+						},
+						content:function(){
+							player.removeSkill("ska_juegu_disable");
+						}
+					}
 				}
 			},
 			ska_kuiwang:{
@@ -2186,7 +2204,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhiyi2:"执异",
 			ska_zhiyi_info:"你使用从一名角色获得的牌结算后，若此牌：被响应，你可以将一张牌当作此牌使用；未被响应，你可以摸一张牌。",
 			ymk_qiuyi:"求艺",
-			ymk_qiuyi2:"求艺",
+			ymk_qiuyi_effect:"求艺",
 			ymk_qiuyi_info:"每回合限一次，当一名角色使用的基本牌或普通锦囊牌（【闪】【无懈可击】除外）结算完毕后，若其体力值或手牌数不小于你，你可以交给其一张牌并令其本回合手牌上限+1，然后你可以视为使用此牌。",
 			ymk_xifang:"析方",
 			ymk_xifang_info:"每回合限一次，一名角色获得你的牌后，你可以观看其手牌，若其满足类别不同或颜色不同，你摸一张牌。",
@@ -2195,7 +2213,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_juegu:"掘古",
 			ska_juegu_sha:"掘古·杀",
 			ska_juegu_shan:"掘古·闪",
-			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】/【闪】，否则本回合此技能失效；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害。",
+			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】/【闪】；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害。",
 			ska_kuiwang:"窥往",
 			ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。",
 			mnm_tianjiu:"天鹫",
