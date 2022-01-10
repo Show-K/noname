@@ -1559,86 +1559,120 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_qinwei:{
+				init:function(player){
+					player.storage.sst_qinwei=[];
+					player.storage.sst_qinwei_es=[];
+				},
+				onremove:function(player){
+					//Remove all extra equip skill(s)
+					player.removeAdditionalSkill("sst_qinwei");
+				},
 				unique:true,
 				zhuSkill:true,
+				mod:{
+					attackFrom:function(from,to,distance){
+						if(from.hasZhuSkill("sst_qinwei")){
+							var equips=[];
+							for(var i=0;i<from.storage.sst_qinwei.length;i++){
+								equips=equips.concat(from.storage.sst_qinwei[i].getCards("e"));
+							}
+							var range=Infinity;
+							if(!equips.length){
+								range=0;
+							}
+							else{
+								for(var i=0;i<equips.length;i++){
+									var info=get.info(equips[i]);
+									var range_temp=(info.distance&&info.distance.attackFrom)?info.distance.attackFrom:0;
+									if(range_temp<range) range=range_temp;
+								}
+							}
+							return distance+range;
+						}
+					},
+					globalFrom:function(from,to,distance){
+						if(from.hasZhuSkill("sst_qinwei")){
+							var equips=[];
+							for(var i=0;i<from.storage.sst_qinwei.length;i++){
+								equips=equips.concat(from.storage.sst_qinwei[i].getCards("e"));
+							}
+							var range=Infinity;
+							if(!equips.length){
+								range=0;
+							}
+							else{
+								for(var i=0;i<equips.length;i++){
+									var info=get.info(equips[i]);
+									var range_temp=(info.distance&&info.distance.globalFrom)?info.distance.globalFrom:0;
+									if(range_temp<range) range=range_temp;
+								}
+							}
+							return distance+range;
+						}
+					},
+					globalTo:function(from,to,distance){
+						if(to.hasZhuSkill("sst_qinwei")&&to.storage.distance_to){
+							var equips=[];
+							for(var i=0;i<to.storage.sst_qinwei.length;i++){
+								equips=equips.concat(to.storage.sst_qinwei[i].getCards("e"));
+							}
+							var range=Infinity;
+							if(!equips.length){
+								range=0;
+							}
+							else{
+								for(var i=0;i<equips.length;i++){
+									var info=get.info(equips[i]);
+									var range_temp=(info.distance&&info.distance.globalTo)?info.distance.globalTo:0;
+									if(range_temp<range) range=range_temp;
+								}
+							}
+							return distance+range;
+						}
+					}
+				},
+				forced:true,
+				popup:false,
+				//When any card moved
+				trigger:{
+					player:"loseEnd",
+					global:["equipEnd","addJudgeEnd","gainEnd","loseAsyncEnd"]
+				},
 				filter:function(event,player){
 					return player.hasZhuSkill("sst_qinwei");
 				},
-				mod:{
-					attackFrom:function(from,to,distance){
-						if(from.hasZhuSkill("sst_qinwei")&&from.storage.range) return distance-from.storage.range;
-					},
-					globalFrom:function(from,to,distance){
-						if (from.hasZhuSkill("sst_qinwei")&&from.storage.distance_from) return distance-1;//攻击距离加1
-					},
-					globalTo:function(from,to,distance){
-						if (to.hasZhuSkill("sst_qinwei")&&to.storage.distance_to) return distance+1;//防御距离加1
+				content:function(){
+					"step 0"
+					//Get nearest player(s)
+					var players=game.filterPlayer(function(current){
+						if(current==player) return false;
+						if(current.group!=player.group) return false;
+						var dist=get.distance(player,current);
+						return !game.hasPlayer(function(current2){
+							return current2!=player&&current.group==player.group&&get.distance(player,current2)<dist;
+						});
+					});
+					if(players.length) game.log("Nearest player(s): ",players);
+					player.storage.sst_qinwei=players;
+					var es=[];
+					//Get their equip skill(s)
+					for(var i=0;i<players.length;i++){
+						es=es.concat(players[i].getSkills("e"));
 					}
-				},
-				group:"sst_qinwei_check",
-				subSkill:{
-					check:{
-						trigger:{global:["equipEnd","loseEnd","die"]},
-						filter:function(event,player){
-							//return event.player==players[0];
-							return player.hasZhuSkill("sst_qinwei");
-						},
-						silent:true,
-						content:function(){
-							"step 0"
-							var players=game.filterPlayer();
-							players.remove(player);
-							for(var i=0;i<players.length;i++){
-								if(players[i].group!=player.group){
-									players.remove(players[i]);
-									if(i<players.length) i--;
-								}
-							}
-							players.sort(function(a,b){
-								return Math.max(1,get.distance(player,a))-Math.max(1,get.distance(player,b));
-							});
-							var distance=Math.max(1,get.distance(player,players[0]));
-							for(var i=0;i<players.length;i++){
-								if(Math.max(1,get.distance(player,players[i]))>distance){
-									players.splice(i);
-									break;
-								}
-							}
-							event.players=players;
-							"step 1"
-							//player.draw();
-							//var skills=trigger.player.getSkills("e",true);
-							//if(player.storage.sst_qinwei&&player.storage.sst_qinwei.length>0){
-							//for(var i=0;i<player.storage.sst_qinwei.length;i++){
-							//if(!player.hasSkill(player.storage.sst_qinwei[i])){
-							player.removeAdditionalSkill("sst_qinwei");
-							player.storage.range=0;
-							player.storage.distance_from=false;
-							player.storage.distance_to=false;
-							//}
-							//}
-							//}
-							"step 2"
-							//var es=trigger.player.getSkills("e",true);
-							var players=event.players;
-							var es=[];
-							player.storage.range=0;
-							for(var i=0;i<players.length;i++){
-								es=es.concat(players[i].getSkills("e",true));
-								if(players[i].getAttackRange(true)-1>player.storage.range) player.storage.range=players[i].getAttackRange(true)-1;
-								if(players[i].getEquip(4)) player.storage.distance_from=true;
-								if(players[i].getEquip(3)) player.storage.distance_to=true;
-							}
-							if(es){
-								//player.storage.sst_qinwei=es;
-								for(var i=0;i<es.length;i++){
-									//if(!player.hasSkill(es[i])){
-									player.addAdditionalSkill("sst_qinwei",es[i],true);
-									//}
-								}
-							}
+					if(es.length) game.log("Equip skill(s): ",es);
+					//Remove an equip skill if it is no longer exist
+					for(var i=0;i<player.storage.sst_qinwei_es.length;i++){
+						if(!es.contains(player.storage.sst_qinwei_es[i])&&player.hasSkill(player.storage.sst_qinwei_es[i])) player.removeAdditionalSkill("sst_qinwei",player.storage.sst_qinwei_es[i]);
+					}
+					//Add an equip skill if the player do not have it
+					for(var i=0;i<es.length;i++){
+						if(es.indexOf("muniu")==0){
+							es.splice(i--,1);
+							continue;
 						}
+						if(!player.hasSkill(es[i])) player.addAdditionalSkill("sst_qinwei",es[i],true);
 					}
+					player.storage.sst_qinwei_es=es;
 				}
 			},
 			//Ganondorf
@@ -5500,6 +5534,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondShan:true,
 					respondTao:true,
 					save:true,
+					/*
 					skillTagFilter:function(player,tag,arg){
 						if(arg=="respond") return false;
 						var sst_shengxi=[];
@@ -5541,6 +5576,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 					},
+					*/
 					order:function(item,player){
 						var event=_status.event;
 						if(event.type!="phase") return 4;
@@ -6498,7 +6534,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				superCharlotte:true,
 				trigger:{player:["phaseBegin","die"]},
 				forceDie:true,
-				silent:true,
+				forced:true,
+				popup:false,
 				content:function(){
 					for(var i=0;i<game.players.length;i++){
 						if(game.players[i].hasSkill("sst_xiangle")) game.log(game.players[i],"失去了技能","#g【享乐】");
@@ -8994,9 +9031,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.getEquip(1)) player.removeMaxHp();
 				},
 				trigger:{
-					player:"loseEnd",
-					source:"gainEnd",
-					global:["equipEnd","addJudgeEnd","gainEnd","loseAsyncEnd"]
+					player:"loseAfter",
+					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter"]
 				},
 				//direct:true,
 				forced:true,
@@ -13034,7 +13070,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yinjie3:"印结",
 			sst_yinjie_info:"其他角色的准备阶段，若其体力值不小于你，你可以废除一个装备栏并弃置所有手牌令你与其相互距离为1，然后该角色本回合内使用牌只能指定你为目标。若如此做，本回合结束阶段，你获得其所有牌。",
 			sst_qinwei:"亲卫",
-			sst_qinwei_info:"主公技，锁定技，你视为拥有计算与你距离最近的本势力角色的装备效果。",
+			sst_qinwei_info:"主公技，锁定技，你视为拥有计算与你距离最近的其他本势力角色装备效果（【木牛流马】除外）。",
 			sst_chengli:"逞力",
 			sst_chengli2:"逞力",
 			sst_chengli2_backup:"逞力",
@@ -13514,7 +13550,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shangzheng:"商政",
 			sst_shangzheng2:"商政",
 			sst_shangzheng_info:"一名角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",
-			sst_shangzheng2_info:"你的出牌阶段，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗的角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
+			sst_shangzheng2_info:"你的出牌阶段，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
 			sst_yinyuan:"引援",
 			sst_yinyuan_info:"每回合限一次，你受到伤害前，若你与你相邻的角色均有手牌，你可以令你与这些角色依次弃置一张手牌，然后防止此伤害。",
 			sst_zaowu:"造物",
