@@ -51,7 +51,6 @@ window.noname_character_rank={
 			"ska_super_xiaojie",
 			"sst_spring_man",
 			"sst_joker",
-			"sst_captain_falcon",
 			"sst_lucario",
 			"sst_king_dedede",
 			"sst_corrin",
@@ -73,7 +72,10 @@ window.noname_character_rank={
 			"ska_king_olly",
 			"sst_dr_wily",
 			"sst_9_volt_18_volt",
-			"ska_show_k"
+			"ska_show_k",
+			"sst_isabelle",
+			"sst_little_mac",
+			"sst_young_link"
 		],
 		rare:[
 			"sst_mario",
@@ -91,10 +93,8 @@ window.noname_character_rank={
 			"sst_simon",
 			"sst_kirby",
 			"sst_pokemon_trainer_red",
-			"sst_isabelle",
 			"sst_chrom",
 			"sst_daisy",
-			"sst_little_mac",
 			"sst_lucina",
 			"ska_bobby",
 			"sst_oc",
@@ -107,7 +107,6 @@ window.noname_character_rank={
 			"sst_ike",
 			"sst_toon_link",
 			"sst_wolf",
-			"sst_young_link",
 			"sst_ocarina_of_time_link",
 			"sst_rex",
 			"sst_cuphead_mugman",
@@ -131,7 +130,8 @@ window.noname_character_rank={
 			"alz_kyo_kusanagi",
 			"ska_koopa_troopa",
 			"sst_krystal",
-			"sst_pauline"
+			"sst_pauline",
+			"sst_captain_falcon"
 		],
 		junk:[
 			"sst_yoshi",
