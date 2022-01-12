@@ -747,12 +747,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.storage.ska_jiyan.contains("sha");
 						},
 						prompt:"视为使用或打出一张【杀】",
-						onuse:function(result,player){
+						precontent:function(){
+							player.logSkill("ska_jiyan");
+							delete event.result.skill;
+							event.getParent().set("ska_jiyan",true);
 							player.popup("《话语权》");
 							player.chat("《话语权》");
 							player.storage.ska_jiyan.remove("sha");
 						},
-						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							respondSha:true,
 							skillTagFilter:function(player){
@@ -774,12 +776,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("shan");
 						},
-						onuse:function(result,player){
+						precontent:function(){
+							player.logSkill("ska_jiyan");
+							delete event.result.skill;
+							event.getParent().set("ska_jiyan",true);
 							player.popup("《理解》");
 							player.chat("《理解》");
 							player.storage.ska_jiyan.remove("shan");
 						},
-						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							respondShan:true,
 							skillTagFilter:function(player){
@@ -801,12 +805,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("tao");
 						},
-						onuse:function(result,player){
+						precontent:function(){
+							player.logSkill("ska_jiyan");
+							delete event.result.skill;
+							event.getParent().set("ska_jiyan",true);
 							player.popup("《硬气》");
 							player.chat("《硬气》");
 							player.storage.ska_jiyan.remove("tao");
 						},
-						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							save:true,
 							respondTao:true,
@@ -829,12 +835,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("jiu");
 						},
-						onuse:function(result,player){
+						precontent:function(){
+							player.logSkill("ska_jiyan");
+							delete event.result.skill;
+							event.getParent().set("ska_jiyan",true);
 							player.popup("《压迫感》");
 							player.chat("《压迫感》");
 							player.storage.ska_jiyan.remove("jiu");
 						},
-						onrespond:function(){return this.onuse.apply(this,arguments);},
 						ai:{
 							save:true,
 							skillTagFilter:function(player){
@@ -853,7 +861,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						forced:true,
 						trigger:{player:"useCardAfter"},
 						filter:function(event,player){
-							return event.skill&&event.skill.indexOf("ska_jiyan")!=-1&&!player.storage.ska_jiyan.length;
+							return event.getParent().ska_jiyan&&!player.storage.ska_jiyan.length;
 						},
 						content:function(){
 							game.log(player,"成功完成使命");
@@ -1343,13 +1351,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(event.can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",function(target){
 						var player=_status.event.player;
 						if(get.value(event.card_bottom)<=get.damageEffect(target,player,player)&&_status.event.can_damage) return get.damageEffect(target,player,player);
-						return get.attitude(player,target);
+						return get.sgnAttitude(player,target);
 					}).set("cardx",event.card_bottom).set("can_damage",event.can_damage);
 					"step 5"
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
 						player.line(event.target,"green");
-						event.target.gain(event.card_bottom);
+						event.target.gain(event.card_bottom,"log");
 						event.target.$gain2(event.card_bottom);
 					}
 					else{
