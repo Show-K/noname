@@ -428,7 +428,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.judge();
+					player.judge(function(card){
+						return get.value(card)/2;
+					}).set("judge2",function(){
+						return true;
+					});
 					"step 1"
 					var card=result.card;
 					if(get.position(card,true)=="d"){
@@ -2222,7 +2226,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_yanhai2:"炎骸",
 			mnm_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
 			alz_wushi:"无式",
-			alz_wushi_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张无视距离的杀（X为你与其距离+1）。",
+			alz_wushi_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张无视距离的【杀】（X为你与其距离+1）。",
 			alz_huangyao:"荒咬",
 			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用或打出。",
 			mnm_jijing:"急竞",
