@@ -650,12 +650,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Super Xiaojie
 			ska_kezhi:{
+				init:function(player){
+					if(!player.hasSkill("ska_kezhi_respond")) player.addSkill("ska_kezhi_respond");
+				},
 				trigger:{player:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
 					return event.ska_kezhi&&player.countCards("hes");
 				},
 				content:function(){
+					if(!player.hasSkill("ska_kezhi_effect")) player.addSkill("ska_kezhi_effect");
 					var card=Object.assign({},trigger.card);
 					delete card.isCard;
 					var next=player.chooseToUse();
@@ -673,23 +677,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					next.set("cardx",card);
 					next.set("ai2",player.hp>1?get.effect_use:function(){
 						return 0;
-					})
-				},
-				group:["ska_kezhi_respond","ska_kezhi2"],
-				subSkill:{
-					respond:{
-						trigger:{global:["respond","useCard"]},
-						filter:function(event,player){
-							if(!event.respondTo) return false;
-							if(player!=event.respondTo[0]) return false;
-							return true;
-						},
-						silent:true,
-						content:function(){
-							//game.log(trigger.getParent(3));
-							trigger.getParent("useCard").set("ska_kezhi",true);
-						}
-					}
+					});
 				}
 			},
 			ska_kezhix:{
@@ -714,23 +702,39 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.loseHp();
 				}
 			},
-			ska_kezhi2:{
+			ska_kezhi_respond:{
+				charlotte:true,
+				trigger:{global:["respond","useCard"]},
+				filter:function(event,player){
+					if(!event.respondTo) return false;
+					if(player!=event.respondTo[0]) return false;
+					return true;
+				},
+				silent:true,
+				content:function(){
+					//game.log(trigger.getParent(3));
+					trigger.getParent("useCard").set("ska_kezhi",true);
+				}
+			},
+			ska_kezhi_effect:{
+				charlotte:true,
 				trigger:{player:"useCardEnd"},
 				filter:function(event,player){
 					//game.log(event.getParent().skill);
-					return !player.hasSkill("ska_kezhi3")&&event.skill=="ska_kezhix"&&player.getHistory("sourceDamage",function(evt){
+					return !player.hasSkill("ska_kezhi_effect2")&&event.skill=="ska_kezhix"&&player.getHistory("sourceDamage",function(evt){
 						return evt.card==event.card;
 					}).length;
 				},
-				direct:true,
+				forced:true,
+				popup:false,
 				content:function(){
 					"step 0"
-					player.chooseDrawRecover(2).set("logSkill","ska_kezhi2");
+					player.chooseDrawRecover(2,"恪志：你可以回复1点体力或摸两张牌");
 					"step 1"
-					if(result.control!="cancel2") player.addTempSkill("ska_kezhi3");
+					if(result.control!="cancel2") player.addTempSkill("ska_kezhi_effect2");
 				}
 			},
-			ska_kezhi3:{},
+			ska_kezhi_effect2:{},
 			ska_jiyan:{
 				dutySkill:true,
 				init:function(player){
@@ -2196,9 +2200,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_jicai2:"积材",
 			ymk_jicai_info:"锁定技，你跳过判定阶段，改为执行一个弃牌阶段；你跳过不以此法执行的弃牌阶段，改为执行一个摸牌阶段。",
 			ska_kezhi:"恪志",
-			ska_kezhi2:"恪志",
 			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以失去1点体力并将一张牌当作此牌使用。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
-			ska_kezhi2_info:"每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力并摸两张牌。",
 			ska_jiyan:"籍验",
 			ska_jiyan2:"籍验",
 			ska_jiyan_sha:"籍验·杀",

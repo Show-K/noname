@@ -395,6 +395,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			},
 			xinge:{
 				audio:true,
+				equipSkill:true,
 				enable:'phaseUse',
 				usable:1,
 				filter:function(event,player){

@@ -76,7 +76,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						//与牌堆顶的一张牌拼点
 						var next=game.createEvent("chooseToCompare");
 						next.player=player;
-						next.ai=function(card){
+						next.set("ai",function(card){
 							if(typeof card=="string"&&lib.skill[card]){
 								var ais=lib.skill[card].check||function(){return 0};
 								return ais();
@@ -90,7 +90,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 							var addi=(get.value(card)>=8&&get.type(card)!="equip")?-10:0;
 							if(card.name=="du") addi+=5;
 							return getn(card)-get.value(card)/2+addi;
-						};
+						});
 						next.setContent(lib.skill.sst_aegises_skill.contentx);
 						//next._args=Array.from(arguments);
 					};
