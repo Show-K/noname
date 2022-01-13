@@ -7286,9 +7286,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var num=player.storage.sst_shimo.contains(target)?1:2;
 						if(get.attitude(player,target)<0){
 							if(!target.countCards("he")||target.countCards("he")<2) return 0;
-							return -get.attitude(player,target)*num-player.getDamagedHp();
+							return -get.sgnAttitude(player,target)*num-player.getDamagedHp();
 						}
-						return get.attitude(player,target)*num-player.getDamagedHp();
+						return get.sgnAttitude(player,target)*num-player.getDamagedHp();
 					});
 					"step 1"
 					if(result.bool){
@@ -7720,8 +7720,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.useCard(card,target,false);
 					}
 					"step 3"
-					player.chooseBool("诈谋：收回"+get.translation(event.card)+"，否则令此技能视为此出牌阶段未发动过").set("ai",function(){
-						if(!_status.event.player.countCards("h",{color:"black"})) return true;
+					player.chooseBool("诈谋：是否收回"+get.translation(event.card)+"？否则令此技能视为此出牌阶段未发动过").set("ai",function(){
+						if(!_status.event.player.countCards("h",{color:"black"})&&get.value(card)>0) return true;
 						var card=_status.event.cardx;
 						if(get.position(event.card)=="d") return get.value(card)>7;
 						return false;
@@ -12886,6 +12886,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.hp<1) player.recover(1-player.hp);
 				},
 				ai:{
+					filterDamage:true,
+					skillTagFilter:function(player){
+						if(!player.hasMark("sst_zaowu")||player.hp>1) return false;
+					},
 					combo:"sst_zaowu"
 				}
 			},
