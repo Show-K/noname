@@ -754,7 +754,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						precontent:function(){
 							player.logSkill("ska_jiyan");
 							delete event.result.skill;
-							event.getParent().set("ska_jiyan",true);
 							player.popup("《话语权》");
 							player.chat("《话语权》");
 							player.storage.ska_jiyan.remove("sha");
@@ -783,7 +782,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						precontent:function(){
 							player.logSkill("ska_jiyan");
 							delete event.result.skill;
-							event.getParent().set("ska_jiyan",true);
 							player.popup("《理解》");
 							player.chat("《理解》");
 							player.storage.ska_jiyan.remove("shan");
@@ -812,7 +810,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						precontent:function(){
 							player.logSkill("ska_jiyan");
 							delete event.result.skill;
-							event.getParent().set("ska_jiyan",true);
 							player.popup("《硬气》");
 							player.chat("《硬气》");
 							player.storage.ska_jiyan.remove("tao");
@@ -842,7 +839,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						precontent:function(){
 							player.logSkill("ska_jiyan");
 							delete event.result.skill;
-							event.getParent().set("ska_jiyan",true);
 							player.popup("《压迫感》");
 							player.chat("《压迫感》");
 							player.storage.ska_jiyan.remove("jiu");
@@ -865,7 +861,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						forced:true,
 						trigger:{player:"useCardAfter"},
 						filter:function(event,player){
-							return event.getParent().ska_jiyan&&!player.storage.ska_jiyan.length;
+							return !player.storage.ska_jiyan.length;
 						},
 						content:function(){
 							game.log(player,"成功完成使命");
@@ -2145,7 +2141,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				str+=player.storage.ska_jiyan.contains("shan")?"<span class=\"bluetext\">2. 【闪】；</span>":"<span style=\"opacity:0.5\">2. 【闪】；</span>";
 				str+=player.storage.ska_jiyan.contains("tao")?"<span class=\"bluetext\">3. 【桃】；</span>":"<span style=\"opacity:0.5\">3. 【桃】；</span>";
 				str+=player.storage.ska_jiyan.contains("jiu")?"<span class=\"bluetext\">4. 【酒】。</span>":"<span style=\"opacity:0.5\">4. 【酒】。</span>";
-				str+="②使命：你以此法使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。";
+				str+="②使命：你使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。";
 				return str;
 			}
 		},
@@ -2207,7 +2203,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_jiyan_shan:"籍验·闪",
 			ska_jiyan_tao:"籍验·桃",
 			ska_jiyan_jiu:"籍验·酒",
-			ska_jiyan_info:"使命技。①每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。②使命：你以此法使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。",
+			ska_jiyan_info:"使命技。①每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。②使命：你使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。",
 			ska_lunli:"论理",
 			ska_lunli_info:"当你成为一名角色使用牌的目标后，你可以展示一张与此牌点数差等于你的体力值的牌，若如此做，你可以摸一张牌，然后你可以令来源弃置一张牌。",
 			ska_shubian:"数变",

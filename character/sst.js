@@ -645,7 +645,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"《塞尔达传说：时之笛》中的林克，在原作中可以通过时之笛切换幼年和成年两个形态。幼年形态是不能使用大师剑的。在大乱斗中，他的通常必杀技射出的是火箭，相比另两个林克的箭性能更好。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"------------------------------<br>"+
-			"老摸有时候能写出让我吐血的武将……比如这个……现在〖假面〗好像废了，在找解决方法。",
+			"老摸有时候能写出让我吐血的武将……比如这个……现在〖假面〗好像废了，在找解决方法。现在应该可以了，然而要重新编写好多技能的代码啊……",
 			sst_ocarina_of_time_link:"0176. 幼年林克/Young Link/こどもリンク<br>"+
 			"系列：The Legend of Zelda（塞尔达传说）<br>"+
 			"初登场：The Legend of Zelda: Ocarina of Time（塞尔达传说 时之笛）<br>"+
@@ -1362,8 +1362,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!game.hasPlayer(function(current){
 						return current.countCards("h")&&current.isMaxHandcard();
 					})) return false;
-					var parent=event.getParent("sst_haoduo");
-					if(parent&&parent.name=="sst_haoduo") return false;
+					//var parent=event.getParent("sst_haoduo");
+					//if(parent&&parent.name=="sst_haoduo") return false;
+					if(event.getParent(2).name=="sst_haoduo") return false;
 					if(event.name=="gain"&&event.player==player&&event.cards&&event.cards.length&&player.countCards("h",function(card){
 						return event.cards.contains(card);
 					})) return true;
@@ -1456,6 +1457,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_huandai_effect:{
 				charlotte:true,
+				mark:true,
+				intro:{
+					content:function(storage,player){
+						var list=[];
+						var players=game.filterPlayer().sortBySeat(player);
+						for(var i=0;i<players.length;i++){
+							if(typeof storage[players[i].playerid]!="number") continue;
+							list.push(get.translation(players[i]+"（"+get.cnNumber(storage[players[i].playerid])+"张牌）"));
+						}
+						return "你已向"+get.translation(list)+"贷款"
+					}
+				},
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
 					return typeof player.storage.sst_huandai=="object";
@@ -1547,9 +1560,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						return get.translation(players)+"与你相互距离为1<br>本回合内你使用牌只能指定"+get.translation(players)+"为目标<br>结束阶段，"+get.translation(players)+"获得你所有牌";
 					}
-				},
-				onremove:function(player){
-					player.unmarkSkill("sst_yinjie_effect");
 				},
 				mod:{
 					globalFrom:function(from,to,num){
@@ -1931,7 +1941,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					//game.log("收益：",effect);
-					var info=["###"+get.prompt("sst_quji2",trigger.player)+"###你可以弃置牌堆顶或手牌中的一张花色与"+get.translation(trigger.card)+"相同的牌，取消之"];
+					var info=["###"+get.prompt("sst_quji",trigger.player)+"###你可以弃置牌堆顶或手牌中的一张花色与"+get.translation(trigger.card)+"相同的牌，取消之"];
 					if(get.itemtype(_status.pileTop)=="card"){
 						info.push("<div class=\"text center\">牌堆顶的牌</div>");
 						//var top=get.cards();
@@ -2005,7 +2015,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.delayx();
 				},
 				ai:{
-					expose:0.2
+					expose:0.2,
+					threaten:1.5
 				}
 			},
 			sst_quji2:{},
@@ -2150,9 +2161,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengbing2:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "下一个出牌阶段你可以额外使用"+get.cnNumber(storage)+"张【杀】";
-					}
+					content:"下一个出牌阶段你可以额外使用&张【杀】"
 				},
 				onremove:function(player){
 					var num=player.countMark("sst_shengbing2");
@@ -2164,9 +2173,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengbing3:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "此出牌阶段你可以额外使用"+get.cnNumber(storage)+"张【杀】";
-					}
+					content:"此出牌阶段你可以额外使用&张【杀】"
 				},
 				onremove:function(player){
 					player.removeMark("sst_shengbing3",player.countMark("sst_shengbing3"),false);
@@ -2217,20 +2224,24 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.index==0){
 						player.logSkill("sst_jianbu");
 						trigger.num--;
+						player.storage.sst_jianbu_less=player;
 						player.addTempSkill("sst_jianbu_less");
-						player.markSkillCharacter("sst_jianbu_less",player,"剑步","本回合你计算与其他角色距离-1");
+						//player.markSkillCharacter("sst_jianbu_less",player,"剑步","本回合你计算与其他角色距离-1");
 					}
 					else if(result.index==1){
 						player.logSkill("sst_jianbu");
 						trigger.num++;
+						player.storage.sst_jianbu_more=player;
 						player.addTempSkill("sst_jianbu_more");
-						player.markSkillCharacter("sst_jianbu_more",player,"剑步","本回合你计算与其他角色距离+1");
+						//player.markSkillCharacter("sst_jianbu_more",player,"剑步","本回合你计算与其他角色距离+1");
 					}
 				}
 			},
 			sst_jianbu_less:{
-				onremove:function(player){
-					player.unmarkSkill("sst_jianbu_less");
+				charlotte:true,
+				mark:"character",
+				intro:{
+					content:"本回合你计算与其他角色距离-1"
 				},
 				mod:{
 					globalFrom:function(from,to,distance){
@@ -2239,8 +2250,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_jianbu_more:{
-				onremove:function(player){
-					player.unmarkSkill("sst_jianbu_more");
+				charlotte:true,
+				mark:"character",
+				intro:{
+					content:"本回合你计算与其他角色距离+1"
 				},
 				mod:{
 					globalFrom:function(from,to,distance){
@@ -2467,8 +2480,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(target==player){
 						player.draw(2);
+						player.storage.sst_qingying_effect=player;
 						player.addTempSkill("sst_qingying_effect");
-						player.markSkillCharacter("sst_qingying_effect",player,"轻影","你本回合使用牌无距离与次数限制");
+						//player.markSkillCharacter("sst_qingying_effect",player,"轻影","你本回合使用牌无距离与次数限制");
 					}
 				},
 				ai:{
@@ -2505,8 +2519,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_qingying_effect:{
 				charlotte:true,
-				onremove:function(player){
-					player.unmarkSkill("sst_qingying_effect");
+				mark:"character",
+				intro:{
+					content:"本回合你使用牌无距离与次数限制"
 				},
 				mod:{
 					targetInRange:function(){
@@ -2563,25 +2578,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				content:function(){
-					player.addTempSkill("sst_guiyun2",{player:"phaseZhunbeiBegin"});
-					player.markSkillCharacter("sst_guiyun2",player,"诡运","取消你即将受到的所有伤害直到你的下一个准备阶段");
+					player.storage.sst_guiyun_effect=player;
+					player.addTempSkill("sst_guiyun_effect",{player:"phaseZhunbeiBegin"});
+					//player.markSkillCharacter("sst_guiyun_effect",player,"诡运","取消你即将受到的所有伤害直到你的下一个准备阶段");
 				}
-				/*
-				ai:{
-					effect:{
-						player:function(card,player){
-							if(!player.needsToDiscard()&&player.countUsed()==0&&!player.getHistory("lose",function(evt){
-								return evt.type=="discard";
-							}).length) return [-1,-3];
-						},
-					},
-				},
-				*/
 			},
-			sst_guiyun2:{
+			sst_guiyun_effect:{
 				trigger:{player:"damageBegin4"},
-				onremove:function(player){
-					player.unmarkSkill("sst_guiyun2");
+				mark:"character",
+				intro:{
+					content:"取消你即将受到的所有伤害直到你的下一个准备阶段"
 				},
 				forced:true,
 				charlotte:true,
@@ -2612,7 +2618,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					targets.sortBySeat(player);
 					return targets;
 				},
-				prompt:function(event,player){
+				prompt2:function(event,player){
 					var targets=lib.skill.sst_xiduo.logTarget(event,player);
 					return "你可以令"+get.translation(targets)+"选择一项：1. 令你获得其一张牌；2. 你对其使用牌无距离与次数限制且其非锁定技失效";
 				},
@@ -2680,9 +2686,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiduo_effect:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "本回合你对"+get.translation(storage)+"使用牌无距离与次数限制";
-					}
+					content:"本回合你对$使用牌无距离与次数限制"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_xiduo_effect",player.storage.sst_xiduo_effect);
@@ -3215,8 +3219,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets[0].gain(event.cards,"gain2");
 						//game.log(result.targets[0],"获得了"+event.togive);
 						if(trigger.getParent().name=="sst_potian"){
-							if(!player.hasSkill("sst_shenjiao2")) result.targets[0].addTempSkill("sst_shenjiao2",{player:"phaseBegin"});
-							result.targets[0].markSkillCharacter("sst_shenjiao2",player,"身教","下一个回合内拥有【破天】");
+							result.targets[0].storage.sst_shenjiao_effect=player;
+							if(!player.hasSkill("sst_shenjiao_effect")) result.targets[0].addTempSkill("sst_shenjiao_effect",{player:"phaseBegin"});
+							//result.targets[0].markSkillCharacter("sst_shenjiao_effect",player,"身教","下一个回合内拥有【破天】");
 						}
 					}
 				},
@@ -3224,10 +3229,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.3
 				}
 			},
-			sst_shenjiao2:{
-				silent:true,
+			sst_shenjiao_effect:{
+				charlotte:true,
+				mark:"character",
+				intro:{
+					content:"下一个回合内拥有【破天】"
+				},
 				onremove:function(player){
-					player.unmarkSkill("sst_shenjiao2");
 					player.addTempSkill("sst_potian");
 				}
 			},
@@ -3837,7 +3845,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return player.storage.sst_baozheng.contains(card);
 					},"he")) return false;
 				},
-				prompt:"将暴征获得的牌当杀使用",
+				prompt:"将暴征获得的牌当作【杀】使用",
 				check:function(card){return 5-get.value(card);},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
@@ -3900,7 +3908,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shunxing:{
 				group:["sst_shunxing1","sst_shunxing2"],
 				ai:{
-					threaten:2
+					threaten:2,
+					expose:0.2
 				}
 			},
 			sst_shunxing1:{
@@ -3921,7 +3930,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					check=(num>=2&&num2>0);
-					player.chooseBool(get.prompt("sst_shunxing"),"你可以跳过此摸牌阶段，然后获得其他角色区域内的一张牌").set("ai",function(){
+					player.chooseBool(get.prompt("sst_shunxing"),"你可以跳过此摸牌阶段，然后获得一名其他角色区域内的一张牌").set("ai",function(){
 						if(!_status.event.check) return false;
 						if(player.hasCard(function(card){
 							return get.name(card)=="bingliang";
@@ -3940,12 +3949,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						trigger.cancel();
-						player.logSkill("sst_shunxing");
+						player.logSkill("sst_shunxing1");
 						game.log(player,"跳过了此摸牌阶段");
 						player.chooseTarget("获得一名其他角色区域内的一张牌",true,function(card,player,target){
-							return target!=player&&target.countCards("hej");
+							return target!=player&&target.countGainableCards(player,"hej");
 						}).set("ai",function(target){
-							return 1-get.attitude(_status.event.player,target);
+							var player=_status.event.player;
+							var att=get.attitude(player,target);
+							if(att<0){
+								att=-Math.sqrt(-att);
+							}
+							else{
+								att=Math.sqrt(att);
+							}
+							return att*lib.card.shunshou.ai.result.target(player,target);
 						})
 					}
 					else{
@@ -3965,9 +3982,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.gainMultiple(event.targets,"hej",true);
 					"step 4"
 					game.delayx();
-				},
-				ai:{
-					expose:0.2
 				}
 			},
 			sst_shunxing2:{
@@ -4003,7 +4017,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						trigger.cancel();
-						player.logSkill("sst_shunxing");
+						player.logSkill("sst_shunxing2");
 						game.log(player,"跳过了此出牌阶段");
 						player.chooseCard("h",[1,Infinity],"瞬形：你可以重铸任意张红色手牌",function(card){
 							return get.color(card)=="red";
@@ -4225,6 +4239,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						player.loseHp();
 					}
+					if(!player.hasSkill("sst_qixiao2")) player.addSkill("sst_qixiao2");
 					if(player.storage.sst_qixiao){
 						player.useCard({name:"sha",nature:"fire",isCard:true},targets,false);
 					}
@@ -4240,6 +4255,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								return get.effect(target,{name:"sha",nature:"fire",isCard:true},player,target);
 							}
 							return 0;
+						},
+						player:function(player){
+							if((player.storage.sst_qixiao&&player.hp<=2)||player.hp<=1) return 0;
 						}
 					}
 				},
@@ -4249,15 +4267,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸两张牌。";
 						}
 					}
-				},
-				group:"sst_qixiao2"
+				}
 			},
 			sst_qixiao2:{
+				charlotte:true,
 				trigger:{source:"damageSource"},
 				forced:true,
+				popup:false,
 				filter:function(event,player){
-					var evt=event.getParent("sst_qixiao");
-					return evt&&evt.name=="sst_qixiao";
+					return event.getParent(3).name=="sst_qixiao"||event.getParent(7).name=="sst_qixiao";
 				},
 				content:function(){
 					if(player.storage.sst_qixiao){
@@ -4285,7 +4303,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(player,"更改了技能","#g【奇嚣】","的描述");
 					player.popup("更改描述");
 					player.storage.sst_qixiao=true;
-					player.markSkill("sst_qixiao");
+					//player.markSkill("sst_qixiao");
 					player.addTempSkill("sst_xuansha_effect");
 					player.awakenSkill(event.name);
 					player.storage.sst_xuansha=true;
@@ -4357,7 +4375,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseCardTarget({
 						filterCard:function(card,player){
-							if(!lib.filter.cardDiscardable(card,player)) return false;
+							if(!lib.filter.cardDiscardable.apply(this,arguments)) return false;
 							if(get.zhu(player,"shouyue")) return true;
 							return get.color(card)=="red";
 						},
@@ -4411,35 +4429,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					player.draw("nodelay");
 				},
-				intro:{
-					mark:function(dialog,content,player){
-						/*
-						var history=player.getAllHistory("useCard",function(evt){
-							return true;
-						});
-						if(!history||!history.length) return;
-						var num=history.length-1;
-						if(num<0) return;
-						*/
-						if(!player.storage.sst_yiqing) return;
-						//if(history[num].targets&&history[num].targets.length){
-						if(player.storage.sst_yiqing&&player.storage.sst_yiqing.length){
-							dialog.addText("上一张牌指定的目标："+get.translation(player.storage.sst_yiqing));
-						}
-						else{
-							dialog.addText("上一张牌没有指定目标");
-						}
-					},
-					content:function(storage,player){
-						if(!storage) return;
-						if(storage&&storage.length){
-							return "上一张牌指定的目标："+get.translation(storage);
-						}
-						else{
-							return "上一张牌没有指定目标";
-						}
-					}
-				},
 				ai:{
 					threaten:2,
 					effect:{
@@ -4466,33 +4455,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger:{player:"useCard"},
 						silent:true,
 						content:function(){
-							/*
-							var history=player.getAllHistory("useCard",function(evt){
-								return true;
-							});
-							if(history&&history.length){
-								player.updateMarks();
-								player.markSkill("sst_yiqing");
-							}
-							else{
-								player.updateMarks();
-								player.unmarkSkill("sst_yiqing");
-							}
-							*/
-							/*
-							var num=history.length-1;
-							if(history[num].targets&&history[num].targets.length){
-								player.updateMarks();
-								player.markSkill("sst_yiqing");
-							}
-							else{
-								player.updateMarks();
-								player.unmarkSkill("sst_yiqing");
-							}
-							*/
 							player.storage.sst_yiqing=trigger.targets;
-							//player.updateMarks();
-							//player.markSkill("sst_yiqing");
 						}
 					}
 				}
@@ -4664,9 +4627,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_elang2:{
 				trigger:{player:"juedouAfter"},
 				frequent:true,
-				prompt:function(){
-					return "###"+get.prompt("sst_elang")+"###你可以获得此【决斗】流程内打出的所有【杀】";
-				},
+				prompt2:"你可以获得此【决斗】流程内打出的所有【杀】",
 				filter:function (event,player){
 					return event.getParent(3)&&event.getParent(3).name=="sst_elang"&&event["targetCards"].length+event["playerCards"].length;
 				},
@@ -4713,18 +4674,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.draw();
-					player.storage.sst_shengfa=trigger.player;
-					player.addTempSkill("sst_shengfa2");
+					if(!player.hasSkill("sst_shengfa_effect")) player.addTempSkill("sst_shengfa_effect");
+					player.markAuto("sst_shengfa_effect",[trigger.player]);
 				},
 				ai:{
 					damage:true,
 					expose:0.2
 				}
 			},
-			sst_shengfa2:{
+			sst_shengfa_effect:{
+				charlotte:true,
+				intro:{
+					content:"此回合结束阶段，若$于本回合内：未造成伤害，你受到1点伤害；造成了伤害，你对其造成1点伤害"
+				},
+				onremove:function(player){
+					player.unmarkAuto("sst_shengfa_effect",player.storage.sst_shengfa_effect);
+				},
 				trigger:{global:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return event.player!=player&&player.storage.sst_shengfa==event.player;
+					return event.player!=player&&player.storage.sst_shengfa_effect.contains(event.player);
 				},
 				forced:true,
 				content:function(){
@@ -4735,7 +4703,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.line(trigger.player,"green");
 						trigger.player.damage(player);
 					}
-					if(player.storage.sst_shengfa) delete player.storage.sst_shengfa;
 				}
 			},
 			sst_shengbian:{
@@ -4781,6 +4748,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_weihe_effect:{
+				charlotte:true,
 				intro:{
 					content:"你即将造成的伤害-#直至你下个回合结束"
 				},
@@ -4834,27 +4802,50 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return (player.maxHp-player.hp<2)||!player.hasUsableCard("shan");
 				},
 				content:function(){
+					player.storage.sst_fuchou_effect=player;
 					if(!player.hasSkill("sst_fuchou_effect")) player.addTempSkill("sst_fuchou_effect","roundStart");
-					player.markSkillCharacter("sst_fuchou_effect",player,"复仇","本轮你不能响应牌");
+					//player.markSkillCharacter("sst_fuchou_effect",player,"复仇","本轮你不能响应牌");
+				}
+			},
+			sst_fuchou_effect:{
+				init:function(player){
+					if(!player.hasSkill("sst_fuchou_effect1")) player.addAdditionalSkill("sst_fuchou_effect","sst_fuchou_effect1",true);
+				},
+				global:"sst_fuchou_effect_ai",
+				mark:"character",
+				intro:{
+					content:"本轮你不能响应牌"
+				},
+				onremove:function(player){
+					player.unmarkSkill("sst_fuchou_effect");
+				},
+				trigger:{global:"useCard"},
+				forced:true,
+				popup:false,
+				charlotte:true,
+				content:function(){
+					trigger.directHit.add(player);
+				},
+				subSkill:{
+					ai:{
+						ai:{
+							directHit_ai:true,
+							skillTagFilter:function(player,tag,arg){
+								return arg.target.hasSkill("sst_fuchou_effect");
+							}
+						}
+					}
 				}
 			},
 			sst_fuchou_effect1:{
 				charlotte:true,
 				trigger:{player:"damageEnd"},
-				frequent:true,
 				filter:function(event,player){
 					return player.hasSkill("sst_fuchou_effect")&&get.itemtype(event.cards)=="cards"&&get.position(event.cards[0],true)=="o";
 				},
+				prompt2:"你受到伤害后，你可以将造成伤害的牌置于你的武将牌上。你可以将这些牌如手牌般使用或打出，你使用这些牌造成伤害时，此伤害+1。",
 				content:function(){
 					if(get.itemtype(trigger.cards)=="cards"&&get.position(trigger.cards[0],true)=="o"){
-						/*
-						player.lose(trigger.cards,ui.special,"toStorage");
-						player.$gain2(trigger.cards);
-						player.storage.sst_fuchou=player.storage.sst_fuchou.concat(trigger.cards);
-						player.syncStorage("sst_fuchou");
-						player.markSkill("sst_fuchou");
-						game.log(player,"将",trigger.cards,"置于武将牌上");
-						*/
 						player.$gain2(trigger.cards);
 						game.log(player,"将",trigger.cards,"置于武将牌上");
 						player.loseToSpecial(trigger.cards,"sst_fuchou");
@@ -4886,7 +4877,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					/*
 					var num=player.getCards("s",function(card){
 						return card.hasGaintag("sst_fuchou");
 					}).length;
@@ -4896,8 +4886,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						player.unmarkSkill("sst_fuchou");
 					}
-					*/
-					player.markAuto("sst_fuchou");
+					//player.markAuto("sst_fuchou");
 					game.updateRoundNumber();
 				}
 			},
@@ -4931,21 +4920,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					damageBonus:true
 				}
 			},
-			sst_fuchou_effect:{
-				init:function(player){
-					if(!player.hasSkill("sst_fuchou_effect1")) player.addAdditionalSkill("sst_fuchou_effect","sst_fuchou_effect1",true);
-				},
-				onremove:function(player){
-					player.unmarkSkill("sst_fuchou_effect");
-				},
-				trigger:{global:"useCard"},
-				forced:true,
-				popup:false,
-				charlotte:true,
-				content:function(){
-					trigger.directHit.add(player);
-				}
-			},
 			//Greninja
 			sst_huanbian:{
 				init:function(player){
@@ -4977,9 +4951,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				prompt:function(){
 					var player=_status.event.player;
-					var str="将一张牌当作";
+					var str="将一张牌当作【";
 					if(player.storage.sst_huanbian) str+=get.translation(player.storage.sst_huanbian);
-					str+="使用"
+					str+="】使用"
 					return str;
 				},
 				onuse:function(result,player){
@@ -4997,18 +4971,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				check:function(card){return 5-get.value(card);},
-				intro:{
-					mark:function(dialog,content,player){
-						if(player.storage.sst_huanbian){
-							dialog.addText("使用的上一张基本牌或普通锦囊牌："+get.translation(player.storage.sst_huanbian));
-						}
-					},
-					content:function(storage,player){
-						if(storage){
-							return "使用的上一张基本牌或普通锦囊牌："+get.translation(storage);
-						}
-					}
-				},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
 						if(arg=="respond") return false;
@@ -5109,11 +5071,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return type=="basic"||type=="trick";
 				},
 				content:function(){
-					//if(event.triggername=="phaseBeginStart") delete player.storage.suijiyingbian;
 					player.storage.sst_huanbian=Object.assign({},trigger.card);
 					delete player.storage.sst_huanbian.isCard;
-					//player.updateMarks();
-					//player.markSkill("sst_huanbian");
 				}
 			},
 			sst_yingxi:{
@@ -5609,7 +5568,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					prompt:function(links,player){
-						return "使用"+get.translation(links);
+						return "使用【"+get.translation(links)+"】";
 					}
 				},
 				ai:{
@@ -5617,7 +5576,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondShan:true,
 					respondTao:true,
 					save:true,
-					/*
 					skillTagFilter:function(player,tag,arg){
 						if(arg=="respond") return false;
 						var sst_shengxi=[];
@@ -5659,7 +5617,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 					},
-					*/
 					order:function(item,player){
 						var event=_status.event;
 						if(event.type!="phase") return 4;
@@ -5852,9 +5809,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_wenxu2:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "本回合你可以额外使用"+get.cnNumber(storage)+"张【杀】";
-					}
+					content:"本回合你可以额外使用&张【杀】"
 				},
 				onremove:function(player){
 					player.removeMark("sst_wenxu2",player.countMark("sst_wenxu2"),false);
@@ -6167,8 +6122,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.bool){
 						if(!trigger.source.storage.sst_manchan) trigger.source.storage.sst_manchan=[];
 						trigger.source.storage.sst_manchan.push(player);
+						trigger.source.storage.sst_manchan_effect=player;
 						trigger.source.addTempSkill("sst_manchan_effect",{player:"phaseBegin"});
-						trigger.source.markSkillCharacter("sst_manchan_effect",player,"蛮缠",get.translation(trigger.source.storage.sst_manchan)+"可以于你的下个回合内发动〖任情〗");
+						//trigger.source.markSkillCharacter("sst_manchan_effect",player,"蛮缠",get.translation(trigger.source.storage.sst_manchan)+"可以于你的下个回合内发动〖任情〗");
 					}
 				},
 				ai:{
@@ -6179,8 +6135,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_manchan_effect:{
 				charlotte:true,
+				mark:"character",
+				intro:{
+					content:function(storage,player){
+						return get.translation(player.storage.sst_manchan)+"可以于你的下个回合内发动〖任情〗";
+					}
+				},
 				onremove:function(player){
-					player.unmarkSkill("sst_manchan_effect");
 					player.addTempSkill("sst_manchan_effect_active");
 				}
 			},
@@ -6260,9 +6221,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_canyun_effect:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "本回合你不能使用或打出"+get.translation(storage)+"牌";
-					}
+					content:"本回合你不能使用或打出$牌"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_canyun_effect",player.storage.sst_canyun_effect);
@@ -6364,9 +6323,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_douhun_effect_sha:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "你计算与"+get.translation(storage)+"距离为1直到"+get.translation(storage)+"下个准备阶段";
-					}
+					content:"你计算与$距离为1直到$下个准备阶段"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_douhun_effect_sha",player.storage.sst_douhun_effect_sha);
@@ -6390,9 +6347,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_douhun_effect_direct:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return get.translation(storage)+"不能响应你使用的牌";
-					}
+					content:"$不能响应你使用的牌"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_douhun_effect_direct",player.storage.sst_douhun_effect_direct);
@@ -6637,9 +6592,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				superCharlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "你和"+get.translation(storage)+"获得〖享乐〗直到你的下个回合开始";
-					}
+					content:"你和$获得〖享乐〗直到你的下个回合开始"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_geliao_effect",player.storage.sst_geliao_effect);
@@ -7131,9 +7084,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bielian_effect:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "本回合你不能使用或打出"+get.translation(storage)+"牌";
-					}
+					content:"本回合你不能使用或打出$牌"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_bielian_effect",player.storage.sst_bielian_effect);
@@ -7275,6 +7226,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guaibi_ai:{
 				ai:{
 					effect:{
+						target:function(card,player,target){
+							if(get.tag(card,"damage")){
+								if(get.name(card)=="sha") return [1,1];
+								return [1,3];
+							}
+						},
 						player:function(card,player){
 							/*
 							var players=game.filterPlayer(function(current){
@@ -7295,8 +7252,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(bool){
 								if(game.hasPlayer(function(current){
 									return get.attitude(player,current)>0&&current.mayHaveShan();
-								})) return [1,-2];
-								return [1,-5];
+								})) return [1,-3];
+								return [1,-8];
 							}
 						}
 					}
@@ -7400,8 +7357,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				precontent:function(){
 					player.logSkill("sst_qiebao");
 					delete event.result.skill;
-					player.addTempSkill("sst_qiebao_phase");
 					player.loseMaxHp();
+					var stat=player.getStat().skill;
+					if(!stat["sst_qiebao"]) stat["sst_qiebao"]=0;
+					stat["sst_qiebao"]++;
 				},
 				ai:{
 					order:function(){
@@ -7416,9 +7375,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return 0.5;
 						}
 					}
-				},
-				subSkill:{
-					phase:{}
 				}
 			},
 			sst_duzhi:{
@@ -7800,11 +7756,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					order:6,
 					result:{
 						target:function(player,target){
-							return get.attitude(player,target);
+							return get.attitude(player,target)/2;
 						},
 						player:function(player,target){
+							if(!player.countCards("h",{color:"black"})) return 0;
 							if(player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})>=0) return player.countCards("h",{color:"black"})-player.countCards("h",{color:"red"})+1;
-							return 0;
 						}
 					}
 				}
@@ -7887,8 +7843,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 				},
 				logTarget:"player",
-				prompt:function(event){
-					return "###"+get.prompt("sst_zhuzai3")+"###你可以对"+get.translation(event.player)+"造成1点伤害";
+				prompt2:function(event){
+					return "你可以对"+get.translation(event.player)+"造成1点伤害";
 				},
 				check:function(event,player){
 					return get.damageEffect(event.player,player,player)>0;
@@ -7973,7 +7929,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					prompt:function(links,player){
-						return "将一张不带有「伤害」标签的牌当作"+(get.translation(links[0][3])||"")+get.translation(links[0][2])+"使用";
+						return "将一张不带有「伤害」标签的牌当作【"+(get.translation(links[0][3])||"")+get.translation(links[0][2])+"】使用";
 					}
 				},
 				ai:{
@@ -8022,8 +7978,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
+						player.logSkill("sst_shouyin",result.targets);
 						var target=result.targets[0];
-						player.logSkill("sst_shouyin",target);
 						target.chooseToUse("授音：你可以使用一张"+get.translation(get.type(trigger.card,"trick"))+"牌",function(card,player,event){
 							if(get.type(card,"trick")!=get.type(_status.event.cardx,"trick")) return false;
 							return lib.filter.filterCard.apply(this,arguments);
@@ -10814,9 +10770,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				marktext:"额外",
 				intro:{
-					content:function(storage,player){
-						return "本回合你可以额外使用"+get.cnNumber(storage)+"张【杀】";
-					}
+					content:"本回合你可以额外使用&张【杀】"
 				},
 				onremove:function(player){
 					player.removeMark("sst_yonghun3",player.countMark("sst_yonghun3"),false);
@@ -11488,7 +11442,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return player.canCompareTarget(target);
 					}).set("ai",function(target){
 						//if(!_status.event.goon) return 0;
-						return -get.attitude(player,target);
+						return get.damageEffect(target,_status.event.player,_status.event.player);
 					}).set("goon",goon);
 					"step 1"
 					if(result.bool){
@@ -12944,9 +12898,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zaowu_effect:{
 				charlotte:true,
 				intro:{
-					content:function(storage,player){
-						return "已销毁“机器”名称："+get.translation(storage);
-					}
+					content:"已销毁“机器”名称：$"
 				},
 				onremove:function(player){
 					player.unmarkAuto("sst_zaowu_effect",player.storage.sst_zaowu_effect);
@@ -13341,7 +13293,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yane:"延厄",
 			sst_yane_info:"主公技，同势力角色的准备阶段，你可以对其造成1点伤害，令其摸两张牌。",
 			sst_quji:"祛疾",
-			sst_quji_info:"牌堆顶的牌始终对你可见；每回合限一次，一名角色使用牌时，你可以弃置牌堆顶或手牌中的一张花色与之相同的牌，取消之。",
+			sst_quji_info:"牌堆顶的牌始终对你可见；每回合限一次，一名角色使用牌时，你可以弃置牌堆顶或你手牌中的一张花色与之相同的牌，取消之。",
 			sst_qiji:"奇迹",
 			sst_qiji_info:"出牌阶段每种选项各限一次：1. 你可以翻面，令一名角色摸三张牌；2. 你可以弃置三张牌，令一名角色翻面。",
 			sst_shengbing:"圣兵",
@@ -13367,7 +13319,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_que:"驱厄",
 			sst_que_info:"准备阶段，你可以观看一名其他角色的手牌，然后获得其中至多X+1张黑色牌。（X为你已损失的体力值）",
 			sst_guiyun:"诡运",
-			sst_guiyun2:"诡运",
+			sst_guiyun_effect:"诡运",
 			sst_guiyun_info:"锁定技，回合结束阶段，若你于本回合内未使用或弃置过任何牌，取消你即将受到的所有伤害直到你的下一个准备阶段。",
 			sst_xiduo:"袭夺",
 			sst_xiduo_effect:"袭夺",
@@ -13390,7 +13342,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_potian2:"破天",
 			sst_potian_info:"准备阶段，你可以重铸任意张花色不同的牌，然后你令你使用的【杀】伤害值基数为X直到回合结束（X为你以此法置入弃牌堆的基本牌数量）。",
 			sst_shenjiao:"身教",
-			sst_shenjiao2:"身教",
+			sst_shenjiao_effect:"身教",
 			sst_shenjiao_info:"你重铸的牌置入弃牌堆前，你可以将这些牌交给一名其他角色，若这些牌是因〖破天〗重铸的，你令该角色于其下一个回合内拥有〖破天〗。",
 			sst_yanchuan:"言传",
 			sst_yanchuan_info:"出牌阶段限一次，你可以交给一名其他角色一张牌，然后你摸X张牌（X为你此前使用此技能指定该角色的次数）。",
@@ -13420,7 +13372,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shunxing:"瞬形",
 			sst_shunxing1:"瞬形·摸牌",
 			sst_shunxing2:"瞬形·出牌",
-			sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。",
+			sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得一名其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。",
 			sst_shenpan:"审判",
 			sst_shenpan_info:"你使用杀或普通锦囊牌指定唯一目标后，你可以判定，若判定结果：<br>"+
 			"为1，你失去1点体力；<br>"+
@@ -13455,7 +13407,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_paoxiao:"咆哮",
 			sst_paoxiao_info:"锁定技，你使用【杀】无出牌阶段次数限制，每当你于本回合使用第二张【杀】时，你可以摸一张牌。",
 			sst_shengfa:"圣罚",
-			sst_shengfa2:"圣罚",
+			sst_shengfa_effect:"圣罚",
 			sst_shengfa_info:"其他角色的准备阶段，你可以摸一张牌；若如此做，此回合结束阶段，若该角色于本回合内：未造成伤害，你受到1点伤害；造成了伤害，你对其造成1点伤害。",
 			sst_shengbian:"圣鞭",
 			sst_shengbian_info:"锁定技，你的攻击范围为你的手牌数。",
@@ -13463,13 +13415,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_weihe_effect:"威吓",
 			sst_weihe_info:"锁定技，你使用【杀】对一名角色造成伤害后，你令该角色即将造成的伤害-1直至其下个回合结束。",
 			sst_fuchou:"复仇",
+			sst_fuchou_effect:"复仇",
 			sst_fuchou_effect1:"复仇",
 			sst_fuchou_effect2:"复仇",
 			sst_fuchou_effect3:"复仇",
 			sst_fuchou_effect4:"复仇",
-			sst_fuchou_effect:"复仇",
 			sst_fuchou_info:"每轮游戏开始时，你可以令自己本轮不能响应牌，若如此做，本轮你受到伤害后，你可以将造成伤害的牌置于你的武将牌上。你可以将这些牌如手牌般使用或打出，你使用这些牌造成伤害时，此伤害+1。",
-			sst_fuchou_effect1_info:"你受到伤害后，你可以将造成伤害的牌置于你的武将牌上。你可以将这些牌如手牌般使用或打出，你使用这些牌造成伤害时，此伤害+1。",
 			sst_huanbian:"幻变",
 			sst_huanbian2:"幻变",
 			sst_huanbian3:"幻变",
