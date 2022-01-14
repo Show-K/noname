@@ -39,7 +39,7 @@
 	background-image: url('assets/image/sprites_glow_blue.png');
 	background-repeat: no-repeat;
 	animation-name: kf-sprites-glow;
-	animation-duration: 0.9s;
+	animation-duration: 0s;
     animation-delay: 0s;
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
@@ -52,12 +52,14 @@
 .player.selected:not(.target):before,
 .player.glow_phase:not(.selectable):not(*[data-position='0'])::before {
 	/* border-image-source: url('assets/image/glow_orange.png'); */
+	animation-duration: 0.9s;
 	background-image: url('assets/image/sprites_glow_orange.png');
 	opacity: 1;
 }
 
 .player.selectable:not(.selected):not(.target)::before {
-    opacity: 1;
+	animation-duration: 0.9s;
+	opacity: 1;
 }
 
 .player::after,
@@ -81,7 +83,7 @@
 	background-image: url('assets/image/sprites_glow_red.png');
 	background-repeat: no-repeat;
 	animation-name: kf-sprites-glow;
-	animation-duration: 0.9s;
+	animation-duration: 0s;
     animation-delay: 0s;
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
@@ -92,7 +94,8 @@
 }
 
 .player.target:not(.glow_phase):not(.selectable):not(.selected)::after {
-    opacity: 1;
+    animation-duration: 0.9s;
+	opacity: 1;
 }
 
 
@@ -273,7 +276,7 @@
 }
 
 .player>.camp-wrap>.camp-name {
-	font-family: fzhtk, fzhtk;
+	font-family: fzhtk;
 	font-display: swap;
 	font-size: 26px;
     width: 100%;
@@ -351,7 +354,7 @@
 .player>.nameol {
 	top: 5px;
     font-size: 16px;
-    font-family: 'fzhtk';
+    font-family: fzhtk;
     text-shadow: 0 0 2px black;
     background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.4) 60%, transparent 100%);
     z-index: 89;
@@ -416,14 +419,18 @@
 .player>.hp-wrap>.hp,
 #arena.slim_player .player .hp,
 #window>.player:not(.minskin) .hp {
+	display: flex;
 	left: 0;
     right: 0;
     width: 12px;
     bottom: -8px;
 	font-size: 13px;
     line-height: 14px;
-	display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+}
+
+.player>.hp-wrap>.hp.textstyle {
+	flex-direction: column;
 }
 
 .player>.hp-wrap>.hp.hidden {
@@ -438,7 +445,6 @@
 	line-height: 100%;
 	border: none;
 }
-
 
 .hp:not(.text):not(.actcount):not(.treasure)>.lost,
 .hp:not(.text):not(.actcount):not(.treasure)[data-condition="mid"]>div:not(.lost), 
@@ -621,7 +627,7 @@
 	width: 18px;
 	height: auto;
 	border-radius: 0;
-	font-family: fzhtk,fzhtk;
+	font-family: fzhtk;
 	box-shadow:  none;
 	background: none;
 	overflow: visible;
@@ -647,7 +653,7 @@
     line-height: 16px;
     text-align: center;
 	font-size: 20px;
-    font-family: fzhtk,fzhtk;
+    font-family: fzhtk;
     color: rgb(77, 60, 51);
     border-radius: 5px;
     background-image: radial-gradient(rgb(255, 255, 200) 0, rgb(255, 255, 120) 50%, rgb(255, 255, 10) 80%, yellow 100%);
@@ -883,7 +889,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    font-family: fzhtk, fzhtk;
+    font-family: fzhtk;
     font-size: 16px;
     color: white;
     text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0, 0 0 8px #000;
@@ -907,7 +913,7 @@
     width: 100%;
     line-height: 16px;
     color: rgb(255,245,223);
-    font-family: 'fzhtk';
+    font-family: fzhtk;
     font-size: 16px;
     text-align: center;
     text-shadow: 0 0 2px black, 0 0 1px black;
@@ -942,7 +948,7 @@
     border: none;
     box-shadow: none;
     font-size: 19px;
-    font-family: fzhtk, fzhtk;
+    font-family: fzhtk;
     color: white;
     text-align: center;
     text-shadow: none;
@@ -990,7 +996,7 @@
 
 
 .player>.identity[data-color='bYe'],
-.player.opposite-camp>.identity{
+.player.opposite-camp>.identity {
 	text-shadow: 0 0 1px black, 0 0 5px blue, 0 0 10px rgb(100, 100, 250), 0 0 20px rgb(100, 100, 250), 0 0 20px white;
 }
 
@@ -1097,7 +1103,7 @@
     width: 100%;
     height: 32px;
     font-size: 32px;
-    font-family: 'fzhtk';
+    font-family: fzhtk;
     text-align: center;
     z-index: 89;
 }
@@ -1128,7 +1134,7 @@
     line-height: 38px;
     color: rgb(210, 50, 50);
     font-size: 38px;
-	font-family: fzhtk, fzhtk, fzhtk;
+	font-family: fzhtk;
 	font-display: swap;
     text-shadow: 0 0 5px black, 0 0 10px black, 0 0 15px black;
 	background-size: contain;

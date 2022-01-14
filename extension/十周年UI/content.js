@@ -1,5 +1,5 @@
 'use strict';
-decadeParts.import(function(lib, game, ui, get, ai, _status){
+decadeModule.import(function(lib, game, ui, get, ai, _status){
 	decadeUI.content = {
 		chooseGuanXing:function(player, cards1, movable1, cards2, movable2, infohide){
 			if (get.itemtype(player) != 'player') throw player;

@@ -30,7 +30,7 @@
 	font-family: fzhtk;
 	text-align: center;
 	text-shadow: none;
-	z-index: 6;
+	z-index: 7;
 	transition: opacity 0.1s linear;
 	pointer-events: none;
 }
@@ -84,7 +84,7 @@
     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px rgb(51,51,51);
 	transition: opacity 0.1s linear;
 	pointer-events: none;
-	z-index: 6;
+	z-index: 7;
 }
 
 #arena.dui-mobile>.hand-tip-info {
@@ -144,7 +144,7 @@
     border-image-source: url('image/decoration/dialog.png');
     border-image-slice:  46 59 28 59 fill;
 	transition: opacity, background, transform 0.5s;
-    z-index: 6;
+    z-index: 7;
 }
 
 #arena>.skill-dialog {
@@ -389,7 +389,7 @@
     border-image-source: url('image/decoration/dialog.png');
     border-image-slice: 46 61 28 59 fill;
     pointer-events: auto;
-    z-index: 5;
+    z-index: 7;
     animation: player-died 0.5s linear forwards;
     -webkit-animation: open 0.4s;
 }

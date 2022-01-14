@@ -1,5 +1,5 @@
 'use strict';
-decadeParts.import(function(lib, game, ui, get, ai, _status){
+decadeModule.import(function(lib, game, ui, get, ai, _status){
 	decadeUI.component = {
 		slider:function(min, max, value){
 			var slider = document.createElement('input');

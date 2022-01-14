@@ -505,27 +505,34 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				contentx:function(){
 					"step 0"
 					event.card=lib.skill.ska_zhefu_backup.cards[0];
-					target.chooseCard("he","折赋：交给"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card)).set("ai",function(card){
-						var player=_status.event.player;
-						return player.getUseValue(_status.event.cardx)-get.value(card);
-					}).set("cardx",event.card);
-					"step 1"
 					_status.renku.remove(event.card);
 					game.updateRenku();
+					game.cardsGotoOrdering(event.card);
+					player.$throw(event.card);
+					target.chooseCard("he","折赋：交给"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card),function(card){
+						var target=_status.event.targetx;
+						var player=_status.event.player;
+						return lib.filter.canBeGained(card,target,player);
+					}).set("ai",function(card){
+						var player=_status.event.player;
+						return player.getUseValue(_status.event.cardx)-get.value(card);
+					}).set("cardx",event.card).set("targetx",player);
+					"step 1"
 					if(result.cards&&result.cards.length){
 						target.give(result.cards,player);
 					}
 					else{
-						target.gain(event.card,player,"gain2","fromRenku");
+						target.gain(event.card,"gain2","fromRenku");
 						event.finish();
 					}
 					"step 2"
-					target.chooseUseTarget(event.card,true,false);
-					"step 3"
-					if(!result.bool){
+					if(game.hasPlayer(function(current){
+						return target.canUse(event.card,current);
+					})){
+						target.chooseUseTarget(event.card,true,false);
+					}
+					else{
 						game.cardsDiscard(event.card);
-						player.$throw(event.card,1000);
-						game.log(event.card,"进入了弃牌堆");
 					}
 				},
 				ai:{
@@ -2020,6 +2027,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				contentx:function(){
 					var card=lib.skill.ska_zhesheng_backup.cards[0];
+					targets[0].$throw(card);
 					_status.renku.remove(card);
 					game.updateRenku();
 					targets[0].useCard(card,targets[1],false,"noai");
@@ -2187,7 +2195,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
-			ska_zhefu_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
+			ska_zhefu_info:"出牌阶段限一次，你可以将仁库中一张牌移动到处理区，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
 			ymk_jiagou:"架构",
 			ymk_jiagou2:"架构",
 			ymk_jiagou3:"架构",

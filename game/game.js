@@ -4688,7 +4688,7 @@
 					},
 					auto_mark_identity:{
 						name:'自动标记身份',
-						init:true,
+						init:false,
 						intro:'根据角色的出牌行为自动标记可能的身份',
 					},
 					// ban_weak:{

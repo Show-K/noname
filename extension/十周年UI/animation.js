@@ -2,6 +2,60 @@
 var duilib;
 (function(duilib){
 	
+	duilib.throttle = function (func, timeout, context) {
+		var args;
+		var timer;
+		var previous;
+		return function () {
+			if (timer)
+				clearTimeout(timer);
+			
+			if (previous == null)
+				previous = performance.now();
+				
+			args = arguments;
+			var timestamp = performance.now() - previous;
+			if (timestamp >= timeout) {
+				timer = null;
+				previous = null;
+				func.apply(context, args);
+			} else {
+				timer = setTimeout(function() {
+					timer = null;
+					previous = null;
+					func.apply(context, args);
+				}, timeout - timestamp);
+			}
+		}
+	};
+	
+	duilib.observeSize = (function(){
+		if (!self.ResizeObserver)
+			return null;
+		
+		var observer = new ResizeObserver(function(entries){
+			var rect;
+			var callback;
+			for (var i = 0; i < entries.length; i++) {
+				callback = observer.callbacks[entries[i].target.observeId];
+				if (callback == null)
+					continue;
+				
+				rect = entries[i].contentRect;
+				callback({width: rect.width, height: rect.height});
+			}
+		});
+		
+		observer.observeId = 0;
+		observer.callbacks = {};
+		return function (target, callback) {
+			var obs = observer;
+			target.observeId = obs.observeId++;
+			obs.observe(target);
+			obs.callbacks[target.observeId] = callback;
+		}
+	})();
+	
 	duilib.lerp = function(min, max, fraction){
 		return (max - min) * fraction + min;
 	};
@@ -323,7 +377,24 @@ var duilib;
 		};
 		
 		APNode.prototype.complete = function () {
-			if (this.oncomplete) this.oncomplete();
+			if (!this.oncomplete)
+				return;
+			
+			if (typeof this.oncomplete == 'string') {
+				var code = this.oncomplete;
+				var a = code.indexOf('{');
+				var b = code.lastIndexOf('}');
+				if (a == -1 || b == -1) {
+					this.oncomplete = undefined;
+					return console.error(this.name + ' 的oncomplete函数语法错误');
+				}
+				
+				this.oncomplete = new Function(code.substring(a + 1, b));
+			}
+				
+			
+			if (typeof this.oncomplete == 'function')
+				this.oncomplete();
 		};
 		
 		APNode.prototype.updateTimeStep = function (key, start, end, duration) {
@@ -532,6 +603,16 @@ var duilib;
 					var _this = reader;
 					var imageName = null;
 					var atlasReader = new spine.TextureAtlasReader(data);
+					var prefix = '';
+					var a = _this.name.lastIndexOf('/');
+					var b = _this.name.lastIndexOf('\\');
+					if (a != -1 || b != -1) {
+						if (a > b)
+							prefix = _this.name.substring(0, a + 1);
+						else
+							prefix = _this.name.substring(0, b + 1);
+					}
+					
 					while (true) {
 						var line = atlasReader.readLine();
 						if (line == null) break;
@@ -542,7 +623,7 @@ var duilib;
 						} else if (!imageName) {
 							imageName = line;
 							_this.toLoad++;
-							thisAnim.spine.assetManager.loadTexture(imageName,
+							thisAnim.spine.assetManager.loadTexture(prefix + imageName,
 								_this.onload, _this.onerror);
 						} else {
 							continue;
@@ -589,8 +670,17 @@ var duilib;
 			var manager = _this.spine.assetManager;
 			var skelRawData = asset.skelRawData;
 			if (!skelRawData) {
+				var prefix = '';
+				var a = filename.lastIndexOf('/');
+				var b = filename.lastIndexOf('\\');
+				if (a != -1 || b != -1) {
+					if (a > b)
+						prefix = filename.substring(0, a + 1);
+					else
+						prefix = filename.substring(0, b + 1);
+				}
 				var atlas = new spine.TextureAtlas(manager.get(filename + '.atlas'), function(path){
-						return manager.get(path);
+					return manager.get(prefix + path);
 				});
 				
 				var atlasLoader = new spine.AtlasAttachmentLoader(atlas);
@@ -973,9 +1063,8 @@ var duilib;
 		function DynamicPlayer(pathPrefix){
 			this.id = duilib.BUILT_ID++;
 			this.dpr = 1;
-			this.width = 300;
-			this.height = 150;
-			this.resized = false;
+			this.width = 120;
+			this.height = 180;
 			this.dprAdaptive = false;
 			this.BUILT_ID = 0;
 			
@@ -994,6 +1083,12 @@ var duilib;
 					this.renderer = workers[i];
 					this.canvas = document.createElement('canvas');
 					this.canvas.className = 'animation-player';
+					duilib.observeSize(this.canvas, duilib.throttle(function(newSize){
+						this.height = Math.round(newSize.height);
+						this.width  = Math.round(newSize.width);
+						this.update();
+					}, 100, this));
+					
 					var canvas = this.canvas.transferControlToOffscreen();
 					workers[i].postMessage({
 						message: 'CREATE',
@@ -1009,8 +1104,12 @@ var duilib;
 			}
 			
 			if (!offscreen) {
-				this.renderer = new duilib.AnimationPlayer(decadeUIPath + pathPrefix);
-				this.canvas = this.renderer.canvas;
+				var renderer = new duilib.AnimationPlayer(decadeUIPath + pathPrefix);
+				this.canvas = renderer.canvas;
+				this.renderer = renderer;
+				dui.bodySensor.addListener(duilib.throttle(function(){
+					this.renderer.resized = false;
+				}, 100, this), true);
 			}
 		}
 		
@@ -1020,7 +1119,16 @@ var duilib;
 			sprite.loop = true;
 			
 			if (this.offscreen) {
-				if (!this.resized) this.update(false);
+				if (!this.initialized) {
+					this.initialized = true;
+					this.dpr = Math.max(window.devicePixelRatio * (window.documentZoom ? window.documentZoom : 1), 1);
+					this.height = this.canvas.clientHeight;
+					this.width = this.canvas.clientWidth;
+				}
+				
+				if (typeof sprite.oncomplete == 'function')
+					sprite.oncomplete = sprite.oncomplete.toString();
+				
 				this.renderer.postMessage({
 					message: 'PLAY',
 					id: this.id,
@@ -1079,7 +1187,6 @@ var duilib;
 		};
 		
 		DynamicPlayer.prototype.update = function (force) {
-			this.resized = true;
 			if (!this.offscreen) {
 				this.renderer.resized = false;
 				this.renderer.useMipMaps = this.useMipMaps;
@@ -1089,20 +1196,19 @@ var duilib;
 			}
 			
 			this.dpr = Math.max(window.devicePixelRatio * (window.documentZoom ? window.documentZoom : 1), 1);
-			this.width = this.canvas.clientWidth;
-			this.height = this.canvas.clientHeight;
-			if (force !== false) {
-				this.renderer.postMessage({
-					message: 'UPDATE',
-					id: this.id,
-					dpr: this.dpr,
-					dprAdaptive: this.dprAdaptive,
-					outcropMask: this.outcropMask,
-					useMipMaps: this.useMipMaps,
-					width: this.width,
-					height: this.height,
-				});
-			}
+			if (force === false)
+				return;
+			
+			this.renderer.postMessage({
+				message: 'UPDATE',
+				id: this.id,
+				dpr: this.dpr,
+				dprAdaptive: this.dprAdaptive,
+				outcropMask: this.outcropMask,
+				useMipMaps: this.useMipMaps,
+				width: this.width,
+				height: this.height,
+			});
 		}
 		
 		return DynamicPlayer;
@@ -1110,8 +1216,8 @@ var duilib;
 	
 })(duilib || (duilib = {}));
 
-var decadeParts; if (decadeParts)
-decadeParts.import(function(lib, game, ui, get, ai, _status){
+var decadeModule; if (decadeModule)
+decadeModule.import(function(lib, game, ui, get, ai, _status){
 	decadeUI.animation = (function(){
 		var animation = new decadeUI.AnimationPlayer(decadeUIPath + 'assets/animation/', document.body, 'decadeUI-canvas');
 		decadeUI.bodySensor.addListener(function(){ animation.resized = false; }, true);
@@ -1377,11 +1483,24 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 				}
 			},
 			skin_caojie: {
+				凤历迎春: {
+					name: 'skin_caojie_FengLiYingChun',
+					y: [75, 0.3],
+					height: [0, 1.5],
+				},
 				战场绝版: {
 					name: 'skin_caojie_ZhanChang',
 					x: [ 0, 0.7],
 					y: [75, 0.3],
 					height: [0, 0.8],
+				},
+			},
+			skin_caoying: {
+				巾帼花舞: {
+					name: 'fullskin_caoying_JinGuoHuaWu',
+					x: [ 0, 0.4],
+					y: [75, 0.3],
+					height: [0, 0.9],
 				},
 			},
 			skin_baosanniang: {
@@ -1419,6 +1538,11 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 					x: [0, 0.7],
 					y: [75, 0.3],
 					height: [0, 0.8],
+				},
+				战场绝版: {
+					name: 'skin_diaochan_ZhanChang',
+					y: [75, 0.3],
+					height: [0, 1],
 				},
 			},
 			skin_dongbai: {
@@ -1465,6 +1589,11 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 					y: [5, 0.33],
 					height: [0, 0.76],
 					hideSlots: 'jiubei',
+				},
+				耀紫迷幻:{
+					name: 'skin_hetaihou_YaoZiMiHuan',
+					y: [5, 0.33],
+					height: [0, 0.76],
 				},
 			},
 			skin_huaman: {
@@ -1549,6 +1678,13 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 					height: [0, 0.8],
 				},
 			},
+			skin_wangrong: {
+				云裳花容: {
+					name: 'skin_wangrong_YunShangHuaRong',
+					y: [75, 0.3],
+					height: [0, 1],
+				},
+			},
 			skin_wangyi: {
 				绝色异彩: {
 					name: 'skin_wangyi_JueSeYiCai',
@@ -1574,8 +1710,12 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 			skin_wuxian: {
 				锦运福绵: {
 					name: 'skin_wuxian_JinYunFuMian',
-					// x: [0, 0.7],
 					y: [75, 0.3],
+					height: [0, 0.8],
+				},
+				金玉满堂: {
+					name: 'fullskin_wuxian_JinYuManTang',
+					y: [0, 0.35],
 					height: [0, 0.8],
 				},
 			},
@@ -1723,17 +1863,24 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 					height: [0, 0.8],
 				},
 			},
-			
+			skin_zhouyi:{
+				剑舞浏漓:{
+					name: 'fullskin_zhouyi_JianWuLiuLi',
+					y: [0, 0.5],
+					height: [0, 1.2],
+				},
+			},
 			
 		};
 		
 		animation.stop = animation.stopSpineAll;
 		animation.play = function (name, skin) {
 			var definedAssets = this.definedAssets;
-			if (definedAssets[name] == void 0 || definedAssets[name][skin] == void 0) return console.log('没有预定义[asset:' + name + ', skin:' + skin + ']的动态背景.');
+			if (definedAssets[name] == void 0 || definedAssets[name][skin] == void 0) 
+				return console.log('没有预定义[asset:' + name + ', skin:' + skin + ']的动态背景.');
 			
-			
-			if (this.current && this.current.name == name) return;
+			if (this.current && this.current.name == name)
+				return;
 			
 			this.stopSpineAll();
 			var playAsset = definedAssets[name][skin];
@@ -1760,7 +1907,7 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 		return animation;
 	})();
 	
-	// 下面是我调试用的，可能会删掉
+	// 下面是我自用的，可能会删掉
 	window.dcdAnim = decadeUI.animation;
 	window.dcdBackAnim = decadeUI.backgroundAnimation;
 	window.game = game;

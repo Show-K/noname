@@ -1,5 +1,5 @@
 'use strict';
-decadeParts.import(function(lib, game, ui, get, ai, _status){
+decadeModule.import(function(lib, game, ui, get, ai, _status){
 	decadeUI.effect = {
 		dialog:{
 			create:function(titleText){
@@ -93,9 +93,9 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 			var sz = bounds.size;
 			var scale = Math.min(animation.canvas.width / sz.x, animation.canvas.height / sz.y) * 0.76;
 			animation.playSpine({
-					name:'effect_youxikaishi',
-					scale: scale
-				});
+				name:'effect_youxikaishi',
+				scale: scale
+			});
 		},
 		
 		line:function(dots){

@@ -1,5 +1,5 @@
 'use strict';
-decadeParts.import(function(lib, game, ui, get, ai, _status){
+decadeModule.import(function(lib, game, ui, get, ai, _status){
 	/*
 	十周年UI动皮使用说明：
 	- 首先打开动态皮肤的开关，直接替换原有武将皮肤显示；
@@ -46,6 +46,24 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 				y: [15, 0.4],
 				scale: 0.42,
 				background: 'skin_zhangqiying_SuiRenNianFeng_bg.png',
+			},
+		},
+		caojie:{
+			凤历迎春:{
+				name: 'skin_caojie_FengLiYingChun',
+				x: [0, 0.4],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_caojie_FengLiYingChun_bg.png',
+			},
+		},
+		caoying:{
+			巾帼花舞:{
+				name: 'skin_caoying_JinGuoHuaWu',
+				x: [0, 0.5],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_caoying_JinGuoHuaWu_bg.png',
 			},
 		},
 		baosanniang:{
@@ -95,6 +113,13 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 			},
 		},
 		diaochan:{
+			战场绝版:{
+				name: 'skin_diaochan_ZhanChang',
+				x: [0, 0.5],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_diaochan_ZhanChang_bg.png',
+			},
 			玉婵仙子:{
 				name: 'skin_diaochan_YuChanXianZi',
 				x: [5, 0.5],
@@ -123,6 +148,13 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 			},
 		},
 		hetaihou:{
+			耀紫迷幻:{
+				name: 'skin_hetaihou_YaoZiMiHuan',
+				x: [0, 0.5],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_hetaihou_YaoZiMiHuan_bg.png',
+			},
 			蛇蝎为心:{
 				name: 'skin_hetaihou_SheXieWeiXin',
 				action: 'DaiJi',
@@ -225,6 +257,15 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 				background: 'skin_shuxiangxiang_HuaYeXinQian_bg.png',
 			}
 		},
+		wangrong:{
+			云裳花容:{
+				name: 'skin_wangrong_YunShangHuaRong',
+				x: [0, 0.5],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_wangrong_YunShangHuaRong_bg.png',
+			},
+		},
 		wangyuanji:{
 			鼠年冬至:{
 				name: 'skin_wangyuanji_ShuNianDongZhi',
@@ -245,6 +286,13 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 			},
 		},
 		wuxian:{
+			金玉满堂:{
+				name: 'skin_wuxian_JinYuManTang',
+				x: [0, 0.5],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_wuxian_JinYuManTang_bg.png',
+			},
 			锦运福绵:{
 				name: 'skin_wuxian_JinYunFuMian',
 				x: [-58, 0.5],
@@ -347,6 +395,15 @@ decadeParts.import(function(lib, game, ui, get, ai, _status){
 				scale: 0.7,
 				background: 'skin_sundengzhoufei_QueXingXiQing_bg.png',
 			},
+		},
+		zhouyi:{
+			剑舞浏漓:{
+				name: 'skin_zhouyi_JianWuLiuLi',
+				x: [0, 0.4],
+				y: [0, 0.5],
+				scale: 0.8,
+				background: 'skin_zhouyi_JianWuLiuLi_bg.png',
+			}
 		},
 		zhugeguo:{
 			仙池起舞:{

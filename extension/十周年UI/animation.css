@@ -129,11 +129,15 @@
 
 @keyframes player-hurt {
 	0% {
+		transform: translateX(0px);
+	}
+	
+	4% {
 		transform: translateX(1px);
 	}
 	
 	50% {
-		transform: translateX(-11px);
+		transform: translateX(-14px);
 	}
 
 	100% {
@@ -165,7 +169,7 @@
 }
 
 @keyframes kf-sprites-glow {
-     0% {
+	0% {
         background-size: 2300px 100%;
 		background-position: 0px 0px;
     }
@@ -204,48 +208,7 @@
 	
     90.00%,
     100% {
-        background-position: -2070px 0px;
+        background-size: 2300px 100%;
+		background-position: -2070px 0px;
     }
-	/* 兼容版可能用不了var()特性 */
-	/* 0% { */
-        /* background-size: calc(var(--sprites-glow-width, 240px) * 10) 100%; */
-		/* background-position: 0px 0px; */
-    /* } */
-
-    /* 10.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -1) 0px; */
-    /* } */
-
-    /* 20.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -2) 0px; */
-    /* } */
-
-    /* 30.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -3) 0px; */
-    /* } */
-
-    /* 40.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -4) 0px; */
-    /* } */
-
-    /* 50.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -5) 0px; */
-    /* } */
-
-    /* 60.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -6) 0px; */
-    /* } */
-
-    /* 70.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -7) 0px; */
-    /* } */
-
-    /* 80.00% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -8) 0px; */
-    /* } */
-
-    /* 90.00%, */
-    /* 100% { */
-        /* background-position: calc(var(--sprites-glow-width, 240px) * -9) 0px; */
-    /* } */
 }

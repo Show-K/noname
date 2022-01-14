@@ -32,6 +32,11 @@
 	z-index: 5;
 }
 
+#arena>.card.thrown.gainingcard,
+#arena>.card.thrown.drawingcard {
+	z-index: 6;
+}
+
 .card>.animation {
 	position: absolute;
     width: 100%;
@@ -39,7 +44,7 @@
     line-height: 150px;
 	color: black;
 	font-size: 100px;
-    font-family: 'fzhtk';
+    font-family: fzhtk;
 	font-display: swap;
     text-align: center;
     text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white, 0 0 5px white, 0 0 5px white;
@@ -99,7 +104,7 @@
 	align-items: center;
 	align-content: center;
 	justify-content: center;
-	font-family: 'STHeiti', 'SimHei', 'Microsoft JhengHei', 'Microsoft YaHei', 'WenQuanYi Micro Hei', Helvetica,Arial, sans-serif !important;
+	font-family: fzhtk !important;
 	z-index: 4;
 }
 
