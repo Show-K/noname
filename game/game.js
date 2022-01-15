@@ -36,7 +36,6 @@
 		versionOL:27,
 		updateURLS:{
 			coding:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/master',
-			gitee:'https://gitee.com/Show-K/noname/raw/master',
 			github:'https://raw.githubusercontent.com/Show-K/noname/master',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/master',
@@ -541,7 +540,6 @@
 						unfrequent:true,
 						item:{
 							coding:'Coding（Show-K）',
-							gitee:'Gitee（Show-K）',
 							github:'GitHub（Show-K）',
 						},
 						onclick:function(item){
@@ -41302,9 +41300,6 @@
 						var trimurl=function(str){
 							if(str==lib.updateURLS.github){
 								return 'GitHub（Show-K）';
-							}
-							if(str==lib.updateURLS.gitee){
-								return 'Gitee（Show-K）';
 							}
 							if(str==lib.updateURLS.coding){
 								return 'Coding（Show-K）'
