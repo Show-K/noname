@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.111.1SST3',
+	'v1.9.112SST',
 	//New add
 	'image/character/shibing1.png',
 	'image/character/shibing2.png',
@@ -317,6 +317,7 @@ window.noname_asset_list=[
 	'audio/effect/throw_wine2.mp3',
 	'audio/effect/tie.mp3',
 	'audio/effect/win.mp3',
+	'audio/effect/tori_no_uta.mp3',
 
 	'audio/skill/bagua_skill.mp3',
 	'audio/skill/baiyin_skill.mp3',
