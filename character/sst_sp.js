@@ -6,11 +6,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_sp:{
-				sst_mnm:["mnm_edelgard","mnm_captain_falcon"],
+				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:[],
-				sst_alz:["alz_kyo_kusanagi"]
+				sst_alz:["alz_kyo_kusanagi"],
+				sst_entertainment:["mnm_captain_falcon"]
 			}
 		},
 		character:{
@@ -28,7 +29,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
-			//mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
+			mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
 			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]]
 		},//武将（必填）
@@ -45,10 +46,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"武将作者：Yumikohimi<br>"+
 			"武将作者：mario not mary<br>"+
 			"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"
 
 			"+
@@ -58,94 +59,94 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"系列：Animal Crossing（动物森友会）<br>"+
 			"初登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>"+
 			"武将作者：Yumikohimi<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"在3DS版《动物森友会》中，她是村民们的可靠秘书；而在NS版中，她也为每个无人岛居民提供生活服务。她有时可能健忘，但总的来说很靠谱。有个叫西施德的弟弟。她在3DS和WiiU版《任天堂明星大乱斗》中是辅助模型，NS版中则成为了斗士。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"上次柚子的武将就被老摸吵着要删，这次希望不要太IMBA……老摸的西施慧出来了，柚子的武将至少还是被借鉴了一点的。",
 			ska_bobby:"????. 炸弹彬/Bobby/ボム平<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>"+
 			"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是纸片马力欧 折纸国王中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>"+
 			"——翻译自《超级马力欧维基》（来源：https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)）<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"“我？哦，我是炸弹兵。”",
 			ska_olivia:"1426. 奥莉维亚/Olivia/オリビア<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>"+
 			"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"由掌握赋生折法的匠人制作的折纸，奥利王的妹妹。非常天真烂漫，对世界充满了好奇心。为了阻止哥哥的野心而踏上冒险之途，虽然也有过悲痛和犹豫，但是还是走到了最后。非常擅长唱歌跳舞，喜欢泡温泉和撸狗。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"一个拥有赋之能力的折纸妹妹，在和马里奥的冒险路途上成长很多啊……",
 			ymk_577:"武将作者：Yumikohimi<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"柚子设计的577，估计又要偏强……意外的还行？",
 			ska_super_xiaojie:"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"喜欢没事说嬲，但更喜欢不放弃。",
 			ska_show_k:"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"有人建议我给我自己写一个，于是我就写出来了。",
 			ymk_yumikohimi:"武将作者：Yumikohimi<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"果然刚设计出来就要被削，果然还是三方定律。现在削了，感觉可以。",
 			ska_professor_toad:"????. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>"+
 			"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"考古学家奇诺比奥是第一次出现在纸片马里奥 折纸国王中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。他的棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>"+
 			"——翻译自《超级马力欧维基》（来源：https://www.mariowiki.com/Professor_Toad）<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>"+
 			"系列：Fire Emblem（火焰纹章）<br>"+
 			"初登场：（）<br>"+
 			"武将作者：mario not mary<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>"+
 			"——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"请握住我的手，在我随风飘落，散入黎明之前……",
 			alz_kyo_kusanagi:"1362. 草薙京/Kyo Kusanagi/草薙京<br>"+
 			"系列：The King of Fighters（拳皇）<br>"+
 			"初登场：The King of Fighters \x2794（拳皇\x2794）<br>"+
 			"武将作者：Axel_Zhai<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"炎之贵公子草薙京，三神器之一“草薙剑”的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>"+
 			"——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"另外一位新人设计的第一个武将，但是为什么要选择一个已经有了的武将呢……",
 			mnm_captain_falcon:"0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>"+
 			"系列：F-Zero（零式赛车）<br>"+
 			"初登场：F-Zero（零式赛车）<br>"+
 			"武将作者：mario not mary<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"亮招来见。",
 			ska_king_olly:"1427. 奥利王/King Olly/オリー王<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>"+
 			"武将作者：Show-K<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"由掌握赋生折法的匠人制作的折纸，奥莉维亚的哥哥。自称折纸国王，将匠人的所有文具变为了自己的手下，有把整个纸片世界都变成折纸的野心。手段残忍，即使是亲妹妹也会毫不犹豫的下手。骄傲的背后其实是极端的玻璃心和无知。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"马里奥RPG系列中唯二原创最终Boss之一，极具历史意义！",
 			ska_koopa_troopa:"0037. 慢慢龟/Koopa Troopa/ノコノコ<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Super Mario Bros.（超级马力欧兄弟）<br>"+
 			"武将作者：Show-K、mario not mary<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"在酷霸王军团里，最常见的不是栗宝宝就是慢慢龟了。它们看起来很温顺，但它们也有奋不顾身地跳崖的勇气。马力欧如果踩到慢慢龟，它们会缩进壳里，这个状态下的它们经常被踢来踢去或者扔来扔去。马力欧游戏的不少地名都是以慢慢龟命名的哦。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
-			"------------------------------<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
 			"黑历史重铸武将之一。"
 		},//武将介绍（选填）
 		characterTitle:{
@@ -1675,260 +1676,166 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Captain Falcon
-			/*
 			mnm_jijing:{
 				enable:"phaseUse",
 				usable:1,
+				delay:false,
+				filterTarget:function(card,player,target){
+					return target!=player;
+				},
 				content:function(){
 					"step 0"
-					if(_status.connectMode) event.time=lib.configOL.choose_timeout;
-					event.videoId=lib.status.videoId++;
-					if(player.isUnderControl()){
-						game.swapPlayerAuto(player);
+					event.rank=[];
+					var note=function(bpm,beat){
+						var len=60000/bpm;
+						return Math.round(beat*len);
 					}
-					var switchToAuto=function(){
-						game.pause();
-						game.countChoose();
-						setTimeout(function(){
-							_status.imchoosing=false;
-							var max=1+player.countMark("mnm_jijing");
-							var score=Math.random()<0.5?max:get.rand(1,max);
-							event._result={
-								bool:true,
-								score:score,
-								win:score>=max,
-							};
-							if(event.dialog) event.dialog.close();
-							if(event.control) event.control.close();
-							game.resume();
-						},5000);
-					};
-					var createDialog=function(player,id){
-						if(_status.connectMode) lib.configOL.choose_timeout="30";
-						if(player==game.me) return;
-						var str=get.translation(player)+"正在表演《御风飞行》...<br>";
-						ui.create.dialog(str).videoId=id;
-					};
-					var chooseButton=function(){
-						var roundmenu=false;
-						if(ui.roundmenu&&ui.roundmenu.display!="none"){
-							roundmenu=true;
-							ui.roundmenu.style.display="none";
-						}
-						var event=_status.event;
-						event.settleed=false;
-						event.score=0;
-						event.dialog=ui.create.dialog("forcebutton","hidden");
-						event.dialog.textPrompt=event.dialog.add("<div class=\"text center\">准备好了吗？准备好了的话就点击屏幕开始吧！</div>");
-						var max=1+game.me.countMark("mnm_jijing");
-						event.dialog.textPrompt.style["z-index"]=10;
-						event.switchToAuto=function(){
-							event._result={
-								bool:true,
-								score:event.score,
-								win:event.score>=max,
-							};
-							event.dialog.close();
-							game.resume();
-							_status.imchoosing=false;
-							if(roundmenu) ui.roundmenu.style.display="";
-						};
-						event.dialog.classList.add("fixed");
-						event.dialog.classList.add("scroll1");
-						event.dialog.classList.add("scroll2");
-						event.dialog.classList.add("fullwidth");
-						event.dialog.classList.add("fullheight");
-						event.dialog.classList.add("noupdate");
-						event.dialog.style.overflow="hidden";
-						event.dialog.open();
-						
-						var height=event.dialog.offsetHeight;
-						var width=event.dialog.offsetWidth;
-						var top=50;
-						var speed=0;
-						var start=false;
-						
-						var bird=ui.create.div("");
-						bird.style["background-image"]="linear-gradient(rgba(240, 235, 3, 1), rgba(230, 225, 5, 1))";
-						bird.style["border-radius"]="3px";
-						var pipes=[];
-						bird.style.position="absolute";
-						bird.style.height="40px";
-						bird.style.width="40px";
-						bird.style.left=Math.ceil(width/3)+"px";
-						bird.style.top=(top/100*height)+"px";
-						bird.updatePosition=function(){
-							bird.style.transform="translateY("+(top/100*height-bird.offsetTop)+"px)";
-						};
-						event.dialog.appendChild(bird);
-						var isDead=function(){
-							if(top>100||top<0) return true;
-							var btop=top;
-							var bleft=100/3;
-							var bdown=btop+5;
-							var bright=bleft+5;
-							for(var i of pipes){
-								var left2=i.left;
-								var right2=left2+10;
-								var bottom2=i.height1;
-								var top2=i.height2;
-								
-								if(left2>bright||right2<bleft) continue;
-								if(btop<bottom2) return true;
-								if(bdown>top2) return true;
-								return false;
-							}
-							return false;
-						};
-						
-						var fly=function(){
-							if(!start){
-								start=true;
-								event.dialog.textPrompt.innerHTML="<div class=\"text center\">当前分数："+event.score+"</div>";
-								//speed=-4;
-								event.fly=setInterval(function(){
-									top+=speed;
-									if(top<0) top=0;
-									bird.updatePosition();
-									for(var i of pipes){
-										i.left-=0.5;
-										i.updateLeft();
-									}
-									//speed+=0.5;
-									if(speed>2.5) speed=2.5;
-									
-									if(isDead()==true){
-										event.settle();
-									}
-								},35);
-								var addPipe=function(){
-									var num=get.rand(5,55);
-									
-									var pipe1=ui.create.div("");
-									pipe1.style["background-image"]="linear-gradient(rgba(57, 133, 4, 1), rgba(60, 135, 6, 1))";
-									pipe1.style["border-radius"]="3px";
-									pipe1.style.position="absolute";
-									pipe1.height1=num;
-									pipe1.height2=num+50;
-									pipe1.left=110;
-									pipe1.num=1;
-									pipe1.style.height=Math.ceil(height*num/100)+"px";
-									pipe1.style.width=(width/10)+"px";
-									pipe1.style.left=(pipe1.left*width/100)+"px";
-									pipe1.style.top="0px";
-
-									var pipe2=ui.create.div("");
-									pipe2.style["background-image"]="linear-gradient(rgba(57, 133, 4, 1), rgba(60, 135, 6, 1))";
-									pipe2.style["border-radius"]="3px";
-									pipe1.pipe2=pipe2;
-									pipe2.style.position="absolute";
-									pipe2.style.height=Math.ceil((100-pipe1.height2)*height/100)+"px";
-									pipe2.style.width=(width/10)+"px";
-									pipe2.style.left=(pipe1.left*width/100)+"px";
-									pipe2.style.top=Math.ceil(pipe1.height2*height/100)+"px";
-									pipes.add(pipe1);
-									event.dialog.appendChild(pipe1);
-									event.dialog.appendChild(pipe2);
-									pipe1.updateLeft=function(){
-										this.style.transform="translateX("+((this.left/100*width)-this.offsetLeft)+"px)";
-										this.pipe2.style.transform="translateX("+((this.left/100*width)-this.pipe2.offsetLeft)+"px)";
-										if(this.left<25&&!this.score){
-											this.score=true;
-											event.score++;
-											event.dialog.textPrompt.innerHTML="<div class=\"text center\">当前分数："+event.score+"</div>";
-											if(event.score>=max){
-												event.settle();
-											}
-										}
-										if(this.left<-15){
-											this.remove();
-											this.pipe2.remove();
-											pipes.remove(this);
-										}
-									}
-								};
-								event.addPipe=setInterval(addPipe,2500);
-							}
-							else{
-								speed=-4;
-							}
-						};
-						document.addEventListener(lib.config.touchscreen?"touchend":"click",fly);
-						
-						event.settle=function(){
-							clearInterval(event.fly);
-							clearInterval(event.addPipe);
-							document.removeEventListener(lib.config.touchscreen?"touchend":"click",fly);
-							setTimeout(function(){
-								event.switchToAuto()
-							},1000);
-						};
-						
-						game.pause();
-						game.countChoose();
-					};
-					//event.switchToAuto=switchToAuto;
-					game.broadcastAll(createDialog,player,event.videoId);
-					if(event.isMine()){
-						chooseButton();
-					}
-					else if(event.isOnline()){
-						event.player.send(chooseButton);
-						event.player.wait();
-						game.pause();
-					}
-					else{
-						switchToAuto();
-					}
+					var bpm=209;
+					event.beatmap=[
+						//Bar 1
+						note(bpm,9),
+						note(bpm,12),
+						note(bpm,12.5),
+						//Bar 2
+						//Bar 3
+						note(bpm,17),
+						note(bpm,20),
+						note(bpm,20.5),
+						//Bar 4
+						//Bar 5
+						note(bpm,25),
+						note(bpm,28),
+						note(bpm,28.5),
+						//Bar 6
+						note(bpm,33),
+						note(bpm,36),
+						note(bpm,36.5),
+						//Bar 7
+						note(bpm,38),
+						note(bpm,38.5),
+						//Bar 8
+						note(bpm,39),
+						note(bpm,39.5),
+						note(bpm,40),
+						note(bpm,40.5),
+						//Bar 9
+						note(bpm,9+32),
+						note(bpm,12+32),
+						note(bpm,12.5+32),
+						//Bar 10
+						//Bar 11
+						note(bpm,17+32),
+						note(bpm,20+32),
+						note(bpm,20.5+32),
+						//Bar 12
+						note(bpm,22+32),
+						note(bpm,22.5+32),
+						note(bpm,24+32),
+						note(bpm,24.5+32),
+						//Bar 13
+						note(bpm,25+32),
+						note(bpm,28+32),
+						note(bpm,28.5+32),
+						//Bar 14
+						note(bpm,31+32),
+						note(bpm,31.75+32),
+						note(bpm,32.5+32),
+						//Bar 15
+						note(bpm,33+32),
+						note(bpm,33.5+32),
+						note(bpm,36+32),
+						note(bpm,36.5+32)
+						//Bar 16
+					];
+					player.chooseToPlayBeatmap({
+						//Song name
+						name:"Big Blue",
+						//Song filename
+						filename:"sst_big_blue",
+						//Beatmap (millisecond)
+						timeleap:event.beatmap,
+						//Offset
+						current:75,
+						//Judge bar height
+						judgebar_height:0.176,
+						//Judge range of Good/Great/Prefect
+						range1:[72,120],
+						range2:[84,108],
+						range3:[92,100],
+						//Speed
+						speed:12.5
+					});
 					"step 1"
-					game.broadcastAll(function(id,time){
-						if(_status.connectMode) lib.configOL.choose_timeout=time;
-						var dialog=get.idDialog(id);
-						if(dialog){
-							dialog.close();
+					event.rank[0]=result.rank[0];
+					player.popup(result.rank[0],result.rank[1]);
+					game.log(player,"的演奏评级为","#y"+result.rank[0]);
+					"step 2"
+					target.chooseToPlayBeatmap({
+						//Song name
+						name:"Big Blue",
+						//Song filename
+						filename:"sst_big_blue",
+						//Note (millisecond)
+						timeleap:event.beatmap,
+						//Offset
+						current:75,
+						//Judge bar height
+						judgebar_height:0.176,
+						//Judge range of Good/Great/Prefect
+						range1:[72,120],
+						range2:[84,108],
+						range3:[92,100],
+						//Speed
+						speed:12.5
+					});
+					"step 3"
+					event.rank[1]=result.rank[0];
+					target.popup(result.rank[0],result.rank[1]);
+					game.log(target,"的演奏评级为","#y"+result.rank[0]);
+					"step 4"
+					var grade=function(rank){
+						switch(rank){
+							case "D":return 1;
+							case "C":return 2;
+							case "B":return 3;
+							case "A":return 4;
+							case "S":return 5;
+							case "SS":return 6;
+							default:return 0;
 						}
-					},event.videoId,event.time);
-					var result=event.result||result;
-					player.popup(get.cnNumber(result.score)+"分",result.win?"wood":"fire")
-					game.log(player,"御风飞行",result.win?"#g成功":"#y失败");
-					game.log(player,"获得了","#g"+result.score+"分");
-					var max=player.countMark("mnm_jijing");
-					if(!result.win){
-						if(result.score) player.draw(result.score);
-						if(max) player.removeMark("mnm_jijing",max,false);
-						event.finish();
+					}
+					if(grade(event.rank[0])>grade(event.rank[1])){
+						game.log(player,"#y胜");
+						player.popup("胜");
+						target.popup("负");
+						player.line(target,"green");
+						target.damage(player);
+					}
+					else if(grade(event.rank[0])<grade(event.rank[1])){
+						game.log(target,"#y胜");
+						player.popup("负");
+						target.popup("胜");
+						target.line(player,"green");
+						player.damage(target);
 					}
 					else{
-						if(max<2) player.addMark("mnm_jijing",1,false);
-						event.score=result.score;
-						player.chooseTarget("请选择【御风】的目标",[1,result.score],function(card,player,target){
-							return target!=player&&!target.hasSkill("mnm_jijing2");
-						}).set("ai",function(target){
-							var player=_status.event.player;
-							var att=-get.attitude(player,target),attx=att*2;
-							if(att<=0||target.hasSkill("xinfu_pdgyingshi")) return 0;
-							if(target.hasJudge("lebu")) attx-=att;
-							if(target.hasJudge("bingliang")) attx-=att;
-							return attx/Math.max(2.25,Math.sqrt(target.countCards("h")+1));
-						});
+						game.log(player,"、",target,"#y平");
+						player.popup("平");
+						target.popup("平");
+						player.line(target,"green");
+						target.line(player,"green");
+						game.asyncDraw([player,target],2);
 					}
-					"step 2"
-					if(result.bool){
-						result.targets.sortBySeat();
-						player.line(result.targets,"green");
-						game.log(result.targets,"获得了","#y“御风”","效果");
-						for(var i of result.targets) i.addSkill("mnm_jijing2");
-						if(event.score>result.targets.length) player.draw(event.score-result.targets.length);
-					}
-					else player.draw(event.score);
 				},
 				ai:{
 					order:10,
-					result:{player:1},
-					threaten:3.2,
+					result:{
+						target:function(player,target){
+							return get.damageEffect(target,player,target)/2;
+						}
+					}
 				}
 			},
-			*/
 			//King Olly
 			ska_shenqi2:{
 				preHidden:true,
@@ -2244,7 +2151,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_huangyao:"荒咬",
 			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用或打出。",
 			mnm_jijing:"急竞",
-			mnm_jijing_info:"出牌阶段限一次，你可以将武将牌弹飞，其所命中的武将牌对应的角色依次受到你造成的1点伤害。",
+			mnm_jijing_info:"出牌阶段限一次，你可以与一名其他角色依次演奏《Big Blue》的前奏，然后若你的评级：大于其，你对其造成1点伤害；小于其，其对你造成1点伤害。；等于其，你与其各摸两张牌。",
 			ska_shenqi2:"神祇",
 			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张牌。",
 			ska_zhesheng:"折生",
@@ -2261,7 +2168,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ymk:"Yumikohimi",
 			sst_ska:"Show-K",
 			sst_nnk:"南柯",
-			sst_alz:"Axel_Zhai"
+			sst_alz:"Axel_Zhai",
+			sst_entertainment:"娱乐"
 		},
 		translateEnglish:{
 			//Character
