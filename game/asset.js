@@ -146,6 +146,8 @@ window.noname_asset_list=[
 	'audio/background/music_galeem.mp3',
 	'audio/background/music_dharkon.mp3',
 	'audio/background/music_galeem_dharkon.mp3',
+	
+	'audio/effect/sst_big_blue.mp3',
 	//New add end
 	'audio/card/default.mp3',
 	
