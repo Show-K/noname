@@ -11045,7 +11045,7 @@
 								break;
 							}
 						};
-						document.addEventListener(lib.config.touchscreen?'touchend':'pointerdown',click);
+						document.addEventListener(lib.config.touchscreen?'touchstart':'pointerdown',click);
 						
 						game.pause();
 						game.countChoose();

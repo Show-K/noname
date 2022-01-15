@@ -1763,7 +1763,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//Beatmap (millisecond)
 						timeleap:event.beatmap,
 						//Offset
-						current:lib.config.touchscreen?0:45,
+						current:lib.config.touchscreen?0:35,
 						//Judge bar height
 						judgebar_height:0.176,
 						//Judge range of Good/Great/Prefect
@@ -1786,7 +1786,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//Note (millisecond)
 						timeleap:event.beatmap,
 						//Offset
-						current:lib.config.touchscreen?0:45,
+						current:lib.config.touchscreen?0:35,
 						//Judge bar height
 						judgebar_height:0.176,
 						//Judge range of Good/Great/Prefect
