@@ -4827,14 +4827,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					//player.logSkill("sst_fuchou_effect3");
-					trigger.skill="sst_fuchou_effect";
+					trigger.skill="sst_fuchou_effect1";
 				}
 			},
 			sst_fuchou_effect4:{
 				trigger:{source:"damageBegin1"},
 				forced:true,
 				filter:function(event,player){
-					return event.getParent(2).skill=="sst_fuchou_effect";
+					return event.getParent(2).skill=="sst_fuchou_effect1";
 				},
 				content:function(){
 					trigger.num++;
@@ -5614,10 +5614,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){//trigger.source
 					var target=trigger.source;
 					var skills=player.getSkills();
-					for(var i=0;i<skills;i++){
-						//var info=get.info(skills[i]);
-						//if(!info.charlotte&&!info.superCharlotte) target.addSkillLog(skills[i]);
-						target.addSkillLog(skills[i]);
+					for(var i=0;i<skills.length;i++){
+						var info=get.info(skills[i]);
+						if(!info.charlotte&&!info.superCharlotte) target.addSkillLog(skills[i]);
+						//target.addSkillLog(skills[i]);
 					}
 				}
 			},
@@ -7723,6 +7723,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					order:6,
 					result:{
 						target:function(player,target){
+							if(!player.countCards("h",{color:"black"})) return 0;
 							return get.attitude(player,target)/2;
 						},
 						player:function(player,target){
@@ -8151,6 +8152,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("targetsx",event.targets).set("cardx",event.card);
 					"step 6"
 					if(result.targets&&result.targets.length){
+						player.$throw(event.card);
 						player.useCard(event.card,result.targets[0],false);
 					}
 					event.cards.remove(event.card);
