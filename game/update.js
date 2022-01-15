@@ -2,7 +2,8 @@ window.noname_update={
 	version:'1.9.112SST',
 	update:'1.9.111.1SST3',
 	changeLog:[
-		'（实验）（娱乐）音游 飞隼队长',
+		'（娱乐）三国杀 SP九伏特&十八伏特',
+		'（实验）（娱乐）音游 SP飞隼队长',
 		'代码优化',
 		'bug修复',
 		'其他'

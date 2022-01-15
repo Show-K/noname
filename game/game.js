@@ -51791,7 +51791,7 @@
 				str2=str2.slice(1);
 			}
 			//New add
-			else if(str2.indexOf("马力欧医生")==0){
+			if(str2.indexOf("马力欧医生")==0){
 				str2="马力欧";
 			}
 			else if(str2.indexOf("零装甲")==0){
@@ -51883,7 +51883,7 @@
 				str2=str2.slice(2);
 			}
 			//New add
-			else if(str2.indexOf("马力欧医生")==0){
+			if(str2.indexOf("马力欧医生")==0){
 				str2="马力欧";
 			}
 			else if(str2.indexOf("零装甲")==0){
@@ -51975,7 +51975,7 @@
 				str2=str2.slice(2);
 			}
 			//New add
-			else if(str2.indexOf("马力欧医生")==0){
+			if(str2.indexOf("马力欧医生")==0){
 				str2="马力欧";
 			}
 			else if(str2.indexOf("零装甲")==0){

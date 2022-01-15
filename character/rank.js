@@ -131,7 +131,9 @@ window.noname_character_rank={
 			"ska_koopa_troopa",
 			"sst_krystal",
 			"sst_pauline",
-			"sst_captain_falcon"
+			"sst_captain_falcon",
+			"mnm_captain_falcon",
+			"mnm_9_volt_18_volt"
 		],
 		junk:[
 			"sst_yoshi",

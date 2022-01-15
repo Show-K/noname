@@ -2,8 +2,8 @@
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_sp={
-		name:"sst_sp",//武将包命名（必填）
-		connect:true,//该武将包是否可以联机（必填）
+		name:"sst_sp",
+		connect:true,
 		characterSort:{
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
@@ -11,13 +11,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:[],
 				sst_alz:["alz_kyo_kusanagi"],
-				sst_entertainment:["mnm_captain_falcon"]
+				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
 			}
 		},
 		character:{
-			//武将格式:
-			//"武将名字":["性别","势力",体力,[技能],[]],
-			//格式内每一样东西都不能缺少，否则无法导入该武将包及其以下内容
 			ymk_isabelle:["female","sst_light",3,["ymk_zhongmi","ymk_mihu"],[]],
 			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_wangshi","ska_yangxun"],[]],
 			ska_olivia:["female","sst_spirit",3,["ska_shenqi","ska_zhefu"],[]],
@@ -31,8 +28,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 			mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
 			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
-			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]]
-		},//武将（必填）
+			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
+			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]]
+		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
 				return mode=="identity";
@@ -124,12 +122,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_captain_falcon:"0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>"+
 			"系列：F-Zero（零式赛车）<br>"+
 			"初登场：F-Zero（零式赛车）<br>"+
-			"武将作者：mario not mary<br>"+
+			"武将作者：Show-K、mario not mary<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"亮招来见。",
+			"MNM曾经提过一个“面杀”版本技能，最近无名杀能玩音游了，于是我就借鉴了这种思路（不就是小游戏武将吗）。",
 			ska_king_olly:"1427. 奥利王/King Olly/オリー王<br>"+
 			"系列：Mario（马力欧）<br>"+
 			"初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>"+
@@ -147,8 +145,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"在酷霸王军团里，最常见的不是栗宝宝就是慢慢龟了。它们看起来很温顺，但它们也有奋不顾身地跳崖的勇气。马力欧如果踩到慢慢龟，它们会缩进壳里，这个状态下的它们经常被踢来踢去或者扔来扔去。马力欧游戏的不少地名都是以慢慢龟命名的哦。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"黑历史重铸武将之一。"
-		},//武将介绍（选填）
+			"黑历史重铸武将之一。",
+			mnm_9_volt_18_volt:"0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>"+
+			"系列：Wario（瓦力欧）<br>"+
+			"初登场：WarioWare, Inc.: Mega Microgame$!（瓦力欧制造）<br>"+
+			"武将作者：mario not mary<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"MNM的娱乐武将，超值N合1！"
+		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
 			ska_bobby:"枫海思忆",
@@ -163,10 +170,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_kyo_kusanagi:"炎之贵公子",
 			mnm_captain_falcon:"风驰电掣",
 			ska_king_olly:"折纸生望",
-			ska_koopa_troopa:"从逸不逾"
-		},//武将标题（用于写称号或注释）（选填）
+			ska_koopa_troopa:"从逸不逾",
+			mnm_9_volt_18_volt:"电子幻界"
+		},
 		skill:{
-			//标准技能
+			//SP Isabelle
 			ymk_zhongmi:{
 				trigger:{player:["gainAfter","loseAfter"]},
 				filter:function(event,player){
@@ -1690,7 +1698,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var len=60000/bpm;
 						return Math.round(beat*len);
 					}
-					var bpm=209;
+					var bpm=208;
 					event.beatmap=[
 						//Bar 1
 						note(bpm,9),
@@ -1755,7 +1763,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//Beatmap (millisecond)
 						timeleap:event.beatmap,
 						//Offset
-						current:75,
+						current:lib.config.touchscreen?0:45,
 						//Judge bar height
 						judgebar_height:0.176,
 						//Judge range of Good/Great/Prefect
@@ -1778,7 +1786,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//Note (millisecond)
 						timeleap:event.beatmap,
 						//Offset
-						current:75,
+						current:lib.config.touchscreen?0:45,
 						//Judge bar height
 						judgebar_height:0.176,
 						//Judge range of Good/Great/Prefect
@@ -2046,8 +2054,47 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player:1
 					}
 				}
+			},
+			mnm_huaijiu:{
+				derivation:"mnm_huaijiu_faq",
+				direct:true,
+				trigger:{player:"phaseZhunbeiBegin"},
+				content:function(){
+					"step 0"
+					var list=[
+						"caocao","simayi","xiahoudun","zhangliao","xuzhu","guojia","zhenji","liubei","guanyu","zhangfei","zhugeliang","zhaoyun","machao","huangyueying","sunquan","ganning","lvmeng","huanggai","zhouyu","daqiao","luxun","sunshangxiang","huatuo","lvbu","diaochan",
+						"huaxiong","re_yuanshu",
+						"gongsunzan","xf_yiji"
+					];
+					//console.log(get.translation(list));
+					player.chooseButton([get.prompt2("mnm_huaijiu"),[list,"character"]]).set("ai",function(button){
+						var skills=lib.characterPack.sst_old[button.link][3];
+						if(!Array.isArray(skills)) return 0;
+						var val=0;
+						for(var i=0;i<skills.length;i++){
+							val+=(get.skillRank(skills[i],"in")+get.skillRank(skills[i],"out"))/2;
+						}
+						val/=skills.length;
+						return val+Math.random();
+					});
+					"step 1"
+					if(result.links&&result.links.length){
+						player.logSkill("mnm_huaijiu");
+						player.flashAvatar("mnm_huaijiu",result.links[0]);
+						player.popup(result.links[0],"thunder");
+						game.log(player,"选择了","#b"+get.translation(result.links[0]));
+						var skills=lib.characterPack.sst_old[result.links[0]][3];
+						if(Array.isArray(skills)){
+							for(var i=0;i<skills.length;i++){
+								player.addTempSkill(skills[i],{player:"phaseBegin"});
+								player.popup(skills[i],"thunder");
+								game.log(player,"获得了技能","#g【"+get.translation(skills[i])+"】");
+							}
+						}
+					}
+				}
 			}
-		},//技能（必填）
+		},
 		dynamicTranslate:{
 			ska_jiyan:function(player){
 				if(!player.storage.ska_jiyan||!player.storage.ska_jiyan.length) return "使命技。①每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。②使命：你以此法使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。";
@@ -2066,10 +2113,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bowser:["sst_bowser","ska_bowser"],
 			ymk_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
 			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
-		},//武将替换
+		},
 		*/
 		translate:{
-			//武将
+			//Character
 			ymk_isabelle:"SP西施惠",
 			ska_bobby:"炸弹彬",
 			ska_olivia:"奥莉维亚",
@@ -2081,10 +2128,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_professor_toad:"考古学家奇诺比奥",
 			mnm_edelgard:"艾黛尔贾特",
 			alz_kyo_kusanagi:"SP草薙京",
-			mnm_captain_falcon:"飞隼队长",
+			mnm_captain_falcon:"SP飞隼队长",
 			ska_king_olly:"奥利王",
 			ska_koopa_troopa:"慢慢龟",
-			//身份技能
+			mnm_9_volt_18_volt:"SP九伏特&十八伏特",
+			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
 			ymk_mihu:"迷糊",
@@ -2162,7 +2210,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_suixuan_info:"锁定技，当你受到伤害后，你翻面。当你翻面时，你视为使用一张无距离限制的【杀】，然后弃置一张牌。",
 			ska_xiangshi:"向矢",
 			ska_xiangshi_info:"出牌阶段限一次，你可以翻面。若如此做，你可以打出一张牌，然后弃置一名角色区域内的一张牌。若这两张牌的花色相同，你翻面。",
-			//武将分类
+			mnm_huaijiu:"怀旧",
+			mnm_huaijiu_info:"准备阶段，你可以获得一名《三国杀：标准》武将的技能，直到你的下一个回合开始。",
+			mnm_huaijiu_append:"<span style=\"font-family: fzktk\">*可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
+			mnm_huaijiu_faq:"*",
+			mnm_huaijiu_faq_info:"可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
+			//Character Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
 			sst_ymk:"Yumikohimi",
@@ -2186,7 +2239,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_kyo_kusanagi:"SP Kyo Kusanagi",
 			mnm_captain_falcon:"SP Captain Falcon",
 			ska_king_olly:"King Olly",
-			ska_koopa_troopa:"Koopa Troopa"
+			ska_koopa_troopa:"Koopa Troopa",
+			mnm_9_volt_18_volt:"9-Volt & 18-Volt"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2196,53 +2250,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_show_k:["sst_mario"],
 			ska_king_olly:["sst_mario"],
 			ska_koopa_troopa:["sst_mario"],
-			alz_kyo_kusanagi:["sst_kyo_kusanagi"]
-		}//珠联璧合武将（选填）
+			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
+			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"]
+		}
 	};
-	/*
-	for(var i in sst.character){
-		sst.character[i][4].push(i+".png");
-	}
-	*/
-	/*
-	if(lib.device||lib.node){
-		for(var i in sst.character){
-			sst.character[i][4].push("ext:大乱桌斗/"+i+".png");
-		}
-	}
-	else{
-		for(var i in sst.character){
-			sst.character[i][4].push("db:extension-大乱桌斗:"+i+".png");
-		}
-	}//由于以此法加入的武将包武将图片是用源文件的，所以要用此法改变路径
-	*/
-	/*
-	if(lib.config.sst_zhuless){
-		for(var i in sst.character){
-			if(sst.character[i][4].indexOf("zhu")>-1) sst.character[i][4].splice(sst.character[i][4].indexOf("zhu"),1);
-		}
-	}
-	if(lib.config.sst_smash){
-		for(var i in sst.character){
-			sst.character[i][1]="sst_smash";
-		}
-	}
-	if(lib.config.sst_hidden){
-		for(var i in sst.character){
-			if(sst.character[i][4].indexOf("hiddenSkill")<0) sst.character[i][4].push("hiddenSkill");
-		}
-	}
-	if(lib.config.sst_jiamian_disable){
-		sst.character["sst_young_link"][2]++;
-		if(sst.character["sst_young_link"][3].indexOf("sst_jiamian")>-1) sst.character["sst_young_link"][3].splice(sst.character[i][3].indexOf("sst_jiamian"),1);
-	}
-	if(lib.config.sst_compare!="4"){
-		lib.element.player.canCompare=function(target){
-			if(this==target) return false;
-			if(this.hasSkillTag("noCompareSource")||target.hasSkillTag("noCompareTarget")) return false;
-			return true;
-		};
-	}
-	*/
 	return sst_sp;
 });

@@ -3154,19 +3154,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(get.type(cards[i])=="basic") num++;
 						}
 						if(num){
-							player.addMark("sst_potian2",num,false);
+							player.addMark("sst_potian_effect",num,false);
 						}
 						else{
-							player.storage.sst_potian2=0;
-							player.syncStorage("sst_potian2");
-							player.markSkill("sst_potian2");
+							player.storage.sst_potian_effect=0;
+							player.syncStorage("sst_potian_effect");
+							player.markSkill("sst_potian_effect");
 						}
 						player.draw(cards.length);
-						player.addTempSkill("sst_potian2");
+						player.addTempSkill("sst_potian_effect");
 					}
 				}
 			},
-			sst_potian2:{
+			sst_potian_effect:{
+				charlotte:true,
 				shaRelated:true,
 				mark:true,
 				intro:{
@@ -3178,19 +3179,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				onremove:function(player){
-					player.removeMark("sst_potian2",player.countMark("sst_potian2"),false);
+					player.removeMark("sst_potian_effect",player.countMark("sst_potian_effect"),false);
 				},
 				content:function(){
 					if(typeof trigger.baseDamage!="number"){
 						trigger.baseDamage=1;
 					}
-					trigger.baseDamage+=player.countMark("sst_potian2")-1;
+					trigger.baseDamage+=player.countMark("sst_potian_effect")-1;
 				},
 				ai:{
 					damageBonus:true,
 					effect:{
 						player:function(card,player){
-							if(!player.hasMark("sst_potian2")&&get.name(card)=="sha") return -1;
+							if(!player.hasMark("sst_potian_effect")&&get.name(card)=="sha") return -1;
 						}
 					}
 				}
@@ -3202,19 +3203,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.getParent().skill=="chongzhu") return true;
 					return false;
 				},
-				/*
-				prompt:function(event,player){
-					var cards=[];
-					for(var i=0;i<event.cards2.length;i++){
-						if(get.position(event.cards2[i],true)=="d"||(event.type=="sst_potian"&&(event.cards2[i].original=="e"||event.cards2[i].original=="j"))){
-							cards.push(event.cards2[i]);
-						}
-					}
-					var str="";
-					if(event.type=="sst_potian") str="，然后你令该角色于其下一个回合内拥有【破天】";
-					return "你可以将"+get.translation(cards)+"交给一名其他角色"+str;
-				},
-				*/
 				direct:true,
 				content:function(){
 					"step 0"
@@ -6546,10 +6534,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.markAuto("sst_geliao_effect",[event.target]);
 					if(!player.hasSkill("sst_xiangle")){
 						player.addAdditionalSkill("sst_geliao_effect","sst_xiangle");
+						player.popup("sst_xiangle","thunder");
 						game.log(player,"获得了技能","#g【享乐】");
 					}
 					if(!event.target.hasSkill("sst_xiangle")){
 						event.target.addAdditionalSkill("sst_geliao_effect","sst_xiangle");
+						event.target.popup("sst_xiangle","thunder");
 						game.log(event.target,"获得了技能","#g【享乐】");
 					}
 				},
@@ -7708,7 +7698,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					if(result&&result.bool&&result.links[0]){
+					if(result.links&&result.links.length){
 						var card={name:result.links[0][2],isCard:true};
 						player.useCard(card,target,false);
 					}
@@ -13317,7 +13307,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiuyuan2:"求援",
 			sst_qiuyuan_info:"主公技，你成为带有「伤害」标签的锦囊或【杀】的目标前，其他本势力角色可以摸一张牌，将目标改为自己。",
 			sst_potian:"破天",
-			sst_potian2:"破天",
+			sst_potian_effect:"破天",
 			sst_potian_info:"准备阶段，你可以重铸任意张花色不同的牌，然后你令你使用的【杀】伤害值基数为X直到回合结束（X为你以此法置入弃牌堆的基本牌数量）。",
 			sst_shenjiao:"身教",
 			sst_shenjiao_effect:"身教",
@@ -13756,7 +13746,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tanfen_info:"摸牌阶段，你可以放弃摸牌，改为声明一种花色，然后重复亮出并获得牌堆顶的牌，直到你以此法获得了你所声明花色的牌。",
 			sst_sutong:"速通",
 			sst_sutong_info:"结束阶段，若你没有“先驱”标记，且本回合使用牌数量不大于手牌数，你可以获得一个“先驱”标记。",
-			//武将分类
+			//Character Sort
 			sst_64:"64",
 			sst_melee:"Melee",
 			sst_brawl:"Brawl",
