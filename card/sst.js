@@ -225,7 +225,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					damage:true,
 					result:{
 						target:function(player){
-							if(!player.storage.sst_xuanyi) return -1;
+							if(!player.storage.sst_aegises_skill) return -1;
+							return 1;
 						},
 						player:1
 					}
