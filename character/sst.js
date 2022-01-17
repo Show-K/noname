@@ -1739,7 +1739,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chengli:{
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return !player.getDamagedHp();
+					return !player.isDamaged();
 				},
 				forced:true,
 				content:function(){
@@ -1753,7 +1753,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chengli2:{
 				enable:"chooseToUse",
 				filter:function(event,player){
-					return event.type!="wuxie"&&event.type!="respondShan"&&player.getDamagedHp();
+					return event.type!="wuxie"&&event.type!="respondShan"&&player.isDamaged();
 				},
 				hiddenCard:function(player,name){
 					return player.countCards("hes")&&lib.inpile.contains(name);
@@ -1812,7 +1812,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondTao:true,
 					skillTagFilter:function(player,tag,arg){
 						if(arg!="use") return false;
-						if(!player.countCards("hes")||!player.getDamagedHp()) return false;
+						if(!player.countCards("hes")||!player.isDamaged()) return false;
 					},
 					result:{
 						player:1
@@ -1825,7 +1825,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				prompt:"将一张牌当作【闪】使用",
 				enable:"chooseToUse",
 				viewAsFilter:function(player){
-					if(!player.getDamagedHp()) return false;
+					if(!player.isDamaged()) return false;
 					if(!player.countCards("hes")) return false;
 				},
 				filterCard:true,
@@ -1838,7 +1838,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					skillTagFilter:function(player,tag,arg){
 						if(arg!="use") return false;
-						if(!player.countCards("hes")||!player.getDamagedHp()) return false;
+						if(!player.countCards("hes")||!player.isDamaged()) return false;
 					},
 					respondShan:true
 				}
@@ -1849,7 +1849,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				selectCard:1,
 				position:"hes",
 				viewAsFilter:function(player){
-					if(!player.getDamagedHp()) return false;
+					if(!player.isDamaged()) return false;
 					if(!player.countCards("hes")) return false;
 				},
 				viewAs:{name:"wuxie"},
@@ -1859,7 +1859,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				prompt:"将一张牌当作【无懈可击】使用",
 				ai:{
 					skillTagFilter:function(player){
-						if(!player.countCards("hes")||!player.getDamagedHp()) return false;
+						if(!player.countCards("hes")||!player.isDamaged()) return false;
 					}
 				}
 			},
@@ -2807,7 +2807,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.request=result.targets[0];
 						game.log(player,"请求",event.request,"发动技能","#g【驭军】","（对",trigger.targets,"）");
 						player.line(event.request,"green");
-						event.request.chooseControl("允许","拒绝").set("prompt","是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(trigger.targets)+"使用？").set("ai",function(){
+						event.request.chooseControl("允许","拒绝").set("prompt","驭军：是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(trigger.targets)+"使用？").set("ai",function(){
 							var player=_status.event.player;
 							var target=_status.event.targetx;
 							if(get.attitude(player,target)>0){
@@ -3324,13 +3324,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					//player.logSkill("sst_tianmai",target);
 					player.awakenSkill("sst_tianmai");
 					player.storage.sst_tianmai=true;
-					player.storage.sst_tianmai_target=target;
+					//player.storage.sst_tianmai_target=target;
 					if(target.hp<target.storage.sst_tianmai_count) target.recover(target.storage.sst_tianmai_count-target.hp);
 					"step 1"
 					target.link(false);
 					target.turnOver(false);
 					"step 2"
-					if(!player.hasSkill("sst_tianmai_phase")) player.addSkill("sst_tianmai_phase");
+					//if(!player.hasSkill("sst_tianmai_phase")) player.addSkill("sst_tianmai_phase");
 					var evt=_status.event.getParent("dying");
 					if(evt&&evt.name=="dying"){
 						var next=game.createEvent("sst_tianmai_clear");
@@ -3341,6 +3341,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var evt=_status.event.getParent("phase");
 							if(evt&&evt.name=="phase"){
 								_status.roundStart=player;
+								var loop=evt.getParent("phaseLoop");
+								if(loop&&loop.name=="phaseLoop"){
+									loop.player=player;
+									loop.goto(0);
+								}
+								game.log("由",player,"的回合开始一个新的轮次");
 								game.resetSkills();
 								_status.event=evt;
 								_status.event.finish();
@@ -5722,7 +5728,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mihu:{
 				trigger:{player:"useCardToPlayer"},
 				filter:function(event,player){
-					if(!player.getDamagedHp()) return false;
+					if(!player.isDamaged()) return false;
 					return event.targets.length==1&&!event.getParent().sst_mihu;
 				},
 				forced:true,
@@ -8329,16 +8335,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shishi:{
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return (!player.getDamagedHp()&&game.hasPlayer(function(current){
+					return (!player.isDamaged()&&game.hasPlayer(function(current){
 						return current.countDiscardableCards(player,"he");
-					}))||(player.getDamagedHp()&&game.hasPlayer(function(current){
+					}))||(player.isDamaged()&&game.hasPlayer(function(current){
 						return player.canUse({name:"sha",isCard:true},current,false);
 					}));
 				},
 				forced:true,
 				content:function(){
 					"step 0"
-					if(!player.getDamagedHp()){
+					if(!player.isDamaged()){
 						event.sst_shishi="discard";
 						player.chooseTarget("时逝：弃置一名角色的一张牌",true,function(card,player,target){
 							return target.countDiscardableCards(player,"he");
@@ -10198,7 +10204,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.chooseControl(lib.suit.concat(["basic","trick","equip"])).set("ai",function(){
-						var player=_status.event.player;
 						var count=0;
 						var value=0;
 						var list=lib.suit.concat(["basic","trick","equip"]);
@@ -10453,7 +10458,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				logTarget:"player",
 				check:function(event,player){
-					return get.attitude(player,event.player)<0;
+					return get.attitude(event.player,player)<0;
 				},
 				content:function(){
 					var next=player.phase("sst_jibu");
@@ -13003,15 +13008,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<player.storage.sst_shenbi_ready.length;i++){
 						switch(player.storage.sst_shenbi_ready[i]){
 							case "下一张【杀】伤害基数+1":{
-								str+="<span class=\"bluetext\">1. 你使用的下一张【杀】伤害基数+1";
+								str+=(player.storage.sst_shenbi.contains("下一张【杀】伤害基数+1")?"<span class=\"bluetext\">":"<span style=\"opacity:0.5\">")+"1. 你使用的下一张【杀】伤害基数+1";
 								break;
 							}
 							case "此【杀】不可被响应":{
-								str+="<span class=\"bluetext\">2. 此【杀】不可被响应";
+								str+=(player.storage.sst_shenbi.contains("此【杀】不可被响应")?"<span class=\"bluetext\">":"<span style=\"opacity:0.5\">")+"2. 此【杀】不可被响应";
 								break;
 							}
 							case "失去1点体力":{
-								str+="<span class=\"bluetext\">3. 失去1点体力";
+								str+=(player.storage.sst_shenbi.contains("失去1点体力")?"<span class=\"bluetext\">":"<span style=\"opacity:0.5\">")+"3. 失去1点体力";
 								break;
 							}
 						}
@@ -13831,6 +13836,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_rex:["sst_pyra_mythra"],
 			sst_pokemon_trainer_blue:["sst_pokemon_trainer_red"],
 			sst_pauline:["sst_donkey_kong"]
+		},
+		help:{
+			"大乱桌斗":"<div style=\"margin:10px\">销毁</div><ul style=\"margin-top:0\"><li>将一张牌永久移出游戏"
 		}
 	};
 	/*

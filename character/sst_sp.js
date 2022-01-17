@@ -2048,7 +2048,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(result.targets&&result.targets.length){
 						player.line(result.targets,"green");
-						player.discardPlayerCard("向矢：弃置"+get.translation(result.targets[0])+"区域内的一张牌",result.targets[0],"hej",true);
+						player.discardPlayerCard("向矢：弃置"+get.translation(result.targets)+"区域内的一张牌",result.targets[0],"hej",true);
 					}
 					else{
 						event.finish();

@@ -7,7 +7,7 @@ window.noname_package={
 	},
 	card:{
 		sst:'大乱桌斗',
-		sst_sp:'乱斗SP',
+		sst_sp:'乱斗名场',
 		sst_land:'乱斗地图',
 		standard:'标准',
 		extra:'军争',
@@ -22,7 +22,7 @@ window.noname_package={
 		//gujian:'古剑奇谭',
 		//hearth:'炉石传说',
 		//gwent:'昆特牌',
-		mtg:'万智牌',
+		//mtg:'万智牌',
 		huanlekapai:'欢乐卡牌'
 	},
 	play:{

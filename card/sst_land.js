@@ -1,8 +1,8 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
 	var sst_land={
-		name:"sst_land",//卡包命名
-		connect:true,//卡包是否可以联机
+		name:"sst_land",
+		connect:true,
 		card:{
 			ska_battlefield:{
 				global:["sst_system_card1","sst_system_card2","sst_system_card3"],
@@ -557,8 +557,13 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				}
 			},
 		},
+		cardType:{
+			land:0.6
+		},
 		translate:{
-			//卡牌
+			//Type
+			land:"地图",
+			//Land
 			ska_battlefield:"战场",
 			ska_battlefield_info:"所有角色依次摸一张牌。当【战场】因判定或弃置而置入弃牌堆时，系统将之移出游戏并将【终点】置于牌堆底，然后系统于当前回合结束后视为使用【战场】。地图效果：锁定技，你的手牌上限+1。结束阶段，若你的手牌数小于手牌上限，你摸一张牌。",
 			ska_battlefield_skill:"战场",
@@ -611,7 +616,13 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["spade",3,"ska_garreg_mach_monastery",null,["sst_ultimate"]],
 			["club",2,"ska_cloud_sea_of_alrest",null,["sst_ultimate"]],
 			["club",11,"ska_spring_stadium",null,["sst_ultimate"]]
-		]
+		],
+		help:{
+			"乱斗地图":"<ul><li>地图牌可于出牌阶段使用，每阶段最多使用一张地图牌<li>"+
+			"地图牌分为两部分：即时效果以及地图效果，即时效果由使用者在使用时选择；地图效果对所有角色有效<li>"+
+			"当使用者死亡或下个回合开始时，当前地图效果消失<li>"+
+			"新地图被使用时会覆盖当前地图效果"
+		}
 	};
 	return sst_land;
 });

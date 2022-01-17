@@ -1,8 +1,8 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
 	var sst_sp={
-		name:"sst_sp",//卡包命名
-		connect:true,//卡包是否可以联机
+		name:"sst_sp",
+		connect:true,
 		card:{
 			ska_grab:{
 				//fullskin:true,
@@ -466,6 +466,158 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			ska_sauce:{
+				fullskin:true,
+				type:"food",
+				enable:true,
+				filterTarget:function(card,player,target){
+					return target.isDamaged()&&target.countCards("h",function(card){
+						return lib.filter.cardDiscardable(card,target);
+					});
+				},
+				content:function(){
+					"step 0"
+					target.discard(target.getCards("h",function(card){
+						return lib.filter.cardDiscardable(card,target);
+					}));
+					"step 1"
+					target.recover();
+				},
+				ai:{
+					basic:{
+						order:2,
+						useful:5,
+						value:5
+					},
+					result:{
+						target:function(player,target){
+							return get.recoverEffect(target,player,target)-2*target.countCards("h",function(card){
+								return lib.filter.cardDiscardable(card,target);
+							});
+						}
+					},
+					tag:{
+						loseCard:1,
+						discard:1,
+						recover:1
+					}
+				}
+			},
+			ska_rise_of_the_block:{
+				fullskin:true,
+				type:"trick",
+				enable:true,
+				selectTarget:-1,
+				toself:true,
+				filterTarget:function(card,player,target){
+					return target==player;
+				},
+				modTarget:true,
+				content:function(){
+					"step 0"
+					if(!target.hasSkill("ska_rise_of_the_block_skill")) target.addTempSkill("ska_rise_of_the_block_skill");
+					target.chooseControl(["basic","trick","equip"]).set("ai",function(){
+						var count=0;
+						var value=0;
+						var list=["basic","trick","equip"];
+						var choice=[];
+						var cards=[];
+						for(var i=0;i<list.length;i++){
+							for(var j=0;j<ui.cardPile.childNodes.length;j++){
+								if(lib.suit.contains(list[i])){
+									if(get.suit(ui.cardPile.childNodes[j])==list[i]){
+										cards.push(ui.cardPile.childNodes[j]);
+										value+=get.value(ui.cardPile.childNodes[j]);
+									}
+								}
+								else{
+									if(get.type(ui.cardPile.childNodes[j],"trick")==list[i]){
+										cards.push(ui.cardPile.childNodes[j]);
+										value+=get.value(ui.cardPile.childNodes[j]);
+									}
+								}
+							}
+							if(value>count){
+								count=value;
+								choice=[list[i]];
+							}
+							else if(value==count){
+								choice.push(list[i]);
+							}
+							cards=[];
+							value=0;
+						}
+						return choice.randomGet();
+					}).set("prompt","方块崛起：声明一种类别，然后从牌堆顶亮出体力值张牌并获得此类别牌中一张，若你以此法获得牌，你可以弃置一名角色一个区域内所有牌");
+					"step 1"
+					event.control=result.control;
+					target.popup(event.control);
+					game.log(target,"声明了","#y"+get.translation(event.control));
+					event.cards=get.cards(Math.max(0,target.hp));
+					game.cardsGotoOrdering(event.cards);
+					target.showCards(event.cards,get.translation(target.name)+"展示的牌（声明了"+get.translation(event.control)+"）");
+					"step 2"
+					var goon=false;
+					for(var i=0;i<event.cards.length;i++){
+						if(get.type(event.cards[i],"trick")==event.control){
+							goon=true;
+							break;
+						}
+					}
+					if(goon){
+						target.chooseCardButton("方块崛起：获得一张"+get.translation(event.control)+"牌",true,event.cards).set("filterButton",function(button){
+							return get.type(button.link,"trick")==_status.event.control;
+						}).set("ai",function(button){
+							return get.value(button.link);
+						}).set("control",event.control);
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					if(result.links&&result.links.length){
+						target.gain(result.links,"gain2");
+					}
+					else{
+						event.finish();
+					}
+					"step 4"
+					target.chooseTarget("方块崛起：你可以弃置一名一个角色区域内所有牌",function(card,player,target){
+						return target.countDiscardableCards(player,"hej");
+					}).set("ai",function(target){
+						var player=_status.event.player;
+						var att=get.attitude(player,target);
+						if(att<0){
+							att=-Math.sqrt(-att);
+						}
+						else{
+							att=Math.sqrt(att);
+						}
+						return att*lib.card.guohe.ai.result.target(player,target);
+					});
+					"step 5"
+					if(result.targets&&result.targets.length){
+						target.line(result.targets,"green");
+						target.discardPlayerCard("方块崛起：弃置"+get.translation(result.targets)+"一个区域内的所有牌",result.targets[0],"hej",Infinity,true).set("filterButton",function(button){
+							if(!ui.selected.buttons||!ui.selected.buttons.length) return true;
+							return get.position(button.link)==get.position(ui.selected.buttons[0]);
+						}).set("complexSelect",true);
+					}
+				},
+				ai:{
+					basic:{
+						order:7.2,
+						useful:4.5,
+						value:9.2
+					},
+					result:{
+						target:4,
+					},
+					tag:{
+						draw:1
+					}
+				}
 			}
 		},
 		skill:{
@@ -616,25 +768,55 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					var target=trigger.respondTo[0];
 					player.gainPlayerCard("猛击：你可以获得"+get.translation(target)+"一张牌",target,"he");
 				}
+			},
+			ska_rise_of_the_block_skill:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"本回合你受到伤害时，防止此伤害"
+				},
+				trigger:{player:"damageBegin4"},
+				forced:true,
+				content:function(){
+					trigger.cancel();
+				}
 			}
 		},
+		cardType:{
+			food:0.3
+		},
 		translate:{
-			//技能
+			//Type
+			food:"食物",
+			//Skill
 			ska_counter_suit1:"花色反制",
 			ska_counter_suit1_info:"当你成为一名角色使用【杀】/【猛击】的目标时，你可以打出一张相同花色的【盾】，令此牌对你无效，且获得此牌。",
 			ska_counter_suit2:"花色反制",
 			ska_counter_suit2_info:"一名角色使用【盾】时，若伤害来源为你，你可以打出一张相同花色的【抓】，取消之，且获得其一张牌。",
 			ska_counter_suit3:"花色反制",
 			ska_counter_suit3_info:"当你成为一名角色使用【抓】的目标时，你可以打出一张相同花色的【杀】，令此牌对你无效，且对其造成1点伤害。",
-			//卡牌
+			//Test
 			ska_grab:"抓",
 			ska_grab_info:"出牌阶段，对你攻击范围内的一名角色使用。其须展示一张【闪】，否则你弃置其一张牌。",
 			ska_shield:"盾",
 			ska_shield_info:"当你受到伤害时，你令伤害值-1，然后若伤害值不小于2，你翻面。",
 			ska_smash:"猛击",
-			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。"
+			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。",
+			//Food
+			ska_sauce:"酱料",
+			ska_sauce_info:"出牌阶段，对一名已受伤角色使用。目标弃置所有手牌，然后回复1点体力。",
+			ska_sauce_append:"<span class=\"text\" style=\"font-family: fzktk\">“这里是我的一个……我吃的一些酱料啊。”——超级小桀</span>",
+			//Trick
+			ska_rise_of_the_block:"方块崛起",
+			ska_rise_of_the_block_info:"出牌阶段，对包含你在内的一名角色使用。目标角色声明一种类别，然后从牌堆顶亮出体力值张牌并获得此类别牌中一张，若其以此法获得牌，其可以弃置一名角色区域内所有牌。本回合目标受到伤害时，防止此伤害。",
+			ska_rise_of_the_block_append:"<span class=\"text\" style=\"font-family: fzktk\">我们至今不知道为什么Tweek在那次比赛惨败给那个史蒂夫选手。</span>",
+			ska_rise_of_the_block_skill:"方块崛起",
+			ska_rise_of_the_block_skill_info:"本回合你受到伤害时，防止此伤害。",
+			ska_does_nothing:"不动定律",
+			ska_does_nothing_info:"出牌阶段，对一名角色使用。直到目标角色回合开始，其不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。"
 		},
 		list:[
+			/*
 			["diamond",7,"ska_grab"],
 			["diamond",6,"ska_grab"],
 			["diamond",6,"ska_grab"],
@@ -685,6 +867,9 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["heart",5,"ska_smash"],
 			["diamond",11,"ska_smash"],
 			["diamond",5,"ska_smash"]
+			*/
+			["club",8,"ska_sauce",null,["sst_reality"]],
+			["diamond",1,"ska_rise_of_the_block",null,["sst_reality"]]
 		]
 	};
 	return sst_sp;

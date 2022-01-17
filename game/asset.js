@@ -158,6 +158,9 @@ window.noname_asset_list=[
 	'image/character/zhugeliang.png',
 
 	'image/card/sst_aegises.png',
+	
+	'image/card/ska_sauce.png',
+	'image/card/ska_rise_of_the_block.png',
 
 	'image/card/ska_battlefield.png',
 	'image/card/ska_small_battlefield.png',
