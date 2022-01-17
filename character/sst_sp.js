@@ -300,6 +300,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.bool){
 						target.damage(player);
 					}
+					else{
+						player.chooseToDiscard("激行：弃置一张牌","he",true);
+					}
 				},
 				ai:{
 					order:5,
@@ -457,17 +460,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shenqi3:{
 				trigger:{player:"useCard"},
 				filter:function(event,player){
-					return _status.renku&&_status.renku.length;
+					if(!_status.renku||!_status.renku.length) return false;
+					for(var i=0;i<_status.renku.length;i++){
+						if(get.color(event.card)==get.color(_status.renku[i])) return true;
+					}
+					return false;
 				},
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi3")).set("ai",function(button){
+					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi3")).set("filterButton",function(button){
+						return get.color(button.link)==get.color(_status.event.cardx);
+					}).set("ai",function(button){
 						var player=_status.event.player;
 						if(get.name(button.link)=="du") return -10;
 						if(player.isPhaseUsing()) return player.getUseValue(button.link)+5;
 						return get.value(button.link)+5;
-					});
+					}).set("cardx",trigger.card);
 					"step 1"
 					if(result.links&&result.links.length){
 						player.logSkill("ska_shenqi");
@@ -2140,14 +2149,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"红色：此牌增加X+1个目标（不足则全选）；<br>"+
 			"黑色：此牌减少X+1个目标（不足则全选）。<br>",
 			ska_jixing:"激行",
-			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色，然后你判定，若结果不为♦，你对其造成1点伤害。",
+			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色，然后你判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_wangshi:"惘事",
-			ska_wangshi_info:"使命技。①你区域内的♠牌和♠判定牌均视为♦。②使命：准备阶段，若已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
+			ska_wangshi_info:"使命技。①你区域内的♠牌和♠判定牌均视为♦。②使命：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
 			ska_yangxun:"洋寻",
 			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其交给你一张牌。",
 			ska_shenqi:"神祇",
 			ska_shenqi3:"神祇",
-			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张牌。",
+			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得与此牌颜色相同的一张牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
 			ska_zhefu_info:"出牌阶段限一次，你可以将仁库中一张牌移动到处理区，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
@@ -2201,7 +2210,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_jijing:"急竞",
 			mnm_jijing_info:"出牌阶段限一次，你可以与一名其他角色依次演奏《Big Blue》的前奏，然后若你的评级：大于其，你对其造成1点伤害；小于其，其对你造成1点伤害。；等于其，你与其各摸两张牌。",
 			ska_shenqi2:"神祇",
-			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张牌。",
+			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
 			ska_zhesheng_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
