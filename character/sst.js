@@ -4638,28 +4638,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_fuchou:{
-				intro:{
-					mark:function(dialog,storage,player){
-						dialog.addAuto(player.getCards("s",function(card){
-							return card.hasGaintag("sst_fuchou");
-						}));
-					},
-					markcount:function(storage,player){
-						return player.getCards("s",function(card){
-							return card.hasGaintag("sst_fuchou");
-						}).length;
-					},
-					onunmark:function(storage,player){
-						var cards=player.getCards("s",function(card){
-							return card.hasGaintag("sst_fuchou");
-						});
-						if(cards.length){
-							player.lose(cards,ui.discardPile);
-							player.$throw(cards,1000);
-							game.log(cards,"被置入了弃牌堆");
-						}
-					}
-				},
 				trigger:{global:"roundStart"},
 				filter:function(event,player){
 					return !player.hasSkill("sst_fuchou_effect");
@@ -4702,6 +4680,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_fuchou_effect1:{
 				charlotte:true,
+				intro:{
+					mark:function(dialog,storage,player){
+						dialog.addAuto(player.getCards("s",function(card){
+							return card.hasGaintag("sst_fuchou_effect1");
+						}));
+					},
+					markcount:function(storage,player){
+						return player.getCards("s",function(card){
+							return card.hasGaintag("sst_fuchou_effect1");
+						}).length;
+					},
+					onunmark:function(storage,player){
+						var cards=player.getCards("s",function(card){
+							return card.hasGaintag("sst_fuchou_effect1");
+						});
+						if(cards.length){
+							player.lose(cards,ui.discardPile);
+							player.$throw(cards,1000);
+							game.log(cards,"被置入了弃牌堆");
+						}
+					}
+				},
 				trigger:{player:"damageEnd"},
 				filter:function(event,player){
 					return player.hasSkill("sst_fuchou_effect")&&get.itemtype(event.cards)=="cards"&&get.position(event.cards[0],true)=="o";
@@ -4714,8 +4714,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(get.itemtype(trigger.cards)=="cards"&&get.position(trigger.cards[0],true)=="o"){
 						player.$gain2(trigger.cards);
 						game.log(player,"将",trigger.cards,"置于武将牌上");
-						player.loseToSpecial(trigger.cards,"sst_fuchou");
-						player.markSkill("sst_fuchou");
+						player.loseToSpecial(trigger.cards,"sst_fuchou_effect1");
+						player.markSkill("sst_fuchou_effect1");
 					}
 				},
 				ai:{
@@ -4737,22 +4737,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					if(!event.ss||!event.ss.length) return false;
 					for(var i in event.gaintag_map){
-						if(event.gaintag_map[i].contains("sst_fuchou")) return true;
-						return false;
+						if(event.gaintag_map[i].contains("sst_fuchou_effect1")) return true;
 					}
+					return false;
 				},
 				content:function(){
 					"step 0"
 					var num=player.getCards("s",function(card){
-						return card.hasGaintag("sst_fuchou");
+						return card.hasGaintag("sst_fuchou_effect1");
 					}).length;
 					if(num){
-						player.markSkill("sst_fuchou");
+						player.markSkill("sst_fuchou_effect1");
 					}
 					else{
-						player.unmarkSkill("sst_fuchou");
+						player.unmarkSkill("sst_fuchou_effect1");
 					}
-					//player.markAuto("sst_fuchou");
+					//player.markAuto("sst_fuchou_effect1");
 					game.updateRoundNumber();
 				}
 			},
@@ -4764,7 +4764,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var cards=event.cards;
 					for(var i=0;i<cards.length;i++){
 						//game.log(cards[i].hasGaintag("sst_fuchou"));
-						if(cards[i].hasGaintag("sst_fuchou")) return true;
+						if(cards[i].hasGaintag("sst_fuchou_effect1")) return true;
 					}
 					return false;
 				},
@@ -4777,7 +4777,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{source:"damageBegin1"},
 				forced:true,
 				filter:function(event,player){
-					return event.getParent(2).skill=="sst_fuchou_effect1";
+					return event.skill=="sst_fuchou_effect1";
 				},
 				content:function(){
 					trigger.num++;

@@ -943,7 +943,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["diamond",5,"ska_smash"]
 			*/
 			["club",8,"ska_sauce",null,["sst_reality"]],
-			["diamond",1,"ska_rise_of_the_block",null,["sst_reality"]],
+			["diamond",1,"ska_rise_of_the_block",null,["sst_smash"]],
 			["spade",2,"ska_doing_absolutely_nothing",null,["sst_light"]]
 		]
 	};

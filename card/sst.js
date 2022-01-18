@@ -245,6 +245,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			sst_sp_tag:"SP",
 			sst_light_tag:"光",
 			sst_reality_tag:"现",
+			sst_smash_tag:"斗",
 			//Equip
 			sst_aegises:"天之圣杯",
 			sst_aegises_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
