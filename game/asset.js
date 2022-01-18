@@ -161,6 +161,7 @@ window.noname_asset_list=[
 	
 	'image/card/ska_sauce.png',
 	'image/card/ska_rise_of_the_block.png',
+	'image/card/ska_doing_absolutely_nothing.png',
 
 	'image/card/ska_battlefield.png',
 	'image/card/ska_small_battlefield.png',

@@ -618,6 +618,38 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						draw:1
 					}
 				}
+			},
+			ska_doing_absolutely_nothing:{
+				fullskin:true,
+				type:"trick",
+				enable:true,
+				filterTarget:true,
+				content:function(){
+					target.addTempSkill("ska_doing_absolutely_nothing_skill",{player:"phaseBeginStart"});
+				},
+				ai:{
+					basic:{
+						order:10,
+						value:4,
+						useful:[2,1]
+					},
+					result:{
+						player:function(player,target){
+							var att=get.attitude(player,target);
+							if(target.hp==1&&att<0) return 0;
+							if(game.hasPlayer(function(current){
+								return get.attitude(player,current)<att;
+							})){
+								var num=1;
+								if(target==player.next||target==player.previous){
+									num+=0.5;
+								}
+								return num;
+							}
+							return 0;
+						}
+					}
+				}
 			}
 		},
 		skill:{
@@ -771,6 +803,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			},
 			ska_rise_of_the_block_skill:{
 				charlotte:true,
+				nobracket:true,
 				mark:true,
 				intro:{
 					content:"本回合你受到伤害时，防止此伤害"
@@ -779,6 +812,44 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					trigger.cancel();
+				}
+			},
+			ska_doing_absolutely_nothing_skill:{
+				charlotte:true,
+				nobracket:true,
+				trigger:{player:["damageBegin4","loseHpBefore","recoverBefore"]},
+				forced:true,
+				content:function(){
+					trigger.cancel();
+				},
+				mod:{
+					cardRespondable:function(){
+						return false;
+					},
+					cardEnabled:function(){
+						return false;
+					},
+					cardSavable:function(){
+						return false;
+					},
+					targetEnabled:function(){
+						return false;
+					}
+				},
+				mark:true,
+				intro:{
+					content:"直到回合开始，你不计入距离的计算，不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害"
+				},
+				group:"undist",
+				ai:{
+					nofire:true,
+					nothunder:true,
+					nodamage:true,
+					effect:{
+						target:function(card,player,target){
+							if(get.tag(card,"recover")||get.tag(card,"damage")) return "zeroplayertarget";
+						}
+					}
 				}
 			}
 		},
@@ -804,7 +875,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。",
 			//Food
 			ska_sauce:"酱料",
-			ska_sauce_info:"出牌阶段，对一名已受伤角色使用。目标弃置所有手牌，然后回复1点体力。",
+			ska_sauce_info:"出牌阶段，对一名已受伤角色使用。目标角色弃置所有手牌，然后回复1点体力。",
 			ska_sauce_append:"<span class=\"text\" style=\"font-family: fzktk\">“这里是我的一个……我吃的一些酱料啊。”——超级小桀</span>",
 			//Trick
 			ska_rise_of_the_block:"方块崛起",
@@ -812,8 +883,11 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_rise_of_the_block_append:"<span class=\"text\" style=\"font-family: fzktk\">我们至今不知道为什么Tweek在那次比赛惨败给那个史蒂夫选手。</span>",
 			ska_rise_of_the_block_skill:"方块崛起",
 			ska_rise_of_the_block_skill_info:"本回合你受到伤害时，防止此伤害。",
-			ska_does_nothing:"不动定律",
-			ska_does_nothing_info:"出牌阶段，对一名角色使用。直到目标角色回合开始，其不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。"
+			ska_doing_absolutely_nothing:"不动定律",
+			ska_doing_absolutely_nothing_info:"出牌阶段，对一名角色使用。直到目标角色回合开始，其不计入距离的计算，不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。",
+			ska_doing_absolutely_nothing_append:"<span class=\"text\" style=\"font-family: fzktk\">“路易吉这角色就离谱！”——超级小桀</span>",
+			ska_doing_absolutely_nothing_skill:"不动定律",
+			ska_doing_absolutely_nothing_skill_info:"直到回合开始，你不计入距离的计算，不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。"
 		},
 		list:[
 			/*
@@ -869,7 +943,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["diamond",5,"ska_smash"]
 			*/
 			["club",8,"ska_sauce",null,["sst_reality"]],
-			["diamond",1,"ska_rise_of_the_block",null,["sst_reality"]]
+			["diamond",1,"ska_rise_of_the_block",null,["sst_reality"]],
+			["spade",2,"ska_doing_absolutely_nothing",null,["sst_light"]]
 		]
 	};
 	return sst_sp;

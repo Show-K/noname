@@ -1383,13 +1383,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						for(var i=0;i<cardsp.length;i++){
 							valp+=get.value(cardsp[i]);
 						}
-						valp=valp/cardsp.length;
+						//valp=valp/cardsp.length;
 						var valt=0;
 						var cardst=target.getCards("h");
 						for(var i=0;i<cardst.length;i++){
 							valt+=get.value(cardst[i]);
 						}
-						valt=valt/cardst.length;
+						//valt=valt/cardst.length;
 						return get.sgnAttitude(player,target)*(valp-valt);
 					});
 					"step 1"
@@ -2041,6 +2041,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_quji2:{},
 			//Palutena
 			sst_qiji:{
+				delay:false,
 				enable:"phaseUse",
 				filter:function(event,player){
 					if(player.hasSkill("sst_qiji_turn")){
@@ -3031,14 +3032,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							clone2.delete();
 						}
 					},event.card2);
-					player.$giveAuto(event.card1,event.target);
-					event.target.$giveAuto(event.card2,player);
-					//player.$gain2(event.card2);
-					//event.target.$gain2(event.card1);
-					game.log(player,"从",event.target,"获得了",event.card2);
-					game.log(event.target,"从",player,"获得了",event.card1);
-					event.target.gain(event.card1,player);
-					player.gain(event.card2,event.target);
+					var next=game.loseAsync({
+						player:player,
+						target:event.target,
+						card1:event.card1,
+						card2:event.card2,
+					});
+					next.setContent(function(){
+						target.gain(event.card1,player).set("getlx",false);
+						player.gain(event.card2,target).set("getlx",false);
+						player.$giveAuto(event.card1,target);
+						target.$giveAuto(event.card2,player);
+					})
 					game.broadcastAll(function(){
 						ui.arena.classList.remove("thrownhighlight");
 					});
@@ -3805,7 +3810,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				viewAs:{name:"sha"},
 				viewAsFilter:function(player){
 					if(!player.storage.sst_baozheng) return false;
-					if(!player.countCard("he",function(card){
+					if(!player.countCards("he",function(card){
 						return player.storage.sst_baozheng.contains(card);
 					})) return false;
 				},
@@ -4799,6 +4804,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return card;
 				},
 				filter:function(event,player){
+					if(!player.countCards("hes")) return false;
+					var history=player.getAllHistory("useCard",function(evt){
+						return get.type(evt.card)=="basic"||get.type(evt.card)=="trick";
+					});
+					if(!history||!history.length) return false;
+					var card=Object.assign({},history[history.length-1].card);
+					delete card.isCard;
+					if(get.name(card)=="wuxie"||get.name(card)=="shan") return false;
+					if(player.storage.sst_huanbian.contains(get.name(card))) return false;
 					return event.filterCard(card,player,event);
 				},
 				viewAsFilter:function(player){
@@ -6228,7 +6242,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				popup:false,
-				trigger:{global:["phaseBegin","die"]},
+				trigger:{global:["phaseBeginStart","die"]},
 				filter:function(event,player){
 					return player.storage.sst_douhun_effect_sha.contains(event.player);
 				},
@@ -6495,7 +6509,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				onremove:function(player){
 					player.unmarkAuto("sst_geliao_effect",player.storage.sst_geliao_effect);
 				},
-				trigger:{player:["phaseBegin","die"]},
+				trigger:{player:["phaseBeginStart","die"]},
 				forceDie:true,
 				forced:true,
 				popup:false,
@@ -7284,7 +7298,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return !player.hasSkill("sst_shimo_phase")&&!player.hasSkill("sst_qiebao_phase");
 				},
 				content:function(){
-					player.addTempSkill("sst_duzhi2","phaseBegin");
+					player.addTempSkill("sst_duzhi2","phaseBeginStart");
 				},
 				ai:{
 					neg:true
@@ -7993,7 +8007,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(player.storage.sst_qichang==card) return false;
 					}
 				},
-				trigger:{player:"phaseBegin"},
+				trigger:{player:"phaseBeginStart"},
 				filter:function(event,player){
 					return player.storage.sst_qichang&&player.getCards("e").contains(player.storage.sst_qichang);
 				},
@@ -12040,23 +12054,40 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				init:function(player){
 					player.storage.sst_fenshi=[true,true];
 				},
-				frequent:true,
+				direct:true,
 				trigger:{player:"phaseZhunbeiBegin"},
 				content:function(){
 					"step 0"
 					event.targets=[];
-					player.chooseTarget("焚世：你可以对一名角色造成1点伤害").set("ai",function(target){
+					player.chooseTarget(get.prompt("sst_fenshi"),"你可以对一名角色造成1点伤害").set("ai",function(target){
 						var player=_status.event.player;
 						return get.damageEffect(target,player,player);
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
 						event.targets.push(result.targets[0]);
-						player.line(result.targets,"green");
+						player.logSkill("sst_fenshi",result.targets);
 						result.targets[0].damage(player);
 					}
+					else{
+						event.goto(4);
+					}
 					"step 2"
-					player.chooseTarget("焚世：你可以弃置一名角色两张牌",function(card,player,target){
+					if(player.storage.sst_fenshi[0]&&!event.targets.contains(player)){
+						player.storage.sst_fenshi[0]=false;
+						player.loseMaxHp();
+						game.log(player,"更改了技能","#g【焚世】","的描述");
+						player.popup("更改描述");
+					}
+					"step 3"
+					if(player.storage.sst_fenshi[1]&&event.targets.length>1&&event.targets[0]==event.targets[1]){
+						player.storage.sst_fenshi[1]=false;
+						player.loseMaxHp();
+						game.log(player,"更改了技能","#g【焚世】","的描述");
+						player.popup("更改描述");
+					}
+					"step 4"
+					player.chooseTarget(get.prompt("sst_fenshi"),"你可以弃置一名角色两张牌",function(card,player,target){
 						return target.countCards("he")>1;
 					}).set("ai",function(target){
 						var guohe=function(player,target){
@@ -12090,20 +12121,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						return att*guohe(_status.event.player,target);
 					});
-					"step 3"
+					"step 5"
 					if(result.targets&&result.targets.length){
 						event.targets.push(result.targets[0]);
-						player.line(result.targets,"green");
+						player.logSkill("sst_fenshi",result.targets);
 						player.discardPlayerCard("焚世：弃置"+get.translation(result.targets[0])+"两张牌",result.targets[0],2,"he",true);
 					}
-					"step 4"
+					else{
+						event.finish();
+					}
+					"step 6"
 					if(player.storage.sst_fenshi[0]&&!event.targets.contains(player)){
 						player.storage.sst_fenshi[0]=false;
 						player.loseMaxHp();
 						game.log(player,"更改了技能","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
-					"step 5"
+					"step 7"
 					if(player.storage.sst_fenshi[1]&&event.targets.length>1&&event.targets[0]==event.targets[1]){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
@@ -13661,7 +13695,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_congyun:"丛云",
 			sst_congyun_info:"出牌阶段限一次，你可以视为使用一张【火攻】。",
 			sst_fuzhuo:"祓濯",
-			sst_fuzhuo2:"祓濯",
 			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，视为你依次使用X张火【杀】。（X为你已损失的体力值）",
 			sst_xingjiang:"星降",
 			sst_xingjiang_effect:"星降",
