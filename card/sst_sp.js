@@ -486,7 +486,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					basic:{
-						order:2,
+						order:1,
 						useful:5,
 						value:5
 					},
@@ -601,7 +601,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						target.line(result.targets,"green");
 						target.discardPlayerCard("方块崛起：弃置"+get.translation(result.targets)+"一个区域内的所有牌",result.targets[0],"hej",Infinity,true).set("filterButton",function(button){
 							if(!ui.selected.buttons||!ui.selected.buttons.length) return true;
-							return get.position(button.link)==get.position(ui.selected.buttons[0]);
+							return get.position(button.link)==get.position(ui.selected.buttons[0].link);
 						}).set("complexSelect",true);
 					}
 				},
