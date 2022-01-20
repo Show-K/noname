@@ -12571,7 +12571,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.removeSkill("sst_xingjiang_effect");
 				}
 			},
-			/*
 			sst_fuyuan:{
 				trigger:{global:"phaseJieshuBegin"},
 				filter:function(event,player){
@@ -12641,6 +12640,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 3"
+					if(!player.hasSkill("sst_fuyuan2")) player.addTempSkill("sst_fuyuan2");
 					player.chooseUseTarget(event.card,false);
 				},
 				group:"sst_fuyuan2",
@@ -12648,7 +12648,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.2
 				}
 			},
-			*/
+			/*
 			sst_fuyuan:{
 				trigger:{global:"phaseJieshuBegin"},
 				filter:function(event,player){
@@ -12707,9 +12707,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				group:"sst_fuyuan2"
 			},
+			*/
 			sst_fuyuan2:{
+				charlotte:true,
 				trigger:{player:"useCard1"},
 				forced:true,
+				popup:false,
 				filter:function(event,player){
 					return event.getParent(2).name=="sst_fuyuan"&&!event.card.yingbian&&get.is.yingbian(event.card);
 				},
@@ -13754,9 +13757,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xingjiang_effect:"星降",
 			sst_xingjiang_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌。若这两张牌的：类别相同，你可以弃置场上一张牌；花色相同，你使用下一张带有「伤害」标签的牌伤害值基数+1；点数相同，你可以令一名角色翻面。",
 			sst_fuyuan:"复愿",
-			sst_fuyuan2:"复愿",
-			//sst_fuyuan_info:"一名角色的结束阶段，你可以令一名角色摸X张牌，然后弃置Y张牌。若因此其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌，然后你可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量且至多为7）",
-			sst_fuyuan_info:"一名角色的结束阶段，你可以观看牌堆顶X张牌，然后你可以使用其中体力值张牌（其应变效果直接生效）。（X为你本回合获得和失去牌总数量且至多为七）",
+			//sst_fuyuan2:"复愿",
+			sst_fuyuan_info:"一名角色的结束阶段，你可以令一名角色摸X张牌，然后弃置Y张牌。若因此其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌，然后你可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量且至多为7）",
+			//sst_fuyuan_info:"一名角色的结束阶段，你可以观看牌堆顶X张牌，然后你可以使用其中体力值张牌（其应变效果直接生效）。（X为你本回合获得和失去牌总数量且至多为七）",
 			sst_shangzheng:"商政",
 			sst_shangzheng2:"商政",
 			sst_shangzheng_info:"一名角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",
