@@ -3438,7 +3438,7 @@ content:function(config, pack){
 								}
 							}
 							if (typeof info.init == 'function') info.init();
-							switch (get.subtype(this)) {
+							switch (get.subtype({card:this.name})) {
 								case 'equip1':
 									var added = false;
 									if (lib.card[this.name] && lib.card[this.name].distance) {
@@ -4708,36 +4708,6 @@ content:function(config, pack){
 					
 				}, game.roundNumber, ui.cardPile.childNodes.length, ui.cardPile.firstChild);
 			};
-			
-			game.bossPhaseLoop = function(){
-				game.broadcastAll(function(firstAction){
-					var cur;
-					for (var i = 0; i < game.players.length; i++) {
-						cur = game.players[i];
-						if (!cur.node.seat) cur.node.seat = decadeUI.element.create('seat', cur);
-						cur.node.seat.innerHTML = get.cnNumber(get.distance(firstAction, cur, 'absolute') + 1, true);
-					}
-				}, game.boss);
-				
-				return base.game.bossPhaseLoop.apply(this, arguments);
-			};
-			
-			game.phaseLoop = function(player){
-				game.broadcastAll(function(firstAction){
-					var cur;
-					for (var i = 0; i < game.players.length; i++) {
-						cur = game.players[i];
-						if (!cur.node.seat) cur.node.seat = decadeUI.element.create('seat', cur);
-						
-						cur.seat = get.distance(firstAction, cur, 'absolute') + 1;
-						cur.node.seat.innerHTML = get.cnNumber(cur.seat, true);
-					}
-				}, player);
-				
-				return base.game.phaseLoop.apply(this, arguments);
-			};
-			
-			//lib.config.low_performance = true;
 
 			game.check = function(event){
 				var i, j, range;
@@ -5982,7 +5952,7 @@ content:function(config, pack){
 			    lib.config.glow_phase = '';
 			    initCssstylesFunction.call(this);
 			    lib.config.glow_phase = temp;
-				ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: "' + (lib.config.name_font || 'xinkai') + '", "fzhtk" }', 0);
+				ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: "' + (lib.config.name_font || 'fzhtk') + '", "fzhtk" }', 0);
 			};
 
 			lib.init.layout = function(layout, nosave){
