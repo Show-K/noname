@@ -106,7 +106,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(result.bool&&target.isIn()){
 						var num=result.cards.length,hs=player.getCards('h');
 						if(!hs.length) event.finish();
-						else if(hs.length<num) event._result={bool:true,cards:hs.length};
+						else if(hs.length<num) event._result={bool:true,cards:hs};
 						else player.chooseCard('h',true,num,'交给'+get.translation(target)+get.cnNumber(num)+'张牌');
 					}
 					else event.finish();

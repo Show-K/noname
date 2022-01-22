@@ -599,10 +599,18 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					"step 5"
 					if(result.targets&&result.targets.length){
 						target.line(result.targets,"green");
-						target.discardPlayerCard("方块崛起：弃置"+get.translation(result.targets)+"一个区域内的所有牌",result.targets[0],"hej",Infinity,true).set("filterButton",function(button){
+						target.discardPlayerCard("方块崛起：弃置"+get.translation(result.targets)+"一个区域内的所有牌",result.targets[0],"hej",true).set("filterButton",function(button){
 							if(!ui.selected.buttons||!ui.selected.buttons.length) return true;
 							return get.position(button.link)==get.position(ui.selected.buttons[0].link);
-						}).set("complexSelect",true);
+						}).set("selectButton",function(){
+							if(!ui.selected.buttons||!ui.selected.buttons.length) return 1;
+							var cards=_status.event.targetx.getDiscardableCards(_status.event.player,get.position(ui.selected.buttons[0].link));
+							for(var i=0;i<ui.selected.buttons.length;i++){
+								if(cards.contains(ui.selected.buttons[i].link)) cards.remove(ui.selected.buttons[i].link);
+							}
+							if(!cards.length) return ui.selected.buttons.length;
+							return ui.selected.buttons.length+1;
+						}).set("complexSelect",true).set("targetx",result.targets[0]);
 					}
 				},
 				ai:{
@@ -647,6 +655,62 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 								return num;
 							}
 							return 0;
+						}
+					}
+				}
+			},
+			ska_big_acquisition:{
+				type:"trick",
+				fullskin:true,
+				enable:true,
+				filterTarget:function(card,player,target){
+					return target!=player&&target.countGainableCards(player,"hej")>0;
+				},
+				content:function(){
+					"step 0"
+					player.draw(2);
+					"step 1"
+					event.all_cards=target.getGainableCards(player,"hej");
+					player.gain(event.all_cards,target,"giveAuto","bySelf");
+					"step 2"
+					if(event.all_cards&&event.all_cards.length&&target.isIn()){
+						var num=event.all_cards.length,hs=player.getCards("he");
+						if(!hs.length){
+							event.finish();
+						}
+						else if(hs.length<num){
+							event._result={bool:true,cards:hs};
+						}
+						else{
+							player.chooseCard("he",true,[num,Infinity],"交给"+get.translation(target)+"至少"+get.cnNumber(num)+"张牌").set("ai",get.unuseful);
+						}
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					if(result.bool) target.gain(result.cards,player,"giveAuto");
+				},
+				ai:{
+					basic:{
+						order:7.2,
+						useful:7,
+						value:9.2
+					},
+					tag:{
+						loseCard:1,
+						gain:1
+					},
+					result:{
+						target:function(player,target){
+							if(get.attitude(player,target)<=0) return ((target.countCards("he",function(card){
+								return get.value(card,target)>0&&card!=target.getEquip("jinhe");
+							})>0)?-0.3:0.3)*Math.sqrt(player.countCards("h"));
+							return ((target.countCards("ej",function(card){
+								if(get.position(card)=="e") return get.value(card,target)<=0;
+								var cardj=card.viewAs?{name:card.viewAs}:card;
+								return get.effect(target,cardj,target,player)<0;
+							})>0)?1.5:-0.3)*Math.sqrt(player.countCards("h"));
 						}
 					}
 				}
@@ -882,12 +946,13 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_rise_of_the_block_info:"出牌阶段，对包含你在内的一名角色使用。目标角色声明一种类别，然后从牌堆顶亮出体力值张牌并获得此类别牌中一张，若其以此法获得牌，其可以弃置一名角色区域内所有牌。本回合目标受到伤害时，防止此伤害。",
 			ska_rise_of_the_block_append:"<span class=\"text\" style=\"font-family: fzktk\">我们至今不知道为什么Tweek在那次比赛惨败给那个史蒂夫选手。</span>",
 			ska_rise_of_the_block_skill:"方块崛起",
-			ska_rise_of_the_block_skill_info:"本回合你受到伤害时，防止此伤害。",
 			ska_doing_absolutely_nothing:"不动定律",
 			ska_doing_absolutely_nothing_info:"出牌阶段，对一名角色使用。直到目标角色回合开始，其不计入距离的计算，不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。",
 			ska_doing_absolutely_nothing_append:"<span class=\"text\" style=\"font-family: fzktk\">“路易吉这角色就离谱！”——超级小桀</span>",
 			ska_doing_absolutely_nothing_skill:"不动定律",
-			ska_doing_absolutely_nothing_skill_info:"直到回合开始，你不计入距离的计算，不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。"
+			ska_big_acquisition:"大收购",
+			ska_big_acquisition_info:"出牌阶段，对一名区域内有可获得牌的其他角色使用。你摸两张牌，获得目标角色区域内所有牌，然后交给其至少等量牌。",
+			ska_big_acquisition_append:"<span class=\"text\" style=\"font-family: fzktk\">Microsoft怎么就这么有钱呢！</span>"
 		},
 		list:[
 			/*
@@ -944,7 +1009,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			*/
 			["club",8,"ska_sauce",null,["sst_reality"]],
 			["diamond",1,"ska_rise_of_the_block",null,["sst_smash"]],
-			["spade",2,"ska_doing_absolutely_nothing",null,["sst_light"]]
+			["spade",2,"ska_doing_absolutely_nothing",null,["sst_light"]],
+			["diamond",13,"ska_big_acquisition",null,["sst_reality"]]
 		]
 	};
 	return sst_sp;

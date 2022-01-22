@@ -1590,7 +1590,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					player.storage.sst_yinjie.remove(trigger.player);
 					if(trigger.player.isAlive()){
-						player.gain(trigger.player.getGainableCards(player,"he"),trigger.player,"giveAuto");
+						player.gain(trigger.player.getGainableCards(player,"he"),trigger.player,"giveAuto","bySelf");
 					}
 				}
 			},
@@ -1960,8 +1960,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					//game.log("收益：",effect);
-					var info=["###"+get.prompt("sst_quji",trigger.player)+"###你可以弃置牌堆顶或手牌中的一张花色与"+get.translation(trigger.card)+"相同的牌，取消之"];
-					if(get.itemtype(_status.pileTop)=="card"){
+					var suit=get.suit(trigger.card);
+					var info=["###"+get.prompt("sst_quji",trigger.player)+(suit?"（"+get.translation(suit)+"）":"")+"###你可以弃置牌堆顶或手牌中的一张花色与"+get.translation(trigger.card)+"相同的牌"+(suit?"（"+get.translation(suit)+"）":"")+"，取消之"];
+					if(get.itemtype(_status.pileTop)=="card"&&lib.filter.cardDiscardable(_status.pileTop,player)){
 						info.push("<div class=\"text center\">牌堆顶的牌</div>");
 						//var top=get.cards();
 						event.card=_status.pileTop;
@@ -2327,7 +2328,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.cards.remove(result.links[i]);
 						}
 						event.togive=result.links.slice(0);
-						player.chooseTarget("将"+get.translation(result.links)+"交给一名其他角色",true,function(card,player,target){
+						player.chooseTarget("将"+get.translation(result.links)+"分配给一名其他角色",true,function(card,player,target){
 							return player!=target;
 						}).set("ai",function(target){
 							var att=get.attitude(_status.event.player,target);
@@ -3228,8 +3229,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_shenjiao",result.targets);
-						result.targets[0].gain(event.cards,"gain2");
-						//game.log(result.targets[0],"获得了"+event.togive);
+						result.targets[0].gain(event.cards,player,"gain2");
 						if(trigger.getParent().name=="sst_potian"){
 							result.targets[0].storage.sst_shenjiao_effect=player;
 							if(!player.hasSkill("sst_shenjiao_effect")) result.targets[0].addTempSkill("sst_shenjiao_effect",{player:"phaseBegin"});
@@ -8039,7 +8039,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					if(player.storage.sst_qichang) event.qichang=player.storage.sst_qichang;
+					//if(player.storage.sst_qichang) event.qichang=player.storage.sst_qichang;
 					if(trigger.player==player){
 						player.chooseTarget(get.prompt("sst_shizhu"),"你可以令一名其他角色弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用",function(card,player,target){
 							return target!=player;
@@ -8077,7 +8077,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(result.cards&&result.cards.length) event.cards=event.cards.concat(result.cards);
 					}
 					event.cards=event.cards.concat(trigger.cards);
-					if(event.qichang) event.cards.remove(event.qichang);
+					//if(event.qichang) event.cards.remove(event.qichang);
 					event.cards=event.cards.filterInD("d");
 					"step 3"
 					player.chooseCardButton("拾珠：选择一张牌",event.cards).set("filterButton",function(button){
@@ -8984,7 +8984,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					player.gain(trigger.target.getGainableCards(player,"h",{color:"red"}),trigger.target,"giveAuto");
+					player.gain(trigger.target.getGainableCards(player,"h",{color:"red"}),trigger.target,"giveAuto","bySelf");
 				}
 			},
 			sst_fanni:{
@@ -11299,7 +11299,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(trigger.respondTo){
 						var respond=trigger.respondTo[1];
-						if(respond&&respond.cards&&respond.cards.filterInD("od").length>0) player.gain(respond.cards.filterInD("od"),"log","gain2");
+						if(respond&&respond.cards&&respond.cards.filterInD("od").length>0) player.gain(respond.cards.filterInD("od"),"log","gain2","bySelf");
 					}
 				}
 			},
@@ -11649,7 +11649,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.winner){
 						event.winner=result.winner;
-						event.winner.gain(event.winner==player?result.target:result.player,"gain2");
+						event.winner.gain(event.winner==player?result.target:result.player,"gain2","bySelf");
 					}
 					"step 2"
 					if(event.winner!=player){
