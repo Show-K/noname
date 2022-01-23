@@ -1951,7 +1951,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				contentx:function(){
 					var card=lib.skill.ska_zhesheng_backup.cards[0];
-					targets[0].$throw(card);
+					//targets[0].$throw(card);
 					_status.renku.remove(card);
 					game.updateRenku();
 					targets[0].useCard(card,targets[1],false,"noai");
