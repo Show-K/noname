@@ -224,11 +224,10 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					expose:0.2,
 					damage:true,
 					result:{
-						target:function(player){
-							if(!player.storage.sst_aegises_skill) return -1;
+						player:function(player,target){
+							if(!player.storage.sst_aegises_skill) return -get.attitude(player,target)/2;
 							return 1;
-						},
-						player:1
+						}
 					}
 				}
 			}

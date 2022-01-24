@@ -1408,6 +1408,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:["ska_juegu_sha","ska_juegu_shan"],
 				subSkill:{
 					sha:{
+						ignoreMod:true,
 						enable:["chooseToUse","chooseToRespond"],
 						viewAs:{name:"sha",isCard:true},
 						filterCard:true,
@@ -1435,6 +1436,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					shan:{
+						ignoreMod:true,
 						enable:["chooseToUse","chooseToRespond"],
 						viewAs:{name:"shan",isCard:true},
 						filterCard:true,
@@ -2066,6 +2068,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			mnm_huaijiu:{
 				derivation:"mnm_huaijiu_faq",
+				unique:true,
 				direct:true,
 				trigger:{player:"phaseZhunbeiBegin"},
 				content:function(){

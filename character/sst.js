@@ -2789,6 +2789,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_yujun:{
+				derivation:"sst_yujun_detail",
 				unique:true,
 				zhuSkill:true,
 				global:["sst_yujun1","sst_yujun2"]
@@ -2854,7 +2855,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(result.targets&&result.targets.length){
 						event.request=result.targets[0];
-						game.log(player,"请求",event.request,"发动技能","#g【驭军】","（对",trigger.targets,"）");
+						game.log(player,"请求",event.request,"允许发动技能","#g【驭军】","（对",trigger.targets,"）");
 						player.line(event.request,"green");
 						event.request.chooseControl("允许","拒绝").set("prompt","驭军：是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(trigger.targets)+"使用？").set("ai",function(){
 							var player=_status.event.player;
@@ -2872,11 +2873,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 3"
 					if(result.control=="允许"){
-						event.request.logSkill("sst_yujun");
-						player.choosePlayerCard("驭军：你可以将"+get.translation(event.request)+"的一张手牌当作【杀】使用（对"+get.translation(trigger.targets)+"）",event.request,"h").set("ai",function(button){
+						//event.request.logSkill("sst_yujun");
+						player.choosePlayerCard("驭军：你可以将"+get.translation(event.request)+"的一张手牌当作【杀】使用（对"+get.translation(trigger.targets)+"）",event.request,"h","visible").set("ai",function(button){
 							var val=get.buttonValue(button);
 							if(get.attitude(_status.event.player,get.owner(button.link))>0) return 10-val;
 							return val;
+						}).set("filterButton",function(button){
+							var player=_status.event.target;
+							var card=button.link;
+							var mod2=game.checkMod(card,player,"unchanged","cardEnabled2",player);
+							if(mod2!="unchanged") return mod2;
+							var mod=game.checkMod(card,player,"unchanged","cardRespondable",player);
+							if(mod!="unchanged") return mod;
+							return true;
 						});
 					}
 					else{
@@ -2889,9 +2898,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 4"
 					if(result.cards&&result.cards.length){
+						event.request.respond(result.cards,"noOrdering");
 						trigger.cards=result.cards;
 						trigger.card.cards=result.cards.slice(0);
-						event.request.lose(result.cards,ui.special);
+						trigger.throw=false;
+						/*
+						var next=game.createEvent("sst_yujun_use");
+						event.next.remove(next);
+						trigger.next.push(next);
+						next.set("player",event.request);
+						next.set("cards",result.cards);
+						next.setContent(function(){
+							player.lose(cards,ui.ordering).set("type","use");
+							player.$throw(cards);
+						});
+						*/
+						//event.request.lose(result.cards,ui.special);
 						//player.$throw(result.cards);
 					}
 				}
@@ -5257,10 +5279,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.current.chooseToUse("霸岛：是否以"+get.translation(player)+"为目标使用一张基本牌？").set("filterTarget",function(card,player,target){
 								if(target!=_status.event.targetx) return false;
 								return lib.filter.targetEnabled3.apply(this,arguments);
-							}).set("filterCard",function(card){
+							}).set("filterCard",function(card,player){
 								if(get.type(card)!="basic") return false;
-								//return lib.filter.filterCard.apply(this,arguments);
-								return true;
+								return lib.filter.cardEnabled(card,player,"forceEnable");
+								//return true;
 							}).set("targetx",player);
 							/*
 							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
@@ -5656,7 +5678,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){//trigger.source
 					var target=trigger.source;
-					var skills=player.getSkills();
+					var skills=player.skills.slice(0);
 					for(var i=0;i<skills.length;i++){
 						var info=get.info(skills[i]);
 						if(!info.charlotte&&!info.superCharlotte) target.addSkillLog(skills[i]);
@@ -6397,17 +6419,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				init:function(player){
 					if(!player.hasSkill("sst_suxing2")) player.addSkill("sst_suxing2");
 				},
-				onremove:function(player){
-					if(!player.hasSkill("sst_suxing_effect")) player.storage.sst_suxing=false;
-				},
 				trigger:{global:"roundStart"},
 				forced:true,
 				filter:function(event,player){
-					return player.storage.sst_suxing;
+					return typeof player.storage.sst_suxing_enable=="number"&&game.roundNumber-player.storage.sst_suxing_enable==1;
 				},
 				content:function(){
-					player.storage.sst_suxing=false;
-					player.storage.sst_suxing_used=true;
+					player.storage.sst_suxing=true;
 					var next=player.phase("sst_suxing");
 					event.next.remove(next);
 					trigger.next.push(next);
@@ -6424,14 +6442,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				silent:true,
 				content:function(){
-					if(!player.hasSkill("sst_suxing_effect")) player.addTempSkill("sst_suxing_effect","roundStart");
-				}
-			},
-			sst_suxing_effect:{
-				charlotte:true,
-				superCharlotte:true,
-				init:function(player){
-					player.storage.sst_suxing=true;
+					player.storage.sst_suxing_enable=game.roundNumber;
 				}
 			},
 			sst_shengyi:{
@@ -6442,7 +6453,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				derivation:["sst_hanmang","sst_cuifeng"],
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return player.storage.sst_suxing_used&&!player.storage.sst_shengyi;
+					return player.storage.sst_suxing&&!player.storage.sst_shengyi;
 				},
 				forced:true,
 				//priority:3,
@@ -9461,8 +9472,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var next=game.createEvent("sst_liaoyi_clear");
 						event.next.remove(next);
 						trigger.after.push(next);
-						next.player=event.current;
-						next.target=player;
+						next.set("player",event.current);
+						next.set("target",player);
 						next.setContent(function(){
 							player.gainPlayerCard("聊依：获得"+get.translation(target)+"一张牌",target,"he",true);
 						});
@@ -9579,6 +9590,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Snake
 			sst_qianlong:{
+				ignoreMod:true,
 				enable:"phaseUse",
 				usable:1,
 				filterCard:true,
@@ -9621,8 +9633,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.cards=trigger.cards;
 					trigger.cards=[];
 					trigger.throw=false;
-					player.lose(event.cards,ui.special);
-					player.$throw(1);
+					var next=game.createEvent("sst_qianlong_use");
+					event.next.remove(next);
+					trigger.next.push(next);
+					next.set("player",player);
+					next.set("cards",event.cards);
+					next.setContent(function(){
+						player.lose(cards,ui.special).set("type","use");
+						player.$throw(cards.length);
+					});
+					//player.lose(event.cards,ui.special);
+					//player.$throw(1);
 					"step 1"
 					if(!trigger.sst_qianlong){
 						trigger.set("sst_qianlong",true);
@@ -11738,7 +11759,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.winner){
 						event.winner=result.winner;
-						event.winner.gain(event.winner==player?result.target:result.player,"gain2","bySelf");
+						event.winner.gain(event.winner==player?result.target:result.player,"gain2");
 					}
 					"step 2"
 					if(event.winner!=player){
@@ -11865,11 +11886,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.2,
 					damage:true,
 					result:{
-						target:function(player){
-							if(!player.storage.sst_xuanyi) return -1;
+						player:function(player,target){
+							if(!player.storage.sst_xuanyi) return -get.attitude(player,target)/2;
 							return 1;
-						},
-						player:1
+						}
 					}
 				}
 			},
@@ -12274,11 +12294,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.target.chooseControl().set("ai",function(){
 						var player=_status.event.player;
 						if(player.isTurnedOver()) return 1;
-						if(player.hp>3||player.hp==1) return 0;
+						if(player.hp>4||player.hp==1) return 0;
 						return 1;
 					}).set("choiceList",["失去一半体力（向下取整）","翻面"]).set("prompt","星堕：选择一项");
 					"step 4"
-					if(result.index!=undefined){
+					if(typeof result.index=="number"){
 						switch(result.index){
 							case 0:{
 								if(Math.floor(event.target.hp/2)) event.target.loseHp(Math.floor(event.target.hp/2));
@@ -13419,7 +13439,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yujun1:"驭军",
 			sst_yujun2:"驭军",
 			sst_yujun_info:"主公技，本势力角色需要使用【杀】时，经你允许后，其可以将你的一张手牌当作【杀】使用。",
-			sst_yujun1_info:"经拥有〖驭军〗的角色允许后，你可以将其一张手牌当作【杀】使用。",
+			sst_yujun_detail:"驭军",
+			sst_yujun_detail_info:"主公技，本势力角色需要使用【杀】时，经你允许后，其观看你的手牌，然后可以选择你一张手牌并由你打出，其将此牌当作【杀】使用。",
 			sst_hongyan:"红颜",
 			sst_hongyan_info:"锁定技，你区域内的♠牌和♠判定牌均视为♥。",
 			sst_yice:"议策",
