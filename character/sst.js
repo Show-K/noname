@@ -7052,6 +7052,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(name) return {name:name};
 					return null;
 				},
+				filterTarget:function(){
+					return lib.filter.targetEnabled.apply(this,arguments);
+				},
 				filterCard:function(){return false;},
 				selectCard:-1,
 				filter:function(event,player){
@@ -9137,7 +9140,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					event.num--;
 					if(event.num>=0){
-						player.chooseUseTarget("反逆：视为使用一张【杀】（剩余"+event.num+"次）",{name:"sha",isCard:true},true,false);
+						player.chooseUseTarget("反逆：视为使用一张【杀】（剩余"+event.num+"次）",{name:"sha",isCard:true},"nodistance",true,false);
 						event.redo();
 					}
 				},
@@ -9429,6 +9432,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					"step 0"
+					trigger.card.cards.length=0;
+					trigger.cards.length=0;
 					delete trigger.skill;
 					trigger.getParent().set("sst_liaoyi",true);
 					"step 1"
@@ -9462,8 +9467,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 4"
 					if(result.card){
-						trigger.card=result.card;
-						trigger.cards=result.cards;
+						//trigger.card=result.card;
+						//trigger.cards=result.cards;
 						trigger.throw=false;
 						if(typeof event.current.ai.shown=="number"&&event.current.ai.shown<0.95){
 							event.current.ai.shown+=0.3;
@@ -9498,6 +9503,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				position:"he",
 				viewAs:{name:"sha"},
+				filterTarget:function(){
+					return lib.filter.targetEnabled.apply(this,arguments);
+				},
 				filterCard:function(card){
 					return get.name(card)=="sha";
 				},
@@ -11069,7 +11077,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//lib.translate[get.name(event.card)+"_tag"]=get.translation(event.card);
 						player.loseToSpecial(cards,"sst_qiaoqi",target);
 						player.popup(get.name(event.card),"wood");
-						game.log(player,"将此牌扣置于",event.card,"上");
+						game.log(player,"将一张牌扣置于",event.card,"上");
 						player.$give(1,target,false);
 					}
 					else{
@@ -11666,7 +11674,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juao_effect:{
 				charlotte:true,
 				intro:{
-					content:"此次摸了#张牌"
+					content:"此次摸了&张牌"
 				},
 				onremove:function(player){
 					player.removeMark("sst_juao_effect",player.countMark("sst_juao_effect"),false);
@@ -12472,7 +12480,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					event.num--;
 					if(event.num>=0){
-						player.chooseUseTarget("祓濯：视为使用一张火【杀】（剩余"+event.num+"次）",{name:"sha",nature:"fire",isCard:true},true,false);
+						player.chooseUseTarget("祓濯：视为使用一张火【杀】（剩余"+event.num+"次）",{name:"sha",nature:"fire",isCard:true},"nodistance",true,false);
 						event.redo();
 					}
 				}
