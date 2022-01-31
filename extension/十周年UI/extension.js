@@ -9707,7 +9707,7 @@ config:{
 	},
 	borderLevel:{
 		name: '玩家边框等阶',
-        init: 'five',
+        init: 'one',
         item:{
             one:'一阶',
 			two:'二阶',
