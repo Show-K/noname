@@ -13706,9 +13706,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						_status.cardtag["zhinang_tricks"].push(card.cardid);
 						player.gain(card,"gain2");
 						card._destroy=true;
-						game.broadcast(function(card){
-							card._destroy=true;
-						},card);
 					}
 				},
 				ai:{
