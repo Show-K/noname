@@ -13401,7 +13401,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_wenxin:{
 				init:function(player){
-					player.storage.sst_wenxin=[];
+					player.storage.sst_wenxin_record=[];
 				},
 				dutySkill:true,
 				direct:true,
@@ -13410,18 +13410,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return player.countCards("h",function(card){
 						return lib.filter.cardDiscardable(card,player);
 					})&&game.countPlayer(function(current){
-						return current.countCards('ej');
+						return current.countCards('ej',function(card){
+							if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
+							return true;
+						});
 					});
 				},
 				content:function(){
 					"step 0"
 					var num=game.countPlayer(function(current){
+						if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
 						return current.countCards('ej');
 					});
 					player.chooseToDiscard(get.prompt2("sst_wenxin"),[1,num]).set("ai",function(card){
 						var selected=(ui.selected.cards&&ui.selected.cards.length)?ui.selected.cards.length:0;
 						var num=game.countPlayer(function(current){
 							return current.countCards("ej",function(card){
+								if(_status.event.player.storage.sst_wenxin_alter&&get.color(card)!="red") return false;
 								var fieldValue=function(card){
 									var player=get.owner(card);
 									if(!player) player=_status.event.player;
@@ -13479,202 +13484,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					event.num--;
 					if(event.num>=0){
-						player.chooseTarget("问心：弃置场上的一张牌（剩余"+get.cnNumber(event.num)+"张）",true,function(card,player,target){
-							return target.countDiscardableCards(player,"ej");
-						}).set("ai",function(target){
-							var guohe=function(player,target){
-								var att=get.attitude(player,target);
-								if(att>0){
-									if(target.countCards("j",function(card){
-										var cardj=card.viewAs?{name:card.viewAs}:card;
-										return get.effect(target,cardj,target,player)<0;
-									})>0) return 3;
-									if(target.getEquip("baiyin")&&target.isDamaged()&&
-										get.recoverEffect(target,player,player)>0){
-										if(target.hp==1&&!target.hujia) return 1.6;
-									}
-									if(target.countCards("e",function(card){
-										if(get.position(card)=="e") return get.value(card,target)<0;
-									})>0) return 1;
-								}
-								var es=target.getCards("e");
-								var noe=(es.length==0||target.hasSkillTag("noe"));
-								var noe2=(es.filter(function(esx){
-									return get.value(esx,target)>0;
-								}).length==0);
-								if(noe||noe2) return 0;
-								if(att<=0&&!target.countCards("e")) return 1.5;
-								return -1.5;
-							};
-							var player=_status.event.player;
-							var att=get.attitude(player,target);
-							if(att<0){
-								att=-Math.sqrt(-att);
-							}
-							else{
-								att=Math.sqrt(att);
-							}
-							return att*guohe(player,target);
-						});
-					}
-					else{
-						event.goto(5);
-					}
-					"step 3"
-					if(result.targets&&result.targets.length){
-						player.line(result.targets,"green");
-						player.discardPlayerCard("问心：弃置"+get.translation(result.targets[0])+"场上一张牌",result.targets[0],"ej",true);
-					}
-					"step 4"
-					if(result.cards&&result.cards.length&&get.color(result.cards[0])=="black") event.black++;
-					event.goto(2);
-					"step 5"
-					player.showHandcards();
-					if(player.countCards()&&!player.countCards("h",function(card){
-						return get.color(card)!="red";
-					})) event.red=true;
-					"step 6"
-					if(event.black) player.draw(event.black);
-					"step 7"
-					player.storage.sst_wenxin.push(event.red?true:false);
-					var goon=true;
-					for(var i=0;i<player.storage.sst_wenxin.length;i++){
-						if(player.storage.sst_wenxin[i]){
-							for(var j=i+1;j<player.storage.sst_wenxin.length;j++){
-								if(player.storage.sst_wenxin[j]){
-									event.trigger("dutySkillAchieve");
-									goon=false;
-									break;
-								}
-							}
-						}
-						if(!goon) break;
-					}
-					if(goon&&player.storage.sst_wenxin.length>=3) event.trigger("dutySkillFail");
-				},
-				group:["sst_wenxin_achieve","sst_wenxin_fail"],
-				subSkill:{
-					achieve:{
-						forced:true,
-						trigger:{player:"dutySkillAchieve"},
-						skillAnimation:true,
-						animationColor:"fire",
-						content:function(){
-							"step 0"
-							game.log(player,"成功完成使命");
-							player.awakenSkill("sst_wenxin");
-							player.addSkill("sst_wenxin_alter");
-							player.addSkill("sst_wenxin_effect");
-						}
-					},
-					fail:{
-						forced:true,
-						trigger:{player:"dutySkillFail"},
-						content:function(){
-							"step 0"
-							game.log(player,"使命失败");
-							player.awakenSkill("sst_wenxin");
-							player.addSkill("sst_wenxin_alter");
-							player.storage.sst_wenxin_alter=true;
-						}
-					}
-				}
-			},
-			sst_wenxin_effect:{
-				charlotte:true,
-				mark:true,
-				intro:{
-					content:"你取消弃牌阶段"
-				},
-				forced:true,
-				trigger:{player:"phaseDiscardBefore"},
-				content:function(){
-					trigger.cancel();
-				}
-			},
-			sst_wenxin_alter:{
-				direct:true,
-				trigger:{player:"phaseJieshuBegin"},
-				filter:function(event,player){
-					return player.countCards("h",function(card){
-						return lib.filter.cardDiscardable(card,player);
-					})&&game.countPlayer(function(current){
-						return current.countCards('ej',function(card){
-							if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
-							return true;
-						});
-					});
-				},
-				content:function(){
-					"step 0"
-					var num=game.countPlayer(function(current){
-						return current.countCards('ej',function(card){
-							if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
-							return true;
-						});
-					});
-					player.chooseToDiscard(get.prompt2("sst_wenxin_alter"),[1,num]).set("ai",function(card){
-						var selected=(ui.selected.cards&&ui.selected.cards.length)?ui.selected.cards.length:0;
-						var num=game.countPlayer(function(current){
-							return current.countCards("ej",function(card){
-								var fieldValue=function(card){
-									var player=get.owner(card);
-									if(!player) player=_status.event.player;
-									if(player.getCards('j').contains(card)){
-										var efff=get.effect(player,{
-											name:card.viewAs||card.name,
-											cards:[card],
-										},player,player);
-										if(efff>0) return 0.5;
-										if(efff==0) return 0;
-										return -1.5;
-									}
-									if(player.getCards('e').contains(card)){
-										var evalue=get.value(card,player);
-										if(player.hasSkillTag('noe')){
-											if(evalue>=7){
-												return evalue/6;
-											}
-											return evalue/10;
-										}
-										return evalue/3;
-									}
-									if(player.hasSkillTag('noh')) return 0.1;
-									var nh=player.countCards('h');
-									switch(nh){
-										case 1:return 2;
-										case 2:return 1.6;
-										case 3:return 1;
-										case 4:return 0.8;
-										case 5:return 0.6;
-										default:return 0.4;
-									}
-								};
-								var val=fieldValue(card);
-								if(get.attitude(_status.event.player,get.owner(card))>0) return -val>0;
-								return val>0;
-							});
-						});
-						if(selected>=num) return 0;
-						var val=5-get.useful(card);
-						if(get.color(card)=="black") val+=3;
-						return val;
-					}).set("logSkill","sst_wenxin_alter");
-					"step 1"
-					if(result.cards&&result.cards.length){
-						event.num=result.cards.length;
-						event.black=0;
-						for(var i=0;i<result.cards.length;i++){
-							if(get.color(result.cards[i])=="black") event.black++;
-						}
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					event.num--;
-					if(event.num>=0){
-						player.chooseTarget("问心：弃置场上的一张牌（剩余"+get.cnNumber(event.num)+"张）",true,function(card,player,target){
+						player.chooseTarget("问心：弃置场上的一张"+(player.storage.sst_wenxin_alter?"红色":"")+"牌（剩余"+get.cnNumber(event.num)+"张）",true,function(card,player,target){
 							return target.countDiscardableCards(player,"ej",function(card){
 								if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
 								return true;
@@ -13740,8 +13550,75 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.goto(2);
 					"step 5"
 					player.showHandcards();
+					if(!player.storage.sst_wenxin&&player.countCards()&&!player.countCards("h",function(card){
+						return get.color(card)!="red";
+					})) event.red=true;
 					"step 6"
 					if(event.black) player.draw(event.black);
+					if(player.storage.sst_wenxin) event.finish();
+					"step 7"
+					player.storage.sst_wenxin_record.push(event.red?true:false);
+					var goon=true;
+					for(var i=0;i<player.storage.sst_wenxin_record.length;i++){
+						if(player.storage.sst_wenxin_record[i]){
+							for(var j=i+1;j<player.storage.sst_wenxin_record.length;j++){
+								if(player.storage.sst_wenxin_record[j]){
+									event.trigger("dutySkillAchieve");
+									goon=false;
+									break;
+								}
+							}
+						}
+						if(!goon) break;
+					}
+					if(goon&&player.storage.sst_wenxin_record.length>=3) event.trigger("dutySkillFail");
+				},
+				group:["sst_wenxin_achieve","sst_wenxin_fail"],
+				subSkill:{
+					achieve:{
+						forced:true,
+						trigger:{player:"dutySkillAchieve"},
+						filter:function(event,player){
+							return event.name=="sst_wenxin";
+						},
+						skillAnimation:true,
+						animationColor:"fire",
+						content:function(){
+							"step 0"
+							game.log(player,"成功完成使命");
+							//player.awakenSkill("sst_wenxin");
+							//player.addSkill("sst_wenxin_alter");
+							player.storage.sst_wenxin=true;
+							player.addSkill("sst_wenxin_effect");
+						}
+					},
+					fail:{
+						forced:true,
+						trigger:{player:"dutySkillFail"},
+						filter:function(event,player){
+							return event.name=="sst_wenxin";
+						},
+						content:function(){
+							"step 0"
+							game.log(player,"使命失败");
+							//player.awakenSkill("sst_wenxin");
+							//player.addSkill("sst_wenxin_alter");
+							player.storage.sst_wenxin=true;
+							player.storage.sst_wenxin_alter=true;
+						}
+					}
+				}
+			},
+			sst_wenxin_effect:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"你取消弃牌阶段"
+				},
+				forced:true,
+				trigger:{player:"phaseDiscardBefore"},
+				content:function(){
+					trigger.cancel();
 				}
 			}
 		},
@@ -13819,9 +13696,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				if(player.storage.sst_fenshi[1]) str+="<span class=\"bluetext\">｛若你一回合两次指定了同一名角色，你减1点体力上限并删除此内容。｝</span>";
 				return str;
 			},
-			sst_wenxin_alter:function(player){
-				if(player.storage.sst_wenxin_alter) return "结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的红色牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。";
-				return "结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。";
+			sst_wenxin:function(player){
+				if(player.storage.sst_wenxin){
+					if(player.storage.sst_wenxin_alter) return "结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的红色牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。";
+					return "结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。";
+				}
+				return "使命技。①结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。②使命：若以此法连续两次展示的手牌均为红色，此技能改为非使命技，你取消弃牌阶段。③失败：以此法展示三次手牌后，此技能改为非使命技，“场上等量的牌”改为“场上等量的红色牌”。";
 			}
 		},
 		/*
@@ -14483,8 +14363,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_wenxin:"问心",
 			sst_wenxin_info:"使命技。①结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。②使命：若以此法连续两次展示的手牌均为红色，此技能改为非使命技，你取消弃牌阶段。③失败：以此法展示三次手牌后，此技能改为非使命技，“场上等量的牌”改为“场上等量的红色牌”。",
 			sst_wenxin_effect:"问心",
-			sst_wenxin_alter:"问心",
-			sst_wenxin_alter_info:"结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。",
 			//Character Sort
 			sst_64:"64",
 			sst_melee:"Melee",
