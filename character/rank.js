@@ -75,7 +75,7 @@ window.noname_character_rank={
 			"ska_show_k",
 			"sst_isabelle",
 			"sst_little_mac",
-			"sst_young_link"
+			"sst_ness"
 		],
 		rare:[
 			"sst_mario",
@@ -133,7 +133,9 @@ window.noname_character_rank={
 			"sst_pauline",
 			"sst_captain_falcon",
 			"mnm_captain_falcon",
-			"mnm_9_volt_18_volt"
+			"mnm_9_volt_18_volt",
+			"sst_young_link",
+			"sst_kazuya"
 		],
 		junk:[
 			"sst_yoshi",

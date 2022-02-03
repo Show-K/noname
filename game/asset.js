@@ -110,6 +110,11 @@ window.noname_asset_list=[
 	'image/character/sst_pauline.png',
 	'image/character/sst_dr_wily.png',
 	'image/character/sst_9_volt_18_volt.png',
+	'image/character/sst_kazuya.png',
+	'image/character/sst_ness.png',
+	'image/character/sst_robin.png',
+	'image/character/sst_robin_male.png',
+	'image/character/sst_robin_female.png',
 
 	'image/character/sst_claude.png',
 	'image/character/ymk_isabelle.png',
