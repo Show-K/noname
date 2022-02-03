@@ -6956,56 +6956,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					expose:0.2
-					/*
-					effect:{
-						player:function(card,player){
-							if(get.color(card)!="red"&&player.countCards("h"),{color:"red"}) return [1,-1];
-						},
-					},
-					*/
 				}
 			},
 			sst_chuanxiao:{
 				trigger:{global:"roundStart"},
 				forced:true,
 				filter:function(event,player){
-					//return player.storage.sst_chixing_red;
 					var history=player.getAllHistory("useCard");
 					if(!history||!history.length) return false;
 					var card=history[history.length-1].card;
-					//game.log(card);
-					//game.log(get.translation(get.name(event.card)),get.translation(get.name(event.card)).length);
-					//game.log(get.translation(get.name(card)),get.translation(get.name(card)).length);
 					return get.color(card)=="red";
 				},
 				content:function(){
 					if(!player.storage.sst_chixing) player.storage.sst_chixing=1;
 					player.storage.sst_chixing++;
-					/*
-					game.broadcastAll(function(player){
-						lib.translate["sst_chixing_info"]="你使用的最后一张牌为红色的回合结束后，你可以令至多｛"+player.storage.sst_chixing+"｝名角色将手牌数调整到与你另外指定的一名角色相等。";
-					},player);
-					*/
-					//player.storage.sst_chixing_red=false;
 				},
-				/*
-				group:["sst_chuanxiao_red"],
-				subSkill:{
-					red:{
-						trigger:{player:"phaseAfter"},
-						filter:function(event,player){
-							var evt=player.getLastUsed();
-							if(!evt) return false;
-							var color=get.color(evt.card);
-							return color=="red";
-						},
-						silent:true,
-						content:function(){
-							player.storage.sst_chixing_red=true;
-						}
-					}
-				},
-				*/
 				ai:{
 					combo:"sst_chixing"
 				}
@@ -7239,7 +7204,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseTarget(get.prompt2("sst_guaibi"),function(card,player,target){
+					player.chooseTarget(get.prompt("sst_guaibi"),get.skillInfoTranslation("sst_guaibi",player),function(card,player,target){
 						return target.countCards("he")>=2;
 					}).set("ai",function(target){
 						var player=_status.event.player;
@@ -13422,7 +13387,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
 						return current.countCards('ej');
 					});
-					player.chooseToDiscard(get.prompt2("sst_wenxin"),[1,num]).set("ai",function(card){
+					player.chooseToDiscard(get.prompt("sst_wenxin"),get.skillInfoTranslation("sst_wenxin",player),[1,num]).set("ai",function(card){
 						var selected=(ui.selected.cards&&ui.selected.cards.length)?ui.selected.cards.length:0;
 						var num=game.countPlayer(function(current){
 							return current.countCards("ej",function(card){
