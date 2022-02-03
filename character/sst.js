@@ -13669,12 +13669,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.control=="选项二"||event.control=="背水！"){
 						var name=get.zhinangs().randomGet();
 						var suit=lib.suit.randomGet();
-						var card=game.createCard(name,suit,get.rand(1,13));
-						game.broadcastAll(function(card){
-							if(!_status.cardtag) _status.cardtag={};
-							if(!_status.cardtag["zhinang_tricks"]) _status.cardtag["zhinang_tricks"]=[];
-							_status.cardtag["zhinang_tricks"].add(card.cardid);
-						},card);
+						var card=game.createCard(name);
+						if(!_status.cardtag) _status.cardtag={};
+						if(!_status.cardtag["zhinang_tricks"]) _status.cardtag["zhinang_tricks"]=[];
+						_status.cardtag["zhinang_tricks"].add(card.cardid);
+						game.broadcastAll(function(cardtag){
+							_status.cardtag=cardtag;
+						},_status.cardtag);
+						card.init();
 						player.gain(card,"gain2");
 					}
 				},
