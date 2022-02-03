@@ -8143,8 +8143,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},get.subtype(card));
 						player.$gain2(card);
 						player.directequip([card]);
-						card._destroy=true;
-						game.broadcast(function(card){
+						game.broadcastAll(function(card){
 							card._destroy=true;
 						},card);
 					}
@@ -8187,14 +8186,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					player.lose(player.storage.sst_qichang,ui.special).set("_triggered",null);
 					player.$throw(player.storage.sst_qichang);
-					/*
-					player.storage.sst_qichang.delete();
-					player.storage.sst_qichang.destroyed=true;
-					game.broadcast(function(card){
-						card.delete();
-						card.destroyed=true;
-					},player.storage.sst_qichang);
-					*/
 					player.storage.sst_qichang=null;
 					player.update();
 					if(player.hasSkill("sst_qichang_effect2")) player.removeSkill("sst_qichang_effect2");
@@ -11114,27 +11105,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.choosePlayerCard("巧器：选择一张装备牌","e",target,true);
 					"step 2"
 					if(result.cards&&result.cards.length){
-						/*
-						for(var i=0;i<cards.length;i++){
-							if(!cards[i].destroyed){
-								ui.special.appendChild(cards[i]);
-							}
-							else{
-								cards[i].remove();
-								cards.splice(i--,1);
-							}
-						}
-						var muniu=result.cards[0];
-						if(muniu.cards==undefined) muniu.cards=[];
-						muniu.cards.push(cards[0]);
-						game.broadcast(function(muniu,cards){
-							muniu.cards=cards;
-						},muniu,muniu.cards);
-						if(get.name(muniu)!="muniu") target.markAuto("sst_qiaoqi6",cards);
-						target.updateMarks();
-						*/
 						event.card=result.cards[0];
-						//lib.translate[get.name(event.card)+"_tag"]=get.translation(event.card);
 						player.loseToSpecial(cards,"sst_qiaoqi",target);
 						player.popup(get.name(event.card),"wood");
 						game.log(player,"将一张牌扣置于",event.card,"上");
@@ -11986,10 +11957,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					lib.inpile.push("sst_aegises");
 					var card=game.createCard2("sst_aegises","","");
-					//card.set("cardtag",["sst_ultimate"]);
+					/*
 					if(!_status.cardtag) _status.cardtag={};
 					if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
 					_status.cardtag["sst_ultimate"].push(card.cardid);
+					*/
 					player.give(card,target,"give",true);
 					target.addAdditionalSkill("sst_fuxin","sst_fuxin_card");
 				},
@@ -13110,9 +13082,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(card,"被销毁");
 					player.unmarkAuto("sst_zaowu",[card]);
 					player.markAuto("sst_zaowu_effect",[get.name(card)]);
-					card.delete();
-					card.destroyed=true;
-					game.broadcast(function(card){
+					game.broadcastAll(function(card){
 						card.delete();
 						card.destroyed=true;
 					},card);
@@ -13145,9 +13115,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(cards,"被销毁");
 					for(var i=0;i<cards.length;i++){
 						player.markAuto("sst_zaowu_effect",[get.name(cards[i])]);
-						cards[i].delete();
-						cards[i].destroyed=true;
-						game.broadcast(function(card){
+						game.broadcastAll(function(card){
 							card.delete();
 							card.destroyed=true;
 						},cards[i]);
@@ -13317,6 +13285,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				logTarget:function(event,player){
 					var players=game.filterPlayer(function(current){
+						if(current==player) return false;
 						return !current.hasHistory("sourceDamage",function(evt){
 							var sst_luanwu=evt.getParent("sst_luanwu");
 							return sst_luanwu==event;
@@ -13701,11 +13670,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var name=get.zhinangs().randomGet();
 						var suit=lib.suit.randomGet();
 						var card=game.createCard(name,suit,get.rand(1,13));
-						if(!_status.cardtag) _status.cardtag={};
-						if(!_status.cardtag["zhinang_tricks"]) _status.cardtag["zhinang_tricks"]=[];
-						_status.cardtag["zhinang_tricks"].push(card.cardid);
+						game.broadcastAll(function(card){
+							if(!_status.cardtag) _status.cardtag={};
+							if(!_status.cardtag["zhinang_tricks"]) _status.cardtag["zhinang_tricks"]=[];
+							_status.cardtag["zhinang_tricks"].add(card.cardid);
+						},card);
 						player.gain(card,"gain2");
-						card._destroy=true;
 					}
 				},
 				ai:{

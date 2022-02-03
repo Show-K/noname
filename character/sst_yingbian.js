@@ -57,13 +57,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return get.is.yingbian(event.card);
 				},
 				content:function(){
-					if(!_status.cardtag) _status.cardtag={};
+					game.broadcastAll(function(){
+						if(!_status.cardtag) _status.cardtag={};
+					});
 					var list=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
 					var cardtag=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
 					for(var i=0;i<list.length;i++){
-						if(!_status.cardtag[list[i]]) _status.cardtag[list[i]]=[];
+						game.broadcastAll(function(tag){
+							if(!_status.cardtag[tag]) _status.cardtag[tag]=[];
+						},list[i]);
 						if(!_status.cardtag[list[i]].contains(trigger.card.cardid)){
-							_status.cardtag[list[i]].push(trigger.card.cardid);
+							game.broadcastAll(function(tag,card){
+								_status.cardtag[tag].add(card.cardid);
+							},list[i],trigger.card);
 						}
 						else{
 							cardtag.remove(list[i]);
@@ -75,20 +81,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var next=game.createEvent("sst_yunchou_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.player=player;
-						next.card=trigger.card;
+						next.set("player",player);
+						next.set("card",trigger.card);
 						next.set("cardtag",cardtag);
 						next.setContent(lib.skill.sst_yunchou.contentx);
 					}
 				},
 				contentx:function(){
-					if(!_status.cardtag) _status.cardtag={};
+					game.broadcastAll(function(){
+						if(!_status.cardtag) _status.cardtag={};
+					});
 					var list=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
 					for(var i=0;i<list.length;i++){
-						if(!_status.cardtag[list[i]]) _status.cardtag[list[i]]=[];
+						game.broadcastAll(function(tag){
+							if(!_status.cardtag[tag]) _status.cardtag[tag]=[];
+						},list[i]);
 					}
 					for(var i=0;i<event.cardtag.length;i++){
-						_status.cardtag[event.cardtag[i]].remove(card.cardid);
+						game.broadcastAll(function(tag,card){
+							_status.cardtag[tag].remove(card.cardid);
+						},event.cardtag[i],card);
 					}
 				},
 				ai:{
@@ -125,17 +137,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.control&&result.control!="cancel2"){
 						player.logSkill("sst_guimou");
 						player.addTempSkill("sst_guimou2");
-						if(!_status.cardtag) _status.cardtag={};
+						game.broadcastAll(function(){
+							if(!_status.cardtag) _status.cardtag={};
+						});
 						var list=["yingbian_add","yingbian_remove","yingbian_draw","yingbian_all","yingbian_hit","yingbian_gain","yingbian_damage"];
 						var cardtag=[];
 						for(var i=0;i<list.length;i++){
-							if(!_status.cardtag[list[i]]) _status.cardtag[list[i]]=[];
+							game.broadcastAll(function(tag){
+								if(!_status.cardtag[tag]) _status.cardtag[tag]=[];
+							},list[i]);
 							if(_status.cardtag[list[i]].contains(trigger.card.cardid)){
-								_status.cardtag[list[i]].remove(trigger.card.cardid);
+								game.broadcastAll(function(tag,card){
+									_status.cardtag[tag].remove(card.cardid);
+								},list[i],trigger.card);
 								cardtag.push(list[i]);
 							}
 						}
-						_status.cardtag[result.control.slice(0,-4)].push(trigger.card.cardid);
+						game.broadcastAll(function(tag,card){
+							_status.cardtag[tag].add(card.cardid);
+						},result.control.slice(0,-4),trigger.card);
 						player.popup(result.control,"wood");
 						game.log(player,"指定此牌的应变效果为","#y"+result.control);
 						var evt=event.getParent("useCard");
@@ -144,10 +164,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var next=game.createEvent("sst_guimou_clear");
 							event.next.remove(next);
 							evt.after.push(next);
-							next.player=player;
-							next.card=trigger.card;
+							next.set("player",player);
+							next.set("card",trigger.card);
 							next.set("cardtag",cardtag);
-							next.cardtag_temp=result.control.slice(0,-4);
+							next.set("cardtag_temp",result.control.slice(0,-4));
 							next.setContent(lib.skill.sst_guimou.contentx);
 						}
 					}
@@ -156,11 +176,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!_status.cardtag) _status.cardtag={};
 					var list=["yingbian_add","yingbian_remove","yingbian_draw","yingbian_all","yingbian_hit","yingbian_gain","yingbian_damage"];
 					for(var i=0;i<list.length;i++){
-						if(!_status.cardtag[list[i]]) _status.cardtag[list[i]]=[];
+						game.broadcastAll(function(tag){
+							if(!_status.cardtag[tag]) _status.cardtag[tag]=[];
+						},list[i]);
 					}
-					_status.cardtag[event.cardtag_temp].remove(card.cardid);
+					game.broadcastAll(function(tag,card){
+						_status.cardtag[tag].remove(card.cardid);
+					},event.cardtag_temp,card);
 					for(var i=0;i<event.cardtag.length;i++){
-						_status.cardtag[event.cardtag[i]].push(card.cardid);
+						game.broadcastAll(function(tag,card){
+							_status.cardtag[tag].add(card.cardid);
+						},event.cardtag[i],card);
 					}
 				}
 			},
