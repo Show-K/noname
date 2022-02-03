@@ -75,7 +75,11 @@ window.noname_character_rank={
 			"ska_show_k",
 			"sst_isabelle",
 			"sst_little_mac",
-			"sst_ness"
+			"sst_ness",
+			"sst_robin",
+			"sst_robin_male",
+			"sst_robin_female",
+			"sst_bowser_jr"
 		],
 		rare:[
 			"sst_mario",
@@ -102,7 +106,6 @@ window.noname_character_rank={
 			"sst_windier",
 			"sst_rentianshu",
 			"sst_srf",
-			"sst_bowser_jr",
 			"sst_ryu",
 			"sst_ike",
 			"sst_toon_link",
