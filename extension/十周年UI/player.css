@@ -4,7 +4,7 @@
 	width: 120px;
 	border-radius: 8px;
 	box-shadow: 0px -1px 3px black, 0px 3px 8px black;
-	background-image: linear-gradient(rgb(53,38,32), rgb(53,38,32));
+	background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
 	transition-property: transform, opacity, left, top, right, bottom;
 }
 
@@ -235,23 +235,6 @@
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
-
-#arena.decadeUI[data-border-level='one'] .player>.camp-wrap>.camp-border {
-	background-image: url('image/decoration/border_camp1.png');
-}
-
-#arena.decadeUI[data-border-level='two'] .player>.camp-wrap>.camp-border {
-	background-image: url('image/decoration/border_camp2.png');
-}
-
-#arena.decadeUI[data-border-level='three'] .player>.camp-wrap>.camp-border {
-	background-image: url('image/decoration/border_camp3.png');
-}
-
-#arena.decadeUI[data-border-level='four'] .player>.camp-wrap>.camp-border {
-	background-image: url('image/decoration/border_camp4.png');
-}
-
 .player>.camp-wrap>.avatar-name,
 .player>.camp-wrap>.avatar-name-default,
 .player>.camp-wrap>.camp-back {
@@ -399,23 +382,6 @@
 .player.connect>div:not(.avatar):not(.name):not(.nameol):not(.hp):not(.room):not(.gaming):not(.identity).hp-wrap {
 	display: block !important;
 }
-
-#arena.decadeUI[data-border-level='one'] .player>.hp-wrap {
-	border-image-source: url('image/decoration/border_hp1.png');
-}
-
-#arena.decadeUI[data-border-level='two'] .player>.hp-wrap {
-	border-image-source: url('image/decoration/border_hp2.png');
-}
-
-#arena.decadeUI[data-border-level='three'] .player>.hp-wrap {
-	border-image-source: url('image/decoration/border_hp3.png');
-}
-
-#arena.decadeUI[data-border-level='four'] .player>.hp-wrap {
-	border-image-source: url('image/decoration/border_hp4.png');
-}
-
 .player>.hp-wrap>.hp,
 #arena.slim_player .player .hp,
 #window>.player:not(.minskin) .hp {

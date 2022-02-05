@@ -3961,6 +3961,7 @@ content:function(config, pack){
 							that.node.dieidentity.innerHTML = '';
 							that.node.dieidentity.style.backgroundImage = 'url("' + url + '")';
 							image.src = url;
+							//that.node.dieidentity.innerHTML = decadeUI.getPlayerIdentity(that, that.identity, true) + '<br>阵亡';
 							setTimeout(function(){
 								var rect = that.getBoundingClientRect();
 								decadeUI.animation.playSpine('effect_zhenwang', {
@@ -9703,20 +9704,6 @@ config:{
         init: false,
 		update:function(){
 			if (window.decadeUI) ui.arena.dataset.outcropSkin = lib.config['extension_十周年UI_outcropSkin'] ? 'on' : 'off';
-		}
-	},
-	borderLevel:{
-		name: '玩家边框等阶',
-        init: 'one',
-        item:{
-            one:'一阶',
-			two:'二阶',
-			three:'三阶',
-			four:'四阶',
-			five:'五阶',
-        },
-		update:function(){
-			if (window.decadeUI) ui.arena.dataset.borderLevel = lib.config['extension_十周年UI_borderLevel'];
 		}
 	},
 	gainSkillsVisible:{

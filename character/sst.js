@@ -6817,7 +6817,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					"step 0"
-					player.chooseBool("镜月：以"+get.translation(trigger.player)+"为唯一目标依次使用"+get.translation(player.storage.sst_jingyue_effect2)+"（目标不合法则弃置），否则获得"+get.translation(player.storage.sst_jingyue_effect2)).set("ai",function(){return false;});
+					player.chooseBool("镜月：以"+get.translation(trigger.player)+"为唯一目标依次使用"+get.translation(player.storage.sst_jingyue_effect)+"（目标不合法则置入弃牌堆），否则获得"+get.translation(player.storage.sst_jingyue_effect)).set("ai",function(){return false;});
 					"step 1"
 					if(!result.bool){
 						player.gain(player.storage.sst_jingyue_effect,"gain2","fromStorage");
@@ -13668,15 +13668,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(event.control=="选项二"||event.control=="背水！"){
 						var name=get.zhinangs().randomGet();
-						var suit=lib.suit.randomGet();
 						var card=game.createCard(name);
+						/*
+						var card=ui.create.card(ui.special);
+						card.storage.vanish=true;
+						if(_status.connectMode&&!game.online&&lib.cardOL&&!card.cardid){
+							card.cardid=get.id();
+							lib.cardOL[card.cardid]=card;
+						}
+						if(!_status.connectMode&&!_status.video){
+							card.cardid=get.id();
+						}
+						*/
 						if(!_status.cardtag) _status.cardtag={};
 						if(!_status.cardtag["zhinang_tricks"]) _status.cardtag["zhinang_tricks"]=[];
 						_status.cardtag["zhinang_tricks"].add(card.cardid);
 						game.broadcastAll(function(cardtag){
 							_status.cardtag=cardtag;
 						},_status.cardtag);
-						card.init();
+						//card=card.init([lib.suit.randomGet(),Math.ceil(Math.random()*13),name,lib.card[name].cardnature]);
 						player.gain(card,"gain2");
 					}
 				},
