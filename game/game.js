@@ -45421,8 +45421,8 @@
 				*/
 				var additional_extention_names=[
 					['在线更新',true],
-					//['拖拽读取',true],
-					['十周年UI',true]
+					['十周年UI',true],
+					['导入助手',true]
 				];
 				var need_reload=false;
 				for(var i=0;i<additional_extention_names.length;i++){
