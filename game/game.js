@@ -45414,22 +45414,24 @@
 				delete lib.arenaReady;
 				//Load custom extension start
 				/*
-				var addtional_extention_names=[
+				var additional_extention_names=[
 					['在线更新',true],
 					['拖拽读取',false]
 				];
 				*/
-				var addtional_extention_names=[
+				var additional_extention_names=[
 					['在线更新',true],
+					//['拖拽读取',true],
 					['十周年UI',true]
 				];
 				var need_reload=false;
-				for(var i=0;i<addtional_extention_names.length;i++){
-					if(!lib.config.extensions.contains(addtional_extention_names[i][0])){
+				for(var i=0;i<additional_extention_names.length;i++){
+					if(!lib.config.extensions.contains(additional_extention_names[i][0])){
+						if(additional_extention_names[i][0]=="拖拽读取"&&typeof require!='function') continue;
 						var need_reload=true;
-						lib.config.extensions.add(addtional_extention_names[i][0]);
+						lib.config.extensions.add(additional_extention_names[i][0]);
 						game.saveConfig('extensions',lib.config.extensions);
-						game.saveConfig('extension_'+addtional_extention_names[i][0]+'_enable',addtional_extention_names[i][1]);
+						game.saveConfig('extension_'+additional_extention_names[i][0]+'_enable',additional_extention_names[i][1]);
 					}
 				}
 				if(need_reload) game.reload();
