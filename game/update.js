@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.112SST',
-	update:'1.9.111.1SST3',
+	version:'1.9.112.1SST',
+	update:'1.9.112SST',
 	changeLog:[
 		'弃牌堆检索 一八',
 		'使命技 奈斯',
