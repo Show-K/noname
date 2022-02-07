@@ -45432,11 +45432,6 @@
 				/*
 				var additional_extention_names=[
 					['在线更新',true],
-					['拖拽读取',false]
-				];
-				*/
-				var additional_extention_names=[
-					['在线更新',true],
 					['十周年UI',true],
 					['导入助手',true]
 				];
@@ -45451,6 +45446,7 @@
 					}
 				}
 				if(need_reload) game.reload();
+				*/
 				//Load custom extension end
 				if(lib.config.auto_check_update){
 					setTimeout(function(){

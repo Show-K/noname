@@ -4105,7 +4105,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.cancel();
 						player.logSkill("sst_shunxing1");
 						game.log(player,"跳过了此摸牌阶段");
-						player.chooseTarget("获得一名其他角色区域内的一张牌",true,function(card,player,target){
+						player.chooseTarget("瞬形：获得一名其他角色区域内的一张牌",true,function(card,player,target){
 							return target!=player&&target.countGainableCards(player,"hej");
 						}).set("ai",function(target){
 							var player=_status.event.player;
