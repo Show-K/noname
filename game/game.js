@@ -5614,8 +5614,8 @@
 							four:'对抗',
 							three:'统率',
 							two:'欢乐',
-							guandu:'官渡',
-							jiange:'剑阁',
+							//guandu:'官渡',
+							//jiange:'剑阁',
 							siguo:'四国',
 							standard:'自由'
 							// endless:'无尽',
