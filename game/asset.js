@@ -436,7 +436,10 @@ window.noname_asset_list=[
 	//New add
 	'font/fzhtk.ttf',
 	'font/fzktk.ttf',
+	'image/background/standard_bg.png',
+	'image/background/battlefield_bg.png',
 	'image/background/final_destination_bg.png',
+	'image/background/smash_bg.png',
 	//New add end
 
 	'image/card/minguangkai.png',

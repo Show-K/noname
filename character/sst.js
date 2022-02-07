@@ -1143,6 +1143,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_dr_wily:"反逆的齿轮",
 			sst_9_volt_18_volt:"电子幻界",
 			sst_kazuya:"末日铁拳",
+			sst_ness:"踏梦寻音",
 			sst_robin:"卓越的战术师",
 			sst_robin_male:"卓越的战术师",
 			sst_robin_female:"卓越的战术师",
@@ -11512,6 +11513,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Pikachu
 			sst_fulei:{
+				preHidden:true,
 				trigger:{player:"loseEnd"},
 				filter:function(event,player){
 					return (!player.hasSkill("sst_fulei_h")&&event.hs.filterInD("d").length)||
@@ -11801,7 +11803,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return 1;
 					}
 					else{
-						return -1;
+						return 0;
 					}
 				},
 				delay:false,
@@ -13251,6 +13253,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Kazuya
 			sst_chouyu:{
+				preHidden:true,
 				forced:true,
 				usable:1,
 				trigger:{global:"damageEnd"},

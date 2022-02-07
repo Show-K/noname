@@ -654,7 +654,7 @@
 	background: linear-gradient(#4b4b4b, #464646);
 }
 .themebutton.ol{
-	background:url('../../image/background/final_destination_bg.png');
+	background:url('../../image/background/standard_bg.png');
 	background-size: cover;
 }
 .themebutton.ol>div:not(*:first-child){
@@ -665,7 +665,7 @@
 	background: linear-gradient(#4b4b4b, #464646);
 }
 .themebutton.simple{
-	background:url('../../image/background/final_destination_bg.png');
+	background:url('../../image/background/standard_bg.png');
 	background-size: cover;
 }
 .themebutton.simple>div:not(*:first-child){
@@ -1471,7 +1471,7 @@ input.fileinput::-webkit-file-upload-button {
 .popup-container.editor>div>.editbutton{
 	font-family: 'lishu';
 	font-size: 18px;
-	color: rgb(60,60,60);
+	color: rgb(0,0,0);
 	text-shadow: none;
 	position: absolute;
 	left: 0;

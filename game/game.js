@@ -1135,7 +1135,7 @@
 					},
 					image_background:{
 						name:'游戏背景',
-						init:'final_destination_bg',
+						init:'standard_bg',
 						item:{},
 						visualBar:function(node,item,create){
 							if(node.created){
@@ -1289,14 +1289,12 @@
 							ui.background=ui.create.div('.background');
 
 							if(lib.config.image_background_blur){
-								ui.background.style.filter='blur(8px)';
-								ui.background.style.webkitFilter='blur(8px)';
-								ui.background.style.transform='scale(1.05)';
+								ui.background.style.filter='contrast(0.6)';
+								ui.background.style.webkitFilter='contrast(0.6)';
 							}
 							else{
 								ui.background.style.filter='';
 								ui.background.style.webkitFilter='';
-								ui.background.style.transform='';
 							}
 
 							document.body.insertBefore(ui.background,document.body.firstChild);
@@ -1333,19 +1331,17 @@
 						}
 					},
 					image_background_blur:{
-						name:'背景模糊',
-						init:false,
+						name:'背景变灰',
+						init:true,
 						onclick:function(bool){
 							game.saveConfig('image_background_blur',bool);
 							if(lib.config.image_background_blur){
-								ui.background.style.filter='blur(8px)';
-								ui.background.style.webkitFilter='blur(8px)';
-								ui.background.style.transform='scale(1.05)';
+								ui.background.style.filter='contrast(0.6)';
+								ui.background.style.webkitFilter='contrast(0.6)';
 							}
 							else{
 								ui.background.style.filter='';
 								ui.background.style.webkitFilter='';
-								ui.background.style.transform='';
 							}
 						},
 					},
@@ -8614,9 +8610,8 @@
 				if(lib.config.image_background&&lib.config.image_background!='default'&&lib.config.image_background.indexOf('custom_')!=0){
 					ui.background.setBackgroundImage('image/background/'+lib.config.image_background+'.png');
 					if(lib.config.image_background_blur){
-						ui.background.style.filter='blur(8px)';
-						ui.background.style.webkitFilter='blur(8px)';
-						ui.background.style.transform='scale(1.05)';
+						ui.background.style.filter='contrast(0.6)';
+						ui.background.style.webkitFilter='contrast(0.6)';
 					}
 				}
 				document.documentElement.style.backgroundImage='';
@@ -8649,9 +8644,8 @@
 							var data = fileLoadedEvent.target.result;
 							ui.background.style.backgroundImage='url('+data+')';
 							if(lib.config.image_background_blur){
-								ui.background.style.filter='blur(8px)';
-								ui.background.style.webkitFilter='blur(8px)';
-								ui.background.style.transform='scale(1.05)';
+								ui.background.style.filter='contrast(0.6)';
+								ui.background.style.webkitFilter='contrast(0.6)';
 							}
 						};
 						fileReader.readAsDataURL(fileToLoad, "UTF-8");
@@ -9663,7 +9657,7 @@
 					localStorage.setItem(lib.configprefix+'background',lib.config.image_background);
 				}
 				else if(lib.config.image_background=='default'&&lib.config.theme=='simple'){
-					localStorage.setItem(lib.configprefix+'background','final_destination_bg');
+					localStorage.setItem(lib.configprefix+'background','standard_bg');
 				}
 				else{
 					localStorage.removeItem(lib.configprefix+'background');
@@ -10343,7 +10337,6 @@
 				cheat.g('hongshui');
 				cheat.g('lebu');
 				cheat.g('bingliang');
-				cheat.g('guiyoujie');
 			},
 			gf:function(){
 				for(var i in lib.card){

@@ -59,7 +59,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						return 1;
 					}
 					else{
-						return -1;
+						return 0;
 					}
 				},
 				delay:false,
