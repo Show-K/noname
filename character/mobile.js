@@ -18,13 +18,14 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				mobile_shenhua:["re_pangtong","re_guanqiujian","xin_yuanshao","re_liushan","re_dongzhuo","re_sp_zhugeliang","re_sunjian","re_dengai","re_jiangwei","re_zhurong"],
 				mobile_yijiang1:["re_xusheng","re_lingtong","ol_yujin"],
 				mobile_yijiang2:["old_bulianshi","xin_liaohua","xin_caozhang","re_liubiao","re_handang","xin_chengpu","xin_gongsunzan","re_zhonghui"],
-				mobile_yijiang3:["xin_jianyong","xin_zhuran","xin_guohuai","xin_panzhangmazhong","xin_fuhuanghou"],
+				mobile_yijiang3:["xin_jianyong","xin_zhuran","xin_guohuai","xin_panzhangmazhong","xin_fuhuanghou","re_yufan"],
 				mobile_yijiang4:["xin_zhoucang","xin_caifuren","xin_guyong","xin_sunluban","xin_caozhen"],
 				mobile_yijiang67:["re_jikang"],
 				mobile_sp:["old_yuanshu","re_wangyun","re_baosanniang","re_weiwenzhugezhi","re_zhanggong","re_xugong","re_heqi","liuzan","xin_hansui"],
 			},
 		},
 		character:{
+			re_yufan:['male','wu',3,['zhiyan','rezongxuan']],
 			sunhanhua:['female','wu',3,['chongxu','miaojian','shhlianhua']],
 			sp_jiangqing:['male','wu',4,['spjianyi','spshangyi']],
 			sp_jiangwan:['male','shu',3,['spzhenting','spjincui']],
@@ -594,6 +595,39 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		skill:{
+			//虞翻
+			rezongxuan:{
+				inherit:'zongxuan',
+				group:'rezongxuan_place',
+			},
+			rezongxuan_place:{
+				audio:'rezongxuan',
+				enable:'phaseUse',
+				usable:1,
+				content:function(){
+					'step 0'
+					player.draw();
+					'step 1'
+					player.chooseCard('he',true,'将一张牌置于牌堆顶');
+					'step 2'
+					if(result&&result.cards){
+						event.card=result.cards[0];
+						player.lose(result.cards,ui.cardPile,'insert');
+						game.log(player,'将',(get.position(event.card)=='h'?'一张牌':event.card),'置于牌堆顶');
+						game.broadcastAll(function(player){
+							var cardx=ui.create.card();
+							cardx.classList.add('infohidden');
+							cardx.classList.add('infoflip');
+							player.$throw(cardx,1000,'nobroadcast');
+						},player);
+					}
+					else event.finish();
+				},
+				ai:{
+					order:1,
+					result:{player:1},
+				},
+			},
 			//孙寒华
 			chongxu:{
 				enable:'phaseUse',
@@ -623,7 +657,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					event.score=score;
 					game.log(player,'的演奏评级为','#y'+result.rank[0],'，获得积分点数','#y'+score,'分');
 					if(score<3){
-						if(score>2) player.draw();
+						if(score>=2) player.draw();
 						event.finish();
 						return;
 					}
@@ -1438,7 +1472,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						player.getHistory('gain',function(evt){
 							hs.removeArray(evt.cards);
 						});
-						if(hs.length) player.addGaintag(cards,'zaoli');
+						if(hs.length) player.addGaintag(hs,'zaoli');
 					}
 				},
 				onremove:function(player){
@@ -1845,7 +1879,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						target.judge(function(card){
 							if(get.color(card)=='black') return -2;
 							return 0.1;
-						}).al2=function(result){
+						}).judge2=function(result){
 							return result.bool===false?true:false;
 						};
 					}
@@ -2095,14 +2129,17 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 									return get.effect(target,{name:'sha'},evt.source,evt.player);
 								});
 							}
-							else event.finish();
+							else{
+								event._result={bool:false};
+								event.goto(4);
+							}
 							'step 3'
 							var target2=result.targets[0];
 							player.line(target2,'green');
 							target.chooseToUse(function(card,player,event){
 								if(get.name(card)!='sha') return false;
 								return lib.filter.filterCard.apply(this,arguments);
-							},'对'+get.translation(target2)+'使用一张杀，否则本回合对'+get.translation(player)+'使用伤害牌时，需交给其两张牌才能生效').set('targetRequired',true).set('complexSelect',true).set('filterTarget',function(card,player,target){
+							},'对'+get.translation(target2)+'使用一张杀，否则交给其两张牌').set('targetRequired',true).set('complexSelect',true).set('filterTarget',function(card,player,target){
 								if(target!=_status.event.sourcex&&!ui.selected.targets.contains(_status.event.sourcex)) return false;
 								return lib.filter.targetEnabled.apply(this,arguments);
 							}).set('sourcex',target2).set('addCount',false);
@@ -2113,6 +2150,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 								else if(hs.length<=2) event._result={bool:true,cards:hs};
 								else target.chooseCard(2,true,'交给'+get.translation(player)+'两张牌','he');
 							}
+							else event.finish();
 							'step 5'
 							if(result.bool) player.gain(result.cards,target,'giveAuto');
 						},
@@ -2482,7 +2520,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					if(!player.storage.fengjie2||!player.storage.fengjie2.isIn()) return false;
 					var num1=player.countCards('h'),num2=player.storage.fengjie2.hp;
-					return num1>num2||num1<Math.min(4,num2);
+					return num1!=num2;
 				},
 				logTarget:(event,player)=>player.storage.fengjie2,
 				content:function(){
@@ -15179,7 +15217,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			jutu:'据土',
 			jutu_info:'锁定技，准备阶段，你获得所有你武将牌上的“生”，然后摸X+1张牌，然后将X张牌置于你的武将牌上，称为“生”（X为你因〖邀虎〗选择势力的角色数量)。',
 			yaohu:'邀虎',
-			yaohu_info:'每轮限一次，你的回合开始时，你须选择场上一个势力。该势力其他角色的出牌阶段开始时，其可以获得你的一张“生”，然后其须选择一项：①对你指定的另一名的其他角色使用一张【杀】（无距离和次数限制）；②交给你两张牌。',
+			yaohu_info:'每轮限一次，你的回合开始时，你须选择场上一个势力。该势力其他角色的出牌阶段开始时，其获得你的一张“生”，然后其须选择一项：①对你指定的另一名的其他角色使用一张【杀】（无距离和次数限制）；②交给你两张牌。',
 			rehuaibi:'怀璧',
 			rehuaibi_info:'主公技，锁定技，你的手牌上限+X（X为你因〖邀虎〗选择势力的角色数量)。',
 			simafu:'司马孚',
@@ -15256,6 +15294,10 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			shhlianhua1_info:'当你成为【杀】的目标后，你摸一张牌。然后你进行判定，若结果为黑桃，则此【杀】对你无效。',
 			shhlianhua2:'莲华·极',
 			shhlianhua2_info:'当你成为【杀】的目标后，你摸一张牌。然后此【杀】的使用者选择一项：①弃置一张牌。②令此【杀】对你无效。',
+			re_yufan:'手杀虞翻',
+			rezongxuan:'纵玄',
+			rezongxuan_place:'纵玄',
+			rezongxuan_info:'当你的牌因弃置而进入弃牌堆后，你可以将其以任意顺序置于牌堆顶。出牌阶段限一次，你可以摸一张牌，然后将一张牌置于牌堆顶。',
 			
 			mobile_standard:'手杀异构·标准包',
 			mobile_shenhua:'手杀异构·神话再临',
