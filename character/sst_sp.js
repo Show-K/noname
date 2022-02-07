@@ -9,7 +9,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
-				sst_nnk:[],
+				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi"],
 				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
 			}
@@ -29,7 +29,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
 			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
-			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]]
+			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
+			nnk_robin:["none","sst_darkness",4,["nnk_leishu"],[]],
+			nnk_robin_male:["male","sst_darkness",4,["nnk_leishu"],["unseen"]],
+			nnk_robin_female:["female","sst_darkness",4,["nnk_leishu"],["unseen"]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -154,7 +157,37 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"MNM的娱乐武将，超值N合1！"
+			"MNM的娱乐武将，超值N合1！",
+			nnk_robin:"0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>"+
+			"0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>"+
+			"系列：Fire Emblem（火焰纹章）<br>"+
+			"初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>"+
+			"武将作者：mario not mary<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"南柯设计的第二个武将，值得一试。",
+			nnk_robin_male:"0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>"+
+			"系列：Fire Emblem（火焰纹章）<br>"+
+			"初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>"+
+			"武将作者：mario not mary<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"南柯设计的第二个武将，值得一试。（已选择男性）",
+			nnk_robin_female:"0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>"+
+			"系列：Fire Emblem（火焰纹章）<br>"+
+			"初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>"+
+			"武将作者：mario not mary<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"南柯设计的第二个武将，值得一试。（已选择女性）"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -171,7 +204,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_captain_falcon:"风驰电掣",
 			ska_king_olly:"折纸生望",
 			ska_koopa_troopa:"从逸不逾",
-			mnm_9_volt_18_volt:"电子幻界"
+			mnm_9_volt_18_volt:"电子幻界",
+			nnk_robin:"卓越的战术师",
+			nnk_robin_male:"卓越的战术师",
+			nnk_robin_female:"卓越的战术师"
 		},
 		skill:{
 			//SP Isabelle
@@ -1678,7 +1714,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				position:"hes",
 				viewAs:{name:"sha",nature:"fire"},
 				viewAsFilter:function(player){
-					if(!player.countCards("he",function(card){
+					if(!player.countCards("hes",function(card){
 						return get.color(card)=="red";
 					})) return false;
 				},
@@ -2066,6 +2102,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			//SP 9-Volt & 18-Volt
 			mnm_huaijiu:{
 				derivation:"mnm_huaijiu_faq",
 				unique:true,
@@ -2105,6 +2142,108 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			//Robin
+			nnk_leishu:{
+				enable:"phaseUse",
+				usable:1,
+				filterCard:true,
+				selectCard:[1,4],
+				position:"hs",
+				viewAs:{name:"sha",nature:"thunder"},
+				viewAsFilter:function(player){
+					if(!player.countCards("hs")) return false;
+				},
+				check:function(card){
+					return 5-get.value(card);
+				},
+				ai:{
+					order:function(){
+						return get.order({name:"sha"})+0.1;
+					},
+					skillTagFilter:function(player,tag,arg){
+						if(arg!="use") return false;
+						if(!player.isPhaseUsing()) return false;
+						if(!player.countCards("hs")) return false;
+					},
+					respondSha:true
+				},
+				group:"nnk_leishu2"
+			},
+			nnk_leishu2:{
+				trigger:{player:"useCardAfter"},
+				forced:true,
+				filter:function(event,player){
+					return event.skill=="nnk_leishu"&&game.cardCausedDamage(event.card)&&event.cards&&event.cards.length;
+				},
+				content:function(){
+					if(trigger.cards.length>=1) player.addTempSkill("nnk_leishu_effect");
+					if(trigger.cards.length>=2) player.draw();
+					if(trigger.cards.length>=3){
+						player.addTempSkill("nnk_leishu_effect3");
+						player.addMark("nnk_leishu_effect3",1,false);
+					}
+					if(trigger.cards.length>=4){
+						player.addTempSkill("nnk_leishu_effect4");
+						player.addMark("nnk_leishu_effect4",2,false);
+					}
+				}
+			},
+			nnk_leishu_effect:{
+				charlotte:true,
+				forced:true,
+				mark:true,
+				intro:{
+					content:"本回合你使用的下一张牌不可被响应"
+				},
+				trigger:{player:"useCard"},
+				filter:function(event,player){
+					return get.name(event.card)=="sha";
+				},
+				content:function(){
+					trigger.directHit.addArray(game.players);
+					player.removeSkill("nnk_leishu_effect");
+				}
+			},
+			nnk_leishu_effect3:{
+				charlotte:true,
+				intro:{
+					content:"本回合你可以额外使用&张【杀】，且使用【杀】可以额外指定&个目标"
+				},
+				onremove:function(player){
+					player.removeMark("nnk_leishu_effect3",player.countMark("nnk_leishu_effect3"),false);
+				},
+				mod:{
+					cardUsable:function(card,player,num){
+						if(card.name=="sha") return num+player.countMark("nnk_leishu_effect3");
+					},
+					selectTarget:function(card,player,range){
+						if(card.name!="sha") return;
+						if(range[1]==-1) return;
+						range[1]+=player.countMark("nnk_leishu_effect3");
+					}
+				}
+			},
+			nnk_leishu_effect4:{
+				charlotte:true,
+				forced:true,
+				intro:{
+					content:"本回合你使用的下一张【杀】伤害值基数+#"
+				},
+				onremove:function(player){
+					player.removeMark("nnk_leishu_effect4",player.countMark("nnk_leishu_effect4"),false);
+				},
+				trigger:{player:"useCard1"},
+				filter:function(event,player){
+					return event.card&&get.name(event.card)=="sha";
+				},
+				content:function(){
+					trigger.baseDamage+=player.countMark("nnk_leishu_effect4");
+					player.removeSkill("nnk_leishu_effect4");
+				},
+				ai:{
+					damageBonus:true
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2121,10 +2260,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		/*
 		characterReplace:{
-			ska_mario:["sst_mario","sst_dr_mario","ska_mario"],
-			ska_bowser:["sst_bowser","ska_bowser"],
-			ymk_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
-			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
+			//sst_mario:["sst_mario","sst_dr_mario","ska_mario"],
+			//sst_bowser:["sst_bowser","ska_bowser"],
+			sst_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
+			sst_isabelle:["sst_isabelle","ymk_isabelle"]
 		},
 		*/
 		translate:{
@@ -2144,6 +2283,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_king_olly:"奥利王",
 			ska_koopa_troopa:"慢慢龟",
 			mnm_9_volt_18_volt:"SP九伏特&十八伏特",
+			nnk_robin:"SP鲁弗莱",
+			nnk_robin_male:"SP鲁弗莱",
+			nnk_robin_female:"SP鲁弗莱",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2227,6 +2369,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_huaijiu_append:"<span style=\"font-family: fzktk\">*可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
 			mnm_huaijiu_faq:"*",
 			mnm_huaijiu_faq_info:"可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
+			nnk_leishu:"雷书",
+			nnk_leishu2:"雷书",
+			nnk_leishu_effect:"雷书",
+			nnk_leishu_effect3:"雷书",
+			nnk_leishu_effect4:"雷书",
+			nnk_leishu_info:"出牌阶段限一次，你可以将至少一张，至多四张手牌当作雷【杀】使用。若此雷【杀】造成了伤害，且对应实体牌数不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。",
 			//Character Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2252,7 +2400,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_captain_falcon:"SP Captain Falcon",
 			ska_king_olly:"King Olly",
 			ska_koopa_troopa:"Koopa Troopa",
-			mnm_9_volt_18_volt:"9-Volt & 18-Volt"
+			mnm_9_volt_18_volt:"SP 9-Volt & 18-Volt",
+			nnk_robin:"SP Robin",
+			nnk_robin_male:"SP Robin",
+			nnk_robin_female:"SP Robin"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2263,7 +2414,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_king_olly:["sst_mario"],
 			ska_koopa_troopa:["sst_mario"],
 			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
-			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"]
+			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
+			nnk_robin:["nnk_robin_male","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
+			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina"],
+			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_chrom"]
 		}
 	};
 	return sst_sp;

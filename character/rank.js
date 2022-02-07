@@ -79,7 +79,10 @@ window.noname_character_rank={
 			"sst_robin",
 			"sst_robin_male",
 			"sst_robin_female",
-			"sst_bowser_jr"
+			"sst_bowser_jr",
+			"nnk_robin",
+			"nnk_robin_male",
+			"nnk_robin_female"
 		],
 		rare:[
 			"sst_mario",
@@ -138,7 +141,8 @@ window.noname_character_rank={
 			"mnm_captain_falcon",
 			"mnm_9_volt_18_volt",
 			"sst_young_link",
-			"sst_kazuya"
+			"sst_kazuya",
+			"sst_duck_hunt"
 		],
 		junk:[
 			"sst_yoshi",

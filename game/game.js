@@ -5079,6 +5079,13 @@
 						restart:true,
 						intro:'<li>势备：默认模式，使用线下《君临天下·势备篇》的牌堆进行游戏。<br><li>应变：使用OL的应变国战牌堆进行游戏。<br><li>怀旧：使用传统国战的牌堆进行游戏。',
 					},
+					connect_qunxionggeju:{
+						name:'群雄割据',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
+					},
 					connect_player_number:{
 						name:'游戏人数',
 						init:'8',
@@ -5167,6 +5174,13 @@
 						frequent:true,
 						restart:true,
 						intro:'<li>势备：默认模式，使用线下《君临天下·势备篇》的牌堆进行游戏。<br><li>应变：使用OL的应变国战牌堆进行游戏。<br><li>怀旧：使用传统国战的牌堆进行游戏。<br><li>自由：使用玩家的自定义牌堆进行游戏。',
+					},
+					qunxionggeju:{
+						name:'群雄割据',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
 					},
 					player_number:{
 						name:'游戏人数',

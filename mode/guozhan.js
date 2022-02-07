@@ -263,7 +263,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_samus','gz_sst_dark_samus','gz_sst_greninja','gz_sst_chrom','gz_sst_mr_8','gz_sst_srf','gz_sst_waluigi','gz_ymk_577','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_captain_falcon','gz_sst_lucario','gz_sst_steve','gz_sst_pikachu','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_richter','gz_sst_ma','gz_sst_claude','gz_ska_olivia','gz_sst_kyo_kusanagi','gz_sst_pyra_mythra','gz_sst_donkey_kong'
 			],
 			'3':[
-				'gz_sst_mario','gz_sst_link','gz_sst_dr_mario','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_oc','gz_sst_ryu','gz_sst_ken','gz_sst_toon_link','gz_sst_wolf','gz_sst_snake','gz_sst_jigglypuff','gz_sst_feiji','gz_sst_sonic','gz_sst_alex','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_lucina','gz_sst_master_hand','gz_sst_mii_fighters','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_super_xiaojie','gz_sst_pokemon_trainer_blue','gz_sst_pauline','gz_sst_9_volt_18_volt','gz_ska_show_k','gz_ska_koopa_troopa'
+				'gz_sst_mario','gz_sst_link','gz_sst_dr_mario','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_oc','gz_sst_ryu','gz_sst_ken','gz_sst_toon_link','gz_sst_wolf','gz_sst_snake','gz_sst_jigglypuff','gz_sst_feiji','gz_sst_sonic','gz_sst_alex','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_lucina','gz_sst_master_hand','gz_sst_mii_fighters','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_super_xiaojie','gz_sst_pokemon_trainer_blue','gz_sst_pauline','gz_sst_9_volt_18_volt','gz_ska_show_k','gz_ska_koopa_troopa','gz_sst_kazuya','gz_sst_duck_hunt'
 			],
 			'2':[
 				'gz_sst_wario','gz_sst_byleth_male','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_pokemon_trainer_red','gz_sst_isabelle','gz_sst_dark_link','gz_sst_windier','gz_sst_sheik','gz_sst_rex','gz_sst_cuphead_mugman','gz_sst_krystal','gz_sst_mega_man','gz_sst_hero','gz_sst_falco','gz_sst_enderman','gz_sst_king_k_rool','gz_sst_koopalings','gz_sst_pichu','gz_sst_mario_not_mary','gz_sst_ganondorf','gz_sst_daisy','gz_sst_little_mac','gz_sst_sans','gz_ska_bobby'
@@ -281,7 +281,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'gz_sst_zero_suit_samus','gz_sst_luigi','gz_sst_dark_samus','gz_sst_greninja','gz_sst_isabelle','gz_sst_mr_8','gz_sst_bowser_jr','gz_sst_waluigi','gz_sst_ike','gz_sst_miumiu','gz_sst_spring_man','gz_sst_joker','gz_sst_steve','gz_sst_pikachu','gz_sst_enderman','gz_sst_pokemon_trainer_blue','gz_sst_palutena','gz_sst_rosalina','gz_sst_king_k_rool','gz_sst_master_hand','gz_sst_yumikohimi','gz_sst_claude','gz_ska_olivia','gz_sst_kyo_kusanagi','gz_sst_pyra_mythra'
 			],
 			'5':[
-				'gz_sst_mario','gz_sst_link','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_chrom','gz_sst_dark_link','gz_sst_ken','gz_ymk_577','gz_sst_toon_link','gz_sst_snake','gz_sst_lucario','gz_sst_feiji','gz_sst_sonic','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_koopalings','gz_sst_ma','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_bobby','gz_ska_super_xiaojie','gz_sst_pokemon_trainer_blue','gz_sst_pauline','gz_sst_9_volt_18_volt','gz_ska_show_k','gz_ska_koopa_troopa'
+				'gz_sst_mario','gz_sst_link','gz_sst_marth','gz_sst_byleth_female','gz_sst_haine','gz_sst_terry','gz_sst_incineroar','gz_sst_chrom','gz_sst_dark_link','gz_sst_ken','gz_ymk_577','gz_sst_toon_link','gz_sst_snake','gz_sst_lucario','gz_sst_feiji','gz_sst_sonic','gz_sst_min_min','gz_ska_professor_toad','gz_sst_geno','gz_sst_koopalings','gz_sst_ma','gz_sst_zelda','gz_sst_peach','gz_sst_massy','gz_sst_bowser','gz_ska_bobby','gz_ska_super_xiaojie','gz_sst_pokemon_trainer_blue','gz_sst_pauline','gz_sst_9_volt_18_volt','gz_ska_show_k','gz_ska_koopa_troopa','gz_sst_kazuya','gz_sst_duck_hunt'
 			],
 			'4':[
 				'gz_sst_wario','gz_sst_dr_mario','gz_sst_byleth_male','gz_sst_samus','gz_sst_mr_game_watch','gz_sst_simon','gz_sst_pokemon_trainer_red','gz_sst_oc','gz_sst_windier','gz_sst_srf','gz_sst_sheik','gz_sst_wolf','gz_sst_rex','gz_sst_captain_falcon','gz_sst_alex','gz_sst_ridley','gz_sst_lucina','gz_sst_pichu','gz_sst_mii_fighters','gz_sst_mario_not_mary','gz_sst_little_mac','gz_sst_sans'
@@ -300,9 +300,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				sst_64:["gz_sst_mario","gz_sst_donkey_kong","gz_sst_link","gz_sst_samus","gz_sst_yoshi","gz_sst_kirby","gz_sst_luigi","gz_sst_captain_falcon","gz_sst_jigglypuff","gz_sst_fox","gz_sst_pikachu"],
 				sst_melee:["gz_sst_bowser","gz_sst_peach","gz_sst_zelda","gz_sst_sheik","gz_sst_dr_mario","gz_sst_ganondorf","gz_sst_mr_game_watch","gz_sst_marth","gz_sst_young_link","gz_sst_pichu","gz_sst_falco"],
 				sst_brawl:["gz_sst_zero_suit_samus","gz_sst_wario","gz_sst_pokemon_trainer_red","gz_sst_meta_knight","gz_sst_ike","gz_sst_toon_link","gz_sst_wolf","gz_sst_snake","gz_sst_king_dedede","gz_sst_lucario","gz_sst_sonic","gz_sst_pokemon_trainer_blue"],
-				sst_4:["gz_sst_villager","gz_sst_rosalina","gz_sst_little_mac","gz_sst_greninja","gz_sst_palutena","gz_sst_lucina","gz_sst_bowser_jr","gz_sst_koopalings","gz_sst_ryu","gz_sst_mega_man","gz_sst_corrin","gz_sst_mii_fighters"],
+				sst_4:["gz_sst_villager","gz_sst_rosalina","gz_sst_little_mac","gz_sst_greninja","gz_sst_palutena","gz_sst_lucina","gz_sst_bowser_jr","gz_sst_koopalings","gz_sst_ryu","gz_sst_mega_man","gz_sst_mii_fighters","gz_sst_duck_hunt"],
 				sst_ultimate:["gz_sst_dark_samus","gz_sst_daisy","gz_sst_chrom","gz_sst_ridley","gz_sst_simon","gz_sst_richter","gz_sst_king_k_rool","gz_sst_isabelle","gz_sst_incineroar","gz_sst_ken"],
-				sst_dlc:["gz_sst_terry","gz_sst_byleth_male","gz_sst_byleth_female","gz_sst_joker","gz_sst_steve","gz_sst_alex","gz_sst_hero","gz_sst_min_min","gz_sst_pyra_mythra"],
+				sst_dlc:["gz_sst_terry","gz_sst_byleth_male","gz_sst_byleth_female","gz_sst_joker","gz_sst_steve","gz_sst_alex","gz_sst_hero","gz_sst_min_min","gz_sst_pyra_mythra","gz_sst_kazuya"],
 				sst_spirits:["gz_sst_dark_link","gz_sst_sans","gz_sst_waluigi","gz_sst_master_hand","gz_sst_spring_man","gz_sst_rex","gz_sst_cuphead_mugman","gz_sst_krystal","gz_sst_enderman","gz_sst_geno","gz_sst_kyo_kusanagi","gz_sst_pauline","gz_sst_dr_wily","gz_sst_9_volt_18_volt"],
 				sst_players:["gz_sst_mario_not_mary","gz_sst_yumikohimi","gz_sst_massy","gz_sst_haine","gz_sst_oc","gz_sst_mr_8","gz_sst_kyuukou","gz_sst_windier","gz_sst_rentianshu","gz_sst_srf","gz_sst_miumiu","gz_sst_ma","gz_sst_feiji"],
 				sst_special:["gz_sst_claude","gz_ymk_isabelle","gz_ska_bobby","gz_ska_olivia","gz_ymk_577","gz_ska_super_xiaojie","gz_ska_show_k","gz_ymk_yumikohimi","gz_ska_bowser","gz_ska_professor_toad","gz_ska_koopa_troopa","gz_alz_kyo_kusanagi"]
@@ -406,6 +406,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_ska_show_k:["male","sst_reality",3,["ska_jingli","ska_zhiyi"],[]],
 				gz_ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
 				gz_alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
+				gz_sst_kazuya:["male","sst_darkness",5,["sst_chouyu","sst_xuehai"],[]],
+				gz_sst_duck_hunt:["male","sst_light",3,["sst_gonglie","sst_weishou"],[]],
 				//修改武将
 				//gz_sst_palutena:["female","sst_light",3,["gz_sst_qiji","sst_shengbing"],[]],
 				//gz_sst_rosalina:["female","sst_light",3,["sst_xingchen","gz_sst_zhuansheng"],[]],
@@ -2244,10 +2246,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				ai:{
 					effect:{
 						player:function(card,player,target){
-							if(get.name(card)=="sha") return get.effect(target,{name:"juedou",isCard:true},player,player);
+							if(get.name(card)=="sha") return [0,get.effect(target,{name:"juedou",isCard:true},player,player)];
 						},
 						target:function(card,player,target){
-							if(get.name(card)=="sha") return get.effect(target,{name:"juedou",isCard:true},player,player);
+							if(get.name(card)=="sha") return [0,get.effect(target,{name:"juedou",isCard:true},player,player)];
 						}
 					}
 				},

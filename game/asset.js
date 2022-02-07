@@ -115,8 +115,10 @@ window.noname_asset_list=[
 	'image/character/sst_robin.png',
 	'image/character/sst_robin_male.png',
 	'image/character/sst_robin_female.png',
+	'image/character/sst_duck_hunt.png',
 
 	'image/character/sst_claude.png',
+
 	'image/character/ymk_isabelle.png',
 	'image/character/ska_bobby.png',
 	'image/character/ska_olivia.png',
@@ -131,6 +133,9 @@ window.noname_asset_list=[
 	'image/character/ska_koopa_troopa.png',
 	'image/character/mnm_captain_falcon.png',
 	'image/character/mnm_9_volt_18_volt.png',
+	'image/character/nnk_robin.png',
+	'image/character/nnk_robin_male.png',
+	'image/character/nnk_robin_female.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',
@@ -1973,6 +1978,7 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/decoration/button.png',
 	'extension/十周年UI/image/decoration/button_disable.png',
 	'extension/十周年UI/image/decoration/card_count.png',
+	/*
 	'extension/十周年UI/image/decoration/dead_bNei.png',
 	'extension/十周年UI/image/decoration/dead_boss.png',
 	'extension/十周年UI/image/decoration/dead_bYe.png',
@@ -2009,7 +2015,9 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/decoration/dead_zeishou.png',
 	'extension/十周年UI/image/decoration/dead_zhong.png',
 	'extension/十周年UI/image/decoration/dead_zhu.png',
+	*/
 	'extension/十周年UI/image/decoration/dialog.png',
+	/*
 	'extension/十周年UI/image/decoration/identity_boss.png',
 	'extension/十周年UI/image/decoration/identity_cai.png',
 	'extension/十周年UI/image/decoration/identity_cai_blue.png',
@@ -2038,15 +2046,18 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/decoration/identity_zhushuai.png',
 	'extension/十周年UI/image/decoration/identity_zhushuai_blue.png',
 	'extension/十周年UI/image/decoration/identity_zhu_blue.png',
+	*/
 	'extension/十周年UI/image/decoration/name_sst_darkness.png',
 	'extension/十周年UI/image/decoration/name_sst_light.png',
 	'extension/十周年UI/image/decoration/name_sst_reality.png',
 	'extension/十周年UI/image/decoration/name_sst_smash.png',
 	'extension/十周年UI/image/decoration/name_sst_spirit.png',
+	/*
 	'extension/十周年UI/image/decoration/name_shen.png',
 	'extension/十周年UI/image/decoration/name_shen2.png',
 	'extension/十周年UI/image/decoration/name_unknown.png',
 	'extension/十周年UI/image/decoration/name_ye.png',
+	*/
 	'extension/十周年UI/image/decoration/vs.png'
 ];
 window.noname_skin_list={

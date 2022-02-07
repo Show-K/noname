@@ -84,7 +84,7 @@ window.config={
 	theme:'simple',
 	layout:'nova',
 	card_style:'ol',
-	cardback_style:'ol',
+	cardback_style:'noname',
 	hp_style:'default',
 
 	image_character:'default',

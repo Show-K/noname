@@ -6,7 +6,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,//该武将包是否可以联机（必填）
 		characterSort:{
 			sst_yingbian:{
-				sst_spirits:["sst_claude"]
+				sst_spirits:["sst_claude","sst_geno","sst_duck_hunt"]
 			}
 		},
 		character:{
@@ -57,6 +57,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return get.is.yingbian(event.card);
 				},
 				content:function(){
+					/*
 					if(!_status.cardtag) _status.cardtag={};
 					var list=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
 					var cardtag=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
@@ -83,6 +84,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						next.set("cardtag",cardtag);
 						next.setContent(lib.skill.sst_yunchou.contentx);
 					}
+					*/
+					var list=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
+					if(!trigger.card.cardtags) trigger.card.cardtags=[];
+					trigger.card.cardtags.addArray(list);
 				},
 				contentx:function(){
 					if(!_status.cardtag) _status.cardtag={};
