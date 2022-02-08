@@ -32,7 +32,6 @@ window.noname_character_rank={
 			"sst_byleth_female",
 			"sst_byleth_male",
 			"sst_massy",
-			"sst_dark_samus",
 			"sst_mario_not_mary",
 			"sst_haine",
 			"sst_incineroar",
@@ -142,7 +141,8 @@ window.noname_character_rank={
 			"mnm_9_volt_18_volt",
 			"sst_young_link",
 			"sst_kazuya",
-			"sst_duck_hunt"
+			"sst_duck_hunt",
+			"sst_dark_samus"
 		],
 		junk:[
 			"sst_yoshi",

@@ -30,9 +30,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
 			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
-			nnk_robin:["none","sst_darkness",4,["nnk_leishu"],[]],
-			nnk_robin_male:["male","sst_darkness",4,["nnk_leishu"],["unseen"]],
-			nnk_robin_female:["female","sst_darkness",4,["nnk_leishu"],["unseen"]]
+			nnk_robin:["none","sst_darkness",4,["nnk_yuanlei"],[]],
+			nnk_robin_male:["male","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
+			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -2144,11 +2144,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Robin
-			nnk_leishu:{
+			nnk_yuanlei:{
 				enable:"phaseUse",
 				usable:1,
 				filterCard:true,
-				selectCard:[1,4],
+				selectCard:function(){
+					return [1,_status.event.player.maxHp];
+				},
 				position:"hs",
 				viewAs:{name:"sha",nature:"thunder"},
 				viewAsFilter:function(player){
@@ -2168,28 +2170,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					respondSha:true
 				},
-				group:"nnk_leishu2"
+				group:"nnk_yuanlei2"
 			},
-			nnk_leishu2:{
+			nnk_yuanlei2:{
 				trigger:{player:"useCardAfter"},
 				forced:true,
 				filter:function(event,player){
-					return event.skill=="nnk_leishu"&&game.cardCausedDamage(event.card)&&event.cards&&event.cards.length;
+					return event.skill=="nnk_yuanlei"&&game.cardCausedDamage(event.card)&&event.cards&&event.cards.length;
 				},
 				content:function(){
-					if(trigger.cards.length>=1) player.addTempSkill("nnk_leishu_effect");
+					if(trigger.cards.length>=1) player.addTempSkill("nnk_yuanlei_effect");
 					if(trigger.cards.length>=2) player.draw();
 					if(trigger.cards.length>=3){
-						player.addTempSkill("nnk_leishu_effect3");
-						player.addMark("nnk_leishu_effect3",1,false);
+						player.addTempSkill("nnk_yuanlei_effect3");
+						player.addMark("nnk_yuanlei_effect3",1,false);
 					}
 					if(trigger.cards.length>=4){
-						player.addTempSkill("nnk_leishu_effect4");
-						player.addMark("nnk_leishu_effect4",2,false);
+						player.addTempSkill("nnk_yuanlei_effect4");
+						player.addMark("nnk_yuanlei_effect4",2,false);
 					}
 				}
 			},
-			nnk_leishu_effect:{
+			nnk_yuanlei_effect:{
 				charlotte:true,
 				forced:true,
 				mark:true,
@@ -2202,44 +2204,44 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					trigger.directHit.addArray(game.players);
-					player.removeSkill("nnk_leishu_effect");
+					player.removeSkill("nnk_yuanlei_effect");
 				}
 			},
-			nnk_leishu_effect3:{
+			nnk_yuanlei_effect3:{
 				charlotte:true,
 				intro:{
 					content:"本回合你可以额外使用&张【杀】，且使用【杀】可以额外指定&个目标"
 				},
 				onremove:function(player){
-					player.removeMark("nnk_leishu_effect3",player.countMark("nnk_leishu_effect3"),false);
+					player.removeMark("nnk_yuanlei_effect3",player.countMark("nnk_yuanlei_effect3"),false);
 				},
 				mod:{
 					cardUsable:function(card,player,num){
-						if(card.name=="sha") return num+player.countMark("nnk_leishu_effect3");
+						if(card.name=="sha") return num+player.countMark("nnk_yuanlei_effect3");
 					},
 					selectTarget:function(card,player,range){
 						if(card.name!="sha") return;
 						if(range[1]==-1) return;
-						range[1]+=player.countMark("nnk_leishu_effect3");
+						range[1]+=player.countMark("nnk_yuanlei_effect3");
 					}
 				}
 			},
-			nnk_leishu_effect4:{
+			nnk_yuanlei_effect4:{
 				charlotte:true,
 				forced:true,
 				intro:{
 					content:"本回合你使用的下一张【杀】伤害值基数+#"
 				},
 				onremove:function(player){
-					player.removeMark("nnk_leishu_effect4",player.countMark("nnk_leishu_effect4"),false);
+					player.removeMark("nnk_yuanlei_effect4",player.countMark("nnk_yuanlei_effect4"),false);
 				},
 				trigger:{player:"useCard1"},
 				filter:function(event,player){
 					return event.card&&get.name(event.card)=="sha";
 				},
 				content:function(){
-					trigger.baseDamage+=player.countMark("nnk_leishu_effect4");
-					player.removeSkill("nnk_leishu_effect4");
+					trigger.baseDamage+=player.countMark("nnk_yuanlei_effect4");
+					player.removeSkill("nnk_yuanlei_effect4");
 				},
 				ai:{
 					damageBonus:true
@@ -2369,12 +2371,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_huaijiu_append:"<span style=\"font-family: fzktk\">*可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
 			mnm_huaijiu_faq:"*",
 			mnm_huaijiu_faq_info:"可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
-			nnk_leishu:"雷书",
-			nnk_leishu2:"雷书",
-			nnk_leishu_effect:"雷书",
-			nnk_leishu_effect3:"雷书",
-			nnk_leishu_effect4:"雷书",
-			nnk_leishu_info:"出牌阶段限一次，你可以将至少一张，至多四张手牌当作雷【杀】使用。若此雷【杀】造成了伤害，且对应实体牌数不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。",
+			nnk_yuanlei:"远雷",
+			nnk_yuanlei2:"远雷",
+			nnk_yuanlei_effect:"远雷",
+			nnk_yuanlei_effect3:"远雷",
+			nnk_yuanlei_effect4:"远雷",
+			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
 			//Character Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2416,8 +2418,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
 			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
 			nnk_robin:["nnk_robin_male","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
-			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina"],
-			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_chrom"]
+			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
+			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"]
 		}
 	};
 	return sst_sp;

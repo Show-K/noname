@@ -65,7 +65,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pokemon_trainer_red:["male","sst_light",4,["sst_xiandu"],[]],
 			sst_isabelle:["female","sst_light",3,["sst_wenxu","sst_mihu"],[]],
 			sst_chrom:["male","sst_light",4,["sst_niming","sst_cuifeng"],[]],
-			sst_daisy:["female","sst_light",3,["sst_renqing","sst_manchan"],["zhu"]],
+			sst_daisy:["female","sst_light",3,["sst_renqing","sst_manchan"],[]],
 			sst_meta_knight:["male","sst_darkness",4,["sst_canyun"],[]],
 			sst_little_mac:["male","sst_light",2,["sst_douhun","sst_juejing"],[]],
 			sst_lucina:["female","sst_light",4,["sst_suxing","sst_shengyi"],[]],
@@ -4052,145 +4052,239 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					game.updateRoundNumber();
+					/*
 					var nextDraw=player.phaseDraw();
 					event.next.remove(nextDraw);
 					trigger.next.push(nextDraw);
 					var nextUse=player.phaseUse();
 					event.next.remove(nextUse);
 					nextDraw.after.push(nextUse);
+					*/
+					player.phaseDraw();
+					"step 1"
+					player.phaseUse();
 				}
 			},
 			sst_shunxing:{
-				group:["sst_shunxing1","sst_shunxing2"],
-				ai:{
-					threaten:2,
-					expose:0.2
-				}
-			},
-			sst_shunxing1:{
-				trigger:{player:"phaseDrawBefore"},
-				direct:true,
+				forced:true,
+				trigger:{player:"phaseDiscardAfter"},
+				filter:function(event,player){
+					var hasHistory=player.hasHistory("lose",function(evt){
+						if(evt.getParent().name!="discard") return false;
+						var phaseDiscard=evt.getParent("phaseDiscard");
+						return phaseDiscard==event;
+					});
+					return (hasHistory&&!(player.hasSkill("sst_shunxing_draw_extra")&&player.hasSkill("sst_shunxing_use_extra")&&player.hasSkill("sst_shunxing_draw")&&player.hasSkill("sst_shunxing_use")))||(!hasHistory&&(player.hasSkill("sst_shunxing_draw_extra")||player.hasSkill("sst_shunxing_use_extra")||player.hasSkill("sst_shunxing_draw")||player.hasSkill("sst_shunxing_use")));
+				},
 				content:function(){
 					"step 0"
-					var check,i,num=0,num2=0,players=game.filterPlayer();
-					for(var i=0;i<players.length;i++){
-						if(player!=players[i]&&players[i].countCards("h")){
-							var att=get.attitude(player,players[i]);
-							if(att<=0){
-								num++;
-							}
-							if(att<0){
-								num2++;
-							}
+					if(player.hasHistory("lose",function(evt){
+						if(evt.getParent().name!="discard") return false;
+						var phaseDiscard=evt.getParent("phaseDiscard");
+						return phaseDiscard==trigger;
+					})){
+						event.type="disable";
+						var list=[];
+						if(!player.hasSkill("sst_shunxing_draw_extra")) list.push("摸牌阶段〖影流〗");
+						if(!player.hasSkill("sst_shunxing_use_extra")) list.push("出牌阶段〖影流〗");
+						if(!player.hasSkill("sst_shunxing_draw")) list.push("摸牌阶段");
+						if(!player.hasSkill("sst_shunxing_use")) list.push("出牌阶段");
+						if(list.length){
+							player.chooseControl(list).set("ai",function(){
+								var list=_status.event.list;
+								if(list.contains("出牌阶段〖影流〗")) return "出牌阶段〖影流〗";
+								if(list.contains("摸牌阶段〖影流〗")) return "摸牌阶段〖影流〗";
+								if(list.contains("摸牌阶段")) return "摸牌阶段";
+								return "出牌阶段";
+							}).set("list",list).set("prompt","瞬形：废除一个阶段，然后将场上一张装备移动到你的装备区");
 						}
-					}
-					check=(num>=2&&num2>0);
-					player.chooseBool(get.prompt("sst_shunxing1"),"你可以跳过此摸牌阶段，然后获得一名其他角色区域内的一张牌").set("ai",function(){
-						if(!_status.event.check) return false;
-						if(player.hasCard(function(card){
-							return get.name(card)=="bingliang";
-						},"j")) return false;
-						/*
-						var val=0;
-						var cards=player.getCards("h");
-						for(var i=0;i<cards.length;i++){
-							val+=get.value(cards[i]);
+						else{
+							event.goto(2);
 						}
-						val=val/cards.length;
-						return val>=7;
-						*/
-						return true;
-					}).set("check",check);
-					"step 1"
-					if(result.bool){
-						trigger.cancel();
-						player.logSkill("sst_shunxing1");
-						game.log(player,"跳过了此摸牌阶段");
-						player.chooseTarget("瞬形：获得一名其他角色区域内的一张牌",true,function(card,player,target){
-							return target!=player&&target.countGainableCards(player,"hej");
-						}).set("ai",function(target){
-							var player=_status.event.player;
-							var att=get.attitude(player,target);
-							if(att<0){
-								att=-Math.sqrt(-att);
-							}
-							else{
-								att=Math.sqrt(att);
-							}
-							return att*lib.card.shunshou.ai.result.target(player,target);
-						})
 					}
 					else{
-						event.finish();
+						event.type="enable";
+						var list=[];
+						if(player.hasSkill("sst_shunxing_draw_extra")) list.push("摸牌阶段〖影流〗");
+						if(player.hasSkill("sst_shunxing_use_extra")) list.push("出牌阶段〖影流〗");
+						if(player.hasSkill("sst_shunxing_draw")) list.push("摸牌阶段");
+						if(player.hasSkill("sst_shunxing_use")) list.push("出牌阶段");
+						if(list.length){
+							player.chooseControl(list).set("ai",function(){
+								var list=_status.event.list;
+								if(list.contains("出牌阶段")) return "出牌阶段";
+								if(list.contains("摸牌阶段")) return "摸牌阶段";
+								if(list.contains("摸牌阶段〖影流〗")) return "摸牌阶段〖影流〗";
+								return "出牌阶段〖影流〗";
+							}).set("list",list).set("prompt","瞬形：恢复一个阶段");
+						}
+						else{
+							event.finish();
+						}
+					}
+					"step 1"
+					if(event.type=="disable"){
+						switch(result.control){
+							case "摸牌阶段〖影流〗":{
+								player.addSkill("sst_shunxing_draw_extra");
+								game.log(player,"废除了","#y摸牌阶段〖影流〗");
+								break;
+							}
+							case "出牌阶段〖影流〗":{
+								player.addSkill("sst_shunxing_use_extra");
+								game.log(player,"废除了","#y出牌阶段〖影流〗");
+								break;
+							}
+							case "摸牌阶段":{
+								player.addSkill("sst_shunxing_draw");
+								game.log(player,"废除了","#y摸牌阶段");
+								break;
+							}
+							case "出牌阶段":{
+								player.addSkill("sst_shunxing_use");
+								game.log(player,"废除了","#y出牌阶段");
+								break;
+							}
+						}
+					}
+					else if(event.type="enable"){
+						switch(result.control){
+							case "摸牌阶段〖影流〗":{
+								player.removeSkill("sst_shunxing_draw_extra");
+								game.log(player,"恢复了","#y摸牌阶段〖影流〗");
+								break;
+							}
+							case "出牌阶段〖影流〗":{
+								player.removeSkill("sst_shunxing_use_extra");
+								game.log(player,"恢复了","#y出牌阶段〖影流〗");
+								break;
+							}
+							case "摸牌阶段":{
+								player.removeSkill("sst_shunxing_draw");
+								game.log(player,"恢复了","#y摸牌阶段");
+								break;
+							}
+							case "出牌阶段":{
+								player.removeSkill("sst_shunxing_use");
+								game.log(player,"恢复了","#y出牌阶段");
+								break;
+							}
+						}
 					}
 					"step 2"
-					if(result.bool){
-						result.targets.sortBySeat();
-						player.line(result.targets,"green");
-						event.targets=result.targets;
-						if(!event.targets.length) event.finish();
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					player.gainMultiple(event.targets,"hej");
-					"step 4"
-					game.delayx();
-				}
-			},
-			sst_shunxing2:{
-				trigger:{player:"phaseUseBefore"},
-				direct:true,
-				content:function(){
-					"step 0"
-					var check;
-					if(player.countCards("h")>player.hp+1){
-						check=false;
-					}
-					else if(player.countCards("h",{name:["wuzhong"]})){
-						check=false;
-					}
-					else{
-						check=true;
-					}
-					player.chooseBool(get.prompt("sst_shunxing2"),"你可以跳过此出牌阶段，然后重铸任意张红色手牌").set("ai",function(){
-						if(!_status.event.check) return false;
-						if(player.hasCard(function(card){
-							return get.name(card)=="lebu";
-						},"j")) return false;
-						var val=0;
-						var cards=player.getCards("h");
-						for(var i=0;i<cards.length;i++){
-							val+=get.value(cards[i]);
-						}
-						val=val/cards.length;
-						return player.hasCard(function(card){
-							return get.color(card)=="red";
-						},"h")&&val<=4;
-					}).set("check",check);
-					"step 1"
-					if(result.bool){
-						trigger.cancel();
-						player.logSkill("sst_shunxing2");
-						game.log(player,"跳过了此出牌阶段");
-						player.chooseCard("h",[1,Infinity],"瞬形：你可以重铸任意张红色手牌",function(card){
-							return get.color(card)=="red";
-						}).set("ai",function(card){
-							return 8-get.value(card);
+					var filterTarget=function(card,player,target){
+						return target!=player&&target.countCards("e",function(card){
+							return player.isEmpty(get.subtype(card));
+						});
+					};
+					if(game.hasPlayer(function(current){
+						return filterTarget(null,player,current);
+					})){
+						player.chooseTarget(filterTarget,"瞬形：将场上一张装备移动到你的装备区",true).set("ai",function(target){
+							var player=_status.event.player;
+							var att=get.attitude(player,target);
+							if(att>0&&!target.hasSkillTag("noe")) return 0;
+							var num=0;
+							target.countCards("e",function(card){
+								if(player.isEmpty(get.subtype(card))){
+									var eff=get.effect(player,card,player,player);
+									if(eff>num) num=eff;
+								}
+							});
+							if(num<=0) return 0;
+							if(att<0) return num*-att;
+							return 1/num;
 						});
 					}
 					else{
 						event.finish();
 					}
-					"step 2"
-					if(result.cards&&result.cards.length) {
-						var cards=result.cards;
-						player.$throw(cards,1000);
-						player.lose(cards,ui.discardPile,"visible").set("type","chongzhu");
-						game.log(player,"将",cards,"置入了弃牌堆");
-						player.draw(cards.length);
+					"step 3"
+					if(result.targets&&result.targets.length){
+						var target=result.targets[0];
+						event.target=target;
+						player.choosePlayerCard(target,"e","将"+get.translation(target)+"一张装备牌移动到你的装备区",true).set("filterButton",function(button){
+							return _status.event.player.isEmpty(get.subtype(button.link));
+						});
 					}
+					else{
+						event.finish();
+					}
+					"step 4"
+					if(result.links&&result.links.length){
+						target.$give(result.links[0],player,false);
+						player.equip(result.links[0]);
+						player.addExpose(0.1);
+						game.delay(2);
+					}
+				}
+			},
+			sst_shunxing_draw_extra:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"摸牌阶段〖影流〗已废除"
+				},
+				firstDo:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"phaseDrawBefore"},
+				filter:function(event,player){
+					return event.getParent().name=="sst_yingliu";
+				},
+				content:function(){
+					trigger.cancel();
+				}
+			},
+			sst_shunxing_use_extra:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"出牌阶段〖影流〗已废除"
+				},
+				firstDo:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"phaseUseBefore"},
+				filter:function(event,player){
+					return event.getParent().name=="sst_yingliu";
+				},
+				content:function(){
+					trigger.cancel();
+				}
+			},
+			sst_shunxing_draw:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"摸牌阶段已废除"
+				},
+				firstDo:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"phaseDrawBefore"},
+				filter:function(event,player){
+					return event.getParent().name=="phase";
+				},
+				content:function(){
+					trigger.cancel();
+				}
+			},
+			sst_shunxing_use:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"出牌阶段已废除"
+				},
+				firstDo:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"phaseUseBefore"},
+				filter:function(event,player){
+					return event.getParent().name=="phase";
+				},
+				content:function(){
+					trigger.cancel();
 				}
 			},
 			//Mr. Game & Watch
@@ -4929,7 +5023,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_fuchou_effect2:{
 				trigger:{player:"loseEnd"},
-				silent:true,
+				forced:true,
 				filter:function(event,player){
 					if(!event.ss||!event.ss.length) return false;
 					for(var i in event.gaintag_map){
@@ -4966,7 +5060,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					//player.logSkill("sst_fuchou_effect3");
-					trigger.skill="sst_fuchou_effect1";
+					trigger.set("sst_fuchou",true);
 				}
 			},
 			sst_fuchou_effect4:{
@@ -4974,7 +5068,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				filter:function(event,player){
 					//return event.skill=="sst_fuchou_effect1";
-					return event.getParent(2).skill=="sst_fuchou_effect1"||event.getParent(6).skill=="sst_fuchou_effect1";
+					return event.getParent(2).sst_fuchou||event.getParent(6).sst_fuchou;
 				},
 				content:function(){
 					trigger.num++;
@@ -5929,7 +6023,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return player.hasMark("sst_xiandu");
 				},
 				content:function(){
-					player.unmarkAuto("sst_xiandu",player.storage.sst_xiandu);
+					player.unmarkSkill("sst_xiandu");
 				}
 			},
 			//Isabelle
@@ -6074,7 +6168,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_cuifeng:{
 				trigger:{player:"phaseZhunbeiBegin"},
-				//frequent:true,
 				check:function(event,player){
 					return game.hasPlayer(function(current){
 						return player.canUse({name:"sha"},current)&&get.effect(current,{name:"sha"},player,player)>0;
@@ -6093,7 +6186,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return true;
 					});
 					"step 1"
-					player.chooseUseTarget({name:"sha"},[result.card],false).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){
+					player.chooseUseTarget({name:"sha"},[result.card],false,true).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:function(){
 						return 0;
 					});
 				},
@@ -6107,13 +6200,50 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return event.getParent(2).name=="sst_cuifeng";
 				},
 				content:function(){
+					"step 0"
 					if(get.color(trigger.card)=="black"){
-						player.loseHp();
-						if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
-						trigger.baseDamage++;
+						var list=[],list2=[
+							"弃置两张牌",
+							"受到1点伤害令此【杀】伤害值基数+1",
+							"背水！令此【杀】不可被响应，然后依次执行上述所有选项",
+						];
+						if(player.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player);
+						})) list.push("选项一");
+						list.push("选项二");
+						list.push("背水！");
+						player.chooseControl(list).set("choiceList",list2).set("ai",function(){
+							var player=_status.event.player;
+							if(player.hp>1){
+								var evt=_status.event.getTrigger();
+								if(evt.targets&&evt.targets.length&&evt.targets[0].mayHaveShan()) return "背水！";
+								return "选项二";
+							}
+							return "选项一";
+						});
 					}
 					else if(get.color(trigger.card)=="red"){
 						if(player.getDamagedHp()) player.recover();
+						event.finish();
+					}
+					else{
+						event.finish();
+					}
+					"step 1"
+					if(typeof result.control=="string"){
+						event.control=result.control;
+						if(event.control=="背水！") trigger.directHit.addArray(game.players);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(event.control=="选项一"||event.control=="背水！") player.chooseToDiscard("摧锋：弃置两张牌",2,"he",true);
+					"step 3"
+					if(event.control=="选项二"||event.control=="背水！"){
+						player.damage("nosource");
+						if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
+						trigger.baseDamage++;
 					}
 				},
 				ai:{
@@ -6279,7 +6409,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseToDiscard(get.prompt("sst_manchan",trigger.source),"你可以弃置"+get.cnNumber(Math.floor(player.countCards("h")/2))+"张手牌，然后你可以于"+get.translation(trigger.source)+"的下个回合内发动〖任情〗",Math.floor(player.countCards("h")/2)).set("ai",get.unuseful3).set("logSkill",["sst_manchan",trigger.source]);
+					var num=Math.floor(player.countCards("h")/2);
+					player.chooseToDiscard(get.prompt("sst_manchan",trigger.source),"你可以弃置"+get.cnNumber(num)+"张手牌，然后你可以于"+get.translation(trigger.source)+"的下个回合内发动〖任情〗",num).set("ai",get.unuseful3).set("logSkill",["sst_manchan",trigger.source]);
 					"step 1"
 					if(result.bool){
 						if(!trigger.source.storage.sst_manchan) trigger.source.storage.sst_manchan=[];
@@ -11084,7 +11215,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Alex
 			sst_qiaoqi:{
-				global:["sst_qiaoqi4","sst_qiaoqi5","sst_qiaoqi6","sst_qiaoqi7"],
+				global:["sst_qiaoqi4","sst_qiaoqi6","sst_qiaoqi7"],
 				enable:"phaseUse",
 				filterCard:function(card){
 					return get.color(card)=="red";
@@ -11232,21 +11363,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.updateMarks();
 				}
 			},
-			sst_qiaoqi5:{
-				trigger:{player:["useCardBefore","respondBefore"]},
-				silent:true,
-				filter:function(event,player){
-					if(!event.card) return false;
-					var cards=event.cards;
-					for(var i=0;i<cards.length;i++){
-						if(cards[i].hasGaintag("sst_qiaoqi")) return true;
-					}
-					return false;
-				},
-				content:function(){
-					trigger.skill="sst_qiaoqi5";
-				}
-			},
 			sst_qiaoqi6:{
 				intro:{
 					content:function(storage,player){
@@ -11307,7 +11423,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return false;
 				},
 				trigger:{player:"loseEnd"},
-				silent:true,
+				forced:true,
 				firstDo:true,
 				filter:function(event,player){
 					if(!event.ss||!event.ss.length) return false;
@@ -12181,7 +12297,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var card=result.cards[0];
 						player.storage.sst_xiangzhu.push(card);
 						player.equip(card);
-						target.$give(card,player);
+						target.$give(card,player,false);
+						player.addExpose(0.1);
+						game.delay(2);
 					}
 				},
 				group:"sst_xiangzhu2"
@@ -12217,7 +12335,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var target=result.targets[0];
 						player.line(target,"green");
 						target.equip(event.card);
-						player.$give(event.card,target);
+						player.$give(event.card,target,false);
+						player.addExpose(0.1);
+						game.delay(2);
 					}
 					event.goto(0);
 				}
@@ -12913,7 +13033,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				enable:"phaseUse",
 				filter:function(event,player){
 					return player.countCards("he")&&game.hasPlayer(function(current){
-						return current.hasSkill("sst_shangzheng");
+						return current!=player&&current.hasSkill("sst_shangzheng");
 					})&&player.hasHistory("useCard",function(evt){
 						if(get.name(evt.card)!="sha") return false;
 						var evt2=evt.getParent("phaseUse");
@@ -12921,7 +13041,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					})
 				},
 				filterTarget:function(card,player,target){
-					return target.hasSkill("sst_shangzheng");
+					return target!=player&&target.hasSkill("sst_shangzheng");
 				},
 				filterCard:function(card,player){
 					return !lib.filter.cardEnabled(card,player)||!lib.filter.cardUsable2(card,player);
@@ -12935,7 +13055,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					target.gain(cards,player,"giveAuto");
+					target.gain(cards,player,"give");
 					"step 1"
 					event.nearests=game.filterPlayer(function(current){
 						if(current==player) return false;
@@ -13648,7 +13768,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:"你取消弃牌阶段"
 				},
+				firstDo:true,
 				forced:true,
+				popup:false,
 				trigger:{player:"phaseDiscardBefore"},
 				content:function(){
 					trigger.cancel();
@@ -13712,7 +13834,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.control!="cancel2"){
 						player.logSkill("sst_junce");
 						event.control=result.control;
-						if(result.control=="背水！") player.discard(player.getCards("h",function(card){
+						if(event.control=="背水！") player.discard(player.getCards("h",function(card){
 							return lib.filter.cardDiscardable(card,player);
 						}));
 					}
@@ -14182,9 +14304,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yingliu:"影流",
 			sst_yingliu_info:"锁定技，准备阶段结束后，你执行一个额外的摸牌阶段与出牌阶段。",
 			sst_shunxing:"瞬形",
-			sst_shunxing1:"瞬形·摸牌",
-			sst_shunxing2:"瞬形·出牌",
-			sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得一名其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。",
+			sst_shunxing_draw_extra:"摸影",
+			sst_shunxing_use_extra:"出影",
+			sst_shunxing_draw:"摸牌",
+			sst_shunxing_use:"出牌",
+			sst_shunxing_info:"锁定技，弃牌阶段结束后，若你于此阶段弃置了牌，你废除一个阶段，然后将场上一张装备移动到你的装备区，否则你恢复一个阶段。（限摸牌阶段〖影流〗/出牌阶段〖影流〗/摸牌阶段/出牌阶段）",
 			sst_shenpan:"审判",
 			sst_shenpan_info:"你使用杀或普通锦囊牌指定唯一目标后，你可以判定，若判定结果：<br>"+
 			"为1，你失去1点体力；<br>"+
@@ -14274,7 +14398,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_niming_info:"一名角色的判定牌生效前，你可以用牌堆顶的一张牌代替判定牌。",
 			sst_cuifeng:"摧锋",
 			sst_cuifeng2:"摧锋",
-			sst_cuifeng_info:"准备阶段，你可以判定，然后你可以将此判定牌当作【杀】使用（不计入使用次数）：若此【杀】为黑色，你失去1点体力令此牌伤害+1，若为红色，你回复1点体力。",
+			sst_cuifeng_info:"准备阶段，你可以判定，然后将此判定牌当作【杀】使用：若此【杀】为红色，你回复1点体力；若为黑色，你弃置两张牌，或受到1点伤害令此【杀】伤害值基数+1（背水：令此【杀】不可被响应）。",
 			sst_renqing:"任情",
 			sst_renqing_effect:"任情",
 			sst_renqing_info:"你的回合内，判定阶段结束后，你的每个主要阶段开始前，你可以将其更改为一个其他主要阶段。若如此做，本回合结束时，若本回合没有弃牌阶段，你失去1点体力。",
@@ -14582,7 +14706,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//sst_fuyuan_info:"一名角色的结束阶段，你可以观看牌堆顶X张牌，然后你可以使用其中体力值张牌（其应变效果直接生效）。（X为你本回合获得和失去牌总数量且至多为七）",
 			sst_shangzheng:"商政",
 			sst_shangzheng2:"商政",
-			sst_shangzheng_info:"一名角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",
+			sst_shangzheng_info:"一名其他角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",
 			sst_shangzheng2_info:"你的出牌阶段，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
 			sst_yinyuan:"引援",
 			sst_yinyuan_info:"每回合限一次，你受到伤害前，若你与你相邻的角色均有手牌，你可以令你与这些角色依次弃置一张手牌，然后防止此伤害。",
@@ -14756,8 +14880,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_link:["sst_zelda","sst_young_link","sst_ocarina_of_time_link","sst_toon_link","sst_massy"],
 			sst_zelda:["sst_sheik","sst_young_link","sst_ocarina_of_time_link","sst_toon_link"],
 			sst_villager:["sst_isabelle"],
-			sst_lucina:["sst_marth","sst_chrom","sst_robin","sst_robin_male"],
-			sst_chrom:["sst_marth","sst_robin","sst_robin_female"],
+			sst_lucina:["sst_marth","sst_chrom","sst_robin","sst_robin_male","sst_robin_female"],
+			sst_chrom:["sst_marth","sst_robin","sst_robin_male","sst_robin_female"],
 			sst_samus:["sst_zero_suit_samus"],
 			sst_byleth_male:["sst_byleth_female"],
 			sst_simon:["sst_richter"],
