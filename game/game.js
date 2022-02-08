@@ -7848,7 +7848,7 @@
 						if(!lib.config.totouched){
 							game.saveConfig('totouched',true);
 							if(lib.device){
-								game.saveConfig('low_performance',true);
+								game.saveConfig('low_performance',false);
 								game.saveConfig('confirm_exit',true);
 								game.saveConfig('touchscreen',true);
 								game.saveConfig('fold_mode',false);
