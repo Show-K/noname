@@ -156,7 +156,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.create.control('跳过向导',function(){
 						clear();
 						clear2();
-						game.resume();
+						game.reload();
 						// lib.cheat.cfg(); // owidgets
 					});
 					ui.create.control('继续',step2);
@@ -230,7 +230,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.create.control('完成',function(){
 						clear();
 						clear2();
-						game.resume();
+						game.reload();
 					})
 				};
 				game.pause();
