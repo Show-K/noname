@@ -281,7 +281,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
                     const url = updateURLS[key];
                     const start = new Date().getTime();
                     promises.push(
-                        fetch(`${url}/master/game/update.js`)
+                        fetch(`${url}/game/update.js`)
                             .then(response => {
                                 if (!response.ok) {
                                     return {
