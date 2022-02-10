@@ -7,7 +7,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
-				sst_ymk:["ymk_isabelle","ymk_577","ymk_yumikohimi"],
+				sst_ymk:["ymk_isabelle","ymk_yumikohimi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi"],
@@ -18,7 +18,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_isabelle:["female","sst_light",3,["ymk_zhongmi","ymk_mihu"],[]],
 			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_wangshi","ska_yangxun"],[]],
 			ska_olivia:["female","sst_spirit",3,["ska_shenqi","ska_zhefu"],[]],
-			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
 			ska_super_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
 			ska_show_k:["male","sst_reality",3,["ska_jingli","ska_zhiyi"],[]],
 			ymk_yumikohimi:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
@@ -83,9 +82,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"一个拥有赋之能力的折纸妹妹，在和马里奥的冒险路途上成长很多啊……",
-			ymk_577:"武将作者：Yumikohimi<br>"+
-			"━━━━━━━━━━━━━━━━━<br>"+
-			"柚子设计的577，估计又要偏强……意外的还行？",
 			ska_super_xiaojie:"武将作者：Show-K<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"喜欢没事说嬲，但更喜欢不放弃。",
@@ -193,7 +189,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_isabelle:"尽忠职守",
 			ska_bobby:"枫海思忆",
 			ska_olivia:"折纸赋情",
-			ymk_577:"生电妙手",
 			ska_super_xiaojie:"永不言弃",
 			ska_show_k:"中流砥柱",
 			ymk_yumikohimi:"新厨明灶",
@@ -317,6 +312,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Bobby
+			_sst_judge_count:{
+				charlotte:true,
+				superCharlotte:true,
+				trigger:{player:"judgeBegin"},
+				ruleSkill:true,
+				silent:true,
+				firstDo:true,
+				content:function(){
+					/*
+					if(!_status.sstJudgeCount) _status.sstJudgeCount=0;
+					_status.sstJudgeCount++;
+					*/
+					player.actionHistory[player.actionHistory.length-1].custom.push(trigger);
+				}
+			},
 			ska_jixing:{
 				enable:"phaseUse",
 				usable:1,
@@ -363,7 +373,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					achieve:{
 						trigger:{player:"phaseZhunbeiBegin"},
 						filter:function(event,player){
-							return _status.sstJudgeCount>=11;
+							return player.getAllHistory("custom",function(evt){
+								return evt.name=="judge";
+							})>=11;
 						},
 						forced:true,
 						skillAnimation:true,
@@ -596,117 +608,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						player:1
 					}
-				}
-			},
-			ymk_jiagou:{
-				trigger:{global:"phaseZhunbeiBegin"},
-				filter:function(event,player){
-					return player.countCards("he");
-				},
-				direct:true,
-				content:function(){
-					"step 0"
-					player.chooseCard("he",get.prompt2("ymk_jiagou",trigger.player)).set("ai",function(card){
-						var player=_status.event.player;
-						var target=_status.event.targetx;
-						var judges=target.getCards("j");
-						if(ui.selected.cards&&ui.selected.cards.length){
-							for(var i=0;i<ui.selected.cards.length;i++){
-								if(judges&&judges.length) judges.shift();
-							}
-						}
-						if(judges&&judges.length){
-							var judge=get.judge(judges[0]);
-							return judge(card)*(11-get.value(card));
-						}
-						var att=get.attitude(player,target)*(get.number(card)-target.getHandcardLimit())*Math.max(0,5-get.useful(card));
-						var num=get.number(card)<=5?Math.max(0,player.maxHp-player.countCards("h")):0;
-						return Math.pow(att,1/3)+num;
-					}).set("targetx",trigger.player);
-					"step 1"
-					if(result.cards&&result.cards.length){
-						player.logSkill("ymk_jiagou",trigger.player);
-						var card=result.cards[0];
-						/*
-						event.card=card;
-						player.lose(card,ui.special,"visible");
-						player.$throw(card,1000);
-						game.log(player,"将",card,"置于牌堆顶");
-						*/
-						player.$throw(card,1000);
-						game.log(player,"将",card,"置于牌堆顶");
-						player.lose(card,ui.cardPile,"insert");
-						player.storage.ymk_jiagou=get.number(card);
-						trigger.player.storage.ymk_jiagou=get.number(card);
-						trigger.player.addTempSkill("ymk_jiagou2");
-					}
-				},
-				ai:{
-					expose:0.1
-				},
-				group:["ymk_jiagou3","ymk_jiagou_clear"],
-				subSkill:{
-					clear:{
-						trigger:{global:"phaseAfter"},
-						silent:true,
-						content:function(){
-							delete player.storage.ymk_jiagou;
-						}
-					}
-				}
-			},
-			ymk_jiagou2:{
-				onremove:function(player){
-					delete player.storage.ymk_jiagou;
-				},
-				mod:{
-					maxHandcardBase:function(player,num){
-						return player.storage.ymk_jiagou;
-					}
-				}
-			},
-			ymk_jiagou3:{
-				trigger:{global:"phaseJieshuBegin"},
-				filter:function(event,player){
-					return player.storage.ymk_jiagou&&player.storage.ymk_jiagou<=5;
-				},
-				forced:true,
-				content:function(){
-					player.drawTo(player.maxHp);
-				}
-			},
-			ymk_jicai:{
-				trigger:{player:"phaseJudgeBefore"},
-				forced:true,
-				content:function(){
-					trigger.cancel();
-					player.phaseDiscard();
-				},
-				ai:{
-					effect:{
-						player:function(card,player,target){
-							if(get.type(card)=="delay"){
-								return "zeroplayertarget";
-							}
-						},
-						target:function(card,player,target){
-							if(get.type(card)=="delay"){
-								return "zeroplayertarget";
-							}
-						}
-					}
-				},
-				group:"ymk_jicai2"
-			},
-			ymk_jicai2:{
-				trigger:{player:"phaseDiscardBefore"},
-				filter:function(event,player){
-					return event.getParent().name!="ymk_jicai";
-				},
-				forced:true,
-				content:function(){
-					trigger.cancel();
-					player.phaseDraw();
 				}
 			},
 			//Super Xiaojie
@@ -2273,7 +2174,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_isabelle:"SP西施惠",
 			ska_bobby:"炸弹彬",
 			ska_olivia:"奥莉维亚",
-			ymk_577:"方块君",
 			ska_super_xiaojie:"超级小桀",
 			ska_show_k:"小溪",
 			ymk_yumikohimi:"SP柚子",
@@ -2307,13 +2207,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
 			ska_zhefu_info:"出牌阶段限一次，你可以将仁库中一张牌移动到处理区，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
-			ymk_jiagou:"架构",
-			ymk_jiagou2:"架构",
-			ymk_jiagou3:"架构",
-			ymk_jiagou_info:"一名角色的准备阶段，你可将一张牌置于牌堆顶，令此角色本回合的手牌上限为此牌点数，然后若此牌点数不大于5，本回合结束阶段，你将手牌补至体力上限。",
-			ymk_jicai:"积材",
-			ymk_jicai2:"积材",
-			ymk_jicai_info:"锁定技，你跳过判定阶段，改为执行一个弃牌阶段；你跳过不以此法执行的弃牌阶段，改为执行一个摸牌阶段。",
 			ska_kezhi:"恪志",
 			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以失去1点体力并将一张牌当作此牌使用。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_jiyan:"籍验",
@@ -2391,7 +2284,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_isabelle:"SP Isabelle",
 			ska_bobby:"Bobby",
 			ska_olivia:"Olivia",
-			ymk_577:"577",
 			ska_super_xiaojie:"Super Xiaojie",
 			ska_show_k:"Show-K",
 			ymk_yumikohimi:"SP Yumikohimi",

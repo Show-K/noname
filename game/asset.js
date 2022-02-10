@@ -1233,6 +1233,11 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/decoration/identity_zhushuai_blue.png',
 	'extension/十周年UI/image/decoration/identity_zhu_blue.png',
 	*/
+	'extension/十周年UI/image/decoration/identity_cai.png',
+	'extension/十周年UI/image/decoration/identity_fan.png',
+	'extension/十周年UI/image/decoration/identity_nei.png',
+	'extension/十周年UI/image/decoration/identity_zhong.png',
+	'extension/十周年UI/image/decoration/identity_zhu.png',
 	'extension/十周年UI/image/decoration/name_sst_darkness.png',
 	'extension/十周年UI/image/decoration/name_sst_light.png',
 	'extension/十周年UI/image/decoration/name_sst_reality.png',

@@ -142,11 +142,10 @@ window.noname_character_rank={
 			"sst_young_link",
 			"sst_kazuya",
 			"sst_duck_hunt",
-			"sst_dark_samus"
-		],
-		junk:[
+			"sst_dark_samus",
 			"sst_yoshi",
 			"sst_villager"
-		]
+		],
+		junk:[]
 	}
 };

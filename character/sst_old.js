@@ -13,7 +13,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
                 sst_ultimate:["old_sst_ken","old_sst_dark_samus"],
                 sst_spirits:[],
                 sst_players:[],
-				sst_ymk:["old_ymk_claude"],
+				sst_ymk:["old_ymk_claude","ymk_577"],
 			},
 		},
 		character:{
@@ -52,7 +52,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_ken:["male","sst_light",4,["old_sst_yanyang","sst_shenglong"],[]],
 			old_ymk_claude:["male","sst_spirit",3,["old_ymk_yunchou","old_ymk_guimou"],[]],
 			old_sst_donkey_kong:["male","sst_light",4,["old_sst_baochui"],[]],
-			old_sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","old_sst_shunxing"],[]]
+			old_sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","old_sst_shunxing"],[]],
+			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]]
 		},
 		characterFilter:{
 		},
@@ -146,14 +147,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"萨姆斯的废弃盔甲、究极密特罗德和有机矿石“啡宗”结合的产物，不但有强大的恢复能力，还能精神控制其他生物和制造自己的分身。它在3ds和WiiU版《任天堂明星大乱斗》中作为辅助模型的时候还能使用啡宗的力量攻击，成为斗士之后各个招式倒是完全和萨姆斯一样了，遗憾。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"“堕入黑暗”"
+			"“堕入黑暗”",
+			ymk_577:"武将作者：Yumikohimi<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"柚子设计的577，估计又要偏强……意外的还行？"
 		},
 		characterTitle:{
 			old_sst_samus:"银河战士",
 			old_sst_ken:"红莲格斗王",
 			old_ymk_claude:"连系世界之王",
 			old_sst_donkey_kong:"丛林的王者",
-			old_sst_dark_samus:"暗流涌动"
+			old_sst_dark_samus:"暗流涌动",
+			ymk_577:"生电妙手"
 		},
 		skill:{
 			//LTK
@@ -3225,6 +3230,118 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.draw(cards.length);
 					}
 				}
+			},
+			//577
+			ymk_jiagou:{
+				trigger:{global:"phaseZhunbeiBegin"},
+				filter:function(event,player){
+					return player.countCards("he");
+				},
+				direct:true,
+				content:function(){
+					"step 0"
+					player.chooseCard("he",get.prompt2("ymk_jiagou",trigger.player)).set("ai",function(card){
+						var player=_status.event.player;
+						var target=_status.event.targetx;
+						var judges=target.getCards("j");
+						if(ui.selected.cards&&ui.selected.cards.length){
+							for(var i=0;i<ui.selected.cards.length;i++){
+								if(judges&&judges.length) judges.shift();
+							}
+						}
+						if(judges&&judges.length){
+							var judge=get.judge(judges[0]);
+							return judge(card)*(11-get.value(card));
+						}
+						var att=get.attitude(player,target)*(get.number(card)-target.getHandcardLimit())*Math.max(0,5-get.useful(card));
+						var num=get.number(card)<=5?Math.max(0,player.maxHp-player.countCards("h")):0;
+						return Math.pow(att,1/3)+num;
+					}).set("targetx",trigger.player);
+					"step 1"
+					if(result.cards&&result.cards.length){
+						player.logSkill("ymk_jiagou",trigger.player);
+						var card=result.cards[0];
+						/*
+						event.card=card;
+						player.lose(card,ui.special,"visible");
+						player.$throw(card,1000);
+						game.log(player,"将",card,"置于牌堆顶");
+						*/
+						player.$throw(card,1000);
+						game.log(player,"将",card,"置于牌堆顶");
+						player.lose(card,ui.cardPile,"insert");
+						player.storage.ymk_jiagou=get.number(card);
+						trigger.player.storage.ymk_jiagou=get.number(card);
+						trigger.player.addTempSkill("ymk_jiagou2");
+					}
+				},
+				ai:{
+					expose:0.1
+				},
+				group:["ymk_jiagou3","ymk_jiagou_clear"],
+				subSkill:{
+					clear:{
+						trigger:{global:"phaseAfter"},
+						silent:true,
+						content:function(){
+							delete player.storage.ymk_jiagou;
+						}
+					}
+				}
+			},
+			ymk_jiagou2:{
+				onremove:function(player){
+					delete player.storage.ymk_jiagou;
+				},
+				mod:{
+					maxHandcardBase:function(player,num){
+						return player.storage.ymk_jiagou;
+					}
+				}
+			},
+			ymk_jiagou3:{
+				trigger:{global:"phaseJieshuBegin"},
+				filter:function(event,player){
+					return player.storage.ymk_jiagou&&player.storage.ymk_jiagou<=5;
+				},
+				forced:true,
+				content:function(){
+					player.drawTo(player.maxHp);
+				}
+			},
+			ymk_jicai:{
+				trigger:{player:"phaseJudgeBefore"},
+				forced:true,
+				content:function(){
+					trigger.cancel();
+					player.phaseDiscard();
+				},
+				ai:{
+					effect:{
+						player:function(card,player,target){
+							if(get.type(card)=="delay"){
+								return "zeroplayertarget";
+							}
+						},
+						target:function(card,player,target){
+							if(get.type(card)=="delay"){
+								return "zeroplayertarget";
+							}
+						}
+					}
+				},
+				group:"ymk_jicai2"
+			},
+			ymk_jicai2:{
+				trigger:{player:"phaseDiscardBefore"},
+				filter:function(event,player){
+					return event.getParent().name!="ymk_jicai";
+				},
+				forced:true,
+				content:function(){
+					trigger.cancel();
+					player.phaseDraw();
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -3409,6 +3526,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_ymk_claude:"旧库罗德",
 			old_sst_donkey_kong:"旧森喜刚",
 			old_sst_dark_samus:"黑暗萨姆斯",
+			ymk_577:"方块君",
 			//Identity mode skill
 			old_sst_juezhan:"绝战",
 			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
@@ -3435,25 +3553,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_shunxing:"瞬形",
 			old_sst_shunxing1:"瞬形·摸牌",
 			old_sst_shunxing2:"瞬形·出牌",
-			old_sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得一名其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。"
+			old_sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得一名其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。",
+			ymk_jiagou:"架构",
+			ymk_jiagou2:"架构",
+			ymk_jiagou3:"架构",
+			ymk_jiagou_info:"一名角色的准备阶段，你可将一张牌置于牌堆顶，令此角色本回合的手牌上限为此牌点数，然后若此牌点数不大于5，本回合结束阶段，你将手牌补至体力上限。",
+			ymk_jicai:"积材",
+			ymk_jicai2:"积材",
+			ymk_jicai_info:"锁定技，你跳过判定阶段，改为执行一个弃牌阶段；你跳过不以此法执行的弃牌阶段，改为执行一个摸牌阶段。"
 			//Character Sort
-			/*
-			old_sst_64:"64",
-			old_sst_melee:"Melee",
-			old_sst_brawl:"Brawl",
-			old_sst_4:"For WiiU/3DS",
-			old_sst_ultimate:"Ultimate",
-			old_sst_spirits:"命魂",
-			old_sst_players:"玩家",
-			old_sst_ymk:"Yumikohimi",
-			*/
 		},
 		translateEnglish:{
 			old_sst_samus:"Old Samus",
 			old_sst_ken:"Old Ken",
 			old_ymk_claude:"Old Claude",
 			old_sst_donkey_kong:"Old Donkey Kong",
-			old_sst_dark_samus:"Dark Samus"
+			old_sst_dark_samus:"Dark Samus",
+			ymk_577:"577"
 		},
 		perfectPair:{
 			//LTK

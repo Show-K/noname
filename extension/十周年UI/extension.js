@@ -9772,7 +9772,7 @@ package:{
 		
 		return '<p style="color:rgb(210,210,000); font-size:12px; line-height:14px; text-shadow: 0 0 2px black;">' + log.join('<br>') + '</p>';
 	})(),
-    author:"原作者：短歌 QQ464598631<br>修改者：Show-K",
+    author:"原作者：短歌 QQ464598631<br>修改者（未经允许）：Show-K",
     diskURL:"",
     forumURL:"",
     version:"1.2.0.220114SST",
