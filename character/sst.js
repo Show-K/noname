@@ -2447,7 +2447,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 1"
 					if(event.cards.length>1){
-						player.chooseCardButton("星尘：将“星尘”牌分配给其他角色",true,event.cards,[1,event.cards.length]).set("ai",function(button){
+						player.chooseCardButton("星尘：将牌分配给其他角色",true,event.cards,[1,event.cards.length]).set("ai",function(button){
 							if(ui.selected.buttons.length==0) return 1;
 							return 0;
 						});
@@ -2482,7 +2482,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 3"
 					if(result.targets.length){
-						result.targets[0].gain(event.togive,"gain2");
+						//result.targets[0].gain(event.togive,"gain2");
+						player.give(event.togive,result.targets[0],true);
 						player.line(result.targets[0],"green");
 						//game.log(result.targets[0],"获得了"+event.togive);
 						event.goto(1);
