@@ -3808,8 +3808,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.gainMaxHp();
 					//2: Max HP
+					if(player.storage.sst_qiongtu[2]<3) player.gainMaxHp();
 					player.storage.sst_qiongtu[2]=Math.min(3,player.storage.sst_qiongtu[2]+1);
 					player.addSkill("sst_qiongtu_effect");
 					"step 1"
