@@ -2046,6 +2046,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Robin
 			nnk_yuanlei:{
+				locked:false,
+				mod:{
+					targetInRange:function(card,player,target){
+						if(_status.event.skill=="nnk_yuanlei") return true;
+					}
+				},
 				enable:"phaseUse",
 				usable:1,
 				filterCard:true,
@@ -2269,7 +2275,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_yuanlei_effect:"远雷",
 			nnk_yuanlei_effect3:"远雷",
 			nnk_yuanlei_effect4:"远雷",
-			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
+			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
 			//Character Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
