@@ -6194,7 +6194,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						];
 						if(player.countCards("he",function(card){
 							return lib.filter.cardDiscardable(card,player);
-						})) list.push("选项一");
+						})>1) list.push("选项一");
 						list.push("选项二");
 						list.push("背水！");
 						player.chooseControl(list).set("choiceList",list2).set("ai",function(){
@@ -6204,7 +6204,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(evt.targets&&evt.targets.length&&evt.targets[0].mayHaveShan()) return "背水！";
 								return "选项二";
 							}
-							return "选项一";
+							return 0;
 						});
 					}
 					else if(get.color(trigger.card)=="red"){

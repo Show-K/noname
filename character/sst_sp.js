@@ -2106,9 +2106,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					content:"本回合你使用的下一张牌不可被响应"
 				},
 				trigger:{player:"useCard"},
-				filter:function(event,player){
-					return get.name(event.card)=="sha";
-				},
 				content:function(){
 					trigger.directHit.addArray(game.players);
 					player.removeSkill("nnk_yuanlei_effect");
