@@ -50,7 +50,6 @@ window.noname_character_rank={
 			"ska_super_xiaojie",
 			"sst_spring_man",
 			"sst_joker",
-			"sst_lucario",
 			"sst_king_dedede",
 			"sst_corrin",
 			"sst_corrin_male",
@@ -144,7 +143,9 @@ window.noname_character_rank={
 			"sst_duck_hunt",
 			"sst_dark_samus",
 			"sst_yoshi",
-			"sst_villager"
+			"sst_villager",
+			"alz_yuri_kozukata",
+			"sst_lucario"
 		],
 		junk:[]
 	}

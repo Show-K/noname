@@ -32,8 +32,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				enable:"phaseUse",
 				usable:1,
 				prompt:function(){
-					var player=_status.event.player;
-					return !player.storage.sst_aegises_skill?"转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。":"转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。";
+					if(_status.event.player.storage.sst_aegises_skill) return "转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。";
+					return "转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。";
 				},
 				filter:function(event,player){
 					if(!player.storage.sst_aegises_skill){

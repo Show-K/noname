@@ -51863,6 +51863,9 @@
 			else if(str2.indexOf("九伏特&十八伏特")==0){
 				str2="九十八伏";
 			}
+			else if(str2.indexOf("不来方")==0){
+				str2=str2.slice(3);
+			}
 			//New add end
 			return str2;
 		},
@@ -51955,6 +51958,9 @@
 			else if(str2.indexOf("九伏特&十八伏特")==0){
 				str2="九十八伏";
 			}
+			else if(str2.indexOf("不来方")==0){
+				str2=str2.slice(3);
+			}
 			//New add end
 			return str2;
 		},
@@ -52046,6 +52052,9 @@
 			}
 			else if(str2.indexOf("九伏特&十八伏特")==0){
 				str2="九十八伏";
+			}
+			else if(str2.indexOf("不来方")==0){
+				str2=str2.slice(3);
 			}
 			//New add end
 			return get.verticalStr(str2,true);

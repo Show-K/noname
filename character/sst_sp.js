@@ -8,9 +8,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_bowser","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:["nnk_robin"],
-				sst_alz:["alz_kyo_kusanagi"],
+				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
 			}
 		},
@@ -31,7 +31,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
 			nnk_robin:["none","sst_darkness",4,["nnk_yuanlei"],[]],
 			nnk_robin_male:["male","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
-			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]]
+			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
+			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -158,7 +159,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>"+
 			"系列：Fire Emblem（火焰纹章）<br>"+
 			"初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>"+
-			"武将作者：mario not mary<br>"+
+			"武将作者：南柯<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
@@ -169,7 +170,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:"0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>"+
 			"系列：Fire Emblem（火焰纹章）<br>"+
 			"初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>"+
-			"武将作者：mario not mary<br>"+
+			"武将作者：南柯<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
@@ -178,12 +179,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:"0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>"+
 			"系列：Fire Emblem（火焰纹章）<br>"+
 			"初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>"+
-			"武将作者：mario not mary<br>"+
+			"武将作者：南柯<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"南柯设计的第二个武将，值得一试。（已选择女性）"
+			"南柯设计的第二个武将，值得一试。（已选择女性）",
+			alz_yuri_kozukata:"1241. 不来方夕莉/Yuri Kozukata/不来方夕莉<br>"+
+			"系列：Fatal Frame（零）<br>"+
+			"初登场：Fatal Frame: Maiden of Black Water（零～濡鸦之巫女～）<br>"+
+			"武将作者：Axel_Zhai<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"在经历过交通事故之后，拥有了能看见死者的能力。被这个能力困扰的她本想自杀，最后被人救下，并学会了使用“射影机”对抗怨灵。在一次委托中，她逐渐发现了灵山中的真相。在大乱斗中，作为辅助模型的她可以使用射影机对被拍到的斗士造成伤害。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"咕了好久了……"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -202,7 +212,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_9_volt_18_volt:"电子幻界",
 			nnk_robin:"卓越的战术师",
 			nnk_robin_male:"卓越的战术师",
-			nnk_robin_female:"卓越的战术师"
+			nnk_robin_female:"卓越的战术师",
+			alz_yuri_kozukata:""
 		},
 		skill:{
 			//SP Isabelle
@@ -2150,6 +2161,140 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					damageBonus:true
 				}
+			},
+			//Yuri Kozukata
+			alz_yingjian:{
+				marktext:"灵",
+				intro:{
+					name:"灵",
+					content:"mark"
+				},
+				zhuanhuanji:true,
+				locked:false,
+				forced:true,
+				trigger:{
+					global:"gameStart",
+					player:"enterGame"
+				},
+				content:function(){
+					player.addMark("alz_yingjian",3);
+				},
+				group:["alz_yingjian2","alz_yingjian3"]
+			},
+			alz_yingjian2:{
+				zhuanhuanji:true,
+				delay:false,
+				enable:"phaseUse",
+				usable:1,
+				filterTarget:function(card,player,target){
+					if(!player.storage.alz_yingjian2) return true;
+					return !target.hasSkill("fengyin");
+				},
+				filterCard:true,
+				selectCard:2,
+				position:"he",
+				prompt:function(){
+					if(_status.event.player.storage.alz_yingjian2) return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”";
+					return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色翻面。然后若你的“灵”数量小于体力值，你获得一个“灵”";
+				},
+				check:function(card){
+					return 7-get.value(card);
+				},
+				content:function(){
+					"step 0"
+					if(!player.storage.alz_yingjian2){
+						player.storage.alz_yingjian2=true;
+						target.turnOver();
+					}
+					else{
+						player.storage.alz_yingjian2=false;
+						target.addTempSkill("fengyin","roundStart");
+					}
+					"step 1"
+					if(player.countMark("alz_yingjian")<Math.max(0,player.hp)) player.addMark("alz_yingjian");
+				},
+				ai:{
+					order:5,
+					result:{
+						target:function(player,target){
+							if(!player.storage.alz_yingjian2){
+								if(target.hasSkillTag("noturn")) return -0.5;
+								return target.isTurnedOver()?2:-2;
+							}
+							var skills=target.getSkills();
+							for(var i=0;i<skills.length;i++){
+								if(!get.is.locked(skills[i])){
+									if(target.hasSkillTag("maixie")) return -2;
+									return -get.threaten(target);
+								}
+							}
+							return -0.5;
+						}
+					}
+				}
+			},
+			alz_yingjian3:{
+				enable:"chooseToUse",
+				filter:function(event,player){
+					if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=Math.max(0,player.hp)) return false;
+					for(var i of lib.inpile){
+						var type=get.type(i);
+						if(type=="basic"&&lib.filter.filterCard({name:i},player,event)) return true;
+					}
+					return false;
+				},
+				prompt:"若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用或打出一张基本牌",
+				chooseButton:{
+					dialog:function(){
+						var list=[];
+						for(var i of lib.inpile){
+							if(get.type(i)=="basic"){
+								list.push(["基本","",i]);
+								if(i=="sha"){
+									for(var j of lib.inpile_nature) list.push(["基本","","sha",j]);
+								}
+							}
+						}
+						return ui.create.dialog("影见",[list,"vcard"],"hidden");
+					},
+					filter:function(button,player){
+						return _status.event.getParent().filterCard({name:button.link[2]},player,_status.event.getParent());
+					},
+					backup:function(links,player){
+						return {
+							filterCard:()=>false,
+							selectCard:-1,
+							popname:true,
+							viewAs:{name:links[0][2],nature:links[0][3],isCard:true},
+							precontent:function(){
+								player.removeMark("alz_yingjian",1);
+							}
+						}
+					},
+					prompt:function(links,player){
+						return "视为使用或打出"+(get.translation(links[0][3])||"")+get.translation(links[0][2]);
+					}
+				},
+				hiddenCard:function(player,name){
+					var type=get.type(name);
+					return type=="basic"&&player.hasMark("alz_yingjian")&&player.countMark("alz_yingjian")>Math.max(0,player.hp);
+				},
+				ai:{
+					respondSha:true,
+					respondShan:true,
+					respondTao:true,
+					save:true,
+					skillTagFilter:function(player){
+						if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=Math.max(0,player.hp)) return false;
+					},
+					order:1,
+					result:{
+						player:function(player){
+							if(_status.event.dying) return get.attitude(player,_status.event.dying);
+							return 1;
+						}
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2162,6 +2307,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				str+=player.storage.ska_jiyan.contains("jiu")?"<span class=\"bluetext\">4. 【酒】。</span>":"<span style=\"opacity:0.5\">4. 【酒】。</span>";
 				str+="②使命：你使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。";
 				return str;
+			},
+			alz_yingjian:function(player){
+				if(player.storage.alz_yingjian2) return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用或打出一张基本牌。";
+				return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用或打出一张基本牌。";
 			}
 		},
 		/*
@@ -2191,13 +2340,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin:"SP鲁弗莱",
 			nnk_robin_male:"SP鲁弗莱",
 			nnk_robin_female:"SP鲁弗莱",
+			alz_yuri_kozukata:"不来方夕莉",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
 			ymk_mihu:"迷糊",
-			ymk_mihu_info:"锁定技，当你使用基本牌或普通锦囊牌指定目标后，你判定。若判定结果为（X为你损失的体力值）：<br>"+
-			"红色：此牌增加X+1个目标（不足则全选）；<br>"+
-			"黑色：此牌减少X+1个目标（不足则全选）。<br>",
+			ymk_mihu_info:"锁定技，当你使用基本牌或普通锦囊牌指定目标后，你判定。若判定结果为：红色：此牌增加X+1个目标（不足则全选）；黑色：此牌减少X+1个目标（不足则全选）。（X为你损失的体力值）",
 			ska_jixing:"激行",
 			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色，然后你判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_wangshi:"惘事",
@@ -2264,15 +2412,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_xiangshi_info:"出牌阶段限一次，你可以翻面。若如此做，你可以打出一张牌，然后弃置一名角色区域内的一张牌。若这两张牌的花色相同，你翻面。",
 			mnm_huaijiu:"怀旧",
 			mnm_huaijiu_info:"准备阶段，你可以获得一名《三国杀：标准》武将的技能，直到你的下一个回合开始。",
-			mnm_huaijiu_append:"<span style=\"font-family: fzktk\">*可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
+			mnm_huaijiu_append:"<span style=\"font-family: fzktk\">*可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
 			mnm_huaijiu_faq:"*",
-			mnm_huaijiu_faq_info:"可选角色：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
+			mnm_huaijiu_faq_info:"可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
 			nnk_yuanlei:"远雷",
 			nnk_yuanlei2:"远雷",
 			nnk_yuanlei_effect:"远雷",
 			nnk_yuanlei_effect3:"远雷",
 			nnk_yuanlei_effect4:"远雷",
 			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
+			alz_yingjian:"影见",
+			alz_yingjian2:"影见",
+			alz_yingjian3:"影见·灵",
+			alz_yingjian3_backup:"影见·灵",
+			alz_yingjian_info:"游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。",
 			//Character Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2300,7 +2453,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_9_volt_18_volt:"SP 9-Volt & 18-Volt",
 			nnk_robin:"SP Robin",
 			nnk_robin_male:"SP Robin",
-			nnk_robin_female:"SP Robin"
+			nnk_robin_female:"SP Robin",
+			alz_yuri_kozukata:"Yuri Kozukata"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
