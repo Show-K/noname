@@ -365,9 +365,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				skillAnimation:true,
 				animationStr:"星降",
 				animationColor:"metal",
-				init:function(player){
-					player.storage.sst_xingjiang=false;
-				},
 				intro:{
 					content:"limited"
 				},

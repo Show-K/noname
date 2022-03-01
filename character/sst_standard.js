@@ -965,7 +965,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kraid:"0283. 克雷德/Kraid/クレイド<br>"+
 			"系列：Metroid（密特罗德）<br>"+
 			"初登场：Metroid（密特罗德）<br>"+
-			"武将作者：mario not mary<br>"+
+			"武将作者：mario not mary、Show-K<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"宇宙海盗的干部之一，在初代《密特罗德》就有登场。那个时候的它受机能限制还非常小只，但在《超级密特罗德》和《密特罗德：零点任务》中的它就相当巨大了，会从肚子中发射爪子攻击。它也出现在“布林斯塔深部”这个场地的背景中。在“灯火之星”中，它能赋予命魂“重战车流”的效果。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
@@ -1273,7 +1273,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.draw();
 					"step 1"
-					var next=player.chooseToUse("倾勇：你可以将一张牌当杀对一名其他角色使用（不受距离限制，不计入使用次数）");
+					var next=player.chooseToUse("倾勇：你可以将一张牌当杀对一名其他角色使用（无距离限制，不计入使用次数）");
 					//next.set("logSkill","sst_qingyong");
 					next.set("norestore",true);
 					next.set("_backupevent","sst_qingyongx");
@@ -2417,9 +2417,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				skillAnimation:true,
 				animationStr:"转生",
 				animationColor:"water",
-				init:function(player){
-					player.storage.sst_zhuansheng=false;
-				},
 				intro:{
 					content:"limited"
 				},
@@ -2429,7 +2426,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					trigger.cancel();
 					player.awakenSkill("sst_zhuansheng");
-					player.storage.sst_zhuansheng=true;
 					player.discard(player.getCards("hej",function(card){
 						return lib.filter.cardDiscardable(card,player);
 					}));
@@ -2867,7 +2863,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(result.targets&&result.targets.length){
 						event.request=result.targets[0];
-						game.log(player,"请求",event.request,"允许发动技能","#g【驭军】","（对",trigger.targets,"）");
+						game.log(player,"请求",event.request,"允许发动","#g【驭军】","（对",trigger.targets,"）");
 						player.line(event.request,"green");
 						event.request.chooseControl("允许","拒绝").set("prompt","驭军：是否允许"+get.translation(player)+"将你的一张手牌当【杀】对"+get.translation(trigger.targets)+"使用？").set("ai",function(){
 							var player=_status.event.player;
@@ -3390,11 +3386,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				animationStr:"天脉",
 				animationColor:"orange",
 				init:function(player){
-					player.storage.sst_tianmai=false;
 					player.addSkill("sst_tianmai_count");
 				},
 				filter:function (event,player){
-					if(player.storage.sst_tianmai) return false;
 					if(event.type=="dying"){
 						if(player==event.dying) return false;
 						return true;
@@ -3410,7 +3404,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.awakenSkill("sst_tianmai");
-					player.storage.sst_tianmai=true;
 					if(target.hp<target.storage.sst_tianmai_count) target.recover(target.storage.sst_tianmai_count-target.hp);
 					"step 1"
 					target.link(false);
@@ -3670,7 +3663,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								break;
 							}
 						}
-						game.log(player,"更改了技能","#g【绝战】","的描述");
+						game.log(player,"更改了","#g【绝战】","的描述");
 						player.popup("更改描述");
 					}
 				}
@@ -4395,7 +4388,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				//priority:3,
 				content:function(){
 					player.gainMaxHp();
-					game.log(player,"更改了技能","#g【奇嚣】","的描述");
+					game.log(player,"更改了","#g【奇嚣】","的描述");
 					player.popup("更改描述");
 					player.storage.sst_qixiao=true;
 					//player.markSkill("sst_qixiao");
@@ -7176,7 +7169,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						list.push(str);
 					}
 					player.chooseControl(controls).set("prompt","探道：选择一项").set("ai",function(){
-						return _status.event.shas.length<_status.event.notShas.length?1:0;
+						return _status.event.shas.length<_status.event.notShas.length?"获得非杀":"获得杀";
 					}).set("choiceList",list).set("shas",event.shas).set("notShas",event.notShas);
 					"step 2"
 					event.control=result.control;
@@ -10225,7 +10218,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.chooseToDiscard("伏妙：弃置"+get.cnNumber(player.countCards("h")-Math.max(0,trigger.player.hp))+"张手牌",player.countCards("h")-Math.max(0,trigger.player.hp),true);
 					}
 					"step 1"
-					var next=player.chooseToUse("伏妙：你可以将一张牌当作【杀】使用（不受距离限制，不计入使用次数）");
+					var next=player.chooseToUse("伏妙：你可以将一张牌当作【杀】使用（无距离限制，不计入使用次数）");
 					next.set("norestore",true);
 					next.set("_backupevent","sst_fumiaox");
 					next.backup("sst_fumiaox");
@@ -11907,14 +11900,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.storage.sst_fenshi[0]&&!event.targets.contains(player)){
 						player.storage.sst_fenshi[0]=false;
 						player.loseMaxHp();
-						game.log(player,"更改了技能","#g【焚世】","的描述");
+						game.log(player,"更改了","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
 					"step 3"
 					if(player.storage.sst_fenshi[1]&&event.targets.length>1&&event.targets[0]==event.targets[1]){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
-						game.log(player,"更改了技能","#g【焚世】","的描述");
+						game.log(player,"更改了","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
 					"step 4"
@@ -11965,14 +11958,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.storage.sst_fenshi[0]&&!event.targets.contains(player)){
 						player.storage.sst_fenshi[0]=false;
 						player.loseMaxHp();
-						game.log(player,"更改了技能","#g【焚世】","的描述");
+						game.log(player,"更改了","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
 					"step 7"
 					if(player.storage.sst_fenshi[1]&&event.targets.length>1&&event.targets[0]==event.targets[1]){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
-						game.log(player,"更改了技能","#g【焚世】","的描述");
+						game.log(player,"更改了","#g【焚世】","的描述");
 						player.popup("更改描述");
 					}
 				},
@@ -11984,9 +11977,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_xingduo:{
-				init:function(player){
-					player.storage.sst_xingduo=false;
-				},
 				intro:{
 					content:"limited"
 				},
@@ -12013,7 +12003,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.targets=result.targets.sortBySeat();
 						player.logSkill("sst_xingduo",event.targets);
 						player.awakenSkill("sst_xingduo");
-						player.storage.sst_xingduo=true;
 						player.loseMaxHp();
 					}
 					else{
@@ -12765,14 +12754,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					if(event.getParent("sst_gukui").name=="sst_gukui") return false;
 					return player.countCards()&&player.isMaxHandcard()&&game.hasPlayer(function(current){
-						return current!=player&&player.canUse({name:"sha"},current);
+						return current!=player&&player.canUse({name:"sha"},current,false);
 					});
 				},
 				content:function(){
 					"step 0"
 					event.num=Math.ceil(player.countCards()/2);
 					event.players=game.filterPlayer(function(current){
-						return current!=player&&player.canUse({name:"sha"},current);
+						return current!=player&&player.canUse({name:"sha"},current,false);
 					});
 					"step 1"
 					if(event.num&&event.players.length){
@@ -12791,7 +12780,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						next.set("filterTarget",function(card,player,target){
 							if(!_status.event.players.contains(target)) return false;
-							return lib.filter.filterTarget.apply(this,arguments);
+							return lib.filter.targetEnabled.apply(this,arguments);
 						});
 						next.set("players",event.players);
 					}
@@ -12812,7 +12801,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:function(card){
 					return get.itemtype(card)=="card";
 				},
-				position:"hes",
+				position:"hs",
 				check:function(card){return 5-get.value(card);}
 			}
 		},
@@ -13025,7 +13014,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_jueyi:"决意",
 			sst_jueyi_info:"锁定技，你使用牌指定目标时，若其手牌数大于你，你摸一张牌，令此牌不可被目标响应。",
 			sst_qingyong:"倾勇",
-			sst_qingyong_info:"出牌阶段开始时，你可以摸一张牌，然后你可以将一张牌当作【杀】对一名其他角色使用（不受距离限制，不计入使用次数）。",
+			sst_qingyong_info:"出牌阶段开始时，你可以摸一张牌，然后你可以将一张牌当作【杀】对一名其他角色使用（无距离限制，不计入使用次数）。",
 			sst_tanshi:"贪食",
 			sst_tanshi_info:"其他角色摸牌阶段摸牌时，若其手牌数大于你，你可以获得该角色所摸的牌。",
 			sst_haoduo:"豪夺",
@@ -13554,7 +13543,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yintong:"饮痛",
 			sst_yintong_info:"锁定技，一名角色脱离濒死状态后，你摸一张牌。",
 			sst_gukui:"骨溃",
-			sst_gukui_info:"锁定技，每当你不于〖骨溃〗流程内成为手牌数最多的角色时，你须将一半手牌（向上取整）依次当作【杀】对不同的其他角色使用，然后你减1点体力上限。",
+			sst_gukui_info:"锁定技，每当你不于〖骨溃〗流程内成为手牌数最多的角色时，你须将一半手牌（向上取整）依次当作无距离限制的【杀】对不同的其他角色使用，然后你减1点体力上限。",
 			//Sort
 			sst_64:"64",
 			sst_melee:"Melee",

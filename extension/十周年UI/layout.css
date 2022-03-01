@@ -600,6 +600,8 @@ body>.background {
     height: 50px;
     background-repeat: no-repeat;
     background-size: contain;
+	filter: drop-shadow(0px 0px 2px);
+	-webkit-filter: drop-shadow(0px 0px 2px);
 }
 
 .button.character>.character {
