@@ -9,7 +9,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
                 sst_64:["old_sst_samus","old_sst_donkey_kong"],
                 sst_melee:[],
                 sst_brawl:[],
-                sst_4:[],
+                sst_4:["old_sst_ryu"],
                 sst_ultimate:["old_sst_ken","old_sst_dark_samus","old_sst_richter"],
                 sst_spirits:[],
                 sst_players:[],
@@ -54,7 +54,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_donkey_kong:["male","sst_light",4,["old_sst_baochui"],[]],
 			old_sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","old_sst_shunxing"],[]],
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
-			old_sst_richter:["male","sst_darkness",4,["old_sst_shengxi","old_sst_xuelun"],[]]
+			old_sst_richter:["male","sst_darkness",4,["old_sst_shengxi","old_sst_xuelun"],[]],
+			old_sst_ryu:["male","sst_light",4,["old_sst_tandao","sst_bodong"],[]]
 		},
 		characterFilter:{
 		},
@@ -160,7 +161,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"《恶魔城X：血之轮回》的主角，吸血鬼猎人家族的后代，他从德古拉手中救出了自己的恋人，还曾经和德古拉的儿子阿鲁卡多并肩作战。他擅长使用杂技般灵活的体术与敌人周旋，还能解放除鞭子外其他神圣武器的力量，进行更强力的攻击。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"“我有愧于此称……”"
+			"“我有愧于此称……”",
+			old_sst_ryu:"0977. 隆/Ryu/リュウ<br>"+
+			"系列：Street Fighter（街头霸王）<br>"+
+			"初登场：Street Fighter（街头霸王）<br>"+
+			"武将作者：mario not mary<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"隆，武道上永恒的探求者，凭借着从刚拳处学来的波动流暗杀术，他遍历全球挑战强者，在夺得大赛冠军后却淡泊名利不去领奖，因为他的目标只有一个，也是豪鬼留给他的问题：战斗的意义，除了杀戮，还有什么？他也曾为了追求力量迷失自我，将自己沉浸在杀意中，但现在的他已经将阴影从心中驱逐，俨然一代宗师。<br>"+
+			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"━━━━━━━━━━━━━━━━━<br>"+
+			"你必须击败我的升龙拳才能得到一线转机。"
 		},
 		characterTitle:{
 			old_sst_samus:"银河战士",
@@ -169,7 +179,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_donkey_kong:"丛林的王者",
 			old_sst_dark_samus:"暗流涌动",
 			ymk_577:"生电妙手",
-			old_sst_richter:"血之轮回"
+			old_sst_richter:"血之轮回",
+			old_sst_ryu:"求道的武者"
 		},
 		skill:{
 			//LTK
@@ -3609,6 +3620,71 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					trigger.source.addSkillLog("old_sst_shengxi");
 					trigger.source.addSkillLog("old_sst_xuelun");
 				}
+			},
+			//Ryu
+			old_sst_tandao:{
+				enable:"phaseUse",
+				usable:1,
+				chooseButton:{
+					dialog:function(event,player){
+						return ui.create.dialog("###探道###选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌（X为你本回合使用的牌类别数量）");
+					},
+					chooseControl:function(event,player){
+						return ["red","black"];
+					},
+					check:function(){
+						var player=_status.event.player;
+						return player.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player)&&get.color(card)=="red";
+						})<player.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player)&&get.color(card)=="black";
+						})?"red":"black";
+					},
+					backup:function(result,player){
+						return {
+							delay:false,
+							color:result.control,
+							content:lib.skill.old_sst_tandao.contentx
+						}
+					}
+				},
+				contentx:function(){
+					"step 0"
+					event.color=lib.skill.old_sst_tandao_backup.color;
+					player.popup(event.color);
+					game.log(player,"选择了","#y"+get.translation(event.color));
+					player.showHandcards(get.translation(player.name)+"的手牌（声明了"+get.translation(event.color)+"）");
+					"step 1"
+					if(event.color){
+						var cards=player.getCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player)&&get.color(card)==event.color;
+						});
+						player.discard(cards);
+					}
+					var types=[];
+					var history=player.getHistory("useCard");
+					for(var i=0;i<history.length;i++){
+						if(!types.contains(get.type(history[i].card,"trick"))) types.push(get.type(history[i].card,"trick"));
+					}
+					if(types.length) player.draw(types.length);
+				},
+				ai:{
+					order:1,
+					result:{
+						player:function(player){
+							var types=[];
+							var history=player.getHistory("useCard");
+							for(var i=0;i<history.length;i++){
+								if(!types.contains(get.type(history[i].card,"trick"))) types.push(get.type(history[i].card,"trick"));
+							}
+							return types.length-Math.min(player.countCards("he",function(card){
+								return lib.filter.cardDiscardable(card,player)&&get.color(card)=="red";
+							}),player.countCards("he",function(card){
+								return lib.filter.cardDiscardable(card,player)&&get.color(card)=="black";
+							}));
+						}
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -3795,6 +3871,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_dark_samus:"黑暗萨姆斯",
 			ymk_577:"方块君",
 			old_sst_richter:"里希特",
+			old_sst_ryu:"隆",
 			//Identity mode skill
 			old_sst_juezhan:"绝战",
 			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
@@ -3835,8 +3912,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_shengxi2_backup:"圣袭",
 			old_sst_shengxi_info:"你使用牌指定目标时，或你成为牌的目标时，使用牌的角色可以明置任意名目标角色一张手牌；一名角色可以使用除其以外角色以此法明置的手牌。",
 			old_sst_xuelun:"血轮",
-			old_sst_xuelun_info:"锁定技，你死亡后，杀死你的角色获得〖圣袭〗〖血轮〗。"
-			//Character Sort
+			old_sst_xuelun_info:"锁定技，你死亡后，杀死你的角色获得〖圣袭〗〖血轮〗。",
+			old_sst_tandao:"探道",
+			old_sst_tandao_backup:"探道",
+			old_sst_tandao_info:"出牌阶段限一次，你可以选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌。（X为你本回合使用的牌类别数量）"
+			//Sort
 		},
 		translateEnglish:{
 			old_sst_samus:"Old Samus",
@@ -3845,7 +3925,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_donkey_kong:"Old Donkey Kong",
 			old_sst_dark_samus:"Old Dark Samus",
 			ymk_577:"577",
-			old_sst_richter:"Old Richter"
+			old_sst_richter:"Old Richter",
+			old_sst_ryu:"Old Ryu"
 		},
 		perfectPair:{
 			//LTK
@@ -3864,10 +3945,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			zhangliao:["zangba"],
 			ganning:["lingtong","xf_sufei"],
 			//SST
-            old_sst_ken:["sst_ryu"],
-			old_ymk_claude:["sst_byleth_male","sst_byleth_female"],
-			old_sst_donkey_kong:["sst_mario"],
-			old_sst_richter:["sst_simon"]
+            old_sst_ken:["sst_ken","sst_ryu","old_sst_ryu"],
+			old_ymk_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
+			old_sst_donkey_kong:["sst_donkey_kong","sst_mario"],
+			old_sst_richter:["sst_richter","sst_simon"],
+			old_sst_ryu:["sst_ryu","sst_ken"]
 		},
 	};
 	return sst_old;

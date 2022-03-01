@@ -13,11 +13,11 @@ window.noname_update={
 		'其他'
 	],
 	files:[
-		'card/sst.js',
+		'card/sst_standard.js',
 		'card/sst_sp.js',
 		'card/sst_land.js',
-		'character/sst.js',
-		'character/sst_yingbian.js',
+		'character/sst_standard.js',
+		'character/sst_extra.js',
 		'character/sst_sp.js',
 		'character/sst_old.js',
 		'card/extra.js',

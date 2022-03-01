@@ -1,12 +1,12 @@
 window.noname_package={
 	character:{
-		sst:'大乱桌斗',
-		sst_yingbian:'乱斗应变',
+		sst_standard:'大乱桌斗',
+		sst_extra:'乱斗EX',
 		sst_sp:'乱斗SP',
 		sst_old:'乱斗怀旧'
 	},
 	card:{
-		sst:'大乱桌斗',
+		sst_standard:'大乱桌斗',
 		sst_sp:'乱斗名场',
 		sst_land:'乱斗地图',
 		standard:'标准',

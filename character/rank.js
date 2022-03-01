@@ -60,7 +60,7 @@ window.noname_character_rank={
 			"sst_pikachu",
 			"sst_enderman",
 			"sst_sephiroth",
-			"sst_pokemon_trainer_blue",
+			"sst_pokemon_trainer_leaf",
 			"sst_steve",
 			"sst_fox",
 			"ymk_yumikohimi",
@@ -80,7 +80,8 @@ window.noname_character_rank={
 			"sst_bowser_jr",
 			"nnk_robin",
 			"nnk_robin_male",
-			"nnk_robin_female"
+			"nnk_robin_female",
+			"sst_ryu"
 		],
 		rare:[
 			"sst_mario",
@@ -107,7 +108,6 @@ window.noname_character_rank={
 			"sst_windier",
 			"sst_rentianshu",
 			"sst_srf",
-			"sst_ryu",
 			"sst_ike",
 			"sst_toon_link",
 			"sst_wolf",
@@ -145,7 +145,8 @@ window.noname_character_rank={
 			"sst_yoshi",
 			"sst_villager",
 			"alz_yuri_kozukata",
-			"sst_lucario"
+			"sst_lucario",
+			"sst_kraid"
 		],
 		junk:[]
 	}

@@ -1,7 +1,7 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
 	var sst={
-		name:"sst",
+		name:"sst_standard",
 		connect:true,
 		card:{
 			sst_aegises:{

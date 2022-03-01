@@ -103,7 +103,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>"+
 			"系列：Fire Emblem（火焰纹章）<br>"+
-			"初登场：（）<br>"+
+			"初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>"+
 			"武将作者：mario not mary<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>"+
@@ -2426,7 +2426,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian3:"影见·灵",
 			alz_yingjian3_backup:"影见·灵",
 			alz_yingjian_info:"游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。",
-			//Character Sort
+			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
 			sst_ymk:"Yumikohimi",
