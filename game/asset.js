@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.112.1SST',
+	'v1.9.112.2SST',
 	//New add
 	'image/character/shibing1.png',
 	'image/character/shibing2.png',
@@ -600,6 +600,9 @@ window.noname_asset_list=[
 	'image/card/yitianjian.png',
 	'image/card/yonglv.png',
 	'image/card/zhanxiang.png',
+	'image/card/zhuangshu_basic.png',
+	'image/card/zhuangshu_trick.png',
+	'image/card/zhuangshu_equip.png',
 	
 	'image/emotion/shibing_emotion/1.gif',
 	'image/emotion/shibing_emotion/2.gif',

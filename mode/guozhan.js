@@ -2919,23 +2919,29 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					});
 					'step 6'
 					if(result.bool){
-						game.broadcastAll(function(player,target){
-							player.say('加入');
-							player.identity='ye';
-							player.setIdentity('ye');
-							player.storage.yexinjia_friend=target;
-						},target,source);
-						target.markSkill('yexinjia_friend');
-						source.removeMark('yexinjia_mark',1);
-						target.drawTo(4);
-						target.recover();
+						target.chat('加入');
+						if(!_status.yexinjia_list) _status.yexinjia_list=['夏','商','周','秦','汉','隋','唐','宋','辽','金','元','明'];
+						source.chooseControl(_status.yexinjia_list).set('prompt','请选择自己所属的野心家势力的标识').set('ai',()=>(_status.yexinjia_list?_status.yexinjia_list.randomGet():0));
 					}
 					else{
 						target.chat('拒绝');
 						game.delay(1.5);
 						if(targets.length) event.goto(5);
+						else event.goto(8);
 					}
 					'step 7'
+					game.broadcastAll(function(player,target,text){
+						player.identity='ye';
+						source.setIdentity(text,'ye');
+						player.setIdentity(text,'ye');
+						player.storage.yexinjia_friend=target;
+					},target,source,result.control);
+					_status.yexinjia_list.remove(result.control);
+					target.markSkill('yexinjia_friend');
+					source.removeMark('yexinjia_mark',1);
+					target.drawTo(4);
+					target.recover();
+					'step 8'
 					if(event.targets2.length) event.goto(3);
 					else delete _status.showYexings;
 				});
