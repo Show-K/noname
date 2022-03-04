@@ -171,6 +171,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_guimou:{
+				usable:1,
 				direct:true,
 				trigger:{player:"useCardBegin"},
 				filter:function(event,player){
@@ -225,6 +226,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							next.setContent(lib.skill.sst_guimou.contentx);
 						}
 					}
+					else{
+						player.storage.counttrigger[event.name]--;
+					}
 				},
 				contentx:function(){
 					if(!_status.cardtag) _status.cardtag={};
@@ -241,7 +245,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},_status.cardtag);
 				}
 			},
-			sst_guimou2:{},
 			//Geno
 			sst_fuyuan:{
 				enable:"phaseUse",
@@ -1095,10 +1098,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yunchou:"运筹",
 			sst_yunchou_info:"若你使用的牌具有应变效果，你可以令此牌允许满足任意一种应变条件。",
 			sst_guimou:"鬼谋",
-			sst_guimou_backup:"鬼谋",
-			sst_guimou3:"鬼谋",
-			sst_guimou4:"鬼谋",
-			sst_guimou5:"鬼谋",
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
@@ -1153,9 +1152,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:["sst_robin","sst_robin_male"]
 		},
 		help:{
-			"大乱桌斗":"<div style=\"margin:10px\">交给技能</div><ul style=\"margin-top:0\"><li>交给技能为专属技能"+
+			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\"><li>你执行背水效果后，依次执行上述两项/对应的“或”改为“和”</ul>"+
+			"<div style=\"margin:10px\">交给技能</div><ul style=\"margin-top:0\"><li>交给技能为专属技能"+
 			"<li>理论上，场上只能存在一个交给技能"+
-			"<li>将交给技能交给一名角色前，先前角色失去此交给技能"
+			"<li>将交给技能交给一名角色前，先前角色失去此交给技能</ul>"+
+			"<div style=\"margin:10px\">使命技</div><ul style=\"margin-top:0\"><li>本身可包含标准技能效果"+
+			"<li>若满足成功条件，失去此技能，执行成功分支的效果"+
+			"<li>若满足失败条件，失去此技能，执行失败分支的效果"
 		}
 	};
 	return sst_extra;

@@ -691,12 +691,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			ska_kezhi_effect:{
 				charlotte:true,
+				usable:1,
 				trigger:{player:"useCardEnd"},
 				filter:function(event,player){
-					//game.log(event.getParent().skill);
-					return !player.hasSkill("ska_kezhi_effect2")&&event.skill=="ska_kezhix"&&player.getHistory("sourceDamage",function(evt){
+					return event.skill=="ska_kezhix"&&player.hasHistory("sourceDamage",function(evt){
 						return evt.card==event.card;
-					}).length;
+					});
 				},
 				forced:true,
 				popup:false,
@@ -704,10 +704,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseDrawRecover(2,"恪志：你可以回复1点体力或摸两张牌");
 					"step 1"
-					if(result.control!="cancel2") player.addTempSkill("ska_kezhi_effect2");
+					if(result.control=="cancel2"){
+						player.storage.counttrigger[event.name]--;
+					}
 				}
 			},
-			ska_kezhi_effect2:{},
 			ska_jiyan:{
 				dutySkill:true,
 				init:function(player){
@@ -1123,10 +1124,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Yumikohimi
 			ymk_qiuyi:{
 				preHidden:true,
+				usable:1,
 				trigger:{global:"useCardAfter"},
 				direct:true,
 				filter:function(event,player){
-					return !player.hasSkill("ymk_qiuyi2")&&!["shan","wuxie"].contains(get.name(event.card))&&["basic","trick"].contains(get.type(event.card))&&(event.player.hp>=player.hp||event.player.countCards("h")>=player.countCards("h"));
+					return !["shan","wuxie"].contains(get.name(event.card))&&["basic","trick"].contains(get.type(event.card))&&(event.player.hp>=player.hp||event.player.countCards("h")>=player.countCards("h"));
 				},
 				content:function(){
 					"step 0"
@@ -1138,12 +1140,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.cards&&result.cards.length){
 						player.logSkill("ymk_qiuyi",trigger.player);
-						player.addTempSkill("ymk_qiuyi2");
 						player.give(result.cards,trigger.player);
 						if(!trigger.player.hasSkill("ymk_qiuyi_effect")) trigger.player.addTempSkill("ymk_qiuyi_effect");
 						trigger.player.addMark("ymk_qiuyi_effect",1,false);
 					}
 					else{
+						player.storage.counttrigger[event.name]--;
 						event.finish();
 					}
 					"step 2"
@@ -1169,7 +1171,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			ymk_qiuyi2:{},
 			ymk_xifang:{
 				usable:1,
 				trigger:{source:"gainAfter"},
@@ -2239,11 +2240,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=Math.max(0,player.hp)) return false;
 					for(var i of lib.inpile){
 						var type=get.type(i);
-						if(type=="basic"&&lib.filter.filterCard({name:i},player,event)) return true;
+						if(type=="basic"&&lib.filter.filterCard({name:i,isCard:true},player,event)) return true;
 					}
 					return false;
 				},
-				prompt:"若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用或打出一张基本牌",
+				prompt:"若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌",
 				chooseButton:{
 					dialog:function(){
 						var list=[];
@@ -2272,7 +2273,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					prompt:function(links,player){
-						return "视为使用或打出"+(get.translation(links[0][3])||"")+get.translation(links[0][2]);
+						return "视为使用"+(get.translation(links[0][3])||"")+get.translation(links[0][2]);
 					}
 				},
 				hiddenCard:function(player,name){
@@ -2284,7 +2285,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondShan:true,
 					respondTao:true,
 					save:true,
-					skillTagFilter:function(player){
+					skillTagFilter:function(player,tag,arg){
+						if(arg!="use") return false;
 						if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=Math.max(0,player.hp)) return false;
 					},
 					order:1,
@@ -2309,8 +2311,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return str;
 			},
 			alz_yingjian:function(player){
-				if(player.storage.alz_yingjian2) return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用或打出一张基本牌。";
-				return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用或打出一张基本牌。";
+				if(player.storage.alz_yingjian2) return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。";
+				return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。";
 			}
 		},
 		/*
