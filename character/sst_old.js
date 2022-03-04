@@ -3870,8 +3870,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_donkey_kong:"旧森喜刚",
 			old_sst_dark_samus:"黑暗萨姆斯",
 			ymk_577:"方块君",
-			old_sst_richter:"里希特",
-			old_sst_ryu:"隆",
+			old_sst_richter:"旧里希特",
+			old_sst_ryu:"旧隆",
 			//Identity mode skill
 			old_sst_juezhan:"绝战",
 			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
