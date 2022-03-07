@@ -2343,6 +2343,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:"SP鲁弗莱",
 			nnk_robin_female:"SP鲁弗莱",
 			alz_yuri_kozukata:"不来方夕莉",
+			//Character ab.
+			mnm_edelgard_ab:"艾黛尔贾特",
+			ska_king_olly_ab:"奥利王",
+			alz_yuri_kozukata_ab:"不来方夕莉",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",

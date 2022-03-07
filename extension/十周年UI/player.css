@@ -250,6 +250,8 @@
     right: 26%;
     bottom: 1%;
     position: absolute;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 
 .player.unseen>.camp-wrap>.avatar-name,

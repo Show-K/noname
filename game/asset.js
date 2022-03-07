@@ -110,6 +110,7 @@ window.noname_asset_list=[
 	'image/character/sst_kazuya.png',
 	'image/character/sst_kraid.png',
 	'image/character/sst_sora.png',
+	'image/character/sst_pac_man.png',
 
 	'image/character/sst_claude.png',
 	'image/character/sst_geno.png',

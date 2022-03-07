@@ -118,7 +118,7 @@ body>.background {
 #window > #time {
 	left: 50px;
 	right: 50px;
-	color: rgb(250, 250, 200);
+	color: rgb(250, 250, 250);
 	font-family: fzhtk;
 	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
 }
@@ -419,7 +419,7 @@ body>.background {
 /*牌堆牌数 游戏时间*/
 .touchinfo {
 	top: 1%;
-	color: rgb(250, 250, 200);
+	color: rgb(250, 250, 250);
 	font-family: fzhtk;
 	text-shadow: rgb(51,51,51) 1px 0 0, rgb(51,51,51) 0 1px 0, rgb(51,51,51) -1px 0 0, rgb(51,51,51) 0 -1px 0;
 	/* background: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black; */
@@ -594,7 +594,7 @@ body>.background {
 	font-family: fzhtk;
     font-size: 16px;
     bottom: -15px;
-    left: 5px;
+    left: 5.25px;
     top: auto;
     width: 50px;
     height: 50px;

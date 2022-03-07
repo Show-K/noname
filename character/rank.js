@@ -81,7 +81,8 @@ window.noname_character_rank={
 			"nnk_robin",
 			"nnk_robin_male",
 			"nnk_robin_female",
-			"sst_ryu"
+			"sst_ryu",
+			"sst_pac_man"
 		],
 		rare:[
 			"sst_mario",

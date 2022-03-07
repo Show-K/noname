@@ -446,7 +446,7 @@ content:function(config, pack){
 					
 					var hpNode = this.node.hp;
 					if (!this.storage.nohp) {
-						if (hpMax > 5) {
+						if (hpMax > 9) {
 							var hpText = (isNaN(hp) ? '×' : (hp == Infinity ? '∞' : hp));
 							var hpMaxText = (isNaN(hpMax) ? '×' : (hpMax == Infinity ? '∞' : hpMax));
 							if (!hpNode.textstyle) {
@@ -4268,7 +4268,9 @@ content:function(config, pack){
 						
 						for (var i in lib.element.button) node[i] = lib.element.button[i];
 						if (position) position.appendChild(node);
-						
+
+						if (type=='character'||type=='player'||type=='characterx') ui.create.rarity(node);
+
 						return node;
 					},
 					
@@ -9470,7 +9472,7 @@ precontent:function(){
 			node.created = true;
 			node.style.overflow = 'scroll';
 			
-			var list = ['sst_peach', 'sst_bowser', 'sst_master_hand', 'sst_ma'];
+			var list = ['sst_marth', 'sst_bowser', 'sst_master_hand', 'sst_ma'];
 			for (var i = 0; i < 4; i++) {
 				var player = ui.create.div('.seat-player.fakeplayer', node);
 				ui.create.div('.avatar', player).setBackground(list.randomRemove(), 'character');

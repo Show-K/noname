@@ -830,7 +830,7 @@
 									me.style.height='22px';
 								}
 								me.style.borderRadius='2px';
-								var list=['re_caocao','re_liubei','sp_zhangjiao','sunquan'];
+								var list=['sst_marth','sst_bowser','sst_master_hand','sst_ma'];
 								for(var i=0;i<4;i++){
 									var player=ui.create.div('.fakeplayer',node);
 									ui.create.div('.avatar',player).setBackground(list.randomRemove(),'character');
@@ -10622,6 +10622,47 @@
 		element:{
 			content:{
 				//New
+				judgeCard:function(){
+					"step 0"
+					if(typeof event.card=="string") event.card=game.createCard(event.card,"","");
+					"step 1"
+					//player.lose(event.card,"visible",ui.ordering);
+					player.$phaseJudge(event.card);
+					event.cancelled=false;
+					event.trigger("judgeCard");
+					var name=event.card.viewAs||event.card.name;
+					player.popup(name,"thunder");
+					if(!lib.card[name].effect){
+						game.delay();
+						event.finish();
+					}
+					else if(!lib.card[name].judge){
+						game.delay();
+						event.nojudge=true;
+					}
+					"step 2"
+					if(!event.cancelled&&!event.nojudge) player.judge(event.card);
+					"step 3"
+					var name=event.card.viewAs||event.card.name;
+					if(event.cancelled&&!event.direct){
+						if(lib.card[name].cancel){
+							var next=game.createEvent(name+"Cancel");
+							next.setContent(lib.card[name].cancel);
+							next.card=event.card;
+							next.cards=[event.card];
+							next.player=player;
+						}
+					}
+					else{
+						var next=game.createEvent(name);
+						next.setContent(lib.card[name].effect);
+						next._result=result;
+						next.card=event.card;
+						next.cards=[event.card];
+						next.player=player;
+					}
+					ui.clear();
+				},
 				phaseLoopRealtime:function(){
 					"step 0"
 					game.delayx();
@@ -17347,6 +17388,13 @@
 			},
 			player:{
 				//SST new add
+				judgeCard:function(card){
+					var next=game.createEvent("judgeCard");
+					next.player=this;
+					next.card=card;
+					next.setContent("judgeCard");
+					return next;
+				},
 				phaseRealtime:function(skill){
 					var next=game.createEvent("phase");
 					next.player=this;
@@ -36632,8 +36680,9 @@
 					intro.classList.add('showintro');
 					intro.style.fontFamily='fzhtk';
 					intro.style.fontSize='16px';
-					intro.style.bottom='6px';
+					intro.style.bottom='1px';
 					intro.style.left='6px';
+					intro.style.top='auto';
 					switch(rarity){
 						case 'rare':intro.dataset.nature='thunderm';break;
 						case 'epic':intro.dataset.nature='metalm';break;
@@ -39064,7 +39113,6 @@
 									for(var i=0;i<buttons.length;i++){
 										buttons[i].classList.add('noclick');
 										buttons[i].listen(banCharacter);
-										ui.create.rarity(buttons[i]);
 										buttons[i].node.hp.style.transition='all 0s';
 										buttons[i].node.hp._innerHTML=buttons[i].node.hp.innerHTML;
 										if(mode!='mode_banned'){
@@ -39084,7 +39132,6 @@
 								for(var i=0;i<buttons.length;i++){
 									buttons[i].classList.add('noclick');
 									buttons[i].listen(banCharacter);
-									ui.create.rarity(buttons[i]);
 									buttons[i].node.hp.style.transition='all 0s';
 									buttons[i].node.hp._innerHTML=buttons[i].node.hp.innerHTML;
 									if(mode!='mode_banned'){
@@ -39097,7 +39144,6 @@
 							var buttons=ui.create.buttons(list,'character',page);
 							for(var i=0;i<buttons.length;i++){
 								buttons[i].classList.add('noclick');
-								ui.create.rarity(buttons[i]);
 								buttons[i].listen(banCharacter);
 								buttons[i].node.hp.style.transition='all 0s';
 								buttons[i].node.hp._innerHTML=buttons[i].node.hp.innerHTML;
@@ -45944,6 +45990,7 @@
 							node.setBackground(item.name,'character');
 						}
 					}
+					ui.create.rarity(node);
 					break;
 
 					case 'text':
@@ -46681,7 +46728,7 @@
 
 						for(var i=0;i<button.info.length;i++){
 							var node=ui.create.div('.menubutton.videonode.pointerdiv',uiintro.content);
-							ui.create.div('.menubutton.videoavatar',node).setBackground(button.info[i][1]||'caocao','character');
+							ui.create.div('.menubutton.videoavatar',node).setBackground(button.info[i][1]||'sst_mario','character');
 							if(button.info[i][4]==game.wsid){
 								ui.create.div('.name','<span class="thundertext thunderauto">'+(button.info[i][0]||'无名玩家'),node);node.isme=true;
 							}
@@ -51984,77 +52031,6 @@
 			else if(str2.indexOf('新')==0&&(str.indexOf('re_')==0||str.indexOf('new_')==0)){
 				str2=str2.slice(1);
 			}
-			//New add
-			if(str2.indexOf("马力欧医生")==0){
-				str2="马力欧";
-			}
-			else if(str2.indexOf("零装甲")==0){
-				str2=str2.slice(3);
-			}
-			else if(str2.indexOf("Mr. Game & Watch")==0){
-				str2="代码人";
-			}
-			else if(str2.indexOf("炽焰")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("黑暗")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("库鲁鲁王")==0){
-				str2="库鲁鲁";
-			}
-			else if(str2.indexOf("酷霸王Jr.")==0){
-				str2="小酷霸王";
-			}
-			else if(str2.indexOf("酷霸王7人帮")==0){
-				str2="七人帮";
-			}
-			else if(str2.indexOf("Sans")==0){
-				str2="衫斯";
-			}
-			else if(str2.indexOf("卡通")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("幼年")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("时之笛")==0){
-				str2=str2.slice(3);
-			}
-			else if(str2.indexOf("Joker")==0){
-				str2="雨宫莲";
-			}
-			else if(str2.indexOf("茶杯头&马克杯人")==0){
-				str2="杯子兄弟";
-			}
-			else if(str2.indexOf("Snake")==0){
-				str2="固蛇";
-			}
-			else if(str2.indexOf("帝帝帝大王")==0){
-				str2="帝帝帝";
-			}
-			else if(str2.indexOf("Mii斗士")==0){
-				str2="秘斗士";
-			}
-			else if(str2.indexOf("考古学家")==0){
-				str2=str2.slice(4);
-			}
-			else if(str2.indexOf("基诺")==0){
-				str2="♡♪!?";
-			}
-			else if(str2.indexOf("艾黛尔贾特")==0){
-				str2="艾黛贾特";
-			}
-			else if(str2.indexOf("奥利王")==0){
-				str2="奥利";
-			}
-			else if(str2.indexOf("九伏特&十八伏特")==0){
-				str2="九十八伏";
-			}
-			else if(str2.indexOf("不来方")==0){
-				str2=str2.slice(3);
-			}
-			//New add end
 			return str2;
 		},
 		rawName2:function(str){
@@ -52079,77 +52055,6 @@
 			else if(str2.indexOf('手杀')==0){
 				str2=str2.slice(2);
 			}
-			//New add
-			if(str2.indexOf("马力欧医生")==0){
-				str2="马力欧";
-			}
-			else if(str2.indexOf("零装甲")==0){
-				str2=str2.slice(3);
-			}
-			else if(str2.indexOf("Mr. Game & Watch")==0){
-				str2="代码人";
-			}
-			else if(str2.indexOf("炽焰")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("黑暗")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("库鲁鲁王")==0){
-				str2="库鲁鲁";
-			}
-			else if(str2.indexOf("酷霸王Jr.")==0){
-				str2="小酷霸王";
-			}
-			else if(str2.indexOf("酷霸王7人帮")==0){
-				str2="七人帮";
-			}
-			else if(str2.indexOf("Sans")==0){
-				str2="衫斯";
-			}
-			else if(str2.indexOf("卡通")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("幼年")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("时之笛")==0){
-				str2=str2.slice(3);
-			}
-			else if(str2.indexOf("Joker")==0){
-				str2="雨宫莲";
-			}
-			else if(str2.indexOf("茶杯头&马克杯人")==0){
-				str2="杯子兄弟";
-			}
-			else if(str2.indexOf("Snake")==0){
-				str2="固蛇";
-			}
-			else if(str2.indexOf("帝帝帝大王")==0){
-				str2="帝帝帝";
-			}
-			else if(str2.indexOf("Mii斗士")==0){
-				str2="秘斗士";
-			}
-			else if(str2.indexOf("考古学家")==0){
-				str2=str2.slice(4);
-			}
-			else if(str2.indexOf("基诺")==0){
-				str2="♡♪!?";
-			}
-			else if(str2.indexOf("艾黛尔贾特")==0){
-				str2="艾黛贾特";
-			}
-			else if(str2.indexOf("奥利王")==0){
-				str2="奥利";
-			}
-			else if(str2.indexOf("九伏特&十八伏特")==0){
-				str2="九十八伏";
-			}
-			else if(str2.indexOf("不来方")==0){
-				str2=str2.slice(3);
-			}
-			//New add end
 			return str2;
 		},
 		slimName:function(str){
@@ -52174,77 +52079,6 @@
 			else if(str2.indexOf('手杀')==0){
 				str2=str2.slice(2);
 			}
-			//New add
-			if(str2.indexOf("马力欧医生")==0){
-				str2="马力欧";
-			}
-			else if(str2.indexOf("零装甲")==0){
-				str2=str2.slice(3);
-			}
-			else if(str2.indexOf("Mr. Game & Watch")==0){
-				str2="代码人";
-			}
-			else if(str2.indexOf("炽焰")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("黑暗")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("库鲁鲁王")==0){
-				str2="库鲁鲁";
-			}
-			else if(str2.indexOf("酷霸王Jr.")==0){
-				str2="小酷霸王";
-			}
-			else if(str2.indexOf("酷霸王7人帮")==0){
-				str2="七人帮";
-			}
-			else if(str2.indexOf("Sans")==0){
-				str2="衫斯";
-			}
-			else if(str2.indexOf("卡通")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("幼年")==0){
-				str2=str2.slice(2);
-			}
-			else if(str2.indexOf("时之笛")==0){
-				str2=str2.slice(3);
-			}
-			else if(str2.indexOf("Joker")==0){
-				str2="雨宫莲";
-			}
-			else if(str2.indexOf("茶杯头&马克杯人")==0){
-				str2="杯子兄弟";
-			}
-			else if(str2.indexOf("Snake")==0){
-				str2="固蛇";
-			}
-			else if(str2.indexOf("帝帝帝大王")==0){
-				str2="帝帝帝";
-			}
-			else if(str2.indexOf("Mii斗士")==0){
-				str2="秘斗士";
-			}
-			else if(str2.indexOf("考古学家")==0){
-				str2=str2.slice(4);
-			}
-			else if(str2.indexOf("基诺")==0){
-				str2="♡♪!?";
-			}
-			else if(str2.indexOf("艾黛尔贾特")==0){
-				str2="艾黛贾特";
-			}
-			else if(str2.indexOf("奥利王")==0){
-				str2="奥利";
-			}
-			else if(str2.indexOf("九伏特&十八伏特")==0){
-				str2="九十八伏";
-			}
-			else if(str2.indexOf("不来方")==0){
-				str2=str2.slice(3);
-			}
-			//New add end
 			return get.verticalStr(str2,true);
 		},
 		time:function(){
