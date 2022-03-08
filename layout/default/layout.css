@@ -381,12 +381,14 @@ table {
 	transition: all 0.5s;
 }
 #splash>div>.splashtext {
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	font-size: 50px;
 	position: absolute;
 	right: 7px;
 	bottom: 7px;
 	z-index: 1;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 #splash>div>.avatar {
 	width: 86px;
@@ -399,6 +401,8 @@ table {
 #splash.slim>div>.splashtext{
 	right: 5px;
 	bottom: 5px;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 #splash.slim>div>.avatar{
 	width: 90px;
@@ -1626,7 +1630,7 @@ div:not(.handcards)>.card>.info>span,
 	letter-spacing: -0.2em
 }
 .marks>.card>.background.skillmark {
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	padding-top: 4px;
 }
 .marks>.card.overflowmark {
@@ -1917,6 +1921,8 @@ div:not(.handcards)>.card>.info>span,
 	top: 22px;
 	max-height: 68px;
 	overflow: hidden;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 .button.character>.hp {
 	left: 5px;
@@ -1925,7 +1931,7 @@ div:not(.handcards)>.card>.info>span,
 .button.character>.hp.text {
 	top: 8px;
 	left: 6px;
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	font-size: 20px;
 	letter-spacing: 3px;
 }
@@ -2140,6 +2146,8 @@ div:not(.handcards)>.card>.info>span,
 	top: 24px;
 	font-size: 20px;
 	font-family: 'fzhtk';
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 .player>.name.name2 {
 	left: 81px
@@ -2171,7 +2179,9 @@ div:not(.handcards)>.card>.info>span,
 }
 
 .button.character>.name {
-	font-family: 'fzhtk'
+	font-family: 'fzhtk';
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 .player>.intro {
 	top: 87px;
@@ -2364,7 +2374,7 @@ div:not(.handcards)>.card>.info>span,
 }
 .player>.damage,
 #window>.damage {
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	font-size: 72px;
 	width: 100%;
 	text-align: center;
@@ -2397,7 +2407,7 @@ div:not(.handcards)>.card>.info>span,
 	transition-property: opacity;
 }
 .player>.cardeffect {
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	font-size: 108px;
 	width: 100%;
 	text-align: center;
@@ -2596,7 +2606,6 @@ div:not(.handcards)>.card>.info>span,
 	position: relative;
 	border-radius: 100%;
 	box-shadow: rgba(0,0,0,0.2) 1px -1px 2px inset,rgba(255,255,255,0.15) -1px 1px 5px inset;
-	position: relative;
 	filter: brightness(1.5);
 	-webkit-filter: brightness(1.5);
 	transition: all 0.5s;
@@ -2786,6 +2795,8 @@ div:not(.handcards)>.card>.info>span,
 
 .player>.name_seat {
 	opacity: 0;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 .player:not([data-position='0']).unseen.unseen2>.name_seat,
 .player:not([data-position='0']):not(.fullskin2).unseen>.name_seat {
@@ -3837,6 +3848,8 @@ div:hover>.intro {
 #window>.choosedouble.character>.name {
 	left: 6%;
 	top: 8%;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
 }
 
 .hrefnode{
@@ -3895,7 +3908,7 @@ div:hover>.intro {
 .player .identity>div {
 	margin: auto;
 	position: relative;
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	font-size: 24px;
 	top: 0;
 }
@@ -4525,7 +4538,7 @@ div[data-decoration="bronze"]::after{
 }
 .coin_menu .content>.caption>.coin_buy>.menubutton {
 	width: auto;
-	display: inline-block;
+	display: block;
 	position: relative;
 	float: right;
 	padding-left: 5px;
@@ -4539,7 +4552,7 @@ div[data-decoration="bronze"]::after{
 }
 
 .wunature {
-	font-family: 'fzhtk','fzhtk';
+	font-family: 'fzhtk';
 	font-size: 24px;
 	color: white !important;
 	pointer-events: none;

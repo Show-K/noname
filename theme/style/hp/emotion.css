@@ -4,7 +4,8 @@
     border: none;
     background-size: 100% 100%;
     transform: scale(1.4);
-    -webkit-filter:brightness(0.8) contrast(1.5);
+	filter:none;
+    -webkit-filter:none;
     border-radius: 0px;
 }
 .hp:not(.text):not(.actcount):not(.treasure)[data-condition="mid"]>div:not(.lost){
@@ -13,7 +14,8 @@
     border: none;
     background-size: 100% 100%;
     transform: scale(1.4);
-    -webkit-filter:brightness(0.8) contrast(1.5);
+	filter:none;
+    -webkit-filter:none;
     border-radius: 0px;
 }
 .hp:not(.text):not(.actcount):not(.treasure)[data-condition="low"]>div:not(.lost){
@@ -22,7 +24,8 @@
     border: none;
     background-size: 100% 100%;
     transform: scale(1.4);
-    -webkit-filter:brightness(0.8) contrast(1.5);
+	filter:none;
+    -webkit-filter:none;
     border-radius: 0px;
 }
 .hp:not(.text):not(.actcount):not(.treasure)>.lost{

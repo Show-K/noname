@@ -179,12 +179,17 @@
 	display: block !important;
 }
 
+.player.connect>div:not(.avatar):not(.name):not(.nameol):not(.hp):not(.room):not(.gaming):not(.identity).primary-avatar {
+	display: block !important;
+}
+
 .player>.camp-wrap div {
 	transition: none;
 }
 
 .player>.camp-wrap>.camp-back {
 	background: linear-gradient(to bottom, rgb(155,129,108), rgb(73,71,58));
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0% 90%);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0% 90%);
 }
 
@@ -245,13 +250,13 @@
     font-size: 16px;
 	text-align: center;
 	text-shadow: none; /*#000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;*/
-    left: 26%;
-    top: 24%;
-    right: 26%;
-    bottom: 1%;
+    left: 26.125%;
+    top: 21.875%;
+    right: 25.75%;
+    bottom: 0%;
     position: absolute;
-	-webkit-writing-mode: vertical-rl;
 	writing-mode: vertical-rl;
+	-webkit-writing-mode: vertical-rl;
 }
 
 .player.unseen>.camp-wrap>.avatar-name,
@@ -475,15 +480,18 @@
 
 #arena[data-outcrop-skin='on']>.player>.primary-avatar {
 	height: 192px;
+    clip-path: url(#solo-clip);
     -webkit-clip-path: url(#solo-clip);
 }
 
 #arena[data-outcrop-skin='on']>.player>.deputy-avatar {
     height: 192px;
+    clip-path: url(#duor-clip);
     -webkit-clip-path: url(#duor-clip);
 }
 
 #arena[data-outcrop-skin='on']>.player.fullskin2>.primary-avatar {
+	clip-path: url(#duol-clip);
 	-webkit-clip-path: url(#duol-clip);
 }
 
@@ -511,10 +519,12 @@
 	height: 100%;
 	border-radius: inherit;
 	pointer-events: none;
+	clip-path: inset(0 0 0 0 round 8px);
 	-webkit-clip-path: inset(0 0 0 0 round 8px);
 }
 
 #arena[data-dynamic-skin-outcrop='on']>.player>.dynamic-wrap>.animation-player {
+	clip-path: url(#dskin-clip);
 	-webkit-clip-path: url(#dskin-clip);
 	height: 200px;
 }
@@ -1085,6 +1095,7 @@
 }
 
 .player.dead>div {
+	filter: grayscale(1);
 	-webkit-filter: grayscale(1);
 }
 

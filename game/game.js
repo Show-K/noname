@@ -1660,16 +1660,10 @@
 					},
 					hp_style:{
 						name:'体力条样式',
-						init:'ol',
+						init:'default',
 						item:{
 							default:'默认',
-							// official:'勾玉',
 							emotion:'表情',
-							glass:'勾玉',
-							round:'国战',
-							ol:'手杀',
-							xinglass:'双鱼',
-							xinround:'OL',
 							custom:'自定',
 						},
 						visualBar:function(node,item,create,switcher){
@@ -9903,8 +9897,8 @@
 				game.saveConfig('plays',['cardpile']);
 				game.saveConfig('skip_shan',false);
 				game.saveConfig('tao_enemy',true);
-				game.saveConfig('layout','long2');
-				game.saveConfig('hp_style','ol');
+				game.saveConfig('layout','nova');
+				game.saveConfig('hp_style','default');
 				game.saveConfig('background_music','music_off');
 				game.saveConfig('background_audio',false);
 				game.saveConfig('background_speak',false);
@@ -51983,12 +51977,6 @@
 					nobreak=!nobreak;continue;
 				}
 				str2+=str[i];
-				if(nobreak) continue;
-				if(sp&&str[i]=='S'&&str[i+1]=='P') continue;
-				if(/[0-9]/.test(str[i])&&/[0-9]/.test(str[i+1])) continue;
-				if(i<str.length-1){
-					str2+='<br>';
-				}
 			}
 			return str2;
 		},

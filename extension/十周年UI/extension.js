@@ -5428,16 +5428,18 @@ content:function(config, pack){
 				}
 			};
 			
-			// if ((typeof ui.create.menu) == 'function') {
-				// var str = ui.create.menu.toString();
-				// str = str.substring(str.indexOf('{'));
-				// str = str.replace(/game\.documentZoom|1\.3/g, '1');
-				// createMenuFunction = new Function('connectMenu', '_status','lib','game','ui','get','ai', str);
-			// }
+			/*
+			if ((typeof ui.create.menu) == 'function') {
+				var str = ui.create.menu.toString();
+				str = str.substring(str.indexOf('{'));
+				str = str.replace(/game\.documentZoom|1\.3/g, '1');
+				createMenuFunction = new Function('connectMenu', '_status','lib','game','ui','get','ai', str);
+			}
 			
-			// ui.create.menu = function(connectMenu){
-				// return createMenuFunction.call(this, connectMenu, _status, lib, game, ui, get, ai);
-			// };
+			ui.create.menu = function(connectMenu){
+				return createMenuFunction.call(this, connectMenu, _status, lib, game, ui, get, ai);
+			};
+			*/
 			
 			ui.create.arena = function(){
 				ui.updatez();
@@ -5926,36 +5928,38 @@ content:function(config, pack){
 			};
 			
 			// 不联机就不用
-			// ui.create.chat = function(){
-				// var chatBox = ui.arena.appendChild(decadeUI.component.chatBox());
-				// for (var i = 0; i < lib.chatHistory.length; i++) {
-					// chatBox.addEntry(lib.chatHistory[i]);
-				// }
+			/*
+			ui.create.chat = function(){
+				var chatBox = ui.arena.appendChild(decadeUI.component.chatBox());
+				for (var i = 0; i < lib.chatHistory.length; i++) {
+					chatBox.addEntry(lib.chatHistory[i]);
+				}
 				
-				// _status.addChatEntry = chatBox.addEntry;
-				// Object.defineProperties(_status, {
-					// addChatEntry: {
-						// configurable: true,
-						// get:function(){
-							// return chatBox.addEntry;
-						// },
-						// set:function(value){
-							// chatBox.overrideEntry = value;
-						// }
-					// },
-				// });
+				_status.addChatEntry = chatBox.addEntry;
+				Object.defineProperties(_status, {
+					addChatEntry: {
+						configurable: true,
+						get:function(){
+							return chatBox.addEntry;
+						},
+						set:function(value){
+							chatBox.overrideEntry = value;
+						}
+					},
+				});
 				
-				// var retVal = base.ui.create.chat.apply(this, arguments);
-				// chatBox.addEntry._origin = chatBox;
-				// return retVal;
-			// };
+				var retVal = base.ui.create.chat.apply(this, arguments);
+				chatBox.addEntry._origin = chatBox;
+				return retVal;
+			};
+			*/
 			
 			lib.init.cssstyles = function(){
 			    var temp = lib.config.glow_phase;
 			    lib.config.glow_phase = '';
 			    initCssstylesFunction.call(this);
 			    lib.config.glow_phase = temp;
-				ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: "' + (lib.config.name_font || 'fzhtk') + '", "fzhtk" }', 0);
+				ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: fzhtk }', 0);
 			};
 
 			lib.init.layout = function(layout, nosave){

@@ -2,11 +2,9 @@ window.noname_update={
 	version:'1.9.112.2SST',
 	update:'1.9.112.1SST',
 	changeLog:[
-		'高体力上限 克雷德',
-		'施法 索拉',
-		'（实验）多实体牌转化 SP鲁弗莱',
-		'（实验）标记 不来方夕莉',
-		'修改 里希特 隆',
+		'数值分配 吃豆人',
+		'修改 索拉',
+		'规范名称',
 		'代码优化',
 		'bug修复',
 		'其他'
@@ -77,15 +75,7 @@ window.noname_update={
 		'game/package.js',
 		'game/asset.js',
 		'game/source.js',
-		//'theme/style/hp/xinglass.css',
-		//'theme/style/hp/xinround.css',
-		//'theme/style/hp/image/xinglass1.png',
-		//'theme/style/hp/image/xinglass2.png',
-		//'theme/style/hp/image/xinglass3.png',
-		//'theme/style/hp/image/xinglass4.png',
-		//'theme/style/hp/image/xinround1.png',
-		//'theme/style/hp/image/xinround2.png',
-		//'theme/style/hp/image/xinround3.png',
-		//'theme/style/hp/image/xinround4.png',
+		'image/character/sst_mario_not_mary.png',
+		'image/character/sst_yumikohimi.png',
 	]
 };

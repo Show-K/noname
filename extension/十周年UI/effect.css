@@ -158,6 +158,7 @@
     height: 120px;
 	background: linear-gradient(to right, white, white 70%, transparent);
     border-radius: 15% / 50%;
+    filter: blur(10px) drop-shadow(0 0 50px yellow);
     -webkit-filter: blur(10px) drop-shadow(0 0 50px yellow);
     animation: moveout-left-li-big 0.8s linear forwards;
 }

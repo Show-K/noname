@@ -5690,7 +5690,7 @@ decadeModule.import(function(lib, game, ui, get, ai, _status){
 							if (lib.config.asset_skin) {
 								for (var i in skins) {
 									for (var j = 1; j <= skins[i]; j++) {
-										updates.push('image/skin/' + i + '/' + j + '.jpg');
+										updates.push('image/skin/' + i + '/' + j + '.png');
 									}
 								}
 							}

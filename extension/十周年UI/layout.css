@@ -196,11 +196,11 @@ body>.background {
 }
 
 .hand-cards>.handcards>.card.selected {
-    boder-radius: 2px;
+    border-radius: 2px;
 }
 
 .hand-cards>.handcards>.card.selectable {
-    boder-radius: 2px;
+    border-radius: 2px;
 	cursor: pointer;
 }
 

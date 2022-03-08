@@ -1086,7 +1086,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		translate: {
 			//Character
 			sst_claude:"库罗德",
-			sst_geno:"基诺",
+			sst_geno:"♡♪!?",
 			sst_duck_hunt:"打猎",
 			sst_ness:"奈斯",
 			sst_chrom:"库洛姆",
@@ -1094,6 +1094,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin:"鲁弗莱",
 			sst_robin_male:"鲁弗莱",
 			sst_robin_female:"鲁弗莱",
+			//Character ab.
+			sst_geno_ab:"Geno",
 			//Skill
 			sst_yunchou:"运筹",
 			sst_yunchou_info:"若你使用的牌具有应变效果，你可以令此牌允许满足任意一种应变条件。",
