@@ -3289,7 +3289,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					damageBonus:true,
 					effect:{
 						player:function(card,player){
-							if(!player.hasMark("sst_potian_effect")&&get.name(card)=="sha") return -1;
+							if(!player.hasMark("sst_potian_effect")&&get.name(card)=="sha") return [1,-5];
 						}
 					}
 				}

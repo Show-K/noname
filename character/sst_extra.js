@@ -856,7 +856,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}).set("judge2",()=>true);
 					"step 1"
-					player.chooseUseTarget({name:"sha"},[result.card],false,true).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:()=>0);
+					if(game.hasPlayer(function(current){
+						return player.canUse({name:"sha",cards:[result.card]},current);
+					})) player.chooseUseTarget({name:"sha"},[result.card],false,true).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:()=>0);
 				},
 				group:"sst_cuifeng2"
 			},
@@ -1154,7 +1156,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:["sst_robin","sst_robin_male"]
 		},
 		help:{
-			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\"><li>你执行背水效果后，依次执行上述两项/对应的“或”改为“和”</ul>"+
+			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\"><li>你执行背水效果后，依次执行上述两项/上述出现的“或”改为“和”</ul>"+
 			"<div style=\"margin:10px\">交给技能</div><ul style=\"margin-top:0\"><li>交给技能为专属技能"+
 			"<li>理论上，场上只能存在一个交给技能"+
 			"<li>将交给技能交给一名角色前，先前角色失去此交给技能</ul>"+

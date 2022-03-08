@@ -3004,32 +3004,34 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		characterOnline:{
-			wei:[
-				're_caocao','re_guojia','re_simayi','re_xiahoudun','xuzhu','re_zhangliao','re_zhenji','ol_xiahouyuan','dianwei','re_xunyu','zhanghe',
-				'yujin_yujin','re_caozhang','wangyi','guohuai','hanhaoshihuan','chenqun','re_caoxiu','guohuanghou','sunziliufang','xunyou','xinxianying',
-				'sp_caiwenji','caoang','caochun','caohong','sp_caoren','chenlin','sp_jiaxu','litong','sp_pangde','simalang','wanglang',
-				'kuailiangkuaiyue','wangji','sp_simazhao','sp_wangyuanji','yuejin','zangba','xinpi','liuye','simashi','zhuling','duji','caoanmin',
+			sst_light:[
+				'sst_mario','sst_link','sst_yoshi','sst_villager','sst_zelda','sst_dr_mario',
+				'sst_palutena','sst_marth','sst_rosalina','sst_zero_suit_samus','sst_luigi','sst_peach',
+				'sst_byleth_female','sst_byleth_male','sst_samus','sst_terry','sst_kirby','sst_donkey_kong',
+				'sst_pokemon_trainer_red','sst_isabelle','sst_daisy','sst_little_mac','sst_ryu','sst_ken',
+				'sst_ike','sst_toon_link','sst_mega_man','sst_captain_falcon','sst_jigglypuff','sst_pichu',
+				'sst_steve','sst_sonic','sst_hero','sst_fox','sst_alex','sst_min_min','sst_pikachu',
+				'sst_falco','sst_pyra_mythra','sst_pokemon_trainer_leaf','sst_sora','sst_pac_man',
+				//----------------
+				'sst_duck_hunt','sst_ness','sst_chrom','sst_lucina','sst_robin'
 			],
-			shu:[
-				're_guanyu','re_huangyueying','re_liubei','re_machao','re_zhangfei','zhaoyun','re_huangzhong','re_weiyan','re_pangtong','ol_sp_zhugeliang',
-				're_menghuo','re_zhurong','re_fazheng','re_masu','guanxingzhangbao','xin_liaohua','old_madai','re_jianyong','wuyi','zhangsong','zhoucang',
-				'liuchen','xiahoushi','re_zhangyi','liyan','guanyinping','guansuo','mayunlu','mazhong','mizhu','sunqian','xiahouba','zhangxingcai',
-				'wangping','yanyan','chendao','ganfuren','re_maliang','dengzhi','lifeng','zhangyì',
+			sst_darkness:[
+				'sst_wario','sst_ganondorf','sst_bowser','sst_ridley','sst_dark_samus','sst_mr_game_watch',
+				'sst_simon','sst_incineroar','sst_greninja','sst_king_k_rool','sst_richter','sst_meta_knight',
+				'sst_bowser_jr','sst_koopalings','sst_sheik','sst_wolf','sst_young_link','sst_joker',
+				'sst_snake','sst_lucario','sst_king_dedede','sst_enderman','sst_sephiroth','sst_kazuya',
 			],
-			wu:[
-				're_ganning','re_huanggai','re_sunquan','re_sunshangxiang','re_zhouyu','old_zhoutai','re_xiaoqiao','re_taishici','sunjian','re_zhangzhang',
-				're_lingtong','re_wuguotai','xin_xusheng','re_bulianshi','re_chengpu','handang','xin_panzhangmazhong','xin_zhuran','guyong','zhuhuan','cenhun','sundeng','xuezong',
-				'daxiaoqiao','heqi','kanze','sunhao','re_sunluyu','sunshao','zhugejin','zumao','dingfeng','sunliang','zhoufei',
-				'weiwenzhugezhi','xf_sufei','xugong','lingcao','sunru','lvdai','panjun','yanjun','zhoufang',
+			sst_spirit:[
+				'sst_dark_link','sst_sans','sst_waluigi','sst_master_hand','sst_spring_man','sst_rex',
+				'sst_cuphead_mugman','sst_krystal','sst_kyo_kusanagi','sst_pauline','sst_dr_wily','sst_9_volt_18_volt',
+				'sst_kraid',
+				//----------------
+				'sst_geno'
 			],
-			qun:[
-				're_diaochan','re_gongsunzan','re_huatuo','re_huaxiong','re_lvbu','ol_pangde','re_yanwen','jiaxu','gaoshun','xin_liubiao','chengong',
-				're_gongsunyuan','guotufengji','dongbai','fuwan','liuxie','sp_machao','tadun','yanbaihu','yuanshu','zhangbao','yl_luzhi','huangfusong','sp_ganning','huangjinleishi',
-				're_panfeng','guosi','sp_liuqi','mangyachang','gaolan','lvkuanglvxiang','xunchen','sp_zhanghe','re_hansui','re_hejin','zhujun','ol_dingyuan','hanfu','wangrong',
-				'dongcheng','gongsunkang','hucheer','sp_sufei','yj_xuhuang','yj_zhanghe','yj_zhangliao','liuyao','wangcan','sp_taishici','caimao','jiling',
-			],
-			key:[
-				'sp_key_yuri','key_akane','key_akiko','key_ao','key_harukakanata','key_haruko','key_hinata','key_kengo','key_komari','key_kotori','key_kyoko','key_nagisa','key_noda','key_rei','key_rin','key_rumi','key_ryoichi','key_sasami','key_shiorimiyuki','key_shiroha','key_shizuku','key_tomoya','key_tsumugi','key_umi','key_yoshino','key_youta','key_yukine','key_nao','key_misuzu',
+			sst_reality:[
+				'sst_massy','sst_mario_not_mary','sst_yumikohimi','sst_haine','sst_oc','sst_mr_8',
+				'sst_kyuukou','sst_windier','sst_rentianshu','sst_srf','sst_miumiu','sst_ma',
+				'sst_feiji',
 			],
 		},
 		online_cardPile:[
