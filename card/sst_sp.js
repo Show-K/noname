@@ -140,7 +140,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					result:{
 						target:function(player,target,card,isLink){
 							var eff=function(){
-								if(!target.countDiscardableCards("he")) return 0;
+								if(!target.countDiscardableCards(player,"he")) return 0;
 								return -1.5;
 							}();
 							if(target.mayHaveShan()&&!player.hasSkillTag("directHit_ai",true,{
@@ -469,7 +469,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			},
 			ska_sauce:{
 				fullskin:true,
-				type:"food",
+				type:"star",
 				enable:true,
 				filterTarget:function(card,player,target){
 					return target.isDamaged()&&target.countCards("h",function(card){
@@ -506,7 +506,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			},
 			ska_rise_of_the_block:{
 				fullskin:true,
-				type:"trick",
+				type:"star",
 				enable:true,
 				selectTarget:-1,
 				toself:true,
@@ -629,7 +629,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			},
 			ska_doing_absolutely_nothing:{
 				fullskin:true,
-				type:"trick",
+				type:"star",
 				enable:true,
 				filterTarget:true,
 				content:function(){
@@ -659,8 +659,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			ska_big_acquisition:{
-				type:"trick",
+			ska_big_merger:{
+				type:"star",
 				fullskin:true,
 				enable:true,
 				filterTarget:function(card,player,target){
@@ -712,6 +712,103 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 								return get.effect(target,cardj,target,player)<0;
 							})>0)?1.5:-0.3)*Math.sqrt(player.countCards("h"));
 						}
+					}
+				}
+			},
+			ska_pumpkin:{
+				fullskin:true,
+				type:"star",
+				enable:true,
+				filterTarget:function(card,player,target){
+					return target!=player&&(target.countDiscardableCards(player,"he")>1||target.countCards("he",function(card){
+						return lib.filter.cardDiscardable(card,target);
+					}));
+				},
+				content:function(){
+					"step 0"
+					var list=[];
+					if(target.countDiscardableCards(player,"he")>1) list.push("选项一");
+					if(target.countCards("he",function(card){
+						return lib.filter.cardDiscardable(card,target);
+					})) list.push("选项二");
+					if(list.contains("选项一")&&!list.contains("选项二")){
+						player.discardPlayerCard("南瓜：弃置"+get.translation(target)+"两张牌",2,true);
+						event.goto(2);
+					}
+					else if(!list.contains("选项一")&&list.contains("选项二")){
+						target.chooseToDiscard("南瓜：弃置一张牌","he",true);
+						event.goto(3);
+					}
+					else if(list.contains("选项一")&&list.contains("选项二")){
+						target.chooseControl(list).set("ai",function(){
+							var player=_status.event.player;
+							var source=_status.event.source;
+							if(get.attitude(player,source)<0){
+								if(source.hp<=1) return "选项一";
+								var val=0;
+								var cards=player.getDiscardableCards(source,"he");
+								for(var i=0;i<cards.length;i++){
+									val+=get.value(cards[i]);
+								}
+								val/=cards.length;
+								if(val<=5) return "选项一";
+							}
+							return "选项二";
+						}).set("list",list).set("source",player).set("choiceList",["令"+get.translation(player)+"弃置你两张牌，然后"+get.translation(player)+"失去1点体力","你弃置一张牌且本轮非锁定技失效"]);
+					}
+					else{
+						event.finish();
+					}
+					"step 1"
+					if(result.control=="选项一"){
+						player.discardPlayerCard("南瓜：弃置"+get.translation(target)+"两张牌",2,true);
+					}
+					else if(result.control=="选项二"){
+						target.chooseToDiscard("南瓜：弃置一张牌","he",true);
+						event.goto(3);
+					}
+					"step 2"
+					player.loseHp();
+					event.finish();
+					"step 3"
+					target.addTempSkill("fengyin","roundStart");
+					event.finish();
+					
+				},
+				ai:{
+					basic:{
+						order:9,
+						useful:5,
+						value:5
+					},
+					result:{
+						target:function(player,target){
+							var att=get.attitude(player,target);
+							if(att<0&&player.hp<=1) return 0;
+							var nh=target.countCards('h');
+							if(att>0){
+								if(target.getEquip('baiyin')&&target.isDamaged()&&
+									get.recoverEffect(target,player,player)>0){
+									if(target.hp==1&&!target.hujia) return 1.6;
+								}
+								if(target.countCards('e',function(card){
+									if(get.position(card)=='e') return get.value(card,target)<0;
+								})>0) return 1;
+							}
+							var es=target.getCards('e');
+							var noe=(es.length==0||target.hasSkillTag('noe'));
+							var noe2=(es.filter(function(esx){
+								return get.value(esx,target)>0;
+							}).length==0);
+							var noh=(nh==0||target.hasSkillTag('noh'));
+							if(noh&&(noe||noe2)) return 0;
+							if(att<=0&&!target.countCards('he')) return 1.5;
+							return -1.5;
+						}
+					},
+					tag:{
+						loseCard:1,
+						discard:1
 					}
 				}
 			}
@@ -918,18 +1015,13 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			}
 		},
 		cardType:{
-			food:0.3
+			food:0.3,
+			star:0.5
 		},
 		translate:{
 			//Type
 			food:"食物",
-			//Skill
-			ska_counter_suit1:"花色反制",
-			ska_counter_suit1_info:"当你成为一名角色使用【杀】/【猛击】的目标时，你可以打出一张相同花色的【盾】，令此牌对你无效，且获得此牌。",
-			ska_counter_suit2:"花色反制",
-			ska_counter_suit2_info:"一名角色使用【盾】时，若伤害来源为你，你可以打出一张相同花色的【抓】，取消之，且获得其一张牌。",
-			ska_counter_suit3:"花色反制",
-			ska_counter_suit3_info:"当你成为一名角色使用【抓】的目标时，你可以打出一张相同花色的【杀】，令此牌对你无效，且对其造成1点伤害。",
+			star:"明星",
 			//Test
 			ska_grab:"抓",
 			ska_grab_info:"出牌阶段，对你攻击范围内的一名角色使用。其须展示一张【闪】，否则你弃置其一张牌。",
@@ -937,11 +1029,10 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_shield_info:"当你受到伤害时，你令伤害值-1，然后若伤害值不小于2，你翻面。",
 			ska_smash:"猛击",
 			ska_smash_info:"出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】（若如此做，其可以获得你一张牌），否则你对其造成2点伤害。",
-			//Food
+			//Star
 			ska_sauce:"酱料",
 			ska_sauce_info:"出牌阶段，对一名已受伤角色使用。目标角色弃置所有手牌，然后回复1点体力。",
 			ska_sauce_append:"<span class=\"text\" style=\"font-family: fzktk\">“这里是我的一个……我吃的一些酱料啊。”——超级小桀</span>",
-			//Trick
 			ska_rise_of_the_block:"方块崛起",
 			ska_rise_of_the_block_info:"出牌阶段，对包含你在内的一名角色使用。目标角色声明一种类别，然后从牌堆顶亮出体力值张牌并获得此类别牌中一张，若其以此法获得牌，其可以弃置一名角色区域内所有牌。本回合目标受到伤害时，防止此伤害。",
 			ska_rise_of_the_block_append:"<span class=\"text\" style=\"font-family: fzktk\">我们至今不知道为什么Tweek在那次比赛惨败给那个史蒂夫选手。</span>",
@@ -950,9 +1041,19 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			ska_doing_absolutely_nothing_info:"出牌阶段，对一名角色使用。直到目标角色回合开始，其不计入距离的计算，不能使用或打出牌，不是牌的合法目标，不能失去或回复体力，不能受到伤害。",
 			ska_doing_absolutely_nothing_append:"<span class=\"text\" style=\"font-family: fzktk\">“路易吉这角色就离谱！”——超级小桀</span>",
 			ska_doing_absolutely_nothing_skill:"不动定律",
-			ska_big_acquisition:"大收购",
-			ska_big_acquisition_info:"出牌阶段，对一名区域内有可获得牌的其他角色使用。你摸两张牌，获得目标角色区域内所有牌，然后交给其至少等量牌。",
-			ska_big_acquisition_append:"<span class=\"text\" style=\"font-family: fzktk\">Microsoft怎么就这么有钱呢！</span>"
+			ska_big_merger:"大收购",
+			ska_big_merger_info:"出牌阶段，对一名区域内有可获得牌的其他角色使用。你摸两张牌，获得目标角色区域内所有牌，然后交给其至少等量牌。",
+			ska_big_merger_append:"<span class=\"text\" style=\"font-family: fzktk\">Microsoft怎么就这么有钱呢！</span>",
+			ska_pumpkin:"南瓜",
+			ska_pumpkin_info:"出牌阶段，对一名有牌的其他角色使用。目标角色选择一项：1. 令你弃置其两张牌，然后你失去1点体力；2. 其弃置一张牌，然后本轮非锁定技失效。",
+			ska_pumpkin_append:"<span class=\"text\" style=\"font-family: fzktk\">困难模式第一人在背题，多人对战8,000分在背题，我呢？我被任天堂封了14天。</span>",
+			//Skill
+			ska_counter_suit1:"花色反制",
+			ska_counter_suit1_info:"当你成为一名角色使用【杀】/【猛击】的目标时，你可以打出一张相同花色的【盾】，令此牌对你无效，且获得此牌。",
+			ska_counter_suit2:"花色反制",
+			ska_counter_suit2_info:"一名角色使用【盾】时，若伤害来源为你，你可以打出一张相同花色的【抓】，取消之，且获得其一张牌。",
+			ska_counter_suit3:"花色反制",
+			ska_counter_suit3_info:"当你成为一名角色使用【抓】的目标时，你可以打出一张相同花色的【杀】，令此牌对你无效，且对其造成1点伤害。"
 		},
 		list:[
 			/*
@@ -1010,7 +1111,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["club",8,"ska_sauce",null,["sst_reality"]],
 			["diamond",1,"ska_rise_of_the_block",null,["sst_smash"]],
 			["spade",2,"ska_doing_absolutely_nothing",null,["sst_light"]],
-			["diamond",13,"ska_big_acquisition",null,["sst_reality"]]
+			["diamond",13,"ska_big_merger",null,["sst_reality"]],
+			["spade",4,"ska_pumpkin",null,["sst_light","sst_reality"]]
 		]
 	};
 	return sst_sp;

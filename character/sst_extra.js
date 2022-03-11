@@ -1041,18 +1041,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(event.control=="选项二"||event.control=="背水！"){
 						var name=get.zhinangs().randomGet();
+						/*
 						var card=ui.create.card(ui.special);
 						card.storage.vanish=true;
 						card=card.init([lib.suit.randomGet(),Math.ceil(Math.random()*13),name,lib.card[name].cardnature,["zhinang_tricks"]]);
-						/*
-						var card=game.createCard(name);
-						if(!_status.cardtag) _status.cardtag={};
-						if(!_status.cardtag["zhinang_tricks"]) _status.cardtag["zhinang_tricks"]=[];
-						_status.cardtag["zhinang_tricks"].add(card.cardid);
-						game.broadcastAll(function(cardtag){
-							_status.cardtag=cardtag;
-						},_status.cardtag);
 						*/
+						var card=game.createCard3(name,null,null,null,["zhinang_tricks"]);
 						player.gain(card,"gain2");
 					}
 				},

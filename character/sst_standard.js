@@ -484,8 +484,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"初登场：Zelda II: The Adventure of Link（林克的冒险）<br>"+
 			"武将作者：mario not mary<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"<br>"+
-			//"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
+			"暗黑林克是林克的邪恶面。他是塞尔达传说系列中最神秘的敌人角色之一，通常在没有背景故事和对话的情况下出现，尽管在很多场合都暗示它只是由暗影魔法构成。对于林克来说，暗黑林克不仅仅是一场与怪物的战斗，而是一场与自己的战斗，因为这位年轻的英雄必须面对自己的力量与他作对。正因为如此，暗黑林克通常是终极挑战。他有一次成为正式的最终Boss（林克的冒险），以及在四剑神殿和Take 'Em All On!等中作为可选挑战的最终Boss。<br>"+
+			"——翻译自《塞尔达维基》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
 			"话说塞尔达传说的第二部和系列其他作品很不一样。",
 			sst_kyuukou:"武将作者：mario not mary<br>"+
@@ -909,7 +909,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"曾经是神罗公司里最伟大的战士，也是人和外星生命“杰诺瓦”进行融合的实验产物。他了解到自己身世之后，逐渐对人类产生恨意，开始了一系列的毁灭活动。只要有足够杰诺瓦细胞，他就能够重生。似乎以在战斗中和精神上折磨克劳德为乐。<br>"+
 			"——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>"+
 			"━━━━━━━━━━━━━━━━━<br>"+
-			"Sephiroth🎵~",
+			"Sephiroth♫~",
 			sst_pokemon_trainer_leaf:"0413. 宝可梦训练家（女性）/Pokémon Trainer (Female)/ポケモントレーナー（女性）<br>"+
 			"系列：Pokémon（宝可梦）<br>"+
 			"初登场：Pokémon FireRed and LeafGreen Versions（宝可梦 火红／叶绿）<br>"+
@@ -1524,8 +1524,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}));
 					player.storage.sst_yinjie.push(trigger.player);
 					trigger.player.addTempSkill("sst_yinjie_effect");
-					player.addTempSkill("sst_yinjie_effect2");
-					//trigger.player.markSkillCharacter("sst_yinjie_effect",player,"印结",get.translation(player)+"与你相互距离为1，本回合内你使用牌只能指定"+get.translation(player)+"为目标，结束阶段，"+get.translation(player)+"获得你所有牌");
+					player.addTempSkill("sst_yinjie2");
 					var evt=event.getParent("phase");
 					if(evt&&evt.name=="phase"&&!evt.sst_yinjie){
 						evt.set("sst_yinjie",true);
@@ -1546,6 +1545,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.3
 				}
 			},
+			sst_yinjie2:{
+				trigger:{global:"phaseJieshuBegin"},
+				forced:true,
+				filter:function(event,player){
+					return player.storage.sst_yinjie.contains(event.player)&&event.player.isIn();
+				},
+				logTarget:"player",
+				content:function(){
+					player.gain(trigger.player.getGainableCards(player,"he"),trigger.player,"giveAuto","bySelf");
+				}
+			},
 			sst_yinjie_effect:{
 				mark:true,
 				intro:{
@@ -1554,7 +1564,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return Array.isArray(current.storage.sst_yinjie)&&current.storage.sst_yinjie.contains(player);
 						});
 						if(!players.length) return "〖印结〗角色不在场";
-						return get.translation(players)+"与你相互距离为1<br>本回合内你使用牌只能指定"+get.translation(players)+"为目标<br>结束阶段，"+get.translation(players)+"获得你所有牌";
+						return get.translation(players)+"与你相互距离为1<br>本回合内你使用牌不能指定除"+get.translation(players)+"外角色为目标<br>结束阶段，"+get.translation(players)+"获得你所有牌";
 					}
 				},
 				mod:{
@@ -1574,20 +1584,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					nokeep:true
-				}
-			},
-			sst_yinjie_effect2:{
-				trigger:{global:"phaseJieshuBegin"},
-				forced:true,
-				filter:function(event,player){
-					return player.storage.sst_yinjie.contains(event.player);
-				},
-				logTarget:"player",
-				content:function(){
-					player.storage.sst_yinjie.remove(trigger.player);
-					if(trigger.player.isIn()){
-						player.gain(trigger.player.getGainableCards(player,"he"),trigger.player,"giveAuto","bySelf");
-					}
 				}
 			},
 			sst_qinwei:{
@@ -3321,7 +3317,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_shenjiao",result.targets);
-						result.targets[0].gain(event.cards,player,"gain2");
+						player.give(event.cards,result.targets[0]);
 						if(trigger.getParent().name=="sst_potian"){
 							result.targets[0].addTempSkill("sst_shenjiao_effect",{player:"phaseBeginStart"});
 							//result.targets[0].markSkillCharacter("sst_shenjiao_effect",player,"身教","下一个回合内拥有【破天】");
@@ -3363,7 +3359,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				position:"he",
 				content:function(){
 					"step 0"
-					target.gain(cards,player,"giveAuto");
+					player.give(cards,target);
 					"step 1"
 					if(typeof player.storage.sst_yanchuan[target.playerid]!="number") player.storage.sst_yanchuan[target.playerid]=0;
 					if(player.storage.sst_yanchuan[target.playerid]) player.draw(player.storage.sst_yanchuan[target.playerid]);
@@ -7196,6 +7192,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					target.chooseToDiscard("焰扬：弃置一张牌","he",true).set("ai",function(card){
 						if(get.name(card)=="sha"&&get.attitude(_status.event.player,_status.event.targetx)<0) return 10;
+						if(get.position(card)!="h") return 0;
 						return get.unuseful(card);
 					}).set("targetx",player);
 					"step 1"
@@ -10216,7 +10213,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function (){
 					"step 0"
-					target.gain(cards,player,"give");
+					player.give(cards,target,true);
 					"step 1"
 					player.chooseBool("化雨：是否摸一张牌？").set("ai",()=>true).set("frequentSkill","sst_huayu");
 					"step 2"
@@ -11535,12 +11532,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					lib.inpile.push("sst_aegises");
-					var card=game.createCard2("sst_aegises","","");
-					/*
-					if(!_status.cardtag) _status.cardtag={};
-					if(!_status.cardtag["sst_ultimate"]) _status.cardtag["sst_ultimate"]=[];
-					_status.cardtag["sst_ultimate"].push(card.cardid);
-					*/
+					var card=game.createCard4("sst_aegises","","","",["sst_pyra_mythra"]);
 					player.give(card,target,"give",true);
 					target.addAdditionalSkill("sst_fuxin","sst_fuxin_card");
 				},
@@ -12129,7 +12121,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					target.gain(cards,player,"give");
+					player.give(cards,target,true);
 					"step 1"
 					event.nearests=game.filterPlayer(function(current){
 						if(current==player) return false;
@@ -12704,34 +12696,40 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseToDiscard(get.prompt2("sst_qixin"),function(card){
-						return get.suit(card)=="heart"&&["basic","trick"].contains(get.type(card));
-					}).set("ai",function(card){
-						if(game.countPlayer(function(current){
-							return get.attitude(_status.event.player,current)>0;
-						})<2) return 0;
-						return 7-get.useful(card);
-					}).set("logSkill","sst_qixin");
-					"step 1"
-					if(result.cards&&result.cards.length){
-						event.card=result.cards[0];
-						player.chooseTarget("齐心：选择一至三名角色，这些角色直到你的下个回合开始可以视为使用一次"+get.translation(get.name(event.card)),[1,3]).set("ai",function(target){
-							//if(target==_status.event.player) return 0;
+					player.chooseCardTarget({
+						filterCard:function(card,player){
+							if(get.suit(card)!="heart") return false;
+							if(get.type(card)!="basic"||get.type(card)!="trick") return false;
+							return lib.filter.cardDiscardable.apply(this,arguments);
+						},
+						position:"he",
+						selectTarget:[1,3],
+						ai1:function(card){
+							if(game.countPlayer(function(current){
+								return get.attitude(_status.event.player,current)>0;
+							})<2) return 0;
+							return 7-get.useful(card);
+						},
+						ai2:function(target){
 							return get.sgnAttitude(_status.event.player,target);
-						});
-					}
-					"step 2"
-					if(result.targets&&result.targets.length){
+						},
+						prompt:get.prompt("sst_qixin"),
+						prompt2:get.skillInfoTranslation("sst_qixin")
+					});
+					"step 1"
+					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
 						var targets=result.targets.sortBySeat();
-						player.line(targets,"green");
-						player.addExpose(0.2);
+						player.logSkill("sst_qixin",targets);
 						for(var i=0;i<targets.length;i++){
 							if(typeof targets[i].storage.sst_qixin_effect!="object") targets[i].storage.sst_qixin_effect={};
 							if(!Array.isArray(targets[i].storage.sst_qixin_effect[player.playerid])) targets[i].storage.sst_qixin_effect[player.playerid]=[];
-							targets[i].storage.sst_qixin_effect[player.playerid].push(event.card);
+							targets[i].storage.sst_qixin_effect[player.playerid].push(result.cards[0]);
 							targets[i].addSkill("sst_qixin_effect");
 						}
 					}
+				},
+				ai:{
+					expose:0.2
 				}
 			},
 			sst_qixin_effect:{
@@ -12842,7 +12840,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<players.length;i++){
 						if(Array.isArray(player.storage.sst_qixin_effect[players[i].playerid])&&player.storage.sst_qixin_effect[players[i].playerid].length) goon=false;
 					}
-					if(goon) player.removeSkill("sst_qixin_effect2");
+					if(goon) player.removeSkill("sst_qixin_effect");
 				}
 			},
 			sst_gongcun:{
@@ -12976,9 +12974,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 							return -button.link[5];
 						}
-						if(button.link[4][0]=="sst_jichang_second") return -Math.abs(button.link[5]-total+1.5);
-						if(button.link[4][0]=="sst_jichang_second") return -Math.abs(button.link[5]-1.5);
-						return -Math.abs(button.link[5]-2.5);
+						if(button.link[4][0]=="sst_jichang_first") return -Math.abs(button.link[5]-total+1.5);
+						if(button.link[4][0]=="sst_jichang_third") return -Math.abs(button.link[5]-2.5);
+						return -Math.abs(button.link[5]-1.5);
 					}).set("selectButton",3).set("complexSelect",true).set("total",total);
 					"step 2"
 					if(result.links&&result.links.length){
@@ -13262,7 +13260,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zero_suit_samus_ab:"萨姆斯",
 			sst_mr_game_watch_ab:"代码人",
 			sst_king_k_rool_ab:"库鲁鲁",
-			sst_bowser_jr_ab:"酷霸王Jr.",
 			sst_koopalings_ab:"7人帮",
 			sst_toon_link_ab:"林克",
 			sst_young_link_ab:"林克",
@@ -13287,9 +13284,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_anzhi:"安智",
 			sst_anzhi_info:"一名角色使用牌时，若该角色于本回合内使用超过X张牌，你可以弃置其一张牌。（X为你的装备栏数）",
 			sst_yinjie:"印结",
+			sst_yinjie2:"印结",
 			sst_yinjie_effect:"印结",
-			sst_yinjie_effect2:"印结",
-			sst_yinjie_info:"其他角色的准备阶段，若其体力值不小于你，你可以废除一个装备栏并弃置所有手牌令你与其相互距离为1，然后该角色本回合内使用牌只能指定你为目标。若如此做，本回合结束阶段，你获得其所有牌。",
+			sst_yinjie_info:"其他角色的准备阶段，若其体力值不小于你，你可以废除一个装备栏并弃置所有手牌令你与其相互距离为1，然后该角色本回合内使用牌不能指定除你外角色为目标。若如此做，本回合结束阶段，你获得其所有牌。",
 			sst_qinwei:"亲卫",
 			sst_qinwei_info:"主公技，锁定技，你视为拥有与你距离最近的其他本势力角色装备效果（【木牛流马】除外）。",
 			sst_chengli:"逞力",
@@ -13774,7 +13771,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shangzheng:"商政",
 			sst_shangzheng2:"商政",
 			sst_shangzheng_info:"一名其他角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",
-			sst_shangzheng2_info:"你的出牌阶段，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
+			sst_shangzheng2_info:"出牌阶段限一次，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
 			sst_yinyuan:"引援",
 			sst_yinyuan_info:"每回合限一次，你受到伤害前，若你与你相邻的角色均有手牌，你可以令你与这些角色依次弃置一张手牌，然后防止此伤害。",
 			sst_zaowu:"造物",
@@ -13818,6 +13815,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_jiangshang:"奖赏",
 			sst_jiangshang_info:"锁定技，一张装备牌置入你的装备区时，你弃置之并摸两张牌。",
 			//Tag
+			sst_pyra_mythra_tag:"焰／光",
 			sst_jichang_first_tag:"摸牌阶段额外摸牌数",
 			sst_jichang_second_tag:"攻击范围增加数",
 			sst_jichang_third_tag:"额外使用【杀】次数",

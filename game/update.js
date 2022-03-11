@@ -11,6 +11,7 @@ window.noname_update={
 	],
 	files:[
 		'card/sst_standard.js',
+		'card/sst_extra.js',
 		'card/sst_sp.js',
 		'card/sst_land.js',
 		'character/sst_standard.js',

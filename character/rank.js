@@ -82,7 +82,9 @@ window.noname_character_rank={
 			"nnk_robin_male",
 			"nnk_robin_female",
 			"sst_ryu",
-			"sst_pac_man"
+			"sst_pac_man",
+			"sst_chrom",
+			"sst_lucina"
 		],
 		rare:[
 			"sst_mario",
@@ -100,9 +102,7 @@ window.noname_character_rank={
 			"sst_simon",
 			"sst_kirby",
 			"sst_pokemon_trainer_red",
-			"sst_chrom",
 			"sst_daisy",
-			"sst_lucina",
 			"ska_bobby",
 			"sst_oc",
 			"sst_dark_link",

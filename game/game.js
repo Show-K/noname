@@ -29194,6 +29194,54 @@
 	};
 	var game={
 		//New add
+		createCard3:function(name,suit,number,nature,tag){
+			if(typeof name=='object'){
+				nature=name.nature;
+				number=name.number;
+				suit=name.suit;
+				name=name.name;
+			}
+			if(typeof name!='string'){
+				name='sha';
+			}
+			var noclick=false;
+			if(suit=='noclick'){
+				noclick=true;
+				suit=null;
+			}
+			if(!suit&&lib.card[name].cardcolor){
+				suit=lib.card[name].cardcolor;
+			}
+			if(!nature&&lib.card[name].cardnature){
+				nature=lib.card[name].cardnature;
+			}
+			if(typeof suit!='string'){
+				suit=['heart','diamond','club','spade'].randomGet();
+			}
+			else if(suit=='black'){
+				suit=Math.random()<0.5?'club':'spade';
+			}
+			else if(suit=='red'){
+				suit=Math.random()<0.5?'diamond':'heart';
+			}
+			if(typeof number!='number'&&typeof number!='string'){
+				number=Math.ceil(Math.random()*13);
+			}
+			var card;
+			if(noclick){
+				card=ui.create.card(ui.special,'noclick',true);
+			}
+			else{
+				card=ui.create.card(ui.special);
+			}
+			card.storage.vanish=true;
+			return card.init([suit,number,name,nature,tag]);
+		},
+		createCard4:function(){
+			var card=game.createCard3.apply(this,arguments);
+			delete card.storage.vanish;
+			return card;
+		},
 		cardCausedDamage:function(card,player,target){
 			var history;
 			if(get.itemtype(player)=='player'){

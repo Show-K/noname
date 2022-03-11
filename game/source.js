@@ -15,6 +15,7 @@ window.noname_source_list=[
 	'card/zhenfa.js',
 	'card/zhulu.js',
 	'card/sst_standard.js',
+	'card/sst_extra.js',
 	'card/sst_sp.js',
 	'card/sst_land.js',
 	'character/rank.js',
