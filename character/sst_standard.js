@@ -12937,19 +12937,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					info.push("摸牌阶段额外摸牌数");
 					for(var i=0;i<=total;i++){
 						var list=[];
-						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),null,["sst_jichang_first"]]);
+						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_first",["sst_jichang_first"]]);
 						info.push([list,"vcard"]);
 					}
 					info.push("攻击范围增加数");
 					for(var i=0;i<=total;i++){
 						var list=[];
-						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),null,["sst_jichang_second"]]);
+						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_second",["sst_jichang_second"]]);
 						info.push([list,"vcard"]);
 					}
 					info.push("出牌阶段额外使用【杀】次数");
 					for(var i=0;i<=total;i++){
 						var list=[];
-						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),null,["sst_jichang_third"]]);
+						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_third",["sst_jichang_third"]]);
 						info.push([list,"vcard"]);
 					}
 					player.chooseButton(info,true).set("filterButton",function(button){
@@ -12958,9 +12958,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var selected=[];
 						for(var i=0;i<ui.selected.buttons.length;i++){
 							sum+=ui.selected.buttons[i].link[0];
-							if(!selected.contains(ui.selected.buttons[i].link[4][0])) selected.push(ui.selected.buttons[i].link[4][0]);
+							if(!selected.contains(ui.selected.buttons[i].link[3])) selected.push(ui.selected.buttons[i].link[3]);
 						}
-						if(selected.contains(button.link[4][0])) return false;
+						if(selected.contains(button.link[3])) return false;
 						if(ui.selected.buttons.length>=2) return sum+button.link[0]==_status.event.total;
 						return sum+button.link[0]<=_status.event.total;
 					}).set("ai",function(button){
@@ -12969,22 +12969,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(player.hasJudge("lebu")||!game.hasPlayer(function(current){
 							return get.attitude(player,current)<0;
 						})){
-							if(button.link[4][0]=="sst_jichang_first"){
+							if(button.link[3]=="sst_jichang_first"){
 								return button.link[0];
 							}
 							return -button.link[0];
 						}
-						if(button.link[4][0]=="sst_jichang_first") return -Math.abs(button.link[0]-total+1.5);
-						if(button.link[4][0]=="sst_jichang_third") return -Math.abs(button.link[0]-2.5);
+						if(button.link[3]=="sst_jichang_first") return -Math.abs(button.link[0]-total+1.5);
+						if(button.link[3]=="sst_jichang_third") return -Math.abs(button.link[0]-2.5);
 						return -Math.abs(button.link[0]-1.5);
 					}).set("selectButton",3).set("complexSelect",true).set("total",total);
 					"step 2"
 					if(result.links&&result.links.length){
 						var sst_jichang_first=0,sst_jichang_second=0,sst_jichang_third=0;
 						for(var i=0;i<result.links.length;i++){
-							if(result.links[i][4][0]=="sst_jichang_first") sst_jichang_first+=result.links[i][3];
-							if(result.links[i][4][0]=="sst_jichang_second") sst_jichang_second+=result.links[i][3];
-							if(result.links[i][4][0]=="sst_jichang_third") sst_jichang_third+=result.links[i][3];
+							if(result.links[i][3]=="sst_jichang_first") sst_jichang_first+=result.links[i][3];
+							if(result.links[i][3]=="sst_jichang_second") sst_jichang_second+=result.links[i][3];
+							if(result.links[i][3]=="sst_jichang_third") sst_jichang_third+=result.links[i][3];
 						}
 						game.log(player,"设定的数值：<br>摸牌阶段额外摸牌数：","#y"+sst_jichang_first,"<br>攻击范围增加数：","#y"+sst_jichang_second,"<br>出牌阶段额外使用【杀】次数：","#y"+sst_jichang_third);
 						player.popup(event.zeroToTwentyAsCircledNumber(sst_jichang_first)+event.zeroToTwentyAsCircledNumber(sst_jichang_second)+event.zeroToTwentyAsCircledNumber(sst_jichang_third),"green");
