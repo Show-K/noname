@@ -1173,7 +1173,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
                 onclick: assetConfigFun('assetAudio')
 			},
 			assetSkin: {
-				init: false,
+				init: true,
 				intro: '检查更新时，检查皮肤文件',
 				name: '检查皮肤素材',
                 onclick: assetConfigFun('assetSkin')
