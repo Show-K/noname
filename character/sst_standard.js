@@ -12937,19 +12937,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					info.push("摸牌阶段额外摸牌数");
 					for(var i=0;i<=total;i++){
 						var list=[];
-						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_first",["sst_jichang_first"]]);
+						list.push([get.cnNumber(i,true),numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_first",["sst_jichang_first"],i]);
 						info.push([list,"vcard"]);
 					}
 					info.push("攻击范围增加数");
 					for(var i=0;i<=total;i++){
 						var list=[];
-						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_second",["sst_jichang_second"]]);
+						list.push([get.cnNumber(i,true),numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_second",["sst_jichang_second"],i]);
 						info.push([list,"vcard"]);
 					}
 					info.push("出牌阶段额外使用【杀】次数");
 					for(var i=0;i<=total;i++){
 						var list=[];
-						list.push([i,numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_third",["sst_jichang_third"]]);
+						list.push([get.cnNumber(i,true),numberToWords(i),event.zeroToTwentyAsCircledNumber(i),"sst_jichang_third",["sst_jichang_third"],i]);
 						info.push([list,"vcard"]);
 					}
 					player.chooseButton(info,true).set("filterButton",function(button){
@@ -12957,12 +12957,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var sum=0;
 						var selected=[];
 						for(var i=0;i<ui.selected.buttons.length;i++){
-							sum+=ui.selected.buttons[i].link[0];
+							sum+=ui.selected.buttons[i].link[5];
 							if(!selected.contains(ui.selected.buttons[i].link[3])) selected.push(ui.selected.buttons[i].link[3]);
 						}
 						if(selected.contains(button.link[3])) return false;
-						if(ui.selected.buttons.length>=2) return sum+button.link[0]==_status.event.total;
-						return sum+button.link[0]<=_status.event.total;
+						if(ui.selected.buttons.length>=2) return sum+button.link[5]==_status.event.total;
+						return sum+button.link[5]<=_status.event.total;
 					}).set("ai",function(button){
 						var player=_status.event.player;
 						var total=_status.event.total;
@@ -12970,21 +12970,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return get.attitude(player,current)<0;
 						})){
 							if(button.link[3]=="sst_jichang_first"){
-								return button.link[0];
+								return button.link[5];
 							}
-							return -button.link[0];
+							return -button.link[5];
 						}
-						if(button.link[3]=="sst_jichang_first") return -Math.abs(button.link[0]-total+1.5);
-						if(button.link[3]=="sst_jichang_third") return -Math.abs(button.link[0]-2.5);
-						return -Math.abs(button.link[0]-1.5);
+						if(button.link[3]=="sst_jichang_first") return -Math.abs(button.link[5]-total+1.5);
+						if(button.link[3]=="sst_jichang_third") return -Math.abs(button.link[5]-2.5);
+						return -Math.abs(button.link[5]-1.5);
 					}).set("selectButton",3).set("complexSelect",true).set("total",total);
 					"step 2"
 					if(result.links&&result.links.length){
 						var sst_jichang_first=0,sst_jichang_second=0,sst_jichang_third=0;
 						for(var i=0;i<result.links.length;i++){
-							if(result.links[i][3]=="sst_jichang_first") sst_jichang_first+=result.links[i][3];
-							if(result.links[i][3]=="sst_jichang_second") sst_jichang_second+=result.links[i][3];
-							if(result.links[i][3]=="sst_jichang_third") sst_jichang_third+=result.links[i][3];
+							if(result.links[i][3]=="sst_jichang_first") sst_jichang_first+=result.links[i][5];
+							if(result.links[i][3]=="sst_jichang_second") sst_jichang_second+=result.links[i][5];
+							if(result.links[i][3]=="sst_jichang_third") sst_jichang_third+=result.links[i][5];
 						}
 						game.log(player,"设定的数值：<br>摸牌阶段额外摸牌数：","#y"+sst_jichang_first,"<br>攻击范围增加数：","#y"+sst_jichang_second,"<br>出牌阶段额外使用【杀】次数：","#y"+sst_jichang_third);
 						player.popup(event.zeroToTwentyAsCircledNumber(sst_jichang_first)+event.zeroToTwentyAsCircledNumber(sst_jichang_second)+event.zeroToTwentyAsCircledNumber(sst_jichang_third),"green");
