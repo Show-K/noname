@@ -1193,7 +1193,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 		},
 		help: {},
 		package: {
-            intro: "点击按钮即可在线更新，文件下载失败会自动重新下载。</br><span style='color:red'>※请不要在更新时关闭游戏或主动断网，否则后果自负</span></br>最新完整包下载地址：<a target='_self' href='https://hub.fastgit.org/Show-K/noname/archive/refs/heads/super_smash_tabletop.zip'><span style='text-decoration: underline;'>点击下载</span></a>",
+            intro: "点击按钮即可在线更新，文件下载失败会自动重新下载。</br><span style='color:red'>※请不要在更新时关闭游戏或主动断网，否则后果自负</span></br>最新完整包下载地址：<a target='_self' href='https://hub.fastgit.org/Show-K/noname/archive/refs/heads/super-smash-tabletop.zip'><span style='text-decoration: underline;'>点击下载</span></a>",
 			author: "诗笺、Show-K（未经许可修改）",
 			diskURL: "",
 			forumURL: "",

@@ -36733,12 +36733,12 @@
 					}
 					intro.innerHTML=get.translation(rarity);
 				}
-				if((button.link=='xushu'||button.link=='xin_xushu')&&button.node&&button.node.name&&button.node.group){
+				if((button.link=='sst_massy')&&button.node&&button.node.name&&button.node.group){
 					if(button.classList.contains('newstyle')){
-						button.node.name.dataset.nature='watermm';
-						button.node.group.dataset.nature='water';
+						button.node.name.dataset.nature='thundermm';
+						button.node.group.dataset.nature='thunder';
 					}
-					else button.node.group.style.backgroundColor=get.translation('sst_darknessColor');
+					else button.node.group.style.backgroundColor=get.translation('shenColor');
 				}
 			},
 			div:function(){

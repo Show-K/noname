@@ -4095,12 +4095,12 @@ content:function(config, pack){
 							intro.innerText = '';
 						
 						intro.style.backgroundImage = 'url("' + decadeUIPath + 'assets/image/rarity_' + rarity + '.png")';
-						if ((button.link == 'xushu' || button.link == 'xin_xushu') && button.node && button.node.name && button.node.group){
+						if ((button.link == 'sst_massy') && button.node && button.node.name && button.node.group){
 							if (button.classList.contains('newstyle')) {
-								button.node.name.dataset.nature = 'watermm';
-								button.node.group.dataset.nature = 'water';
+								button.node.name.dataset.nature = 'thundermm';
+								button.node.group.dataset.nature = 'thunder';
 							} else {
-								button.node.group.style.backgroundColor = get.translation('weiColor');
+								button.node.group.style.backgroundColor = get.translation('shenColor');
 							}
 						}
 					},

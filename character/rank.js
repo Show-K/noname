@@ -20,7 +20,8 @@ window.noname_character_rank={
 	rarity:{
 		legend:[
 			"ymk_isabelle",
-			"sst_sans"
+			"sst_sans",
+			"sst_massy"
 		],
 		epic:[
 			"sst_dr_mario",
@@ -31,7 +32,6 @@ window.noname_character_rank={
 			"sst_peach",
 			"sst_byleth_female",
 			"sst_byleth_male",
-			"sst_massy",
 			"sst_mario_not_mary",
 			"sst_haine",
 			"sst_incineroar",

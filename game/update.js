@@ -3,6 +3,7 @@ window.noname_update={
 	update:'1.9.112.1SST',
 	changeLog:[
 		'数值分配 吃豆人',
+		'直接击杀 超梦',
 		'修改 索拉',
 		'规范名称',
 		'代码优化',
@@ -19,6 +20,7 @@ window.noname_update={
 		'extension/十周年UI/assets/image/turn_over_mask.png',
 		'image/character/sst_mario_not_mary.png',
 		'image/character/sst_yumikohimi.png',
+		'image/character/sst_massy.png',
 		'card/sst_standard.js',
 		'card/sst_extra.js',
 		'card/sst_sp.js',
