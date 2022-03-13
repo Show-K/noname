@@ -10,6 +10,15 @@ window.noname_update={
 		'其他'
 	],
 	files:[
+		'extension/十周年UI/assets/image/item_bg.png',
+		'extension/十周年UI/assets/image/rarity_common.png',
+		'extension/十周年UI/assets/image/rarity_epic.png',
+		'extension/十周年UI/assets/image/rarity_junk.png',
+		'extension/十周年UI/assets/image/rarity_legend.png',
+		'extension/十周年UI/assets/image/rarity_rare.png',
+		'extension/十周年UI/assets/image/turn_over_mask.png',
+		'image/character/sst_mario_not_mary.png',
+		'image/character/sst_yumikohimi.png',
 		'card/sst_standard.js',
 		'card/sst_extra.js',
 		'card/sst_sp.js',
@@ -66,7 +75,5 @@ window.noname_update={
 		'game/package.js',
 		'game/asset.js',
 		'game/source.js',
-		'image/character/sst_mario_not_mary.png',
-		'image/character/sst_yumikohimi.png',
 	]
 };
