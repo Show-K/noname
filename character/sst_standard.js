@@ -13177,22 +13177,31 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var choice=[];
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_first")){
 						list.push("选项一");
-						choice.push("选项一：本轮造成伤害唯一最少的角色");
+						choice.push("本轮造成伤害唯一最少的角色");
+					}
+					else{
+						choice.push("本轮造成伤害唯一最少的角色（上一轮游戏已选择）");
 					}
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_second")){
 						list.push("选项二");
-						choice.push("选项二：体力值唯一最少的角色");
+						choice.push("体力值唯一最少的角色");
+					}
+					else{
+						choice.push("体力值唯一最少的角色（上一轮游戏已选择）");
 					}
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_third")){
 						list.push("选项三");
-						choice.push("选项三：装备唯一最少的角色");
+						choice.push("装备唯一最少的角色");
+					}
+					else{
+						choice.push("装备唯一最少的角色（上一轮游戏已选择）");
 					}
 					player.chooseControl(list).set("ai",function(){
-						var list=_status.event.controls;
-						if(list.contains("选项二")&&game.hasPlayer(function(current){
+						var controls=_status.event.controls;
+						if(controls.contains("选项二")&&game.hasPlayer(function(current){
 							return get.attitude(player,current)<0&&current.isMinHp();
 						})) return "选项二";
-						if(list.contains("选项三")&&game.hasPlayer(function(current){
+						if(controls.contains("选项三")&&game.hasPlayer(function(current){
 							return get.attitude(player,current)<0&&current.isMinEquip();
 						})) return "选项三";
 						return 0;
