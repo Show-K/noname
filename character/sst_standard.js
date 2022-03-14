@@ -5536,7 +5536,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xuelun:{
 				trigger:{global:"damageSource"},
 				filter:function(event,player){
-					return event.source&&!event.source.hasSkill(["sst_qiongtu","sst_shengfa","sst_yonghun"][player.storage.sst_shengxi-1],null,null,false)&&!event.source.hasSkill(["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1],null,null,false);
+					return player.hasSkill("sst_shengxi")&&event.source&&!event.source.hasSkill(["sst_qiongtu","sst_shengfa","sst_yonghun"][player.storage.sst_shengxi-1],null,null,false)&&!event.source.hasSkill(["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1],null,null,false);
 				},
 				logTarget:"source",
 				check:function(event,player){
@@ -13076,16 +13076,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var targets=game.filterPlayer(function(current){
 							if(storage.contains("sst_xiongli_first")){
 								var damage=0;
-								if(current.actionHistory.length-2>=0){
-									var history=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+								if(current.actionHistory.length-1>=0){
+									var history=current.actionHistory[current.actionHistory.length-1]["sourceDamage"].slice(0);
 									history.forEach(evt=>{
 										damage+=evt.num;
 									});
 								}
 								return !game.hasPlayer(function(current2){
 									var damage2=0;
-									if(current2.actionHistory.length-2>=0){
-										var history2=current2.actionHistory[current2.actionHistory.length-2]["sourceDamage"].slice(0);
+									if(current2.actionHistory.length-1>=0){
+										var history2=current2.actionHistory[current2.actionHistory.length-1]["sourceDamage"].slice(0);
 										history2.forEach(evt=>{
 											damage2+=evt.num;
 										});
@@ -13137,37 +13137,40 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{global:"roundStart"},
 				content:function(){
 					"step 0"
-					player.storage.sst_xiongli_previous=player.storage.sst_xiongli;
-					player.storage.sst_xiongli=[];
-					var targets=game.filterPlayer(function(current){
-						if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
-							var damage=0;
-							if(current.actionHistory.length-2>=0){
-								var history=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
-								history.forEach(evt=>{
-									damage+=evt.num;
-								});
-							}
-							return !game.hasPlayer(function(current2){
-								var damage2=0;
-								if(current2.actionHistory.length-2>=0){
-									var history2=current2.actionHistory[current2.actionHistory.length-2]["sourceDamage"].slice(0);
-									history2.forEach(evt=>{
-										damage2+=evt.num;
+					if(player.storage.sst_xiongli.length){
+						player.storage.sst_xiongli_previous=player.storage.sst_xiongli;
+						player.storage.sst_xiongli=[];
+						player.unmarkSkill("sst_xiongli");
+						var targets=game.filterPlayer(function(current){
+							if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
+								var damage=0;
+								if(current.actionHistory.length-2>=0){
+									var history=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+									history.forEach(evt=>{
+										damage+=evt.num;
 									});
 								}
-								return damage2<=damage;
-							})
+								return !game.hasPlayer(function(current2){
+									var damage2=0;
+									if(current2.actionHistory.length-2>=0){
+										var history2=current2.actionHistory[current2.actionHistory.length-2]["sourceDamage"].slice(0);
+										history2.forEach(evt=>{
+											damage2+=evt.num;
+										});
+									}
+									return damage2<=damage;
+								})
+							}
+							return (player.storage.sst_xiongli.contains("sst_xiongli_second")&&current.isMinHp(true))||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&current.isMinEquip(true));
+						});
+						if(!targets.length){
+							player.popup("无角色","fire");
+							game.log("但是没有角色满足条件！");
 						}
-						return (player.storage.sst_xiongli.contains("sst_xiongli_second")&&current.isMinHp(true))||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&current.isMinEquip(true));
-					});
-					if(!targets.length){
-						player.popup("无角色","fire");
-						game.log("但是没有角色满足条件！");
-					}
-					else{
-						for(var i=0;i<targets.length;i++){
-							targets[i].die({source:player});
+						else{
+							for(var i=0;i<targets.length;i++){
+								targets[i].die({source:player});
+							}
 						}
 					}
 					"step 1"
@@ -13200,22 +13203,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case "选项一":{
 							game.log(player,"选择了","#y"+"本轮造成伤害唯一最少的角色");
 							player.popup("①","thunder");
-							player.addAdditionalSkill("sst_xiongli","sst_xiongli_effect");
 							player.storage.sst_xiongli.push("sst_xiongli_first");
+							player.markSkill("sst_xiongli");
 							break;
 						}
 						case "选项二":{
 							game.log(player,"选择了","#y"+"体力值唯一最少的角色");
 							player.popup("②","thunder");
-							player.addAdditionalSkill("sst_xiongli","sst_xiongli_effect");
 							player.storage.sst_xiongli.push("sst_xiongli_second");
+							player.markSkill("sst_xiongli");
 							break;
 						}
 						case "选项三":{
 							game.log(player,"选择了","#y"+"装备唯一最少的角色");
 							player.popup("③","thunder");
-							player.addAdditionalSkill("sst_xiongli","sst_xiongli_effect");
 							player.storage.sst_xiongli.push("sst_xiongli_third");
+							player.markSkill("sst_xiongli");
 							break;
 						}
 					}
@@ -13228,16 +13231,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!Array.isArray(player.storage.sst_xiongli)) return false;
 					if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
 						var damage=0;
-						if(player.actionHistory.length-2>=0){
-							var history=player.actionHistory[player.actionHistory.length-2]["sourceDamage"].slice(0);
+						if(player.actionHistory.length-1>=0){
+							var history=player.actionHistory[player.actionHistory.length-1]["sourceDamage"].slice(0);
 							history.forEach(evt=>{
 								damage+=evt.num;
 							});
 						}
 						return !game.hasPlayer(function(current){
 							var damage2=0;
-							if(current.actionHistory.length-2>=0){
-								var history2=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+							if(current.actionHistory.length-1>=0){
+								var history2=current.actionHistory[current.actionHistory.length-1]["sourceDamage"].slice(0);
 								history2.forEach(evt=>{
 									damage2+=evt.num;
 								});
