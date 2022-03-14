@@ -13101,29 +13101,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						else{
 							str+="无满足条件角色";
 						}
-						var checkPlayer=function(){
-							if(storage.contains("sst_xiongli_first")){
-								var damage=0;
-								if(player.actionHistory.length-2>=0){
-									var history=player.actionHistory[player.actionHistory.length-2]["sourceDamage"].slice(0);
-									history.forEach(evt=>{
-										damage+=evt.num;
+						var checkPlayer=false;
+						if(storage.contains("sst_xiongli_first")){
+							var damage=0;
+							if(player.actionHistory.length-1>=0){
+								var history=player.actionHistory[player.actionHistory.length-1]["sourceDamage"].slice(0);
+								history.forEach(evt=>{
+									damage+=evt.num;
+								});
+							}
+							if(!game.hasPlayer(function(current){
+								var damage2=0;
+								if(current.actionHistory.length-1>=0){
+									var history2=current.actionHistory[current.actionHistory.length-1]["sourceDamage"].slice(0);
+									history2.forEach(evt=>{
+										damage2+=evt.num;
 									});
 								}
-								return !game.hasPlayer(function(current){
-									var damage2=0;
-									if(current.actionHistory.length-2>=0){
-										var history2=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
-										history2.forEach(evt=>{
-											damage2+=evt.num;
-										});
-									}
-									return damage2<damage;
-								})
-							}
-							return (storage.contains("sst_xiongli_second")&&player.isMinHp())||(storage.contains("sst_xiongli_third")&&player.isMinEquip());
-						};
-						if(checkPlayer()){
+								return damage2<damage;
+							})) checkPlayer=true;
+						}
+						if((storage.contains("sst_xiongli_second")&&player.isMinHp())||(storage.contains("sst_xiongli_third")&&player.isMinEquip())) checkPlayer=true;
+						if(checkPlayer){
 							str+="<br>你可以发动〖逆袭〗";
 						}
 						else{
@@ -13178,15 +13177,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var choice=[];
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_first")){
 						list.push("选项一");
-						choice.push("本轮造成伤害唯一最少的角色");
+						choice.push("选项一：本轮造成伤害唯一最少的角色");
 					}
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_second")){
 						list.push("选项二");
-						choice.push("体力值唯一最少的角色");
+						choice.push("选项二：体力值唯一最少的角色");
 					}
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_third")){
 						list.push("选项三");
-						choice.push("装备唯一最少的角色");
+						choice.push("选项三：装备唯一最少的角色");
 					}
 					player.chooseControl(list).set("ai",function(){
 						var list=_status.event.controls;
@@ -13203,6 +13202,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case "选项一":{
 							game.log(player,"选择了","#y"+"本轮造成伤害唯一最少的角色");
 							player.popup("①","thunder");
+							player.chat("本轮造成伤害唯一最少的角色");
 							player.storage.sst_xiongli.push("sst_xiongli_first");
 							player.markSkill("sst_xiongli");
 							break;
@@ -13210,6 +13210,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case "选项二":{
 							game.log(player,"选择了","#y"+"体力值唯一最少的角色");
 							player.popup("②","thunder");
+							player.chat("体力值唯一最少的角色");
 							player.storage.sst_xiongli.push("sst_xiongli_second");
 							player.markSkill("sst_xiongli");
 							break;
@@ -13217,6 +13218,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case "选项三":{
 							game.log(player,"选择了","#y"+"装备唯一最少的角色");
 							player.popup("③","thunder");
+							player.chat("装备唯一最少的角色");
 							player.storage.sst_xiongli.push("sst_xiongli_third");
 							player.markSkill("sst_xiongli");
 							break;
