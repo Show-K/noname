@@ -5203,9 +5203,9 @@ content:function(config, pack){
 			    return result;
 			};
 			
-			game.linexy = function(path){
+			game.linexy = function(path, option){
 				if (!decadeUI.config.playerLineEffect) return gameLinexyFunction.apply(this, arguments);
-				decadeUI.effect.line(path);
+				decadeUI.effect.line(path, option);
 			};
 			
 			ui.click.intro = function(e){
@@ -9667,7 +9667,7 @@ config:{
     },
 	campIdentityImageMode:{
         name: '势力身份美化',
-        init: false,
+        init: true,
     },
 	playerKillEffect:{
 		name: '玩家击杀特效',

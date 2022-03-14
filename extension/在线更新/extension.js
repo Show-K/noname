@@ -91,7 +91,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 		}
 
         if (typeof game.updateErrors == 'number' && game.updateErrors >= 5) {
-            alert('检测到获取更新失败次数过多，建议您更换无名杀的更新源');
+            alert('检测到获取更新失败次数过多，建议您更换大乱桌斗的更新源');
             game.updateErrors = 0;
         }
 	};
@@ -898,7 +898,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
 			},
 			updateAll: {
 				init: false,
-				intro: '更新游戏时，下载所有主要文件（不包括素材），如果你自行修改了无名杀本体的theme等文件夹下的素材，建议不要开启此选项',
+				intro: '更新游戏时，下载所有主要文件（不包括素材），如果你自行修改了大乱桌斗本体的theme等文件夹下的素材，建议不要开启此选项',
 				name: '强制更新所有主文件',
 				onclick: (bool) => {
 					game.saveExtensionConfig('在线更新', 'updateAll', bool);

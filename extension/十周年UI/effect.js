@@ -98,10 +98,31 @@ decadeModule.import(function(lib, game, ui, get, ai, _status){
 			});
 		},
 		
-		line:function(dots){
-			decadeUI.animate.add(function(source, target, e){
+		line:function(dots, option){
+			decadeUI.animate.add(function(source, target, option, e){
+				var color = [250, 250, 250];
+				if (typeof option == 'object') {
+					for (var i in option) {
+						switch (i) {
+							case 'color': color = option[i]; break;
+						}
+					}
+				}
+				else if (option == 'fire' || option == 'thunder' || option == 'green') {
+					color = option;
+				}
+				if (color == 'fire') {
+					color = [255, 146, 68];
+				}
+				else if (color == 'thunder') {
+					color = [141, 216, 255];
+				}
+				else if (color == 'green') {
+					color = [141, 255, 216];
+				}
+
 				var ctx = e.context;
-				ctx.shadowColor = 'yellow';
+				ctx.shadowColor = 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
 				ctx.shadowBlur = 1;
 				
 				if (!this.head) this.head = 0;
@@ -120,12 +141,12 @@ decadeModule.import(function(lib, game, ui, get, ai, _status){
 					var y1 = decadeUI.get.lerp(source.y, target.y, tail);
 					var x2 = decadeUI.get.lerp(source.x, target.x, head);
 					var y2 = decadeUI.get.lerp(source.y, target.y, head);
-					e.drawLine(x1, y1, x2, y2, 'rgb(250,220,140)', 2.6);
+					e.drawLine(x1, y1, x2, y2, 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')', 2.6);
 					return false;
 				} else {
 					return true;
 				}
-			}, true, { x: dots[0], y: dots[1] }, { x: dots[2], y: dots[3] });
+			}, true, { x: dots[0], y: dots[1] }, { x: dots[2], y: dots[3] }, option);
 		},
 		
 		kill:function(source, target){

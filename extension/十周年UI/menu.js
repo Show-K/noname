@@ -6637,7 +6637,7 @@ decadeModule.import(function(lib, game, ui, get, ai, _status){
 						saveButton.listen(function() {
 							var current = this.parentNode.querySelector('.videonode.active');
 							if (current) {
-								game.export(lib.init.encode(JSON.stringify(current.link)), '无名杀 - 录像 - ' + current.link.name[0] + ' - ' + current.link.name[1]);
+								game.export(lib.init.encode(JSON.stringify(current.link)), '大乱桌斗 - 录像 - ' + current.link.name[0] + ' - ' + current.link.name[1]);
 							}
 						});
 

@@ -149,7 +149,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					ui.arena.classList.remove('only_dialog');
 				};
 				var step1=function(){
-					ui.create.dialog('欢迎来到无名杀，是否进入新手向导？');
+					ui.create.dialog('欢迎来到大乱桌斗，是否进入新手向导？');
 					game.saveConfig('new_tutorial',true);
 					ui.dialog.add('<div class="text center">跳过后，你可以在选项-其它中重置新手向导');
 					ui.auto.hide();
@@ -226,7 +226,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				};
 				var step5=function(){
 					clear();
-					ui.create.dialog('如果还有其它问题，欢迎来到百度无名杀吧进行交流');
+					ui.create.dialog('接下来准备开始游戏吧');
 					ui.create.control('完成',function(){
 						clear();
 						clear2();

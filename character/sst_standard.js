@@ -7860,7 +7860,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.control=1;
 					}
 					else{
-						player.chooseToDiscard(get.prompt("sst_shizhu"),"你可以弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与"+get.translation(trigger.player)+"弃置的牌中选择任意张对你或其使用",trigger.cards.length,"he").set("logSkill","sst_shizhu").set("ai",function(card){
+						player.chooseToDiscard(get.prompt("sst_shizhu"),"你可以弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与"+get.translation(trigger.player)+"弃置的牌中选择任意张对你或其使用",trigger.cards.length,"he").set("logSkill",["sst_shizhu",trigger.player]).set("ai",function(card){
 							//return get.useful(card);
 							return Math.max(get.effect(_status.event.player,card,_status.event.player,_status.event.player),get.effect(_status.event.targetx,card,_status.event.player,_status.event.player));
 						}).set("targetx",trigger.player);

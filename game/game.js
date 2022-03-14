@@ -3888,7 +3888,7 @@
 						onclick:function(){
 							var data;
 							var export_data=function(data){
-								game.export(lib.init.encode(JSON.stringify(data)),'无名杀 - 数据 - '+(new Date()).toLocaleString());
+								game.export(lib.init.encode(JSON.stringify(data)),'大乱桌斗 - 数据 - '+(new Date()).toLocaleString());
 							}
 							if(!lib.db){
 								data={};
@@ -7082,7 +7082,7 @@
 		saveVideo:function(){
 			if(_status.videoToSave){
 				game.export(lib.init.encode(JSON.stringify(_status.videoToSave)),
-				'无名杀 - 录像 - '+_status.videoToSave.name[0]+' - '+_status.videoToSave.name[1]);
+				'大乱桌斗 - 录像 - '+_status.videoToSave.name[0]+' - '+_status.videoToSave.name[1]);
 			}
 		},
 		init:{
@@ -10618,7 +10618,10 @@
 				//New
 				judgeCard:function(){
 					"step 0"
-					if(typeof event.card=="string") event.card=game.createCard(event.card,"","");
+					if(typeof event.card=="string"){
+						event.card=game.createCard(event.card,"","");
+						event.card.expired=true;
+					}
 					"step 1"
 					//player.lose(event.card,"visible",ui.ordering);
 					player.$phaseJudge(event.card);
@@ -43786,7 +43789,7 @@
 									var current=this.parentNode.querySelector('.videonode.active');
 									if(current){
 										game.export(lib.init.encode(JSON.stringify(current.link)),
-										'无名杀 - 录像 - '+current.link.name[0]+' - '+current.link.name[1]);
+										'大乱桌斗 - 录像 - '+current.link.name[0]+' - '+current.link.name[1]);
 									}
 								});
 
