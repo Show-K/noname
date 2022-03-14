@@ -7219,10 +7219,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						target:function(player){
 							if(player.hasSkill("sst_yanyang_ai")) return 0;
 							return -0.5;
-						},
-						player:function(player){
-							if(player.hasSkill("sst_yanyang_ai")) return 0;
-							if((0.5-(player.getStat("skill").sst_yanyang||0)*0.25)<=0) return 0;;
 						}
 					}
 				}
@@ -8361,6 +8357,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.$gain2(cards);
 					},player,name);
 				},
+				discardCharacter:function(player,name){
+					game.broadcastAll(function(player,name){
+						var cards=[];
+						var cardname="sst_jiamian_card_"+name;
+						lib.card[cardname]={
+							fullimage:true,
+							image:"character:"+name
+						}
+						lib.translate[cardname]=lib.translate[name];
+						cards.push(game.createCard(cardname,"",""));
+						player.$throw(cards);
+					},player,name);
+				},
 				removeCharacter:function(player,name){
 					var skills=lib.skill.sst_jiamian.filterSkill(player,name);
 					if(skills.length){
@@ -8381,6 +8390,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.storage.sst_jiamian.remove(name);
 					player.updateMarks("sst_jiamian");
 					_status.characterlist.add(name);
+					lib.skill.sst_jiamian.discardCharacter(player,name);
 				},
 				getSkillSources:function(player,skill){
 					if(player.getStockSkills().contains(skill)) return [];
@@ -13076,20 +13086,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var targets=game.filterPlayer(function(current){
 							if(storage.contains("sst_xiongli_first")){
 								var damage=0;
-								if(current.actionHistory.length-1>=0){
-									var history=current.actionHistory[current.actionHistory.length-1]["sourceDamage"].slice(0);
-									history.forEach(evt=>{
-										damage+=evt.num;
-									});
-								}
+								current.getLastRoundHistory(1,"sourceDamage",function(evt){
+									damage+=evt.num;
+								});
 								return !game.hasPlayer(function(current2){
 									var damage2=0;
-									if(current2.actionHistory.length-1>=0){
-										var history2=current2.actionHistory[current2.actionHistory.length-1]["sourceDamage"].slice(0);
-										history2.forEach(evt=>{
-											damage2+=evt.num;
-										});
-									}
+									current2.getLastRoundHistory(1,"sourceDamage",function(evt){
+										damage2+=evt.num;
+									});
 									return damage2<=damage;
 								})
 							}
@@ -13104,20 +13108,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var checkPlayer=false;
 						if(storage.contains("sst_xiongli_first")){
 							var damage=0;
-							if(player.actionHistory.length-1>=0){
-								var history=player.actionHistory[player.actionHistory.length-1]["sourceDamage"].slice(0);
-								history.forEach(evt=>{
-									damage+=evt.num;
-								});
-							}
+							player.getLastRoundHistory(1,"sourceDamage",function(evt){
+								damage+=evt.num;
+							});
 							if(!game.hasPlayer(function(current){
 								var damage2=0;
-								if(current.actionHistory.length-1>=0){
-									var history2=current.actionHistory[current.actionHistory.length-1]["sourceDamage"].slice(0);
-									history2.forEach(evt=>{
-										damage2+=evt.num;
-									});
-								}
+								current.getLastRoundHistory(1,"sourceDamage",function(evt){
+									damage2+=evt.num;
+								});
 								return damage2<damage;
 							})) checkPlayer=true;
 						}
@@ -13130,33 +13128,29 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						return str;
 					},
-					markcount:()=>0
+					markcount:function(storage,player){
+						if(storage.contains("sst_xiongli_first")) return 1;
+						if(storage.contains("sst_xiongli_second")) return 2;
+						if(storage.contains("sst_xiongli_third")) return 3;
+						return 0;
+					}
 				},
 				forced:true,
 				trigger:{global:"roundStart"},
 				content:function(){
 					"step 0"
 					if(player.storage.sst_xiongli.length){
-						player.storage.sst_xiongli_previous=player.storage.sst_xiongli;
-						player.storage.sst_xiongli=[];
-						player.unmarkSkill("sst_xiongli");
 						var targets=game.filterPlayer(function(current){
 							if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
 								var damage=0;
-								if(current.actionHistory.length-2>=0){
-									var history=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
-									history.forEach(evt=>{
-										damage+=evt.num;
-									});
-								}
+								current.getLastRoundHistory(1,"sourceDamage",function(evt){
+									damage+=evt.num;
+								});
 								return !game.hasPlayer(function(current2){
 									var damage2=0;
-									if(current2.actionHistory.length-2>=0){
-										var history2=current2.actionHistory[current2.actionHistory.length-2]["sourceDamage"].slice(0);
-										history2.forEach(evt=>{
-											damage2+=evt.num;
-										});
-									}
+									current2.getLastRoundHistory(1,"sourceDamage",function(evt){
+										damage2+=evt.num;
+									});
 									return damage2<=damage;
 								})
 							}
@@ -13167,10 +13161,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							game.log("但是没有角色满足条件！");
 						}
 						else{
+							player.trySkillAnimate("sst_xiongli_animation","sst_xiongli_animation",player.checkShow("sst_xiongli_animation"));
+							player.line(targets,"green");
 							for(var i=0;i<targets.length;i++){
 								targets[i].die({source:player});
 							}
 						}
+						player.storage.sst_xiongli_previous=player.storage.sst_xiongli;
+						player.storage.sst_xiongli=[];
+						player.unmarkSkill("sst_xiongli");
 					}
 					"step 1"
 					var list=[];
@@ -13184,10 +13183,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_second")){
 						list.push("选项二");
-						choice.push("体力值唯一最少的角色");
+						choice.push("体力唯一最少的角色");
 					}
 					else{
-						choice.push("体力值唯一最少的角色（上一轮游戏已选择）");
+						choice.push("体力唯一最少的角色（上一轮游戏已选择）");
 					}
 					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_third")){
 						list.push("选项三");
@@ -13211,15 +13210,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case "选项一":{
 							game.log(player,"选择了","#y"+"本轮造成伤害唯一最少的角色");
 							player.popup("①","thunder");
-							player.chat("本轮造成伤害唯一最少的角色");
+							player.chat("1. 本轮造成伤害唯一最少的角色");
 							player.storage.sst_xiongli.push("sst_xiongli_first");
 							player.markSkill("sst_xiongli");
 							break;
 						}
 						case "选项二":{
-							game.log(player,"选择了","#y"+"体力值唯一最少的角色");
+							game.log(player,"选择了","#y"+"体力唯一最少的角色");
 							player.popup("②","thunder");
-							player.chat("体力值唯一最少的角色");
+							player.chat("2. 体力值唯一最少的角色");
 							player.storage.sst_xiongli.push("sst_xiongli_second");
 							player.markSkill("sst_xiongli");
 							break;
@@ -13227,13 +13226,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case "选项三":{
 							game.log(player,"选择了","#y"+"装备唯一最少的角色");
 							player.popup("③","thunder");
-							player.chat("装备唯一最少的角色");
+							player.chat("3. 装备唯一最少的角色");
 							player.storage.sst_xiongli.push("sst_xiongli_third");
 							player.markSkill("sst_xiongli");
 							break;
 						}
 					}
 				}
+			},
+			sst_xiongli_animation:{
+				skillAnimation:true,
+				animationStr:"凶戾",
+				animationColor:"thunder",
 			},
 			sst_nixi:{
 				direct:true,
@@ -13242,20 +13246,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!Array.isArray(player.storage.sst_xiongli)) return false;
 					if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
 						var damage=0;
-						if(player.actionHistory.length-1>=0){
-							var history=player.actionHistory[player.actionHistory.length-1]["sourceDamage"].slice(0);
-							history.forEach(evt=>{
-								damage+=evt.num;
-							});
-						}
+						player.getLastRoundHistory(1,"sourceDamage",function(evt){
+							damage+=evt.num;
+						});
 						return !game.hasPlayer(function(current){
 							var damage2=0;
-							if(current.actionHistory.length-1>=0){
-								var history2=current.actionHistory[current.actionHistory.length-1]["sourceDamage"].slice(0);
-								history2.forEach(evt=>{
-									damage2+=evt.num;
-								});
-							}
+							current.getLastRoundHistory(1,"sourceDamage",function(evt){
+								damage2+=evt.num;
+							});
 							return damage2<damage;
 						})
 					}
@@ -14053,10 +14051,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiongli:"凶戾",
 			sst_xiongli_info:"锁定技，每轮游戏开始时，你选择一个与上轮不同的条件：<br>\
 			1. 本轮造成伤害唯一最少的角色；<br>\
-			2. 体力值唯一最少的角色；<br>\
+			2. 体力唯一最少的角色；<br>\
 			3. 装备唯一最少的角色。<br>\
 			下一轮游戏开始你杀死该角色。",
 			sst_nixi:"逆袭",
+			sst_nixi_animation:"逆袭",
 			sst_nixi_info:"结束阶段，若你满足本轮〖凶戾〗的条件（可不为唯一），你可以对一名角色造成1点伤害并摸一张牌。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",

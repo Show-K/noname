@@ -17385,6 +17385,39 @@
 			},
 			player:{
 				//SST new add
+				getLastRoundHistory:function(round,key,filter,last){
+					if(typeof round!="number"||!round) round=1;
+					var list=[];
+					var all=[];
+					for(var i=this.actionHistory.length-1;i>=0;i--){
+						all.push(this.actionHistory[i]);
+						if(this.actionHistory[i].isRound){
+							round--;
+							if(round<=0){
+								break;
+							}
+							else{
+								all.length=0;
+							}
+						}
+					}
+					for(var j=0;j<all.length;j++){
+						if(!key||!all[j][key]){
+							list.push(all[j]);
+						}
+						else{
+							if(!filter) list.addArray(all[j][key]);
+							else{
+								var history=all[j][key].slice(0);
+								if(last) history=history.slice(0,history.indexOf(last)+1);
+								for(var i=0;i<history.length;i++){
+									if(filter(history[i])) list.push(history[i]);
+								}
+							}
+						}
+					}
+					return list;
+				},
 				judgeCard:function(card){
 					var next=game.createEvent("judgeCard");
 					next.player=this;
