@@ -148,7 +148,8 @@ window.noname_character_rank={
 			"alz_yuri_kozukata",
 			"sst_lucario",
 			"sst_kraid",
-			"sst_sora"
+			"sst_sora",
+			"sst_mewtwo"
 		],
 		junk:[]
 	}

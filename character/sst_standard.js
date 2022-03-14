@@ -126,7 +126,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],[]],
 			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],[]],
 			sst_pac_man:["male","sst_light",3,["sst_jichang"],[]],
-			sst_mewtwo:["male","sst_darkness",3,["sst_xiongli","sst_nixi"],[]]
+			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],[]]
 		},
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -1000,7 +1000,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			使用梦幻的基因制造出来的宝可梦，科学力量可以造出它的身体，给予它强大的力量和极高的智慧，却无法造出一颗温柔的心。它一方面厌恶人类，另一方面又为自己的身份认同而迷茫。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			强行添加进去的数据。"
+			由强行添加进去的数据强行诞生。"
 		},
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -1232,7 +1232,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				firstDo:true,
 				priority:2020,
 				filter:function(event,player){
-					return player.sex=="none";
+					return player.sex=="none"&&!["sst_mewtwo"].contains(player.name);
 				},
 				content:function(){
 					"step 0"
@@ -11122,14 +11122,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
+					event.cardsh=[];
+					event.cardse=[];
+					event.cardsj=[];
 					if(!player.storage.sst_fulei.contains("h")&&trigger.hs.filterInD("d").length){
-						event.cardsh=trigger.hs.filterInD("d");
+						event.cardsh.addArray(trigger.hs.filterInD("d"));
 					}
 					if(!player.storage.sst_fulei.contains("e")&&trigger.es.filterInD("d").length){
-						event.cardse=trigger.es.filterInD("d");
+						event.cardse.addArray(trigger.es.filterInD("d"));
 					}
 					if(!player.storage.sst_fulei.contains("j")&&trigger.js.filterInD("d").length){
-						event.cardsj=trigger.js.filterInD("d");
+						event.cardsj.addArray(trigger.js.filterInD("d"));
 					}
 					player.chooseTarget(get.prompt2("sst_fulei"),function(card,player,target){
 						return player.canCompareTarget(target);
@@ -13060,22 +13063,125 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiongli:{
 				init:function(player){
 					if(!Array.isArray(player.storage.sst_xiongli)) player.storage.sst_xiongli=[];
+					if(!Array.isArray(player.storage.sst_xiongli_previous)) player.storage.sst_xiongli_previous=[];
+				},
+				intro:{
+					content:function(storage,player){
+						if(!Array.isArray(storage)||!storage.length) return "没有选择条件";
+						var str="本轮选择条件：<br>";
+						var num=0;
+						if(storage.contains("sst_xiongli_first")) str+="1. 本轮造成伤害唯一最少的角色<br>";
+						if(storage.contains("sst_xiongli_second")) str+="2. 体力值唯一最少的角色<br>";
+						if(storage.contains("sst_xiongli_third")) str+="3. 装备唯一最少的角色<br>";
+						var targets=game.filterPlayer(function(current){
+							if(storage.contains("sst_xiongli_first")){
+								var damage=0;
+								if(current.actionHistory.length-2>=0){
+									var history=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+									history.forEach(evt=>{
+										damage+=evt.num;
+									});
+								}
+								return !game.hasPlayer(function(current2){
+									var damage2=0;
+									if(current2.actionHistory.length-2>=0){
+										var history2=current2.actionHistory[current2.actionHistory.length-2]["sourceDamage"].slice(0);
+										history2.forEach(evt=>{
+											damage2+=evt.num;
+										});
+									}
+									return damage2<=damage;
+								})
+							}
+							return (storage.contains("sst_xiongli_second")&&current.isMinHp(true))||(storage.contains("sst_xiongli_third")&&current.isMinEquip(true));
+						});
+						if(targets.length){
+							str+="满足条件角色："+get.translation(targets);
+						}
+						else{
+							str+="无满足条件角色";
+						}
+						var checkPlayer=function(){
+							if(storage.contains("sst_xiongli_first")){
+								var damage=0;
+								if(player.actionHistory.length-2>=0){
+									var history=player.actionHistory[player.actionHistory.length-2]["sourceDamage"].slice(0);
+									history.forEach(evt=>{
+										damage+=evt.num;
+									});
+								}
+								return !game.hasPlayer(function(current){
+									var damage2=0;
+									if(current.actionHistory.length-2>=0){
+										var history2=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+										history2.forEach(evt=>{
+											damage2+=evt.num;
+										});
+									}
+									return damage2<damage;
+								})
+							}
+							return (storage.contains("sst_xiongli_second")&&player.isMinHp())||(storage.contains("sst_xiongli_third")&&player.isMinEquip());
+						};
+						if(checkPlayer()){
+							str+="<br>你可以发动〖逆袭〗";
+						}
+						else{
+							str+="<br>你不可以发动〖逆袭〗";
+						}
+						return str;
+					},
+					markcount:()=>0
 				},
 				forced:true,
 				trigger:{global:"roundStart"},
 				content:function(){
 					"step 0"
+					player.storage.sst_xiongli_previous=player.storage.sst_xiongli;
+					player.storage.sst_xiongli=[];
+					var targets=game.filterPlayer(function(current){
+						if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
+							var damage=0;
+							if(current.actionHistory.length-2>=0){
+								var history=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+								history.forEach(evt=>{
+									damage+=evt.num;
+								});
+							}
+							return !game.hasPlayer(function(current2){
+								var damage2=0;
+								if(current2.actionHistory.length-2>=0){
+									var history2=current2.actionHistory[current2.actionHistory.length-2]["sourceDamage"].slice(0);
+									history2.forEach(evt=>{
+										damage2+=evt.num;
+									});
+								}
+								return damage2<=damage;
+							})
+						}
+						return (player.storage.sst_xiongli.contains("sst_xiongli_second")&&current.isMinHp(true))||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&current.isMinEquip(true));
+					});
+					if(!targets.length){
+						player.popup("无角色","fire");
+						game.log("但是没有角色满足条件！");
+					}
+					else{
+						for(var i=0;i<targets.length;i++){
+							targets[i].die({source:player});
+						}
+					}
+					"step 1"
 					var list=[];
 					var choice=[];
-					if(!player.storage.sst_xiongli.contains("sst_xiongli_first")){
+					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_first")){
 						list.push("选项一");
 						choice.push("本轮造成伤害唯一最少的角色");
 					}
-					if(!player.storage.sst_xiongli.contains("sst_xiongli_second")){
+					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_second")){
 						list.push("选项二");
 						choice.push("体力值唯一最少的角色");
 					}
-					if(!player.storage.sst_xiongli.contains("sst_xiongli_third")){
+					if(!player.storage.sst_xiongli_previous.contains("sst_xiongli_third")){
 						list.push("选项三");
 						choice.push("装备唯一最少的角色");
 					}
@@ -13089,26 +13195,77 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						})) return "选项三";
 						return 0;
 					}).set("prompt","凶戾：选择一个条件，下一轮游戏开始你杀死满足条件的角色").set("choiceList",choice);
-					"step 1"
+					"step 2"
 					switch(result.control){
 						case "选项一":{
-							player.addAdditionalSkill("sst_xiongli_effect");
+							game.log(player,"选择了","#y"+"本轮造成伤害唯一最少的角色");
+							player.popup("①","thunder");
+							player.addAdditionalSkill("sst_xiongli","sst_xiongli_effect");
+							player.storage.sst_xiongli.push("sst_xiongli_first");
 							break;
 						}
 						case "选项二":{
-							player.addAdditionalSkill("sst_xiongli_effect");
+							game.log(player,"选择了","#y"+"体力值唯一最少的角色");
+							player.popup("②","thunder");
+							player.addAdditionalSkill("sst_xiongli","sst_xiongli_effect");
+							player.storage.sst_xiongli.push("sst_xiongli_second");
 							break;
 						}
 						case "选项三":{
-							player.addAdditionalSkill("sst_xiongli_effect");
+							game.log(player,"选择了","#y"+"装备唯一最少的角色");
+							player.popup("③","thunder");
+							player.addAdditionalSkill("sst_xiongli","sst_xiongli_effect");
+							player.storage.sst_xiongli.push("sst_xiongli_third");
 							break;
 						}
 					}
 				}
 			},
-			sst_xiongli_effect:{
-				init:function(player){
-					if(!Array.isArray(player.storage.sst_xiongli_effect)) player.storage.sst_xiongli_effect=[];
+			sst_nixi:{
+				direct:true,
+				trigger:{player:"phaseJieshuBegin"},
+				filter:function(event,player){
+					if(!Array.isArray(player.storage.sst_xiongli)) return false;
+					if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
+						var damage=0;
+						if(player.actionHistory.length-2>=0){
+							var history=player.actionHistory[player.actionHistory.length-2]["sourceDamage"].slice(0);
+							history.forEach(evt=>{
+								damage+=evt.num;
+							});
+						}
+						return !game.hasPlayer(function(current){
+							var damage2=0;
+							if(current.actionHistory.length-2>=0){
+								var history2=current.actionHistory[current.actionHistory.length-2]["sourceDamage"].slice(0);
+								history2.forEach(evt=>{
+									damage2+=evt.num;
+								});
+							}
+							return damage2<damage;
+						})
+					}
+					return (player.storage.sst_xiongli.contains("sst_xiongli_second")&&player.isMinHp())||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&player.isMinEquip());
+				},
+				content:function(){
+					"step 0"
+					player.chooseTarget(get.prompt2("sst_nixi")).set("ai",function(target){
+						return get.damageEffect(target,_status.event.player,_status.event.player);
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.logSkill("sst_nixi",result.targets);
+						result.targets[0].damage(player);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.draw();
+				},
+				ai:{
+					combo:"sst_xiongli",
+					expose:0.2
 				}
 			}
 		},
