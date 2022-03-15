@@ -17851,10 +17851,12 @@
 						game.broadcast(function(player,group){
 							player.group=group;
 							player.node.name.dataset.nature=get.groupnature(group);
+							if(player.name=='sst_massy') player.node.name.dataset.nature='thunder';
 						},player,group);
 					}
 					player.group=group;
 					player.node.name.dataset.nature=get.groupnature(group);
+					if(player.name=='sst_massy') player.node.name.dataset.nature=get.groupnature('shen');
 					if(log!==false) game.log(this,'将势力变为了','#y'+get.translation(group+2));
 				},
 				chooseToDuiben:function(target){
@@ -18080,6 +18082,7 @@
 					this.hujia=0;
 					this.node.intro.innerHTML=lib.config.intro;
 					this.node.name.dataset.nature=get.groupnature(this.group);
+					if(this.name=='sst_massy') this.node.name.dataset.nature=get.groupnature('shen');
 					lib.setIntro(this);
 					this.node.name.innerHTML=get.slimName(character);
 					if(this.classList.contains('minskin')&&this.node.name.querySelectorAll('br').length>=4){
@@ -18094,6 +18097,7 @@
 						if(!this.node.name_seat&&!_status.video){
 							this.node.name_seat=ui.create.div('.name.name_seat',get.verticalStr(get.translation(this.name)),this);
 							this.node.name_seat.dataset.nature=get.groupnature(this.group);
+							if(this.name=='sst_massy') this.node.name.dataset.nature=get.groupnature('shen');
 						}
 						this.sex='male';
 						//this.group='unknown';

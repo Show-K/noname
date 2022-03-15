@@ -9565,7 +9565,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						player:function(player){
 							var val=0;
-							var cards=player.getCards("h");
+							var cards=player.getCards();
 							for(var i=0;i<cards.length;i++){
 								val+=get.value(cards[i]);
 							}
@@ -12743,6 +12743,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
 						var targets=result.targets.sortBySeat();
 						player.logSkill("sst_qixin",targets);
+						player.discard(result.cards);
 						for(var i=0;i<targets.length;i++){
 							if(typeof targets[i].storage.sst_qixin_effect!="object") targets[i].storage.sst_qixin_effect={};
 							if(!Array.isArray(targets[i].storage.sst_qixin_effect[player.playerid])) targets[i].storage.sst_qixin_effect[player.playerid]=[];

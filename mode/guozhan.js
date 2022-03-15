@@ -253,7 +253,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		aozhanRank:{
-			'8':[],
+			'8':['gz_ymk_tianyi'],
 			'7':[],
 			'6':[],
 			'5':[
@@ -273,7 +273,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			],
 		},
 		guozhanRank:{
-			'8':[],
+			'8':['gz_ymk_tianyi'],
 			'7':[
 				'gz_ymk_isabelle','gz_sst_meta_knight','gz_sst_kyuukou','gz_sst_richter','gz_sst_king_dedede','gz_sst_ganondorf','gz_sst_donkey_kong','gz_sst_dr_wily','gz_sst_fox','gz_ymk_yumikohimi'
 			],
@@ -436,6 +436,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_ska_olivia:["female","sst_spirit",3,["gz_ska_shenqi","gz_ska_zhefu"],[]],
 				gz_ska_bobby:["male","sst_spirit",4,["ska_jixing","ska_sheran"],[]],
 				gz_ska_super_xiaojie:["male","sst_reality",4,["ska_kezhi","gz_ska_jiyan"],[]],
+				gz_ymk_tianyi:["male","ye",4,["gz_ymk_kaibai"],[]]
 			}
 		},
 		skill:{
@@ -2922,6 +2923,46 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			//天翊
+			ymk_kaibai:{
+				usable:1,
+				trigger:{target:"useCardToTarget"},
+				check:function(event,player){
+					var val=0;
+					var cards=player.getCards();
+					for(var i=0;i<cards.length;i++){
+						val+=get.value(cards[i]);
+					}
+					val=val/cards.length;
+					return Math.cbrt(6-val)>0;
+				},
+				content:function(){
+					"step 0"
+					player.discard(player.getCards("h",function(card){
+						return lib.filter.cardDiscardable(card,player);
+					}));
+					"step 1"
+					player.judge(function(card){
+						return get.number(card);
+					}).set("judge2",function(result){
+						return result.number;
+					});
+					"step 2"
+					if(result.number) player.draw(result.number);
+					var evt=trigger.getParent();
+					var next=game.createEvent("ymk_kaibai_clear");
+					event.next.remove(next);
+					evt.after.push(next);
+					next.set("player",player);
+					next.set("card",trigger.card);
+					next.setContent(function(){
+						if(game.cardCausedDamage(card,null,player)&&Math.floor(player.countCards()/2)) player.chooseToDiscard("开摆：弃置"+get.cnNumber(Math.floor(player.countCards()/2))+"张手牌",Math.floor(player.countCards()/2),"h",true);
+					});
+				}
+			},
+			ai:{
+				threaten:4
+			}
 		},
 		game:{
 			showYexings:function(){
@@ -4046,6 +4087,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			gz_ska_jiyan_info:"副将技，此武将牌减少半个阴阳鱼。每轮限一次，你可以视为使用或打出一张【杀】/【闪】/【桃】/【酒】。",
 			sst_paozhi:"抛枝",
 			sst_paozhi_info:"锁定技，你的手牌均可合纵。",
+			gz_ymk_kaibai:"开摆",
+			gz_ymk_kaibai_info:"每回合限一次，当你成为一名角色使用牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为你判定牌的点数）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。"
 		},
 		junList:[],
 		guozhanPile_yingbian:[

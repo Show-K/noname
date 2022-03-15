@@ -7,7 +7,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
-				sst_ymk:["ymk_isabelle","ymk_yumikohimi"],
+				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
@@ -32,7 +32,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin:["none","sst_darkness",4,["nnk_yuanlei"],[]],
 			nnk_robin_male:["male","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
-			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]]
+			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
+			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -193,7 +194,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			在经历过交通事故之后，拥有了能看见死者的能力。被这个能力困扰的她本想自杀，最后被人救下，并学会了使用“射影机”对抗怨灵。在一次委托中，她逐渐发现了灵山中的真相。在大乱斗中，作为辅助模型的她可以使用射影机对被拍到的斗士造成伤害。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			咕了好久了……"
+			咕了好久了……",
+			ymk_tianyi:"武将作者：Yumikohimi<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			啊对对对。"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -213,7 +217,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin:"卓越的战术师",
 			nnk_robin_male:"卓越的战术师",
 			nnk_robin_female:"卓越的战术师",
-			alz_yuri_kozukata:""
+			alz_yuri_kozukata:"",
+			ymk_tianyi:"虚假的废物"
 		},
 		skill:{
 			//SP Isabelle
@@ -501,9 +506,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.judge(function(card){
 						return get.value(card)/2;
-					}).set("judge2",function(){
-						return true;
-					});
+					}).set("judge2",()=>true);
 					"step 1"
 					var card=result.card;
 					if(get.position(card,true)=="d"){
@@ -2297,6 +2300,46 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			//天翊
+			ymk_kaibai:{
+				usable:1,
+				trigger:{target:"useCardToTarget"},
+				check:function(event,player){
+					var val=0;
+					var cards=player.getCards();
+					for(var i=0;i<cards.length;i++){
+						val+=get.value(cards[i]);
+					}
+					val=val/cards.length;
+					return Math.cbrt(6-val)>0;
+				},
+				content:function(){
+					"step 0"
+					player.discard(player.getCards("h",function(card){
+						return lib.filter.cardDiscardable(card,player);
+					}));
+					"step 1"
+					player.judge(function(card){
+						return Math.ceil(get.number(card)/2);
+					}).set("judge2",function(result){
+						return result.number;
+					});
+					"step 2"
+					if(Math.ceil(result.number/2)) player.draw(Math.ceil(result.number/2));
+					var evt=trigger.getParent();
+					var next=game.createEvent("ymk_kaibai_clear");
+					event.next.remove(next);
+					evt.after.push(next);
+					next.set("player",player);
+					next.set("card",trigger.card);
+					next.setContent(function(){
+						if(game.cardCausedDamage(card,null,player)&&Math.floor(player.countCards()/2)) player.chooseToDiscard("开摆：弃置"+get.cnNumber(Math.floor(player.countCards()/2))+"张手牌",Math.floor(player.countCards()/2),"h",true);
+					});
+				}
+			},
+			ai:{
+				threaten:2
 			}
 		},
 		dynamicTranslate:{
@@ -2343,8 +2386,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:"SP鲁弗莱",
 			nnk_robin_female:"SP鲁弗莱",
 			alz_yuri_kozukata:"不来方夕莉",
+			ymk_tianyi:"天翊",
 			//Character ab.
+			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
+			mnm_9_volt_18_volt_ab:"九伏十八伏",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2430,6 +2476,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian3:"影见·灵",
 			alz_yingjian3_backup:"影见·灵",
 			alz_yingjian_info:"游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。",
+			ymk_kaibai:"开摆",
+			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2458,7 +2506,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin:"SP Robin",
 			nnk_robin_male:"SP Robin",
 			nnk_robin_female:"SP Robin",
-			alz_yuri_kozukata:"Yuri Kozukata"
+			alz_yuri_kozukata:"Yuri Kozukata",
+			ymk_tianyi:"Tianyi"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2472,7 +2521,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
 			nnk_robin:["nnk_robin_male","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
-			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"]
+			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
+			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"]
 		}
 	};
 	return sst_sp;

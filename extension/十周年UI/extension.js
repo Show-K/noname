@@ -5828,6 +5828,8 @@ content:function(config, pack){
 						set:function(value){
 							this.node.campWrap.dataset.camp = value;
 							
+							if (this.name == 'sst_massy') this.node.campWrap.dataset.camp = 'shen';
+
 							if (value){
 								if (decadeUI.config.campIdentityImageMode){
 								    var that = this;
