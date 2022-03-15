@@ -131,7 +131,7 @@ window.config={
 
 	cards:['sst_standard','standard','extra'],
 	characters:['sst_standard','sst_extra'],
-	connect_characters:['diy'],
+	connect_characters:[],
 	connect_cards:['huanlekapai','guozhan','sp','zhulu','yingbian','yongjian'],
 	plays:[],
 	extensions:['在线更新','十周年UI','导入助手'],
