@@ -8,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_standard:{
 				sst_64:["sst_mario","sst_donkey_kong","sst_link","sst_samus","sst_yoshi","sst_kirby","sst_luigi","sst_captain_falcon","sst_jigglypuff","sst_fox","sst_pikachu"],
 				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco","sst_mewtwo"],
-				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf"],
+				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf","sst_olimar"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
 				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora"],
@@ -126,7 +126,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],[]],
 			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],[]],
 			sst_pac_man:["male","sst_light",3,["sst_jichang"],[]],
-			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],[]]
+			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],[]],
+			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],[]]
 		},
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -151,9 +152,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			
-
-			"+
 			"
 			*/
 			sst_mario:"0001. 马力欧/Mario/マリオ<br>\
@@ -485,7 +483,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			初登场：Zelda II: The Adventure of Link（林克的冒险）<br>\
 			武将作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			暗黑林克是林克的邪恶面。他是塞尔达传说系列中最神秘的敌人角色之一，通常在没有背景故事和对话的情况下出现，尽管在很多场合都暗示它只是由暗影魔法构成。对于林克来说，暗黑林克不仅仅是一场与怪物的战斗，而是一场与自己的战斗，因为这位年轻的英雄必须面对自己的力量与他作对。正因为如此，暗黑林克通常是终极挑战。他有一次成为正式的最终Boss（林克的冒险），以及在四剑神殿和Take 'Em All On!等中作为可选挑战的最终Boss。<br>\
+			暗黑林克是林克的邪恶面。他是塞尔达传说系列中最神秘的敌人角色之一，通常在没有背景故事和对话的情况下出现，尽管在很多场合都暗示它只是由暗影魔法构成。对于林克来说，暗黑林克不仅仅是一场与怪物的战斗，而是一场与自己的战斗，因为这位年轻的英雄必须面对自己的力量与他作对。正因为如此，暗黑林克通常是终极挑战。他有一次成为正式的最终Boss（林克的冒险），以及在四剑神殿和Take \x27Em All On!等中作为可选挑战的最终Boss。<br>\
 			——翻译自《塞尔达维基》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			话说塞尔达传说的第二部和系列其他作品很不一样。",
@@ -1000,7 +998,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			使用梦幻的基因制造出来的宝可梦，科学力量可以造出它的身体，给予它强大的力量和极高的智慧，却无法造出一颗温柔的心。它一方面厌恶人类，另一方面又为自己的身份认同而迷茫。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			由强行添加进去的数据强行诞生。"
+			由强行添加进去的数据强行诞生。",
+			sst_olimar:"0798. 欧力马/Olimar/キャプテン·オリマー<br>\
+			0799. 阿尔福/Alph/アルフ<br>\
+			0803. 红色皮克敏/Red Pikmin/赤ピクミン<br>\
+			0804. 蓝色皮克敏/Blue Pikmin/青ピクミン<br>\
+			0805. 黄色皮克敏/Yellow Pikmin/黄ピクミン<br>\
+			系列：Pikmin（皮克敏）<br>\
+			初登场：Pikmin（皮克敏）<br>\
+			武将作者：mario not mary<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			老练的宇宙飞行家欧力马是多露芬号飞船的船长，他和皮克敏一起在大乱斗中作战，可以拔出皮克敏和使用哨子号令它们。在拥有皮克敏的时候，欧力马的强度会更高，并且不同颜色的皮克敏有不同的效果，在对战之前要查阅清楚。顺便，他的名字倒过来就是马力欧。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			阿尔福是坠毁在星球PNF-404上的年轻探险家，他需要尽快找到失散的船员和飞船。他醒来后发现的第一种生物就是皮克敏。除了探索星球，他和船员们还需要寻找食物以维持生存和供给母星。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			红色皮克敏有着尖尖的鼻子，这也是欧力马遇到的第一种皮克敏。在原作中，它们不怕火。在大乱斗中，红色皮克敏的攻击力是第二高的，并且攻击带火属性。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			蓝色皮克敏的嘴角一直耷拉着，看起来不太开心。在原作中，它们可以进入水中取物。在大乱斗中，蓝色皮克敏的防御力是第二高的，投掷出去的伤害也相当可观。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			黄色皮克敏有尖尖的“耳朵”——其实这个结构的作用仍然不清楚。它们在原作中免疫电，并且是最轻的皮克敏。在大乱斗中，它们被投掷出去时抛物线比其他皮克敏高，并且能对接触到的斗士造成电属性伤害。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			这个游戏系列真正实现了主机/手柄玩即时战略游戏的梦想。"
 		},
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -1100,7 +1119,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kraid:"地崩山摧",
 			sst_sora:"命运之子",
 			sst_pac_man:"饕餮盛宴",
-			sst_mewtwo:"逆袭造物"
+			sst_mewtwo:"逆袭造物",
+			sst_olimar:"雨后春笋"
 		},
 		skill:{
 			//Civil War mode reference
@@ -1850,7 +1870,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return lib.skill.sst_chengli3.mod.aiValue.apply(this,arguments);
 					}
 				},
-				prompt:"将一张牌当作【闪】使用",
+				prompt:()=>"将一张牌当作【闪】使用",
 				enable:"chooseToUse",
 				viewAsFilter:function(player){
 					if(!player.isDamaged()) return false;
@@ -1904,7 +1924,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				check:function(card){
 					return 6-get.value(card);
 				},
-				prompt:"将一张牌当作【无懈可击】使用",
+				prompt:()=>"将一张牌当作【无懈可击】使用",
 				ai:{
 					skillTagFilter:function(player){
 						if(!player.countCards("hes")||!player.isDamaged()) return false;
@@ -2139,7 +2159,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!ui.selected.cards.length&&!player.hasSkill("sst_qiji_turn")) return 0;
 					return 8-get.value(card);
 				},
-				//prompt:"不选择牌：你翻面，令目标摸三张牌<br>选择三张牌：你弃置这三张牌，令目标翻面",
 				content:function(){
 					//player.line(target,"green");
 					if(cards.length==0){
@@ -2455,8 +2474,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{global:"dieBefore"},
 				content:function(){
 					"step 0"
-					trigger.cancel();
 					player.awakenSkill("sst_zhuansheng");
+					trigger.cancel();
 					player.discard(player.getCards("hej",function(card){
 						return lib.filter.cardDiscardable(card,player);
 					}));
@@ -2846,7 +2865,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					order:function(){
-						return get.order({name:"sha"})-0.1;
+						return 1;
 					},
 					respondSha:true,
 					result:{
@@ -3862,7 +3881,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return player.storage.sst_baozheng.contains(card);
 					})) return false;
 				},
-				prompt:"将暴征获得的牌当作【杀】使用",
+				prompt:()=>"将暴征获得的牌当作【杀】使用",
 				check:function(card){return 5-get.value(card);},
 				ai:{
 					skillTagFilter:function(player,tag,arg){
@@ -6726,10 +6745,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				locked:false,
 				zhuanhuanji:true,
 				enable:"chooseToUse",
-				prompt:function(){
-					if(_status.event.player.storage.sst_diebu) return "你可以视为使用一张【闪】";
-					return "你可以视为使用一张【杀】";
-				},
 				viewAs:function(cards,player){
 					var name=false;
 					if(!player.storage.sst_diebu){
@@ -7963,26 +7978,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var suit=get.suit(result.cards[0]);
 						//game.log(color);
 						//game.log(suit);
-						trigger.player.storage.sst_yufeng=suit;
-						trigger.player.addTempSkill("sst_yufeng2");
+						trigger.player.storage.sst_yufeng_effect=suit;
+						trigger.player.addTempSkill("sst_yufeng_effect");
 					}
 				}
 			},
-			sst_yufeng2:{
+			sst_yufeng_effect:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:function(storage,player){
+						return "本回合"+get.translation(get.color(storage))+"牌花色均视为"+get.translation(storage);
+					}
+				},
 				mod:{
 					suit:function(card,suit){
 						var player=_status.event.player;
-						//var color="none";
 						var color=function(suit){
 							if(["spade","club"].contains(suit)) return "black";
 							if(["heart","diamond"].contains(suit)) return "red";
 							return "none";
 						}
-						//game.log(card.color);
-						//game.log(player.storage.sst_yufeng_color);
-						//game.log(suit);
-						//game.log(player.storage.sst_yufeng_suit);
-						if(player&&player.storage.sst_yufeng&&color(suit)==color(player.storage.sst_yufeng)&&suit!=player.storage.sst_yufeng) return player.storage.sst_yufeng;
+						if(player&&player.storage.sst_yufeng_effect&&color(suit)==color(player.storage.sst_yufeng_effect)&&suit!=player.storage.sst_yufeng_effect) return player.storage.sst_yufeng_effect;
 					}
 				}
 			},
@@ -8055,20 +8072,27 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.give(result.cards,result.targets[0]);
 						var suit=get.suit(result.cards[0]);
 						//game.log(suit);
-						player.storage.sst_chihang_suit=suit;
-						player.addTempSkill("sst_chihang3","phaseUseEnd");
+						player.storage.sst_chihang_effect=suit;
+						player.addTempSkill("sst_chihang_effect","phaseUseEnd");
 					}
 				}
 			},
-			sst_chihang3:{
+			sst_chihang_effect:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:function(storage,player){
+						return "此出牌阶段内，你使用或打出牌时，若此牌花色与"+get.translation(storage)+"：相同，你将手牌补至体力上限；不同，你须失去1点体力或结束出牌阶段";
+					}
+				},
 				trigger:{player:["useCard","respond"]},
 				forced:true,
 				filter:function(event,player){
-					return player.isPhaseUsing()&&player.storage.sst_chihang_suit;
+					return player.isPhaseUsing()&&player.storage.sst_chihang_effect;
 				},
 				content:function(){
 					"step 0"
-					if(get.suit(trigger.card)==player.storage.sst_chihang_suit){
+					if(get.suit(trigger.card)==player.storage.sst_chihang_effect){
 						player.drawTo(player.maxHp,["nodelay"]);
 						event.finish();
 					}
@@ -8092,7 +8116,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					effect:{
 						player:function(card,player){
-							if(get.suit(card)==player.storage.sst_chihang_suit){
+							if(get.suit(card)==player.storage.sst_chihang_effect){
 								return [1,3];
 							}
 							else{
@@ -8670,7 +8694,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					threaten:2,
 					respondSha:true,
 					order:function(){
-						return get.order({name:"sha"})+0.1;
+						return get.order({name:"sha",isCard:true})+0.1;
 					},
 					useful:-1,
 					value:-1
@@ -8752,9 +8776,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(arg!="use") return false;
 					},
 					order:function(item,player){
-						if(Array.isArray(player.storage.sst_shenbi_ready)&&player.storage.sst_shenbi_ready.contains("失去1点体力")) return get.order({name:"shan"})+0.1;
+						if(Array.isArray(player.storage.sst_shenbi_ready)&&player.storage.sst_shenbi_ready.contains("失去1点体力")) return get.order({name:"shan",isCard:true})+0.1;
 						if(player.countCards("hs","shan")&&!player.needsToDiscard()) return 0;
-						return get.order({name:"shan"})+0.1;
+						return get.order({name:"shan",isCard:true})+0.1;
 					},
 					useful:-1,
 					value:-1,
@@ -11053,7 +11077,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},
 						selectCard:2,
 						position:"hes",
-						prompt:"你可以将两张颜色不同的牌当作【杀】使用或打出",
 						viewAs:{name:"sha"},
 						viewAsFilter:function(player){
 							if(!player.countCards("hes")) return false;
@@ -11071,7 +11094,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},
 						selectCard:2,
 						position:"hes",
-						prompt:"你可以将两张颜色不同的牌当作【闪】使用或打出",
 						viewAs:{name:"shan"},
 						viewAsFilter:function(player){
 							if(!player.countCards("hes")) return false;
@@ -11327,10 +11349,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				*/
 				enable:"phaseUse",
 				usable:1,
-				prompt:function(){
-					if(_status.event.player.storage.sst_xuanyi) return "转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。";
-					return "转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。";
-				},
 				filter:function(event,player){
 					if(!player.storage.sst_xuanyi){
 						return game.hasPlayer(function(current){
@@ -12791,7 +12809,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return false;
 				},
-				prompt:"你可以视为使用一次施法牌",
+				prompt:()=>"你可以视为使用一次施法牌",
 				chooseButton:{
 					dialog:function(event,player){
 						var list=[];
@@ -13238,7 +13256,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiongli_animation:{
 				skillAnimation:true,
 				animationStr:"凶戾",
-				animationColor:"thunder",
+				animationColor:"thunder"
 			},
 			sst_nixi:{
 				direct:true,
@@ -13279,6 +13297,242 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					combo:"sst_xiongli",
 					expose:0.2
+				}
+			},
+			sst_liedui:{
+				init:function(player){
+					if(typeof player.storage.sst_liedui!="number") player.storage.sst_liedui=1;
+				},
+				locked:false,
+				mod:{
+					targetInRange:function(card,player,target){
+						if(_status.event.skill=="sst_liedui") return true;
+					}
+				},
+				zhuanhuanji:true,
+				log:false,
+				enable:"chooseToUse",
+				viewAs:function(cards,player){
+					var name=false;
+					switch(player.storage.sst_liedui){
+						case 1:name="sha";break;
+						case 2:name="shan";break;
+						case 3:name="tao";break;
+						case 4:name="jiu";break;
+						case 5:name="wuxie";break;
+					}
+					if(name) return {name:name,isCard:true};
+					return null;
+				},
+				check:function(card){
+					var val=5-get.value(card);
+					if(ui.discardPile.childNodes.length&&get.color(card)!=get.color(ui.discardPile.lastChild)) val+=2;
+					return val;
+				},
+				ignoreMod:true,
+				filterCard:function(){
+					return lib.filter.cardDiscardable.apply(this,arguments);
+				},
+				position:"he",
+				filter:function(event,player){
+					var filter=event.filterCard;
+					if(filter({name:"sha",isCard:true},player,event)&&player.storage.sst_liedui==1) return true;
+					if(filter({name:"shan",isCard:true},player,event)&&player.storage.sst_liedui==2) return true;
+					if(filter({name:"tao",isCard:true},player,event)&&player.storage.sst_liedui==3) return true;
+					if(filter({name:"jiu",isCard:true},player,event)&&player.storage.sst_liedui==4) return true;
+					if(filter({name:"wuxie",isCard:true},player,event)&&player.storage.sst_liedui==5) return true;
+					return false;
+				},
+				prompt:function(){
+					var player=_status.event.player;
+					var str="转换技，当你需要使用一张【";
+					var switchSkill=["①杀","②闪","③桃","④酒","⑤无懈可击"][player.storage.sst_liedui-1];
+					str+="①杀"==switchSkill?"<span class=\"bluetext\">"+"①杀"+"</span>":"①杀";
+					str+="②闪"==switchSkill?"<span class=\"bluetext\">"+"②闪"+"</span>":"②闪";
+					str+="③桃"==switchSkill?"<span class=\"bluetext\">"+"③桃"+"</span>":"③桃";
+					str+="④酒"==switchSkill?"<span class=\"bluetext\">"+"④酒"+"</span>":"④酒";
+					str+="⑤无懈可击"==switchSkill?"<span class=\"bluetext\">"+"⑤无懈可击"+"</span>":"⑤无懈可击";
+					str+="】时，你可以弃置一张牌视为使用之"
+					if(ui.discardPile.childNodes.length) str+="，若你弃置的牌与"+get.translation(ui.discardPile.lastChild)+"颜色不同，你可以指定此技能的转换状态";
+					return str;
+				},
+				precontent:function(){
+					"step 0"
+					player.logSkill("sst_liedui");
+					player.storage.sst_liedui++;
+					if(player.storage.sst_liedui>5) player.storage.sst_liedui=1;
+					if(event.result.cards&&event.result.cards.length) event.color1=get.color(event.result.cards[0]);
+					if(ui.discardPile.childNodes.length) event.color2=get.color(ui.discardPile.lastChild);
+					player.discard(event.result.cards);
+					event.result.card.cards=[];
+					event.result.cards=[];
+					delete event.result.card.suit;
+					delete event.result.card.number;
+					"step 1"
+					if(typeof event.color1=="string"&&typeof event.color2=="string"&&event.color1!=event.color2){
+						player.chooseControl("sha","shan","tao","jiu","wuxie","cancel2").set("ai",function(){
+							var player=_status.event.player;
+							var val=player.getUseValue("sha");
+							var result="sha";
+							["jiu","wuxie","shan","tao"].forEach(function(name){
+								var temp=player.getUseValue(name);
+								if(temp>=val){
+									val=temp;
+									result=name;
+								}
+							});
+							return result;
+						}).set("prompt","列队：你可以指定此技能的转换状态");
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					var control=["sha","shan","tao","jiu","wuxie"].indexOf(result.control);
+					if(control!=-1){
+						control++;
+						player.storage.sst_liedui=control;
+						var zeroToTwentyAsCircledNumber=function(n){
+							if(n===0){
+								return String.fromCharCode(9450);
+							}
+							else if(n>20||n<0){
+								return "?";
+							}
+							return String.fromCharCode(9311+n);
+						};
+						player.popup(zeroToTwentyAsCircledNumber(control),"green");
+						var str="";
+						switch(control){
+							case 1:str="①杀";break;
+							case 2:str="②闪";break;
+							case 3:str="③桃";break;
+							case 4:str="④酒";break;
+							case 5:str="⑤无懈可击";break;
+						}
+						player.chat(str);
+						game.log(player,"指定了","#g【列队】","的转换状态为","#y"+str);
+					}
+				},
+				ai:{
+					respondSha:true,
+					respondShan:true,
+					save:true,
+					skillTagFilter:function(player,tag,arg){
+						if(arg!="use") return false;
+						if(!player.countCards("he",function(card){
+							return lib.filter.cardDiscardable(card,player);
+						})) return false;
+						switch(tag){
+							case "respondSha":if(player.storage.sst_liedui!=1) return false;
+							case "respondShan":if(player.storage.sst_liedui!=2) return false;
+							case "save":if(player.storage.sst_liedui!=3&&player.storage.sst_liedui!=4) return false;
+						}
+					},
+					order:function(item,player){
+						var name=["sha","shan","tao","jiu","wuxie"][player.storage.sst_liedui-1];
+						return get.order({name:name,isCard:true})+0.1;
+					}
+				},
+				hiddenCard:function(player,name){
+					if(!player.countCards("he",function(card){
+						return lib.filter.cardDiscardable(card,player);
+					})) return false;
+					return ["sha","shan","tao","jiu","wuxie"][player.storage.sst_liedui-1]==name;
+				}
+			},
+			sst_chunni:{
+				unique:true,
+				mark:true,
+				limited:true,
+				skillAnimation:true,
+				animationStr:"春泥",
+				animationColor:"soil",
+				intro:{
+					content:"limited"
+				},
+				trigger:{player:"phaseZhunbeiBegin"},
+				check:function(event,player){
+					return ui.discardPile.childNodes.length>ui.cardPile.childNodes.length;
+				},
+				content:function(){
+					player.awakenSkill("sst_chunni");
+					var cards=[];
+					while(ui.discardPile.childNodes.length){
+						var currentcard=ui.discardPile.removeChild(ui.discardPile.firstChild);
+						currentcard.vanishtag.length=0;
+						if(get.info(currentcard).vanish||currentcard.storage.vanish){
+							currentcard.remove();
+							continue;
+						}
+						cards.push(currentcard);
+					}
+					cards.randomSort();
+					if(cards.length){
+						player.deckCards=cards;
+						player.addAdditionalSkill("sst_chunni","sst_chunni_effect");
+					}
+				}
+			},
+			sst_chunni_effect:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:function(storage,player){
+						if(typeof player.deckCards=="object"&&typeof player.deckCards.length=="number"){
+							return "共有"+get.cnNumber(player.deckCards.length)+"张牌";
+						}
+						return false;
+					},
+					markcount:function(storage,player){
+						if(typeof player.deckCards=="object"&&typeof player.deckCards.length=="number"){
+							return player.deckCards.length;
+						}
+						return 0;
+					}
+				},
+				onremove:function(player){
+					game.cardsDiscard(player.deckCards);
+					player.$throw(player.deckCards);
+					game.log(player.deckCards,"进入了弃牌堆");
+					delete player.deckCards;
+				},
+				trigger:{player:"drawBegin"},
+				forced:true,
+				content:function(){
+					trigger.drawDeck=Math.max(trigger.num,player.deckCards.length);
+					trigger.sst_chunni=[];
+					for(var i=0;i<trigger.drawDeck;i++){
+						trigger.sst_chunni.push(player.deckCards[player.deckCards.length-1-i]);
+					}
+					if(trigger.num>=player.deckCards.length) player.removeAdditionalSkill("sst_chunni");
+				},
+				mod:{
+					suit:function(card,suit){
+						if(card.hasGaintag("sst_chunni")) return "";
+					}
+				},
+				group:"sst_chunni_effect2"
+			},
+			sst_chunni_effect2:{
+				forced:true,
+				popup:false,
+				trigger:{player:"gainEnd"},
+				filter:function(event,player){
+					var evt=event.getParent();
+					if(!evt||evt.name!="draw"||!Array.isArray(evt.sst_chunni)) return false;
+					for(var i=0;i<event.cards.length;i++){
+						if(evt.sst_chunni.contains(event.cards[i])) return true;
+					}
+					return false;
+				},
+				content:function(){
+					var cards=[];
+					var evt=trigger.getParent();
+					for(var i=0;i<trigger.cards.length;i++){
+						if(evt.sst_chunni.contains(trigger.cards[i])) cards.push(trigger.cards[i]);
+					}
+					player.addGaintag(cards,"sst_chunni");
 				}
 			}
 		},
@@ -13363,6 +13617,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				str+="②〖圣罚〗"==switchSkill?"<span class=\"bluetext\">"+"②〖圣罚〗"+"</span>":"②〖圣罚〗";
 				str+="③〖勇魂〗"==switchSkill?"<span class=\"bluetext\">"+"③〖勇魂〗"+"</span>":"③〖勇魂〗";
 				str+="，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。";
+				return str;
+			},
+			sst_liedui:function(player){
+				var str="转换技，当你需要使用一张【";
+				var switchSkill=["①杀","②闪","③桃","④酒","⑤无懈可击"][player.storage.sst_liedui-1];
+				str+="①杀"==switchSkill?"<span class=\"bluetext\">"+"①杀"+"</span>":"①杀";
+				str+="②闪"==switchSkill?"<span class=\"bluetext\">"+"②闪"+"</span>":"②闪";
+				str+="③桃"==switchSkill?"<span class=\"bluetext\">"+"③桃"+"</span>":"③桃";
+				str+="④酒"==switchSkill?"<span class=\"bluetext\">"+"④酒"+"</span>":"④酒";
+				str+="⑤无懈可击"==switchSkill?"<span class=\"bluetext\">"+"⑤无懈可击"+"</span>":"⑤无懈可击";
+				str+="】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。";
 				return str;
 			}
 		},
@@ -13454,7 +13719,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_spring_man:"弹簧人",
 			sst_joker:"Joker",
 			sst_rex:"莱克斯",
-			sst_cuphead_mugman:"茶杯头&马克杯人",
+			sst_cuphead_mugman:"茶杯头＆马克杯人",
 			sst_krystal:"水晶",
 			sst_snake:"Snake",
 			sst_mega_man:"洛克人",
@@ -13484,12 +13749,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kyo_kusanagi:"草薙京",
 			sst_pauline:"宝琳",
 			sst_dr_wily:"威利博士",
-			sst_9_volt_18_volt:"九伏特&十八伏特",
+			sst_9_volt_18_volt:"九伏特＆十八伏特",
 			sst_kazuya:"一八",
 			sst_kraid:"克雷德",
 			sst_sora:"索拉",
 			sst_pac_man:"吃豆人",
 			sst_mewtwo:"超梦",
+			sst_olimar:"皮克敏＆欧力马＆阿尔福",
 			//Character ab.
 			sst_dr_mario_ab:"马力欧",
 			sst_zero_suit_samus_ab:"萨姆斯",
@@ -13504,6 +13770,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_snake_ab:"固蛇",
 			sst_king_dedede_ab:"帝帝帝",
 			sst_9_volt_18_volt_ab:"九伏十八伏",
+			sst_olimar_ab:"皮克敏",
 			//Identity mode skill
 			sst_jueyi:"决意",
 			sst_jueyi_info:"锁定技，你使用牌指定目标时，若其手牌数大于你，你摸一张牌，令此牌不可被目标响应。",
@@ -13819,12 +14086,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shizhu_faq:"*",
 			sst_shizhu_faq_info:"你/其他角色的弃牌阶段结束时，你可以令一名其他角色/你可以弃置与你/其于此阶段弃置牌等量的牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用。",
 			sst_yufeng:"御风",
-			sst_yufeng2:"御风",
+			sst_yufeng_effect:"御风",
 			sst_yufeng_info:"一名角色的准备阶段，你可以弃置一张手牌，若如此做，本回合此角色与此牌颜色相同的牌花色均视为此牌花色。",
 			sst_chihang:"驰航",
 			sst_chihang2:"驰航",
-			sst_chihang3:"驰航",
-			sst_chihang_info:"一名角色的出牌阶段开始时，其可以展示并交给你一张牌，然后此出牌阶段内，其使用或打出牌时，若与此牌花色：相同，其将手牌补至体力上限；不同，其须失去1点体力或结束出牌阶段。",
+			sst_chihang_effect:"驰航",
+			sst_chihang_info:"一名角色的出牌阶段开始时，其可以展示并交给你一张牌。若如此做，此出牌阶段内，其使用或打出牌时，若与此牌花色：相同，其将手牌补至体力上限；不同，其须失去1点体力或结束出牌阶段。",
 			sst_xishou:"袭狩",
 			sst_xishou_effect:"袭狩",
 			sst_xishou_effect2:"袭狩",
@@ -14058,6 +14325,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_nixi:"逆袭",
 			sst_nixi_animation:"逆袭",
 			sst_nixi_info:"结束阶段，若你满足本轮〖凶戾〗的条件（可不为唯一），你可以对一名角色造成1点伤害并摸一张牌。",
+			sst_liedui:"列队",
+			sst_liedui_info:"转换技，当你需要使用一张【①杀②闪③桃④酒⑤无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。",
+			sst_chunni:"春泥",
+			sst_chunni_effect:"春泥",
+			sst_chunni_info:"限定技，准备阶段，你可以将弃牌堆洗牌并变为你专属的摸牌堆，且这些牌花色视为无色。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			sst_jichang_first_tag:"摸牌阶段额外摸牌数",
@@ -14183,7 +14455,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kraid:"Kraid",
 			sst_sora:"Sora",
 			sst_pac_man:"Pac-Man",
-			sst_mewtwo:"Mewtwo"
+			sst_mewtwo:"Mewtwo",
+			sst_olimar:"Pikmin & Olimar & Alph"
 		},
 		perfectPair:{
 			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi","sst_pauline"],

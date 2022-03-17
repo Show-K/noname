@@ -85,7 +85,8 @@ window.noname_character_rank={
 			"sst_pac_man",
 			"sst_chrom",
 			"sst_lucina",
-			"ymk_tianyi"
+			"ymk_tianyi",
+			"sst_olimar"
 		],
 		rare:[
 			"sst_mario",

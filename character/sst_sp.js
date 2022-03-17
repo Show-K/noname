@@ -727,7 +727,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("sha");
 						},
-						prompt:"视为使用或打出一张【杀】",
+						prompt:()=>"视为使用或打出一张【杀】",
 						precontent:function(){
 							player.logSkill("ska_jiyan");
 							delete event.result.skill;
@@ -741,7 +741,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(!player.storage.ska_jiyan.contains("sha")) return false;
 							},
 							order:function(){
-								return get.order({name:"sha"})+0.1;
+								return get.order({name:"sha",isCard:true})+0.1;
 							},
 							useful:-1,
 							value:-1
@@ -752,7 +752,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filterCard:function(){return false;},
 						selectCard:-1,
 						viewAs:{name:"shan",isCard:true},
-						prompt:"视为使用或打出一张【闪】",
+						prompt:()=>"视为使用或打出一张【闪】",
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("shan");
 						},
@@ -769,7 +769,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(!player.storage.ska_jiyan.contains("shan")) return false;
 							},
 							order:function(){
-								return get.order({name:"shan"})+0.1;
+								return get.order({name:"shan",isCard:true})+0.1;
 							},
 							useful:-1,
 							value:-1
@@ -780,7 +780,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filterCard:function(){return false;},
 						selectCard:-1,
 						viewAs:{name:"tao",isCard:true},
-						prompt:"视为使用或打出一张【桃】",
+						prompt:()=>"视为使用或打出一张【桃】",
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("tao");
 						},
@@ -798,7 +798,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(!player.storage.ska_jiyan.contains("tao")) return false;
 							},
 							order:function(){
-								return get.order({name:"tao"})+0.1;
+								return get.order({name:"tao",isCard:true})+0.1;
 							},
 							useful:-1,
 							value:-1
@@ -809,7 +809,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						filterCard:function(){return false;},
 						selectCard:-1,
 						viewAs:{name:"jiu",isCard:true},
-						prompt:"视为使用或打出一张【酒】",
+						prompt:()=>"视为使用或打出一张【酒】",
 						filter:function(event,player){
 							return player.storage.ska_jiyan.contains("jiu");
 						},
@@ -826,7 +826,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(!player.storage.ska_jiyan.contains("jiu")) return false;
 							},
 							order:function(){
-								return get.order({name:"jiu"})+0.1;
+								return get.order({name:"jiu",isCard:true})+0.1;
 							},
 							useful:-1,
 							value:-1
@@ -1375,10 +1375,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(ui.discardPile.childNodes.length&&get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
 							return 5-get.value(card);
 						},
-						prompt:"当你需要使用或打出一张【杀】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】，否则本回合此技能失效；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害",
 						ai:{
 							order:function(){
-								return get.order({name:"sha"})+0.1;
+								return get.order({name:"sha",isCard:true})+0.1;
 							},
 							skillTagFilter:function(player,tag,arg){
 								if(!player.countCards("he")) return false;
@@ -1403,10 +1402,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return 5-get.value(card);
 						},
 						position:"he",
-						prompt:"当你需要使用或打出一张【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【闪】，否则本回合此技能失效；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害",
 						ai:{
 							order:function(){
-								return get.order({name:"shan"})+0.1;
+								return get.order({name:"shan",isCard:true})+0.1;
 							},
 							skillTagFilter:function(player){
 								if(!player.countCards("he")) return false;
@@ -2197,10 +2195,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:true,
 				selectCard:2,
 				position:"he",
-				prompt:function(){
-					if(_status.event.player.storage.alz_yingjian2) return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”";
-					return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色翻面。然后若你的“灵”数量小于体力值，你获得一个“灵”";
-				},
 				check:function(card){
 					return 7-get.value(card);
 				},
@@ -2247,7 +2241,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return false;
 				},
-				prompt:"若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌",
+				prompt:()=>"若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌",
 				chooseButton:{
 					dialog:function(){
 						var list=[];
@@ -2305,6 +2299,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_kaibai:{
 				usable:1,
 				trigger:{target:"useCardToTarget"},
+				filter:function(event,player){
+					return get.type(event.card)!="equip";
+				},
 				check:function(event,player){
 					var val=0;
 					var cards=player.getCards();
@@ -2381,7 +2378,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_captain_falcon:"SP飞隼队长",
 			ska_king_olly:"奥利王",
 			ska_koopa_troopa:"慢慢龟",
-			mnm_9_volt_18_volt:"SP九伏特&十八伏特",
+			mnm_9_volt_18_volt:"SP九伏特＆十八伏特",
 			nnk_robin:"SP鲁弗莱",
 			nnk_robin_male:"SP鲁弗莱",
 			nnk_robin_female:"SP鲁弗莱",
@@ -2472,12 +2469,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_yuanlei_effect4:"远雷",
 			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
 			alz_yingjian:"影见",
-			alz_yingjian2:"影见",
-			alz_yingjian3:"影见·灵",
-			alz_yingjian3_backup:"影见·灵",
+			alz_yingjian2:"影见+",
+			alz_yingjian3:"影见-",
+			alz_yingjian3_backup:"影见-",
 			alz_yingjian_info:"游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。",
 			ymk_kaibai:"开摆",
-			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
+			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",

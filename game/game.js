@@ -17385,6 +17385,26 @@
 			},
 			player:{
 				//SST new add
+				getDeckCards:function(num){
+					if(typeof num!='number'){
+						num=1;
+					}
+					if(!this.deckCards){
+						return get.cards(num);
+					}
+					var player=this;
+					var list=[];
+					for(var i=0;i<num;i++){
+						if(player.deckCards.length){
+							list.push(player.deckCards.pop());
+						}
+						else{
+							list.addArray(get.cards(num-i));
+							break;
+						}
+					}
+					return list;
+				},
 				getLastRoundHistory:function(round,key,filter,last){
 					if(typeof round!="number"||!round) round=1;
 					var list=[];

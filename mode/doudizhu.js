@@ -3011,7 +3011,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'sst_pokemon_trainer_red','sst_isabelle','sst_daisy','sst_little_mac','sst_ryu','sst_ken',
 				'sst_ike','sst_toon_link','sst_mega_man','sst_captain_falcon','sst_jigglypuff','sst_pichu',
 				'sst_steve','sst_sonic','sst_hero','sst_fox','sst_alex','sst_min_min','sst_pikachu',
-				'sst_falco','sst_pyra_mythra','sst_pokemon_trainer_leaf','sst_sora','sst_pac_man',
+				'sst_falco','sst_pyra_mythra','sst_pokemon_trainer_leaf','sst_sora','sst_pac_man',"sst_olimar",
 				//----------------
 				'sst_duck_hunt','sst_ness','sst_chrom','sst_lucina','sst_robin'
 			],

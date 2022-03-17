@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.112.2SST',
+	'v1.9.112.2SST2',
 	//New add
 	'image/character/shibing1.png',
 	'image/character/shibing2.png',
@@ -112,6 +112,7 @@ window.noname_asset_list=[
 	'image/character/sst_sora.png',
 	'image/character/sst_pac_man.png',
 	'image/character/sst_mewtwo.png',
+	'image/character/sst_olimar.png',
 
 	'image/character/sst_claude.png',
 	'image/character/sst_geno.png',

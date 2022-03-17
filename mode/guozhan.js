@@ -2924,9 +2924,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//天翊
-			ymk_kaibai:{
+			gz_ymk_kaibai:{
 				usable:1,
 				trigger:{target:"useCardToTarget"},
+				filter:function(event,player){
+					return get.type(event.card)!="equip";
+				},
 				check:function(event,player){
 					var val=0;
 					var cards=player.getCards();
@@ -4088,7 +4091,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			sst_paozhi:"抛枝",
 			sst_paozhi_info:"锁定技，你的手牌均可合纵。",
 			gz_ymk_kaibai:"开摆",
-			gz_ymk_kaibai_info:"每回合限一次，当你成为一名角色使用牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为你判定牌的点数）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。"
+			gz_ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为你判定牌的点数）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。"
 		},
 		junList:[],
 		guozhanPile_yingbian:[
