@@ -13966,7 +13966,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengxi_yonghun:"勇魂",
 			sst_shengxi_yonghun_info:"若你使用带有「伤害」标签的牌未对唯一目标造成伤害，你可以破军1，然后若你未以此法破军带有「伤害」标签的牌，你的手牌上限+1且本回合可以额外使用一张【杀】。",
 			sst_xuelun:"血轮",
-			sst_xuelun_info:"一名角色造成伤害后，你可以询问其是否获得你〖血轮〗当前技能（不可获得已有技能）直到其发动此技能后。",
+			sst_xuelun_info:"一名角色造成伤害后，你可以询问其是否获得你〖圣袭〗当前技能（不可获得已有技能）直到其发动此技能后。",
 			sst_xiandu:"先读",
 			sst_xiandu2:"先读",
 			sst_xiandu3:"先读",
