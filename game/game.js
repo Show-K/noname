@@ -10181,6 +10181,8 @@
 			egg:'鸡蛋',
 			wine:'酒杯',
 			shoe:'拖鞋',
+			flowerSpam:'刷屏鲜花',
+			eggSpam:'刷屏鸡蛋',
 			yuxisx:'玉玺',
 			jiasuo:'枷锁',
 			junk:'平凡',
@@ -52716,20 +52718,32 @@
 					var click=function(){
 						if(_status.dragged) return;
 						if(_status.justdragged) return;
-						if(_status.throwEmotionWait) return;
 						var emotion=this.link;
 						if(game.online){
 							game.send('throwEmotion',node,emotion);
 						}
 						else game.me.throwEmotion(node,emotion);
-						uiintro._close();
-						_status.throwEmotionWait=true;
-						setTimeout(function(){
-							_status.throwEmotionWait=false;
-							if(ui.throwEmotion){
-								for(var i of ui.throwEmotion) i.classList.remove('exclude');
+					};
+					var click2=function(){
+						if(_status.dragged) return;
+						if(_status.justdragged) return;
+						var emotion=this.link.slice(0,-4);
+						if(game.online){
+							game.send('throwEmotion',node,emotion);
+						}
+						else game.me.throwEmotion(node,emotion);
+						var repeat=function(num){
+							if(num>0){
+								setTimeout(function(){
+									if(game.online){
+										game.send('throwEmotion',node,emotion);
+									}
+									else game.me.throwEmotion(node,emotion);
+									repeat(num-1);
+								},125);
 							}
-						},(emotion=='flower'||emotion=='egg')?5000:10000)
+						}
+						repeat(15);
 					};
 					var td;
 					var table=document.createElement('div');
@@ -52741,7 +52755,6 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
-						if(_status.throwEmotionWait) td.classList.add('exclude');
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
@@ -52758,11 +52771,25 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
-						if(_status.throwEmotionWait) td.classList.add('exclude');
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
 						td.addEventListener(lib.config.touchscreen?'touchend':'click',click);
+					}
+					uiintro.content.appendChild(table);
+					table=document.createElement('div');
+					table.classList.add('add-setting');
+					table.style.margin='0';
+					table.style.width='100%';
+					table.style.position='relative';
+					var listi=['flowerSpam','eggSpam'];
+					for(var i=0;i<listi.length;i++){
+						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
+						ui.throwEmotion.add(td);
+						td.link=listi[i];
+						table.appendChild(td);
+						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
+						td.addEventListener(lib.config.touchscreen?'touchend':'click',click2);
 					}
 					uiintro.content.appendChild(table);
 				}
