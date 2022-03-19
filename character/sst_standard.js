@@ -4166,9 +4166,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Mr. Game & Watch
 			sst_shenpan:{
-				//skillAnimation:true,
-				//animationStr:"审判",
-				//animationColor:"metal",
 				trigger:{player:"useCardToPlayered"},
 				filter:function(event,player){
 					return event.targets&&event.targets.length==1&&(get.name(event.card)=="sha"||get.type(event.card)=="trick");
@@ -4252,7 +4249,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						case 9:{
 							player.popup("⑨");
-							//player.awakenSkill("sst_shenpan");
 							player.line(trigger.target,{color:[0,0,0]});
 							for(var i=0;i<game.players.length;i++){
 								game.players[i].chat("是9！是9！");
@@ -4274,6 +4270,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				nine_effect:function(){
 					"step 0"
+					player.trySkillAnimate("sst_shenpan_animation","sst_shenpan_animation",player.checkShow("sst_shenpan_animation"));
 					player.popup("⑨");
 					event.num=64;
 					"step 1"
@@ -4326,6 +4323,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					damage:true,
 					expose:0.2
 				}
+			},
+			sst_shenpan_animation:{
+				skillAnimation:true,
+				animationStr:"审判",
+				animationColor:"metal"
 			},
 			//mario not mary
 			sst_qixiao:{
@@ -13890,6 +13892,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shunxing_use:"出牌",
 			sst_shunxing_info:"锁定技，弃牌阶段结束后，若你于此阶段弃置了牌，你废除一个阶段，然后将场上一张装备移动到你的装备区，否则你恢复一个阶段。（限摸牌阶段〖影流〗/出牌阶段〖影流〗/摸牌阶段/出牌阶段）",
 			sst_shenpan:"审判",
+			sst_shenpan_animation:"审判",
 			sst_shenpan_info:"你使用杀或普通锦囊牌指定唯一目标后，你可以判定，若判定结果：<br>\
 			为1，你失去1点体力；<br>\
 			为2，你弃置一张牌；<br>\
