@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.112.2SST2',
-	update:'1.9.112.2SST',
+	version:'1.9.112.3SST',
+	update:'1.9.112.2SST2',
 	changeLog:[
 		'体力上限逐渐增加 升哥',
 		'规范武将介绍',
