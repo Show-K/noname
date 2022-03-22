@@ -113,6 +113,7 @@ window.noname_asset_list=[
 	'image/character/sst_pac_man.png',
 	'image/character/sst_mewtwo.png',
 	'image/character/sst_olimar.png',
+	'image/character/sst_marioraz.png',
 
 	'image/character/sst_claude.png',
 	'image/character/sst_geno.png',
