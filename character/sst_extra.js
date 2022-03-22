@@ -1191,13 +1191,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
-							if(!(get.number(card)>get.number(_status.event.respondTo[1]))) return false;
+							if(!_status.event.respondTo||get.number(card)>get.number(_status.event.respondTo[1])) return false;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
 					}
 					else{
 						trigger.set("filterCard",function(card){
-							return get.number(card)>get.number(_status.event.respondTo[1]);
+							return _status.event.respondTo&&!(get.number(card)>get.number(_status.event.respondTo[1]));
 						});
 					}
 				}

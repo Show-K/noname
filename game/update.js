@@ -3,6 +3,7 @@ window.noname_update={
 	update:'1.9.112.2SST2',
 	changeLog:[
 		'体力上限逐渐增加 升哥',
+		'大数无效回复应变 派派',
 		'规范武将介绍',
 		'代码优化',
 		'bug修复',

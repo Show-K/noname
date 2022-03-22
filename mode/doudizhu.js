@@ -3031,7 +3031,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			sst_reality:[
 				'sst_massy','sst_mario_not_mary','sst_yumikohimi','sst_haine','sst_oc','sst_mr_8',
 				'sst_kyuukou','sst_windier','sst_rentianshu','sst_srf','sst_miumiu','sst_ma',
-				'sst_feiji',
+				'sst_feiji',"sst_marioraz","sst_paipai"
 			],
 		},
 		online_cardPile:[
