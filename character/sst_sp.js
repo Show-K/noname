@@ -987,7 +987,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				position:"he",
 				content:function(){
 					"step 0"
-					if(cards&&cards.length) target.gain(cards,player,"giveAuto");
+					if(cards&&cards.length) player.give(cards,target);
 					"step 1"
 					var num=Math.ceil(target.countCards()/2);
 					if(num){
@@ -998,7 +998,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(result.cards&&result.cards.length){
-						player.gain(result.cards,target,"giveAuto");
+						target.give(result.cards,player);
 					}
 				},
 				ai:{
@@ -2419,7 +2419,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shubian:"数变",
 			ska_shubian_info:"出牌阶段限一次，你可以弃置任意张点数和等于13的牌，然后指定等量角色，你依次令其回复1点体力或受到你造成的1点伤害。",
 			ska_jingli:"径理",
-			ska_jingli_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌。（X/Y为你/其手牌数一半且向上取整）",
+			ska_jingli_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌。（X/Y为你/其手牌数一半且向上取整，若为零则无需交给牌）",
 			ska_zhiyi:"执异",
 			ska_zhiyi2:"执异",
 			ska_zhiyi_info:"你使用从一名角色获得的牌结算后，若此牌：被响应，你可以将一张牌当作此牌使用；未被响应，你可以摸一张牌。",

@@ -86,7 +86,8 @@ window.noname_character_rank={
 			"sst_chrom",
 			"sst_lucina",
 			"ymk_tianyi",
-			"sst_olimar"
+			"sst_olimar",
+			"sst_marioraz"
 		],
 		rare:[
 			"sst_mario",
@@ -151,7 +152,8 @@ window.noname_character_rank={
 			"sst_lucario",
 			"sst_kraid",
 			"sst_sora",
-			"sst_mewtwo"
+			"sst_mewtwo",
+			"sst_paipai"
 		],
 		junk:[]
 	}

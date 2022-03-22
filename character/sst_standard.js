@@ -2355,7 +2355,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					var list=["1. 少摸一张牌，本回合你计算与其他角色距离-1", "2. 额外摸一张牌，本回合你计算与其他角色距离+1"];
+					var list=["少摸一张牌，本回合你计算与其他角色距离-1", "额外摸一张牌，本回合你计算与其他角色距离+1"];
 					player.chooseControl("cancel2").set("choiceList",list).set("ai",function(){
 						var player=_status.event.player;
 						if(player.countCards("h")>3&&player.countCards("h","sha")>1){
@@ -3433,14 +3433,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				enable:"phaseUse",
 				usable:1,
-				filterTarget:function (card,player,target){
+				filterTarget:function(card,player,target){
 					return player!=target;
 				},
 				filter:function(event,player){
 					return player.countCards("he");
 				},
 				filterCard:true,
-				selectCard:1,
 				discard:false,
 				lose:false,
 				delay:false,
@@ -6280,27 +6279,27 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					if(!trigger.player.countGainableCards(player,"he")){
-						event.directcontrol=true;
+					var controls=["选项一"];
+					if(trigger.player.countGainableCards(player,"he")){
+						controls.push("选项二");
 					}
-					else{
-						var list=["1. 受到"+get.translation(player)+"造成的一点伤害，然后你本回合下次造成的伤害+1","2. "+get.translation(player)+"获得你一张牌"];
-						trigger.player.chooseControl().set("choiceList",list).set("ai",function(){
-							var source=_status.event.sourcex;
-							var player=_status.event.player;
-							var cards=player.getCards("he");
-							var val=0;
-							for(var i=0;i<cards.length;i++){
-								val+=get.value(cards[i]);
-							}
-							val=val/cards.length;
-							//game.log(val);
-							//game.log(get.damageEffect(player,source,player));
-							return get.damageEffect(player,source,player)+val*2>0?0:1;
-						}).set("sourcex",player).set("prompt","霸凌：选择一项");
-					}
+					var list=["受到"+get.translation(player)+"造成的一点伤害，然后你本回合下次造成的伤害+1",get.translation(player)+"获得你一张牌"];
+					trigger.player.chooseControl(controls).set("choiceList",list).set("ai",function(){
+						if(!_status.event.controls.contains("选项二")) return "选项一";
+						var source=_status.event.sourcex;
+						var player=_status.event.player;
+						var cards=player.getCards("he");
+						var val=0;
+						for(var i=0;i<cards.length;i++){
+							val+=get.value(cards[i]);
+						}
+						val=val/cards.length;
+						//game.log(val);
+						//game.log(get.damageEffect(player,source,player));
+						return get.damageEffect(player,source,player)+val*2>0?"选项一":"选项二";
+					}).set("sourcex",player).set("prompt","霸凌：选择一项");
 					"step 1"
-					if(event.directcontrol||result.index==0){
+					if(result.control!="选项二"){
 						trigger.player.damage(player);
 						trigger.player.addTempSkill("sst_baling_effect");
 						trigger.player.addMark("sst_baling_effect",1,false);
@@ -11236,15 +11235,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.target=result.targets[0];
 						player.logSkill("sst_fulei",event.target);
 						var info=["伏雷：选择用于拼点的牌"];
-						if(event.cardsh){
+						if(event.cardsh.length){
 							info.push("<div class=\"text center\">来自手牌区</div>");
 							info.push(event.cardsh);
 						}
-						if(event.cardse){
+						if(event.cardse.length){
 							info.push("<div class=\"text center\">来自装备区</div>");
 							info.push(event.cardse);
 						}
-						if(event.cardsj){
+						if(event.cardsj.length){
 							info.push("<div class=\"text center\">来自判定区</div>");
 							info.push(event.cardsj);
 						}
@@ -13149,6 +13148,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.draw(2);
 				}
 			},
+			//Mewtwo
 			sst_xiongli:{
 				init:function(player){
 					if(!Array.isArray(player.storage.sst_xiongli)) player.storage.sst_xiongli=[];
@@ -13359,6 +13359,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.2
 				}
 			},
+			//Olimar
 			sst_liedui:{
 				init:function(player){
 					if(typeof player.storage.sst_liedui!="number") player.storage.sst_liedui=1;
@@ -13593,6 +13594,130 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(evt.sst_chunni.contains(trigger.cards[i])) cards.push(trigger.cards[i]);
 					}
 					player.addGaintag(cards,"sst_chunni");
+				}
+			},
+			//Marioraz
+			sst_buxi:{
+				forced:true,
+				trigger:{
+					global:"gameStart",
+					player:["enterGame","changeHp","gainMaxHpEnd","loseMaxHpEnd"]
+				},
+				filter:function(event,player){
+					return Math.max(0,player.hp)==player.maxHp;
+				},
+				content:function(){
+					player.gainMaxHp();
+				}
+			},
+			sst_litu:{
+				direct:true,
+				trigger:{player:"phaseUseEnd"},
+				filter:function(event,player){
+					var num=0;
+					game.getGlobalHistory("cardMove",function(evt){
+						if(evt.name=="cardsDiscard"||(evt.name=="lose"&&evt.position==ui.discardPile)) num+=evt.cards.filterInD("d").length;
+					});
+					return (player.maxHp-player.hp>0||num)&&game.hasPlayer(function(current){
+						return current.maxHp<player.maxHp;
+					});
+				},
+				content:function(){
+					"step 0"
+					player.chooseTarget(get.prompt2("sst_litu"),function(card,player,target){
+						return target.maxHp<player.maxHp;
+					}).set("ai",function(target){
+						return Math.abs(get.attitude(_status.event.player,target))+1;
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.logSkill("sst_litu",result.targets);
+						event.target=result.targets[0];
+						event.cards=[];
+						game.getGlobalHistory("cardMove",function(evt){
+							if(evt.name=="cardsDiscard"||(evt.name=="lose"&&evt.position==ui.discardPile)) event.cards.addArray(evt.cards.filterInD("d"));
+						});
+						var controls=[];
+						if(player.maxHp-player.hp>0) controls.push("选项一");
+						if(event.cards.length) controls.push("选项二");
+						event.target.chooseControl(controls).set("ai",function(){
+							if(_status.event.controls.length<2) return 0;
+							var player=_status.event.player;
+							var target=_status.event.targetx;
+							var att=get.attitude(player,target);
+							if(att<0){
+								att=-Math.sqrt(-att);
+							}
+							else{
+								att=Math.sqrt(att);
+							}
+							var val=0;
+							for(var i=0;i<_status.event.cardsx.length;i++){
+								val+=get.value(_status.event.cardsx[i]);
+							}
+							if(val<0){
+								val=-Math.sqrt(-val);
+							}
+							else{
+								val=Math.sqrt(val);
+							}
+							return get.recoverEffect(target,player,player)>att*val?"选项一":"选项二";
+						}).set("targetx",player).set("cardsx",event.cards).set("choiseList",["令"+get.translation(player)+"回复1点体力","令"+get.translation(player)+"获得"+get.translation(event.cards)]);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(result.control=="选项一"){
+						player.recover(event.target);
+					}
+					else if(result.control=="选项二"){
+						player.gain(event.cards,"gain2");
+					}
+				}
+			},
+			sst_zihua:{
+				unique:true,
+				zhuSkill:true,
+				trigger:{player:"phaseZhunbeiBegin"},
+				filter:function(event,player){
+					return player.hasZhuSkill("sst_zihua",player)&&lib.skill.sst_zihua.logTarget(event,player).length;
+				},
+				logTarget:function(event,player){
+					var targets=game.filterPlayer(function(current){
+						return current.group==player.group&&current.countDiscardableCards(player,"h");
+					});
+					targets.sortBySeat(player);
+					return targets;
+				},
+				check:function(event,player){
+					var targets=lib.skill.sst_zihua.logTarget(event,player);
+					var att=0;
+					for(var i=0;i<targets.length;i++){
+						att+=get.attitude(player,targets[i]);
+					}
+					return att<0;
+				},
+				content:function(){
+					"step 0"
+					event.targets=lib.skill.sst_zihua.logTarget(trigger,player);
+					event.delayed=false;
+					event.num=0;
+					"step 1"
+					player.discardPlayerCard("自化：弃置"+get.translation(event.targets[event.num])+"一张手牌",event.targets[event.num],"h",true).set("boolline",false).set("delay",event.num-event.targets.length-1);
+					"step 2"
+					if(result.bool){
+						if(num==event.targets.length-1) event.delayed=true;
+					}
+					event.num++;
+					if(event.num<event.targets.length){
+						event.goto(1);
+					}
+					"step 3"
+					if(!event.delayed) game.delay();
+				},
+				ai:{
+					expose:0.2
 				}
 			}
 		},
@@ -14395,7 +14520,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_buxi:"不息",
 			sst_buxi_info:"锁定技，若你的体力值等于上限，你的体力上限+1。",
 			sst_litu:"历途",
-			sst_litu_info:"结束阶段，你可以指定一名体力上限小于你的角色，该角色选择令你回复1点体力，或令你获得本回合内进入弃牌堆的牌。",
+			sst_litu_info:"出牌阶段结束时，你可以指定一名体力上限小于你的角色，该角色选择令你回复1点体力，或令你获得本回合内进入弃牌堆的牌。",
 			sst_zihua:"自化",
 			sst_zihua_info:"主公技，准备阶段，你可以弃置所有本势力角色一张手牌。",
 			//Tag
@@ -14524,7 +14649,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sora:"Sora",
 			sst_pac_man:"Pac-Man",
 			sst_mewtwo:"Mewtwo",
-			sst_olimar:"Pikmin & Olimar & Alph"
+			sst_olimar:"Pikmin & Olimar & Alph",
+			sst_marioraz:"Marioraz"
 		},
 		perfectPair:{
 			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi","sst_pauline"],
@@ -14559,12 +14685,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_corrin_female:["sst_corrin","sst_corrin_male"]
 		},
 		help:{
-			"大乱桌斗":"<div style=\"margin:10px\">举荐</div><ul style=\"margin-top:0\"><li>你亮出牌堆顶的一张牌，若此牌满足指定条件，你获得此牌，否则将此牌置入弃牌堆并重复此流程</ul>\
-			<div style=\"margin:10px\">破军</div><ul style=\"margin-top:0\"><li>你将指定牌置于你的武将牌上，回合结束时你获得武将牌上的这些牌</ul>\
-			<div style=\"margin:10px\">施法</div><ul style=\"margin-top:0\"><li>声明一个1~3的数字，声明数字回合过后触发指定效果，此时X为声明数字</ul>\
-			<div style=\"margin:10px\">提前执行回合</div><ul style=\"margin-top:0\"><li>你执行一个额外回合，若如此做，本轮你的下一个非额外回合开始前，你取消之</ul>\
-			<div style=\"margin:10px\">销毁</div><ul style=\"margin-top:0\"><li>将一张牌永久移出游戏</ul>\
-			<div style=\"margin:10px\">移除武将牌</div><ul style=\"margin-top:0\"><li>计算机端会将武将替换为同势力同性别无技能的士兵，且不触发武将登场"
+			"大乱桌斗":"<div style=\"margin:10px\">举荐</div><ul style=\"margin-top:0\">\
+			<li>你亮出牌堆顶的一张牌，若此牌满足指定条件，你获得此牌，否则将此牌置入弃牌堆并重复此流程</ul>\
+			<div style=\"margin:10px\">破军</div><ul style=\"margin-top:0\">\
+			<li>你将指定牌置于你的武将牌上，回合结束时你获得武将牌上的这些牌</ul>\
+			<div style=\"margin:10px\">施法</div><ul style=\"margin-top:0\">\
+			<li>声明一个1~3的数字，声明数字回合过后触发指定效果，此时X为声明数字</ul>\
+			<div style=\"margin:10px\">提前执行回合</div><ul style=\"margin-top:0\">\
+			<li>你执行一个额外回合，若如此做，本轮你的下一个非额外回合开始前，你取消之</ul>\
+			<div style=\"margin:10px\">销毁</div><ul style=\"margin-top:0\">\
+			<li>将一张牌永久移出游戏</ul>\
+			<div style=\"margin:10px\">移除武将牌</div><ul style=\"margin-top:0\">\
+			<li>计算机端会将武将替换为同势力同性别无技能的士兵，且不触发武将登场"
 		}
 	};
 	/*

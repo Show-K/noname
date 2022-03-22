@@ -404,6 +404,8 @@
 
 .player>.hp-wrap>.hp.textstyle {
 	flex-direction: column;
+	writing-mode: vertical-rl;
+	-webkit-writing-mode: vertical-rl;
 }
 
 .player>.hp-wrap>.hp.hidden {

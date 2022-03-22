@@ -6,7 +6,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,
 		characterSort:{
 			sst_extra:{
-				sst_response:["sst_claude","sst_geno","sst_duck_hunt"],
+				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
 				sst_beginning:["sst_ness","sst_chrom","sst_lucina","sst_robin"]
 			}
 		},
@@ -19,7 +19,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_lucina:["female","sst_light",4,["sst_suxing","sst_shengyi"],[]],
 			sst_robin:["none","sst_darkness",3,["sst_zuozhan","sst_junce"],[]],
 			sst_robin_male:["male","sst_darkness",3,["sst_zuozhan","sst_junce"],["unseen"]],
-			sst_robin_female:["female","sst_darkness",3,["sst_zuozhan","sst_junce"],["unseen"]]
+			sst_robin_female:["female","sst_darkness",3,["sst_zuozhan","sst_junce"],["unseen"]],
+			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]]
 		},
 		characterFilter:{
 		},
@@ -123,7 +124,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			然后MNM开始对智囊大打出手了。（已选择女性）"
+			然后MNM开始对智囊大打出手了。（已选择女性）",
+			sst_paipai:"武将作者：mario not mary<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			然后MNM开始对指定牌不能响应大打出手了。"
 		},
 		characterTitle:{
 			sst_claude:"连系世界之王",
@@ -134,7 +138,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_lucina:"觉醒的圣王女",
 			sst_robin:"卓越的战术师",
 			sst_robin_male:"卓越的战术师",
-			sst_robin_female:"卓越的战术师"
+			sst_robin_female:"卓越的战术师",
+			sst_paipai:"针强砭弱"
 		},
 		skill:{
 			//Claude
@@ -185,14 +190,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					player.chooseControl(list,"cancel2").set("ai",function(){
 						var choices=["yingbian_all_tag","yingbian_damage_tag","yingbian_hit_tag","yingbian_draw_tag","yingbian_gain_tag","yingbian_add_tag","yingbian_remove_tag"];
-						var list=_status.event.list;
+						var list=_status.event.controls;
 						var card=_status.event.card;
 						for(var i=0;i<choices.length;i++){
 							if(_status.cardtag&&_status.cardtag[choices[i].slice(0,-4)]&&_status.cardtag[choices[i].slice(0,-4)].contains(card.cardid)) return "cancel2";
 							if(list.contains(choices[i])) return choices[i];
 						}
 						return "cancel2";
-					}).set("list",list).set("card",trigger.card).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.translation("sst_guimou_info"));
+					}).set("card",trigger.card).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.translation("sst_guimou_info"));
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
 						player.logSkill("sst_guimou");
@@ -1060,6 +1065,199 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					maixie:true,
 					maixie_hp:true
 				}
+			},
+			//派派
+			sst_aoshang:{
+				init:function(player){
+					game.broadcastAll(function(){
+						for(var i=0;i<lib.inpile.length;i++){
+							var info=lib.card[lib.inpile[i]];
+							if(!info.backup_yingbian_prompt){
+								info.backup_yingbian_prompt=function(card){
+									var str="";
+									if(get.cardtag(card,"yingbian_gain")){
+										str+="当你声明使用此牌时，你获得此牌响应的目标牌";
+									}
+									if(get.cardtag(card,"yingbian_hit")){
+										if(str.length) str+="；";
+										str+="此牌不可被响应";
+									}
+									if(get.cardtag(card,"yingbian_all")){
+										str+="此牌的效果改为依次执行所有选项";
+									}
+									if(get.cardtag(card,"yingbian_draw")){
+										if(str.length) str+="；";
+										str+="当你声明使用此牌时，你摸一张牌";
+									}
+									if(get.cardtag(card,"yingbian_remove")){
+										if(str.length) str+="；";
+										str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
+									}
+									if(get.cardtag(card,"yingbian_add")){
+										if(str.length) str+="；";
+										str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
+									}
+									return str;
+								};
+								info.yingbian_prompt=function(card){
+									var str="";
+									if(get.cardtag(card,"yingbian_recover")){
+										str+="当你声明使用此牌时，你回复1点体力";
+									}
+									var str2=this.backup_yingbian_prompt.apply(this,arguments);
+									if(str.length&&str2.length) str+="；";
+									return str+str2;
+								}
+							}
+							else if(info.yingbian_prompt){
+								info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
+								info.yingbian_prompt=function(card){
+									var str="";
+									if(get.cardtag(card,"yingbian_recover")){
+										str+="当你声明使用此牌时，你回复1点体力";
+									}
+									var str2=this.sst_aoshang_yingbian_prompt.apply(this,arguments);
+									if(str.length&&str2.length) str+="；";
+									return str+str2;
+								}
+							}
+							if(!info.backup_yingbian){
+								info.backup_yingbian=function(event){
+									var card=event.card;
+									if(get.cardtag(card,"yingbian_gain")){
+										var cardx=event.respondTo;
+										if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("od").length) event.player.gain(cardx[1].cards.filterInD("od"),"gain2","log");
+									}
+									if(get.cardtag(card,"yingbian_hit")){
+										event.directHit.addArray(game.players);
+										game.log(card,"不可被响应");
+									}
+									if(get.cardtag(card,"yingbian_all")){
+										card.yingbian_all=true;
+										game.log(card,"执行所有选项");
+									}
+									if(get.cardtag(card,"yingbian_draw")){
+										event.player.draw();
+									}
+									if(get.cardtag(card,"yingbian_remove")){
+										event.yingbian_removeTarget=true;
+									}
+									if(get.cardtag(card,"yingbian_add")){
+										event.yingbian_addTarget=true;
+									}
+								};
+								info.yingbian=function(event){
+									var card=event.card;
+									if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
+										event.player.recover();
+									}
+									this.backup_yingbian.apply(this,arguments);
+								}
+							}
+							else if(info.yingbian){
+								info.sst_aoshang_yingbian=info.yingbian;
+								info.yingbian=function(event){
+									var card=event.card;
+									if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
+										event.player.recover();
+									}
+									this.sst_aoshang_yingbian.apply(this,arguments);
+								}
+							}
+						}
+					});
+				},
+				forced:true,
+				popup:false,
+				trigger:{player:"useCardBegin"},
+				filter:function(event,player){
+					return !(get.cardtag(event.card,"yingbian_kongchao")&&get.cardtag(event.card,"yingbian_recover"));
+				},
+				content:function(){
+					if(!trigger.card.cardtags) trigger.card.cardtags=[];
+					trigger.card.cardtags.add("yingbian_kongchao");
+					trigger.card.cardtags.add("yingbian_recover");
+				},
+				group:"sst_aoshang2"
+			},
+			sst_aoshang2:{
+				forced:true,
+				popup:false,
+				trigger:{global:["chooseToUseBegin","chooseToRespondBegin"]},
+				filter:function(event,player){
+					return event.respondTo&&event.respondTo[0]==player&&event.respondTo[1];
+				},
+				content:function(){
+					if(trigger.filterCard){
+						trigger.set("sstAoshangFilterCard",trigger.filterCard);
+						trigger.set("filterCard",function(card){
+							if(!(get.number(card)>get.number(_status.event.respondTo[1]))) return false;
+							return _status.event.sstAoshangFilterCard.apply(this,arguments);
+						});
+					}
+					else{
+						trigger.set("filterCard",function(card){
+							return get.number(card)>get.number(_status.event.respondTo[1]);
+						});
+					}
+				}
+			},
+			sst_lianxia:{
+				enable:"phaseUse",
+				usable:1,
+				filterTarget:function(card,player,target){
+					return target.countCards()<player.countCards();
+				},
+				filter:function(event,player){
+					return player.countCards("he");
+				},
+				filterCard:true,
+				discard:false,
+				lose:false,
+				delay:false,
+				position:"he",
+				content:function(){
+					"step 0"
+					player.give(cards,target);
+					"step 1"
+					event.players=game.filterPlayer(function(current){
+						return current.countCards("he")&&current.isMaxHandcard();
+					});
+					if(event.players.length){
+						event.players.sortBySeat();
+						player.line(event.players,"green");
+						event.num=0;
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(event.players[event.num]!=player){
+						event.players[event.num].chooseCard("怜下：交给"+get.translation(player)+"一张牌","he",true);
+					}
+					else{
+						event.goto(4);
+					}
+					"step 3"
+					if(result.cards&&result.cards.length){
+						event.players[event.num].give(result.cards,player);
+					}
+					"step 4"
+					event.num++;
+					if(event.num<event.players.length){
+						event.goto(2);
+					}
+				},
+				ai:{
+					order:7,
+					result:{
+						player:function(player,target){
+							if(!ui.selected.cards||!ui.selected.cards.length) return;
+							if(target.hasSkillTag("nogain")) return 0;
+							return Math.cbrt(get.attitude(player,target)*get.value(ui.selected.cards[0]));
+						}
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -1090,6 +1288,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin:"鲁弗莱",
 			sst_robin_male:"鲁弗莱",
 			sst_robin_female:"鲁弗莱",
+			sst_paipai:"派派",
 			//Character ab.
 			sst_geno_ab:"Geno",
 			//Skill
@@ -1123,8 +1322,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zuozhan_info:"一名角色受到伤害时，你可以将〖军策〗交给其。因此失去〖军策〗的角色摸两张牌。",
 			sst_junce:"军策",
 			sst_junce_info:"当你受到伤害后，你可以摸一张牌或获得一张额外智囊。背水：弃置所有手牌。",
+			sst_aoshang:"傲上",
+			sst_aoshang2:"傲上",
+			sst_aoshang_info:"锁定技，你使用的牌不能被点数大于此牌的牌响应且拥有「空巢→回复1点体力」应变效果。",
+			sst_lianxia:"怜下",
+			sst_lianxia_info:"出牌阶段限一次，你可以将一张牌交给一名手牌数小于你的角色，然后手牌数最多的角色依次交给你一张牌（若为你则不执行）。",
 			//Tag
-			yingbian_recover_tag:'(回复)',
+			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",
 			//Sort
 			sst_response:"应变",
@@ -1139,7 +1343,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_lucina:"Lucina",
 			sst_robin:"Robin",
 			sst_robin_male:"Robin",
-			sst_robin_female:"Robin"
+			sst_robin_female:"Robin",
+			sst_paipai:"Paipai"
 		},
 		perfectPair:{
 			sst_claude:["sst_byleth_male","sst_byleth_female"],
@@ -1151,13 +1356,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:["sst_robin","sst_robin_male"]
 		},
 		help:{
-			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\"><li>你执行背水效果后，依次执行上述两项/上述出现的“或”改为“和”</ul>\
-			<div style=\"margin:10px\">交给技能</div><ul style=\"margin-top:0\"><li>交给技能为专属技能\
+			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\">\
+			<li>你执行背水效果后，依次执行上述两项/上述出现的“或”改为“和”</ul>\
+			<div style=\"margin:10px\">交给技能</div><ul style=\"margin-top:0\">\
+			<li>交给技能为专属技能\
 			<li>理论上，场上只能存在一个交给技能\
 			<li>将交给技能交给一名角色前，先前角色失去此交给技能</ul>\
-			<div style=\"margin:10px\">使命技</div><ul style=\"margin-top:0\"><li>本身可包含标准技能效果\
+			<div style=\"margin:10px\">使命技</div><ul style=\"margin-top:0\">\
+			<li>本身可包含子技能\
 			<li>若满足成功条件，失去此技能，执行成功分支的效果\
-			<li>若满足失败条件，失去此技能，执行失败分支的效果"
+			<li>若满足失败条件，失去此技能，执行失败分支的效果</ul>\
+			<div style=\"margin:10px\">应变篇</div><ul style=\"margin-top:0\">\
+			<li>派派：专属应变效果\
+			<ul style=\"padding-left:20px;padding-top:5px\"><li>回复：回复1点体力</ul>"
 		}
 	};
 	return sst_extra;
