@@ -13761,9 +13761,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var players=game.filterPlayer();
 							for(var i=0;i<players.length;i++){
 								if(Array.isArray(player.storage.sst_tunshi_origin[players[i].playerid])&&player.storage.sst_tunshi_origin[players[i].playerid].length){
-									//player.give(player.storage.sst_tunshi_origin[players[i].playerid],players[i]);
-									players[i].gain(player.storage.sst_tunshi_origin[players[i].playerid]);
-									player.$give(player.storage.sst_tunshi_origin[players[i].playerid],players[i],false);
+									game.cardsGotoOrdering(player.storage.sst_tunshi_origin[players[i].playerid]);
+									player.give(player.storage.sst_tunshi_origin[players[i].playerid],players[i]);
+									//players[i].gain(player.storage.sst_tunshi_origin[players[i].playerid]);
+									//player.$give(player.storage.sst_tunshi_origin[players[i].playerid],players[i],false);
 									storage.removeArray(player.storage.sst_tunshi_origin[players[i].playerid]);
 								}
 							}
@@ -13806,7 +13807,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				ai:{
-					expose:0.2
+					expose:0.2,
+					threaten:1.5
 				},
 				group:["sst_tunshi2","sst_tunshi3"]
 			},
@@ -13839,6 +13841,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(player.storage.sst_tunshi_origin[trigger.player.playerid],"被置入了弃牌堆");
 					player.storage.sst_tunshi.removeArray(player.storage.sst_tunshi_origin[trigger.player.playerid]);
 					delete player.storage.sst_tunshi_origin[trigger.player.playerid];
+					player.updateMarks("sst_tunshi");
 					if(!player.hasMark("sst_tunshi")) player.unmarkSkill("sst_tunshi");
 				}
 			},

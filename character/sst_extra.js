@@ -1194,14 +1194,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
-							if(get.number(card)>get.number(_status.event.respondTo[1])) return false;
+							if(get.number(card)>get.number(_status.event.respondToCard)) return false;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
+						trigger.set("respondToCard",trigger.respondTo[1]);
 					}
 					else{
 						trigger.set("filterCard",function(card){
-							return !(get.number(card)>get.number(_status.event.respondTo[1]));
+							return !(get.number(card)>get.number(_status.event.respondToCard));
 						});
+						trigger.set("respondToCard",trigger.respondTo[1]);
 					}
 				}
 			},
