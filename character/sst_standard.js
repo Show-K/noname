@@ -2384,24 +2384,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.index==0){
 						player.logSkill("sst_jianbu");
 						trigger.num--;
-						player.storage.sst_jianbu_less=player;
 						player.addTempSkill("sst_jianbu_less");
 						player.addMark("sst_jianbu_less",1,false);
-						//player.markSkillCharacter("sst_jianbu_less",player,"剑步","本回合你计算与其他角色距离-1");
 					}
 					else if(result.index==1){
 						player.logSkill("sst_jianbu");
 						trigger.num++;
-						player.storage.sst_jianbu_more=player;
 						player.addTempSkill("sst_jianbu_more");
 						player.addMark("sst_jianbu_more",1,false);
-						//player.markSkillCharacter("sst_jianbu_more",player,"剑步","本回合你计算与其他角色距离+1");
 					}
 				}
 			},
 			sst_jianbu_less:{
 				charlotte:true,
-				mark:"character",
 				intro:{
 					content:"本回合你计算与其他角色距离-#"
 				},
@@ -2414,7 +2409,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_jianbu_more:{
 				charlotte:true,
-				mark:"character",
 				intro:{
 					content:"本回合你计算与其他角色距离+#"
 				},
@@ -7226,7 +7220,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					player.chooseControl(controls).set("prompt","探道：选择一项").set("ai",function(){
 						if(_status.event.controls.length<=1) return 0;
-						return _status.event.shas.length<_status.event.notShas.length?1:0;
+						var player=_status.event.player;
+						var val1=0;
+						for(var i of _status.event.shas){
+							val1+=player.getUseValue(i);
+						}
+						var val2=0;
+						for(var i of _status.event.notShas){
+							val2+=player.getUseValue(i);
+						}
+						return val1<val2?1:0;
 					}).set("choiceList",list).set("shas",event.shas).set("notShas",event.notShas);
 					"step 2"
 					event.control=result.control;
@@ -13758,7 +13761,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var players=game.filterPlayer();
 							for(var i=0;i<players.length;i++){
 								if(Array.isArray(player.storage.sst_tunshi_origin[players[i].playerid])&&player.storage.sst_tunshi_origin[players[i].playerid].length){
-									player.give(player.storage.sst_tunshi_origin[players[i].playerid],players[i]);
+									//player.give(player.storage.sst_tunshi_origin[players[i].playerid],players[i]);
+									players[i].gain(player.storage.sst_tunshi_origin[players[i].playerid]);
+									player.$give(player.storage.sst_tunshi_origin[players[i].playerid],players[i],false);
 									storage.removeArray(player.storage.sst_tunshi_origin[players[i].playerid]);
 								}
 							}
@@ -14128,8 +14133,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_hanmang:"寒芒",
 			sst_hanmang_info:"锁定技，你对一名角色造成伤害时，若你计算与该角色的距离与你的攻击范围相同，你令此伤害+1。",
 			sst_jianbu:"剑步",
-			sst_jianbu_less:"剑步",
-			sst_jianbu_more:"剑步",
+			sst_jianbu_less:"剑步-",
+			sst_jianbu_more:"剑步+",
 			sst_jianbu_info:"摸牌阶段，你可以：1. 少摸一张牌，本回合你计算与其他角色距离-1；2. 额外摸一张牌，本回合你计算与其他角色距离+1。",
 			sst_fuguo:"复国",
 			sst_fuguo2:"复国",
