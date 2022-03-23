@@ -10,4 +10,4 @@ In order to avoid disturbing other people's gaming experience, please do not use
 
 A ***Super Smash Bros.*** series fan game based on *Noname*. Not affiliated with *Nintendo*, *Sora*, and other related companies.
 
-[Web version](super-smash-tabletop.show-k.win)
+[Web version](https://super-smash-tabletop.show-k.win)
