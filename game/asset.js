@@ -125,6 +125,7 @@ window.noname_asset_list=[
 	'image/character/sst_robin.png',
 	'image/character/sst_robin_male.png',
 	'image/character/sst_robin_female.png',
+	'image/character/sst_paipai.png',
 
 	'image/character/ymk_isabelle.png',
 	'image/character/ska_bobby.png',

@@ -35327,10 +35327,10 @@
 			});
 		},
 		updateRoundNumber:function(){
-			game.broadcastAll(function(num1,num2,top){
-				if(ui.cardPileNumber) ui.cardPileNumber.innerHTML=num1+'轮 剩余牌: '+num2;
+			game.broadcastAll(function(num1,num2,num3,top){
+				if(ui.cardPileNumber) ui.cardPileNumber.innerHTML=num1+'轮 剩余牌: '+num2+' 弃牌堆: '+num3;
 				_status.pileTop=top;
-			},game.roundNumber,ui.cardPile.childNodes.length,ui.cardPile.firstChild);
+			},game.roundNumber,ui.cardPile.childNodes.length,ui.discardPile.childNodes.length,ui.cardPile.firstChild);
 		},
 		asyncDraw:function(players,num,drawDeck,bottom){
 			for(var i=0;i<players.length;i++){
@@ -46428,13 +46428,13 @@
 				for(var i in _status.cardtag){
 					if(!_status.cardtag[i].length) delete _status.cardtag[i];
 				}
-				game.broadcastAll(function(num,pile,top,cardtag,inpile2){
-					if(ui.cardPileNumber) ui.cardPileNumber.innerHTML='0轮 剩余牌: '+num;
+				game.broadcastAll(function(num,num2,pile,top,cardtag,inpile2){
+					if(ui.cardPileNumber) ui.cardPileNumber.innerHTML='0轮 剩余牌: '+num+' 弃牌堆: '+num2;
 					lib.inpile=pile;
 					_status.pileTop=top;
 					_status.cardtag=cardtag;
 					lib.inpile_nature=inpile2;
-				},ui.cardPile.childNodes.length,lib.inpile,ui.cardPile.firstChild,_status.cardtag,lib.inpile_nature);
+				},ui.cardPile.childNodes.length,ui.discardPile.childNodes.length,lib.inpile,ui.cardPile.firstChild,_status.cardtag,lib.inpile_nature);
 			},
 		},
 		click:{
@@ -47359,7 +47359,6 @@
 				}
 				uiintro.add('剩余 <span style="font-family:'+'fzhtk'+'">'+num);
 
-				if(_status.connectMode) return uiintro;
 				uiintro.add('<div class="text center">轮数 <span style="font-family:fzhtk">'+game.roundNumber+'</span>&nbsp;&nbsp;&nbsp;&nbsp;洗牌 <span style="font-family:fzhtk">'+game.shuffleNumber+'</div>');
 				uiintro.add('<div class="text center">弃牌堆</div>');
 				if(ui.discardPile.childNodes.length){

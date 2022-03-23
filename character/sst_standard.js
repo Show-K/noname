@@ -13544,6 +13544,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.deckCards=cards;
 						player.addAdditionalSkill("sst_chunni","sst_chunni_effect");
 					}
+					game.updateRoundNumber();
 				}
 			},
 			sst_chunni_effect:{
@@ -13561,13 +13562,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.deckCards.length;
 						}
 						return 0;
+					},
+					onunmark:function(storage,player){
+						game.cardsDiscard(player.deckCards);
+						player.$throw(player.deckCards);
+						game.log(player.deckCards,"进入了弃牌堆");
+						delete player.deckCards;
 					}
-				},
-				onremove:function(player){
-					game.cardsDiscard(player.deckCards);
-					player.$throw(player.deckCards);
-					game.log(player.deckCards,"进入了弃牌堆");
-					delete player.deckCards;
 				},
 				trigger:{player:"drawBegin"},
 				forced:true,
@@ -13784,7 +13785,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return target.countCards("he");
 					}).set("ai",function(target){
 						var player=_status.event.player;
-						if(player.countMark("sst_tunshi")&&player.countCards()<player.countMark("sst_tunshi")+target.countCards("he")) return 0;
+						if(player.hasMark("sst_tunshi")&&player.countCards()<player.countMark("sst_tunshi")+target.countCards("he")) return 0;
 						return -get.rawAttitude(player,target)*target.countCards("he");
 					});
 					"step 1"
@@ -13802,7 +13803,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					expose:0.2
 				},
-				group:"sst_tunshi2"
+				group:["sst_tunshi2","sst_tunshi3"]
 			},
 			sst_tunshi2:{
 				forced:true,
@@ -13817,6 +13818,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.unmarkSkill("sst_tunshi");
+				}
+			},
+			sst_tunshi3:{
+				forced:true,
+				popup:false,
+				trigger:{global:"dieBegin"},
+				filter:function(event,player){
+					return Array.isArray(player.storage.sst_tunshi_origin[event.player.playerid])&&player.storage.sst_tunshi_origin[event.player.playerid].length;
+				},
+				logTarget:"player",
+				content:function(){
+					player.$throw(player.storage.sst_tunshi_origin[trigger.player.playerid],1000);
+					game.cardsDiscard(player.storage.sst_tunshi_origin[trigger.player.playerid]);
+					game.log(player.storage.sst_tunshi_origin[trigger.player.playerid],"被置入了弃牌堆");
+					player.storage.sst_tunshi.removeArray(player.storage.sst_tunshi_origin[trigger.player.playerid]);
+					delete player.storage.sst_tunshi_origin[trigger.player.playerid];
+					if(!player.hasMark("sst_tunshi")) player.unmarkSkill("sst_tunshi");
 				}
 			},
 			sst_yangfen:{

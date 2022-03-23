@@ -4702,14 +4702,14 @@ content:function(config, pack){
 			
 			
 			game.updateRoundNumber = function(){
-				game.broadcastAll(function(num1, num2, top) {
+				game.broadcastAll(function(num1, num2, num3, top) {
 					_status.pileTop = top;
 					if (ui.cardPileNumber && window.decadeUI)
-						ui.cardPileNumber.textContent = '牌堆' + num2 + ' 第' + num1 + '轮';
+						ui.cardPileNumber.textContent = '牌堆' + num2 + ' 弃牌堆' + num3 + ' 第' + num1 + '轮';
 					else if (ui.cardPileNumber)
-						ui.cardPileNumber.textContent = num1 + '轮 剩余牌: ' + num2;
+						ui.cardPileNumber.textContent = num1 + '轮 剩余牌: ' + num2 + ' 弃牌堆: ' + num3;
 					
-				}, game.roundNumber, ui.cardPile.childNodes.length, ui.cardPile.firstChild);
+				}, game.roundNumber, ui.cardPile.childNodes.length, ui.discardPile.childNodes.length, ui.cardPile.firstChild);
 			};
 
 			game.check = function(event){
