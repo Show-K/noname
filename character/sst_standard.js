@@ -11,7 +11,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf","sst_olimar"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
-				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora"],
+				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora","sst_piranha_plant"],
 				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_kyo_kusanagi","sst_pauline","sst_dr_wily","sst_9_volt_18_volt","sst_kraid"],
 				sst_players:["sst_mario_not_mary","sst_yumikohimi","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji","sst_marioraz"]
 			}
@@ -98,7 +98,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_captain_falcon:["male","sst_light",4,["sst_jijing"],[]],
 			sst_jigglypuff:["female","sst_light",3,["sst_yinyao","sst_anke"],[]],
 			sst_lucario:["male","sst_darkness",4,["sst_bodao","sst_juyuan"],[]],
-			sst_pichu:["male","sst_light","2/3",["sst_tieyan","sst_gaoya"],[]],
+			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],[]],
 			sst_king_dedede:["male","sst_darkness",4,["sst_baoshi","sst_wangyan"],["zhu"]],
 			sst_corrin:["none","sst_smash",2,["sst_juelu","sst_longwei"],[]],
 			sst_corrin_male:["male","sst_darkness",2,["sst_juelu","sst_longwei"],["unseen"]],
@@ -112,10 +112,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mii_fighters:["none","sst_smash",4,["sst_bianshe"],[]],
 			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],[]],
 			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
-			sst_pikachu:["male","sst_light",3,["sst_fulei","sst_duoshan"],[]],
+			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 			sst_falco:["male","sst_light",4,["sst_juao"],[]],
 			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
-			sst_enderman:["male","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
+			sst_enderman:["none","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
 			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],[]],
 			sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],[]],
 			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],[]],
@@ -128,7 +128,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pac_man:["male","sst_light",3,["sst_jichang"],[]],
 			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],[]],
 			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],[]],
-			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu"]]
+			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu"]],
+			sst_piranha_plant:["none","sst_darkness",4,["sst_tunshi","sst_yangfen"],[]]
 		},
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -1076,7 +1077,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			这个游戏系列真正实现了主机/手柄玩即时战略游戏的梦想。",
 			sst_marioraz:"武将作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			“樱井懂个屁大乱斗”"
+			“樱井懂个屁大乱斗”",
+			sst_piranha_plant:"武将作者：mario not mary<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			1303. 吞食花/Piranha Plant/パックンフラワー<br>\
+			系列：Mario（马力欧）<br>\
+			初登场：Super Mario Bros.（超级马力欧兄弟）<br>\
+			这些植物与其说是肉食性的，不如说是马力欧食性的。世界上有非常多种吞食花，如果让自然王来给你讲甚至能讲出绕口令来。总之，没有什么吞食花不是火球和震地不能解决的啦！<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			某紫衣男子已绝望。"
 		},
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -1178,7 +1188,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pac_man:"饕餮盛宴",
 			sst_mewtwo:"逆袭造物",
 			sst_olimar:"雨后春笋",
-			sst_marioraz:"漫卷长路"
+			sst_marioraz:"漫卷长路",
+			sst_piranha_plant:"层林尽染"
 		},
 		skill:{
 			//Civil War mode reference
@@ -1310,7 +1321,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				firstDo:true,
 				priority:2020,
 				filter:function(event,player){
-					return player.sex=="none"&&!["sst_mewtwo"].contains(player.name);
+					return player.sex=="none"&&["sst_corrin","sst_mii_fighters","sst_robin","nnk_robin"].contains(player.name);
 				},
 				content:function(){
 					"step 0"
@@ -4615,7 +4626,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					threaten:2,
 					effect:{
 						player:function(card,player,target){
-							if(!get.tag(card,"multitarget")){
+							if(get.itemtype(card)=="card"&&!get.tag(card,"multitarget")){
 								var history=player.getAllHistory("useCard");
 								if(history&&history.length){
 									var num=history.length-1;
@@ -12508,8 +12519,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoOrdering(event.card);
 					player.showCards(event.card,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】（声明了"+get.translation(event.control)+"）");
 					"step 3"
-					player.gain(event.card,"log");
-					player.$gain2(event.card);
+					player.gain(event.card);
+					player.$gain2(event.card,true);
 					if(get.suit(event.card)!=event.control) event.goto(2);
 					/*
 					"step 4"
@@ -13608,6 +13619,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.gainMaxHp();
+				},
+				ai:{
+					threaten:1.5
 				}
 			},
 			sst_litu:{
@@ -13674,6 +13688,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else if(result.control=="选项二"){
 						player.gain(event.cards,"gain2");
 					}
+				},
+				ai:{
+					threaten:1.5
 				}
 			},
 			sst_zihua:{
@@ -13718,6 +13735,99 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					expose:0.2
+				}
+			},
+			//Piranha Plant
+			sst_tunshi:{
+				init:function(player){
+					player.storage.sst_tunshi_origin={};
+				},
+				intro:{
+					mark:function(dialog,storage,player){
+						var players=game.filterPlayer();
+						for(var i=0;i<players.length;i++){
+							if(Array.isArray(player.storage.sst_tunshi_origin[players[i].playerid])&&player.storage.sst_tunshi_origin[players[i].playerid].length){
+								dialog.addText(get.translation(players[i]));
+								dialog.addAuto(player.storage.sst_tunshi_origin[players[i].playerid]);
+							}
+						}
+					},
+					onunmark:function(storage,player){
+						if(storage&&storage.length){
+							var players=game.filterPlayer();
+							for(var i=0;i<players.length;i++){
+								if(Array.isArray(player.storage.sst_tunshi_origin[players[i].playerid])&&player.storage.sst_tunshi_origin[players[i].playerid].length){
+									player.give(player.storage.sst_tunshi_origin[players[i].playerid],players[i]);
+									storage.removeArray(player.storage.sst_tunshi_origin[players[i].playerid]);
+								}
+							}
+							player.storage.sst_tunshi_origin={};
+							if(storage&&storage.length){
+								player.$throw(storage,1000);
+								game.cardsDiscard(storage);
+								game.log(storage,"被置入了弃牌堆");
+								storage.length=0;
+							}
+						}
+					}
+				},
+				direct:true,
+				trigger:{player:"phaseZhunbeiBegin"},
+				filter:function(event,player){
+					return game.hasPlayer(function(current){
+						return current.countCards("he");
+					});
+				},
+				content:function(){
+					"step 0"
+					player.chooseTarget(get.prompt2("sst_tunshi"),function(card,player,target){
+						return target.countCards("he");
+					}).set("ai",function(target){
+						var player=_status.event.player;
+						if(player.countMark("sst_tunshi")&&player.countCards()<player.countMark("sst_tunshi")+target.countCards("he")) return 0;
+						return -get.rawAttitude(player,target)*target.countCards("he");
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.logSkill("sst_tunshi",result.targets);
+						var cards=result.targets[0].getCards("he");
+						result.targets[0].lose(cards,ui.special,"toStorage");
+						result.targets[0].$give(cards,player,false);
+						if(!Array.isArray(player.storage.sst_tunshi_origin[result.targets[0].playerid])) player.storage.sst_tunshi_origin[result.targets[0].playerid]=[];
+						player.storage.sst_tunshi_origin[result.targets[0].playerid].addArray(cards);
+						player.markAuto("sst_tunshi",cards);
+						game.log(player,"将",result.targets,"的",cards,"置于武将牌上");
+					}
+				},
+				ai:{
+					expose:0.2
+				},
+				group:"sst_tunshi2"
+			},
+			sst_tunshi2:{
+				forced:true,
+				trigger:{global:["loseAfter","equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter"]},
+				filter:function(event,player){
+					return player.countCards()<player.countMark("sst_tunshi");
+				},
+				logTarget:function(event,player){
+					return game.filterPlayer(function(current){
+						return Array.isArray(player.storage.sst_tunshi_origin[current.playerid])&&player.storage.sst_tunshi_origin[current.playerid].length;
+					});
+				},
+				content:function(){
+					player.unmarkSkill("sst_tunshi");
+				}
+			},
+			sst_yangfen:{
+				frequent:true,
+				trigger:{global:"dieAfter"},
+				filter:function(event,player){
+					return event.player.maxHp>0;
+				},
+				logTarget:"player",
+				content:function(){
+					player.draw(trigger.player.maxHp);
 				}
 			}
 		},
@@ -13942,6 +14052,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mewtwo:"超梦",
 			sst_olimar:"皮克敏＆欧力马＆阿尔福",
 			sst_marioraz:"升哥",
+			sst_piranha_plant:"吞食花",
 			//Character ab.
 			sst_dr_mario_ab:"马力欧",
 			sst_zero_suit_samus_ab:"萨姆斯",
@@ -14523,6 +14634,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_litu_info:"出牌阶段结束时，你可以指定一名体力上限小于你的角色，该角色选择令你回复1点体力，或令你获得本回合内进入弃牌堆的牌。",
 			sst_zihua:"自化",
 			sst_zihua_info:"主公技，准备阶段，你可以弃置所有本势力角色一张手牌。",
+			sst_tunshi:"吞食",
+			sst_tunshi2:"吞食",
+			sst_tunshi_info:"准备阶段，你可以将一名角色的所有牌置于你武将牌上；当你的手牌少于你武将牌上的这些牌时，你将这些牌归还到来源的手牌区。",
+			sst_yangfen:"养分",
+			sst_yangfen_info:"一名角色死亡后，你可以摸其体力上限张数牌。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			sst_jichang_first_tag:"摸牌阶段额外摸牌数",
@@ -14650,10 +14766,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pac_man:"Pac-Man",
 			sst_mewtwo:"Mewtwo",
 			sst_olimar:"Pikmin & Olimar & Alph",
-			sst_marioraz:"Marioraz"
+			sst_marioraz:"Marioraz",
+			sst_piranha_plant:"Piranha Plant"
 		},
 		perfectPair:{
-			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi","sst_pauline"],
+			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi","sst_pauline","sst_piranha_plant"],
 			sst_bowser:["sst_bowser_jr","sst_koopalings","sst_peach"],
 			sst_bowser_jr:["sst_koopalings"],
 			sst_luigi:["sst_yoshi","sst_peach","sst_daisy"],

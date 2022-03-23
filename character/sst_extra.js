@@ -1069,103 +1069,106 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//派派
 			sst_aoshang:{
 				init:function(player){
-					game.broadcastAll(function(){
-						for(var i=0;i<lib.inpile.length;i++){
-							var info=lib.card[lib.inpile[i]];
-							if(!info.backup_yingbian_prompt){
-								info.backup_yingbian_prompt=function(card){
-									var str="";
-									if(get.cardtag(card,"yingbian_gain")){
-										str+="当你声明使用此牌时，你获得此牌响应的目标牌";
+					if(!_status.sst_aoshang){
+						_status.sst_aoshang=true;
+						game.broadcastAll(function(){
+							for(var i=0;i<lib.inpile.length;i++){
+								var info=lib.card[lib.inpile[i]];
+								if(!info.backup_yingbian_prompt){
+									info.backup_yingbian_prompt=function(card){
+										var str="";
+										if(get.cardtag(card,"yingbian_gain")){
+											str+="当你声明使用此牌时，你获得此牌响应的目标牌";
+										}
+										if(get.cardtag(card,"yingbian_hit")){
+											if(str.length) str+="；";
+											str+="此牌不可被响应";
+										}
+										if(get.cardtag(card,"yingbian_all")){
+											str+="此牌的效果改为依次执行所有选项";
+										}
+										if(get.cardtag(card,"yingbian_draw")){
+											if(str.length) str+="；";
+											str+="当你声明使用此牌时，你摸一张牌";
+										}
+										if(get.cardtag(card,"yingbian_remove")){
+											if(str.length) str+="；";
+											str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
+										}
+										if(get.cardtag(card,"yingbian_add")){
+											if(str.length) str+="；";
+											str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
+										}
+										return str;
+									};
+									info.yingbian_prompt=function(card){
+										var str="";
+										if(get.cardtag(card,"yingbian_recover")){
+											str+="当你声明使用此牌时，你回复1点体力";
+										}
+										var str2=this.backup_yingbian_prompt.apply(this,arguments);
+										if(str.length&&str2.length) str+="；";
+										return str+str2;
 									}
-									if(get.cardtag(card,"yingbian_hit")){
-										if(str.length) str+="；";
-										str+="此牌不可被响应";
+								}
+								else if(info.yingbian_prompt){
+									info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
+									info.yingbian_prompt=function(card){
+										var str="";
+										if(get.cardtag(card,"yingbian_recover")){
+											str+="当你声明使用此牌时，你回复1点体力";
+										}
+										var str2=this.sst_aoshang_yingbian_prompt.apply(this,arguments);
+										if(str.length&&str2.length) str+="；";
+										return str+str2;
 									}
-									if(get.cardtag(card,"yingbian_all")){
-										str+="此牌的效果改为依次执行所有选项";
+								}
+								if(!info.backup_yingbian){
+									info.backup_yingbian=function(event){
+										var card=event.card;
+										if(get.cardtag(card,"yingbian_gain")){
+											var cardx=event.respondTo;
+											if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("od").length) event.player.gain(cardx[1].cards.filterInD("od"),"gain2","log");
+										}
+										if(get.cardtag(card,"yingbian_hit")){
+											event.directHit.addArray(game.players);
+											game.log(card,"不可被响应");
+										}
+										if(get.cardtag(card,"yingbian_all")){
+											card.yingbian_all=true;
+											game.log(card,"执行所有选项");
+										}
+										if(get.cardtag(card,"yingbian_draw")){
+											event.player.draw();
+										}
+										if(get.cardtag(card,"yingbian_remove")){
+											event.yingbian_removeTarget=true;
+										}
+										if(get.cardtag(card,"yingbian_add")){
+											event.yingbian_addTarget=true;
+										}
+									};
+									info.yingbian=function(event){
+										var card=event.card;
+										if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
+											event.player.recover();
+										}
+										this.backup_yingbian.apply(this,arguments);
 									}
-									if(get.cardtag(card,"yingbian_draw")){
-										if(str.length) str+="；";
-										str+="当你声明使用此牌时，你摸一张牌";
+								}
+								else if(info.yingbian){
+									info.sst_aoshang_yingbian=info.yingbian;
+									info.yingbian=function(event){
+										var card=event.card;
+										if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
+											event.player.recover();
+										}
+										this.sst_aoshang_yingbian.apply(this,arguments);
 									}
-									if(get.cardtag(card,"yingbian_remove")){
-										if(str.length) str+="；";
-										str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
-									}
-									if(get.cardtag(card,"yingbian_add")){
-										if(str.length) str+="；";
-										str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
-									}
-									return str;
-								};
-								info.yingbian_prompt=function(card){
-									var str="";
-									if(get.cardtag(card,"yingbian_recover")){
-										str+="当你声明使用此牌时，你回复1点体力";
-									}
-									var str2=this.backup_yingbian_prompt.apply(this,arguments);
-									if(str.length&&str2.length) str+="；";
-									return str+str2;
 								}
 							}
-							else if(info.yingbian_prompt){
-								info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
-								info.yingbian_prompt=function(card){
-									var str="";
-									if(get.cardtag(card,"yingbian_recover")){
-										str+="当你声明使用此牌时，你回复1点体力";
-									}
-									var str2=this.sst_aoshang_yingbian_prompt.apply(this,arguments);
-									if(str.length&&str2.length) str+="；";
-									return str+str2;
-								}
-							}
-							if(!info.backup_yingbian){
-								info.backup_yingbian=function(event){
-									var card=event.card;
-									if(get.cardtag(card,"yingbian_gain")){
-										var cardx=event.respondTo;
-										if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("od").length) event.player.gain(cardx[1].cards.filterInD("od"),"gain2","log");
-									}
-									if(get.cardtag(card,"yingbian_hit")){
-										event.directHit.addArray(game.players);
-										game.log(card,"不可被响应");
-									}
-									if(get.cardtag(card,"yingbian_all")){
-										card.yingbian_all=true;
-										game.log(card,"执行所有选项");
-									}
-									if(get.cardtag(card,"yingbian_draw")){
-										event.player.draw();
-									}
-									if(get.cardtag(card,"yingbian_remove")){
-										event.yingbian_removeTarget=true;
-									}
-									if(get.cardtag(card,"yingbian_add")){
-										event.yingbian_addTarget=true;
-									}
-								};
-								info.yingbian=function(event){
-									var card=event.card;
-									if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
-										event.player.recover();
-									}
-									this.backup_yingbian.apply(this,arguments);
-								}
-							}
-							else if(info.yingbian){
-								info.sst_aoshang_yingbian=info.yingbian;
-								info.yingbian=function(event){
-									var card=event.card;
-									if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
-										event.player.recover();
-									}
-									this.sst_aoshang_yingbian.apply(this,arguments);
-								}
-							}
-						}
-					});
+						});
+					}
 				},
 				forced:true,
 				popup:false,
@@ -1185,19 +1188,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				popup:false,
 				trigger:{global:["chooseToUseBegin","chooseToRespondBegin"]},
 				filter:function(event,player){
-					return event.respondTo&&event.respondTo[0]==player&&event.respondTo[1];
+					return event.respondTo&&event.respondTo[0]==player&&event.respondTo[1]&&get.number(event.respondTo[1]);
 				},
 				content:function(){
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
-							if(!_status.event.respondTo||get.number(card)>get.number(_status.event.respondTo[1])) return false;
+							if(get.number(card)>get.number(_status.event.respondTo[1])) return false;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
 					}
 					else{
 						trigger.set("filterCard",function(card){
-							return _status.event.respondTo&&!(get.number(card)>get.number(_status.event.respondTo[1]));
+							return !(get.number(card)>get.number(_status.event.respondTo[1]));
 						});
 					}
 				}

@@ -87,7 +87,8 @@ window.noname_character_rank={
 			"sst_lucina",
 			"ymk_tianyi",
 			"sst_olimar",
-			"sst_marioraz"
+			"sst_marioraz",
+			"sst_piranha_plant"
 		],
 		rare:[
 			"sst_mario",

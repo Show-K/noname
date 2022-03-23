@@ -544,8 +544,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("ska_shenqi");
 						_status.renku.removeArray(result.links);
 						game.updateRenku();
-						player.gain(result.links,"log","fromRenku");
-						player.$gain2(result.links);
+						player.gain(result.links,"fromRenku");
+						player.$gain2(result.links,true);
 					}
 				}
 			},
@@ -1334,8 +1334,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
 						player.line(event.target,"green");
-						event.target.gain(event.card_bottom,"log");
-						event.target.$gain2(event.card_bottom);
+						event.target.gain(event.card_bottom);
+						event.target.$gain2(event.card_bottom,true);
 					}
 					else{
 						event.finish();
