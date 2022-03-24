@@ -20,6 +20,7 @@ window.noname_update={
 		'image/character/sst_mario_not_mary.png',
 		'image/character/sst_yumikohimi.png',
 		'image/character/sst_massy.png',
+		'image/character/sst_miumiu.png',
 		'card/sst_standard.js',
 		'card/sst_extra.js',
 		'card/sst_sp.js',
