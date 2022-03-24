@@ -5803,7 +5803,7 @@ decadeModule.import(function(lib, game, ui, get, ai, _status){
 					updatepx.style.marginTop = '8px';
 					var buttonx = ui.create.node('button', '访问项目主页',
 					function() {
-						window.open('https://github.com/libccy/noname');
+						window.open('https://github.com/Show-K/noname');
 					});
 					updatepx.appendChild(buttonx);
 					ui.updateUpdate = function() {
