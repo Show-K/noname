@@ -4714,9 +4714,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				direct:true,
 				content:function(){
-					player.chooseUseTarget(get.prompt2("sst_elang"),{name:"juedou",isCard:true},game.filterPlayer(function(current){
+					player.chooseUseTarget({name:"juedou",isCard:true},game.filterPlayer(function(current){
 						return current.countCards("h")>=player.countCards("h");
-					}),false).set("logSkill","sst_elang");
+					}),false).set("prompt",get.prompt("sst_elang")).set("prompt2",get.translation("sst_elang_info")).set("logSkill","sst_elang");
 				},
 				group:"sst_elang2"
 			},
@@ -7879,9 +7879,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						},get.subtype(card));
 						player.$gain2(card);
 						player.directequip([card]);
+						card._destroy=true;
+						/*
 						game.broadcastAll(function(card){
 							card._destroy=true;
 						},card);
+						*/
 					}
 				}
 			},
@@ -8312,7 +8315,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					else{
 						event.sst_shishi="sha";
-						player.chooseUseTarget("时逝：视为使用一张【杀】",{name:"sha",isCard:true},"nodistance",true,false);
+						player.chooseUseTarget({name:"sha",isCard:true},"nodistance",true,false);
 					}
 					"step 1"
 					if(event.sst_shishi=="discard"&&result.targets&&result.targets.length){
@@ -11191,7 +11194,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(trigger.respondTo){
 						var respond=trigger.respondTo[1];
-						if(respond&&respond.cards&&respond.cards.filterInD("od").length>0) player.gain(respond.cards.filterInD("od"),"log","gain2","bySelf");
+						if(respond&&respond.cards&&respond.cards.filterInD("od").length) player.gain(respond.cards.filterInD("od"),"gain2");
 					}
 				}
 			},
@@ -12428,10 +12431,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(card,"被销毁");
 					player.unmarkAuto("sst_zaowu",[card]);
 					player.markAuto("sst_zaowu_effect",[get.name(card)]);
+					card.delete();
+					card.destroyed=true;
+					/*
 					game.broadcastAll(function(card){
 						card.delete();
 						card.destroyed=true;
 					},card);
+					*/
 					"step 1"
 					target.damage(player);
 				},
@@ -12461,10 +12468,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(cards,"被销毁");
 					for(var i=0;i<cards.length;i++){
 						player.markAuto("sst_zaowu_effect",[get.name(cards[i])]);
+						cards[i].delete();
+						cards[i].destroyed=true;
+						/*
 						game.broadcastAll(function(card){
 							card.delete();
 							card.destroyed=true;
 						},cards[i]);
+						*/
 					}
 					"step 1"
 					player.draw(3);

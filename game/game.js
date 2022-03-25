@@ -29307,12 +29307,26 @@
 			var history;
 			if(get.itemtype(player)=='player'){
 				return player.hasHistory('sourceDamage',function(evt){
-					return evt.card==card&&(get.itemtype(target)=='player'?evt.player==target:true);
+					var bool=true;
+					if(get.itemtype(target)=='player'){
+						bool=evt.player==target;
+					}
+					else if(get.itemtype(target)=='players'){
+						bool=target.contains(evt.player);
+					}
+					return evt.card==card&&bool;
 				});
 			}
 			return game.hasPlayer(function(current){
 				return current.hasHistory('sourceDamage',function(evt){
-					return evt.card==card&&(get.itemtype(target)=='player'?evt.player==target:true);
+					var bool=true;
+					if(get.itemtype(target)=='player'){
+						bool=evt.player==target;
+					}
+					else if(get.itemtype(target)=='players'){
+						bool=target.contains(evt.player);
+					}
+					return evt.card==card&&bool;
 				})
 			});
 		},

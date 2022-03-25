@@ -154,7 +154,8 @@ window.noname_character_rank={
 			"sst_kraid",
 			"sst_sora",
 			"sst_mewtwo",
-			"sst_paipai"
+			"sst_paipai",
+			"xsj_joker"
 		],
 		junk:[]
 	}

@@ -146,6 +146,7 @@ window.noname_asset_list=[
 	'image/character/nnk_robin_female.png',
 	'image/character/alz_yuri_kozukata.png',
 	'image/character/ymk_tianyi.png',
+	'image/character/xsj_joker.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',

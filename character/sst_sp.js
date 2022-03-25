@@ -11,6 +11,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
+				sst_xsj:["xsj_joker"],
 				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
 			}
 		},
@@ -33,7 +34,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:["male","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
-			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]]
+			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
+			xsj_joker:["male","sst_darkness",3,["xsj_dongqie","xsj_qiexin"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -197,7 +199,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			咕了好久了……",
 			ymk_tianyi:"武将作者：Yumikohimi<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			啊对对对。"
+			啊对对对。",
+			xsj_joker:"武将作者：小时节、Yumikohimi<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			1304. Joker（怪盗）/Joker (Phantom Thief)/ジョーカー（怪盗）<br>\
+			系列：Persona（女神异闻录）<br>\
+			初登场：Persona 5（女神异闻录5）<br>\
+			P5主人公在异世界的形态，是由反抗意识觉醒了人格面具的样子。初始人格面具为亚森——大乱斗里也是这家伙，戴着白鸟外形眼部为黑色的面具。身穿黑色的风衣，棕色古巴高跟鞋，灰衬衫和黑色长裤，配上标志性的红色手套。代号“Joker”，是“王牌”的意思。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			总算有新人来设计武将了。"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -218,7 +229,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:"卓越的战术师",
 			nnk_robin_female:"卓越的战术师",
 			alz_yuri_kozukata:"",
-			ymk_tianyi:"虚假的废物"
+			ymk_tianyi:"虚假的废物",
+			xsj_joker:"心之怪盗"
 		},
 		skill:{
 			//SP Isabelle
@@ -2100,7 +2112,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					if(trigger.cards.length>=1) player.addTempSkill("nnk_yuanlei_effect");
-					if(trigger.cards.length>=2) player.draw();
+					if(trigger.cards.length>=2) player.draw(2);
 					if(trigger.cards.length>=3){
 						player.addTempSkill("nnk_yuanlei_effect3");
 						player.addMark("nnk_yuanlei_effect3",1,false);
@@ -2337,6 +2349,72 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			ai:{
 				threaten:2
+			},
+			//SP Joker
+			xsj_dongqie:{
+				intro:{
+					content:"card"
+				},
+				frequent:true,
+				trigger:{player:"phaseBegin"},
+				content:function(){
+					"step 0"
+					player.draw("nodelay");
+					"step 1"
+					player.showCards(result);
+					player.storage.xsj_dongqie=result[0];
+					player.markSkill("xsj_dongqie");
+					var evt=event.getParent("phase");
+					if(evt&&evt.name=="phase"&&!evt.xsj_dongqie){
+						evt.set("xsj_dongqie",true);
+						var next=game.createEvent("xsj_dongqie_clear");
+						event.next.remove(next);
+						evt.after.push(next);
+						next.set("player",player);
+						next.setContent(function(){
+							delete player.storage.xsj_dongqie;
+							player.unmarkSkill("xsj_dongqie");
+						});
+					}
+				},
+				group:"xsj_dongqie2"
+			},
+			xsj_dongqie2:{
+				direct:true,
+				trigger:{player:"useCardAfter"},
+				filter:function(event,player){
+					return player.storage.xsj_dongqie&&get.suit(event.card)==get.suit(player.storage.xsj_dongqie)&&game.cardCausedDamage(event.card,player,game.filterPlayer2(function(current){
+						return current!=player;
+					}));
+				},
+				content:function(){
+					var card=game.createCard("lebu","","");
+					player.chooseUseTarget(card,false).set("prompt",get.prompt("xsj_dongqie2")).set("prompt2",get.translation("xsj_dongqie_info")).set("logSkill","xsj_dongqie2");
+					card._destroy=true;
+					/*
+					game.broadcastAll(function(card){
+						card._destroy=true;
+					},card);
+					*/
+				},
+				ai:{
+					effect:{
+						player:function(card,player,target){
+							if(player.storage.xsj_dongqie&&get.itemtype(card)=="card"&&get.suit(card)==get.suit(player.storage.xsj_dongqie)) return [1,1];
+						}
+					}
+				}
+			},
+			xsj_qiexin:{
+				trigger:{player:["useCardAfter","respondAfter"]},
+				forced:true,
+				filter:function(event,player){
+					return event.respondTo&&event.respondTo[1]&&(get.name(event.respondTo[1])=="sha"||get.tag(event.respondTo[1],"damage"))&&event.respondTo[1].cards&&event.respondTo[1].cards.filterInD("od").length;
+				},
+				content:function(){
+					var respond=trigger.respondTo[1];
+					if(respond&&respond.cards&&respond.cards.filterInD("od").length) player.gain(respond.cards.filterInD("od"),"gain2");
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2384,10 +2462,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:"SP鲁弗莱",
 			alz_yuri_kozukata:"不来方夕莉",
 			ymk_tianyi:"天翊",
+			xsj_joker:"SP Joker",
 			//Character ab.
 			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
 			mnm_9_volt_18_volt_ab:"九伏十八伏",
+			xsj_joker_ab:"雨宫莲",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2399,7 +2479,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_wangshi_info:"使命技。①你区域内的♠牌和♠判定牌均视为♦。②使命：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
 			ska_yangxun:"洋寻",
 			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其交给你一张牌。",
-			ska_shenqi:"神祇",
+			ska_shenqi:"神祇-",
 			ska_shenqi3:"神祇",
 			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得与此牌颜色相同的一张牌。",
 			ska_zhefu:"折赋",
@@ -2447,7 +2527,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_huangyao_info:"你可以将一张红色牌当作火【杀】使用或打出。",
 			mnm_jijing:"急竞",
 			mnm_jijing_info:"出牌阶段限一次，你可以与一名其他角色依次演奏《Big Blue》的前奏，然后若你的评级：大于其，你对其造成1点伤害；小于其，其对你造成1点伤害。；等于其，你与其各摸两张牌。",
-			ska_shenqi2:"神祇",
+			ska_shenqi2:"神祇+",
 			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
@@ -2467,7 +2547,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_yuanlei_effect:"远雷",
 			nnk_yuanlei_effect3:"远雷",
 			nnk_yuanlei_effect4:"远雷",
-			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸一张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
+			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张手牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸两张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
 			alz_yingjian:"影见",
 			alz_yingjian2:"影见+",
 			alz_yingjian3:"影见-",
@@ -2475,6 +2555,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian_info:"游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。",
 			ymk_kaibai:"开摆",
 			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
+			xsj_dongqie:"洞怯",
+			xsj_dongqie2:"洞怯",
+			xsj_dongqie_info:"回合开始时，你可以摸一张牌并展示之。本回合你使用与之花色相同的【杀】或带有「伤害」标签的锦囊牌结算后，若对其他角色造成了伤害，你可以视为对一名角色使用【乐不思蜀】。",
+			xsj_qiexin:"窃心",
+			xsj_qiexin_info:"当你使用或打出牌响应【杀】或带有「伤害」标签的锦囊牌后，你可以获得被响应的牌。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2482,6 +2567,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ska:"Show-K",
 			sst_nnk:"南柯",
 			sst_alz:"Axel_Zhai",
+			sst_xsj:"小时节",
 			sst_entertainment:"娱乐"
 		},
 		translateEnglish:{
@@ -2504,7 +2590,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:"SP Robin",
 			nnk_robin_female:"SP Robin",
 			alz_yuri_kozukata:"Yuri Kozukata",
-			ymk_tianyi:"Tianyi"
+			ymk_tianyi:"Tianyi",
+			xsj_joker:"SP Joker"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2519,7 +2606,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin:["nnk_robin_male","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
-			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"]
+			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
+			xsj_joker:["sst_joker"]
 		}
 	};
 	return sst_sp;
