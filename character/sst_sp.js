@@ -2083,7 +2083,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				selectCard:function(){
 					return [1,_status.event.player.maxHp];
 				},
-				position:"hs",
+				position:"hes",
 				viewAs:{name:"sha",nature:"thunder"},
 				viewAsFilter:function(player){
 					if(!player.countCards("hs")) return false;
