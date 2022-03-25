@@ -2406,8 +2406,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			xsj_qiexin:{
+				frequent:true,
 				trigger:{player:["useCardAfter","respondAfter"]},
-				forced:true,
 				filter:function(event,player){
 					return event.respondTo&&event.respondTo[1]&&(get.name(event.respondTo[1])=="sha"||get.tag(event.respondTo[1],"damage"))&&event.respondTo[1].cards&&event.respondTo[1].cards.filterInD("od").length;
 				},
