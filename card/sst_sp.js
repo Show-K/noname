@@ -554,7 +554,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					event.control=result.control;
 					target.popup(event.control);
 					game.log(target,"声明了","#y"+get.translation(event.control));
-					event.cards=get.cards(Math.max(0,target.hp));
+					event.cards=get.cards(target.getHp());
 					game.cardsGotoOrdering(event.cards);
 					target.showCards(event.cards,get.translation(target.name)+"展示的牌（声明了"+get.translation(event.control)+"）");
 					"step 2"

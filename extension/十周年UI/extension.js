@@ -5823,12 +5823,13 @@ content:function(config, pack){
 					group: {
 						configurable: true,
 						get:function(){
+							if (this.node.campWrap.dataset.camp == 'sst_reality_shen') return 'sst_reality';
 							return this.node.campWrap.dataset.camp;
 						},
 						set:function(value){
 							this.node.campWrap.dataset.camp = value;
-							
-							if (this.name == 'sst_massy') this.node.campWrap.dataset.camp = 'shen';
+
+							if (this.name == 'sst_massy') this.node.campWrap.dataset.camp = 'sst_reality_shen';
 
 							if (value){
 								if (decadeUI.config.campIdentityImageMode){

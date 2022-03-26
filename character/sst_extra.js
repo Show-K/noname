@@ -434,7 +434,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					if(event.target.isIn()&&(event.target.countCards("h")==Math.max(0,event.target.hp)||event.target.countCards("h")==event.target.maxHp)){
+					if(event.target.isIn()&&(event.target.countCards("h")==event.target.getHp()||event.target.countCards("h")==event.target.maxHp)){
 						var top=get.cards();
 						event.card=top[0];
 						ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);

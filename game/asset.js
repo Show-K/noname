@@ -146,7 +146,7 @@ window.noname_asset_list=[
 	'image/character/nnk_robin_female.png',
 	'image/character/alz_yuri_kozukata.png',
 	'image/character/ymk_tianyi.png',
-	'image/character/xsj_joker.png',
+	'image/character/xsj_yu_narukami.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',
@@ -177,6 +177,12 @@ window.noname_asset_list=[
 	'image/character/zhenji.png',
 	'image/character/zhouyu.png',
 	'image/character/zhugeliang.png',
+
+	'image/card/group_sst_darkness.png',
+	'image/card/group_sst_light.png',
+	'image/card/group_sst_reality.png',
+	'image/card/group_sst_smash.png',
+	'image/card/group_sst_spirit.png',
 
 	'image/card/sst_aegises.png',
 	

@@ -818,9 +818,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					game.me.chooseButtonOL(list,function(player,result){
 						if(game.online||player==game.me){
 							player.init(result.links[0]);
-							player.hp++;
-							player.maxHp++;
-							player.update();
+							if(!player.hasSkillTag("noExtraHp")){
+								player.hp++;
+								player.maxHp++;
+								player.update();
+							}
 						}
 					});
 					"step 5"
@@ -841,9 +843,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						for(var i in result){
 							if(!lib.playerOL[i].name){
 								lib.playerOL[i].init(result[i][0],result[i][1]);
-								lib.playerOL[i].hp++;
-								lib.playerOL[i].maxHp++;
-								lib.playerOL[i].update();
+								if(!lib.playerOL[i].hasSkillTag("noExtraHp")){
+									lib.playerOL[i].hp++;
+									lib.playerOL[i].maxHp++;
+									lib.playerOL[i].update();
+								}
 							}
 						}
 					},result);
@@ -1001,12 +1005,16 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						event.map[event.bZhu].remove(character);
 						game.bZhu.init(character);
 					}
-					game.rZhu.maxHp++;
-					game.rZhu.hp++;
-					game.rZhu.update();
-					game.bZhu.maxHp++;
-					game.bZhu.hp++;
-					game.bZhu.update();
+					if(!game.rZhu.hasSkillTag("noExtraHp")){
+						game.rZhu.maxHp++;
+						game.rZhu.hp++;
+						game.rZhu.update();
+					}
+					if(!game.bZhu.hasSkillTag("noExtraHp")){
+						game.bZhu.maxHp++;
+						game.bZhu.hp++;
+						game.bZhu.update();
+					}
 					if(!event.isZhu){
 						var group=game.me.identity.indexOf('r')==0?event.rZhu:event.bZhu;
 						game.me.chooseButton(true,['请选择您的武将牌',[event.map[group].randomRemove(5),'character']]);
@@ -1062,7 +1070,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						else{
 							player.init(listc[0]);
 						}
-						if(player.identity=='mingzhong'){
+						if(player.identity=='mingzhong'&&!player.hasSkillTag("noExtraHp")){
 							player.hp++;
 							player.maxHp++;
 							player.update();
@@ -1090,7 +1098,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						else{
 							player.init(choice);
 						}
-						if(game.players.length>4){
+						if(game.players.length>4&&!player.hasSkillTag("noExtraHp")){
 							player.hp++;
 							player.maxHp++;
 							player.update();
@@ -1748,7 +1756,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}
 					event.list.remove(get.sourceCharacter(game.me.name1));
 					event.list.remove(get.sourceCharacter(game.me.name2));
-					if(game.me==game.zhu&&game.players.length>4){
+					if(game.me==game.zhu&&game.players.length>4&&!game.me.hasSkillTag("noExtraHp")){
 						game.me.hp++;
 						game.me.maxHp++;
 						game.me.update();
@@ -1988,7 +1996,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					event.list2.remove(get.sourceCharacter(game.zhu.name1));
 					event.list2.remove(get.sourceCharacter(game.zhu.name2));
 
-					if(game.players.length>4){
+					if(game.players.length>4&&!game.zhu.hasSkillTag("noExtraHp")){
 						game.zhu.maxHp++;
 						game.zhu.hp++;
 						game.zhu.update();
@@ -2002,7 +2010,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							zhu.hp++;
 							zhu.update();
 						}
-					},game.zhu,result.links[0],result.links[1],game.players.length>4);
+					},game.zhu,result.links[0],result.links[1],(game.players.length>4&&!game.zhu.hasSkillTag("noExtraHp")));
 					
 					if(game.zhu.group=='shen'&&!game.zhu.isUnseen(0)){
 						var list=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
@@ -2354,10 +2362,13 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					if(game.zhu&&game.zhu.isZhu){
 						if(get.population('zhong')+get.population('nei')==0||
 						get.population('zhong')+get.population('fan')==0){
-							game.broadcastAll(function(){
-								game.showIdentity();
-								if(game.zhu&&game.zhu.isAlive()&&get.population('nei')==1&&get.config('nei_fullscreenpop')) game.me.$fullscreenpop('<span style="font-family:fzhtk"><span data-nature="fire">主公</span><span data-nature="soil"> vs </span><span data-nature="thunder">内奸</span></span>',null,null,false);
-							});
+							game.broadcastAll(game.showIdentity);
+							if(game.zhu&&game.zhu.isAlive()&&get.population('nei')==1&&get.config('nei_fullscreenpop')){
+								game.zhu.$fullscreenpop('<span style="font-family:fzhtk"><span data-nature="fire">SUDDEN</span><span data-nature="thunder">DEATH</span></span>');
+								setTimeout(function(){
+									game.zhu.$fullscreenpop('<span style="font-family:fzhtk"><span data-nature="soil">GO!</span></span>');
+								},1000);
+							}
 						}
 					}
 					if(game.zhu&&game.zhu.storage.enhance_zhu&&get.population('fan')<3){

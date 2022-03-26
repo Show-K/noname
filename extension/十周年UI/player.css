@@ -213,6 +213,10 @@
 	background: linear-gradient(to bottom, rgb(153, 28, 34), rgb(57, 12, 17));
 }
 
+.player>.camp-wrap[data-camp='sst_reality_shen']>.camp-back {
+	background: linear-gradient(to bottom, rgb(97,87,15), rgb(65,50,9), rgb(67,52,9));
+}
+
 .player>.camp-wrap[data-camp='sst_smash']>.camp-back {
 	background: linear-gradient(to bottom, rgb(97,87,15), rgb(65,50,9), rgb(67,52,9));
 }
@@ -296,6 +300,10 @@
 
 .player>.camp-wrap[data-camp='sst_reality']>.camp-name {
 	text-shadow: 0 0 5px rgb(255,100,100), 0 0 10px rgb(255,50,50), 0 0 15px rgb(255,50,50);
+}
+
+.player>.camp-wrap[data-camp='sst_reality_shen']>.camp-name {
+	text-shadow: 0 0 5px rgb(255, 200, 0), 0 0 10px rgb(255, 200, 0), 0 0 15px rgb(255, 200, 0);
 }
 
 .player>.camp-wrap[data-camp='sst_smash']>.camp-name {

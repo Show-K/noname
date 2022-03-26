@@ -5470,6 +5470,10 @@
 							'20':'20人',
 							'24':'24人',
 							'40':'40人',
+							'48':'48人',
+							'60':'60人',
+							'80':'80人',
+							'100':'100人',
 						}
 					},
 					connect_replace_number:{
@@ -17386,6 +17390,9 @@
 			},
 			player:{
 				//SST new add
+				getHp:function(){
+					return Math.max(0,this.hp);
+				},
 				getDeckCards:function(num){
 					if(typeof num!='number'){
 						num=1;

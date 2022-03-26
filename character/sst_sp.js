@@ -11,7 +11,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
-				sst_xsj:["xsj_joker"],
+				sst_xsj:["xsj_yu_narukami"],
 				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
 			}
 		},
@@ -35,7 +35,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
-			xsj_joker:["male","sst_darkness",3,["xsj_dongqie","xsj_qiexin"],[]]
+			xsj_yu_narukami:["male","sst_darkness",3,["xsj_dongqie","xsj_taluo"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -70,7 +70,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			????. 炸弹彬/Bobby/ボム平<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
-			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是纸片马力欧 折纸国王中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
+			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
 			——翻译自《超级马力欧维基》（来源：<a target=\"_self\" href=\"https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)\"><span style=\"text-decoration: underline;\">https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)</span></a>）<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			“我？哦，我是炸弹兵。”",
@@ -97,7 +97,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			????. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
-			考古学家奇诺比奥是第一次出现在纸片马里奥 折纸国王中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
+			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
 			——翻译自《超级马力欧维基》（来源：<a target=\"_self\" href=\"https://www.mariowiki.com/Professor_Toad\"><span style=\"text-decoration: underline;\">https://www.mariowiki.com/Professor_Toad</span></a>）<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
@@ -200,13 +200,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_tianyi:"武将作者：Yumikohimi<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			啊对对对。",
-			xsj_joker:"武将作者：小时节、Yumikohimi<br>\
+			xsj_yu_narukami:"武将作者：小时节、Yumikohimi<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			1304. Joker（怪盗）/Joker (Phantom Thief)/ジョーカー（怪盗）<br>\
+			????. 鸣上悠/Yu Narukami/鳴上悠<br>\
 			系列：Persona（女神异闻录）<br>\
-			初登场：Persona 5（女神异闻录5）<br>\
-			P5主人公在异世界的形态，是由反抗意识觉醒了人格面具的样子。初始人格面具为亚森——大乱斗里也是这家伙，戴着白鸟外形眼部为黑色的面具。身穿黑色的风衣，棕色古巴高跟鞋，灰衬衫和黑色长裤，配上标志性的红色手套。代号“Joker”，是“王牌”的意思。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			初登场：Persona 4（女神异闻录4）<br>\
+			鸣上悠是Atlus开发的《女神异闻录》系列中的一个虚构角色，作为2008年角色扮演视频游戏《女神异闻录4》的主角首次亮相。在游戏中，鸣上悠本身不说话，其思想和行动由玩家决定。作为一名高中生，他搬到远离城市的农村地区稻叶，与他的叔叔堂岛辽太郎和表弟菜菜子住在一起，而他的父母正忙于工作。抵达稻叶后不久，鸣上悠开始调查一起谋杀案，受害者在他居住的小镇上被神秘绑架并挂在电话线上。他与同学们合作，探索另一个被称为电视世界的维度，在那里他获得了一种被称为“Persona”的力量——他潜意识的物理表现，以对抗并击败谋杀第一批受害者的生物Shadows。鸣上悠还出现在与《女神异闻录4》相关的其他作品中，包括名为《女神异闻录4 动画》的动画改编、漫画版和几款衍生游戏。对于这些作品，鸣上悠在故事中得到了自己的刻画和发展。<br>\
+			——翻译自《维基百科》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			总算有新人来设计武将了。"
 		},
@@ -228,9 +228,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin:"卓越的战术师",
 			nnk_robin_male:"卓越的战术师",
 			nnk_robin_female:"卓越的战术师",
-			alz_yuri_kozukata:"",
+			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
-			xsj_joker:"心之怪盗"
+			xsj_yu_narukami:"钢之妹控番长"
 		},
 		skill:{
 			//SP Isabelle
@@ -2221,7 +2221,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						target.addTempSkill("fengyin","roundStart");
 					}
 					"step 1"
-					if(player.countMark("alz_yingjian")<Math.max(0,player.hp)) player.addMark("alz_yingjian");
+					if(player.countMark("alz_yingjian")<player.getHp()) player.addMark("alz_yingjian");
 				},
 				ai:{
 					order:5,
@@ -2246,7 +2246,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian3:{
 				enable:"chooseToUse",
 				filter:function(event,player){
-					if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=Math.max(0,player.hp)) return false;
+					if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=player.getHp()) return false;
 					for(var i of lib.inpile){
 						var type=get.type(i);
 						if(type=="basic"&&lib.filter.filterCard({name:i,isCard:true},player,event)) return true;
@@ -2287,7 +2287,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				hiddenCard:function(player,name){
 					var type=get.type(name);
-					return type=="basic"&&player.hasMark("alz_yingjian")&&player.countMark("alz_yingjian")>Math.max(0,player.hp);
+					return type=="basic"&&player.hasMark("alz_yingjian")&&player.countMark("alz_yingjian")>player.getHp();
 				},
 				ai:{
 					respondSha:true,
@@ -2296,7 +2296,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					save:true,
 					skillTagFilter:function(player,tag,arg){
 						if(arg!="use") return false;
-						if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=Math.max(0,player.hp)) return false;
+						if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=player.getHp()) return false;
 					},
 					order:1,
 					result:{
@@ -2350,7 +2350,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ai:{
 				threaten:2
 			},
-			//SP Joker
+			//Yu Narukami
 			xsj_dongqie:{
 				intro:{
 					content:"card"
@@ -2405,7 +2405,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			xsj_qiexin:{
+			xsj_taluo:{
 				frequent:true,
 				trigger:{player:["useCardAfter","respondAfter"]},
 				filter:function(event,player){
@@ -2462,12 +2462,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:"SP鲁弗莱",
 			alz_yuri_kozukata:"不来方夕莉",
 			ymk_tianyi:"天翊",
-			xsj_joker:"SP Joker",
+			xsj_yu_narukami:"鸣上悠",
 			//Character ab.
 			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
 			mnm_9_volt_18_volt_ab:"九伏十八伏",
-			xsj_joker_ab:"雨宫莲",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2558,8 +2557,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_dongqie:"洞怯",
 			xsj_dongqie2:"洞怯",
 			xsj_dongqie_info:"回合开始时，你可以摸一张牌并展示之。本回合你使用与之花色相同的【杀】或带有「伤害」标签的锦囊牌结算后，若对其他角色造成了伤害，你可以视为对一名角色使用【乐不思蜀】。",
-			xsj_qiexin:"窃心",
-			xsj_qiexin_info:"当你使用或打出牌响应【杀】或带有「伤害」标签的锦囊牌后，你可以获得被响应的牌。",
+			xsj_taluo:"塔罗",
+			xsj_taluo_info:"当你使用或打出牌响应【杀】或带有「伤害」标签的锦囊牌后，你可以获得被响应的牌。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2591,7 +2590,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:"SP Robin",
 			alz_yuri_kozukata:"Yuri Kozukata",
 			ymk_tianyi:"Tianyi",
-			xsj_joker:"SP Joker"
+			xsj_yu_narukami:"Yu Narukami"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2607,7 +2606,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
-			xsj_joker:["sst_joker"]
+			xsj_yu_narukami:["sst_joker"]
 		}
 	};
 	return sst_sp;

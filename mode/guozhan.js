@@ -622,7 +622,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					var color=get.groupnature(player.group,"raw");
 					if(player.isUnseen()) color='fire';
-					player.$fullscreenpop('鏖战模式',color); 
+					player.$fullscreenpop('SUDDEN DEATH',color);
+					setTimeout(function(){
+						player.$fullscreenpop('GO!',"soil");
+					},1000);
 					game.broadcastAll(function(){
 					_status._aozhan=true;
 					ui.aozhan=ui.create.div('.touchinfo.left',ui.window);
