@@ -5043,7 +5043,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					if(!history||!history.length) return false;
 					var card=Object.assign({},history[history.length-1].card);
-					game.log(card);
 					delete card.isCard;
 					//if(get.name(card)=="wuxie"||get.name(card)=="shan") return false;
 					if(player.storage.sst_huanbian.contains(get.name(card))) return false;
