@@ -65,6 +65,7 @@ window.noname_update={
 		'extension/十周年UI/player.css',
 		'extension/十周年UI/skill.js',
 		'extension/十周年UI/spine.js',
+		'extension/在线更新/extension.js',
 		'mode/brawl.js',
 		'mode/connect.js',
 		'mode/doudizhu.js',
