@@ -5462,7 +5462,7 @@
 					},
 					connect_choice_num:{
 						name:'侯选武将数',
-						init:'40',
+						init:'20',
 						frequent:true,
 						item:{
 							'12':'12人',
