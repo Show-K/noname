@@ -3080,16 +3080,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(player.isOnline()){
 							player.wait(sendback);
 							event.ol=true;
-							player.send(function(){
+							player.send(function(target){
 								game.me.chooseCard("议策：选择一张要展示并交换的手牌",function(card){
 									var player=_status.event.player;
 									var target=_status.event.targetx;
 									return lib.filter.canBeGained(card,target,player);
 								},true).set("glow_result",true).set("ai",function(card){
 									return 11-get.useful(card);
-								}).set("targetx",event.target);
+								}).set("targetx",target);
 								game.resume();
-							});
+							},event.target);
 						}
 						else{
 							event.localPlayer=true;
@@ -3104,16 +3104,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(event.target.isOnline()){
 							event.target.wait(sendback);
 							event.ol=true;
-							event.target.send(function(){
+							event.target.send(function(target){
 								game.me.chooseCard("议策：选择一张要展示并交换的手牌",function(card){
 									var player=_status.event.player;
 									var target=_status.event.targetx;
 									return lib.filter.canBeGained(card,target,player);
 								},true).set("glow_result",true).set("ai",function(card){
 									return 11-get.useful(card);
-								}).set("targetx",player);
+								}).set("targetx",target);
 								game.resume();
-							});
+							},player);
 						}
 						else{
 							event.localTarget=true;
