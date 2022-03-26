@@ -5036,6 +5036,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					delete card.isCard;
 					return card;
 				},
+				filter:function(event,player){
+					if(!player.countCards("hes")) return false;
+					var history=player.getAllHistory("useCard",function(evt){
+						return get.type(evt.card)=="basic"||get.type(evt.card)=="trick";
+					});
+					if(!history||!history.length) return false;
+					var card=Object.assign({},history[history.length-1].card);
+					delete card.isCard;
+					//if(get.name(card)=="wuxie"||get.name(card)=="shan") return false;
+					if(player.storage.sst_huanbian.contains(get.name(card))) return false;
+					return event.filterCard(card,player,event);
+				},
 				prompt:function(){
 					var player=_status.event.player;
 					var str="将一张牌当作";
