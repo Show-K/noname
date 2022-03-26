@@ -11,7 +11,6 @@ window.noname_update={
 		'其他'
 	],
 	files:[
-		/*
 		'extension/十周年UI/assets/image/item_bg.png',
 		'extension/十周年UI/assets/image/rarity_common.png',
 		'extension/十周年UI/assets/image/rarity_epic.png',
@@ -23,9 +22,7 @@ window.noname_update={
 		'image/character/sst_yumikohimi.png',
 		'image/character/sst_massy.png',
 		'image/character/sst_miumiu.png',
-		*/
 		'card/sst_standard.js',
-		/*
 		'card/sst_extra.js',
 		'card/sst_sp.js',
 		'card/sst_land.js',
@@ -82,6 +79,5 @@ window.noname_update={
 		'game/package.js',
 		'game/asset.js',
 		'game/source.js',
-		*/
 	]
 };
