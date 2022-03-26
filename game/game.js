@@ -10626,6 +10626,7 @@
 					"step 0"
 					if(typeof event.card=="string"){
 						event.card=game.createCard(event.card,"","");
+						event.card._destroy=true;
 						event.card.expired=true;
 					}
 					"step 1"
