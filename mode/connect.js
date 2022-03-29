@@ -40,6 +40,11 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				node.style.textAlign='center';
 
 				var connect=function(e){
+					if(node.innerHTML=='47.99.105.222'){
+						alert('不允许连接官方服务器');
+						event.textnode.innerHTML='输入联机地址';
+						return;
+					}
 					event.textnode.innerHTML='正在连接...';
 					clearTimeout(event.timeout);
 					if(e) e.preventDefault();
