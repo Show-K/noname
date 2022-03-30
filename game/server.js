@@ -142,7 +142,7 @@
 					if(events.length>=20){
 						this.sendl('eventsdenied','total');
 					}
-					else if(cfg.utc<=time){
+					else if(cfg.utc<=time&&cfg.content.indexOf('「公告」')!=0){
 						this.sendl('eventsdenied','time');
 					}
 					else if(util.isBanned(cfg.content)){
@@ -283,7 +283,7 @@
 			if(events.length){
 				var time=(new Date()).getTime();
 				for(var i=0;i<events.length;i++){
-					if(events[i].utc<=time){
+					if(events[i].utc<=time&&events[i].content.indexOf('「公告」')!=0){
 						events.splice(i--,1);
 					}
 				}
