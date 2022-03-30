@@ -408,6 +408,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 				gz_sst_kazuya:["male","sst_darkness",5,["sst_chouyu","sst_xuehai"],[]],
 				gz_sst_duck_hunt:["male","sst_light",3,["sst_gonglie","sst_weishou"],[]],
+				gz_sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],[]],
+				gz_sst_piranha_plant:["none","sst_darkness",4,["sst_tunshi","sst_yangfen"],[]],
+				gz_sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 				//修改武将
 				//gz_sst_palutena:["female","sst_light",3,["gz_sst_qiji","sst_shengbing"],[]],
 				//gz_sst_rosalina:["female","sst_light",3,["sst_xingchen","gz_sst_zhuansheng"],[]],

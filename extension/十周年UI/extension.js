@@ -4709,7 +4709,7 @@ content:function(config, pack){
 					else if (ui.cardPileNumber)
 						ui.cardPileNumber.textContent = num1 + '轮 剩余牌: ' + num2 + ' 弃牌堆: ' + num3;
 					
-				}, game.roundNumber, ui.cardPile.childNodes.length, ui.discardPile.childNodes.length, ui.cardPile.firstChild);
+				}, game.roundNumber, ui.cardPile.childNodes.length, _status.discarded.length, ui.cardPile.firstChild);
 			};
 
 			game.check = function(event){
@@ -5772,7 +5772,7 @@ content:function(config, pack){
 				
 				campWrap.appendChild(player.node.name);
 				campWrap.node.avatarName.className = 'avatar-name';
-				campWrap.node.avatarDefaultName.innerHTML = '主<br>将';
+				campWrap.node.avatarDefaultName.innerHTML = '主将';
 				
 				var node = {
 					mask: player.insertBefore(decadeUI.element.create('mask'), player.node.identity),

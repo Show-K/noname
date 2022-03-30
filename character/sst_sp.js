@@ -35,7 +35,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
-			xsj_yu_narukami:["male","sst_darkness",3,["xsj_dongqie","xsj_taluo"],[]]
+			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -372,7 +372,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.bool){
-						target.damage(player);
+						target.damage(player,"nocard");
 					}
 					else{
 						player.chooseToDiscard("激行：弃置一张牌","he",true);
@@ -965,7 +965,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						target.recover();
 					}
 					else{
-						target.damage(player);
+						target.damage(player,"nocard");
 					}
 				},
 				ai:{
@@ -1136,7 +1136,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addGaintag(trigger.cards,"ska_zhiyi");
 				}
 			},
-			//Yumikohimi
+			//SP Yumikohimi
 			ymk_qiuyi:{
 				preHidden:true,
 				usable:1,
@@ -1174,7 +1174,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				intro:{
 					content:function(storage,player){
-						return "本回合你的手牌上限-"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
+						return "本回合你的手牌上限+"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
 					}
 				},
 				onremove:function(player){
@@ -1366,7 +1366,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 7"
 					if(result.bool){
 						//player.line(event.target,"green");
-						event.target.damage(player);
+						event.target.damage(player,"nocard");
 					}
 				},
 				group:["ska_juegu_sha","ska_juegu_shan"],
@@ -1553,7 +1553,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.loseHp();
 					}
 					"step 2"
-					player.chooseUseTarget("天鹫：视为对攻击范围内任意名角色使用一张【杀】",{name:"sha"},true,false).set("selectTarget",[1,Infinity]);
+					if(game.hasPlayer(function(current){
+						return player.canUse({name:"sha",isCard:true},current);
+					})) player.chooseUseTarget("天鹫：视为对攻击范围内任意名角色使用一张【杀】",{name:"sha"},true,false).set("selectTarget",[1,Infinity]);
 				}
 			},
 			mnm_yanhai:{
@@ -1591,7 +1593,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			//Kyo Kusanagi
+			//SP Kyo Kusanagi
 			alz_wushi:{
 				trigger:{player:"useCardToPlayered"},
 				filter:function(event,player){
@@ -1656,7 +1658,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondSha:true
 				}
 			},
-			//Captain Falcon
+			//SP Captain Falcon
 			mnm_jijing:{
 				enable:"phaseUse",
 				usable:1,
@@ -1790,14 +1792,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.popup("胜");
 						target.popup("负");
 						player.line(target,"green");
-						target.damage(player);
+						target.damage(player,"nocard");
 					}
 					else if(grade(event.rank[0])<grade(event.rank[1])){
 						game.log(target,"#y胜");
 						player.popup("负");
 						target.popup("胜");
 						target.line(player,"green");
-						player.damage(target);
+						player.damage(target,"nocard");
 					}
 					else{
 						game.log(player,"、",target,"#y平");
@@ -2069,7 +2071,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			//Robin
+			//SP Robin
 			nnk_yuanlei:{
 				locked:false,
 				mod:{

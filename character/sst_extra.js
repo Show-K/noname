@@ -916,7 +916,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.control=="选项一"||event.control=="背水！") player.chooseToDiscard("摧锋：弃置两张牌",2,"he",true);
 					"step 3"
 					if(event.control=="选项二"||event.control=="背水！"){
-						player.damage("nosource");
+						player.damage("nosource","nocard");
 						if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
 						trigger.baseDamage++;
 					}
@@ -1331,7 +1331,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_aoshang2:"傲上",
 			sst_aoshang_info:"锁定技，你使用的牌不能被点数大于此牌的牌响应且拥有「空巢→回复1点体力」应变效果。",
 			sst_lianxia:"怜下",
-			sst_lianxia_info:"出牌阶段限一次，你可以将一张牌交给一名手牌数小于你的角色，然后手牌数最多的角色依次交给你一张牌（若为你则不执行）。",
+			sst_lianxia_info:"出牌阶段限一次，你可以将一张牌交给一名手牌数小于你的角色，然后手牌数最多的角色依次交给你一张牌（若为你则无需交给牌）。",
 			//Tag
 			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",

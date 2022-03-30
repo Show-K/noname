@@ -28,7 +28,6 @@ window.noname_character_rank={
 			"sst_palutena",
 			"sst_rosalina",
 			"sst_zero_suit_samus",
-			"sst_luigi",
 			"sst_peach",
 			"sst_byleth_female",
 			"sst_byleth_male",
@@ -56,7 +55,6 @@ window.noname_character_rank={
 			"sst_corrin_female",
 			"ska_bowser",
 			"sst_ma",
-			"sst_min_min",
 			"sst_pikachu",
 			"sst_enderman",
 			"sst_sephiroth",
@@ -155,7 +153,9 @@ window.noname_character_rank={
 			"sst_sora",
 			"sst_mewtwo",
 			"sst_paipai",
-			"xsj_yu_narukami"
+			"xsj_yu_narukami",
+			"sst_luigi",
+			"sst_min_min"
 		],
 		junk:[]
 	}
