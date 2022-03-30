@@ -45752,10 +45752,6 @@
 								deltaday+=7;
 							}
 							var utc=date2.getTime()+deltaday*24*3600000;
-							if(utc<date.getTime()){
-								alert('创建失败，时间已过');
-								return;
-							}
 							if(get.is.banWords(button.input.value)){
 								var eventnode=ui.create.div('.menubutton.videotext.onlineevent.pointerdiv',function(){
 									var that=this;

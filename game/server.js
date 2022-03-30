@@ -142,7 +142,7 @@
 					if(events.length>=20){
 						this.sendl('eventsdenied','total');
 					}
-					else if(cfg.utc<=time){
+					else if(cfg.utc<=time&&cfg.content.indexOf('「公告」')!=0){
 						this.sendl('eventsdenied','time');
 					}
 					else if(util.isBanned(cfg.content)){
