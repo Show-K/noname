@@ -29039,6 +29039,8 @@
 			}
 		},
 		connect:function(ip,callback){
+			if(get.config('hall_ip')=='47.99.105.222') game.saveConfig('hall_ip','123.56.240.30','connect');
+			if(lib.config.last_ip=='47.99.105.222') game.saveConfig('last_ip','123.56.240.30');
 			if(game.online) return;
 			var withport=false;
 			var index=ip.lastIndexOf(':');
@@ -29050,6 +29052,10 @@
 			}
 			if(!withport){
 				ip=ip+':8080';
+			}
+			if(ip=='47.99.105.222:8080'){
+				alert('不允许连接官方服务器，自动跳转至123.56.240.30');
+				ip='123.56.240.30:8080';
 			}
 			_status.connectCallback=callback;
 			try{

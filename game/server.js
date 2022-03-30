@@ -149,7 +149,7 @@
 						this.sendl('eventsdenied','ban');
 					}
 					else{
-						cfg.nickname=util.getNickname(nickname);
+						if(typeof nickname!='undefined') cfg.nickname=util.getNickname(nickname);
 						cfg.avatar=cfg.nickname||'caocao';
 						cfg.creator=id;
 						cfg.id=util.getid();
