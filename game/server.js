@@ -283,7 +283,7 @@
 			if(events.length){
 				var time=(new Date()).getTime();
 				for(var i=0;i<events.length;i++){
-					if(events[i].utc<=time){
+					if(events[i].utc<=time&&events[i].content.indexOf('「公告」')!=0){
 						events.splice(i--,1);
 					}
 				}
