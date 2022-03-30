@@ -35,7 +35,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
-			xsj_yu_narukami:["male","sst_darkness",3,["xsj_dongqie","xsj_taluo"],[]]
+			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -1136,7 +1136,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addGaintag(trigger.cards,"ska_zhiyi");
 				}
 			},
-			//Yumikohimi
+			//SP Yumikohimi
 			ymk_qiuyi:{
 				preHidden:true,
 				usable:1,
@@ -1553,7 +1553,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.loseHp();
 					}
 					"step 2"
-					player.chooseUseTarget("天鹫：视为对攻击范围内任意名角色使用一张【杀】",{name:"sha"},true,false).set("selectTarget",[1,Infinity]);
+					if(game.hasPlayer(function(current){
+						return player.canUse({name:"sha",isCard:true},current);
+					})) player.chooseUseTarget("天鹫：视为对攻击范围内任意名角色使用一张【杀】",{name:"sha"},true,false).set("selectTarget",[1,Infinity]);
 				}
 			},
 			mnm_yanhai:{
@@ -1591,7 +1593,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			//Kyo Kusanagi
+			//SP Kyo Kusanagi
 			alz_wushi:{
 				trigger:{player:"useCardToPlayered"},
 				filter:function(event,player){
@@ -1656,7 +1658,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondSha:true
 				}
 			},
-			//Captain Falcon
+			//SP Captain Falcon
 			mnm_jijing:{
 				enable:"phaseUse",
 				usable:1,
@@ -2069,7 +2071,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			//Robin
+			//SP Robin
 			nnk_yuanlei:{
 				locked:false,
 				mod:{
