@@ -916,7 +916,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.control=="选项一"||event.control=="背水！") player.chooseToDiscard("摧锋：弃置两张牌",2,"he",true);
 					"step 3"
 					if(event.control=="选项二"||event.control=="背水！"){
-						player.damage("nosource");
+						player.damage("nosource","nocard");
 						if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
 						trigger.baseDamage++;
 					}

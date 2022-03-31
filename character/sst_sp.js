@@ -372,7 +372,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.bool){
-						target.damage(player);
+						target.damage(player,"nocard");
 					}
 					else{
 						player.chooseToDiscard("激行：弃置一张牌","he",true);
@@ -965,7 +965,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						target.recover();
 					}
 					else{
-						target.damage(player);
+						target.damage(player,"nocard");
 					}
 				},
 				ai:{
@@ -1366,7 +1366,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 7"
 					if(result.bool){
 						//player.line(event.target,"green");
-						event.target.damage(player);
+						event.target.damage(player,"nocard");
 					}
 				},
 				group:["ska_juegu_sha","ska_juegu_shan"],
@@ -1792,14 +1792,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.popup("胜");
 						target.popup("负");
 						player.line(target,"green");
-						target.damage(player);
+						target.damage(player,"nocard");
 					}
 					else if(grade(event.rank[0])<grade(event.rank[1])){
 						game.log(target,"#y胜");
 						player.popup("负");
 						target.popup("胜");
 						target.line(player,"green");
-						player.damage(target);
+						player.damage(target,"nocard");
 					}
 					else{
 						game.log(player,"、",target,"#y平");

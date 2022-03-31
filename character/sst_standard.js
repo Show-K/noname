@@ -1585,7 +1585,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						else{
 							players[i].line(player,"green");
-							player.damage(players[i]);
+							player.damage(players[i],"nocard");
 						}
 					}
 					delete player.storage.sst_huandai;
@@ -2069,7 +2069,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return false;
 				},
 				content:function(){
-					trigger.player.damage(player);
+					trigger.player.damage(player,"nocard");
 					trigger.player.draw(2);
 				}
 			},
@@ -4279,19 +4279,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						case 4:{
 							player.popup("④");
 							player.line(trigger.target);
-							trigger.target.damage(player);
+							trigger.target.damage(player,"nocard");
 							break;
 						}
 						case 5:{
 							player.popup("⑤","thunder");
 							player.line(trigger.target,"thunder");
-							trigger.target.damage(player,"thunder");
+							trigger.target.damage(player,"thunder","nocard");
 							break;
 						}
 						case 6:{
 							player.popup("⑥","fire");
 							player.line(trigger.target,"fire");
-							trigger.target.damage(player,"fire");
+							trigger.target.damage(player,"fire","nocard");
 							break;
 						}
 						case 7:{
@@ -4374,7 +4374,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						],{color:[Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128)]},true);
 					}
 					//if(event.others&&event.others.length) event.others.randomGet().line(target,{color:[Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128),Math.floor(Math.random()*128+128)]});
-					target.damage(3,player);
+					target.damage(3,player,"nocard");
 				},
 				ai:{
 					threaten:2,
@@ -4788,11 +4788,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					if(!trigger.player.getStat("damage")){
-						player.damage("nosource");
+						player.damage("nosource","nocard");
 					}
 					else if(trigger.player.isIn()){
 						player.line(trigger.player,"green");
-						trigger.player.damage(player);
+						trigger.player.damage(player,"nocard");
 					}
 				}
 			},
@@ -5591,13 +5591,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					else{
 						trigger.player.line(player,"green");
-						player.damage(trigger.player);
+						player.damage(trigger.player,"nocard");
 						event.finish();
 					}
 					"step 2"
 					if(result.index==0){
 						player.line(trigger.player,"green");
-						trigger.player.damage(player);
+						trigger.player.damage(player,"nocard");
 						player.addExpose(0.2);
 					}
 					else if(result.index==1){
@@ -5674,7 +5674,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					trigger.player.line(player,"green");
-					player.damage(trigger.player);
+					player.damage(trigger.player,"nocard");
 				}
 			},
 			sst_mihu:{
@@ -6177,7 +6177,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("sourcex",player).set("prompt","霸凌：选择一项");
 					"step 1"
 					if(result.control!="选项二"){
-						trigger.player.damage(player);
+						trigger.player.damage(player,"nocard");
 						trigger.player.addTempSkill("sst_baling_effect");
 						trigger.player.addMark("sst_baling_effect",1,false);
 						//trigger.player.markSkillCharacter("sst_baling_effect",player,"霸凌","本回合下次造成的伤害+"+trigger.player.storage.sst_baling);
@@ -7169,7 +7169,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.cards&&result.cards.length&&get.name(result.cards[0])=="sha"){
 						var num=player.getStat("skill").sst_yanyang||1;
 						target.line(player,"green");
-						player.damage(num,target);
+						player.damage(num,target,"nocard");
 						player.addTempSkill("sst_yanyang_ai");
 					}
 				},
@@ -7550,7 +7550,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return get.damageEffect(event.player,player,player)>0;
 				},
 				content:function(){
-					trigger.player.damage(player);
+					trigger.player.damage(player,"nocard");
 				},
 				ai:{
 					damage:true,
@@ -9105,7 +9105,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(result.targets&&result.targets.length){
 						player.line(result.targets[0],"green");
-						result.targets[0].damage(player);
+						result.targets[0].damage(player,"nocard");
 					}
 				},
 				ai:{
@@ -9423,7 +9423,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					target.damage(player);
+					target.damage(player,"nocard");
 					"step 1"
 					var cardsx=player.getCards("h");
 					var name=get.name(cards[0]);
@@ -10112,7 +10112,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(player.storage.sst_tankuang.length>10){
 						player.addTempSkill("sst_tankuang2");
-						player.damage("nosource");
+						player.damage("nosource","nocard");
 						event.finish();
 					}
 					"step 4"
@@ -10653,7 +10653,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(event.target){
-						event.target.damage(player);
+						event.target.damage(player,"nocard");
 						player.addExpose(0.2);
 					}
 				}
@@ -10681,7 +10681,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Alex
 			sst_qiaoqi:{
-				global:["sst_qiaoqi4","sst_qiaoqi6","sst_qiaoqi7"],
+				global:["sst_qiaoqi2","sst_qiaoqi4","sst_qiaoqi6","sst_qiaoqi7"],
 				enable:"phaseUse",
 				filterCard:function(card){
 					return get.color(card)=="red";
@@ -10701,22 +10701,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				lose:false,
 				delay:false,
 				sync:function(sst_qiaoqi){
-					/*
-					if(game.online){
-						return;
-					}
-					if(!sst_qiaoqi.cards){
-						sst_qiaoqi.cards=[];
-					}
-					for(var i=0;i<sst_qiaoqi.cards.length;i++){
-						if(!sst_qiaoqi.cards[i].parentNode||sst_qiaoqi.cards[i].parentNode.id!="special"){
-							sst_qiaoqi.cards.splice(i--,1);
-						}
-					}
-					game.broadcast(function(sst_qiaoqi,cards){
-						sst_qiaoqi.cards=cards;
-					},sst_qiaoqi,sst_qiaoqi.cards);
-					*/
 					if(game.online){
 						return;
 					}
@@ -10785,13 +10769,134 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			sst_qiaoqi2:{
+				enable:"phaseUse",
+				usable:1,
+				filterCard:true,
+				check:function(card){
+					if(card.name=="du") return 20;
+					var player=_status.event.player;
+					var nh=player.countCards("h");
+					if(!player.needsToDiscard()){
+						if(nh<3) return 0;
+						if(nh==3) return 5-get.value(card);
+						return 7-get.value(card);
+					}
+					return 10-get.useful(card);
+				},
+				discard:false,
+				lose:false,
+				delay:false,
+				filter:function(event,player){
+					var sst_qiaoqi=player.getCards("e");
+					for(var h=0;h<sst_qiaoqi.length;h++){
+						if(sst_qiaoqi[h]&&sst_qiaoqi[h].cards&&get.name(sst_qiaoqi[h])!="muniu"){
+							sst_qiaoqi[h].cards.remove(trigger.cards);
+							lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
+						}
+					}
+					return sst_qiaoqi.length&&player.countCards("h")>0;
+				},
+				prepare:function(cards,player){
+					player.$give(1,player,false);
+				},
+				content:function(){
+					"step 0"
+					player.choosePlayerCard("巧器：选择一张装备牌","e",player,true).set("filterButton",function(button){
+						if(button.link&&button.link.cards&&get.name(button.link)!="muniu"){
+							lib.skill.sst_qiaoqi.sync(button.link);
+							if(button.link.cards.length) return true;
+						}
+						return false;
+					});
+					"step 1"
+					if(result.cards&&result.cards.length){
+						event.card=result.cards[0];
+						player.loseToSpecial(cards,"sst_qiaoqi");
+						player.popup(get.name(event.card),"wood");
+						game.log(player,"将一张牌扣置于",event.card,"上");
+						player.$give(1,player,false);
+						game.broadcastAll(function(cards,tag){
+							for(var i=0;i<cards.length;i++){
+								cards[i].addGaintag(tag);
+							}
+						},cards,get.name(event.card));
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					for(var i=0;i<cards.length;i++){
+						if(cards[i].destroyed||!cards[i].hasGaintag("sst_qiaoqi")||get.position(cards[i])!="s"){
+							cards[i].remove();
+							cards.splice(i--,1);
+						}
+					}
+					var muniu=event.card;
+					if(!muniu||!cards.length){
+						for(var i=0;i<cards.length;i++){
+							cards[i].discard();
+						}
+						event.finish();
+						return;
+					}
+					if(muniu.cards==undefined) muniu.cards=[];
+					muniu.cards.push(cards[0]);
+					game.broadcast(function(muniu,cards){
+						muniu.cards=cards;
+					},muniu,muniu.cards);
+					game.delayx();
+					"step 3"
+					var players=game.filterPlayer(function(current){
+						if(!current.getEquip(event.card)&&current!=player&&!current.isTurnedOver()&&
+							get.attitude(player,current)>=3&&get.attitude(current,player)>=3){
+							return true;
+						}
+					});
+					players.sort(lib.sort.seat);
+					var choice=players[0];
+					var next=player.chooseTarget("是否移动木牛流马？",function(card,player,target){
+						return !target.isMin()&&player!=target&&target.isEmpty(get.equiptype(event.card));
+					});
+					next.set("ai",function(target){
+						return target==_status.event.choice?1:-1;
+					});
+					next.set("choice",choice);
+					"step 4"
+					if(result.targets&&result.targets.length){
+						var card=event.card;
+						event.targetx=result.targets[0];
+						event.targetx.equip(card);
+						player.$give(card,event.targetx);
+						player.line(event.targetx,"green");
+						game.delay();
+					}
+					else{
+						player.updateMarks();
+						event.finish();
+					}
+					"step 5"
+					if(event.card&&event.card.cards&&event.card.cards.length){
+						event.targetx.directgains(event.card.cards,null,"sst_qiaoqi");
+					}
+					event.targetx.markSkill("sst_qiaoqi6");
+				},
+				ai:{
+					order:1,
+					expose:0.1,
+					result:{
+						player:1
+					}
+				}
+			},
 			sst_qiaoqi4:{
 				trigger:{player:"loseEnd"},
 				firstDo:true,
 				filter:function(event,player){
 					if(!event.es||!event.es.length) return false;
 					for(var i=0;i<event.es.length;i++){
-						if(event.es[i].cards&&event.es[i].cards.length) return true;
+						if(get.name(event.es[i])=="muniu") continue;
+						if(event.es[i].cards) return true;
 					}
 					return false;
 				},
@@ -10801,7 +10906,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<trigger.es.length;i++){
 						card=trigger.es[i];
 						if(get.name(card)=="muniu") continue;
-						if(card.cards&&(!event.getParent(2)||event.getParent(2).name!="swapEquip")&&(event.getParent().type!="equip"||event.getParent().swapEquip)){
+						if(!card||!card.cards||!card.cards.length) return;
+						if((!event.getParent(2)||event.getParent(2).name!="swapEquip")&&(event.getParent().type!="equip"||event.getParent().swapEquip)){
 							player.lose(card.cards,ui.discardPile);
 							player.$throw(card.cards,1000);
 							player.popup("sst_qiaoqi");
@@ -10812,16 +10918,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.lose(card.cards,ui.special);
 						}
 					}
-					var sst_qiaoqi=player.getCards("e");
+					var sst_qiaoqi=player.getCards("e",function(card){
+						return card.cards&&get.name(card)!="muniu";
+					});
 					for(var h=0;h<sst_qiaoqi.length;h++){
-						if(sst_qiaoqi[h]&&sst_qiaoqi[h].cards&&get.name(sst_qiaoqi[h])!="muniu"){
-							sst_qiaoqi[h].cards.remove(trigger.cards);
-							lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
-						}
+						sst_qiaoqi[h].cards.remove(trigger.cards);
+						lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 					}
 					var cards=[];
 					for(var h=0;h<sst_qiaoqi.length;h++){
-						if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
+						if(!sst_qiaoqi[h].cards) continue;
 						lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 						cards.addArray(sst_qiaoqi[h].cards);
 					}
@@ -10833,10 +10939,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:function(storage,player){
 						var cards=[];
-						var sst_qiaoqi=player.getCards("e");
+						var sst_qiaoqi=player.getCards("e",function(card){
+							return card.cards&&get.name(card)!="muniu";
+						});
 						for(var h=0;h<sst_qiaoqi.length;h++){
-							if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
-							//lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 							cards.addArray(sst_qiaoqi[h].cards);
 						}
 						if(!cards||!cards.length) return "共有〇张牌";
@@ -10849,10 +10955,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					mark:function(dialog,storage,player){
 						var cards=[];
-						var sst_qiaoqi=player.getCards("e");
+						var sst_qiaoqi=player.getCards("e",function(card){
+							return card.cards&&get.name(card)!="muniu";
+						});
 						for(var h=0;h<sst_qiaoqi.length;h++){
-							if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
-							//lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 							cards.addArray(sst_qiaoqi[h].cards);
 						}
 						if(!cards||!cards.length) return "共有〇张牌";
@@ -10865,10 +10971,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					markcount:function(storage,player){
 						var cards=[];
-						var sst_qiaoqi=player.getCards("e");
+						var sst_qiaoqi=player.getCards("e",function(card){
+							return card.cards&&get.name(card)!="muniu";
+						});
 						for(var h=0;h<sst_qiaoqi.length;h++){
-							if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
-							//lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 							cards.addArray(sst_qiaoqi[h].cards);
 						}
 						if(cards&&cards.length) return cards.length;
@@ -10877,26 +10983,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_qiaoqi7:{
-				hiddenCard:function(player,name){
-					var sst_qiaoqi=player.getCards("e");
-					for(var h=0;h<sst_qiaoqi.length;h++){
-						if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
-						lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
-						for(var i=0;i<sst_qiaoqi[h].cards.length;i++){
-							if(get.name(sst_qiaoqi[h].cards[i])==name) return true;
-						}
-					}
-					return false;
-				},
 				trigger:{player:"loseEnd"},
 				forced:true,
 				firstDo:true,
 				filter:function(event,player){
 					if(!event.ss||!event.ss.length) return false;
 					var cards=[];
-					var sst_qiaoqi=player.getCards("e");
+					var sst_qiaoqi=player.getCards("e",function(card){
+						return card.cards&&get.name(card)!="muniu";
+					});
 					for(var h=0;h<sst_qiaoqi.length;h++){
-						if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
 						cards.addArray(sst_qiaoqi[h].cards);
 					}
 					if(!cards||!cards.length) return false;
@@ -10905,16 +11001,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).length>0;
 				},
 				content:function(){
-					var sst_qiaoqi=player.getCards("e");
+					var sst_qiaoqi=player.getCards("e",function(card){
+						return card.cards&&get.name(card)!="muniu";
+					});
 					for(var h=0;h<sst_qiaoqi.length;h++){
-						if(sst_qiaoqi[h]&&sst_qiaoqi[h].cards&&get.name(sst_qiaoqi[h])!="muniu"){
-							sst_qiaoqi[h].cards.remove(trigger.cards);
-							lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
-						}
+						sst_qiaoqi[h].cards.removeArray(trigger.ss);
+						lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 					}
 					var cards=[];
 					for(var h=0;h<sst_qiaoqi.length;h++){
-						if(!sst_qiaoqi[h].cards||get.name(sst_qiaoqi[h])=="muniu") continue;
+						if(!sst_qiaoqi[h].cards) continue;
 						lib.skill.sst_qiaoqi.sync(sst_qiaoqi[h]);
 						cards.addArray(sst_qiaoqi[h].cards);
 					}
@@ -10926,7 +11022,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				locked:true,
 				trigger:{source:"damageBegin2"},
 				direct:true,
-				filter:function (event,player){
+				filter:function(event,player){
 					return player.getEquip(1)&&event.notLink()&&event.nature!="kami";
 				},
 				content:function(){
@@ -11187,7 +11283,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.judgeCard("shandian");
 					}
 					else{
-						player.damage(player,"thunder");
+						player.damage(player,"thunder","nocard");
 					}
 					"step 6"
 					if(event.winner!=event.target){
@@ -11202,7 +11298,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.target.judgeCard("shandian");
 					}
 					else{
-						event.target.damage(player,"thunder");
+						event.target.damage(player,"thunder","nocard");
 					}
 				},
 				ai:{
@@ -11382,7 +11478,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(result.targets&&result.targets.length){
 						player.line(result.targets[0],!event.sst_xuanyi?"fire":"thunder");
-						result.targets[0].damage(player,!event.sst_xuanyi?"fire":"thunder");
+						result.targets[0].damage(player,!event.sst_xuanyi?"fire":"thunder","nocard");
 					}
 				},
 				contentx:function(){
@@ -11763,7 +11859,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.targets.push(result.targets[0]);
 						player.logSkill("sst_fenshi",result.targets);
-						result.targets[0].damage(player);
+						result.targets[0].damage(player,"nocard");
 					}
 					else{
 						event.goto(4);
@@ -12318,7 +12414,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},card);
 					*/
 					"step 1"
-					target.damage(player);
+					target.damage(player,"nocard");
 				},
 				ai:{
 					order:1,
@@ -13249,7 +13345,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_nixi",result.targets);
-						result.targets[0].damage(player);
+						result.targets[0].damage(player,"nocard");
 					}
 					else{
 						event.finish();
@@ -14421,10 +14517,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_miqiang:"秘枪",
 			sst_miqiang_info:"你的攻击范围视为无限。",
 			sst_qiaoqi:"巧器",
+			sst_qiaoqi2:"巧器·木牛",
 			sst_qiaoqi4:"巧器",
-			sst_qiaoqi5:"巧器·流马",
 			sst_qiaoqi6:"巧器·木牛流马",
 			sst_qiaoqi6_bg:"<span class=\"bluetext\">辎</span>",
+			sst_qiaoqi7:"巧器·流马",
 			sst_qiaoqi_info:"出牌阶段限一次，你可以展示一张红色手牌并扣置于场上一张装备牌上，称为“辎”；有“辎”的装备牌视为拥有【木牛流马】的效果。",
 			sst_fumo:"附魔",
 			sst_fumo2:"附魔",
