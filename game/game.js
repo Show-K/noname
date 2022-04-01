@@ -10426,12 +10426,13 @@
 		},
 		translate:{
 			//New
+			braces:'｛｝',
 			choose_to_use_skip:"跳过",
 			choose_to_use_finish:"结束",
 			choose_to_use_finish_first:"首先",
-			pileTop:"牌堆顶",
-			pileBottom:"牌堆底",
-			viewHandcard:"可见",
+			pileTop:'牌堆顶',
+			pileBottom:'牌堆底',
+			viewHandcard:'可见',
 			//New end
 			flower:'鲜花',
 			egg:'鸡蛋',
@@ -17391,6 +17392,45 @@
 			},
 			player:{
 				//SST new add
+				initBraces:function(num,forced){
+					if(this.bracesInited()&&!forced) return;
+					if(typeof num!='number') num=1;
+					this.setBraces(num,false);
+				},
+				bracesInited:function(){
+					return typeof this.storage.braces=='number';
+				},
+				getBraces:function(){
+					if(!this.bracesInited()) return 1;
+					return this.storage.braces;
+				},
+				setBraces:function(num,log){
+					if(typeof num!='number') return;
+					if(log!==false){
+						game.log(this,'的','#g｛｝','内数值变为',num);
+					}
+					this.storage.braces=num;
+					this.syncStorage('braces');
+					this.markSkill('braces');
+				},
+				addBraces:function(num,log){
+					if(typeof num!='number') num=1;
+					if(!this.bracesInited()) this.initBraces();
+					if(log!==false){
+						game.log(this,'的','#g｛｝','内数值+',num);
+					}
+					this.addMark('braces',num,false);
+				},
+				removeBraces:function(num,log){
+					if(typeof num!='number') num=1;
+					if(!this.bracesInited()) return;
+					if(log!==false){
+						game.log(this,'的','#g｛｝','内数值-',num);
+					}
+					this.storage.braces-=num;
+					this.syncStorage('braces');
+					this.markSkill('braces');
+				},
 				getHp:function(){
 					return Math.max(0,this.hp);
 				},
@@ -27263,6 +27303,11 @@
 		},
 		skill:{
 			//New
+			braces:{
+				intro:{
+					content:'#'
+				}
+			},
 			choose_to_use_skip:{
 				mark:true,
 				charlotte:true,
