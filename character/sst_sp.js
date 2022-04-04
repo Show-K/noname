@@ -1174,7 +1174,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				intro:{
 					content:function(storage,player){
-						return "本回合你的手牌上限-"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
+						return "本回合你的手牌上限+"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
 					}
 				},
 				onremove:function(player){

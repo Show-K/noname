@@ -1,6 +1,9 @@
 "use strict";
 (function(){
 	var _status={
+		//New add
+		discarded:[],
+		//New add end
 		paused:false,
 		paused2:false,
 		paused3:false,
@@ -11752,7 +11755,6 @@
 						},player);
 					}
 					_status.currentPhase=player;
-					_status.discarded=[];
 					game.phaseNumber++;
 					player.phaseNumber++;
 					game.syncState();
@@ -16502,9 +16504,6 @@
 							evt.orderingCards.addArray(ss);
 						}
 					}
-					else if(event.position==ui.cardPile){
-						game.updateRoundNumber();
-					}
 					event.hs=hs;
 					event.es=es;
 					event.js=js;
@@ -16577,6 +16576,7 @@
 							game.delayx();
 						}
 					}
+					game.updateRoundNumber();
 				},
 				damage:function(){
 					"step 0"
@@ -17395,7 +17395,7 @@
 				initBraces:function(num,forced){
 					if(this.bracesInited()&&!forced) return;
 					if(typeof num!='number') num=1;
-					this.setBraces(num,false);
+					this.storage.braces=num;
 				},
 				bracesInited:function(){
 					return typeof this.storage.braces=='number';
@@ -35403,7 +35403,7 @@
 			game.broadcastAll(function(num1,num2,num3,top){
 				if(ui.cardPileNumber) ui.cardPileNumber.innerHTML=num1+'轮 剩余牌: '+num2+' 弃牌堆: '+num3;
 				_status.pileTop=top;
-			},game.roundNumber,ui.cardPile.childNodes.length,ui.discardPile.childNodes.length,ui.cardPile.firstChild);
+			},game.roundNumber,ui.cardPile.childNodes.length,_status.discarded.length,ui.cardPile.firstChild);
 		},
 		asyncDraw:function(players,num,drawDeck,bottom){
 			for(var i=0;i<players.length;i++){
@@ -47430,10 +47430,10 @@
 
 				uiintro.add('<div class="text center">轮数 <span style="font-family:fzhtk">'+game.roundNumber+'</span>&nbsp;&nbsp;&nbsp;&nbsp;洗牌 <span style="font-family:fzhtk">'+game.shuffleNumber+'</div>');
 				uiintro.add('<div class="text center">弃牌堆</div>');
-				if(ui.discardPile.childNodes.length){
+				if(_status.discarded.length){
 					var list=[];
-					for(var i=0;i<ui.discardPile.childNodes.length;i++){
-						list.unshift(ui.discardPile.childNodes[i]);
+					for(var i=0;i<_status.discarded.length;i++){
+						list.unshift(_status.discarded[i]);
 					}
 					uiintro.addSmall([list,'card']);
 				}
@@ -49989,9 +49989,9 @@
 				node.animate('start');
 				ui.sidebar3.innerHTML='';
 				if(lib.config.show_discardpile){
-					for(var i=0;i<ui.discardPile.childNodes.length;i++){
+					for(var i=0;i<_status.discarded.length;i++){
 						var div=ui.create.div(ui.sidebar3);
-						div.innerHTML=get.translation(ui.discardPile.childNodes[i]);
+						div.innerHTML=get.translation(_status.discarded[i]);
 						ui.sidebar3.insertBefore(div,ui.sidebar3.firstChild);
 					}
 				}

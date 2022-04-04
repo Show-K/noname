@@ -219,7 +219,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				game.broadcastAll(function(num1,num2,num3,top){
 					if(ui.cardPileNumber) ui.cardPileNumber.innerHTML=num1+'轮 剩余牌: '+num2+' 弃牌堆: '+num3;
 					_status.pileTop=top;
-				},game.roundNumber,ui.cardPile.childNodes.length,ui.discardPile.childNodes.length,ui.cardPile.firstChild);
+				},game.roundNumber,ui.cardPile.childNodes.length,_status.discarded.length,ui.cardPile.firstChild);
 			},
 			getRoomInfo:function(uiintro){
 				uiintro.add('<div class="text chat">双将模式：'+(lib.configOL.double_character?'开启':'关闭'));
