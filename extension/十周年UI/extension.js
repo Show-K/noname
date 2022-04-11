@@ -3906,6 +3906,8 @@ content:function(config, pack){
 								var num = 0;
 								if (typeof lib.skill[name].intro.markcount == 'function') {
 									num = lib.skill[name].intro.markcount(this.storage[name], this);
+								} else if (lib.skill[name].intro.markcount == 'expansion') {
+									num = this.countCards('x', (card) => card.hasGaintag(name));
 								} else if (typeof this.storage[name + '_markcount'] == 'number') {
 									num = this.storage[name + '_markcount'];
 								} else if (name == 'ghujia') {
@@ -5529,6 +5531,7 @@ content:function(config, pack){
 						chain: decadeUI.element.create('chain', player),
 						handcards1: ui.create.div('.handcards'),
 						handcards2: ui.create.div('.handcards'),
+						expansions: ui.create.div('.expansions'),
 					},
 					phaseNumber: 0,
 					skipList: [],

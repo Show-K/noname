@@ -16641,7 +16641,6 @@
 							evt.orderingCards.addArray(ss);
 						}
 					}
-					game.updateRoundNumber();
 					if(unmarks.length){
 						for(var i of unmarks){
 							player[(lib.skill[i]&&lib.skill[i].mark||player.hasCard((card)=>card.hasGaintag(i),'x'))?'markSkill':'unmarkSkill'](i);
@@ -16720,6 +16719,7 @@
 							game.delayx();
 						}
 					}
+					game.updateRoundNumber();
 				},
 				damage:function(){
 					"step 0"
