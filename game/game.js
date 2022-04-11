@@ -10181,8 +10181,8 @@
 			egg:'鸡蛋',
 			wine:'酒杯',
 			shoe:'拖鞋',
-			flowerSpam:'刷屏鲜花',
-			eggSpam:'刷屏鸡蛋',
+			flowerSpam:'连续鲜花',
+			eggSpam:'连续鸡蛋',
 			yuxisx:'玉玺',
 			jiasuo:'枷锁',
 			junk:'平凡',
@@ -53041,18 +53041,14 @@
 							game.send('throwEmotion',node,emotion);
 						}
 						else game.me.throwEmotion(node,emotion);
-						var repeat=function(num){
-							if(num>0){
-								setTimeout(function(){
-									if(game.online){
-										game.send('throwEmotion',node,emotion);
-									}
-									else game.me.throwEmotion(node,emotion);
-									repeat(num-1);
-								},125);
-							}
+						for(var i=0;i<15;i++){
+							setTimeout(function(){
+								if(game.online){
+									game.send('throwEmotion',node,emotion);
+								}
+								else game.me.throwEmotion(node,emotion);
+							},125*(i+1));
 						}
-						repeat(15);
 					};
 					var td;
 					var table=document.createElement('div');
