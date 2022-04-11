@@ -1,7 +1,8 @@
 window.noname_update={
-	version:'1.9.112.3SST',
-	update:'1.9.112.2SST2',
+	version:'1.9.113.1SST',
+	update:'1.9.112.3SST',
 	changeLog:[
+		'功能性更新：E(x)pansion区域独立化（武将牌上的牌所在区域）',
 		'体力上限逐渐增加 升哥',
 		'大数无效回复应变 派派',
 		'破军卸甲死亡摸牌 吞食花',

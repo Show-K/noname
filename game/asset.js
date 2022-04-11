@@ -387,6 +387,7 @@ window.noname_asset_list=[
 	'audio/effect/tie.mp3',
 	'audio/effect/win.mp3',
 	'audio/effect/tori_no_uta.mp3',
+	'audio/effect/taketori_hishou.mp3',
 
 	'audio/skill/bagua_skill.mp3',
 	'audio/skill/baiyin_skill.mp3',
