@@ -194,6 +194,65 @@
 	animation: dialog_start2 0.3s;
 	-webkit-animation: dialog_start2 0.3s;
 }
+.removing>.menubg.characterstats{
+	transform: scale(0.8);
+	opacity: 0;
+	transition: all 0.3s;
+}
+.menubg.characterstats{
+	width: 500px;
+	height: 48px;
+	left: calc(50% - 250px);
+	top: calc(50% - 208px);
+	animation: dialog_start2 0.3s;
+	-webkit-animation: dialog_start2 0.3s;
+}
+.menubg.characterstats>.text{
+	font-family: 'fzhtk';
+	font-size: 24px;
+	z-index: 2;
+	color: white;
+	text-shadow: black 0 0 3px;
+	height: 24px;
+	line-height: 24px;
+	pointer-events: none;
+}
+.menubg.characterstats>.text.fragstat{
+	right: 73.5%;
+	font-weight: bolder;
+}
+.menubg.characterstats>.text.frag{
+	right: 57%;
+	opacity: 0.6;
+}
+.menubg.characterstats>.text.step{
+	left: 57%;
+	opacity: 0.6;
+}
+.menubg.characterstats>.text.stepstat{
+	left: 73.5%;
+	font-weight: bolder;
+}
+.menubg.characterstats>.text.typestat{
+	bottom: 0%;
+	right: 73.5%;
+	font-weight: bolder;
+}
+.menubg.characterstats>.text.type{
+	bottom: 0%;
+	right: 57%;
+	opacity: 0.6;
+}
+.menubg.characterstats>.text.over{
+	bottom: 0%;
+	left: 57%;
+	opacity: 0.6;
+}
+.menubg.characterstats>.text.overstat{
+	bottom: 0%;
+	left: 73.5%;
+	font-weight: bolder;
+}
 .menubg.charactercard>.menubutton.large.ava{
 	width: 180px;
 	height: 240px;

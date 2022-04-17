@@ -8,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_bandana_waddle_dee"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_xsj:["xsj_yu_narukami"],
@@ -35,7 +35,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
-			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]]
+			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
+			ska_bandana_waddle_dee:["male","sst_spirit",3,["ska_qiangdu","ska_mengchen"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -208,7 +209,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			鸣上悠是Atlus开发的《女神异闻录》系列中的一个虚构角色，作为2008年角色扮演视频游戏《女神异闻录4》的主角首次亮相。在游戏中，鸣上悠本身不说话，其思想和行动由玩家决定。作为一名高中生，他搬到远离城市的农村地区稻叶，与他的叔叔堂岛辽太郎和表弟菜菜子住在一起，而他的父母正忙于工作。抵达稻叶后不久，鸣上悠开始调查一起谋杀案，受害者在他居住的小镇上被神秘绑架并挂在电话线上。他与同学们合作，探索另一个被称为电视世界的维度，在那里他获得了一种被称为“Persona”的力量——他潜意识的物理表现，以对抗并击败谋杀第一批受害者的生物Shadows。鸣上悠还出现在与《女神异闻录4》相关的其他作品中，包括名为《女神异闻录4 动画》的动画改编、漫画版和几款衍生游戏。对于这些作品，鸣上悠在故事中得到了自己的刻画和发展。<br>\
 			——翻译自《维基百科》<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			总算有新人来设计武将了。"
+			总算有新人来设计武将了。",
+			ska_bandana_waddle_dee:"武将作者：Show-K<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
+			系列：Kirby（星之卡比）<br>\
+			初登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
+			头巾瓦豆鲁迪并非一个种群，而是指一位特定的戴蓝色头巾的瓦豆鲁迪。他是族群中的精英，使得一手好长枪，自《星之卡比：重返梦幻岛》以来多次作为可操作角色出场，可以用长枪使出暴风骤雨般的攻击。他直接效忠于帝帝帝大王，但同时也是卡比最好的朋友之一。目前他在星之卡比系列中的戏份地位堪比主角，仅次于卡比，帝帝帝大王，魅塔骑士。如果星之卡比系列还有人能够参战大乱斗，他将是最有竞争力的候选人之一。<br>\
+			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			一是为了蹭《星之卡比 探索发现》的热度，二是为了庆祝无名杀武将牌上牌机制变革，三是为了调侃卡比四人组中就剩他一直没有参战了。"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -230,7 +240,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:"卓越的战术师",
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
-			xsj_yu_narukami:"钢之妹控番长"
+			xsj_yu_narukami:"钢之妹控番长",
+			ska_bandana_waddle_dee:"最佳拍档"
 		},
 		skill:{
 			//SP Isabelle
@@ -2109,6 +2120,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_yuanlei2:{
 				trigger:{player:"useCardAfter"},
 				forced:true,
+				popup:false,
 				filter:function(event,player){
 					return event.skill=="nnk_yuanlei"&&game.cardCausedDamage(event.card)&&event.cards&&event.cards.length;
 				},
@@ -2393,6 +2405,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var card=game.createCard("lebu","","");
 					player.chooseUseTarget(card,false).set("prompt",get.prompt("xsj_dongqie2")).set("prompt2",get.translation("xsj_dongqie_info")).set("logSkill","xsj_dongqie2");
 					card._destroy=true;
+					card.expired=true;
 					/*
 					game.broadcastAll(function(card){
 						card._destroy=true;
@@ -2416,6 +2429,192 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					var respond=trigger.respondTo[1];
 					if(respond&&respond.cards&&respond.cards.filterInD("od").length) player.gain(respond.cards.filterInD("od"),"gain2");
+				}
+			},
+			//Bandana Waddle Dee
+			ska_qiangdu:{
+				direct:true,
+				trigger:{
+					player:"loseAfter",
+					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","addToExpansionAfter"]
+				},
+				filter:function(event,player){
+					if(!player.countCards("he")) return false;
+					var evt=event.getl(player);
+					if(evt){
+						if(event.visible&&evt.hs&&evt.hs.length){
+							for(var i of evt.hs){
+								if(get.suit(i,player)=="spade") return true;
+							}
+						}
+						if(evt.es&&evt.es.length){
+							for(var i of evt.es){
+								if(get.suit(i,player)=="spade") return true;
+							}
+						}
+						if(evt.js&&evt.js.length){
+							for(var i of evt.js){
+								if(get.suit(i,player)=="spade") return true;
+							}
+						}
+					}
+					return false;
+				},
+				content:function(){
+					"step 0"
+					player.chooseCardTarget({
+						filterCard:function(){
+							return lib.filter.cardDiscardable.apply(this,arguments);
+						},
+						position:"he",
+						filterTarget:function(card,player,target){
+							return player.inRange(target);
+						},
+						ai1:function(card){
+							var val=5-get.useful(card);
+							if(get.suit(card,player)=="spade") val+=2;
+							return val;
+						},
+						ai2:function(target){
+							return get.damageEffect(target,_status.event.player,_status.event.player);
+						},
+						prompt:get.prompt("ska_qiangdu"),
+						prompt2:get.skillInfoTranslation("ska_qiangdu")
+					});
+					"step 1"
+					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.logSkill("ska_qiangdu",event.target);
+						player.discard(result.cards);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					var str="枪笃：打出一张基本牌";
+					if(event.target.countCards("sx")){
+						str+="（或取消并改为决定是否将武将牌上一张牌置入弃牌堆）";
+					}
+					else{
+						str+="，否则"+get.translation(player)+"对你造成1点伤害";
+					}
+					event.target.chooseToRespond(str,function(card){
+						return get.type(card)=="basic";
+					}).set("ai",function(card){
+						var evt=_status.event.getParent();
+						if(get.damageEffect(evt.target,evt.player,evt.target)>=0) return 0;
+						return get.order(card);
+					}).set("position","hes");
+					"step 3"
+					if(result.card){
+						event.finish();
+					}
+					else if(event.target.countCards("sx")){
+						event.target.chooseCardButton("枪笃：将武将牌上一张牌置入弃牌堆，否则"+get.translation(player)+"对你造成1点伤害",event.target.getCards("sx")).set("ai",function(button){
+							return 11-get.useful(button.link);
+						});
+					}
+					else{
+						event.target.damage(player);
+						event.finish();
+					}
+					"step 4"
+					if(result.links&&result.links.length){
+						event.target.loseToDiscardpile(result.links);
+					}
+					else{
+						event.target.damage(player);
+					}
+				},
+				ai:{
+					expose:0.2,
+					effect:{
+						player:function(card){
+							if(card.suit=="spade") return [1,1];
+						}
+					}
+				}
+			},
+			ska_mengchen:{
+				direct:true,
+				trigger:{player:"damageEnd"},
+				content:function(){
+					"step 0"
+					event.count=trigger.num;
+					"step 1"
+					if(event.count){
+						event.count--;
+						player.chooseTarget(get.prompt2("ska_mengchen")).set("ai",function(target){
+							return get.rawAttitude(_status.event.player,target);
+						});
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.logSkill("ska_mengchen",event.target);
+						event.cards=[];
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					player.draw();
+					"step 4"
+					player.chooseToDiscard("盟谌：弃置一张牌","he",true);
+					"step 5"
+					if(result.cards&&result.cards.length){
+						event.cards.addArray(result.cards);
+					}
+					"step 6"
+					event.target.draw();
+					"step 7"
+					event.target.chooseToDiscard("盟谌：弃置一张牌","he",true).set("ai",function(card){
+						var val=get.unuseful(card);
+						var cards=_status.event.getParent().cards;
+						if(cards.length&&get.color(card)==get.color(cards[0])) val+=5;
+						return val;
+					});
+					"step 8"
+					if(result.cards&&result.cards.length){
+						event.cards.addArray(result.cards);
+					}
+					"step 9"
+					if(event.cards.length){
+						var identical=true;
+						var color=get.color(event.cards[0]);
+						for(var i=1;i<event.cards.length;i++){
+							if(get.color(event.cards[i])!=color){
+								identical=false;
+								break;
+							}
+						}
+						if(identical){
+							event.target.chooseCardButton("盟谌：你可以使用"+get.translation(event.cards)+"中的一张牌",event.cards).set("filterButton",function(button){
+								return ["o","d"].contains(get.position(button.link,true))&&_status.event.player.hasUseTarget(button.link);
+							}).set("ai",function(button){
+								return _status.event.player.getUseValue(button.link);
+							});
+						}
+						else{
+							event.goto(1);
+						}
+					}
+					else{
+						event.goto(1);
+					}
+					"step 10"
+					if(result.links&&result.links.length){
+						event.target.chooseUseTarget(result.links[0],false);
+					}
+					event.goto(1);
+				},
+				ai:{
+					expose:0.2,
+					maixie:true,
+					maixie_hp:true
 				}
 			}
 		},
@@ -2465,10 +2664,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"不来方夕莉",
 			ymk_tianyi:"天翊",
 			xsj_yu_narukami:"鸣上悠",
+			ska_bandana_waddle_dee:"头巾瓦豆鲁迪",
 			//Character ab.
 			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
 			mnm_9_volt_18_volt_ab:"九伏十八伏",
+			ska_bandana_waddle_dee_ab:"瓦豆鲁迪",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2561,6 +2762,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_dongqie_info:"回合开始时，你可以摸一张牌并展示之。本回合你使用与之花色相同的【杀】或带有「伤害」标签的锦囊牌结算后，若对其他角色造成了伤害，你可以视为对一名角色使用【乐不思蜀】。",
 			xsj_taluo:"塔罗",
 			xsj_taluo_info:"当你使用或打出牌响应【杀】或带有「伤害」标签的锦囊牌后，你可以获得被响应的牌。",
+			ska_qiangdu:"枪笃",
+			ska_qiangdu_info:"当你的♠牌正面向上离开你的区域后，你可以弃置一张牌，令攻击范围内的一名角色除非打出一张基本牌或将其武将牌上一张牌置入弃牌堆，否则你对其造成1点伤害。",
+			ska_mengchen:"盟谌",
+			ska_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌。若弃置牌颜色相同，其可以使用其中一张牌。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2592,7 +2797,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_female:"SP Robin",
 			alz_yuri_kozukata:"Yuri Kozukata",
 			ymk_tianyi:"Tianyi",
-			xsj_yu_narukami:"Yu Narukami"
+			xsj_yu_narukami:"Yu Narukami",
+			ska_bandana_waddle_dee:"Bandana Waddle Dee"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2608,7 +2814,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
-			xsj_yu_narukami:["sst_joker"]
+			xsj_yu_narukami:["sst_joker"],
+			ska_bandana_waddle_dee:["sst_kirby","sst_meta_knight","sst_king_dedede"]
 		}
 	};
 	return sst_sp;

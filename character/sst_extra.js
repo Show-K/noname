@@ -263,7 +263,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.showCards(event.card);
 					"step 1"
 					player.chooseToRespond("复愿：你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1，然后若与"+get.translation(event.card)+"的点数相同，你可以令一名角色一个限定技视为未发动过").set("ai",function(card){
-						var player=_status.event.player;
 						var cardx=_status.event.cardx;
 						var num=5-get.value(card);
 						if(get.number(card)==get.number(cardx)&&game.hasPlayer(function(current){

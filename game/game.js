@@ -10626,20 +10626,122 @@
 		element:{
 			content:{
 				//New
+				chooseToComparePileTop:function(){
+					'step 0'
+					if(((!event.fixedResult||!event.fixedResult[player.playerid])&&player.countCards('h')==0)||!ui.cardPile.childNodes.length){
+						event.result={cancelled:true,bool:false};
+						return;
+					}
+					game.log(player,'对','#b牌堆顶','发起拼点');
+					event.lose_list=[];
+					'step 1'
+					if(event.fixedResult&&event.fixedResult[player.playerid]){
+						event.card1=event.fixedResult[player.playerid];
+						event.lose_list.push([player,event.card1]);
+					}
+					else{
+						event.localPlayer=true;
+						player.chooseCard('请选择拼点牌',true).set('type','compare').set('glow_result',true).ai=event.ai;
+					}
+					'step 2'
+					if(event.localPlayer){
+						if(result.skill&&lib.skill[result.skill]&&lib.skill[result.skill].onCompare){
+							result.cards=lib.skill[result.skill].onCompare(player);
+							player.logSkill(result.skill);
+						}
+						else event.lose_list.push([player,result.cards[0]]);
+						event.card1=result.cards[0];
+					}
+					'step 3'
+					var card=get.cards()[0];
+					//event.lose_list.push([player,card]);
+					event.card2=card;
+					'step 4'
+					if(event.lose_list.length){
+						game.loseAsync({
+							lose_list:event.lose_list,
+						}).setContent('chooseToCompareLose');
+					}
+					if(event.card2) game.cardsGotoOrdering(event.card2);
+					'step 5'
+					game.broadcast(function(){
+						ui.arena.classList.add('thrownhighlight');
+					});
+					ui.arena.classList.add('thrownhighlight');
+					game.addVideo('thrownhighlight1');
+					player.$compare(event.card1,player,event.card2);
+					game.log(player,'的拼点牌为',event.card1);
+					game.log('#b牌堆顶','的拼点牌为',event.card2);
+					event.num1=event.card1.number;
+					event.num2=event.card2.number;
+					event.trigger('compare');
+					game.delay(0,1500);
+					'step 6'
+					event.result={
+						player:event.card1,
+						target:event.card2,
+						num1:event.num1,
+						num2:event.num2
+					};
+					var str;
+					if(event.num1>event.num2){
+						event.result.bool=true;
+						event.result.winner=player;
+						str=get.translation(player)+'拼点成功';
+						player.popup('胜');
+					}
+					else{
+						event.result.bool=false;
+						str=get.translation(player)+'拼点失败';
+						if(event.num1==event.num2){
+							event.result.tie=true;
+							player.popup('平');
+						}
+						else{
+							event.result.winner=null;
+							player.popup('负');
+						}
+					}
+					game.broadcastAll(function(str){
+						var dialog=ui.create.dialog(str);
+						dialog.classList.add('center');
+						setTimeout(function(){
+							dialog.close();
+						},1000);
+					},str);
+					game.delay(2);
+					'step 7'
+					game.broadcastAll(function(){
+						ui.arena.classList.remove('thrownhighlight');
+					});
+					game.addVideo('thrownhighlight2');
+					if(event.clear!==false){
+						game.broadcastAll(ui.clear);
+					}
+					if(typeof event.preserve=='function'){
+						event.preserve=event.preserve(event.result);
+					}
+					else if(event.preserve=='win'){
+						event.preserve=event.result.bool;
+					}
+					else if(event.preserve=='lose'){
+						event.preserve=!event.result.bool;
+					}
+				},
 				judgeCard:function(){
-					"step 0"
-					if(typeof event.card=="string"){
-						event.card=game.createCard(event.card,"","");
+					'step 0'
+					if(typeof event.card=='string'){
+						event.card=game.createCard(event.card,'','');
 						event.card._destroy=true;
 						event.card.expired=true;
 					}
-					"step 1"
-					//player.lose(event.card,"visible",ui.ordering);
+					'step 1'
+					//player.lose(event.card,'visible',ui.ordering);
 					player.$phaseJudge(event.card);
 					event.cancelled=false;
-					event.trigger("judgeCard");
+					event.trigger('judgeCard');
 					var name=event.card.viewAs||event.card.name;
-					player.popup(name,"thunder");
+					player.popup(name,'thunder');
 					if(!lib.card[name].effect){
 						game.delay();
 						event.finish();
@@ -10648,13 +10750,13 @@
 						game.delay();
 						event.nojudge=true;
 					}
-					"step 2"
+					'step 2'
 					if(!event.cancelled&&!event.nojudge) player.judge(event.card);
-					"step 3"
+					'step 3'
 					var name=event.card.viewAs||event.card.name;
 					if(event.cancelled&&!event.direct){
 						if(lib.card[name].cancel){
-							var next=game.createEvent(name+"Cancel");
+							var next=game.createEvent(name+'Cancel');
 							next.setContent(lib.card[name].cancel);
 							next.card=event.card;
 							next.cards=[event.card];
@@ -17535,6 +17637,39 @@
 			},
 			player:{
 				//SST new add
+				canComparePlayer:function(){
+					if(!this.countCards('h')) return false;
+					if(this.hasSkillTag('noCompareSource')) return false;
+					return true;
+				},
+				chooseToComparePileTop:function(check){
+					var next=game.createEvent('chooseToCompare');
+					next.set('player',this);
+					if(check){
+						next.set('ai',check);
+					}
+					else{
+						next.set('ai',function(card){
+							if(typeof card=='string'&&lib.skill[card]){
+								var ais=lib.skill[card].check||function(){return 0};
+								return ais();
+							}
+							var player=get.owner(card);
+							var getn=function(card){
+								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13;
+								return get.number(card);
+							};
+							var event=_status.event.getParent();
+							var addi=(get.value(card)>=8&&get.type(card)!='equip')?-10:0;
+							if(card.name=='du') addi+=5;
+							return getn(card)-get.value(card)/2+addi;
+						});
+					}
+					next.setContent('chooseToCompare');
+					next.forceDie=true;
+					next._args=Array.from(arguments);
+					return next;
+				},
 				initBraces:function(num,forced){
 					if(this.bracesInited()&&!forced) return;
 					if(typeof num!='number') num=1;
@@ -17598,7 +17733,7 @@
 					return list;
 				},
 				getLastRoundHistory:function(round,key,filter,last){
-					if(typeof round!="number"||!round) round=1;
+					if(typeof round!='number'||!round) round=1;
 					var list=[];
 					var all=[];
 					for(var i=this.actionHistory.length-1;i>=0;i--){
@@ -17631,11 +17766,17 @@
 					return list;
 				},
 				judgeCard:function(card){
-					var next=game.createEvent("judgeCard");
+					var next=game.createEvent('judgeCard');
 					next.player=this;
 					next.card=card;
-					next.setContent("judgeCard");
+					next.setContent('judgeCard');
 					return next;
+				},
+				canCompareTarget:function(target){
+					if(this==target) return false;
+					if(!target.countCards('h')) return false;
+					if(this.hasSkillTag('noCompareSource')||target.hasSkillTag('noCompareTarget')) return false;
+					return true;
 				},
 				phaseRealtime:function(skill){
 					var next=game.createEvent("phase");
@@ -17684,12 +17825,6 @@
 					next.source=next.player;
 					next.setContent("phaseDiscard");
 					return next;
-				},
-				canCompareTarget:function(target){
-					if(this==target) return false;
-					if(!target.countCards("h")) return false;
-					if(this.hasSkillTag("noCompareSource")||target.hasSkillTag("noCompareTarget")) return false;
-					return true;
 				},
 				//SST new add end
 				//新函数
@@ -29597,6 +29732,21 @@
 	};
 	var game={
 		//New add
+		findPlayersByPlayerid:function(playerid){
+			if(Array.isArray(playerid)){
+				return game.filterPlayer2(function(current){
+					return playerid.contains(current.playerid);
+				})
+			}
+			return game.filterPlayer2(function(current){
+				return current.playerid==playerid;
+			});
+		},
+		findPlayerByPlayerid:function(playerid){
+			return game.findPlayer2(function(current){
+				return current.playerid==playerid;
+			});
+		},
 		createCard3:function(name,suit,number,nature,tag){
 			if(typeof name=='object'){
 				nature=name.nature;
@@ -49796,6 +49946,17 @@
 					if(resume) game.resume2();
 					return false;
 				}
+				//New add
+				var characterstats=ui.create.div('.menubg.characterstats',layer);
+				ui.create.div('.text.fragstat',get.frag(name).toString(),characterstats);
+				ui.create.div('.text.frag','FRAG',characterstats);
+				ui.create.div('.text.step','STEP',characterstats);
+				ui.create.div('.text.stepstat',get.step(name).toString(),characterstats);
+				ui.create.div('.text.typestat',get.skillType(name),characterstats);
+				ui.create.div('.text.type','TYPE',characterstats);
+				ui.create.div('.text.over','OVER',characterstats);
+				ui.create.div('.text.overstat',get.over(name).toString(),characterstats);
+				//New add end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
 				var playerbg=ui.create.div('.menubutton.large.ava',uiintro);
 				var bg=ui.create.div('.avatar',playerbg,function(){
@@ -51042,6 +51203,46 @@
 		},
 	};
 	var get={
+		//New add
+		frag:function(name){
+			if(name&&lib.character[name]&&lib.character[name][4]){
+				for(var i of lib.character[name][4]){
+					if(i.indexOf('frag:')==0) return parseInt(i.split(':').slice(1));
+				}
+			}
+			return 50;
+		},
+		step:function(name){
+			if(name&&lib.character[name]&&lib.character[name][4]){
+				for(var i of lib.character[name][4]){
+					if(i.indexOf('step:')==0) return parseInt(i.split(':').slice(1));
+				}
+			}
+			return 50;
+		},
+		skillType:function(name){
+			var map={
+				support:'支援型',
+				balance:'平衡型',
+				challenge:'挑战型',
+				unknown:'???'
+			};
+			if(name&&lib.character[name]&&lib.character[name][4]){
+				for(var i of lib.character[name][4]){
+					if(i.indexOf('skillType:')==0) return map[i.split(':').slice(1)];
+				}
+			}
+			return '平衡型';
+		},
+		over:function(name){
+			if(name&&lib.character[name]&&lib.character[name][4]){
+				for(var i of lib.character[name][4]){
+					if(i.indexOf('over:')==0) return parseInt(i.split(':').slice(1));
+				}
+			}
+			return 50;
+		},
+		//New add end
 		connectNickname:function(){
 			return typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家';
 		},

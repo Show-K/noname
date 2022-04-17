@@ -7,11 +7,14 @@ window.noname_update={
 		'大数无效回复应变 派派',
 		'破军卸甲死亡摸牌 吞食花',
 		'虚拟延时响应反甲 鸣上悠',
+		'（实验）弃置外牌打出双赢 头巾瓦豆鲁迪',
 		'代码优化',
 		'bug修复',
 		'其他'
 	],
 	files:[
+		'layout/default/layout.css',
+		'layout/default/menu.css',
 		'extension/十周年UI/assets/image/item_bg.png',
 		'extension/十周年UI/assets/image/rarity_common.png',
 		'extension/十周年UI/assets/image/rarity_epic.png',
@@ -43,7 +46,7 @@ window.noname_update={
 		'card/zhenfa.js',
 		'card/zhulu.js',
 		'character/rank.js',
-		'extension/boss/extension.js',
+		//'extension/boss/extension.js',
 		//Decade UI
 		'extension/十周年UI/animation.css',
 		'extension/十周年UI/animation.js',
@@ -76,7 +79,7 @@ window.noname_update={
 		'mode/versus.js',
 		'game/game.js',
 		'game/keyWords.js',
-		'game/NoSleep.js',
+		//'game/NoSleep.js',
 		'game/config.js',
 		'game/package.js',
 		'game/asset.js',

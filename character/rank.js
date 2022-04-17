@@ -155,7 +155,8 @@ window.noname_character_rank={
 			"sst_paipai",
 			"xsj_yu_narukami",
 			"sst_luigi",
-			"sst_min_min"
+			"sst_min_min",
+			"ska_bandana_waddle_dee"
 		],
 		junk:[]
 	}

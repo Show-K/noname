@@ -2416,7 +2416,8 @@ content:function(config, pack){
 						event.cards.reverse();
 					
 					event.stockcards = cards.concat();
-					var hs = [], es = [], js = [], ss = [];
+					var hs = [], es = [], js = [], ss = [], xs = [];
+					var unmarks = [];
 					var cards = event.cards;
 					var gainmap = event.gaintag_map = {};
 					var be = event.blameEvent;
@@ -2436,7 +2437,7 @@ content:function(config, pack){
 					
 					
 					var card, pileNode;
-					var hej = player.getCards('hejs');
+					var hej = player.getCards('hejsx');
 					for (var i = 0; i < cards.length; i++) {
 						card = cards[i];
 						if (card.gaintag && card.gaintag.length) {
@@ -2455,6 +2456,10 @@ content:function(config, pack){
 							} else if (pileNode.classList.contains('judges')) {
 								js.push(card);
 								card.throwWith = card.original = 'j';
+							} else if (pileNode.classList.contains('expansions')) {
+								xs.push(card);
+								card.throwWith = card.original = 'x';
+								if (card.gaintag && card.gaintag.length) unmarks.addArray(card.gaintag);
 							} else if (pileNode.classList.contains('handcards')) {
 								if (card.classList.contains('glows')) {
 									ss.push(card);
@@ -2555,7 +2560,7 @@ content:function(config, pack){
 						}
 					}
 					
-					game.addVideo('lose', player, [get.cardsInfo(hs), get.cardsInfo(es), get.cardsInfo(js), get.cardsInfo(ss)]);
+					game.addVideo('lose', player, [get.cardsInfo(hs), get.cardsInfo(es), get.cardsInfo(js), get.cardsInfo(ss), get.cardsInfo(xs)]);
 					event.cards2 = hs.concat(es);
 					player.getHistory('lose').push(event);
 					game.getGlobalHistory().cardMove.push(event);
@@ -2579,10 +2584,16 @@ content:function(config, pack){
 						game.updateRoundNumber();
 					}
 					if (event.toRenku) _status.renku.addArray(cards);
+					if (unmarks.length) {
+						for (var i of unmarks) {
+							player[(lib.skill[i] && lib.skill[i].mark || player.hasCard((card) => card.hasGaintag(i), 'x')) ? 'markSkill' : 'unmarkSkill'](i);
+						}
+					}
 					event.hs = hs;
 					event.es = es;
 					event.js = js;
 					event.ss = ss;
+					event.xs = xs;
 					"step 1"
 					if (num < cards.length) {
 						if (event.es.contains(cards[num])) {
