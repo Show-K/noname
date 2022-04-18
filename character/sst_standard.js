@@ -5192,12 +5192,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.num1=1;
 						event.num2=1;
 						var controls=["draw_card"];
-						if(event.players[event.num].isDamaged()){
+						if(event.players[event.num].getDamagedHp()){
 							event.num2=Math.min(event.num2,event.players[event.num].maxHp-event.players[event.num].hp);
 							controls.push("recover_hp");
 						}
 						controls.push("cancel2");
-						var prompt="星火：";
+						var prompt="";
 						if(event.players[event.num].isHealthy()){
 							prompt+="你可以令"+get.translation(event.players[event.num])+"摸一张牌";
 						}
@@ -5568,7 +5568,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.cards&&result.cards.length){
 						player.logSkill("sst_xiandu",trigger.player);
 						player.addToExpansion(result.cards,player,"giveAuto").gaintag.add("sst_xiandu");
-						game.delayx();
 					}
 				},
 				group:["sst_xiandu2","sst_xiandu3"]
@@ -5623,7 +5622,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return player.getExpansions("sst_xiandu").length;
 				},
 				content:function(){
-					player.loseToDiscardpile(player.getExpansions("sst_xiandu"));
+					lib.skill.sst_xiandu.onremove(player,"sst_xiandu");
 				}
 			},
 			//Isabelle
@@ -5933,8 +5932,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return true;
 				},
 				check:function(card){
-					var num=_status.event.player.getStat("skill").sst_canyun||0;
-					return 6-num-get.value(card);
+					return 5-get.value(card);
 				},
 				position:"he",
 				delay:false,
@@ -5980,8 +5978,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							for(var i=0;i<players.length;i++){
 								eff=Math.max(eff,get.effect(players[i],{name:"juedou"},player,player));
 							}
-							var num=player.getStat("skill").sst_canyun||0;
-							return Math.cbrt(eff)-num/2;
+							return Math.cbrt(eff);
 						}
 					}
 				}
@@ -12606,10 +12603,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							replace:{window:function(){}}
 						});
 						next.set("filterTarget",function(card,player,target){
-							if(!_status.event.players.contains(target)) return false;
+							var players=_status.event.getParent().players;
+							if(!players.contains(target)) return false;
 							return lib.filter.targetEnabled.apply(this,arguments);
 						});
-						next.set("players",event.players);
 					}
 					else{
 						event.goto(3);
@@ -13546,8 +13543,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								att=Math.sqrt(att);
 							}
 							var val=0;
-							for(var i=0;i<_status.event.cardsx.length;i++){
-								val+=get.value(_status.event.cardsx[i]);
+							var cards=_status.event.getParent().cards;
+							for(var i=0;i<cards.length;i++){
+								val+=get.value(cards[i]);
 							}
 							if(val<0){
 								val=-Math.sqrt(-val);
@@ -13556,7 +13554,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								val=Math.sqrt(val);
 							}
 							return get.recoverEffect(target,player,player)>att*val?"选项一":"选项二";
-						}).set("targetx",player).set("cardsx",event.cards).set("choiceList",["令"+get.translation(player)+"回复1点体力","令"+get.translation(player)+"获得"+get.translation(event.cards)]);
+						}).set("targetx",player).set("choiceList",["令"+get.translation(player)+"回复1点体力","令"+get.translation(player)+"获得本回合内进入弃牌堆的牌"+(event.cards.length?"（"+get.translation(event.cards)+"）":"")]);
 					}
 					else{
 						event.finish();

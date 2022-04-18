@@ -2424,7 +2424,7 @@ content:function(config, pack){
 					var pe = event.getParent();
 					var pename = pe.name;
 					
-					if (be == undefined && pename != 'discard' && event.type != 'discard') {
+					if (be == undefined && pename != 'discard' && event.type != 'discard' && pename != 'loseToDiscardpile' && event.type != 'loseToDiscardpile') {
 						event.animate = false;
 						event.delay = false;
 					} else {
@@ -2440,10 +2440,6 @@ content:function(config, pack){
 					var hej = player.getCards('hejsx');
 					for (var i = 0; i < cards.length; i++) {
 						card = cards[i];
-						if (card.gaintag && card.gaintag.length) {
-							gainmap[card.cardid] = card.gaintag.concat();
-							card.removeGaintag(true);
-						}
 						
 						pileNode = card.parentNode;
 						if (!hej.contains(card)) {
@@ -2471,6 +2467,10 @@ content:function(config, pack){
 							} else {
 								card.throwWith = card.original = null;
 							}
+						}
+						if (card.gaintag && card.gaintag.length) {
+							gainmap[card.cardid] = card.gaintag.concat();
+							card.removeGaintag(true);
 						}
 						
 						var info = lib.card[card.name];
@@ -2647,7 +2647,7 @@ content:function(config, pack){
 					}
 					"step 4"
 					var evt = event.getParent();
-					if (evt.name != 'discard' && event.type != 'discard') return;
+					if (evt.name != 'discard' && event.type != 'discard' && evt.name != 'loseToDiscardpile' && event.type != 'loseToDiscardpile') return;
 					if (evt.delay != false) {
 						if (evt.waitingForTransition) {
 							_status.waitingForTransition = evt.waitingForTransition;
