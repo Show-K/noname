@@ -147,6 +147,7 @@ window.noname_asset_list=[
 	'image/character/alz_yuri_kozukata.png',
 	'image/character/ymk_tianyi.png',
 	'image/character/xsj_yu_narukami.png',
+	'image/character/ska_bandana_waddle_dee.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',
@@ -477,7 +478,6 @@ window.noname_asset_list=[
 	'image/card/jiuwei.png',
 	'image/card/mianju.png',
 	'image/card/shoulijian.png',
-	'image/card/yuanjun.png',
 	'image/card/zhaoshu.png',
 
 	'image/card/bagua.png',
@@ -618,9 +618,6 @@ window.noname_asset_list=[
 	'image/card/yitianjian.png',
 	'image/card/yonglv.png',
 	'image/card/zhanxiang.png',
-	'image/card/zhuangshu_basic.png',
-	'image/card/zhuangshu_trick.png',
-	'image/card/zhuangshu_equip.png',
 	
 	'image/emotion/shibing_emotion/1.gif',
 	'image/emotion/shibing_emotion/2.gif',

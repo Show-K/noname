@@ -29,6 +29,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"武将作者：Yumikohimi<br>\
 			武将作者：mario not mary<br>\
 			武将作者：Show-K<br>\
+			武将作者：南柯<br>\
+			武将作者：Axel_Zhai<br>\
+			武将作者：小时节<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			<br>\
 			系列：（）<br>\
@@ -39,6 +43,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"
 			*/
 			sst_claude:"武将作者：mario not mary、Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1386. 库罗德/Claude/クロード<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -48,6 +53,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
 			sst_geno:"武将作者：Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0104. Geno/ジーノ<br>\
 			系列：Mario（马力欧）<br>\
@@ -57,6 +63,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			所以Square什么时候能把超级马力欧RPG交一下！",
 			sst_duck_hunt:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0974. 打猎/Duck Hunt/ダックハント<br>\
 			系列：Duck Hunt（打猎）<br>\
@@ -66,6 +73,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM再一次对应变大打出手了。",
 			sst_ness:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0563. 奈斯/Ness/ネス<br>\
 			系列：EarthBound（地球冒险）<br>\
@@ -75,6 +83,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			接着MNM开始对使命技大打出手了。",
 			sst_chrom:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0613. 库洛姆/Chrom/クロム<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -84,6 +93,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“运命改变了！”",
 			sst_lucina:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0611. 露琪娜/Lucina/ルキナ<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -93,6 +103,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“为了终结这个世界的战争……我会努力的。”",
 			sst_robin:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -108,6 +119,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			然后MNM开始对智囊大打出手了。",
 			sst_robin_male:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -117,6 +129,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			然后MNM开始对智囊大打出手了。（已选择男性）",
 			sst_robin_female:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -126,6 +139,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			然后MNM开始对智囊大打出手了。（已选择女性）",
 			sst_paipai:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			然后MNM开始对指定牌不能响应大打出手了。"
 		},

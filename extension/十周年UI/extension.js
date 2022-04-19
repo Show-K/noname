@@ -2646,6 +2646,7 @@ content:function(config, pack){
 						game.updateRenku();
 					}
 					"step 4"
+					game.updateRoundNumber();
 					var evt = event.getParent();
 					if (evt.name != 'discard' && event.type != 'discard' && evt.name != 'loseToDiscardpile' && event.type != 'loseToDiscardpile') return;
 					if (evt.delay != false) {

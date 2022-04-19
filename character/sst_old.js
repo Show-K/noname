@@ -60,19 +60,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterFilter:{
 		},
 		characterIntro:{
-			/*
-			"武将作者：Yumikohimi<br>\
-			武将作者：mario not mary<br>\
-			武将作者：Show-K<br>\
-			━━━━━━━━━━━━━━━━━<br>\
-			<br>\
-			系列：（）<br>\
-			初登场：（）<br>\
-			<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
-			"
-			*/
 			//LTK
 			liubei:"先主姓刘，讳备，字玄德，涿郡涿县人，汉景帝子中山靖王胜之后也。以仁德治天下。",
 			guanyu:"字云长，本字长生，并州河东解州人。五虎上将之首，爵至汉寿亭侯，谥曰“壮缪侯”。被奉为“关圣帝君”，崇为“武圣”。",
@@ -102,7 +89,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			huaxiong:"董卓旗下名将，自荐抵抗山东地区反对董卓的诸侯联军于汜水关前，他先后斩杀济北相鲍信之弟鲍忠和孙坚部将祖茂、以及袁术部将俞涉和韩馥手下潘凤等人，最后关东联军派出关羽与之一对一决斗而被杀。",
 			xf_yiji:"伊籍，字机伯，生卒年不详，兖州山阳郡（今山东金乡县）人，三国时期蜀汉官员。年少时依附于同乡刘表。刘备落难到荆州时，伊籍时常拜访，托请刘备照顾。建安十三年（208年），刘表病死，伊籍便转投刘备，一起渡江南下。建安十六年（211年），刘备入蜀帮助刘璋，伊籍亦有跟随。随后刘备和刘璋双方决裂。建安十九年（214年），刘备平定益州，任命伊籍为左将军从事中郎，其待遇次于简雍、孙乾等。后升任昭文将军，并与诸葛亮、法正、刘巴、李严共同编制《蜀科》。",
 			//SST
+			/*
+			"武将作者：Yumikohimi<br>\
+			武将作者：mario not mary<br>\
+			武将作者：Show-K<br>\
+			武将作者：南柯<br>\
+			武将作者：Axel_Zhai<br>\
+			武将作者：小时节<br>\
+			插图作者：未知<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			<br>\
+			系列：（）<br>\
+			初登场：（）<br>\
+			<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			━━━━━━━━━━━━━━━━━<br>\
+			"
+			*/
 			old_sst_samus:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0264. 萨姆斯/Samus/サムス<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -112,6 +117,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“萨姆斯，很不幸的消息……”",
 			old_sst_ken:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0978. 肯/Ken/ケン<br>\
 			系列：Street Fighter（街头霸王）<br>\
@@ -121,6 +127,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			我准备好了，来吧。",
 			old_ymk_claude:"武将作者：Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1386. 库罗德/Claude/クロード<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -130,6 +137,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
 			old_sst_donkey_kong:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0134. 森喜刚/Donkey Kong/ドンキーコング<br>\
 			系列：Donkey Kong（森喜刚）<br>\
@@ -139,6 +147,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			砸人很疼的。",
 			old_sst_dark_samus:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0265. 黑暗萨姆斯/Dark Samus/ダークサムス<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -151,6 +160,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			柚子设计的577，估计又要偏强……意外的还行？",
 			old_sst_richter:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1051. 里希特·贝尔蒙特/Richter Belmont/リヒター・ベルモンド<br>\
 			系列：Castlevania（恶魔城）<br>\
@@ -160,6 +170,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“我有愧于此称……”",
 			old_sst_ryu:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0977. 隆/Ryu/リュウ<br>\
 			系列：Street Fighter（街头霸王）<br>\
@@ -3630,11 +3641,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					dialog:function(event,player){
 						return ui.create.dialog("###探道###选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌（X为你本回合使用的牌类别数量）");
 					},
-					chooseControl:function(event,player){
-						return ["red","black"];
-					},
-					check:function(){
-						var player=_status.event.player;
+					chooseControl:()=>["red","black"],
+					check:function(event,player){
 						return player.countCards("he",function(card){
 							return lib.filter.cardDiscardable(card,player)&&get.color(card)=="red";
 						})<player.countCards("he",function(card){
@@ -3646,7 +3654,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							delay:false,
 							color:result.control,
 							content:lib.skill.old_sst_tandao.contentx
-						}
+						};
 					}
 				},
 				contentx:function(){

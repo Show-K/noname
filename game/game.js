@@ -6908,6 +6908,19 @@
 			globalId:0,
 		},
 		help:{
+			'关于':'<ul><li>《大乱桌斗》（原《大乱斗杀》）是基于《无名杀》的《任天堂明星大乱斗》同人游戏，不隶属于<i>任天堂</i>、<i>Sora</i>和其他相关公司。'+
+			'<li>作者（以斜体表示）：'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>Show-K</i>（程序开发，卡牌创作）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>mario not mary</i>（《大乱斗杀》计划发起，主要卡牌创作，插图）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>Yumikohimi</i>、<i>南柯</i>、<i>Axel_Zhai</i>、<i>小时节</i>等（卡牌创作）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>封羽翎烈</i>等（《任天堂明星大乱斗特别版全命魂介绍》、插图）</ul>'+
+			'<li>另外感谢（以斜体表示）：'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>水乎</i>（《无名杀》创始，原《无名杀》程序开发）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>苏婆玛丽奥</i>（现《无名杀》程序开发）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>短歌</i>（《十周年UI》、《导入助手》程序开发）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>诗笺</i>（《在线更新》、Windows版客户端程序开发）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>玄武</i>（Android版客户端程序开发）</ul>'+
+			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除</ul>',
 			'游戏操作':'<ul><li>长按/鼠标悬停/右键单击显示信息。<li>触屏模式中，双指点击切换暂停；下划显示菜单，上划切换托管。<li>键盘快捷键<br>'+
 			'<table><tr><td>A<td>切换托管<tr><td>W<td>切换不询问无懈<tr><td>空格<td>暂停</table><li>编辑牌堆<br>在卡牌包中修改牌堆后，将自动创建一个临时牌堆，在所有模式中共用，当保存当前牌堆后，临时牌堆被清除。每个模式可设置不同的已保存牌堆，设置的牌堆优先级大于临时牌堆。</ul>',
 			'游戏命令':'<div style="margin:10px">变量名</div><ul style="margin-top:0"><li>场上角色<br>game.players<li>阵亡角色<br>game.dead'+
@@ -16809,6 +16822,7 @@
 						game.updateRenku();
 					}
 					"step 5"
+					game.updateRoundNumber();
 					var evt=event.getParent();
 					if((evt.name!='discard'&&event.type!='discard')&&(evt.name!='loseToDiscardpile'&&event.type!='loseToDiscardpile')) return;
 					if(evt.delay!=false){
@@ -16820,7 +16834,6 @@
 							game.delayx();
 						}
 					}
-					game.updateRoundNumber();
 				},
 				damage:function(){
 					"step 0"
@@ -46278,19 +46291,19 @@
 				delete lib.arenaReady;
 				//Load custom extension start
 				/*
-				var additional_extention_names=[
+				var additional_extension_names=[
 					['在线更新',true],
 					['十周年UI',true],
 					['导入助手',true]
 				];
 				var need_reload=false;
-				for(var i=0;i<additional_extention_names.length;i++){
-					if(!lib.config.extensions.contains(additional_extention_names[i][0])){
-						if(additional_extention_names[i][0]=="拖拽读取"&&typeof require!='function') continue;
+				for(var i=0;i<additional_extension_names.length;i++){
+					if(!lib.config.extensions.contains(additional_extension_names[i][0])){
+						if(additional_extension_names[i][0]=="拖拽读取"&&typeof require!='function') continue;
 						var need_reload=true;
-						lib.config.extensions.add(additional_extention_names[i][0]);
+						lib.config.extensions.add(additional_extension_names[i][0]);
 						game.saveConfig('extensions',lib.config.extensions);
-						game.saveConfig('extension_'+additional_extention_names[i][0]+'_enable',additional_extention_names[i][1]);
+						game.saveConfig('extension_'+additional_extension_names[i][0]+'_enable',additional_extension_names[i][1]);
 					}
 				}
 				if(need_reload) game.reload();

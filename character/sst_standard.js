@@ -1,6 +1,13 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
+	var formatUrl=function(url){
+		// Split the URL into an array to distinguish double slashes from single slashes
+		var doubleSlash=url.split("//");
+		// Format the strings on either side of double slashes separately
+		var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,"$1<wbr>").replace(/(?<before>[/~.,\-_?#%])/giu,"<wbr>$1").replace(/(?<beforeAndAfter>[=&])/giu,"<wbr>$1<wbr>")).join("//<wbr>");
+		return formatted;
+	};
 	var sst={
 		name:"sst_standard",
 		connect:true,
@@ -147,6 +154,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"武将作者：Yumikohimi<br>\
 			武将作者：mario not mary<br>\
 			武将作者：Show-K<br>\
+			武将作者：南柯<br>\
+			武将作者：Axel_Zhai<br>\
+			武将作者：小时节<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			<br>\
 			系列：（）<br>\
@@ -157,6 +168,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"
 			*/
 			sst_mario:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0001. 马力欧/Mario/マリオ<br>\
 			系列：Mario（马力欧）<br>\
@@ -166,6 +178,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			太激昂了，太生生不息了……现在总算从T0削下去了……然后貌似又升了，并且貌似和库巴玩得很开心。",
 			sst_link:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0172. 林克/Link/リンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -175,6 +188,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“醒醒吧……”",
 			sst_yoshi:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0297. 耀西/Yoshi/ヨッシー<br>\
 			系列：Yoshi（耀西）<br>\
@@ -184,6 +198,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			耀西~！",
 			sst_wario:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0729. 瓦力欧/Wario/ワリオ<br>\
 			系列：Wario（瓦力欧）<br>\
@@ -193,6 +208,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			瓦！瓦！瓦！！！",
 			sst_villager:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0825. 村民（男孩）/Villager (Boy)/むらびと（男の子）<br>\
 			系列：Animal Crossing（动物森友会）<br>\
@@ -202,6 +218,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“因为什么都没有，所以什么都做得到”",
 			sst_zelda:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0173. 塞尔达/Zelda/ゼルダ<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -211,6 +228,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			林克，这就是三角力量……",
 			sst_ganondorf:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0175. 加侬多夫【盖侬多夫】/Ganondorf/ガノンドロフ<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -220,6 +238,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			你知道吗？海拉鲁的历史，就是一部被叫做盖侬的魔善侵袭的历史……",
 			sst_dr_mario:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0008. 马力欧医生/Dr. Mario/ドクターマリオ<br>\
 			系列：Mario（马力欧）<br>\
@@ -229,6 +248,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			一开始技能就没设计好，但我还是要占个位置……现在设计好了，然而已经改了很多次了……",
 			sst_palutena:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0705. 帕露蒂娜/Palutena/パルテナ<br>\
 			系列：Kid Icarus（光神话）<br>\
@@ -238,6 +258,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			稍微认真点也没关系哦～",
 			sst_marth:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0610. 马尔斯/Marth/マルス<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -247,6 +268,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“那正是英雄王本人”",
 			sst_rosalina:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0009. 罗莎塔/Rosalina/ロゼッタ<br>\
 			系列：Mario（马力欧）<br>\
@@ -256,6 +278,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			欢迎来到新的银河。",
 			sst_zero_suit_samus:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0266. 零装甲萨姆斯/Zero Suit Samus/ゼロスーツサムス<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -265,6 +288,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“化整为零。”",
 			sst_luigi:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0004. 路易吉/Luigi/ルイージ<br>\
 			系列：Mario（马力欧）<br>\
@@ -274,6 +298,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			和哥哥一起！",
 			sst_bowser:"武将作者：mario not mary<br>\
+			插图作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0007. 酷霸王/Bowser/クッパ<br>\
 			系列：Mario（马力欧）<br>\
@@ -283,6 +308,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			就算是调整强度了，依旧没有武将图片……",
 			sst_peach:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0005. 桃花公主/Peach/ピーチ<br>\
 			系列：Mario（马力欧）<br>\
@@ -292,6 +318,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			哦～我赢了吗？",
 			sst_byleth_female:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1381. 贝雷丝/Byleth (Female)/ベレス<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -301,6 +328,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			老师真的很希望你们都能活下来……",
 			sst_byleth_male:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1380. 贝雷特/Byleth (Male)/ベレト<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -310,9 +338,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“你还算是个男人嘛？！”",
 			sst_massy:"武将作者：mario not mary<br>\
+			插图作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			Massy，唯一的神！",
 			sst_samus:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0264. 萨姆斯/Samus/サムス<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -322,6 +352,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“萨姆斯，很不幸的消息……”",
 			sst_ridley:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0267. 利德雷/Ridley/リドリー<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -331,6 +362,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“没有任何洗白的余地与必要”",
 			sst_dark_samus:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0265. 黑暗萨姆斯/Dark Samus/ダークサムス<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -340,6 +372,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“堕入黑暗”",
 			sst_mr_game_watch:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0689. Mr. Game & Watch/Mr.ゲーム & ウォッチ<br>\
 			系列：Game & Watch（游戏手表）<br>\
@@ -349,15 +382,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“是9！是9！”",
 			sst_mario_not_mary:"武将作者：mario not mary<br>\
+			插图作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			这才是大佬！九州第一库巴！完全虐爆我！连续让我回炉重造！",
 			sst_yumikohimi:"武将作者：mario not mary<br>\
+			插图作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			那个九州第一库巴的女朋友！依然是完全虐爆我！不过比MNM好相处……",
 			sst_haine:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			公认的渣男！",
 			sst_terry:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1356. 特瑞·博加德/Terry Bogard/テリー・ボガード<br>\
 			系列：Fatal Fury（饿狼传说）<br>\
@@ -367,6 +404,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			OK！",
 			sst_simon:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1050. 西蒙·贝尔蒙特/Simon Belmont/シモン・ベルモンド<br>\
 			系列：Castlevania（恶魔城）<br>\
@@ -376,6 +414,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“滚回黑暗。”",
 			sst_incineroar:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0419. 炽焰咆哮虎/Incineroar/ガオガエン<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -385,6 +424,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			宇宙第一宝可梦！",
 			sst_greninja:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0418. 甲贺忍蛙/Greninja/ゲッコウガ<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -394,6 +434,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“变幻自在”",
 			sst_kirby:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0323. 卡比/Kirby/カービィ<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -403,6 +444,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			樱井亲儿子，粉红恶魔，灯火之星。",
 			sst_king_k_rool:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0136. 库鲁鲁王/King K. Rool/キングクルール<br>\
 			系列：Donkey Kong（森喜刚）<br>\
@@ -412,6 +454,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			别说他了，现在连森喜刚新作也没有个影子……",
 			sst_donkey_kong:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0134. 森喜刚/Donkey Kong/ドンキーコング<br>\
 			系列：Donkey Kong（森喜刚）<br>\
@@ -421,6 +464,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			最近来了次史诗级加强。",
 			sst_richter:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1051. 里希特·贝尔蒙特/Richter Belmont/リヒター・ベルモンド<br>\
 			系列：Castlevania（恶魔城）<br>\
@@ -430,6 +474,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“我有愧于此称……”",
 			sst_pokemon_trainer_red:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0412. 宝可梦训练家（男性）/Pokémon Trainer (Male)/ポケモントレーナー（男性）<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -439,6 +484,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“……”",
 			sst_isabelle:"武将作者：mario not mary、Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0827. 西施惠/Isabelle/しずえ<br>\
 			系列：Animal Crossing（动物森友会）<br>\
@@ -448,6 +494,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			大家都爱的秘书西施惠！",
 			sst_daisy:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0006. 菊花公主/Daisy/デイジー<br>\
 			系列：Mario（马力欧）<br>\
@@ -457,6 +504,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			嘿！我是黛西！",
 			sst_meta_knight:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0324. 魅塔骑士/Meta Knight/メタナイト<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -466,6 +514,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“Fight me.”",
 			sst_little_mac:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0932. 小麦克/Little Mac/リトル・マック<br>\
 			系列：Punch-Out!!（击拳热斗！！）<br>\
@@ -475,12 +524,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			加油！麦克！",
 			sst_oc:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			霸凌你哦！",
 			sst_mr_8:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			据说大乱斗人都叫他东北吴彦祖。",
 			sst_dark_link:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			????. Dark Link/ダークリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -490,18 +542,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			话说塞尔达传说的第二部和系列其他作品很不一样。",
 			sst_kyuukou:"武将作者：mario not mary<br>\
+			插图作者：封羽翎烈<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			经典白给！",
 			sst_windier:"武将作者：mario not mary<br>\
+			插图作者：封羽翎烈<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			这里几乎所有武将介绍都取材于翎烈的《任天堂明星大乱斗特别版全命魂介绍》，还不快去<a target=\"_self\" href=\"https://ssbuspirits.top/\"><span style=\"text-decoration: underline;\">ssbuspirits.top</span></a>支持一下？",
+			这里几乎所有武将介绍都取材于封羽翎烈的《任天堂明星大乱斗特别版全命魂介绍》，还不快去"+formatUrl("https://ssbuspirits.top")+"支持一下？",
 			sst_rentianshu:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			很老的任豚了。",
+			当了很久的“任豚”了。",
 			sst_srf:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			看来又是一个渣男。",
 			sst_bowser_jr:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0010. 酷霸王Jr. /Bowser Jr. /クッパJr.<br>\
 			系列：Mario（马力欧）<br>\
@@ -511,6 +568,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM又没写介绍，他的父亲表示对MNM非常生气。",
 			sst_koopalings:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0011. 伊吉/Iggy/イギー<br>\
 			系列：Mario（马力欧）<br>\
@@ -556,6 +614,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM又没写介绍，他们的养父表示对MNM比较生气。",
 			sst_ryu:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0977. 隆/Ryu/リュウ<br>\
 			系列：Street Fighter（街头霸王）<br>\
@@ -565,6 +624,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			你必须击败我的升龙拳才能得到一线转机。",
 			sst_ken:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0978. 肯/Ken/ケン<br>\
 			系列：Street Fighter（街头霸王）<br>\
@@ -574,6 +634,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			我准备好了，来吧。",
 			sst_sans:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			????. Sans/サンス<br>\
 			系列：Undertale（传说之下）<br>\
@@ -583,6 +644,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			外面是多么美好的一天啊，鸟儿在歌唱，花儿在绽放……",
 			sst_waluigi:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0035. 瓦路易吉/Waluigi/ワルイージ<br>\
 			系列：Mario（马力欧）<br>\
@@ -592,6 +654,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			金钱，名声，邀请函，都会是本大爷的！",
 			sst_master_hand:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1095. 大师之手/Master Hand/マスターハンド<br>\
 			系列：Super Smash Bros.（任天堂明星大乱斗）<br>\
@@ -601,6 +664,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			右手，代表着创造。",
 			sst_ike:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0614. 艾克（苍炎之轨迹）/Ike (Path of Radiance)/アイク（蒼炎の軌跡）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -610,6 +674,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			大！天！空！",
 			sst_sheik:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0174. 希克/Sheik/シーク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -619,9 +684,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“接下来这段旋律，你要铭记于心……”",
 			sst_miumiu:"武将作者：mario not mary<br>\
+			插图作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			据说家里裙子比其他女生还要多。",
 			sst_toon_link:"武将作者：mario not mary、Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0177. 卡通林克/Toon Link/トゥーンリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -631,6 +698,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“故事到处都有，传说仅此一个。”",
 			sst_wolf:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0384. 沃鲁夫/Wolf O\x27Donnell/ウルフ<br>\
 			系列：Star Fox（星际火狐）<br>\
@@ -640,6 +708,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			游戏结束了！星际火狐！",
 			sst_young_link:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0176. 幼年林克/Young Link/こどもリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -649,6 +718,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			老摸有时候能写出让我吐血的武将……比如这个……现在〖假面〗好像废了，在找解决方法。现在应该可以了，然而要重新编写好多技能的代码啊……",
 			sst_ocarina_of_time_link:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0176. 幼年林克/Young Link/こどもリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
@@ -658,6 +728,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			物是人非，沧海桑田……",
 			sst_spring_man:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1287. 弹簧人/Spring Man/スプリングマン<br>\
 			系列：ARMS（神臂斗士）<br>\
@@ -667,6 +738,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			然而却是面面参战了……",
 			sst_joker:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1304. Joker（怪盗）/Joker (Phantom Thief)/ジョーカー（怪盗）<br>\
 			系列：Persona（女神异闻录）<br>\
@@ -682,6 +754,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“真不愧是Joker！”",
 			sst_rex:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0966. 莱克斯/Rex/レックス<br>\
 			系列：Xenoblade Chronicles（异度神剑）<br>\
@@ -691,6 +764,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“莱克斯，你一个人……也已经没问题了吧。”",
 			sst_cuphead_mugman:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1398. 茶杯头/Cuphead/カップヘッド<br>\
 			系列：Cuphead（茶杯头）<br>\
@@ -700,6 +774,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“不要和恶魔做交易。”",
 			sst_krystal:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0387. 水晶/Krystal/クリスタル<br>\
 			系列：Star Fox（星际火狐）<br>\
@@ -709,6 +784,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			可惜当初没能在Brawl参战，后来彻底没机会了……",
 			sst_snake:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0749. 固蛇/Solid Snake/ソリッド・スネーク<br>\
 			系列：Metal Gear（合金装备）<br>\
@@ -718,6 +794,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“The Man Who Makes the Impossible Possible.”",
 			sst_mega_man:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0864. 洛克人/Mega Man/ロックマン<br>\
 			系列：Mega Man（洛克人）<br>\
@@ -727,6 +804,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			有段时间老摸一直在玩洛克人……",
 			sst_captain_falcon:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>\
 			系列：F-Zero（零式赛车）<br>\
@@ -736,6 +814,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			亮招来见。",
 			sst_jigglypuff:"武将作者：mario not mary、南柯<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0409. 胖丁/Jigglypuff/プリン<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -745,6 +824,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			什么叫超级方差斗士啊！",
 			sst_lucario:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0417. 路卡利欧/Lucario/ルカリオ<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -754,6 +834,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			波导之力永存吾心。",
 			sst_pichu:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0410. 皮丘/Pichu/ピチュー<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -763,6 +844,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			自损八百，可伤敌一千——某张姓女子。",
 			sst_king_dedede:"武将作者：mario not mary<br>\
+			插图作者：太春/バルテー（"+formatUrl("https://www.pixiv.net/artworks/42226957")+"）<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0325. 帝帝帝大王/King Dedede/デデデ大王<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -772,6 +854,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			你休想欺负我的瓦豆鲁迪！",
 			sst_corrin:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0618. 神威（男性）/Corrin (Male)/カムイ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -787,6 +870,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			我选择……",
 			sst_corrin_male:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0618. 神威（男性）/Corrin (Male)/カムイ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -796,6 +880,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			我选择……<br>（已选择男性）",
 			sst_corrin_female:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0619. 神威（女性）/Corrin (Female)/カムイ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -805,6 +890,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			我选择……<br>（已选择女性）",
 			sst_steve:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1428. 史蒂夫/Steve/スティーブ<br>\
 			系列：Minecraft（我的世界）<br>\
@@ -816,12 +902,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			（Show-K注：Steve能参战我是真的很惊讶，猜到他会来却又猜不到他会在这个时候来吧……）",
 			sst_ma:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			我们都是初级人～",
 			sst_feiji:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			打了吗？还没有！",
 			sst_sonic:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0775. 索尼克/Sonic the Hedgehog/ソニック・ザ・ヘッジホッグ<br>\
 			系列：Sonic the Hedgehog（刺猬索尼克）<br>\
@@ -831,6 +920,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“SONIC SPEED！”",
 			sst_hero:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1324. 勇者（勇者斗恶龙XI S）/Hero (DRAGON QUEST XI S)/勇者（ドラゴンクエストXI S）<br>\
 			系列：Dragon Quest（勇者斗恶龙）<br>\
@@ -858,6 +948,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			超级摸奖。",
 			sst_fox:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0382. 火狐/Fox McCloud/フォックス<br>\
 			系列：Star Fox（星际火狐）<br>\
@@ -867,6 +958,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			这里是火狐，前来支援！",
 			sst_mii_fighters:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1090. Mii格斗类型/Mii Brawler/Miiファイター 格闘タイプ<br>\
 			系列：Mii<br>\
@@ -888,6 +980,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			可能只有玩过灯火之星的人才知道Mii斗士有默认配置。",
 			sst_alex:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1429. 艾莉克斯/Alex/アレックス（Minecraft）<br>\
 			系列：Minecraft（我的世界）<br>\
@@ -897,6 +990,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			好像Minecraft官方的确有说过她是史蒂夫的女朋友。",
 			sst_min_min:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1414. 面面（斗士）/Min Min (Fighter)/ミェンミェン（ファイター）<br>\
 			系列：ARMS（神臂斗士）<br>\
@@ -906,6 +1000,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			我！爱！拉！面！",
 			sst_pikachu:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0407. 皮卡丘/Pikachu/ピカチュウ<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -915,6 +1010,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			皮～卡～丘！",
 			sst_falco:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0383. 佛克/Falco Lombardi/ファルコ<br>\
 			系列：Star Fox（星际火狐）<br>\
@@ -924,6 +1020,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			放心，一个也别想逃。",
 			sst_pyra_mythra:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1458. 焰（斗士）/Pyra(Fighter)/ホムラ（ファイター）<br>\
 			系列：Xenoblade Chronicles（异度神剑）<br>\
@@ -939,6 +1036,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			最终，少年遇到了少女。",
 			sst_enderman:"武将作者：mario not mary、Yumikohimi、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1434. 末影人/Enderman/エンダーマン<br>\
 			系列：Minecraft（我的世界）<br>\
@@ -948,6 +1046,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			小黑！",
 			sst_sephiroth:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1439. 萨菲罗斯/Sephiroth/セフィロス<br>\
 			系列：Final Fantasy（最终幻想）<br>\
@@ -957,6 +1056,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			Sephiroth♫~",
 			sst_pokemon_trainer_leaf:"武将作者：南柯、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0413. 宝可梦训练家（女性）/Pokémon Trainer (Female)/ポケモントレーナー（女性）<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -966,6 +1066,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			来看看新人设计的第一个武将！",
 			sst_kyo_kusanagi:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1362. 草薙京/Kyo Kusanagi/草薙京<br>\
 			系列：The King of Fighters（拳皇）<br>\
@@ -975,6 +1076,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			所以拳皇XV终于憋出来了……",
 			sst_pauline:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0079. 宝琳/Pauline/ポリーン<br>\
 			系列：Mario（马力欧）<br>\
@@ -984,6 +1086,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			此次推出的三噩梦命魂武将其一。",
 			sst_dr_wily:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0873. 威利博士/Dr. Wily/Dr.ワイリー<br>\
 			系列：Mega Man（洛克人）<br>\
@@ -993,6 +1096,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			此次推出的三噩梦命魂武将其二。",
 			sst_9_volt_18_volt:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
 			系列：Wario（瓦力欧）<br>\
@@ -1004,6 +1108,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			此次推出的三噩梦命魂武将其三。",
 			sst_kazuya:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1474. 三岛一八/Kazuya Mishima/三島一八<br>\
 			系列：Tekken（铁拳）<br>\
@@ -1013,6 +1118,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM终于开始对弃牌堆大打出手了。",
 			sst_kraid:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0283. 克雷德/Kraid/クレイド<br>\
 			系列：Metroid（密特罗德）<br>\
@@ -1022,6 +1128,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			直接上8血魔将了……",
 			sst_sora:"武将作者：mario not mary、Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1500. 索拉/Sora/ソラ<br>\
 			系列：Kingdom Hearts（王国之心）<br>\
@@ -1031,6 +1138,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			第一次见到这个“施法”就大为震惊……不过索拉能来大乱斗显然比这个更震惊。",
 			sst_pac_man:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0946. 吃豆人/PAC-MAN/パックマン<br>\
 			系列：Pac-Man（吃豆人）<br>\
@@ -1040,6 +1148,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			大游戏天下，已半入我手！",
 			sst_mewtwo:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0411. 超梦/Mewtwo/ミュウツー<br>\
 			系列：Pokémon（宝可梦）<br>\
@@ -1049,6 +1158,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			由强行添加进去的数据强行诞生。",
 			sst_olimar:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0798. 欧力马/Olimar/キャプテン·オリマー<br>\
 			系列：Pikmin（皮克敏）<br>\
@@ -1082,9 +1192,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			这个游戏系列真正实现了主机/手柄玩即时战略游戏的梦想。",
 			sst_marioraz:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			“樱井懂个屁大乱斗”",
 			sst_piranha_plant:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1303. 吞食花/Piranha Plant/パックンフラワー<br>\
 			系列：Mario（马力欧）<br>\
@@ -1905,7 +2017,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								return 6-get.value(card);
 							},
 							viewAs:{name:links[0][2],nature:links[0][3]}
-						}
+						};
 					},
 					prompt:function(links,player){
 						return "将一张牌当作"+get.translation(links[0][2])+"使用";
@@ -2163,6 +2275,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(result.links[0]==event.card){
 							player.loseToDiscardpile(result.links);
 							player.popup("牌堆顶");
+							player.$fullscreenpop("牌堆顶");
 						}
 						else{
 							player.discard(result.links);
@@ -3506,14 +3619,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					target.link(false);
 					target.turnOver(false);
 					"step 2"
-					var evt=_status.event.getParent("dying");
+					var evt=event.getParent("dying");
 					if(evt&&evt.name=="dying"){
 						var next=game.createEvent("sst_tianmai_clear");
-						_status.event.next.remove(next);
+						event.next.remove(next);
 						evt.after.push(next);
 						next.player=target;
 						next.setContent(function(){
-							var evt=_status.event.getParent("phase");
+							var evt=event.getParent("phase");
 							if(evt&&evt.name=="phase"){
 								_status.roundStart=player;
 								var loop=evt.getParent("phaseLoop");
@@ -3523,9 +3636,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								}
 								game.log("由",player,"的回合开始","#y第"+(game.roundNumber+1)+"轮");
 								game.resetSkills();
-								_status.event=evt;
-								_status.event.finish();
-								_status.event.untrigger(true);
+								event=evt;
+								event.finish();
+								event.untrigger(true);
 								game.broadcastAll(ui.clear);
 							}
 						});
@@ -5939,10 +6052,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.storage.sst_canyun.push(get.suit(cards[0]));
-					var evt=_status.event.getParent("phase");
+					var evt=event.getParent("phase");
 					if(evt&&evt.name=="phase"&&!evt.sst_canyun){
 						var next=game.createEvent("sst_canyun_clear");
-						_status.event.next.remove(next);
+						event.next.remove(next);
 						evt.after.push(next);
 						evt.set("sst_canyun",true);
 						next.set("player",player);
@@ -7598,7 +7711,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							position:"hes",
 							popname:true,
 							viewAs:{name:links[0][2],nature:links[0][3]}
-						}
+						};
 					},
 					prompt:function(links,player){
 						return "将一张不带有「伤害」标签的牌当作"+(get.translation(links[0][3])||"")+get.translation(links[0][2])+"使用";
@@ -7823,13 +7936,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					player.chooseCardButton("拾珠：选择一张牌",event.cards).set("filterButton",function(button){
 						var player=_status.event.player;
-						var target=_status.event.targetx;
+						var target=_status.event.getParent().target;
 						return lib.filter.targetEnabled3(button.link,player,player)||lib.filter.targetEnabled3(button.link,player,target);
 					}).set("ai",function(button){
 						var player=_status.event.player;
-						var target=_status.event.targetx;
+						var target=_status.event.getParent().target;
 						return Math.max(get.effect(player,button.link,player,player),get.effect(target,button.link,player,player));
-					}).set("targetx",event.target);
+					});
 					"step 4"
 					if(result.links&&result.links.length){
 						event.targets=[];
@@ -7842,10 +7955,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 5"
 					player.chooseTarget("拾珠：选择"+get.translation(result.links[0])+"的目标",function(card,player,target){
-						return _status.event.targetsx.contains(target)&&lib.filter.targetEnabled3(_status.event.cardx,player,target);
+						var evt=_status.event.getParent();
+						var targets=evt.targets;
+						var card=evt.card;
+						return targets.contains(target)&&lib.filter.targetEnabled3(card,player,target);
 					}).set("ai",function(target){
-						return get.effect(target,_status.event.cardx,_status.event.player,_status.event.player);
-					}).set("targetsx",event.targets).set("cardx",event.card);
+						var player=_status.event.player;
+						var evt=_status.event.getParent();
+						var targets=evt.targets;
+						var card=evt.card;
+						return get.effect(target,card,player,player);
+					});
 					"step 6"
 					if(result.targets&&result.targets.length){
 						//player.$throw(event.card);
@@ -10013,10 +10133,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return !player.hasSkill("sst_tankuang2");
 				},
-				delay:false,
-				content:function(){
-					"step 0"
-					player.chooseControl(lib.suit.concat(["basic","trick","equip"])).set("ai",function(){
+				chooseButton:{
+					dialog:function(event,player){
+						return ui.create.dialog("###探矿###按花色或类别举荐一张牌，其间若本回合亮出的牌超过十张，中止此流程且本回合不能再发动此技能，然后你受到1点伤害（本回合已亮出"+get.cnNumber(player.storage.sst_tankuang.length)+"张牌）");
+					},
+					chooseControl:function(){
+						return lib.suit.concat(["basic","trick","equip"]);
+					},
+					check:function(event,player){
 						var count=0;
 						var value=0;
 						var list=_status.event.controls;
@@ -10027,15 +10151,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								if(lib.suit.contains(list[i])){
 									if(get.suit(ui.cardPile.childNodes[j])==list[i]){
 										cards.push(ui.cardPile.childNodes[j]);
-										//value+=player.getUseValue(ui.cardPile.childNodes[j]);
-										value+=get.value(ui.cardPile.childNodes[j]);
+										value+=player.getUseValue(ui.cardPile.childNodes[j]);
+										//value+=get.value(ui.cardPile.childNodes[j]);
 									}
 								}
 								else{
 									if(get.type(ui.cardPile.childNodes[j],"trick")==list[i]){
 										cards.push(ui.cardPile.childNodes[j]);
-										//value+=player.getUseValue(ui.cardPile.childNodes[j]);
-										value+=get.value(ui.cardPile.childNodes[j]);
+										value+=player.getUseValue(ui.cardPile.childNodes[j]);
+										//value+=get.value(ui.cardPile.childNodes[j]);
 									}
 								}
 							}
@@ -10046,48 +10170,55 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							else if(value==count){
 								choice.push(list[i]);
 							}
-							//game.log(list[i],"（"+cards.length+"）："+value+"-",choice,"："+count);
 							cards=[];
 							value=0;
 						}
 						return choice.randomGet();
-					}).set("prompt","探矿：按花色或类别举荐一张牌，其间若本回合亮出的牌超过十张，中止此流程且本回合不能再发动此技能，然后你受到1点伤害");
-					"step 1"
-					event.control=result.control;
+					},
+					backup:function(result,player){
+						return {
+							delay:false,
+							control:result.control,
+							content:lib.skill.sst_tankuang.contentx
+						};
+					}
+				},
+				contentx:function(){
+					"step 0"
+					event.control=lib.skill.sst_tankuang_backup.control;
 					player.popup(event.control);
 					game.log(player,"选择了","#y"+get.translation(event.control));
-					"step 2"
+					"step 1"
 					event.card=get.cards()[0];
-					//player.showCards(event.card);
 					game.cardsGotoOrdering(event.card);
 					player.$throw(event.card);
 					game.log(player,"展示了",event.card);
-					//game.delayx();
+					game.delayx();
 					player.storage.sst_tankuang.push(event.card);
-					var evt=_status.event.getParent("phase");
+					var evt=event.getParent("phase");
 					if(evt&&evt.name=="phase"&&!evt.sst_tankuang){
 						evt.set("sst_tankuang",true);
 						var next=game.createEvent("sst_tankuang_clear");
-						_status.event.next.remove(next);
+						event.next.remove(next);
 						evt.after.push(next);
 						next.set("player",player);
 						next.setContent(function(){
 							player.storage.sst_tankuang=[];
 						});
 					}
-					"step 3"
+					"step 2"
 					if(player.storage.sst_tankuang.length>10){
 						player.addTempSkill("sst_tankuang2");
 						player.damage("nosource","nocard");
 						event.finish();
 					}
-					"step 4"
+					"step 3"
 					if(get.suit(event.card)==event.control||get.type(event.card,"trick")==event.control){
 						player.gain(event.card,"gain2");
 					}
 					else{
 						game.cardsDiscard(event.card);
-						event.goto(2);
+						event.goto(1);
 					}
 				},
 				ai:{
@@ -12236,7 +12367,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 									}
 								}
 							}
-						}
+						};
 					},
 					prompt:function(){return "选择〖造物〗的目标"}
 				},
@@ -12246,16 +12377,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.$throw(card);
 					game.log(card,"被销毁");
 					player.markAuto("sst_zaowu_effect",[get.name(card)]);
-					card.delete();
+					card.fix();
+					card.remove();
 					card.destroyed=true;
 					player.update();
 					player[player.getExpansions("sst_zaowu").length?"markSkill":"unmarkSkill"]();
-					/*
-					game.broadcastAll(function(card){
-						card.delete();
-						card.destroyed=true;
-					},card);
-					*/
 					"step 1"
 					target.damage(player,"nocard");
 				},
@@ -12284,14 +12410,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(cards,"被销毁");
 					for(var i=0;i<cards.length;i++){
 						player.markAuto("sst_zaowu_effect",[get.name(cards[i])]);
-						cards[i].delete();
+						cards[i].fix();
+						cards[i].remove();
 						cards[i].destroyed=true;
-						/*
-						game.broadcastAll(function(card){
-							card.delete();
-							card.destroyed=true;
-						},cards[i]);
-						*/
 					}
 					player.update();
 					player[player.getExpansions("sst_zaowu").length?"markSkill":"unmarkSkill"]();
@@ -12740,7 +12861,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								}
 								if(cleared) player.unmarkSkill("sst_qixin_effect");
 							}
-						}
+						};
 					},
 					prompt:function(links,player){
 						return "视为使用"+(get.translation(links[0][3])||"")+get.translation(links[0][2]);
@@ -14361,6 +14482,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_longwei:"龙威",
 			sst_longwei_info:"锁定技，〖决路〗发动后，你的体力上限与体力加Y。（Y为你标记身份对应的人数）",
 			sst_tankuang:"探矿",
+			sst_tankuang_backup:"探矿",
 			sst_tankuang_info:"出牌阶段，你可以按花色或类别举荐一张牌，其间若本回合亮出的牌超过十张，中止此流程且本回合不能再发动此技能，然后你受到1点伤害。",
 			sst_fumiao:"伏妙",
 			sst_fumiao_info:"你的回合内，一名角色受到伤害后，失去体力后或回复体力后，你可以将手牌数调整至与其体力值相同。若你因此弃置了牌，你可以将一张牌当作无距离限制的【杀】使用。",

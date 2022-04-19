@@ -1,6 +1,16 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
+	/**
+	 * Insert line break opportunities into a URL
+	 */
+	var formatUrl=function(url){
+		// Split the URL into an array to distinguish double slashes from single slashes
+		var doubleSlash=url.split("//");
+		// Format the strings on either side of double slashes separately
+		var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,"$1<wbr>").replace(/(?<before>[/~.,\-_?#%])/giu,"<wbr>$1").replace(/(?<beforeAndAfter>[=&])/giu,"<wbr>$1<wbr>")).join("//<wbr>");
+		return formatted;
+	};
 	var sst_sp={
 		name:"sst_sp",
 		connect:true,
@@ -48,6 +58,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"武将作者：Yumikohimi<br>\
 			武将作者：mario not mary<br>\
 			武将作者：Show-K<br>\
+			武将作者：南柯<br>\
+			武将作者：Axel_Zhai<br>\
+			武将作者：小时节<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			<br>\
 			系列：（）<br>\
@@ -58,6 +72,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"
 			*/
 			ymk_isabelle:"武将作者：Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0827. 西施惠/Isabelle/しずえ<br>\
 			系列：Animal Crossing（动物森友会）<br>\
@@ -67,15 +82,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			上次柚子的武将就被老摸吵着要删，这次希望不要太IMBA……老摸的西施慧出来了，柚子的武将至少还是被借鉴了一点的。",
 			ska_bobby:"武将作者：Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			????. 炸弹彬/Bobby/ボム平<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
-			——翻译自《超级马力欧维基》（来源：<a target=\"_self\" href=\"https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)\"><span style=\"text-decoration: underline;\">https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)</span></a>）<br>\
+			——翻译自《超级马力欧维基》（来源："+formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"）<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			“我？哦，我是炸弹兵。”",
 			ska_olivia:"武将作者：Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
 			系列：Mario（马力欧）<br>\
@@ -85,24 +102,29 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			一个拥有赋之能力的折纸妹妹，在和马里奥的冒险路途上成长很多啊……",
 			ska_super_xiaojie:"武将作者：Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			喜欢没事说嬲，但更喜欢不放弃。",
 			ska_show_k:"武将作者：Show-K<br>\
+			插图作者：Show-K<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			有人建议我给我自己写一个，于是我就写出来了。",
 			ymk_yumikohimi:"武将作者：Yumikohimi<br>\
+			插图作者：mario not mary<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			果然刚设计出来就要被削，果然还是三方定律。现在削了，感觉可以。",
 			ska_professor_toad:"武将作者：Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			????. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
-			——翻译自《超级马力欧维基》（来源：<a target=\"_self\" href=\"https://www.mariowiki.com/Professor_Toad\"><span style=\"text-decoration: underline;\">https://www.mariowiki.com/Professor_Toad</span></a>）<br>\
+			——翻译自《超级马力欧维基》（来源："+formatUrl("https://www.mariowiki.com/Professor_Toad")+"）<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -112,6 +134,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			请握住我的手，在我随风飘落，散入黎明之前……",
 			alz_kyo_kusanagi:"武将作者：Axel_Zhai<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1362. 草薙京/Kyo Kusanagi/草薙京<br>\
 			系列：The King of Fighters（拳皇）<br>\
@@ -121,6 +144,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			另外一位新人设计的第一个武将，但是为什么要选择一个已经有了的武将呢……",
 			mnm_captain_falcon:"武将作者：Show-K、mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>\
 			系列：F-Zero（零式赛车）<br>\
@@ -130,6 +154,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM曾经提过一个“面杀”版本技能，最近无名杀能玩音游了，于是我就借鉴了这种思路（不就是小游戏武将吗）。",
 			ska_king_olly:"武将作者：Show-K<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1427. 奥利王/King Olly/オリー王<br>\
 			系列：Mario（马力欧）<br>\
@@ -139,6 +164,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			马里奥RPG系列中唯二原创最终Boss之一，极具历史意义！",
 			ska_koopa_troopa:"武将作者：Show-K、mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0037. 慢慢龟/Koopa Troopa/ノコノコ<br>\
 			系列：Mario（马力欧）<br>\
@@ -148,6 +174,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			黑历史重铸武将之一。",
 			mnm_9_volt_18_volt:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
 			系列：Wario（瓦力欧）<br>\
@@ -157,6 +184,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM的娱乐武将，超值N合1！",
 			nnk_robin:"武将作者：南柯<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -172,6 +200,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			南柯设计的第二个武将，值得一试。",
 			nnk_robin_male:"武将作者：南柯<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -181,6 +210,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			南柯设计的第二个武将，值得一试。（已选择男性）",
 			nnk_robin_female:"武将作者：南柯<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
@@ -190,6 +220,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			南柯设计的第二个武将，值得一试。（已选择女性）",
 			alz_yuri_kozukata:"武将作者：Axel_Zhai<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1241. 不来方夕莉/Yuri Kozukata/不来方夕莉<br>\
 			系列：Fatal Frame（零）<br>\
@@ -199,9 +230,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			咕了好久了……",
 			ymk_tianyi:"武将作者：Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			啊对对对。",
 			xsj_yu_narukami:"武将作者：小时节、Yumikohimi<br>\
+			插图作者：未知<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			????. 鸣上悠/Yu Narukami/鳴上悠<br>\
 			系列：Persona（女神异闻录）<br>\
@@ -211,6 +244,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			总算有新人来设计武将了。",
 			ska_bandana_waddle_dee:"武将作者：Show-K<br>\
+			插图作者：Azuki（"+formatUrl("https://www.pixiv.net/artworks/93078264")+"）<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -2666,6 +2700,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_yu_narukami:"鸣上悠",
 			ska_bandana_waddle_dee:"头巾瓦豆鲁迪",
 			//Character ab.
+			ska_bobby_ab:"炸弹兵",
 			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
 			mnm_9_volt_18_volt_ab:"九伏十八伏",
