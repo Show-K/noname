@@ -179,10 +179,6 @@
 	display: block !important;
 }
 
-.player.connect>div:not(.avatar):not(.name):not(.nameol):not(.hp):not(.room):not(.gaming):not(.identity).primary-avatar {
-	display: block !important;
-}
-
 .player>.camp-wrap div {
 	transition: none;
 }
@@ -412,8 +408,6 @@
 
 .player>.hp-wrap>.hp.textstyle {
 	flex-direction: column;
-	writing-mode: vertical-rl;
-	-webkit-writing-mode: vertical-rl;
 }
 
 .player>.hp-wrap>.hp.hidden {
@@ -450,6 +444,10 @@
 	border-radius: 8px;
 	transition-property: opacity, transform;
 	z-index: 61;
+}
+
+.player.connect>div:not(.avatar):not(.name):not(.nameol):not(.hp):not(.room):not(.gaming):not(.identity).primary-avatar {
+	display: block !important;
 }
 
 .player.fullskin2>.primary-avatar {

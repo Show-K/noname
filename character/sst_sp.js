@@ -1,16 +1,6 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
-	/**
-	 * Insert line break opportunities into a URL
-	 */
-	var formatUrl=function(url){
-		// Split the URL into an array to distinguish double slashes from single slashes
-		var doubleSlash=url.split("//");
-		// Format the strings on either side of double slashes separately
-		var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,"$1<wbr>").replace(/(?<before>[/~.,\-_?#%])/giu,"<wbr>$1").replace(/(?<beforeAndAfter>[=&])/giu,"<wbr>$1<wbr>")).join("//<wbr>");
-		return formatted;
-	};
 	var sst_sp={
 		name:"sst_sp",
 		connect:true,
@@ -82,17 +72,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			上次柚子的武将就被老摸吵着要删，这次希望不要太IMBA……老摸的西施慧出来了，柚子的武将至少还是被借鉴了一点的。",
 			ska_bobby:"武将作者：Show-K<br>\
-			插图作者：未知<br>\
+			插图作者：海鮮炒め<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			????. 炸弹彬/Bobby/ボム平<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
-			——翻译自《超级马力欧维基》（来源："+formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"）<br>\
+			——翻译自《超级马力欧维基》<br>"+
+			get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			“我？哦，我是炸弹兵。”",
 			ska_olivia:"武将作者：Show-K<br>\
-			插图作者：未知<br>\
+			插图作者：蛇のこ<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
 			系列：Mario（马力欧）<br>\
@@ -120,7 +113,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
-			——翻译自《超级马力欧维基》（来源："+formatUrl("https://www.mariowiki.com/Professor_Toad")+"）<br>\
+			——翻译自《超级马力欧维基》<br>"+
+			get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"武将作者：mario not mary<br>\
@@ -154,7 +148,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			MNM曾经提过一个“面杀”版本技能，最近无名杀能玩音游了，于是我就借鉴了这种思路（不就是小游戏武将吗）。",
 			ska_king_olly:"武将作者：Show-K<br>\
-			插图作者：未知<br>\
+			插图作者：チョコ<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			1427. 奥利王/King Olly/オリー王<br>\
 			系列：Mario（马力欧）<br>\
@@ -244,7 +239,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			总算有新人来设计武将了。",
 			ska_bandana_waddle_dee:"武将作者：Show-K<br>\
-			插图作者：Azuki（"+formatUrl("https://www.pixiv.net/artworks/93078264")+"）<br>\
+			插图作者：Azuki<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/93078264")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -278,6 +274,30 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_bandana_waddle_dee:"最佳拍档"
 		},
 		skill:{
+			_kirby_30th_anniversary:{
+				trigger:{global:"gameStart"},
+				forced:true,
+				popup:false,
+				filter:function(){
+					return game.hasPlayer(current=>current.name=="sst_kirby")&&game.hasPlayer(current=>current.name=="ska_bandana_waddle_dee");
+				},
+				content:function(){
+					"step 0"
+					var next=player.chooseButton(true);
+					next.set("createDialog",[[["sst_kirby","ska_bandana_waddle_dee"],"character"],get.translation("ska_bandana_waddle_dee"),"<div class=\"text left\">卡比，30周年纪念日快乐哟！</div>"]);
+					next.set("filterButton",function(button){
+						return button.link=="ska_bandana_waddle_dee";
+					});
+					next.set("selectButton",-1);
+					"step 1"
+					var next=player.chooseButton(true);
+					next.set("createDialog",[[["sst_kirby","ska_bandana_waddle_dee"],"character"],get.translation("sst_kirby"),"<div class=\"text left\">Poyo！Poyo！</div>"]);
+					next.set("filterButton",function(button){
+						return button.link=="sst_kirby";
+					});
+					next.set("selectButton",-1);
+				}
+			},
 			//SP Isabelle
 			ymk_zhongmi:{
 				trigger:{player:["gainAfter","loseAfter"]},
@@ -588,7 +608,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi3")).set("filterButton",function(button){
+					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi3"),"你可以从仁库中获得与此牌颜色相同的一张牌").set("filterButton",function(button){
 						return get.color(button.link)==get.color(_status.event.cardx);
 					}).set("ai",function(button){
 						var player=_status.event.player;
@@ -598,7 +618,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("cardx",trigger.card);
 					"step 1"
 					if(result.links&&result.links.length){
-						player.logSkill("ska_shenqi");
+						player.logSkill("ska_shenqi3");
 						_status.renku.removeArray(result.links);
 						game.updateRenku();
 						player.gain(result.links,"fromRenku");
@@ -645,7 +665,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					_status.renku.remove(event.card);
 					game.updateRenku();
 					game.cardsGotoOrdering(event.card);
-					player.$throw(event.card);
+					player.showCards(event.card);
 					target.chooseCard("he","折赋：交给"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card),function(card){
 						var target=_status.event.targetx;
 						var player=_status.event.player;
@@ -659,7 +679,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						target.give(result.cards,player);
 					}
 					else{
-						target.gain(event.card,"gain2","fromRenku");
+						target.gain(event.card,"gain2");
 						event.finish();
 					}
 					"step 2"
@@ -1965,6 +1985,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					//targets[0].$throw(card);
 					_status.renku.remove(card);
 					game.updateRenku();
+					game.cardsGotoOrdering(card);
+					player.showCards(card);
 					targets[0].useCard(card,targets[1],false,"noai");
 				},
 				ai:{
@@ -2607,8 +2629,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 7"
 					event.target.chooseToDiscard("盟谌：弃置一张牌","he",true).set("ai",function(card){
 						var val=get.unuseful(card);
-						var cards=_status.event.getParent().cards;
-						if(cards.length&&get.color(card)==get.color(cards[0])) val+=5;
 						return val;
 					});
 					"step 8"
@@ -2617,24 +2637,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 9"
 					if(event.cards.length){
-						var identical=true;
-						var color=get.color(event.cards[0]);
-						for(var i=1;i<event.cards.length;i++){
-							if(get.color(event.cards[i])!=color){
-								identical=false;
-								break;
-							}
-						}
-						if(identical){
-							event.target.chooseCardButton("盟谌：你可以使用"+get.translation(event.cards)+"中的一张牌",event.cards).set("filterButton",function(button){
-								return ["o","d"].contains(get.position(button.link,true))&&_status.event.player.hasUseTarget(button.link);
-							}).set("ai",function(button){
-								return _status.event.player.getUseValue(button.link);
-							});
-						}
-						else{
-							event.goto(1);
-						}
+						event.target.chooseCardButton("盟谌：你可以使用"+get.translation(event.cards)+"中的一张牌",event.cards).set("filterButton",function(button){
+							return ["o","d"].contains(get.position(button.link,true))&&_status.event.player.hasUseTarget(button.link);
+						}).set("ai",function(button){
+							return _status.event.player.getUseValue(button.link);
+						});
 					}
 					else{
 						event.goto(1);
@@ -2721,7 +2728,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得与此牌颜色相同的一张牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
-			ska_zhefu_info:"出牌阶段限一次，你可以将仁库中一张牌移动到处理区，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
+			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
 			ska_kezhi:"恪志",
 			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以失去1点体力并将一张牌当作此牌使用。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_jiyan:"籍验",
@@ -2768,7 +2775,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
-			ska_zhesheng_info:"出牌阶段限一次，你可以从仁库中选择一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
+			ska_zhesheng_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
 			ska_suixuan:"随旋",
 			ska_suixuan2:"随旋",
 			ska_suixuan_info:"锁定技，当你受到伤害后，你翻面。当你翻面时，你视为使用一张无距离限制的【杀】，然后弃置一张牌。",
@@ -2800,7 +2807,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_qiangdu:"枪笃",
 			ska_qiangdu_info:"当你的♠牌正面向上离开你的区域后，你可以弃置一张牌，令攻击范围内的一名角色除非打出一张基本牌或将其武将牌上一张牌置入弃牌堆，否则你对其造成1点伤害。",
 			ska_mengchen:"盟谌",
-			ska_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌。若弃置牌颜色相同，其可以使用其中一张牌。",
+			ska_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用其中一张牌。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",

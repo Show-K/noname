@@ -1,13 +1,6 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
-	var formatUrl=function(url){
-		// Split the URL into an array to distinguish double slashes from single slashes
-		var doubleSlash=url.split("//");
-		// Format the strings on either side of double slashes separately
-		var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,"$1<wbr>").replace(/(?<before>[/~.,\-_?#%])/giu,"<wbr>$1").replace(/(?<beforeAndAfter>[=&])/giu,"<wbr>$1<wbr>")).join("//<wbr>");
-		return formatted;
-	};
 	var sst={
 		name:"sst_standard",
 		connect:true,
@@ -36,107 +29,107 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			shibing1sst_smash:["male","sst_smash",0,[],["unseen"]],
 			shibing2sst_smash:["female","sst_smash",0,[],["unseen"]],
 			//Identity mode character
-			sst_mario:["male","sst_light",4,["sst_jueyi"],["skillType:unknown","frag:61","step:99","over:78"]],
-			sst_link:["male","sst_light",4,["sst_qingyong"],[]],
-			sst_yoshi:["male","sst_light",4,["sst_tanshi"],["skillType:balance","frag:50","step:93","over:59"]],
-			sst_wario:["male","sst_darkness",4,["sst_haoduo"],["skillType:balance","frag:88","step:71","over:71"]],
-			sst_villager:["male","sst_light",4,["sst_huandai"],[]],
-			sst_zelda:["female","sst_light",3,["sst_anzhi","sst_yinjie","sst_qinwei"],["zhu"]],
-			sst_ganondorf:["male","sst_darkness",5,["sst_chengli","sst_huoluan","sst_yane"],["zhu"]],
-			sst_dr_mario:["male","sst_light",4,["sst_quji"],["skillType:support","frag:50","step:80","over:80"]],
-			sst_palutena:["female","sst_light",3,["sst_qiji","sst_shengbing"],[]],
-			sst_marth:["male","sst_light",4,["sst_hanmang","sst_jianbu","sst_fuguo"],["zhu"]],
-			sst_rosalina:["female","sst_light",3,["sst_xingchen","sst_zhuansheng"],["skillType:support","frag:80","step:80","over:80"]],
-			sst_zero_suit_samus:["female","sst_light",3,["sst_guangsuo","sst_qingying"],[]],
-			sst_luigi:["male","sst_light",3,["sst_que","sst_guiyun"],["skillType:balance","frag:88","step:71","over:71"]],
-			sst_bowser:["male","sst_darkness",5,["sst_xiduo","sst_xiongao","sst_yujun"],["zhu","skillType:challenge","frag:79","step:102","over:79"]],
-			sst_peach:["female","sst_light",3,["sst_hongyan","sst_yice","sst_qiuyuan"],["zhu","skillType:support","frag:67","step:80","over:50"]],
-			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],[]],
-			sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],[]],
-			sst_massy:["male","sst_reality",5,["sst_shenfa","sst_shenwu"],[]],
-			sst_samus:["female","sst_light",4,["sst_qiongtu","sst_juezhan"],[]],
-			sst_ridley:["male","sst_darkness",5,["sst_baozheng","sst_furan"],[]],
-			sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],[]],
-			sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],[]],
-			sst_mario_not_mary:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],[]],
-			sst_yumikohimi:["female","sst_reality",3,["sst_yingji","sst_huxiao"],[]],
-			sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],[]],
-			sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],[]],
-			sst_simon:["male","sst_darkness",4,["sst_shengfa","sst_shengbian"],[]],
-			sst_incineroar:["male","sst_darkness",4,["sst_weihe","sst_fuchou"],[]],
-			sst_greninja:["male","sst_darkness",3,["sst_huanbian","sst_yingxi"],[]],
-			sst_kirby:["male","sst_light",3,["sst_qushi","sst_xinghuo"],[]],
-			sst_king_k_rool:["male","sst_darkness",4,["sst_badao","sst_jinjia"],[]],
-			sst_donkey_kong:["male","sst_light",4,["sst_baochui"],[]],
-			sst_richter:["male","sst_darkness",4,["sst_shengxi","sst_xuelun"],[]],
-			sst_pokemon_trainer_red:["male","sst_light",4,["sst_xiandu"],[]],
-			sst_isabelle:["female","sst_light",3,["sst_wenxu","sst_mihu"],[]],
-			sst_daisy:["female","sst_light",3,["sst_renqing","sst_manchan"],[]],
-			sst_meta_knight:["male","sst_darkness",4,["sst_canyun"],[]],
-			sst_little_mac:["male","sst_light",2,["sst_douhun","sst_juejing"],[]],
-			sst_oc:["male","sst_reality",4,["sst_baling"],[]],
-			sst_mr_8:["male","sst_reality",3,["sst_yingzi","sst_geliao"],[]],
-			sst_dark_link:["male","sst_spirit",4,["sst_jingyue"],[]],
-			sst_kyuukou:["male","sst_reality",4,["sst_jianxiang","sst_baochao"],[]],
-			sst_windier:["female","sst_reality",3,["sst_chixing","sst_chuanxiao"],[]],
-			sst_rentianshu:["male","sst_reality",4,["sst_jilve","sst_yuanchuan"],[]],
-			sst_srf:["male","sst_reality",3,["sst_diebu","sst_bielian"],[]],
-			sst_bowser_jr:["male","sst_darkness",3,["sst_guaibi","sst_daonao"],[]],
-			sst_koopalings:["double","sst_darkness",7,["sst_shimo","sst_qiebao","sst_duzhi"],[]],
-			sst_ryu:["male","sst_light",4,["sst_tandao","sst_bodong"],[]],
-			sst_ken:["male","sst_light",4,["sst_yanyang","sst_shenglong"],[]],
-			sst_sans:["male","sst_spirit",1,["sst_juexin","sst_yebao","sst_caijue"],["skillType:unknown","frag:20","step:1","over:99"]],
-			sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],["skillType:support","frag:70","step:90","over:95"]],
-			sst_master_hand:["male","sst_spirit",4,["sst_zhuzai","sst_zhixu"],["zhu"]],
-			sst_ike:["male","sst_light",4,["sst_tugu"],[]],
-			sst_sheik:["female","sst_darkness",3,["sst_nixing","sst_shouyin"],[]],
-			sst_miumiu:["female","sst_reality",3,["sst_qichang","sst_shizhu"],[]],
-			sst_toon_link:["male","sst_light",4,["sst_yufeng","sst_chihang"],[]],
-			sst_wolf:["male","sst_darkness",4,["sst_xishou"],[]],
-			sst_young_link:["male","sst_darkness",3,["sst_shishi","sst_jiamian"],[]],
-			sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["unseen"]],
-			sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],[]],
-			sst_joker:["male","sst_darkness",3,["sst_daoxin","sst_fanni"],[]],
-			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],[]],
-			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],[]],
-			sst_krystal:["female","sst_spirit",3,["sst_liaoyi","sst_shuanghan"],[]],
-			sst_snake:["male","sst_darkness",4,["sst_qianlong"],[]],
-			sst_mega_man:["male","sst_light",4,["sst_guangpao","sst_tewu"],[]],
-			sst_captain_falcon:["male","sst_light",4,["sst_jijing"],[]],
-			sst_jigglypuff:["female","sst_light",3,["sst_yinyao","sst_anke"],[]],
-			sst_lucario:["male","sst_darkness",4,["sst_bodao","sst_juyuan"],[]],
-			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],[]],
-			sst_king_dedede:["male","sst_darkness",4,["sst_baoshi","sst_wangyan"],["zhu"]],
-			sst_corrin:["none","sst_smash",2,["sst_juelu","sst_longwei"],[]],
-			sst_corrin_male:["male","sst_darkness",2,["sst_juelu","sst_longwei"],["unseen"]],
-			sst_corrin_female:["female","sst_light",2,["sst_juelu","sst_longwei"],["unseen"]],
-			sst_steve:["male","sst_light",4,["sst_tankuang"],[]],
-			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu"]],
-			sst_feiji:["male","sst_reality",4,["sst_xuhuang"],[]],
-			sst_sonic:["male","sst_light",4,["sst_jibu","sst_juechen"],[]],
-			sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],[]],
-			sst_fox:["male","sst_light",4,["sst_powei"],[]],
-			sst_mii_fighters:["none","sst_smash",4,["sst_bianshe"],[]],
-			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],[]],
-			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
-			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],[]],
-			sst_falco:["male","sst_light",4,["sst_juao"],[]],
-			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
-			sst_enderman:["none","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
-			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],[]],
-			sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],[]],
-			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],[]],
-			sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],["skillType:balance","frag:65","step:84","over:65"]],
-			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],[]],
-			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],[]],
-			sst_kazuya:["male","sst_darkness",5,["sst_chouyu","sst_xuehai"],[]],
-			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],[]],
-			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],[]],
-			sst_pac_man:["male","sst_light",3,["sst_jichang"],[]],
-			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],[]],
-			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],[]],
-			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu"]],
-			sst_piranha_plant:["none","sst_darkness",4,["sst_tunshi","sst_yangfen"],[]]
+			sst_mario:["male","sst_light",4,["sst_jueyi"],["type:unknown","frag:61","step:99","over:78"]],
+			sst_link:["male","sst_light",4,["sst_qingyong"],["type:balance"]],
+			sst_yoshi:["male","sst_light",4,["sst_tanshi"],["type:challenge"]],
+			sst_wario:["male","sst_darkness",4,["sst_haoduo"],["type:balance"]],
+			sst_villager:["male","sst_light",4,["sst_huandai"],["type:challenge"]],
+			sst_zelda:["female","sst_light",3,["sst_anzhi","sst_yinjie","sst_qinwei"],["zhu","type:balance"]],
+			sst_ganondorf:["male","sst_darkness",5,["sst_chengli","sst_huoluan","sst_yane"],["zhu","forbidai","type:balance"]],
+			sst_dr_mario:["male","sst_light",4,["sst_quji"],["type:support"]],
+			sst_palutena:["female","sst_light",3,["sst_qiji","sst_shengbing"],["type:support"]],
+			sst_marth:["male","sst_light",4,["sst_hanmang","sst_jianbu","sst_fuguo"],["zhu","type:support"]],
+			sst_rosalina:["female","sst_light",3,["sst_xingchen","sst_zhuansheng"],["type:support"]],
+			sst_zero_suit_samus:["female","sst_light",3,["sst_guangsuo","sst_qingying"],["type:support"]],
+			sst_luigi:["male","sst_light",3,["sst_que","sst_guiyun"],["type:balance"]],
+			sst_bowser:["male","sst_darkness",5,["sst_xiduo","sst_xiongao","sst_yujun"],["zhu","type:challenge","frag:79","step:102","over:79"]],
+			sst_peach:["female","sst_light",3,["sst_hongyan","sst_yice","sst_qiuyuan"],["zhu","type:support"]],
+			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],["type:support"]],
+			sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],["type:support"]],
+			sst_massy:["male","sst_reality",5,["sst_shenfa","sst_shenwu"],["type:unknown"]],
+			sst_samus:["female","sst_light",4,["sst_qiongtu","sst_juezhan"],["type:balance"]],
+			sst_ridley:["male","sst_darkness",5,["sst_baozheng","sst_furan"],["type:balance"]],
+			sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],["type:balance"]],
+			sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],["type:unknown"]],
+			sst_mario_not_mary:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],["type:support"]],
+			sst_yumikohimi:["female","sst_reality",3,["sst_yingji","sst_huxiao"],["type:balance"]],
+			sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],["type:support"]],
+			sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],["type:balance"]],
+			sst_simon:["male","sst_darkness",4,["sst_shengfa","sst_shengbian"],["type:challenge"]],
+			sst_incineroar:["male","sst_darkness",4,["sst_weihe","sst_fuchou"],["type:support"]],
+			sst_greninja:["male","sst_darkness",3,["sst_huanbian","sst_yingxi"],["type:support"]],
+			sst_kirby:["male","sst_light",3,["sst_qushi","sst_xinghuo"],["type:unknown"]],
+			sst_king_k_rool:["male","sst_darkness",4,["sst_badao","sst_jinjia"],["type:support"]],
+			sst_donkey_kong:["male","sst_light",4,["sst_baochui"],["type:support"]],
+			sst_richter:["male","sst_darkness",4,["sst_shengxi","sst_xuelun"],["type:support"]],
+			sst_pokemon_trainer_red:["male","sst_light",4,["sst_xiandu"],["type:balance"]],
+			sst_isabelle:["female","sst_light",3,["sst_wenxu","sst_mihu"],["type:support"]],
+			sst_daisy:["female","sst_light",3,["sst_renqing","sst_manchan"],["type:balance"]],
+			sst_meta_knight:["male","sst_darkness",4,["sst_canyun"],["type:support"]],
+			sst_little_mac:["male","sst_light",2,["sst_douhun","sst_juejing"],["type:support"]],
+			sst_oc:["male","sst_reality",4,["sst_baling"],["type:balance"]],
+			sst_mr_8:["male","sst_reality",3,["sst_yingzi","sst_geliao"],["type:support"]],
+			sst_dark_link:["male","sst_spirit",4,["sst_jingyue"],["type:balance"]],
+			sst_kyuukou:["male","sst_reality",4,["sst_jianxiang","sst_baochao"],["type:support"]],
+			sst_windier:["female","sst_reality",3,["sst_chixing","sst_chuanxiao"],["type:balance"]],
+			sst_rentianshu:["male","sst_reality",4,["sst_jilve","sst_yuanchuan"],["type:balance"]],
+			sst_srf:["male","sst_reality",3,["sst_diebu","sst_bielian"],["type:balance"]],
+			sst_bowser_jr:["male","sst_darkness",3,["sst_guaibi","sst_daonao"],["type:support"]],
+			sst_koopalings:["double","sst_darkness",7,["sst_shimo","sst_qiebao","sst_duzhi"],["type:support"]],
+			sst_ryu:["male","sst_light",4,["sst_tandao","sst_bodong"],["type:support"]],
+			sst_ken:["male","sst_light",4,["sst_yanyang","sst_shenglong"],["type:balance"]],
+			sst_sans:["male","sst_spirit",1,["sst_juexin","sst_yebao","sst_caijue"],["type:unknown","frag:20","step:1","over:99"]],
+			sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],["type:support"]],
+			sst_master_hand:["male","sst_spirit",4,["sst_zhuzai","sst_zhixu"],["zhu","type:support"]],
+			sst_ike:["male","sst_light",4,["sst_tugu"],["type:balance"]],
+			sst_sheik:["female","sst_darkness",3,["sst_nixing","sst_shouyin"],["type:balance"]],
+			sst_miumiu:["female","sst_reality",3,["sst_qichang","sst_shizhu"],["type:support"]],
+			sst_toon_link:["male","sst_light",4,["sst_yufeng","sst_chihang"],["type:balance"]],
+			sst_wolf:["male","sst_darkness",4,["sst_xishou"],["type:balance"]],
+			sst_young_link:["male","sst_darkness",3,["sst_shishi","sst_jiamian"],["type:unknown"]],
+			sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["unseen","type:balance"]],
+			sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],["type:support"]],
+			sst_joker:["male","sst_darkness",3,["sst_daoxin","sst_fanni"],["type:support"]],
+			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],["type:balance"]],
+			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],["type:balance"]],
+			sst_krystal:["female","sst_spirit",3,["sst_liaoyi","sst_shuanghan"],["type:balance"]],
+			sst_snake:["male","sst_darkness",4,["sst_qianlong"],["type:balance"]],
+			sst_mega_man:["male","sst_light",4,["sst_guangpao","sst_tewu"],["type:balance"]],
+			sst_captain_falcon:["male","sst_light",4,["sst_jijing"],["type:balance"]],
+			sst_jigglypuff:["female","sst_light",3,["sst_yinyao","sst_anke"],["type:balance"]],
+			sst_lucario:["male","sst_darkness",4,["sst_bodao","sst_juyuan"],["type:balance"]],
+			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],["type:balance"]],
+			sst_king_dedede:["male","sst_darkness",4,["sst_baoshi","sst_wangyan"],["zhu","type:support"]],
+			sst_corrin:["none","sst_smash",2,["sst_juelu","sst_longwei"],["type:support"]],
+			sst_corrin_male:["male","sst_darkness",2,["sst_juelu","sst_longwei"],["unseen","type:support"]],
+			sst_corrin_female:["female","sst_light",2,["sst_juelu","sst_longwei"],["unseen","type:support"]],
+			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:support"]],
+			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu","type:support"]],
+			sst_feiji:["male","sst_reality",4,["sst_xuhuang"],["type:balance"]],
+			sst_sonic:["male","sst_light",4,["sst_jibu","sst_juechen"],["type:balance"]],
+			sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],["type:balance"]],
+			sst_fox:["male","sst_light",4,["sst_powei"],["type:support"]],
+			sst_mii_fighters:["none","sst_smash",4,["sst_bianshe"],["type:balance"]],
+			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],["type:balance"]],
+			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],["type:balance"]],
+			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],["type:support"]],
+			sst_falco:["male","sst_light",4,["sst_juao"],["type:balance"]],
+			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:support"]],
+			sst_enderman:["none","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],["type:balance"]],
+			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],["type:support"]],
+			sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],["type:support"]],
+			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],["type:support"]],
+			sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],["type:balance"]],
+			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],["type:support"]],
+			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:support"]],
+			sst_kazuya:["male","sst_darkness",5,["sst_chouyu","sst_xuehai"],["type:balance"]],
+			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],["type:balance"]],
+			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],["type:balance"]],
+			sst_pac_man:["male","sst_light",3,["sst_jichang"],["type:support"]],
+			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],["type:balance"]],
+			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],["type:support"]],
+			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu","type:support"]],
+			sst_piranha_plant:["none","sst_darkness",4,["sst_tunshi","sst_yangfen"],["type:support"]]
 		},
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -168,7 +161,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"
 			*/
 			sst_mario:"武将作者：mario not mary、Show-K<br>\
-			插图作者：未知<br>\
+			插图作者：kuromame_983<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0001. 马力欧/Mario/マリオ<br>\
 			系列：Mario（马力欧）<br>\
@@ -308,7 +301,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			就算是调整强度了，依旧没有武将图片……",
 			sst_peach:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：ゲB<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/50055037")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0005. 桃花公主/Peach/ピーチ<br>\
 			系列：Mario（马力欧）<br>\
@@ -434,7 +428,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			“变幻自在”",
 			sst_kirby:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：kotori<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/26818738")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0323. 卡比/Kirby/カービィ<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -494,7 +489,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			大家都爱的秘书西施惠！",
 			sst_daisy:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：高橋うもり<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/73249081")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0006. 菊花公主/Daisy/デイジー<br>\
 			系列：Mario（马力欧）<br>\
@@ -504,7 +500,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			嘿！我是黛西！",
 			sst_meta_knight:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：糸谷さいれん<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/60069126")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0324. 魅塔骑士/Meta Knight/メタナイト<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -548,7 +545,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_windier:"武将作者：mario not mary<br>\
 			插图作者：封羽翎烈<br>\
 			━━━━━━━━━━━━━━━━━<br>\
-			这里几乎所有武将介绍都取材于封羽翎烈的《任天堂明星大乱斗特别版全命魂介绍》，还不快去"+formatUrl("https://ssbuspirits.top")+"支持一下？",
+			这里几乎所有武将介绍都取材于封羽翎烈的《任天堂明星大乱斗特别版全命魂介绍》，还不快去"+get.formatUrl("https://ssbuspirits.top")+"支持一下？",
 			sst_rentianshu:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
 			━━━━━━━━━━━━━━━━━<br>\
@@ -844,7 +841,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			自损八百，可伤敌一千——某张姓女子。",
 			sst_king_dedede:"武将作者：mario not mary<br>\
-			插图作者：太春/バルテー（"+formatUrl("https://www.pixiv.net/artworks/42226957")+"）<br>\
+			插图作者：太春/バルテー<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/42226957")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0325. 帝帝帝大王/King Dedede/デデデ大王<br>\
 			系列：Kirby（星之卡比）<br>\
@@ -1076,7 +1074,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			所以拳皇XV终于憋出来了……",
 			sst_pauline:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：맛감쟈<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/84875359")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0079. 宝琳/Pauline/ポリーン<br>\
 			系列：Mario（马力欧）<br>\
@@ -2237,17 +2236,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var next=player.chooseButton();
 					next.set("createDialog",info);
 					next.set("filterButton",function(button){
-						var card=_status.event.cardx;
-						if(!lib.filter.cardDiscardable(button.link,_status.event.player)) return false;
+						var card=_status.event.getTrigger().card;
+						if(card!=_status.pileTop&&!lib.filter.cardDiscardable(button.link,_status.event.player)) return false;
 						return get.suit(button.link)==get.suit(card);
 					});
 					next.set("ai",function(button){
 						var bool=false;
 						var player=_status.event.player;
-						var trigger=_status.event.getTrigger();
+						var evt=_status.event.getTrigger();
 						if(_status.event.effect<0){
-							if(trigger.card.name=="sha"){
-								var target=trigger.targets[0];
+							if(evt.card.name=="sha"){
+								var target=evt.targets[0];
 								if(target==player){
 									if(!player.countCards("h","shan")) bool=true;
 								}
@@ -2267,13 +2266,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return 0;
 						}
 					});
-					next.set("cardx",trigger.card);
 					next.set("effect",effect);
 					"step 1"
 					if(result.links&&result.links.length){
 						player.logSkill("sst_quji",trigger.player);
 						if(result.links[0]==event.card){
-							player.loseToDiscardpile(result.links);
+							game.cardsDiscard(result.links);
+							player.$throw(result.links);
+							game.log(player,"将",result.links,"置入了弃牌堆");
 							player.popup("牌堆顶");
 							player.$fullscreenpop("牌堆顶");
 						}
@@ -3636,9 +3636,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								}
 								game.log("由",player,"的回合开始","#y第"+(game.roundNumber+1)+"轮");
 								game.resetSkills();
-								event=evt;
-								event.finish();
-								event.untrigger(true);
+								_status.event=evt;
+								_status.event.finish();
+								_status.event.untrigger(true);
 								game.broadcastAll(ui.clear);
 							}
 						});
@@ -3814,13 +3814,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					player.addSkill("sst_qiongtu_effect");
 					"step 1"
-					if(player.hasSkill("sst_juezhan")&&!lib.skill.sst_qiongtu.sst_juezhan_all_deleted(player)){
-						var next=game.createEvent("sst_juezhan_delete");
+					if(player.hasSkill("sst_juezhan")&&!lib.skill.sst_qiongtu.isSstJuezhanDeletedAll(player)){
+						var next=game.createEvent("sstJuezhanDelete");
 						next.set("player",player);
-						next.setContent(lib.skill.sst_qiongtu.sst_juezhan_delete);
+						next.setContent(lib.skill.sst_qiongtu.sstJuezhanDelete);
 					}
 				},
-				sst_juezhan_all_deleted:function(player){
+				isSstJuezhanDeletedAll:function(player){
 					var bool=true;
 					for(var i=0;i<player.storage.sst_juezhan.length;i++){
 						if(player.storage.sst_juezhan[i]){
@@ -3830,7 +3830,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return bool;
 				},
-				sst_juezhan_delete:function(){
+				sstJuezhanDelete:function(){
 					"step 0"
 					var choice=[];
 					var list=[];
@@ -3854,17 +3854,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("choiceList",list).set("displayIndex",false).set("prompt","茕途：你可以删除〖绝战〗一个｛｝内的内容");
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
+						var str="";
 						switch(result.control){
 							case "｛1｝":{
 								player.storage.sst_juezhan[0]=false;
+								str="｛你带有「伤害」标签的牌均视为【杀】。｝";
 								break;
 							}
 							case "｛2｝":{
 								player.storage.sst_juezhan[1]=false;
+								str="｛你使用牌不能指定与你距离1以外的目标。｝";
 								break;
 							}
 							case "｛3｝":{
 								player.storage.sst_juezhan[2]=false;
+								str="｛你的装备区被废除。｝";
 								player.enableEquip("equip1");
 								player.enableEquip("equip2");
 								player.enableEquip("equip3");
@@ -3874,6 +3878,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 						}
 						game.log(player,"更改了","#g【绝战】","的描述");
+						game.log(player,"删除了","#y"+str);
 						player.popup("更改描述");
 					}
 				}
@@ -4171,21 +4176,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						switch(result.control){
 							case "摸牌阶段〖影流〗":{
 								player.addSkill("sst_shunxing_draw_extra");
+								player.popup("摸牌影流");
 								game.log(player,"废除了","#y摸牌阶段〖影流〗");
 								break;
 							}
 							case "出牌阶段〖影流〗":{
 								player.addSkill("sst_shunxing_use_extra");
+								player.popup("出牌影流");
 								game.log(player,"废除了","#y出牌阶段〖影流〗");
 								break;
 							}
 							case "摸牌阶段":{
 								player.addSkill("sst_shunxing_draw");
+								player.popup("摸牌阶段");
 								game.log(player,"废除了","#y摸牌阶段");
 								break;
 							}
 							case "出牌阶段":{
 								player.addSkill("sst_shunxing_use");
+								player.popup("出牌阶段");
 								game.log(player,"废除了","#y出牌阶段");
 								break;
 							}
@@ -4195,21 +4204,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						switch(result.control){
 							case "摸牌阶段〖影流〗":{
 								player.removeSkill("sst_shunxing_draw_extra");
+								player.popup("摸牌影流");
 								game.log(player,"恢复了","#y摸牌阶段〖影流〗");
 								break;
 							}
 							case "出牌阶段〖影流〗":{
 								player.removeSkill("sst_shunxing_use_extra");
+								player.popup("出牌影流");
 								game.log(player,"恢复了","#y出牌阶段〖影流〗");
 								break;
 							}
 							case "摸牌阶段":{
 								player.removeSkill("sst_shunxing_draw");
+								player.popup("摸牌阶段");
 								game.log(player,"恢复了","#y摸牌阶段");
 								break;
 							}
 							case "出牌阶段":{
 								player.removeSkill("sst_shunxing_use");
+								player.popup("出牌阶段");
 								game.log(player,"恢复了","#y出牌阶段");
 								break;
 							}
@@ -5107,6 +5120,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					})) return true;
 					return false;
 				},
+				logTarget:"player",
 				content:function(){
 					trigger.num++;
 				},
@@ -5426,13 +5440,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_jinjia:{
 				trigger:{player:"damageBegin3"},
-				filter:function (event,player){
+				filter:function(event,player){
 					return event.num>0;
 				},
 				forced:true,
 				content:function(){
 					"step 0"
-					//player.logSkill("sst_jinjia");
 					trigger.num--;
 					if(player.hasSkill("sst_jinjia_damaged")){
 						player.turnOver();
@@ -5444,7 +5457,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.addTempSkill("sst_jinjia_damaged");
 					}
 					"step 1"
-					if(trigger.num>0) event.goto(0);
+					if(trigger.num>0){
+						player.logSkill("sst_jinjia");
+						event.goto(0);
+					}
 				},
 				ai:{
 					maixie_defend:true,
@@ -5618,6 +5634,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.source.addTempSkill(event.skill,{player:event.skill+"After"});
 						trigger.source.popup(event.skill,"thunder");
 						game.log(trigger.source,"获得了技能","#g【"+get.translation(event.skill)+"】");
+					}
+					else{
+						game.log(trigger.source,"拒绝了",player,"的请求");
+						trigger.source.chat("搭嘎，口头瓦路！");
 					}
 				},
 				ai:{
@@ -5806,7 +5826,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				content:function(){
 					"step 0"
-					player.judge().set("judge2",function(result){
+					player.judge(function(card){
+						var suit=get.suit(card);
+						return (suit=="spade"||suit=="club")?-1:0;
+					}).set("judge2",function(result){
 						return result.suit=="spade"||result.suit=="club";
 					});
 					"step 1"
@@ -6045,7 +6068,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return true;
 				},
 				check:function(card){
-					return 5-get.value(card);
+					return 6-get.value(card);
 				},
 				position:"he",
 				delay:false,
@@ -6076,7 +6099,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					order:1,
-					threaten:1.5,
+					threaten:2,
 					result:{
 						player:function(player){
 							/*
@@ -7027,7 +7050,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				content:function(){
-					player.removeBraces(Math.max(player.getBraces(),trigger.num));
+					player.removeBraces(Math.min(player.getBraces(),trigger.num));
 				}
 			},
 			//Koopalings
@@ -9234,14 +9257,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.current=result.targets[0];
 						player.line(event.current,"green");
 						game.log(player,"请求",event.current,"打出一张","#y"+get.translation(event.cardName),"（发动技能","#g【聊依】","）");
-						var next=event.current.chooseToRespond("是否替"+get.translation(player)+"打出一张"+get.translation(event.cardName)+"？",{name:event.cardName});
+						var next=event.current.chooseToRespond("聊依：是否打出一张"+get.translation(event.cardName)+"？",{name:event.cardName});
 						next.set("ai",function(){
 							var event=_status.event;
 							return (get.attitude(event.player,event.source)-2);
 						});
 						next.set("source",player);
 						next.set("sst_liaoyi",true);
-						next.set("skillwarn","替"+get.translation(player)+"打出一张"+get.translation(event.cardName)+"");
+						next.set("skillwarn","打出一张"+get.translation(event.cardName));
 						next.noOrdering=true;
 						next.autochoose=event.cardName=="sha"?lib.filter.autoRespondSha:lib.filter.autoRespondShan;
 					}
@@ -10193,7 +10216,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoOrdering(event.card);
 					player.$throw(event.card);
 					game.log(player,"展示了",event.card);
-					game.delayx();
+					game.delay();
 					player.storage.sst_tankuang.push(event.card);
 					var evt=event.getParent("phase");
 					if(evt&&evt.name=="phase"&&!evt.sst_tankuang){
@@ -10530,7 +10553,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var card={name:button.link[2],isCard:true};
 							return source.hasUseTarget(card);
 						}).set("ai",function(button){
-							var source=_status.event.sourcex;
+							var source=_status.event.getTrigger().player;
 							var card={name:button.link[2],isCard:true};
 							return source.getUseValue(card);
 						});
@@ -10620,9 +10643,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(cards.length) player.loseToDiscardpile(cards);
 				},
 				content:function(){
+					"step 0"
 					if(player.getExpansions("sst_yonghun_effect2").length){
 						player.gain(player.getExpansions("sst_yonghun_effect2"),"gain2");
 					}
+					"step 1"
 					player.removeSkill("sst_yonghun_effect2");
 				}
 			},
@@ -11643,7 +11668,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					effect:{
 						target:function(card,player,target){
-							if(get.itemtype(card)=="card"&&(card.name=="sha"||get.tag(card,"damage"))&&get.distance(player,target)>1) return "zeroplayertarget";
+							if((card.name=="sha"||get.tag(card,"damage"))&&get.distance(player,target)>1) return "zeroplayertarget";
 						}
 					}
 				}
@@ -11848,6 +11873,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage.sst_fenshi[0]=false;
 						player.loseMaxHp();
 						game.log(player,"更改了","#g【焚世】","的描述");
+						game.log(player,"删除了","#y｛若你没有指定自己，你减1点体力上限并删除此内容。｝");
 						player.popup("更改描述");
 					}
 					"step 3"
@@ -11855,6 +11881,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
 						game.log(player,"更改了","#g【焚世】","的描述");
+						game.log(player,"删除了","#y｛若你一回合两次指定了同一名角色，你减1点体力上限并删除此内容。｝");
 						player.popup("更改描述");
 					}
 					"step 4"
@@ -11906,6 +11933,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage.sst_fenshi[0]=false;
 						player.loseMaxHp();
 						game.log(player,"更改了","#g【焚世】","的描述");
+						game.log(player,"删除了","#y｛若你没有指定自己，你减1点体力上限并删除此内容。｝");
 						player.popup("更改描述");
 					}
 					"step 7"
@@ -11913,6 +11941,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage.sst_fenshi[1]=false;
 						player.loseMaxHp();
 						game.log(player,"更改了","#g【焚世】","的描述");
+						game.log(player,"删除了","#y｛若你一回合两次指定了同一名角色，你减1点体力上限并删除此内容。｝");
 						player.popup("更改描述");
 					}
 				},
@@ -12380,9 +12409,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					card.fix();
 					card.remove();
 					card.destroyed=true;
-					player.update();
-					player[player.getExpansions("sst_zaowu").length?"markSkill":"unmarkSkill"]();
 					"step 1"
+					player[player.getExpansions("sst_zaowu").length?"markSkill":"unmarkSkill"]();
 					target.damage(player,"nocard");
 				},
 				ai:{
@@ -12405,7 +12433,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					var cards=player.getExpansions("sst_zaowu");
-					player.lose(cards,ui.special).set("_triggered",null);
 					player.$throw(cards);
 					game.log(cards,"被销毁");
 					for(var i=0;i<cards.length;i++){
@@ -12414,9 +12441,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						cards[i].remove();
 						cards[i].destroyed=true;
 					}
-					player.update();
-					player[player.getExpansions("sst_zaowu").length?"markSkill":"unmarkSkill"]();
 					"step 1"
+					player[player.getExpansions("sst_zaowu").length?"markSkill":"unmarkSkill"]();
 					player.draw(3);
 					"step 2"
 					if(player.hp<1) player.recover(1-player.hp);
@@ -12706,7 +12732,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					event.num=Math.ceil(player.countCards()/2);
 					event.players=game.filterPlayer(function(current){
-						return current!=player&&player.canUse({name:"sha"},current);
+						return current!=player&&player.canUse({name:"sha"},current,false);
 					});
 					"step 1"
 					if(event.num&&event.players.length){
@@ -13559,13 +13585,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return player.deckCards.length;
 						}
 						return 0;
-					},
-					onunmark:function(storage,player){
-						game.cardsDiscard(player.deckCards);
-						player.$throw(player.deckCards);
-						game.log(player.deckCards,"进入了弃牌堆");
-						delete player.deckCards;
 					}
+				},
+				onremove:function(player){
+					game.cardsDiscard(player.deckCards);
+					player.$throw(player.deckCards);
+					game.log(player,"将",player.deckCards,"置入了弃牌堆");
+					delete player.deckCards;
 				},
 				trigger:{player:"drawBegin"},
 				forced:true,
@@ -13607,6 +13633,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Marioraz
 			sst_buxi:{
+				init:function(player){
+					if(_status.videoInited){
+						player.logSkill("sst_buxi");
+						player.gainMaxHp();
+					}
+				},
 				forced:true,
 				trigger:{
 					global:"gameStart",
@@ -13823,10 +13855,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				logTarget:"player",
 				content:function(){
-					game.loseToDiscardpile(player.storage.sst_tunshi_origin[trigger.player.playerid]);
+					player.loseToDiscardpile(player.storage.sst_tunshi_origin[trigger.player.playerid]);
 					delete player.storage.sst_tunshi_origin[trigger.player.playerid];
-					player.updateMarks("sst_tunshi");
-					if(!player.getExpansions("sst_tunshi").length) player.unmarkSkill("sst_tunshi");
 				}
 			},
 			sst_yangfen:{
@@ -14279,7 +14309,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiandu_info:"一名其他角色的出牌阶段开始时，你可以扣置一张手牌，于该角色本回合第一次使用牌时亮出。若这两张牌的类别：相同，你可以对其造成1点伤害或摸两张牌；不同，其对你造成1点伤害。出牌阶段结束时，你将此牌置入弃牌堆。",
 			sst_wenxu:"温恤",
 			sst_wenxu_effect:"温恤",
-			sst_wenxu_effect2:"温恤",
 			sst_wenxu_info:"一名其他角色于其回合内使用基本牌或普通锦囊牌结算后，你可以获得此牌，然后令此角色本回合使用【杀】的次数+1。若如此做，本回合结束阶段，若其使用【杀】的次数未达上限，你受到其造成的1点伤害。",
 			sst_mihu:"迷糊",
 			sst_mihu_info:"锁定技，若你已受伤，你使用牌指定唯一目标时判定，若结果为♠，目标改为其上家，若结果为♣，目标改为其下家。",
@@ -14439,8 +14468,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fanfei:"翻飞",
 			sst_fanfei_info:"当你成为红色牌的目标时，你可以弃置一张牌令此牌对你无效，然后对手牌数大于你的一名角色造成1点伤害。",
 			sst_liaoyi:"聊依",
-			sst_liaoyi1:"聊依",
-			sst_liaoyi2:"聊依",
+			sst_liaoyi1:"聊依·杀",
+			sst_liaoyi2:"聊依·闪",
 			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，视为你使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
 			sst_liaoyi1_info:"当你需要使用或打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你使用或打出一张【杀】，然后其获得你一张牌。",
 			sst_liaoyi2_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为你使用或打出一张【闪】，然后其获得你一张牌。",
@@ -14581,7 +14610,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shangzheng:"商政",
 			sst_shangzheng2:"商政",
 			sst_shangzheng_info:"一名其他角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",
-			sst_shangzheng2_info:"出牌阶段限一次，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
+			sst_shangzheng2_info:"出牌阶段限一次，若你本阶段已使用过【杀】，你可以交给一名拥有〖商政〗的其他角色一张你此时不能使用的牌，然后其可以令你获得除你外与你距离最近的角色一张牌。",
 			sst_yinyuan:"引援",
 			sst_yinyuan_info:"每回合限一次，你受到伤害前，若你与你相邻的角色均有手牌，你可以令你与这些角色依次弃置一张手牌，然后防止此伤害。",
 			sst_zaowu:"造物",
@@ -14815,7 +14844,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			"大乱桌斗":"<div style=\"margin:10px\">举荐</div><ul style=\"margin-top:0\">\
 			<li>你亮出牌堆顶的一张牌，若此牌满足指定条件，你获得此牌，否则将此牌置入弃牌堆并重复此流程</ul>\
 			<div style=\"margin:10px\">破军</div><ul style=\"margin-top:0\">\
-			<li>你将指定牌置于你的武将牌上，回合结束时你获得武将牌上的这些牌</ul>\
+			<li>你将目标的指定牌扣置于其武将牌上，回合结束时其获得武将牌上的这些牌</ul>\
 			<div style=\"margin:10px\">施法</div><ul style=\"margin-top:0\">\
 			<li>声明一个1~3的数字，声明数字回合过后触发指定效果，此时X为声明数字</ul>\
 			<div style=\"margin:10px\">提前执行回合</div><ul style=\"margin-top:0\">\

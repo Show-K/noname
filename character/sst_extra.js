@@ -424,7 +424,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						if(_status.event.num_discard>=diff_hp&&expectation_num_discard<=diff_hp) att*=2;
 						if(_status.event.num_discard>=diff_max_hp&&expectation_num_discard<=diff_max_hp) att*=2;
-						if(_status.event.num_draw<_status.event.num_discard){
+						if(_status.event.num_draw<_status.event.num_discard*2){
 							if(!target.countCards("he",function(card){
 								return lib.filter.cardDiscardable(card,player);
 							})) return 0;
@@ -878,6 +878,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return player.canUse({name:"sha",cards:[result.card]},current);
 					})) player.chooseUseTarget({name:"sha"},[result.card],false,true).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:()=>0);
 				},
+				ai:{
+					threaten:1.5
+				},
 				group:"sst_cuifeng2"
 			},
 			sst_cuifeng2:{
@@ -1207,14 +1210,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
-							if(get.number(card)>get.number(_status.event.respondToCard)) return false;
+							if(card&&get.number(card)>get.number(_status.event.respondToCard)) return false;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
 						trigger.set("respondToCard",trigger.respondTo[1]);
 					}
 					else{
 						trigger.set("filterCard",function(card){
-							return !(get.number(card)>get.number(_status.event.respondToCard));
+							return card&&!(get.number(card)>get.number(_status.event.respondToCard));
 						});
 						trigger.set("respondToCard",trigger.respondTo[1]);
 					}

@@ -2580,9 +2580,8 @@ content:function(config, pack){
 							evt.orderingCards.addArray(cards);
 							evt.orderingCards.addArray(ss);
 						}
-					} else if (event.position == ui.cardPile) {
-						game.updateRoundNumber();
 					}
+					game.updateRoundNumber();
 					if (event.toRenku) _status.renku.addArray(cards);
 					if (unmarks.length) {
 						for (var i of unmarks) {
@@ -2646,7 +2645,6 @@ content:function(config, pack){
 						game.updateRenku();
 					}
 					"step 4"
-					game.updateRoundNumber();
 					var evt = event.getParent();
 					if (evt.name != 'discard' && event.type != 'discard' && evt.name != 'loseToDiscardpile' && event.type != 'loseToDiscardpile') return;
 					if (evt.delay != false) {
@@ -4723,7 +4721,7 @@ content:function(config, pack){
 					else if (ui.cardPileNumber)
 						ui.cardPileNumber.textContent = num1 + '轮 剩余牌: ' + num2 + ' 弃牌堆: ' + num3;
 					
-				}, game.roundNumber, ui.cardPile.childNodes.length, _status.discarded.length, ui.cardPile.firstChild);
+				}, game.roundNumber, ui.cardPile.childNodes.length, ui.discardPile.childNodes.length, ui.cardPile.firstChild);
 			};
 
 			game.check = function(event){
@@ -9405,6 +9403,7 @@ content:function(config, pack){
 					event.step++;
 				}
 			}
+			game.updateDiscardpile();
 			
 			var delta = performance.now() - game.loopTime;
 			if (delta > 15 && decadeUI.config.smoothMode) {

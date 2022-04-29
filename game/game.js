@@ -1,8 +1,18 @@
 "use strict";
 (function(){
+	/**
+	 * Insert line break opportunities into a URL
+	*/
+	var formatUrl=function(url){
+		// Split the URL into an array to distinguish double slashes from single slashes
+		var doubleSlash=url.split('//');
+		// Format the strings on either side of double slashes separately
+		var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
+		return formatted;
+	};
 	var _status={
 		//New add
-		discarded:[],
+		discardPile:[],
 		//New add end
 		paused:false,
 		paused2:false,
@@ -6921,6 +6931,12 @@
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>诗笺</i>（《在线更新》、Windows版客户端程序开发）</ul>'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>玄武</i>（Android版客户端程序开发）</ul>'+
 			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除</ul>',
+			'相关链接':'<ul><li>GitHub仓库：'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://github.com/Show-K/noname')+'</ul>'+
+			'<li>Coding仓库：'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://show-kadot.coding.net/public/noname/noname/git')+'</ul>'+
+			'<li>《任天堂明星大乱斗特别版全命魂介绍》：'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://ssbuspirits.top')+'</ul></ul>',
 			'游戏操作':'<ul><li>长按/鼠标悬停/右键单击显示信息。<li>触屏模式中，双指点击切换暂停；下划显示菜单，上划切换托管。<li>键盘快捷键<br>'+
 			'<table><tr><td>A<td>切换托管<tr><td>W<td>切换不询问无懈<tr><td>空格<td>暂停</table><li>编辑牌堆<br>在卡牌包中修改牌堆后，将自动创建一个临时牌堆，在所有模式中共用，当保存当前牌堆后，临时牌堆被清除。每个模式可设置不同的已保存牌堆，设置的牌堆优先级大于临时牌堆。</ul>',
 			'游戏命令':'<div style="margin:10px">变量名</div><ul style="margin-top:0"><li>场上角色<br>game.players<li>阵亡角色<br>game.dead'+
@@ -10443,9 +10459,6 @@
 		translate:{
 			//New
 			braces:'｛｝',
-			choose_to_use_skip:"跳过",
-			choose_to_use_finish:"结束",
-			choose_to_use_finish_first:"首先",
 			pileTop:'牌堆顶',
 			pileBottom:'牌堆底',
 			viewHandcard:'可见',
@@ -10812,37 +10825,42 @@
 				},
 				phaseRealtime:function(){
 					"step 0"
-					var str="<span data-nature=\"water\">第</span><span data-nature=\"wood\">"+get.cnNumber(game.roundNumber,true)+"</span><span data-nature=\"water\">轮</span><br>";
-					str+="<span style=\"font-size:48px\">";
-					str+="<span data-nature=\"water\">ROUND</span> <span data-nature=\"wood\">"+game.roundNumber+"</span><span data-nature=\"water\">!</span></span>";
-					player.$fullscreenpop(str);
-					game.delayx();
-					"step 1"
-					var str=event.skill?"<span data-nature=\"wood\">额外</span>":"<span data-nature=\"water\">第</span><span data-nature=\"wood\">"+get.cnNumber(game.phaseNumber,true)+"</span>";
-					str+="<span data-nature=\"water\">回合</span> <span data-nature=\"fire\">开始</span><br>";
-					str+="<span style=\"font-size:48px\">";
-					str+=event.skill?"<span data-nature=\"wood\">EXTRA</span> <span data-nature=\"water\">TURN</span>":"<span data-nature=\"water\">TURN</span> <span data-nature=\"wood\">"+game.phaseNumber+"</span>";
-					str+=" <span data-nature=\"fire\">STARTS</span><span data-nature=\"water\">!</span></span>";
-					player.$fullscreenpop(str);
-					game.delayx();
-					"step 2"
-					var str="<span data-nature=\"soil\">"+get.translation(player)+"</span> <span data-nature=\"thunder\">先手</span><br>";
-					str+="<span style=\"font-size:48px\"><span data-nature=\"soil\">";
-					if(lib.translateEnglish&&lib.translateEnglish[player.name]){
-						str+=lib.translateEnglish[player.name].toUpperCase();
+					if(event.declared){
+						player.phaseZhunbei();
 					}
 					else{
-						//str+=player.name.toUpperCase();
-						str+=window.pinyinUtil.getPinyin(get.translation(player),"").toUpperCase();
+						event.declared=true;
+						var str="<span data-nature=\"water\">第</span><span data-nature=\"wood\">"+get.cnNumber(game.roundNumber,true)+"</span><span data-nature=\"water\">轮</span><br>";
+						str+="<span style=\"font-size:48px\">";
+						str+="<span data-nature=\"water\">ROUND</span> <span data-nature=\"wood\">"+game.roundNumber+"</span><span data-nature=\"water\">!</span></span>";
+						player.$fullscreenpop(str);
+						var str2=event.skill?"<span data-nature=\"wood\">额外</span>":"<span data-nature=\"water\">第</span><span data-nature=\"wood\">"+get.cnNumber(game.phaseNumber,true)+"</span>";
+						str2+="<span data-nature=\"water\">回合</span> <span data-nature=\"fire\">开始</span><br>";
+						str2+="<span style=\"font-size:48px\">";
+						str2+=event.skill?"<span data-nature=\"wood\">EXTRA</span> <span data-nature=\"water\">TURN</span>":"<span data-nature=\"water\">TURN</span> <span data-nature=\"wood\">"+game.phaseNumber+"</span>";
+						str2+=" <span data-nature=\"fire\">STARTS</span><span data-nature=\"water\">!</span></span>";
+						setTimeout(function(){
+							player.$fullscreenpop(str2);
+						},1000);
+						var str3="<span data-nature=\"soil\">"+get.translation(player)+"</span> <span data-nature=\"thunder\">先手</span><br>";
+						str3+="<span style=\"font-size:48px\"><span data-nature=\"soil\">";
+						if(lib.translateEnglish&&lib.translateEnglish[player.name]){
+							str3+=lib.translateEnglish[player.name].toUpperCase();
+						}
+						else{
+							//str3+=player.name.toUpperCase();
+							str3+=window.pinyinUtil.getPinyin(get.translation(player),"").toUpperCase();
+						}
+						str3+="</span> <span data-nature=\"thunder\">FIRST!</span></span>";
+						setTimeout(function(){
+							player.$fullscreenpop(str3);
+						},2000);
+						game.delay(0,3000);
+						event.redo();
 					}
-					str+="</span> <span data-nature=\"thunder\">FIRST!</span></span>";
-					player.$fullscreenpop(str);
-					game.delayx();
-					"step 3"
-					player.phaseZhunbei();
-					"step 4"
+					"step 1"
 					player.phaseJudge();
-					"step 5"
+					"step 2"
 					player.phaseDraw();
 					if(!player.noPhaseDelay){
 						if(player==game.me){
@@ -10852,9 +10870,9 @@
 							game.delayx();
 						}
 					}
-					"step 6"
+					"step 3"
 					player.phaseUse();
-					"step 7"
+					"step 4"
 					game.broadcastAll(function(){
 						if(ui.tempnowuxie){
 							ui.tempnowuxie.close();
@@ -10865,7 +10883,7 @@
 					if(!player.noPhaseDelay) game.delayx();
 					//delete player.using;
 					delete player._noSkill;
-					"step 8"
+					"step 5"
 					player.phaseJieshu();
 				},
 				phaseDrawRealtime:function(){
@@ -10955,7 +10973,7 @@
 								},player);
 								player.addTempSkill("choose_to_use_finish","phaseUseAfter");
 							}
-							game.delayx();
+							game.delay();
 						}
 					}
 					game.broadcastAll(function(){
@@ -11685,6 +11703,7 @@
 					for(var i=0;i<cards.length;i++){
 						cards[i].discard();
 					}
+					game.updateRoundNumber();
 				},
 				orderingDiscard:function(){
 					var cards=event.relatedEvent.orderingCards;
@@ -11869,6 +11888,7 @@
 						},player);
 					}
 					_status.currentPhase=player;
+					_status.discarded=[];
 					game.phaseNumber++;
 					player.phaseNumber++;
 					game.syncState();
@@ -16755,6 +16775,7 @@
 							evt.orderingCards.addArray(cards);
 						}
 					}
+					game.updateRoundNumber();
 					if(unmarks.length){
 						for(var i of unmarks){
 							player[(lib.skill[i]&&lib.skill[i].mark||player.hasCard((card)=>card.hasGaintag(i),'x'))?'markSkill':'unmarkSkill'](i);
@@ -16822,7 +16843,6 @@
 						game.updateRenku();
 					}
 					"step 5"
-					game.updateRoundNumber();
 					var evt=event.getParent();
 					if((evt.name!='discard'&&event.type!='discard')&&(evt.name!='loseToDiscardpile'&&event.type!='loseToDiscardpile')) return;
 					if(evt.delay!=false){
@@ -27742,33 +27762,78 @@
 				}
 			},
 			choose_to_use_skip:{
-				mark:true,
 				charlotte:true,
 				superCharlotte:true,
 				ruleSkill:true,
-				intro:{
-					name:"出牌跳过",
-					content:"跳过了上一次出牌"
+				init:function(player){
+					game.addVideo('chooseToUseSkipNode',player,true);
+					game.broadcastAll(function(player){
+						if(!player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','跳过<br>出牌',player.node.avatar);
+							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','跳过<br>出牌',player.node.avatar2);
+						}
+					},player);
+				},
+				onremove:function(player){
+					game.addVideo('chooseToUseSkipNode',player,false);
+					game.broadcastAll(function(player){
+						if(player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish.delete();
+							player.node.chooseToUseFinish2.delete();
+							delete player.node.chooseToUseFinish;
+							delete player.node.chooseToUseFinish2;
+						}
+					},player);
 				}
 			},
 			choose_to_use_finish:{
-				mark:true,
 				charlotte:true,
 				superCharlotte:true,
 				ruleSkill:true,
-				intro:{
-					name:"出牌结束",
-					content:"本回合出牌结束"
+				init:function(player){
+					game.addVideo('chooseToUseFinishNode',player,true);
+					game.broadcastAll(function(player){
+						if(!player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','结束<br>出牌',player.node.avatar);
+							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','结束<br>出牌',player.node.avatar2);
+						}
+					},player);
+				},
+				onremove:function(player){
+					game.addVideo('chooseToUseFinishNode',player,false);
+					game.broadcastAll(function(player){
+						if(player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish.delete();
+							player.node.chooseToUseFinish2.delete();
+							delete player.node.chooseToUseFinish;
+							delete player.node.chooseToUseFinish2;
+						}
+					},player);
 				}
 			},
 			choose_to_use_finish_first:{
-				mark:true,
 				charlotte:true,
 				superCharlotte:true,
 				ruleSkill:true,
-				intro:{
-					name:"首先出牌结束",
-					content:"本回合首先出牌结束"
+				init:function(player){
+					game.addVideo('chooseToUseFinishFirstNode',player,true);
+					game.broadcastAll(function(player){
+						if(!player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','首先<br>结束',player.node.avatar);
+							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','首先<br>结束',player.node.avatar2);
+						}
+					},player);
+				},
+				onremove:function(player){
+					game.addVideo('chooseToUseFinishFirstNode',player,false);
+					game.broadcastAll(function(player){
+						if(player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish.delete();
+							player.node.chooseToUseFinish2.delete();
+							delete player.node.chooseToUseFinish;
+							delete player.node.chooseToUseFinish2;
+						}
+					},player);
 				}
 			},
 			//New End
@@ -29750,6 +29815,17 @@
 	};
 	var game={
 		//New add
+		updateDiscardpile:function(){
+			if(ui.discardPile){
+				_status.discardPile.length=0;
+				for(var i=0;i<ui.discardPile.childNodes.length;i++){
+					_status.discardPile.push(ui.discardPile.childNodes[i]);
+				}
+			}
+			game.broadcast(function(discardPile){
+				_status.discardPile=discardPile;
+			},_status.discardPile);
+		},
 		findPlayersByPlayerid:function(playerid){
 			if(Array.isArray(playerid)){
 				return game.filterPlayer2(function(current){
@@ -31210,6 +31286,56 @@
 			game.loop();
 		},
 		videoContent:{
+			//New add
+			chooseToUseSkipNode:function(player,bool){
+				if(bool){
+					if(!player.node.chooseToUseFinish){
+						player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','跳过出牌',player.node.avatar);
+						player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','跳过出牌',player.node.avatar2);
+					}
+				}
+				else{
+					if(player.node.chooseToUseFinish){
+						player.node.chooseToUseFinish.delete();
+						player.node.chooseToUseFinish2.delete();
+						delete player.node.chooseToUseFinish;
+						delete player.node.chooseToUseFinish2;
+					}
+				}
+			},
+			chooseToUseFinishNode:function(player,bool){
+				if(bool){
+					if(!player.node.chooseToUseFinish){
+						player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','结束出牌',player.node.avatar);
+						player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','结束出牌',player.node.avatar2);
+					}
+				}
+				else{
+					if(player.node.chooseToUseFinish){
+						player.node.chooseToUseFinish.delete();
+						player.node.chooseToUseFinish2.delete();
+						delete player.node.chooseToUseFinish;
+						delete player.node.chooseToUseFinish2;
+					}
+				}
+			},
+			chooseToUseFinishFirstNode:function(player,bool){
+				if(bool){
+					if(!player.node.chooseToUseFinish){
+						player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','首先结束出牌',player.node.avatar);
+						player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','首先结束出牌',player.node.avatar2);
+					}
+				}
+				else{
+					if(player.node.chooseToUseFinish){
+						player.node.chooseToUseFinish.delete();
+						player.node.chooseToUseFinish2.delete();
+						delete player.node.chooseToUseFinish;
+						delete player.node.chooseToUseFinish2;
+					}
+				}
+			},
+			//New add end
 			arrangeLib:function(content){
 				for(var i in content){
 					for(var j in content[i]){
@@ -34391,6 +34517,7 @@
 					event.step++;
 				}
 			}
+			game.updateDiscardpile();
 			game.loop();
 		},
 		pause:function(){
@@ -35862,7 +35989,7 @@
 			game.broadcastAll(function(num1,num2,num3,top){
 				if(ui.cardPileNumber) ui.cardPileNumber.innerHTML=num1+'轮 剩余牌: '+num2+' 弃牌堆: '+num3;
 				_status.pileTop=top;
-			},game.roundNumber,ui.cardPile.childNodes.length,_status.discarded.length,ui.cardPile.firstChild);
+			},game.roundNumber,ui.cardPile.childNodes.length,ui.discardPile.childNodes.length,ui.cardPile.firstChild);
 		},
 		asyncDraw:function(players,num,drawDeck,bottom){
 			for(var i=0;i<players.length;i++){
@@ -47891,10 +48018,10 @@
 
 				uiintro.add('<div class="text center">轮数 <span style="font-family:fzhtk">'+game.roundNumber+'</span>&nbsp;&nbsp;&nbsp;&nbsp;洗牌 <span style="font-family:fzhtk">'+game.shuffleNumber+'</div>');
 				uiintro.add('<div class="text center">弃牌堆</div>');
-				if(_status.discarded.length){
+				if(_status.discardPile.length){
 					var list=[];
-					for(var i=0;i<_status.discarded.length;i++){
-						list.unshift(_status.discarded[i]);
+					for(var i=0;i<_status.discardPile.length;i++){
+						list.unshift(_status.discardPile[i]);
 					}
 					uiintro.addSmall([list,'card']);
 				}
@@ -49966,14 +50093,14 @@
 				}
 				//New add
 				var characterstats=ui.create.div('.menubg.characterstats',layer);
-				ui.create.div('.text.fragstat',get.frag(name).toString(),characterstats);
+				ui.create.div('.text.fragstat',get.characterFrag(name).toString(),characterstats);
 				ui.create.div('.text.frag','FRAG',characterstats);
 				ui.create.div('.text.step','STEP',characterstats);
-				ui.create.div('.text.stepstat',get.step(name).toString(),characterstats);
-				ui.create.div('.text.typestat',get.skillType(name),characterstats);
+				ui.create.div('.text.stepstat',get.characterStep(name).toString(),characterstats);
+				ui.create.div('.text.typestat',get.characterType(name),characterstats);
 				ui.create.div('.text.type','TYPE',characterstats);
 				ui.create.div('.text.over','OVER',characterstats);
-				ui.create.div('.text.overstat',get.over(name).toString(),characterstats);
+				ui.create.div('.text.overstat',get.characterOver(name).toString(),characterstats);
 				//New add end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
 				var playerbg=ui.create.div('.menubutton.large.ava',uiintro);
@@ -50461,9 +50588,9 @@
 				node.animate('start');
 				ui.sidebar3.innerHTML='';
 				if(lib.config.show_discardpile){
-					for(var i=0;i<_status.discarded.length;i++){
+					for(var i=0;i<_status.discardPile.length;i++){
 						var div=ui.create.div(ui.sidebar3);
-						div.innerHTML=get.translation(_status.discarded[i]);
+						div.innerHTML=get.translation(_status.discardPile[i]);
 						ui.sidebar3.insertBefore(div,ui.sidebar3.firstChild);
 					}
 				}
@@ -51222,7 +51349,17 @@
 	};
 	var get={
 		//New add
-		frag:function(name){
+		/**
+		 * Insert line break opportunities into a URL
+		 */
+		formatUrl:function(url){
+			// Split the URL into an array to distinguish double slashes from single slashes
+			var doubleSlash=url.split('//');
+			// Format the strings on either side of double slashes separately
+			var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
+			return formatted;
+		},
+		characterFrag:function(name){
 			if(name&&lib.character[name]&&lib.character[name][4]){
 				for(var i of lib.character[name][4]){
 					if(i.indexOf('frag:')==0) return parseInt(i.split(':').slice(1));
@@ -51230,7 +51367,7 @@
 			}
 			return 50;
 		},
-		step:function(name){
+		characterStep:function(name){
 			if(name&&lib.character[name]&&lib.character[name][4]){
 				for(var i of lib.character[name][4]){
 					if(i.indexOf('step:')==0) return parseInt(i.split(':').slice(1));
@@ -51238,21 +51375,22 @@
 			}
 			return 50;
 		},
-		skillType:function(name){
-			var map={
-				support:'支援型',
-				balance:'平衡型',
-				challenge:'挑战型',
-				unknown:'???'
+		characterType:function(name){
+			var translation=function(type){
+				if(type=='support') return '支援型';
+				if(type=='balance') return '平衡型';
+				if(type=='challenge') return '挑战型';
+				if(type=='unknown') return '???';
+				return '';
 			};
 			if(name&&lib.character[name]&&lib.character[name][4]){
 				for(var i of lib.character[name][4]){
-					if(i.indexOf('skillType:')==0) return map[i.split(':').slice(1)];
+					if(i.indexOf('type:')==0) return translation(i.split(':').slice(1));
 				}
 			}
-			return '平衡型';
+			return '';
 		},
-		over:function(name){
+		characterOver:function(name){
 			if(name&&lib.character[name]&&lib.character[name][4]){
 				for(var i of lib.character[name][4]){
 					if(i.indexOf('over:')==0) return parseInt(i.split(':').slice(1));

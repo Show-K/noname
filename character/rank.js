@@ -56,7 +56,6 @@ window.noname_character_rank={
 			"ska_bowser",
 			"sst_ma",
 			"sst_pikachu",
-			"sst_enderman",
 			"sst_sephiroth",
 			"sst_pokemon_trainer_leaf",
 			"sst_steve",
@@ -156,7 +155,8 @@ window.noname_character_rank={
 			"xsj_yu_narukami",
 			"sst_luigi",
 			"sst_min_min",
-			"ska_bandana_waddle_dee"
+			"ska_bandana_waddle_dee",
+			"sst_enderman"
 		],
 		junk:[]
 	}
