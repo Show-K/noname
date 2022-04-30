@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.113.2SST',
-	update:'1.9.113.1SST',
+	version:'1.9.113.3SST',
+	update:'1.9.113.2SST',
 	changeLog:[
 		'体力上限逐渐增加 升哥',
 		'大数无效回复应变 派派',
