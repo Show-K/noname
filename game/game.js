@@ -18044,6 +18044,25 @@
 				},
 				chat:function(str){
 					if(get.is.banWords(str)) return;
+					//New add
+					if(str[0]=='/'){
+						var chat=str.slice(1);
+						if(chat.indexOf(' ')>=0){
+							chat=chat.split(' ');
+							var func=chat.shift();
+							if(func=='audio'&&chat.length){
+								var audio=chat.shift();
+								game.trySkillAudio(audio,this,true);
+								if(chat.length){
+									str=chat.join(' ');
+								}
+								else{
+									return;
+								}
+							}
+						}
+					}
+					//New add end
 					lib.element.player.say.call(this,str);
 					game.broadcast(function(id,str){
 						if(lib.playerOL[id]){
