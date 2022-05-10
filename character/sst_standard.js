@@ -14830,8 +14830,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<li>你亮出牌堆顶的一张牌，若此牌满足指定条件，你获得此牌，否则将此牌置入弃牌堆并重复此流程</ul>\
 			<div style=\"margin:10px\">破军</div><ul style=\"margin-top:0\">\
 			<li>你将目标的指定牌扣置于其武将牌上，回合结束时其获得武将牌上的这些牌</ul>\
-			<div style=\"margin:10px\">施法</div><ul style=\"margin-top:0\">\
-			<li>声明一个1~3的数字，声明数字回合过后触发指定效果，此时X为声明数字</ul>\
 			<div style=\"margin:10px\">提前执行回合</div><ul style=\"margin-top:0\">\
 			<li>你执行一个额外回合，若如此做，本轮你的下一个非额外回合开始前，你取消之</ul>\
 			<div style=\"margin:10px\">销毁</div><ul style=\"margin-top:0\">\
