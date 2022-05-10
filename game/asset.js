@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.113.3SST',
+	'v1.9.113.4SST',
 	//New add
 	'image/character/shibing1.png',
 	'image/character/shibing2.png',
@@ -565,6 +565,7 @@ window.noname_asset_list=[
 	'image/card/shandian.png',
 	'image/card/shengdong.png',
 	'image/card/shezhanqunru.png',
+	'image/card/shield.png',
 	'image/card/shuiyanqijun.png',
 	'image/card/shuiyanqijunx.png',
 	'image/card/shunshou.png',

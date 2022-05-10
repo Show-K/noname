@@ -1,7 +1,8 @@
 window.noname_update={
-	version:'1.9.113.3SST',
-	update:'1.9.113.2SST',
+	version:'1.9.113.4SST',
+	update:'1.9.113.3SST',
 	changeLog:[
+		'护甲图标修改',
 		'体力上限逐渐增加 升哥',
 		'大数无效回复应变 派派',
 		'破军卸甲死亡摸牌 吞食花',
@@ -83,5 +84,9 @@ window.noname_update={
 		'game/package.js',
 		'game/asset.js',
 		'game/source.js',
+		'theme/style/hp/custom.css',
+		'theme/style/hp/emotion.css',
+		'theme/style/hp/image',
+		'theme/style/hp/image/shield.png',
 	]
 };
