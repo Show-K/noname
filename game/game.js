@@ -17754,7 +17754,7 @@
 							return getn(card)-get.value(card)/2+addi;
 						});
 					}
-					next.setContent('chooseToCompare');
+					next.setContent('chooseToComparePileTop');
 					next.forceDie=true;
 					next._args=Array.from(arguments);
 					return next;

@@ -19,18 +19,12 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 		},
 		skill:{
 			sst_aegises_skill:{
-				//mark:true,
-				zhuanhuanji:true,
-				equipSkill:true,
-				/*
-				intro:{
-					content:function(storage,player,skill){
-						return !player.storage.sst_aegises_skill?"转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。":"转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。";
-					},
+				init:function(player,skill){
+					if(typeof player.storage[skill]!="boolean") player.storage[skill]=false;
 				},
-				*/
-				enable:"phaseUse",
-				usable:1,
+				equipSkill:true,
+				zhuanhuanji:true,
+				inherit:"sst_xuanyi",
 				filter:function(event,player){
 					if(!player.storage.sst_aegises_skill){
 						return game.hasPlayer(function(current){
@@ -59,41 +53,6 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				delay:false,
-				content:function(){
-					"step 0"
-					if(!player.storage.sst_aegises_skill){
-						event.sst_aegises_skill=false;
-						player.storage.sst_aegises_skill=true;
-						player.chooseToCompare(target);
-					}
-					else{
-						event.sst_aegises_skill=true;
-						player.storage.sst_aegises_skill=false;
-						player.chooseToComparePileTop();
-					};
-					"step 1"
-					if(result.winner){
-						event.winner=result.winner;
-						event.winner.gain(event.winner==player?result.target:result.player,"gain2");
-					}
-					"step 2"
-					if(event.winner!=player){
-						var str="炫奕：对一名角色造成1点";
-						str+=!event.sst_aegises_skill?"火焰":"雷电";
-						str+="伤害";
-						player.chooseTarget(str,true).set("ai",function(target){
-							return get.damageEffect(target,player,player,!_status.event.sst_aegises_skill?"fire":"thunder");
-						}).set("sst_aegises_skill",event.sst_aegises_skill);
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					if(result.targets&&result.targets.length){
-						player.line(result.targets[0],!event.sst_aegises_skill?"fire":"thunder");
-						result.targets[0].damage(player,!event.sst_aegises_skill?"fire":"thunder");
-					}
-				},
 				ai:{
 					order:5,
 					expose:0.2,
@@ -124,7 +83,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			sst_aegises:"天之圣杯",
 			sst_aegises_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
 			//Skill
-			sst_aegises_skill:"炫奕",
+			sst_aegises_skill:"天之圣杯",
 			sst_aegises_skill_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。"
 		},
 		list:[

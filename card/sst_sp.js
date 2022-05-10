@@ -603,13 +603,8 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 							if(!ui.selected.buttons||!ui.selected.buttons.length) return true;
 							return get.position(button.link)==get.position(ui.selected.buttons[0].link);
 						}).set("selectButton",function(){
-							if(!ui.selected.buttons||!ui.selected.buttons.length) return 1;
-							var cards=_status.event.targetx.getDiscardableCards(_status.event.player,get.position(ui.selected.buttons[0].link));
-							for(var i=0;i<ui.selected.buttons.length;i++){
-								if(cards.contains(ui.selected.buttons[i].link)) cards.remove(ui.selected.buttons[i].link);
-							}
-							if(!cards.length) return ui.selected.buttons.length;
-							return ui.selected.buttons.length+1;
+							if(!ui.selected.buttons||!ui.selected.buttons.length) return _status.event.targetx.getDiscardableCards(_status.event.player,"hej").length;
+							return _status.event.targetx.getDiscardableCards(_status.event.player,get.position(ui.selected.buttons[0].link)).length;
 						}).set("complexSelect",true).set("targetx",result.targets[0]);
 					}
 				},
