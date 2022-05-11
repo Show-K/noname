@@ -1784,6 +1784,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return Array.isArray(current.storage.sst_yinjie)&&current.storage.sst_yinjie.contains(player);
 						});
 						if(!players.length) return "〖印结〗角色不在场";
+						if(!players.length>1) return get.translation(players)+"与你相互距离为1<br>本回合内你使用牌不能指定其他角色为目标<br>结束阶段，"+get.translation(players)+"获得你所有牌";
 						return get.translation(players)+"与你相互距离为1<br>本回合内你使用牌不能指定除"+get.translation(players)+"外角色为目标<br>结束阶段，"+get.translation(players)+"获得你所有牌";
 					}
 				},
@@ -1799,6 +1800,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					playerEnabled:function(card,player,target){
+						if(game.filterPlayer(function(current){
+							return Array.isArray(current.storage.sst_yinjie)&&current.storage.sst_yinjie.contains(player);
+						}).length>1) return false;
 						if(!Array.isArray(target.storage.sst_yinjie)||!target.storage.sst_yinjie.contains(player)) return false;
 					}
 				},
@@ -1837,26 +1841,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				unique:true,
 				zhuSkill:true,
 				mod:{
-					attackFrom:function(from,to,distance){
-						if(from.hasZhuSkill("sst_qinwei")){
+					attackRangeBase:function(player,range){
+						if(player.hasZhuSkill("sst_qinwei")){
 							var equips=[];
-							for(var i=0;i<from.storage.sst_qinwei.length;i++){
-								equips=equips.concat(from.storage.sst_qinwei[i].getCards("e",function(card){
+							for(var i=0;i<player.storage.sst_qinwei.length;i++){
+								equips=equips.concat(player.storage.sst_qinwei[i].getCards("e",function(card){
 									return get.name(card)!="muniu";
 								}));
 							}
-							var range=Infinity;
-							if(!equips.length){
-								range=0;
-							}
-							else{
+							if(equips.length){
+								var range_now=-Infinity;
 								for(var i=0;i<equips.length;i++){
 									var info=get.info(equips[i]);
-									var range_temp=(info.distance&&info.distance.attackFrom)?info.distance.attackFrom:0;
-									if(range_temp<range) range=range_temp;
+									var range_temp=(info.distance&&typeof info.distance.attackFrom=="number")?info.distance.attackFrom:0;
+									range_now=Math.max(range_now,1-range_temp);
 								}
+								if(range_now>range) return range_now;
 							}
-							return distance+range;
 						}
 					},
 					globalFrom:function(from,to,distance){
@@ -3899,9 +3900,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				mod:{
-					attackFrom:function(from,to,distance){
+					attackRange:function(player,range){
 						//1: Attack Range
-						return distance-from.storage.sst_qiongtu[1];
+						return range+player.storage.sst_qiongtu[1];
 					}
 				},
 				forced:true,
@@ -4927,7 +4928,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				mark:true,
 				intro:{
 					content:function(storage,player){
-						return "当前攻击范围："+player.countCards();
+						return "当前攻击范围："+player.getAttackRange();
 					},
 					markcount:function(storage,player){
 						return player.countCards();
@@ -4935,20 +4936,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				lastDo:true,
 				mod:{
-					attackFrom:function(from,to,distance){
-						//game.log(from,"->",to,": ",distance);
-						return get.distance(from,to,"pure")-from.countCards()+1;
-					},
-					/*
-					inRange:function(from,to){
-						if(from!=to&&get.distance(from,to)<=from.countCards("h")){
-							return true;
-						}
-						else{
-							return false;
-						}
+					attackRangeBase:function(player){
+						return player.countCards();
 					}
-					*/
 				}
 			},
 			//Incineroar
@@ -6546,7 +6536,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseBool("镜月：以"+get.translation(trigger.player)+"为唯一目标依次使用"+get.translation(player.getExpansions("sst_jingyue_effect"))+"（目标不合法则置入弃牌堆），否则获得"+get.translation(player.getExpansions("sst_jingyue_effect"))).set("ai",()=>false);
 					"step 1"
 					if(!result.bool){
-						player.gain(player.getExpansions("sst_jingyue_effect"),player,"giveAuto");
+						player.gain(player.getExpansions("sst_jingyue_effect"),"gain2");
 						event.finish();
 					}
 					else{
@@ -9903,8 +9893,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				mod:{
-					attackFrom:function(from,to,distance){
-						if(from==_status.currentPhase&&typeof from.storage.sst_juyuan_black=="number") return distance-from.storage.sst_juyuan_black;
+					attackRange:function(player,range){
+						if(player==_status.currentPhase&&typeof player.storage.sst_juyuan_black=="number") return range+player.storage.sst_juyuan_black;
 					},
 					cardUsable:function(card,player,num){
 						if(player==_status.currentPhase&&typeof player.storage.sst_juyuan_red=="number"&&card.name=="sha") return num+player.storage.sst_juyuan_red;
@@ -10805,7 +10795,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_miqiang:{
 				locked:false,
 				mod:{
-					attackFrom:()=>-Infinity
+					attackRangeBase:()=>Infinity
 				}
 			},
 			//Alex
@@ -12388,15 +12378,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				contentx:function(){
 					"step 0"
-					var card=lib.skill.sst_zaowu2_backup.card;
-					player.lose(card,ui.special).set("_triggered",null);
-					player.$throw(card);
-					game.log(card,"被销毁");
-					player.markAuto("sst_zaowu_effect",[get.name(card)]);
-					card.fix();
-					card.remove();
-					card.destroyed=true;
+					event.card=lib.skill.sst_zaowu2_backup.card;
+					event.card._destroy=true;
 					"step 1"
+					player.markAuto("sst_zaowu_effect",[get.name(event.card)]);
+					game.log(event.card,"被销毁了");
+					player.$throw(event.card);
+					player.lose(event.card,ui.special).set("_triggered",null);
+					"step 2"
 					target.damage(player,"nocard");
 				},
 				ai:{
@@ -12418,19 +12407,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					var cards=player.getExpansions("sst_zaowu");
-					player.lose(cards,ui.special).set("_triggered",null);
-					player.$throw(cards);
-					game.log(cards,"被销毁");
-					for(var i=0;i<cards.length;i++){
-						player.markAuto("sst_zaowu_effect",[get.name(cards[i])]);
-						cards[i].fix();
-						cards[i].remove();
-						cards[i].destroyed=true;
+					event.cards=player.getExpansions("sst_zaowu");
+					for(var i=0;i<event.cards.length;i++){
+						cards[i]._destroy=true;
 					}
 					"step 1"
-					player.draw(3);
+					game.log(event.cards,"被销毁了");
+					player.$throw(event.cards);
+					player.lose(event.cards,ui.special).set("_triggered",null);
 					"step 2"
+					player.draw(3);
+					"step 3"
 					if(player.hp<1) player.recover(1-player.hp);
 				},
 				ai:{
@@ -13090,8 +13077,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				mod:{
-					attackFrom:function(from,to,distance){
-						if(Array.isArray(from.storage.sst_jichang)&&typeof from.storage.sst_jichang[1]=="number") return distance-from.storage.sst_jichang[1];
+					attackRange:function(player,range){
+						if(Array.isArray(player.storage.sst_jichang)&&typeof player.storage.sst_jichang[1]=="number") return range+player.storage.sst_jichang[1];
 					},
 					cardUsable:function(card,player,num){
 						if(Array.isArray(player.storage.sst_jichang)&&typeof player.storage.sst_jichang[2]=="number"&&card.name=="sha") return num+player.storage.sst_jichang[2];

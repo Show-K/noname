@@ -9,6 +9,12 @@ content:function(config, pack){
 	
     if (!(extension && extension.enable && extension.enable.init)) return;
     
+	lib.arenaReady.push(function() {
+		if (ui.roundmenu) {
+			ui.roundmenu.style.zIndex = 8;
+		}
+	});
+
 	switch(lib.config.layout){
         case 'long2':
         case 'nova':
@@ -447,35 +453,15 @@ content:function(config, pack){
 					var hpNode = this.node.hp;
 					if (!this.storage.nohp) {
 						if (hpMax > 9) {
-							var hpText = (isNaN(hp) ? '×' : (hp == Infinity ? '∞' : hp));
-							var hpMaxText = (isNaN(hpMax) ? '×' : (hpMax == Infinity ? '∞' : hpMax));
-							if (!hpNode.textstyle) {
-								hpNode.innerHTML = '';
-								hpNode.textstyle = true;
-								hpNode.classList.add('textstyle');
-								hpNode.$hpText = hpNode.appendChild(document.createTextNode(hpText));
-								hpNode.$br1 = hpNode.appendChild(document.createElement('br'));
-								hpNode.$slash = hpNode.appendChild(document.createTextNode('/'));
-								hpNode.$br2 = hpNode.appendChild(document.createElement('br'));
-								hpNode.$hpMaxText = hpNode.appendChild(document.createTextNode(hpMaxText));
-								hpNode.$div = hpNode.appendChild(document.createElement('div'));
-							} else {
-								hpNode.$hpText.textContent = hpText;
-								hpNode.$hpMaxText.textContent = hpMaxText;
-							}
-							
-							if (hp == 0)
-								hpNode.lastChild.classList.add('lost');
+							hpNode.innerHTML = (isNaN(hp) ? '×' : (hp == Infinity ? '∞' : hp)) + '<br>/<br>'
+								+ (isNaN(hpMax) ? '×' : (hpMax == Infinity ? '∞' : hpMax)) + '<div></div>';
+							if (hp == 0) hpNode.lastChild.classList.add('lost');
+							hpNode.classList.add('textstyle');
 						} else {
-							if (hpNode.textstyle) {
-								hpNode.innerHTML = '';
-								hpNode.classList.remove('textstyle');
-							}
-							
-							while (hpMax > hpNode.childNodes.length)
-								ui.create.div(hpNode);
-							while (hpMax < hpNode.childNodes.length)
-								hpNode.lastChild.remove();
+							hpNode.innerHTML = '';
+							hpNode.classList.remove('textstyle');
+							while (hpMax > hpNode.childNodes.length) ui.create.div(hpNode);
+							while (hpMax < hpNode.childNodes.length) hpNode.lastChild.remove();
 							
 							for (var i = 0; i < hpMax; i++) {
 								if (i < hp) {
@@ -1103,6 +1089,14 @@ content:function(config, pack){
 			
 			var EventContent = (function(EventContent){
 				EventContent.changeHp = function () {
+					if (num < 0 && player.hujia > 0 && event.getParent().name == 'damage' && !player.hasSkillTag('nohujia')) {
+						event.hujia = Math.min(-num, player.hujia);
+						event.getParent().hujia = event.hujia;
+						event.num += event.hujia;
+						game.log(player, '的护甲抵挡了' + get.cnNumber(event.hujia) + '点伤害');
+						player.changeHujia(-event.hujia).type = 'damage';
+					}
+					num = event.num;
 					player.hp += num;
 					if (isNaN(player.hp)) player.hp = 0;
 					if (player.hp > player.maxHp) player.hp = player.maxHp;
@@ -3912,7 +3906,7 @@ content:function(config, pack){
 							
 							var mark = this.marks[name];
 							if (storage && this.storage[name]) this.syncStorage(name);
-							if (lib.skill[name] && lib.skill[name].intro && !lib.skill[name].intro.nocount && (this.storage[name] || lib.skill[name].intro.markcount)) {
+							if (name == 'ghujia' || (lib.skill[name] && lib.skill[name].intro && !lib.skill[name].intro.nocount && (this.storage[name] || lib.skill[name].intro.markcount))) {
 								var num = 0;
 								if (typeof lib.skill[name].intro.markcount == 'function') {
 									num = lib.skill[name].intro.markcount(this.storage[name], this);
@@ -4196,7 +4190,13 @@ content:function(config, pack){
 									node.node.group.dataset.nature = get.groupnature(doubleCamp[doubleCamp.length == 2 ? 1 : 0]);
 								}
 								ui.create.div(node.node.hp);
-								var textnode = ui.create.div('.text', get.numStr(infoitem[2]), node.node.hp);
+								var hp = get.infoHp(infoitem[2]), maxHp = get.infoMaxHp(infoitem[2]), hujia = get.infoHujia(infoitem[2]);
+								var str = get.numStr(hp);
+								if (hp != maxHp) {
+									str += '/';
+									str += get.numStr(maxHp);
+								}
+								var textnode = ui.create.div('.text', str, node.node.hp);
 								if (infoitem[2] == 0) {
 									node.node.hp.hide();
 								} else if (get.infoHp(infoitem[2]) <= 3) {
@@ -4204,9 +4204,14 @@ content:function(config, pack){
 								} else {
 									node.node.hp.dataset.condition = 'high';
 								}
+								if (hujia > 0) {
+									ui.create.div(node.node.hp, '.shield');
+									ui.create.div('.text', get.numStr(hujia), node.node.hp);
+								}
 							} else {
 								var hp = get.infoHp(infoitem[2]);
 								var maxHp = get.infoMaxHp(infoitem[2]);
+								var shield = get.infoHujia(infoitem[2]);
 								if (maxHp > 14) {
 									if (typeof infoitem[2] == 'string') node.node.hp.innerHTML = infoitem[2];
 									else node.node.hp.innerHTML = get.numStr(infoitem[2]);
@@ -4215,6 +4220,9 @@ content:function(config, pack){
 									for (var i = 0; i < maxHp; i++) {
 										var next = ui.create.div('', node.node.hp);
 										if (i >= hp) next.classList.add('exclude');
+									}
+									for (var i = 0; i < shield; i++) {
+										ui.create.div(node.node.hp, '.shield');
 									}
 								}
 							}

@@ -271,33 +271,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
-			ska_bandana_waddle_dee:"最佳拍档"
+			ska_bandana_waddle_dee:"瓦豆鲁迪的传说"
 		},
 		skill:{
-			_kirby_30th_anniversary:{
-				trigger:{global:"gameStart"},
-				forced:true,
-				popup:false,
-				filter:function(){
-					return game.hasPlayer(current=>current.name=="sst_kirby")&&game.hasPlayer(current=>current.name=="ska_bandana_waddle_dee");
-				},
-				content:function(){
-					"step 0"
-					var next=player.chooseButton(true);
-					next.set("createDialog",[[["sst_kirby","ska_bandana_waddle_dee"],"character"],get.translation("ska_bandana_waddle_dee"),"<div class=\"text left\">卡比，30周年纪念日快乐哟！</div>"]);
-					next.set("filterButton",function(button){
-						return button.link=="ska_bandana_waddle_dee";
-					});
-					next.set("selectButton",-1);
-					"step 1"
-					var next=player.chooseButton(true);
-					next.set("createDialog",[[["sst_kirby","ska_bandana_waddle_dee"],"character"],get.translation("sst_kirby"),"<div class=\"text left\">Poyo！Poyo！</div>"]);
-					next.set("filterButton",function(button){
-						return button.link=="sst_kirby";
-					});
-					next.set("selectButton",-1);
-				}
-			},
 			//SP Isabelle
 			ymk_zhongmi:{
 				trigger:{player:["gainAfter","loseAfter"]},

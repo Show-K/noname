@@ -194,7 +194,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				trigger:{player:"useCardBegin"},
 				filter:function(event,player){
-					return !player.hasSkill("sst_guimou2")&&get.is.yingbian(event.card);
+					return get.is.yingbian(event.card);
 				},
 				content:function(){
 					"step 0"
@@ -215,7 +215,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
 						player.logSkill("sst_guimou");
-						player.addTempSkill("sst_guimou2");
 						if(!_status.cardtag) _status.cardtag={};
 						var list=["yingbian_add","yingbian_remove","yingbian_draw","yingbian_all","yingbian_hit","yingbian_gain","yingbian_damage"];
 						var cardtag=[];
@@ -1319,7 +1318,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
-			sst_fuyuan_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1。若这两张牌的点数相同，你可以令一名角色一个限定技视为未发动过。",
+			sst_fuyuan_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1。若两张牌点数相同，你可以令一名角色一个限定技视为未发动过。",
 			sst_xingjiang:"星降",
 			sst_xingjiang_info:"限定技，一名角色的结束阶段，你可以令一名角色摸X张牌并弃置Y张牌，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量）",
 			sst_gonglie:"共猎",
