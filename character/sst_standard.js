@@ -9264,13 +9264,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						next.set("source",player);
 						next.set("sst_liaoyi",true);
 						next.set("skillwarn","打出一张"+get.translation(event.cardName));
-						next.noOrdering=true;
 						next.autochoose=event.cardName=="sha"?lib.filter.autoRespondSha:lib.filter.autoRespondShan;
+					}
+					else{
+						event.finish();
 					}
 					"step 3"
 					if(result.card){
-						//trigger.card=result.card;
-						//trigger.cards=result.cards;
 						trigger.throw=false;
 						event.current.addExpose(0.2);
 						var next=game.createEvent("sst_liaoyi_clear");

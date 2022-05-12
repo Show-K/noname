@@ -2465,7 +2465,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Bandana Waddle Dee
 			ska_qiangdu:{
+				locked:false,
 				direct:true,
+				mod:{
+					targetInRange:function(card){
+						if(card.name=="ska_spear_thrust") return true;
+					}
+				},
 				trigger:{
 					player:"loseAfter",
 					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","addToExpansionAfter"]
@@ -2493,79 +2499,54 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return false;
 				},
 				content:function(){
-					"step 0"
-					player.chooseCardTarget({
-						filterCard:function(){
-							return lib.filter.cardDiscardable.apply(this,arguments);
-						},
-						position:"he",
-						filterTarget:function(card,player,target){
-							return player.inRange(target);
-						},
-						ai1:function(card){
-							var val=5-get.useful(card);
-							if(get.suit(card,player)=="spade") val+=2;
-							return val;
-						},
-						ai2:function(target){
-							return get.damageEffect(target,_status.event.player,_status.event.player);
-						},
-						prompt:get.prompt("ska_qiangdu"),
-						prompt2:get.skillInfoTranslation("ska_qiangdu")
+					var next=player.chooseToUse();
+					next.set("prompt",get.prompt("ska_qiangdu"));
+					next.set("prompt2","你可以将一张牌当作【刺枪】使用");
+					next.set("logSkill","ska_qiangdu");
+					next.set("norestore",true);
+					next.set("_backupevent","ska_qiangdux");
+					next.backup("ska_qiangdux");
+					next.set("addCount",false);
+					next.set("custom",{
+						add:{},
+						replace:{window:function(){}}
 					});
-					"step 1"
-					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.logSkill("ska_qiangdu",event.target);
-						player.discard(result.cards);
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					var str="枪笃：打出一张基本牌";
-					if(event.target.countCards("sx")){
-						str+="（或取消并改为决定是否将武将牌上一张牌置入弃牌堆）";
-					}
-					else{
-						str+="，否则"+get.translation(player)+"对你造成1点伤害";
-					}
-					event.target.chooseToRespond(str,function(card){
-						return get.type(card)=="basic";
-					}).set("ai",function(card){
-						var evt=_status.event.getParent();
-						if(get.damageEffect(evt.target,evt.player,evt.target)>=0) return 0;
-						return get.order(card);
-					}).set("position","hes");
-					"step 3"
-					if(result.card){
-						event.finish();
-					}
-					else if(event.target.countCards("sx")){
-						event.target.chooseCardButton("枪笃：将武将牌上一张牌置入弃牌堆，否则"+get.translation(player)+"对你造成1点伤害",event.target.getCards("sx")).set("ai",function(button){
-							return 11-get.useful(button.link);
-						});
-					}
-					else{
-						event.target.damage(player);
-						event.finish();
-					}
-					"step 4"
-					if(result.links&&result.links.length){
-						event.target.loseToDiscardpile(result.links);
-					}
-					else{
-						event.target.damage(player);
-					}
 				},
+				group:"ska_qiangdu_init",
 				ai:{
-					expose:0.2,
 					effect:{
 						player:function(card){
 							if(card.suit=="spade") return [1,1];
 						}
 					}
 				}
+			},
+			ska_qiangdu_init:{
+				trigger:{
+					global:"phaseBefore",
+					player:"enterGame"
+				},
+				forced:true,
+				locked:false,
+				filter:function(){
+					return !lib.inpile.contains("ska_spear_thrust");
+				},
+				content:function(){
+					for(var i=1;i<=11;i++){
+						var card=game.createCard2("ska_spear_thrust","spade",i);
+						ui.cardPile.insertBefore(card,ui.cardPile.childNodes[get.rand(0,ui.cardPile.childNodes.length)]);
+					}
+					game.broadcastAll(function(){lib.inpile.add("ska_spear_thrust")});
+					game.updateRoundNumber();
+				}
+			},
+			ska_qiangdux:{
+				viewAs:{name:"ska_spear_thrust"},
+				filterCard:function(card){
+					return get.itemtype(card)=="card";
+				},
+				position:"hes",
+				check:function(card){return 5-get.value(card);}
 			},
 			ska_mengchen:{
 				direct:true,
@@ -2781,7 +2762,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_taluo:"塔罗",
 			xsj_taluo_info:"当你使用或打出牌响应【杀】或带有「伤害」标签的锦囊牌后，你可以获得被响应的牌。",
 			ska_qiangdu:"枪笃",
-			ska_qiangdu_info:"当你的♠牌正面向上离开你的区域后，你可以弃置一张牌并指定攻击范围内的一名角色，其须打出一张基本牌或将其武将牌上一张牌置入弃牌堆，否则你对其造成1点伤害。",
+			ska_qiangdu_init:"枪笃",
+			ska_qiangdu_info:"游戏开始时，你将11张【刺枪】加入牌堆。你使用【刺枪】无距离限制。当你的♠牌正面向上离开你的区域后，你可以将一张牌当作【刺枪】使用。",
 			ska_mengchen:"盟谌",
 			ska_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用其中一张牌。",
 			//Sort

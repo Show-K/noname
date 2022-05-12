@@ -53,7 +53,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			━━━━━━━━━━━━━━━━━<br>\
 			芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
 			sst_geno:"武将作者：Show-K<br>\
-			插图作者：未知<br>\
+			插图作者：ハルノ＠マリオ垢<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
 			━━━━━━━━━━━━━━━━━<br>\
 			0104. Geno/ジーノ<br>\
 			系列：Mario（马力欧）<br>\
