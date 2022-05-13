@@ -198,15 +198,12 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					game.changeLand("ska_garreg_mach_monastery",player);
 					"step 1"
 					player.chooseCard("加尔古·玛库大修道院：你可以重铸任意张牌","he",[1,Infinity]).set("ai",function(card){
-						return 5-get.value(card);
+						return 5.5-get.value(card);
 					});
 					"step 2"
-					if(result.cards&&result.cards.length) {
-						var cards=result.cards;
-						player.$throw(cards,1000);
-						player.lose(cards,ui.discardPile,"visible").set("type","_chongzhu");
-						game.log(player,"将",cards,"置入了弃牌堆");
-						player.draw(cards.length);
+					if(result.cards&&result.cards.length){
+						player.loseToDiscardpile(result.cards).set("skill","_chongzhu");
+						player.draw();
 					}
 				},
 				ai:{

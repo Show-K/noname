@@ -266,20 +266,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Geno
 			sst_fuyuan:{
-				enable:"phaseUse",
-				usable:1,
-				position:"he",
-				delay:false,
+				frequent:true,
+				trigger:{global:"roundStart"},
 				content:function(){
 					"step 0"
-					event.card=get.cards()[0];
-					ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);
-					player.showCards(event.card);
+					event.pileTop=get.cards()[0];
+					ui.cardPile.insertBefore(event.pileTop.fix(),ui.cardPile.firstChild);
+					player.showCards(event.pileTop,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
-					player.chooseToRespond("复愿：你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1，然后若与"+get.translation(event.card)+"的点数相同，你可以令一名角色一个限定技视为未发动过").set("ai",function(card){
-						var cardx=_status.event.cardx;
-						var num=5-get.value(card);
-						if(get.number(card)==get.number(cardx)&&game.hasPlayer(function(current){
+					player.chooseCard("复愿：你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令其一个限定技视为未发动过","he").set("ai",function(card){
+						var pileTop=_status.event.getParent().pileTop;
+						var num=5.5-get.value(card);
+						if(get.number(card)==get.number(pileTop)&&game.hasPlayer(function(current){
 							var skills=current.getSkills(null,null,false);
 							for(var i=0;i<skills.length;i++){
 								var info=get.info(skills[i]);
@@ -288,73 +286,55 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return false;
 						})) num+=3;
 						return num;
-					}).set("position","hes").set("cardx",event.card);
+					});
 					"step 2"
-					if(result.card){
-						if(get.number(result.card)==get.number(event.card)) event.goon=true;
-					}
-					else{
-						event.finish();
+					if(result.cards&&result.cards.length){
+						player.loseToDiscardpile(result.cards).set("skill","_chongzhu");
+						player.draw();
+						if(get.number(result.cards[0])==get.number(event.pileTop)) event.equal=true;
 					}
 					"step 3"
-					player.chooseTarget("复愿：令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1",true).set("ai",function(target){
-						return get.sgnAttitude(player,target);
+					var str="复愿：令一名角色下次造成伤害后再次结算此伤害";
+					if(event.equal) str+="，然后令其一个限定技视为未发动过";
+					player.chooseTarget(str,true).set("ai",function(target){
+						var att=get.sgnAttitude(player,target);
+						var skills=target.getSkills(null,null,false);
+						for(var i=0;i<skills.length;i++){
+							var info=get.info(skills[i]);
+							if(info.limited&&target.awakenedSkills.contains(skills[i])){
+								att*=2;
+								break;
+							}
+						}
+						return att;
 					});
 					"step 4"
 					if(result.targets&&result.targets.length){
-						player.line(result.targets[0],"green");
+						event.target=result.targets[0];
+						player.line(event.target,"green");
 						player.addExpose(0.2);
-						result.targets[0].addSkill("sst_fuyuan_effect");
-						result.targets[0].addMark("sst_fuyuan_effect",1,false);
+						event.target.addSkill("sst_fuyuan_effect");
+						event.target.addMark("sst_fuyuan_effect",1,false);
 					}
-					if(!event.goon) event.finish();
+					if(!event.equal) event.finish();
 					"step 5"
-					if(game.hasPlayer(function(current){
-						var skills=current.getSkills(null,null,false);
-						for(var i=0;i<skills.length;i++){
-							var info=get.info(skills[i]);
-							if(info.limited&&current.awakenedSkills.contains(skills[i])) return true;
-						}
-						return false;
-					})){
-						player.chooseTarget("复愿：你可以令一名角色一个限定技视为未发动过",function(card,player,target){
-							var skills=target.getSkills(null,null,false);
-							for(var i=0;i<skills.length;i++){
-								var info=get.info(skills[i]);
-								if(info.limited&&target.awakenedSkills.contains(skills[i])) return true;
-							}
-							return false;
-						}).set("ai",function(target){
-							return get.sgnAttitude(player,target);
-						});
+					var list=[];
+					var skills=event.target.getSkills(null,null,false);
+					for(var i=0;i<skills.length;i++){
+						var info=get.info(skills[i]);
+						if(info.limited&&event.target.awakenedSkills.contains(skills[i])) list.push(skills[i]);
 					}
-					"step 6"
-					if(result.targets&&result.targets.length){
-						event.current=result.targets[0];
-						player.line(event.current,"green");
-						player.addExpose(0.2);
-						var list=[];
-						var skills=event.current.getSkills(null,null,false);
-						for(var i=0;i<skills.length;i++){
-							var info=get.info(skills[i]);
-							if(info.limited&&event.current.awakenedSkills.contains(skills[i])) list.push(skills[i]);
-						}
+					if(list.length){
 						player.chooseControl(list).set("prompt","复愿：选择一个限定技恢复之");
 					}
 					else{
 						event.finish();
 					}
-					"step 7"
+					"step 6"
 					if(result.control){
-						event.current.restoreSkill(result.control);
-						event.current.popup(result.control,"fire");
+						event.target.restoreSkill(result.control);
+						event.target.popup(result.control,"fire");
 						game.log(player,"恢复了技能","#g【"+get.translation(result.control)+"】");
-					}
-				},
-				ai:{
-					order:7,
-					result:{
-						player:1
 					}
 				}
 			},
@@ -362,21 +342,36 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				forced:true,
 				intro:{
-					content:"你使用下一张带有「伤害」标签的牌伤害值基数+#"
+					content:"你下&次造成伤害后再次结算此伤害"
 				},
-				onremove:function(player){
-					player.removeMark("sst_fuyuan_effect",player.countMark("sst_fuyuan_effect"),false);
-				},
-				trigger:{player:"useCard1"},
+				onremove:true,
+				trigger:{source:"damageSource"},
 				filter:function(event,player){
-					return event.card&&get.tag(event.card,"damage");
+					return event.player.isIn();
 				},
 				content:function(){
-					trigger.baseDamage+=player.countMark("sst_fuyuan_effect");
-					player.removeSkill("sst_fuyuan_effect");
-				},
-				ai:{
-					damageBonus:true
+					player.removeMark("sst_fuyuan_effect",1,false);
+					if(!player.hasMark("sst_fuyuan_effect")) player.removeSkill("sst_fuyuan_effect");
+					var next=game.createEvent("damage");
+					next.set("player",trigger.player);
+					if(typeof trigger.cards!="undefined") next.set("cards",trigger.cards);
+					if(typeof trigger.card!="undefined") next.set("card",trigger.card);
+					if(typeof trigger.num!="undefined") next.set("num",trigger.num);
+					if(typeof trigger.source!="undefined") next.set("source",trigger.source);
+					if(typeof trigger._triggered!="undefined") next.set("_triggered",trigger._triggered);
+					if(typeof trigger.notrigger!="undefined") next.set("notrigger",trigger.notrigger);
+					if(typeof trigger.nature!="undefined") next.set("nature",trigger.nature);
+					next.setContent("damage");
+					next.set("filterStop",function(){
+						if(this.source&&this.source.isDead()) delete this.source;
+						if(this.num<=0){
+							delete this.filterStop;
+							this.trigger("damageZero");
+							this.finish();
+							this._triggered=null;
+							return true;
+						}
+					});
 				}
 			},
 			sst_xingjiang:{
@@ -389,81 +384,42 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:"limited"
 				},
-				trigger:{global:"phaseJieshuBegin"},
-				filter:function(event,player){
-					return player.getHistory("gain").length||player.getHistory("lose").length;
-				},
-				direct:true,
+				group:"sst_xingjiang2",
+				enable:"phaseUse",
+				filterCard:true,
+				selectCard:[1,Infinity],
+				position:"he",
+				delay:false,
 				content:function(){
 					"step 0"
-					event.num_draw=0;
-					player.getHistory("gain",function(evt){
-						event.num_draw+=evt.cards.length;
-					});
-					//event.num_draw=Math.min(7,event.num_draw);
-					event.num_discard=0;
-					player.getHistory("lose",function(evt){
-						event.num_discard+=evt.cards.length;
-					});
-					//event.num_discard=Math.min(7,event.num_discard);
-					var str="限定技，你可以令一名角色";
-					if(event.num_draw) str+="摸"+get.cnNumber(event.num_draw)+"张牌";
-					if(event.num_draw&&event.num_discard) str+="并";
-					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
-					str+="，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）";
-					player.chooseTarget(get.prompt("sst_xingjiang"),str).set("ai",function(target){
-						var att=get.sgnAttitude(_status.event.player,target);
-						var diff_hp=target.countCards("h",function(card){
-							return lib.filter.cardDiscardable(card,player);
-						})+_status.event.num_draw-target.hp;
-						var diff_max_hp=target.countCards("h",function(card){
-							return lib.filter.cardDiscardable(card,player);
-						})+_status.event.num_draw-target.maxHp;
-						var expectation_num_discard=_status.event.num_discard-target.countCards("e",function(card){
-							return lib.filter.cardDiscardable(card,player);
-						});
-						if(_status.event.num_discard>=diff_hp&&expectation_num_discard<=diff_hp) att*=2;
-						if(_status.event.num_discard>=diff_max_hp&&expectation_num_discard<=diff_max_hp) att*=2;
-						if(_status.event.num_draw<_status.event.num_discard*2){
-							if(!target.countCards("he",function(card){
-								return lib.filter.cardDiscardable(card,player);
-							})) return 0;
-							return -att;
-						}
-						if(_status.event.num_draw==_status.event.num_discard&&!target.countCards("he",function(card){
-							return lib.filter.cardDiscardable(card,player);
-						})) return 0;
-						return att;
-					}).set("num_draw",event.num_draw).set("num_discard",event.num_discard);
+					player.awakenSkill("sst_xingjiang");
+					event.toUse=get.cards(cards.length*2);
+					game.cardsGotoOrdering(event.toUse);
+					player.showCards(event.toUse,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
-					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.logSkill("sst_xingjiang",event.target);
-						player.awakenSkill("sst_xingjiang");
-						if(event.num_draw) event.target.draw(event.num_draw);
-						if(event.num_discard) event.target.chooseToDiscard("星降：弃置"+get.cnNumber(event.num_discard)+"张牌",event.num_discard,true,"he");
+					if(event.toUse.length){
+						player.chooseCardButton("星降：你可以使用"+get.translation(event.toUse),event.toUse).set("filterButton",function(button){
+							return _status.event.player.hasUseTarget(button.link);
+						}).set("ai",function(button){
+							return _status.event.player.getUseValue(button.link);
+						});
 					}
 					else{
 						event.finish();
 					}
 					"step 2"
-					if(event.target.isIn()&&(event.target.countCards("h")==event.target.getHp()||event.target.countCards("h")==event.target.maxHp)){
-						var top=get.cards();
-						event.card=top[0];
-						ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);
-						//game.log(player,"观看了牌堆顶的一张牌");
-						player.viewCards("星降",top);
+					if(result.links&&result.links.length){
+						event.toUse.removeArray(result.links);
+						player.addTempSkill("sst_xingjiang2");
+						player.chooseUseTarget(result.links[0],false);
+						event.goto(1);
 					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					player.addTempSkill("sst_xingjiang2");
-					player.chooseUseTarget(event.card,false);
 				},
-				group:"sst_xingjiang2",
 				ai:{
-					expose:0.2
+					order:1,
+					result:{
+						player:1
+					}
 				}
 			},
 			sst_xingjiang2:{
@@ -471,7 +427,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"useCard1"},
 				forced:true,
 				popup:false,
-				filter:function(event,player){
+				filter:function(event){
 					return event.getParent(2).name=="sst_xingjiang"&&!event.card.yingbian&&get.is.yingbian(event.card);
 				},
 				content:function(){
@@ -1319,9 +1275,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
-			sst_fuyuan_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1。若两张牌点数相同，你可以令一名角色一个限定技视为未发动过。",
+			sst_fuyuan_info:"每轮游戏开始时，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
 			sst_xingjiang:"星降",
-			sst_xingjiang_info:"限定技，一名角色的结束阶段，你可以令一名角色摸X张牌并弃置Y张牌，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量）",
+			sst_xingjiang_info:"限定技，出牌阶段，你可以弃置至少一张牌。若如此做，你亮出牌堆顶两倍数量的牌且可以使用之（其应变效果直接生效）。",
 			sst_gonglie:"共猎",
 			sst_gonglie_info:"你使用【杀】可以为其附加「助战→目标+1」应变效果；然后若有人响应「助战」且【杀】造成了伤害，其可以获得受到此【杀】伤害的角色一张牌。",
 			sst_weishou:"围狩",
@@ -1357,7 +1313,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		translateEnglish:{
 			sst_claude:"Claude",
-			sst_geno:"Geno",
+			sst_geno:"♡♪!?",
 			sst_duck_hunt:"Duck Hunt",
 			sst_ness:"Ness",
 			sst_chrom:"Chrom",

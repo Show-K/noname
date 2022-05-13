@@ -472,14 +472,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 							"step 1"
 							player.chooseCard("he","洋寻：重铸一张牌",true).set("ai",function(card){
-								return 8-get.value(card);
+								return 5.5-get.value(card);
 							});
 							"step 2"
 							if(result.cards&&result.cards.length>0){
-								var card=result.cards[0];
-								player.lose(card,ui.discardPile,"visible","chongzhu");
-								player.$throw(card,1000);
-								game.log(player,"将",card,"置入弃牌堆");
+								player.loseToDiscardpile(result.cards).set("skill","_chongzhu");
 								player.draw();
 							}
 							"step 3"

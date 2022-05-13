@@ -3177,8 +3177,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var evt=_status.event.getTrigger();
 						var player=_status.event.player;
 						if(get.effect(evt.target,evt.card,evt.player,player)<0){
-							if(get.attitude(player,target)<=0) return 3-target.countCards("h");
-							return get.attitude(player,target);
+							return Math.cbrt(get.attitude(player,target)*target.countCards("h"))+5;
 						}
 						return 0;
 					}).set("cardx",trigger.card);
@@ -3446,13 +3445,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.cards&&result.cards.length) {
 						player.logSkill("sst_potian");
-						var cards=result.cards;
-						player.$throw(cards,1000);
-						player.lose(cards,ui.discardPile,"visible").set("type","chongzhu");
-						game.log(player,"将",cards,"置入了弃牌堆");
+						player.loseToDiscardpile(result.cards).set("skill","_chongzhu");
+						player.draw(result.cards.length);
+						player.addTempSkill("sst_potian_effect");
 						var num=0;
-						for(var i=0;i<cards.length;i++){
-							if(get.type(cards[i])=="basic") num++;
+						for(var i=0;i<result.cards.length;i++){
+							if(get.type(result.cards[i])=="basic") num++;
 						}
 						if(num){
 							player.addMark("sst_potian_effect",num,false);
@@ -3462,8 +3460,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.syncStorage("sst_potian_effect");
 							player.markSkill("sst_potian_effect");
 						}
-						player.draw(cards.length);
-						player.addTempSkill("sst_potian_effect");
 					}
 				}
 			},
@@ -3497,9 +3493,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			sst_shenjiao:{
 				trigger:{player:"loseEnd"},
-				filter:function(event,player){
-					if(event.type=="chongzhu") return true;
-					if(event.getParent().skill=="chongzhu") return true;
+				filter:function(event){
+					if(event.getParent().skill!="_chongzhu") return false;
+					for(var i=0;i<event.cards2.length;i++){
+						if(get.position(event.cards2[i],true)=="d") return true;
+					}
 					return false;
 				},
 				direct:true,
@@ -3512,7 +3510,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					var str="你可以将"+get.translation(event.cards)+"交给一名其他角色";
-					if(trigger.getParent().name=="sst_potian") str+="，然后你令该角色于其下一个回合内拥有【破天】";
+					if(trigger.getParent(2).name=="sst_potian") str+="，然后你令该角色于其下一个回合内拥有【破天】";
 					player.chooseTarget(get.prompt("sst_shenjiao"),str,function(card,player,target){
 						return player!=target;
 					}).set("ai",function(target){
@@ -3523,7 +3521,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_shenjiao",result.targets);
 						player.give(event.cards,result.targets[0]);
-						if(trigger.getParent().name=="sst_potian"){
+						if(trigger.getParent(2).name=="sst_potian"){
 							result.targets[0].addTempSkill("sst_shenjiao_effect",{player:"phaseBeginStart"});
 							//result.targets[0].markSkillCharacter("sst_shenjiao_effect",player,"身教","下一个回合内拥有【破天】");
 						}
@@ -4590,7 +4588,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				popup:false,
 				filter:function(event,player){
-					return event.getParent(3).name=="sst_qixiao"||event.getParent(7).name=="sst_qixiao";
+					var evt=event.getParent("sst_qixiao");
+					return evt&&evt.name=="sst_qixiao";
 				},
 				content:function(){
 					if(player.storage.sst_qixiao){
@@ -7894,11 +7893,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				popup:false,
 				content:function(){
+					player.removeSkill("sst_qichang_effect2");
 					player.lose(player.storage.sst_qichang,ui.special).set("_triggered",null);
 					player.$throw(player.storage.sst_qichang);
 					player.storage.sst_qichang=null;
 					player.update();
-					if(player.hasSkill("sst_qichang_effect2")) player.removeSkill("sst_qichang_effect2");
 				}
 			},
 			sst_shizhu:{
@@ -7962,6 +7961,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 4"
 					if(result.links&&result.links.length){
+						event.cards.removeArray(result.links);
 						event.targets=[];
 						event.targets.push(player);
 						event.targets.push(event.target);
@@ -7988,7 +7988,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//player.$throw(event.card);
 						player.useCard(event.card,result.targets[0],false);
 					}
-					event.cards.remove(event.card);
 					if(event.cards.length) event.goto(3);
 				}
 			},
@@ -10692,7 +10691,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 3"
 					if(result.links&&result.links.length){
-						event.cards.remove(result.links[0]);
+						event.cards.removeArray(result.links);
 						event.card=result.links[0];
 					}
 					else{
@@ -14212,7 +14211,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			为9，你对其造成3点伤害。",
 			sst_qixiao:"奇嚣",
 			sst_qixiao2:"奇嚣",
-			sst_qixiao_info:"出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸一张牌。",
+			sst_qixiao_info:"出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制），你每于此技能流程造成伤害后，摸一张牌。",
 			sst_xuansha:"喧杀",
 			sst_xuansha_effect:"喧杀",
 			sst_xuansha_info:"觉醒技，准备阶段，若你的体力值为1，你增加1点体力上限，然后修改〖奇嚣〗描述，本回合你的手牌均视为【桃】。",
@@ -14279,7 +14278,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiandu:"先读",
 			sst_xiandu2:"先读",
 			sst_xiandu3:"先读",
-			sst_xiandu_info:"一名其他角色的出牌阶段开始时，你可以扣置一张手牌，于该角色本回合第一次使用牌时亮出。若这两张牌的类别：相同，你可以对其造成1点伤害或摸两张牌；不同，其对你造成1点伤害。出牌阶段结束时，你将此牌置入弃牌堆。",
+			sst_xiandu_info:"一名其他角色的出牌阶段开始时，你可以扣置一张手牌，于该角色本回合第一次使用牌时展示。若这两张牌的类别：相同，你可以对其造成1点伤害或摸两张牌；不同，其对你造成1点伤害。出牌阶段结束时，你将此牌置入弃牌堆。",
 			sst_wenxu:"温恤",
 			sst_wenxu_effect:"温恤",
 			sst_wenxu_info:"一名其他角色于其回合内使用基本牌或普通锦囊牌结算后，你可以获得此牌，然后令此角色本回合使用【杀】的次数+1。若如此做，本回合结束阶段，若其使用【杀】的次数未达上限，你受到其造成的1点伤害。",
