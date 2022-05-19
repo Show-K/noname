@@ -312,7 +312,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
 						player.line(event.target,"green");
-						player.addExpose(0.2);
+						if(event.target!=player) player.addExpose(0.2);
 						event.target.addSkill("sst_fuyuan_effect");
 						event.target.addMark("sst_fuyuan_effect",1,false);
 					}
@@ -349,6 +349,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return event.player.isIn();
 				},
+				logTarget:"player",
 				content:function(){
 					player.removeMark("sst_fuyuan_effect",1,false);
 					if(!player.hasMark("sst_fuyuan_effect")) player.removeSkill("sst_fuyuan_effect");

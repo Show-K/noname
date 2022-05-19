@@ -414,7 +414,7 @@
 	opacity: 1 !important;
 }
 
-.player>.hp-wrap>.hp>div {
+.player>.hp-wrap>.hp>div:not(.shield) {
     position: static;
 	margin-top: 3px;
 	width: 12px;

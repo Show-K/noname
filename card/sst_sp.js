@@ -1101,7 +1101,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			//Exclusive
 			ska_spear_thrust:"刺枪",
 			ska_spear_thrust_info:"出牌阶段，对你攻击范围内的一名角色使用。其须打出一张基本牌或将其武将牌上一张牌置入弃牌堆，否则你对其造成1点伤害。",
-			ska_spear_thrust_append:"<span class=\"text\" style=\"font-family: fzktk\">吾乃波普星头巾瓦豆鲁迪也！</span>",
+			ska_spear_thrust_append:"<span class=\"text\" style=\"font-family: fzktk\">吾乃波普之星头巾瓦豆鲁迪也！</span>",
 			//Test
 			ska_grab:"抓",
 			ska_grab_info:"出牌阶段，对你攻击范围内的一名角色使用。其须展示一张【闪】，否则你弃置其一张牌。",

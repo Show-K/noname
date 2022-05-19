@@ -3898,10 +3898,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addTempSkill("sst_xingjiang2");
 					player.chooseUseTarget(event.card,false);
 				},
-				group:"sst_xingjiang2",
 				ai:{
 					expose:0.2
-				}
+				},
+				group:"sst_xingjiang2"
 			}
 		},
 		dynamicTranslate:{

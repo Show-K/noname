@@ -148,6 +148,7 @@ window.noname_asset_list=[
 	'image/character/ymk_tianyi.png',
 	'image/character/xsj_yu_narukami.png',
 	'image/character/ska_bandana_waddle_dee.png',
+	'image/character/ska_magolor.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',

@@ -3,6 +3,7 @@
     border: none;
     background-size: 100% 100%;
     transform: scale(1.4);
+    filter:none;
     -webkit-filter:none;
     border-radius: 0px;
 }
@@ -11,6 +12,7 @@
     border: none;
     background-size: 100% 100%;
     transform: scale(1.4);
+    filter:none;
     -webkit-filter:none;
     border-radius: 0px;
 }
@@ -19,6 +21,7 @@
     border: none;
     background-size: 100% 100%;
     transform: scale(1.4);
+    filter:none;
     -webkit-filter:none;
     border-radius: 0px;
 }

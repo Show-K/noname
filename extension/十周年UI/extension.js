@@ -3680,7 +3680,16 @@ content:function(config, pack){
 									}
 								}
 								mark.text = decadeUI.element.create('mark-text', mark);
-								if (markText.length == 2) mark.text.classList.add('small-text');
+								if (lib.skill[item] && lib.skill[item].markimage) {
+									markText = '　';
+									mark.text.setBackgroundImage(lib.skill[item].markimage);
+									// mark.text.style['box-shadow'] = 'none';
+									mark.text.style.backgroundPosition = 'center';
+									mark.text.style.backgroundSize = 'contain';
+									mark.text.style.backgroundRepeat = 'no-repeat';
+								} else {
+									if (markText.length == 2) mark.text.classList.add('small-text');
+								}
 								mark.text.innerHTML = markText;
 							}
 							
