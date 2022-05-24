@@ -3209,7 +3209,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(result.bool){
-						result.targets.sortBySeat();
+						result.targets.sortBySeat(_status.currentPhase);
 						player.line(result.targets,"green");
 						event.targets=result.targets;
 						if(!event.targets.length) event.finish();

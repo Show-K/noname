@@ -41,7 +41,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_marth:["male","sst_light",4,["sst_hanmang","sst_jianbu","sst_fuguo"],["zhu","type:support"]],
 			sst_rosalina:["female","sst_light",3,["sst_xingchen","sst_zhuansheng"],["type:support"]],
 			sst_zero_suit_samus:["female","sst_light",3,["sst_guangsuo","sst_qingying"],["type:support"]],
-			sst_luigi:["male","sst_light",3,["sst_que","sst_guiyun"],["type:balance"]],
+			sst_luigi:["male","sst_light",4,["sst_que","sst_guiyun"],["type:balance"]],
 			sst_bowser:["male","sst_darkness",5,["sst_xiduo","sst_xiongao","sst_yujun"],["zhu","type:challenge","frag:79","step:102","over:79"]],
 			sst_peach:["female","sst_light",3,["sst_hongyan","sst_yice","sst_qiuyuan"],["zhu","type:support"]],
 			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],["type:support"]],
@@ -1678,7 +1678,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:function(storage,player){
 						var list=[];
-						var players=game.findPlayersByPlayerid(Object.keys(storage)).sortBySeat(player);
+						var players=game.findPlayersByPlayerid(Object.keys(storage)).sortBySeat(_status.currentPhase);
 						for(var i=0;i<players.length;i++){
 							list.push(get.translation(players[i])+"（"+get.cnNumber(storage[players[i].playerid])+"张牌）");
 						}
@@ -1686,7 +1686,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					markcount:function(storage,player){
 						var num=0;
-						var players=game.findPlayersByPlayerid(Object.keys(storage)).sortBySeat(player);
+						var players=game.findPlayersByPlayerid(Object.keys(storage)).sortBySeat(_status.currentPhase);
 						for(var i=0;i<players.length;i++){
 							num+=storage[players[i].playerid];
 						}
@@ -1700,7 +1700,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				forced:true,
 				content:function(){
-					var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_huandai_effect)).sortBySeat();
+					var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_huandai_effect)).sortBySeat(_status.currentPhase);
 					for(var i=0;i<players.length;i++){
 						if(player.countUsed()>=player.storage.sst_huandai_effect[players[i].playerid]){
 							player.line(players[i],"green");
@@ -2317,9 +2317,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return true;
 				},
-				//complexSelect:true,
 				filterCard:true,
-				selectCard:function(card){
+				selectCard:function(){
 					var player=_status.event.player;
 					if(player.hasSkill("sst_qiji_turn")){
 						return 3;
@@ -2448,8 +2447,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				onremove:function(player){
 					var num=player.countMark("sst_shengbing_effect");
 					player.removeMark("sst_shengbing_effect",num,false);
-					player.addTempSkill("sst_shengbing_effect2","phaseUseAfter");
-					player.addMark("sst_shengbing_effect2",num,false);
+					if(player.isIn()){
+						player.addTempSkill("sst_shengbing_effect2","phaseUseAfter");
+						player.addMark("sst_shengbing_effect2",num,false);
+					}
 				}
 			},
 			sst_shengbing_effect2:{
@@ -2719,7 +2720,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<targets.length;i++){
 						if(targets[i].isLinked()||!targets[i].isIn()) targets.remove(targets[i]);
 					}
-					targets.sortBySeat(player);
+					targets.sortBySeat(_status.currentPhase);
 					return targets;
 				},
 				check:function(event,player){
@@ -2904,7 +2905,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var targets=game.filterPlayer(function(current){
 						return current.getHp()<player.getHp();
 					});
-					targets.sortBySeat(player);
+					targets.sortBySeat(_status.currentPhase);
 					return targets;
 				},
 				prompt2:function(event,player){
@@ -3125,6 +3126,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.addSkill("sst_yujun3");
 						trigger.cancel();
 						trigger.getParent().goto(0);
+						game.delayx();
 						event.finish();
 					}
 					"step 4"
@@ -3546,7 +3548,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					content:"下一个回合内拥有【破天】"
 				},
 				onremove:function(player){
-					player.addTempSkill("sst_potian");
+					if(player.isIn()) player.addTempSkill("sst_potian");
 				}
 			},
 			//Byleth (Male)
@@ -4008,7 +4010,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(result.bool){
 						event.targets=result.targets;
-						event.targets.sortBySeat();
+						event.targets.sortBySeat(_status.currentPhase);
 						player.line(event.targets,"green");
 						event.num=0;
 					}
@@ -4109,17 +4111,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					game.updateRoundNumber();
-					/*
-					var nextDraw=player.phaseDraw();
-					event.next.remove(nextDraw);
-					trigger.next.push(nextDraw);
-					var nextUse=player.phaseUse();
-					event.next.remove(nextUse);
-					nextDraw.after.push(nextUse);
-					*/
-					player.phaseDraw();
-					"step 1"
-					player.phaseUse();
+					var phaseDraw=player.phaseDraw();
+					event.next.remove(phaseDraw);
+					trigger.after.push(phaseDraw);
+					var phaseUse=player.phaseUse();
+					event.next.remove(phaseUse);
+					phaseDraw.after.push(phaseUse);
 				}
 			},
 			sst_shunxing:{
@@ -5305,7 +5302,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					event.players=game.filterPlayer(function(current){
 						return current!=player&&current.hasSkill("sst_xinghuo");
-					}).sortBySeat();
+					}).sortBySeat(_status.currentPhase);
 					event.num=0;
 					"step 1"
 					if(event.num<event.players.length){
@@ -5400,7 +5397,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.players=game.filterPlayer(function(current){
 						return current!=player&&current.inRange(player);
 					});
-					event.players.sortBySeat();
+					event.players.sortBySeat(_status.currentPhase);
 					player.line(event.players,"green");
 					"step 3"
 					if(event.players.length){
@@ -6022,7 +6019,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.source.storage.sst_manchan.push(player);
 						trigger.source.storage.sst_manchan_effect=player;
 						trigger.source.addTempSkill("sst_manchan_effect",{player:"phaseBegin"});
-						//trigger.source.markSkillCharacter("sst_manchan_effect",player,"蛮缠",get.translation(trigger.source.storage.sst_manchan)+"可以于你的下个回合内发动〖任情〗");
+						if(!result.cards||!result.cards.length) game.delayx();
 					}
 				},
 				ai:{
@@ -6164,7 +6161,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.players=game.filterPlayer(function(current){
 						return current!=player;
 					});
-					event.players.sortBySeat();
+					event.players.sortBySeat(_status.currentPhase);
 					event.num=0;
 					player.line(event.players,"green");
 					"step 2"
@@ -6615,7 +6612,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.addMark("sst_baochao_effect",1,false);
 					if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
 					trigger.baseDamage++;
-					game.delayx();
 				},
 				ai:{
 					expose:0.2
@@ -6682,7 +6678,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						event.targets=result.targets;
-						event.targets.sortBySeat();
+						event.targets.sortBySeat(_status.currentPhase);
 						player.logSkill("sst_chixing",event.targets);
 						player.chooseTarget("赤行：另外指定一名角色，令"+get.translation(event.targets)+"将手牌数调整到与其相等",true).set("ai",function(target){
 							var player=_status.event.player;
@@ -6807,7 +6803,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var targets=game.filterPlayer(function(current){
 						return current.storage.sst_jilve_used;
 					});
-					targets.sortBySeat(player);
+					targets.sortBySeat(_status.currentPhase);
 					return targets;
 				},
 				forced:true,
@@ -7184,67 +7180,62 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					player.showCards(event.cards,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
-					event.shas=event.cards.filter(function(card){
-						return get.name(card)=="sha";
-					});
-					event.notShas=event.cards.filter(function(card){
-						return get.name(card)!="sha";
-					});
-					var controls=[];
-					var list=[];
-					var str="";
-					if(event.shas.length){
-						controls.push("获得杀");
-						str="获得"+get.translation(event.shas);
-						if(player.storage.sst_tandao==1) str+="，然后你本回合使用【杀】没有次数限制";
-						list.push(str);
+					var str="探道：获得其中的【杀】或非【杀】的牌";
+					if(player.storage.sst_tandao==1){
+						str+="，若你选择获得其中的【杀】的牌，你本回合使用【杀】没有次数限制";
 					}
-					if(event.notShas.length){
-						controls.push("获得非杀");
-						str="获得"+get.translation(event.notShas);
-						if(player.storage.sst_tandao==2&&event.shas.length) str+="（你可以从"+get.translation(event.shas)+"中额外获得一张）";
-						list.push(str);
+					else if(player.storage.sst_tandao==2){
+						str+="，若你选择获得其中的非【杀】的牌，你可以额外获得一张牌";
 					}
-					player.chooseControl(controls).set("prompt","探道：选择一项").set("ai",function(){
-						if(_status.event.controls.length<=1) return 0;
-						var player=_status.event.player;
-						var val1=0;
-						for(var i of _status.event.shas){
-							val1+=player.getUseValue(i);
+					player.chooseCardButton(str,event.cards,true).set("filterButton",function(button){
+						if(!ui.selected.buttons||!ui.selected.buttons.length) return true;
+						if(get.name(ui.selected.buttons[0].link)=="sha"){
+							if(_status.event.player.storage.sst_tandao==2){
+								if(ui.selected.buttons.length<=1) return true;
+								return get.name(button.link)!="sha";
+							}
+							return get.name(button.link)=="sha";
 						}
-						var val2=0;
-						for(var i of _status.event.notShas){
-							val2+=player.getUseValue(i);
+						if(_status.event.player.storage.sst_tandao==2&&get.name(button.link)=="sha"){
+							for(var i=0;i<ui.selected.buttons.length;i++){
+								if(get.name(ui.selected.buttons[i].link)=="sha") return false;
+							}
+							return true;
 						}
-						return val1<val2?1:0;
-					}).set("choiceList",list).set("shas",event.shas).set("notShas",event.notShas);
+						return get.name(button.link)!="sha";
+					}).set("selectButton",function(){
+						var evt=_status.event.getParent();
+						if(!ui.selected.buttons||!ui.selected.buttons.length) return evt.cards.length;
+						if(get.name(ui.selected.buttons[0].link)=="sha"){
+							if(_status.event.player.storage.sst_tandao==2){
+								if(ui.selected.buttons.length<=1) return evt.cards.length;
+								return evt.cards.filter(function(card){
+									return get.name(card)!="sha";
+								}).length+1;
+							}
+							return evt.cards.filter(function(card){
+								return get.name(card)=="sha";
+							}).length;
+						}
+						var num=evt.cards.filter(function(card){
+							return get.name(card)!="sha";
+						}).length;
+						if(_status.event.player.storage.sst_tandao==2) return [num,num+1];
+						return num;
+					}).set("complexSelect",true);
 					"step 2"
-					event.control=result.control;
-					if(event.control=="获得非杀"){
-						if(player.storage.sst_tandao==2&&event.shas.length){
-							player.popup(event.control,"thunder");
-							player.chooseCardButton("探道：你可以从"+get.translation(event.shas)+"中额外获得一张",event.shas).set("ai",(button)=>get.value(button.link));
-						}
-						else{
-							player.popup(event.control);
-						}
-						player.storage.sst_tandao=2;
-					}
-					else{
-						if(player.storage.sst_tandao==1){
-							player.popup(event.control,"thunder");
-							event.infiniteSha=true;
-						}
-						else{
-							player.popup(event.control);
-						}
-						player.storage.sst_tandao=1;
+					if(result.links&&result.links.length){
+						event.links=result.links;
+						player.gain(event.links,"gain2");
 					}
 					"step 3"
-					if(result.links&&result.links.length) event.notShas.push(result.links[0]);
-					player.gain(event.control=="获得非杀"?event.notShas:event.shas,"gain2");
-					"step 4"
-					if(event.infiniteSha) player.addTempSkill("sst_tandao_effect");
+					var now=1;
+					for(var i=0;i<event.links.length;i++){
+						if(get.name(event.links[i])!="sha") now=2;
+					}
+					var previous=player.storage.sst_tandao;
+					player.storage.sst_tandao=now;
+					if(now==1&&previous==1) player.addTempSkill("sst_tandao_effect");
 				}
 			},
 			sst_tandao_effect:{
@@ -8709,7 +8700,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.bool){
-						event.targets=result.targets.sortBySeat();
+						event.targets=result.targets.sortBySeat(_status.currentPhase);
 						player.logSkill("sst_yongfeng",event.targets);
 						trigger.num-=event.targets.length;
 					}
@@ -9167,7 +9158,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("ai",()=>true);
 					"step 1"
 					if(result.targets&&result.targets.length){
-						result.targets.sortBySeat();
+						result.targets.sortBySeat(_status.currentPhase);
 						player.logSkill("sst_zhuizhai",result.targets);
 						game.asyncDraw(result.targets);
 						for(var i=0;i<result.targets.length;i++){
@@ -9304,6 +9295,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.addTempSkill("sst_liaoyi3");
 						trigger.cancel();
 						trigger.getParent().goto(0);
+						game.delayx();
 					}
 				},
 				group:["sst_liaoyi1","sst_liaoyi2"]
@@ -9981,7 +9973,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.targets.addArray(result.targets);
 						player.addExpose(0.2);
 					}
-					event.targets.sortBySeat();
+					event.targets.sortBySeat(_status.currentPhase);
 					if(!event.targets.length){
 						event.finish();
 					}
@@ -10422,7 +10414,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					var players=game.findPlayersByPlayerid(Object.keys(event.sst_xuhuang));
 					if(players.length){
-						event.player=players.sortBySeat()[0];
+						event.player=players.sortBySeat(_status.currentPhase)[0];
 					}
 					else{
 						event.finish();
@@ -11684,7 +11676,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!Array.isArray(player.storage.sst_fankui)) player.storage.sst_fankui=[];
 					player.storage.sst_fankui_range={};
 					if(_status.gameStarted){
-						var players=game.filterPlayer().sortBySeat(player);
+						var players=game.filterPlayer().sortBySeat(_status.currentPhase);
 						for(var i=0;i<players.length;i++){
 							player.storage.sst_fankui_range[players[i].playerid]=player.inRangeOf(players[i]);
 						}
@@ -11744,7 +11736,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					if(typeof player.storage.sst_fankui_range!="object") player.storage.sst_fankui_range={};
-					var players=game.filterPlayer().sortBySeat();
+					var players=game.filterPlayer().sortBySeat(_status.currentPhase);
 					var targets=[];
 					for(var i=0;i<players.length;i++){
 						var inRangeOf=player.inRangeOf(players[i]);
@@ -11754,7 +11746,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage.sst_fankui_range[players[i].playerid]=inRangeOf;
 					}
 					if(targets.length){
-						targets.sortBySeat();
+						targets.sortBySeat(_status.currentPhase);
 						var next=game.createEvent("inRangeOf",false);
 						next.set("player",player);
 						next.set("targets",targets);
@@ -11982,7 +11974,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
-						event.targets=result.targets.sortBySeat();
+						event.targets=result.targets.sortBySeat(_status.currentPhase);
 						player.logSkill("sst_xingduo",event.targets);
 						player.awakenSkill("sst_xingduo");
 						player.loseMaxHp();
@@ -12039,11 +12031,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					player.addTempSkill("sst_jiliu_effect");
 					player.addMark("sst_jiliu_effect",1,false);
-					game.delayx();
 					"step 2"
 					player.removeSkill("sst_jiliu");
 					game.log(player,"失去了技能","#g【激流】");
 					player.addSkillLog("sst_maosheng");
+					game.delayx();
 				}
 			},
 			sst_jiliu_effect:{
@@ -12076,7 +12068,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
-						event.targets=result.targets.sortBySeat();
+						event.targets=result.targets.sortBySeat(_status.currentPhase);
 						player.line(event.targets,"green");
 						event.num=0;
 					}
@@ -12231,7 +12223,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return !game.hasPlayer(function(current2){
 							return current2!=player&&get.distance(player,current2)<dist;
 						});
-					}).sortBySeat();
+					}).sortBySeat(_status.currentPhase);
 					var str="商政：是否令"+get.translation(player)+"获得"+get.translation(event.nearests);
 					if(event.nearests.length>1) str+="各";
 					str+="一张牌？";
@@ -12306,7 +12298,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return get.distance(player,current,"pure")==1;
 					});
 					targets.push(player);
-					targets.sortBySeat(player);
+					targets.sortBySeat(_status.currentPhase);
 					return targets;
 				},
 				check:function(event,player){
@@ -12627,7 +12619,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return sst_luanwu==event;
 						});
 					});
-					players.sortBySeat(player);
+					players.sortBySeat(_status.currentPhase);
 					return players;
 				},
 				content:function(){
@@ -12815,7 +12807,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
-						var targets=result.targets.sortBySeat();
+						var targets=result.targets.sortBySeat(_status.currentPhase);
 						player.logSkill("sst_qixin",targets);
 						player.discard(result.cards);
 						for(var i=0;i<targets.length;i++){
@@ -12835,7 +12827,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:function(storage,player){
 						var str="";
-						var players=game.findPlayersByPlayerid(Object.keys(storage)).sortBySeat(player);
+						var players=game.findPlayersByPlayerid(Object.keys(storage)).sortBySeat(_status.currentPhase);
 						var first=true;
 						for(var i=0;i<players.length;i++){
 							if(first){
@@ -12854,7 +12846,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				enable:"chooseToUse",
 				filter:function(event,player){
 					if(typeof player.storage.sst_qixin_effect!="object") return false;
-					var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat(player);
+					var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat(_status.currentPhase);
 					for(var current of players){
 						for(var i of player.storage.sst_qixin_effect[current.playerid]){
 							if(lib.filter.filterCard({name:i.name,isCard:true},player,event)) return true;
@@ -12866,7 +12858,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				chooseButton:{
 					dialog:function(event,player){
 						var list=[];
-						var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat();
+						var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat(_status.currentPhase);
 						for(var current of players){
 							for(var i of player.storage.sst_qixin_effect[current.playerid]){
 								list.push([current,"",i.name,i.nature,i]);
@@ -12888,7 +12880,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							precontent:function(){
 								player.storage.sst_qixin_effect[lib.skill.sst_qixin_effect_backup.sourcePlayer.playerid].remove(lib.skill.sst_qixin_effect_backup.sourceCard);
 								var cleared=true;
-								var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat();
+								var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat(_status.currentPhase);
 								for(var i=0;i<players.length;i++){
 									if(player.storage.sst_qixin_effect[players[i].playerid].length) cleared=false;
 								}
@@ -12929,7 +12921,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					delete player.storage.sst_qixin_effect[trigger.player.playerid];
 					var goon=true;
-					var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat();
+					var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_qixin_effect)).sortBySeat(_status.currentPhase);
 					for(var i=0;i<players.length;i++){
 						if(player.storage.sst_qixin_effect[players[i].playerid].length) goon=false;
 					}
@@ -13742,7 +13734,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var targets=game.filterPlayer(function(current){
 						return current.group==player.group&&current.countDiscardableCards(player,"h");
 					});
-					targets.sortBySeat(player);
+					targets.sortBySeat(_status.currentPhase);
 					return targets;
 				},
 				check:function(event,player){
@@ -13782,7 +13774,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				intro:{
 					mark:function(dialog,storage,player){
-						var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(player);
+						var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(_status.currentPhase);
 						for(var i=0;i<players.length;i++){
 							if(player.storage.sst_tunshi_origin[players[i].playerid].length){
 								dialog.addText(get.translation(players[i]));
@@ -13795,7 +13787,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				onremove:function(player,skill){
 					var cards=player.getExpansions(skill);
 					if(cards.length){
-						var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(player);
+						var players=game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(_status.currentPhase);
 						for(var i=0;i<players.length;i++){
 							if(player.storage.sst_tunshi_origin[players[i].playerid].length){
 								player.give(player.storage.sst_tunshi_origin[players[i].playerid],players[i]);
@@ -14225,7 +14217,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_furan:"复燃",
 			sst_furan_info:"锁定技，当你处于濒死状态时，弃置所有手牌，将体力回复至1点，减1点体力上限。",
 			sst_yingliu:"影流",
-			sst_yingliu_info:"锁定技，准备阶段结束后，你执行一个额外的摸牌阶段与出牌阶段。",
+			sst_yingliu_info:"锁定技，你于准备阶段后执行一个额外的摸牌阶段与出牌阶段。",
 			sst_shunxing:"瞬形",
 			sst_shunxing_draw_extra:"摸影",
 			sst_shunxing_use_extra:"出影",
@@ -14385,7 +14377,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_duzhi_info:"锁定技，结束阶段，若你本回合未发动过〖施魔〗或〖窃宝〗，你不能响应其他角色使用的牌直到你的下回合开始。",
 			sst_tandao:"探道",
 			sst_tandao_effect:"探道",
-			sst_tandao_info:"锁定技，摸牌阶段，你改为展示牌堆顶的四张牌，然后选择获得其中的【杀】或非【杀】的牌。若你连续选择前者，你本回合使用【杀】没有次数限制；若你连续选择后者，你可以额外选择获得一张展示牌。",
+			sst_tandao_info:"锁定技，摸牌阶段，你改为展示牌堆顶的四张牌，然后选择获得其中的【杀】或非【杀】的牌。若你连续选择前者，你本回合使用【杀】没有次数限制；若你连续选择后者，你可以额外获得一张展示牌。",
 			sst_bodong:"波动",
 			sst_bodong_info:"锁定技，你使用牌无距离限制。",
 			sst_yanyang:"焰扬",

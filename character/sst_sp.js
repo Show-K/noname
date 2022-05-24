@@ -283,7 +283,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
-			ska_bandana_waddle_dee:"瓦豆鲁迪的传说"
+			ska_bandana_waddle_dee:"瓦豆鲁迪的传说",
+			ska_magolor:"心中的最佳盟友"
 		},
 		skill:{
 			//SP Isabelle
@@ -2674,7 +2675,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}
 							"step 1"
 							if(result.targets&&result.targets.length){
-								event.targets=result.targets.sortBySeat();
+								event.targets=result.targets.sortBySeat(_status.currentPhase);
 								player.logSkill("ska_mofan_mahou",event.targets);
 								event.numTarget=0;
 							}

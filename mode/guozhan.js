@@ -331,7 +331,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_dr_mario:["male","sst_light",4,["sst_quji"],[]],
 				gz_sst_marth:["male","sst_light",4,["sst_hanmang","sst_jianbu"],[]],
 				gz_sst_zero_suit_samus:["female","sst_light",3,["sst_guangsuo","sst_qingying"],[]],
-				gz_sst_luigi:["male","sst_light",3,["sst_que","sst_guiyun"],[]],
+				gz_sst_luigi:["male","sst_light",4,["sst_que","sst_guiyun"],[]],
 				gz_sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],[]],
 				gz_sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],[]],
 				//gz_sst_samus:["female","sst_light",4,["sst_juezhan","sst_zailu"],[]],

@@ -965,7 +965,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var players=game.filterPlayer(function(current){
 						return current.hasSkill("sst_junce");
 					});
-					players.sortBySeat();
+					players.sortBySeat(_status.currentPhase);
 					for(var i=0;i<players.length;i++){
 						player.line(players[i],"green");
 						players[i].removeSkill("sst_junce");
@@ -1167,14 +1167,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
-							if(card&&get.number(card)>get.number(_status.event.respondToCard)) return false;
+							if(card&&_status.event.respondToCard&&get.number(card)>get.number(_status.event.respondToCard)) return false;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
 						trigger.set("respondToCard",trigger.respondTo[1]);
 					}
 					else{
 						trigger.set("filterCard",function(card){
-							return card&&!(get.number(card)>get.number(_status.event.respondToCard));
+							return card&&_status.event.respondToCard&&!(get.number(card)>get.number(_status.event.respondToCard));
 						});
 						trigger.set("respondToCard",trigger.respondTo[1]);
 					}
@@ -1202,7 +1202,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return current.countCards("he")&&current.isMaxHandcard();
 					});
 					if(event.players.length){
-						event.players.sortBySeat();
+						event.players.sortBySeat(_status.currentPhase);
 						player.line(event.players,"green");
 						event.num=0;
 					}
