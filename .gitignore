@@ -11,6 +11,7 @@ localStorage.json
 /extension/即时乱斗
 /extension/手杀ui
 /extension/拖拽读取
+/extension/应用配置
 /main.js
 /package.json
 /super_smash_tabletop.zip
@@ -19,9 +20,8 @@ localStorage.json
 /update.js
 /update.html
 /super_smash_tabletop.ico
-/(必看)无名杀全教程9.8.pdf
+/(必看)无名杀全教程10.0.pdf
 /node_modules
 /Home
 /downloadExtension.html
-/(必看)无名杀全教程9.9.pdf
 .vscode
