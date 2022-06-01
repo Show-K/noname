@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.113.4SST',
-	update:'1.9.113.3SST',
+	version:'1.9.113.5SST',
+	update:'1.9.113.4SST',
 	changeLog:[
 		'护甲图标修改',
 		'体力上限逐渐增加 升哥',
