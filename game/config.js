@@ -202,6 +202,5 @@ window.config={
 	},
 	current_mode:{},
 	customforbid:[],
-	forbid:[
-	]
+	forbid:[]
 };
