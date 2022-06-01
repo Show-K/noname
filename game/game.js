@@ -6930,7 +6930,7 @@
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>短歌</i>（《十周年UI》、《导入助手》程序开发）</ul>'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>诗笺</i>（《在线更新》、Windows版客户端程序开发）</ul>'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>玄武</i>（Android版客户端程序开发）</ul>'+
-			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除</ul>',
+			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除。</ul>',
 			'相关链接':'<ul><li>GitHub仓库：'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://github.com/Show-K/noname')+'</ul>'+
 			'<li>Coding仓库：'+
@@ -10050,7 +10050,7 @@
 					for(var i in lib.character){
 						switch(lib.character[i][1]){
 							case 'sst_light':a++;if(lib.config.banned.contains(i)) sa++;break;
-							case 'sst_darkness':b++;if(lib.config.banned.contains(i)) sb++;break;
+							case 'sst_dark':b++;if(lib.config.banned.contains(i)) sb++;break;
 							case 'sst_spirit':c++;if(lib.config.banned.contains(i)) sc++;break;
 							case 'sst_reality':d++;if(lib.config.banned.contains(i)) sd++;break;
 							case 'sst_smash':g++;if(lib.config.banned.contains(i)) sg++;break;
@@ -10515,14 +10515,14 @@
 			ice:'冰',
 			stab:'刺',
 			sst_light:'光',
-			sst_darkness:'暗',
+			sst_dark:'暗',
 			sst_spirit:'魂',
 			sst_reality:'现',
 			sst_smash:'斗',
 			shen:'神',
 			double:'双',
 			sst_light2:'光明',
-			sst_darkness2:'黑暗',
+			sst_dark2:'黑暗',
 			sst_spirit2:'命魂',
 			sst_reality2:'现实',
 			sst_smash2:'乱斗',
@@ -10540,7 +10540,7 @@
 			lose_hp:'流失体力',
 			get_damage:'受伤害',
 			sst_lightColor:"#f6f6f6",
-			sst_darknessColor:"#b0d0e2",
+			sst_darkColor:"#b0d0e2",
 			sst_spiritColor:"#b2d9a9",
 			sst_realityColor:"#ffddb9",
 			sst_smashColor:"#ffe14c",
@@ -10632,12 +10632,12 @@
 			pss_stone_info:'石头剪刀布时的一种手势。克制剪刀，但被布克制。',
 			renku:'仁库',
 			group_sst_light:'光势力',
-			group_sst_darkness:'暗势力',
+			group_sst_dark:'暗势力',
 			group_sst_spirit:'魂势力',
 			group_sst_reality:'现势力',
 			group_sst_smash:'斗势力',
 			group_sst_light_bg:'光',
-			group_sst_darkness_bg:'暗',
+			group_sst_dark_bg:'暗',
 			group_sst_spirit_bg:'魂',
 			group_sst_reality_bg:'现',
 			group_sst_smash_bg:'斗',
@@ -27318,7 +27318,7 @@
 			zhengsu_bianzhen:{},
 			disable_judge:{},
 			group_sst_light:{fullskin:true},
-			group_sst_darkness:{fullskin:true},
+			group_sst_dark:{fullskin:true},
 			group_sst_spirit:{fullskin:true},
 			group_sst_reality:{fullskin:true},
 			group_sst_smash:{fullskin:true},
@@ -27760,7 +27760,7 @@
 					var group=getGroup(name);
 					if(group=='shen') return -1;
 					if(group=='sst_light') return 0;
-					if(group=='sst_darkness') return 1;
+					if(group=='sst_dark') return 1;
 					if(group=='sst_spirit') return 2;
 					if(group=='sst_reality') return 3;
 					if(group=='sst_smash') return 4;
@@ -29889,13 +29889,13 @@
 			}
 		},
 		suit:['club','spade','diamond','heart'],
-		group:['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash','shen'],
+		group:['sst_light','sst_dark','sst_spirit','sst_reality','sst_smash','shen'],
 		nature:['fire','thunder','kami','ice','stab','poison'],
 		linked:['fire','thunder','kami','ice'],
 		groupnature:{
 			shen:'thunder',
 			sst_light:'metal',
-			sst_darkness:'water',
+			sst_dark:'water',
 			sst_spirit:'wood',
 			sst_reality:'soil',
 			sst_smash:'thunder',
@@ -39808,7 +39808,7 @@
 							var group=getGroup(name);
 							if(group=='shen') return -1;
 							if(group=='sst_light') return 0;
-							if(group=='sst_darkness') return 1;
+							if(group=='sst_dark') return 1;
 							if(group=='sst_spirit') return 2;
 							if(group=='sst_reality') return 3;
 							if(group=='sst_smash') return 4;
@@ -44804,7 +44804,7 @@
 				},true,true);
 			},
 			groupControl:function(dialog){
-				return ui.create.control('sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash',function(link,node){
+				return ui.create.control('sst_light','sst_dark','sst_spirit','sst_reality','sst_smash',function(link,node){
 					if(link=='全部'){
 						dialog.currentcapt='';
 						dialog.currentgroup='';
@@ -45234,7 +45234,7 @@
 					}
 				}
 				if(!thisiscard){
-					var groups=['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
+					var groups=['sst_light','sst_dark','sst_spirit','sst_reality','sst_smash'];
 					var bool1=false;
 					var bool2=false;
 					var bool3=(get.mode()=='guozhan'&&_status.forceKey!=true&&get.config('onlyguozhan'));
@@ -45470,7 +45470,7 @@
 						var group=getGroup(name);
 						if(group=='shen') return -1;
 						if(group=='sst_light') return 0;
-						if(group=='sst_darkness') return 1;
+						if(group=='sst_dark') return 1;
 						if(group=='sst_spirit') return 2;
 						if(group=='sst_reality') return 3;
 						if(group=='sst_smash') return 4;
@@ -47963,7 +47963,7 @@
 				}
 				else{
 					if(get.mode()=='guozhan'){
-						list={sst_light:'光',sst_darkness:'暗',sst_spirit:'魂',sst_reality:'现',sst_smash:'斗'};
+						list={sst_light:'光',sst_dark:'暗',sst_spirit:'魂',sst_reality:'现',sst_smash:'斗'};
 						//if(_status.forceKey) list.key='键';
 					}
 					var list2=get.copy(list);
@@ -55222,7 +55222,7 @@
 			}
 		},
 		groups:function(){
-			return ['sst_light','sst_darkness','sst_spirit','sst_reality','sst_smash'];
+			return ['sst_light','sst_dark','sst_spirit','sst_reality','sst_smash'];
 		},
 		types:function(){
 			var types=[];

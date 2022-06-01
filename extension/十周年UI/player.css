@@ -197,7 +197,7 @@
 	background: linear-gradient(to bottom, rgb(154, 148, 122), rgb(74, 72, 57));
 }
 
-.player>.camp-wrap[data-camp='sst_darkness']>.camp-back {
+.player>.camp-wrap[data-camp='sst_dark']>.camp-back {
 	background: linear-gradient(to bottom, rgb(45, 103, 153), rgb(19, 45, 78));
 }
 
@@ -286,7 +286,7 @@
 	text-shadow: 0 0 5px rgb(170,170,170), 0 0 10px rgb(118,118,118), 0 0 15px rgb(118,118,118);
 }
 
-.player>.camp-wrap[data-camp='sst_darkness']>.camp-name {
+.player>.camp-wrap[data-camp='sst_dark']>.camp-name {
 	text-shadow: 0 0 5px rgb(50, 50, 255), 0 0 10px rgb(120, 120, 255), 0 0 15px rgb(100, 100, 255);
 }
 

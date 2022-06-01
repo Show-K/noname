@@ -22,7 +22,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_super_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
 			ska_show_k:["male","sst_reality",3,["ska_jingli","ska_zhiyi"],[]],
 			ymk_yumikohimi:["female","sst_reality",3,["ymk_qiuyi","ymk_xifang"],[]],
-			//ska_bowser:["male","sst_darkness",4,["ska_mengjin"],[]],
+			//ska_bowser:["male","sst_dark",4,["ska_mengjin"],[]],
 			ska_professor_toad:["male","sst_spirit",3,["ska_juegu","ska_kuiwang"],[]],
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
@@ -30,9 +30,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
 			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
-			nnk_robin:["none","sst_darkness",4,["nnk_yuanlei"],[]],
-			nnk_robin_male:["male","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
-			nnk_robin_female:["female","sst_darkness",4,["nnk_yuanlei"],["unseen"]],
+			nnk_robin:["none","sst_dark",4,["nnk_yuanlei"],[]],
+			nnk_robin_male:["male","sst_dark",4,["nnk_yuanlei"],["unseen"]],
+			nnk_robin_female:["female","sst_dark",4,["nnk_yuanlei"],["unseen"]],
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
@@ -53,213 +53,213 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			武将作者：Axel_Zhai<br>\
 			武将作者：小时节<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			<br>\
 			系列：（）<br>\
 			初登场：（）<br>\
 			<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			"
 			*/
 			ymk_isabelle:"武将作者：Yumikohimi<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0827. 西施惠/Isabelle/しずえ<br>\
 			系列：Animal Crossing（动物森友会）<br>\
 			初登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>\
 			在3DS版《动物森友会》中，她是村民们的可靠秘书；而在NS版中，她也为每个无人岛居民提供生活服务。她有时可能健忘，但总的来说很靠谱。有个叫西施德的弟弟。她在3DS和WiiU版《任天堂明星大乱斗》中是辅助模型，NS版中则成为了斗士。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			上次柚子的武将就被老摸吵着要删，这次希望不要太IMBA……老摸的西施慧出来了，柚子的武将至少还是被借鉴了一点的。",
 			ska_bobby:"武将作者：Show-K<br>\
 			插图作者：海鮮炒め<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			????. 炸弹彬/Bobby/ボム平<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“我？哦，我是炸弹兵。”",
 			ska_olivia:"武将作者：Show-K<br>\
 			插图作者：蛇のこ<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			由掌握赋生折法的匠人制作的折纸，奥利王的妹妹。非常天真烂漫，对世界充满了好奇心。为了阻止哥哥的野心而踏上冒险之途，虽然也有过悲痛和犹豫，但是还是走到了最后。非常擅长唱歌跳舞，喜欢泡温泉和撸狗。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			一个拥有赋之能力的折纸妹妹，在和马里奥的冒险路途上成长很多啊……",
 			ska_super_xiaojie:"武将作者：Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			喜欢没事说嬲，但更喜欢不放弃。",
 			ska_show_k:"武将作者：Show-K<br>\
 			插图作者：Show-K<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			有人建议我给我自己写一个，于是我就写出来了。",
 			ymk_yumikohimi:"武将作者：Yumikohimi<br>\
 			插图作者：mario not mary<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			果然刚设计出来就要被削，果然还是三方定律。现在削了，感觉可以。",
 			ska_professor_toad:"武将作者：Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			????. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
 			阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>\
 			——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			请握住我的手，在我随风飘落，散入黎明之前……",
 			alz_kyo_kusanagi:"武将作者：Axel_Zhai<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1362. 草薙京/Kyo Kusanagi/草薙京<br>\
 			系列：The King of Fighters（拳皇）<br>\
 			初登场：The King of Fighters \x2794（拳皇\x2794）<br>\
 			炎之贵公子草薙京，三神器之一“草薙剑”的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>\
 			——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			另外一位新人设计的第一个武将，但是为什么要选择一个已经有了的武将呢……",
 			mnm_captain_falcon:"武将作者：Show-K、mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>\
 			系列：F-Zero（零式赛车）<br>\
 			初登场：F-Zero（零式赛车）<br>\
 			在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			MNM曾经提过一个“面杀”版本技能，最近无名杀能玩音游了，于是我就借鉴了这种思路（不就是小游戏武将吗）。",
 			ska_king_olly:"武将作者：Show-K<br>\
 			插图作者：チョコ<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1427. 奥利王/King Olly/オリー王<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			由掌握赋生折法的匠人制作的折纸，奥莉维亚的哥哥。自称折纸国王，将匠人的所有文具变为了自己的手下，有把整个纸片世界都变成折纸的野心。手段残忍，即使是亲妹妹也会毫不犹豫的下手。骄傲的背后其实是极端的玻璃心和无知。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			马里奥RPG系列中唯二原创最终Boss之一，极具历史意义！",
 			ska_koopa_troopa:"武将作者：Show-K、mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0037. 慢慢龟/Koopa Troopa/ノコノコ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros.（超级马力欧兄弟）<br>\
 			在酷霸王军团里，最常见的不是栗宝宝就是慢慢龟了。它们看起来很温顺，但它们也有奋不顾身地跳崖的勇气。马力欧如果踩到慢慢龟，它们会缩进壳里，这个状态下的它们经常被踢来踢去或者扔来扔去。马力欧游戏的不少地名都是以慢慢龟命名的哦。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			黑历史重铸武将之一。",
 			mnm_9_volt_18_volt:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
 			系列：Wario（瓦力欧）<br>\
 			初登场：WarioWare, Inc.: Mega Microgame$!（瓦力欧制造）<br>\
 			九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			MNM的娱乐武将，超值N合1！",
 			nnk_robin:"武将作者：南柯<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			南柯设计的第二个武将，值得一试。",
 			nnk_robin_male:"武将作者：南柯<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			南柯设计的第二个武将，值得一试。（已选择男性）",
 			nnk_robin_female:"武将作者：南柯<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			南柯设计的第二个武将，值得一试。（已选择女性）",
 			alz_yuri_kozukata:"武将作者：Axel_Zhai<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1241. 不来方夕莉/Yuri Kozukata/不来方夕莉<br>\
 			系列：Fatal Frame（零）<br>\
 			初登场：Fatal Frame: Maiden of Black Water（零～濡鸦之巫女～）<br>\
 			在经历过交通事故之后，拥有了能看见死者的能力。被这个能力困扰的她本想自杀，最后被人救下，并学会了使用“射影机”对抗怨灵。在一次委托中，她逐渐发现了灵山中的真相。在大乱斗中，作为辅助模型的她可以使用射影机对被拍到的斗士造成伤害。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			咕了好久了……",
 			ymk_tianyi:"武将作者：Yumikohimi<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			啊对对对。",
 			xsj_yu_narukami:"武将作者：小时节、Yumikohimi<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			????. 鸣上悠/Yu Narukami/鳴上悠<br>\
 			系列：Persona（女神异闻录）<br>\
 			初登场：Persona 4（女神异闻录4）<br>\
 			鸣上悠是Atlus开发的《女神异闻录》系列中的一个虚构角色，作为2008年角色扮演视频游戏《女神异闻录4》的主角首次亮相。在游戏中，鸣上悠本身不说话，其思想和行动由玩家决定。作为一名高中生，他搬到远离城市的农村地区稻叶，与他的叔叔堂岛辽太郎和表弟菜菜子住在一起，而他的父母正忙于工作。抵达稻叶后不久，鸣上悠开始调查一起谋杀案，受害者在他居住的小镇上被神秘绑架并挂在电话线上。他与同学们合作，探索另一个被称为电视世界的维度，在那里他获得了一种被称为“Persona”的力量——他潜意识的物理表现，以对抗并击败谋杀第一批受害者的生物Shadows。鸣上悠还出现在与《女神异闻录4》相关的其他作品中，包括名为《女神异闻录4 动画》的动画改编、漫画版和几款衍生游戏。对于这些作品，鸣上悠在故事中得到了自己的刻画和发展。<br>\
 			——翻译自《维基百科》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			总算有新人来设计武将了。",
 			ska_bandana_waddle_dee:"武将作者：Show-K<br>\
 			插图作者：Azuki<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/93078264")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
 			系列：Kirby（星之卡比）<br>\
 			初登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
 			头巾瓦豆鲁迪并非一个种群，而是指一位特定的戴蓝色头巾的瓦豆鲁迪。他是族群中的精英，使得一手好长枪，自《星之卡比：重返梦幻岛》以来多次作为可操作角色出场，可以用长枪使出暴风骤雨般的攻击。他直接效忠于帝帝帝大王，但同时也是卡比最好的朋友之一。目前他在星之卡比系列中的戏份地位堪比主角，仅次于卡比，帝帝帝大王，魅塔骑士。如果星之卡比系列还有人能够参战大乱斗，他将是最有竞争力的候选人之一。<br>\
 			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			一是为了蹭《星之卡比 探索发现》的热度，二是为了庆祝无名杀武将牌上牌机制变革，三是为了调侃卡比四人组中就剩他一直没有参战了。",
 			ska_magolor:"武将作者：Show-K<br>\
 			插图作者：長月有明<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/70836644")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0355. 魔法洛亚/Magolor/マホロア<br>\
 			系列：Kirby（星之卡比）<br>\
 			初登场：Kirby\x27s Return to Dream Land（星之卡比Wii）<br>\
 			某一天，梦幻岛的上空出现了大洞，魔法洛亚的飞船从洞中摔到了地面。虽然飞船坏了，但是魔法洛亚本人并没有事。他拜托卡比和它的朋友们一起收集飞船的部件，并且一起穿越次元回到自己的家乡。一切看起来好像都很平常，直到……<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。"
 		},
 		characterTitle:{
@@ -1547,7 +1547,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					player.draw(3);
 					"step 3"
-					player.addAdditionalSkill("mnm_yanhai","mnm_yanhai2");
+					player.addTempSkill("mnm_yanhai2",{player:"die"});
 					"step 4"
 					player.identity="nei";
 					player.setIdentity("炎");
@@ -1557,9 +1557,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			mnm_yanhai2:{
 				mod:{
-					inRange:function(from,to){
-						return true;
-					}
+					inRange:()=>true
 				}
 			},
 			//SP Kyo Kusanagi
@@ -2502,33 +2500,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.logSkill("ska_mengchen",event.target);
+						event.targets=result.targets;
+						player.logSkill("ska_mengchen",event.targets);
 						event.cards=[];
+						event.num=0;
+						event.targets.push(player).sortBySeat(_status.currentPhase);
 					}
 					else{
 						event.finish();
 					}
 					"step 3"
-					player.draw();
+					event.targets[event.num].draw();
 					"step 4"
-					player.chooseToDiscard("盟谌：弃置一张牌","he",true);
+					event.targets[event.num].chooseToDiscard("盟谌：弃置一张牌","he",true);
 					"step 5"
 					if(result.cards&&result.cards.length){
 						event.cards.addArray(result.cards);
 					}
+					event.num++;
+					if(event.num<event.targets.length) event.goto(3);
 					"step 6"
-					event.target.draw();
-					"step 7"
-					event.target.chooseToDiscard("盟谌：弃置一张牌","he",true).set("ai",function(card){
-						var val=get.unuseful(card);
-						return val;
-					});
-					"step 8"
-					if(result.cards&&result.cards.length){
-						event.cards.addArray(result.cards);
-					}
-					"step 9"
 					if(event.cards.length){
 						event.target.chooseCardButton("盟谌：你可以使用"+get.translation(event.cards)+"中的一张牌",event.cards).set("filterButton",function(button){
 							return ["o","d"].contains(get.position(button.link,true))&&_status.event.player.hasUseTarget(button.link);
@@ -2539,7 +2530,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						event.goto(1);
 					}
-					"step 10"
+					"step 7"
 					if(result.links&&result.links.length){
 						event.target.chooseUseTarget(result.links[0],false);
 					}
@@ -2853,7 +2844,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian2:"影见+",
 			alz_yingjian3:"影见-",
 			alz_yingjian3_backup:"影见-",
-			alz_yingjian_info:"游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。",
+			alz_yingjian_info:"游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以弃一枚“灵”，视为你使用一张基本牌。",
 			ymk_kaibai:"开摆",
 			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
 			xsj_dongqie:"洞怯",

@@ -20,8 +20,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Soldier
 			shibing1sst_light:["male","sst_light",0,[],["unseen"]],
 			shibing2sst_light:["female","sst_light",0,[],["unseen"]],
-			shibing1sst_darkness:["male","sst_darkness",0,[],["unseen"]],
-			shibing2sst_darkness:["female","sst_darkness",0,[],["unseen"]],
+			shibing1sst_dark:["male","sst_dark",0,[],["unseen"]],
+			shibing2sst_dark:["female","sst_dark",0,[],["unseen"]],
 			shibing1sst_spirit:["male","sst_spirit",0,[],["unseen"]],
 			shibing2sst_spirit:["female","sst_spirit",0,[],["unseen"]],
 			shibing1sst_reality:["male","sst_reality",0,[],["unseen"]],
@@ -32,40 +32,40 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mario:["male","sst_light",4,["sst_jueyi"],["type:unknown","frag:61","step:99","over:78"]],
 			sst_link:["male","sst_light",4,["sst_qingyong"],["type:balance"]],
 			sst_yoshi:["male","sst_light",4,["sst_tanshi"],["type:challenge"]],
-			sst_wario:["male","sst_darkness",4,["sst_haoduo"],["type:balance"]],
+			sst_wario:["male","sst_dark",4,["sst_haoduo"],["type:balance"]],
 			sst_villager:["male","sst_light",4,["sst_huandai"],["type:challenge"]],
 			sst_zelda:["female","sst_light",3,["sst_anzhi","sst_yinjie","sst_qinwei"],["zhu","type:balance"]],
-			sst_ganondorf:["male","sst_darkness",5,["sst_chengli","sst_huoluan","sst_yane"],["zhu","forbidai","type:balance"]],
+			sst_ganondorf:["male","sst_dark",5,["sst_chengli","sst_huoluan","sst_yane"],["zhu","forbidai","type:balance"]],
 			sst_dr_mario:["male","sst_light",4,["sst_quji"],["type:support"]],
 			sst_palutena:["female","sst_light",3,["sst_qiji","sst_shengbing"],["type:support"]],
 			sst_marth:["male","sst_light",4,["sst_hanmang","sst_jianbu","sst_fuguo"],["zhu","type:support"]],
 			sst_rosalina:["female","sst_light",3,["sst_xingchen","sst_zhuansheng"],["type:support"]],
 			sst_zero_suit_samus:["female","sst_light",3,["sst_guangsuo","sst_qingying"],["type:support"]],
 			sst_luigi:["male","sst_light",4,["sst_que","sst_guiyun"],["type:balance"]],
-			sst_bowser:["male","sst_darkness",5,["sst_xiduo","sst_xiongao","sst_yujun"],["zhu","type:challenge","frag:79","step:102","over:79"]],
+			sst_bowser:["male","sst_dark",5,["sst_xiduo","sst_xiongao","sst_yujun"],["zhu","type:challenge","frag:79","step:102","over:79"]],
 			sst_peach:["female","sst_light",3,["sst_hongyan","sst_yice","sst_qiuyuan"],["zhu","type:support"]],
 			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],["type:support"]],
 			sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],["type:support"]],
 			sst_massy:["male","sst_reality",5,["sst_shenfa","sst_shenwu"],["type:unknown"]],
 			sst_samus:["female","sst_light",4,["sst_qiongtu","sst_juezhan"],["type:balance"]],
-			sst_ridley:["male","sst_darkness",5,["sst_baozheng","sst_furan"],["type:balance"]],
-			sst_dark_samus:["female","sst_darkness",3,["sst_yingliu","sst_shunxing"],["type:balance"]],
-			sst_mr_game_watch:["male","sst_darkness",3,["sst_shenpan"],["type:unknown"]],
+			sst_ridley:["male","sst_dark",5,["sst_baozheng","sst_furan"],["type:balance"]],
+			sst_dark_samus:["female","sst_dark",3,["sst_yingliu","sst_shunxing"],["type:balance"]],
+			sst_mr_game_watch:["male","sst_dark",3,["sst_shenpan"],["type:unknown"]],
 			sst_mario_not_mary:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],["type:support"]],
 			sst_yumikohimi:["female","sst_reality",3,["sst_yingji","sst_huxiao"],["type:balance"]],
 			sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],["type:support"]],
 			sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],["type:balance"]],
-			sst_simon:["male","sst_darkness",4,["sst_shengfa","sst_shengbian"],["type:challenge"]],
-			sst_incineroar:["male","sst_darkness",4,["sst_weihe","sst_fuchou"],["type:support"]],
-			sst_greninja:["male","sst_darkness",3,["sst_huanbian","sst_yingxi"],["type:support"]],
+			sst_simon:["male","sst_dark",4,["sst_shengfa","sst_shengbian"],["type:challenge"]],
+			sst_incineroar:["male","sst_dark",4,["sst_weihe","sst_fuchou"],["type:support"]],
+			sst_greninja:["male","sst_dark",3,["sst_huanbian","sst_yingxi"],["type:support"]],
 			sst_kirby:["male","sst_light",3,["sst_qushi","sst_xinghuo"],["type:unknown"]],
-			sst_king_k_rool:["male","sst_darkness",4,["sst_badao","sst_jinjia"],["type:support"]],
+			sst_king_k_rool:["male","sst_dark",4,["sst_badao","sst_jinjia"],["type:support"]],
 			sst_donkey_kong:["male","sst_light",4,["sst_baochui"],["type:support"]],
-			sst_richter:["male","sst_darkness",4,["sst_shengxi","sst_xuelun"],["type:support"]],
+			sst_richter:["male","sst_dark",4,["sst_shengxi","sst_xuelun"],["type:support"]],
 			sst_pokemon_trainer_red:["male","sst_light",4,["sst_xiandu"],["type:balance"]],
 			sst_isabelle:["female","sst_light",3,["sst_wenxu","sst_mihu"],["type:support"]],
 			sst_daisy:["female","sst_light",3,["sst_renqing","sst_manchan"],["type:balance"]],
-			sst_meta_knight:["male","sst_darkness",4,["sst_canyun"],["type:support"]],
+			sst_meta_knight:["male","sst_dark",4,["sst_canyun"],["type:support"]],
 			sst_little_mac:["male","sst_light",2,["sst_douhun","sst_juejing"],["type:support"]],
 			sst_oc:["male","sst_reality",4,["sst_baling"],["type:balance"]],
 			sst_mr_8:["male","sst_reality",3,["sst_yingzi","sst_geliao"],["type:support"]],
@@ -74,34 +74,34 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_windier:["female","sst_reality",3,["sst_chixing","sst_chuanxiao"],["type:balance"]],
 			sst_rentianshu:["male","sst_reality",4,["sst_jilve","sst_yuanchuan"],["type:balance"]],
 			sst_srf:["male","sst_reality",3,["sst_diebu","sst_bielian"],["type:balance"]],
-			sst_bowser_jr:["male","sst_darkness",3,["sst_guaibi","sst_daonao"],["type:support"]],
-			sst_koopalings:["double","sst_darkness",7,["sst_shimo","sst_qiebao","sst_duzhi"],["type:support"]],
+			sst_bowser_jr:["male","sst_dark",3,["sst_guaibi","sst_daonao"],["type:support"]],
+			sst_koopalings:["double","sst_dark",7,["sst_shimo","sst_qiebao","sst_duzhi"],["type:support"]],
 			sst_ryu:["male","sst_light",4,["sst_tandao","sst_bodong"],["type:support"]],
 			sst_ken:["male","sst_light",4,["sst_yanyang","sst_shenglong"],["type:balance"]],
 			sst_sans:["male","sst_spirit",1,["sst_juexin","sst_yebao","sst_caijue"],["type:unknown","frag:20","step:1","over:99"]],
 			sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],["type:support"]],
 			sst_master_hand:["male","sst_spirit",4,["sst_zhuzai","sst_zhixu"],["zhu","type:support"]],
 			sst_ike:["male","sst_light",4,["sst_tugu"],["type:balance"]],
-			sst_sheik:["female","sst_darkness",3,["sst_nixing","sst_shouyin"],["type:balance"]],
+			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin"],["type:balance"]],
 			sst_miumiu:["female","sst_reality",3,["sst_qichang","sst_shizhu"],["type:support"]],
 			sst_toon_link:["male","sst_light",4,["sst_yufeng","sst_chihang"],["type:balance"]],
-			sst_wolf:["male","sst_darkness",4,["sst_xishou"],["type:balance"]],
-			sst_young_link:["male","sst_darkness",3,["sst_shishi","sst_jiamian"],["type:unknown"]],
+			sst_wolf:["male","sst_dark",4,["sst_xishou"],["type:balance"]],
+			sst_young_link:["male","sst_dark",3,["sst_shishi","sst_jiamian"],["type:unknown"]],
 			sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["unseen","type:balance"]],
 			sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],["type:support"]],
-			sst_joker:["male","sst_darkness",3,["sst_daoxin","sst_fanni"],["type:support"]],
+			sst_joker:["male","sst_dark",3,["sst_daoxin","sst_fanni"],["type:support"]],
 			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],["type:balance"]],
 			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],["type:balance"]],
 			sst_krystal:["female","sst_spirit",3,["sst_liaoyi","sst_shuanghan"],["type:balance"]],
-			sst_snake:["male","sst_darkness",4,["sst_qianlong"],["type:balance"]],
+			sst_snake:["male","sst_dark",4,["sst_qianlong"],["type:balance"]],
 			sst_mega_man:["male","sst_light",4,["sst_guangpao","sst_tewu"],["type:balance"]],
 			sst_captain_falcon:["male","sst_light",4,["sst_jijing"],["type:balance"]],
 			sst_jigglypuff:["female","sst_light",3,["sst_yinyao","sst_anke"],["type:balance"]],
-			sst_lucario:["male","sst_darkness",4,["sst_bodao","sst_juyuan"],["type:balance"]],
+			sst_lucario:["male","sst_dark",4,["sst_bodao","sst_juyuan"],["type:balance"]],
 			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],["type:balance"]],
-			sst_king_dedede:["male","sst_darkness",4,["sst_baoshi","sst_wangyan"],["zhu","type:support"]],
+			sst_king_dedede:["male","sst_dark",4,["sst_baoshi","sst_wangyan"],["zhu","type:support"]],
 			sst_corrin:["none","sst_smash",2,["sst_juelu","sst_longwei"],["type:support"]],
-			sst_corrin_male:["male","sst_darkness",2,["sst_juelu","sst_longwei"],["unseen","type:support"]],
+			sst_corrin_male:["male","sst_dark",2,["sst_juelu","sst_longwei"],["unseen","type:support"]],
 			sst_corrin_female:["female","sst_light",2,["sst_juelu","sst_longwei"],["unseen","type:support"]],
 			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:support"]],
 			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu","type:support"]],
@@ -115,21 +115,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],["type:support"]],
 			sst_falco:["male","sst_light",4,["sst_juao"],["type:balance"]],
 			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:support"]],
-			sst_enderman:["none","sst_darkness",2,["sst_lingying","sst_fankui","sst_xiangzhu"],["type:balance"]],
-			sst_sephiroth:["male","sst_darkness",5,["sst_fenshi","sst_xingduo"],["type:support"]],
+			sst_enderman:["none","sst_dark",2,["sst_lingying","sst_fankui","sst_xiangzhu"],["type:balance"]],
+			sst_sephiroth:["male","sst_dark",5,["sst_fenshi","sst_xingduo"],["type:support"]],
 			sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],["type:support"]],
 			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],["type:support"]],
 			sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],["type:balance"]],
 			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],["type:support"]],
 			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:support"]],
-			sst_kazuya:["male","sst_darkness",5,["sst_chouyu","sst_xuehai"],["type:balance"]],
+			sst_kazuya:["male","sst_dark",5,["sst_chouyu","sst_xuehai"],["type:balance"]],
 			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],["type:balance"]],
 			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],["type:balance"]],
 			sst_pac_man:["male","sst_light",3,["sst_jichang"],["type:support"]],
-			sst_mewtwo:["none","sst_darkness",3,["sst_xiongli","sst_nixi"],["type:balance"]],
+			sst_mewtwo:["none","sst_dark",3,["sst_xiongli","sst_nixi"],["type:balance"]],
 			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],["type:support"]],
 			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu","type:support"]],
-			sst_piranha_plant:["none","sst_darkness",4,["sst_tunshi","sst_yangfen"],["type:support"]]
+			sst_piranha_plant:["none","sst_dark",4,["sst_tunshi","sst_yangfen"],["type:support"]]
 		},
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -151,952 +151,952 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			武将作者：Axel_Zhai<br>\
 			武将作者：小时节<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			<br>\
 			系列：（）<br>\
 			初登场：（）<br>\
 			<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			"
 			*/
 			sst_mario:"武将作者：mario not mary、Show-K<br>\
 			插图作者：kuromame_983<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0001. 马力欧/Mario/マリオ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Donkey Kong（森喜刚）<br>\
 			超级标志性的角色！这位游戏巨星常常从酷霸王手中拯救世界。他有惊人的跳跃能力和多种变身道具。在闲暇时刻，他还会参与体育运动，擅长的项目数也数不清。在大乱斗里，他是一个值得信赖的全能型斗士。让我们一起来说：“是我，马力欧！”<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
-			太激昂了，太生生不息了……现在总算从T0削下去了……然后貌似又升了，并且貌似和库巴玩得很开心。",
+			<hr>\
+			太激昂了，太生生不息了。",
 			sst_link:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0172. 林克/Link/リンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda（塞尔达传说）<br>\
 			传统上林克的标志性特征是绿衣绿帽，不过在旷野之息中林克反而穿着蓝色的英杰服，也不戴帽子了。在大乱斗里，他的剑和盾让他攻守兼备，而他的弓、回旋镖和炸弹则给战斗增加了更多的变数。在前几代大乱斗里林克还会使用勾爪——所以说他是怎么同时带这么多东西上场的啊！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“醒醒吧……”",
 			sst_yoshi:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0297. 耀西/Yoshi/ヨッシー<br>\
 			系列：Yoshi（耀西）<br>\
 			初登场：Super Mario World（超级马力欧世界）<br>\
 			耀西经常和马力欧一起冒险，可以说是他最好的搭档。耀西可以吃掉几乎任何大小合适的生物，然后马上生出蛋来。借助他的浮空跳能力，他在大乱斗中非常适合空战。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			耀西~！",
 			sst_wario:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0729. 瓦力欧/Wario/ワリオ<br>\
 			系列：Wario（瓦力欧）<br>\
 			初登场：Super Mario Land: 6 Golden Coins（超级马力欧大陆 六个金币）<br>\
 			瓦力欧简直就是恶趣味的集合体。这个怪人自称是马力欧的发小，并且相当厌恶马力欧。同时他还视财如命。在大乱斗中，他是个灵活的重量级斗士，还可以通过积攒屁来释放强力攻击——真的是太恶趣味了！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			瓦！瓦！瓦！！！",
 			sst_villager:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0825. 村民（男孩）/Villager (Boy)/むらびと（男の子）<br>\
 			系列：Animal Crossing（动物森友会）<br>\
 			初登场：Doubutsu no Mori（动物森友会）<br>\
 			在动物森友会系列中和动物们平和的生活在一起的年轻人，当然他也不拒绝在大乱斗里大显身手。他的上必杀技其实来自于《气球大战》这个游戏，而下必杀技则能生动地为大家说明不要在别人砍树的时候站在旁边。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“因为什么都没有，所以什么都做得到”",
 			sst_zelda:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0173. 塞尔达/Zelda/ゼルダ<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda（塞尔达传说）<br>\
 			塞尔达传说系列就是以这位坚强的公主命名的。在不同的作品里她的形象也不同，但她总是肩负重任。在大乱斗里，她擅长使用多种魔法，但是移动速度不是特别快。她在大乱斗四代和五代中的下必杀是幻影铠甲，而二代和三代的下必杀则是变身希克。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			林克，这就是三角力量……",
 			sst_ganondorf:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0175. 加侬多夫【盖侬多夫】/Ganondorf/ガノンドロフ<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda: Ocarina of Time（塞尔达传说 时之笛）<br>\
 			加侬多夫是拥有力量三角的魔王，意欲将海拉鲁大陆毁灭。除了人形态之外，他还可以变成巨大的野猪魔兽。当然，在大多数作品里，他的野心都会被林克摧毁。在大乱斗里，他虽然行动缓慢但威力强大，很容易就会把对手击飞，非常适合轻度玩家使用。<br>\
 			——封羽翎烈、无敌阿尔宙斯，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			你知道吗？海拉鲁的历史，就是一部被叫做盖侬的魔善侵袭的历史……",
 			sst_dr_mario:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0008. 马力欧医生/Dr. Mario/ドクターマリオ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Dr. Mario（马力欧医生）<br>\
 			在1990年的益智游戏《马力欧医生》中，马力欧换上了白大褂，准备在医学界大展身手。在大乱斗世界中，他是能够投掷药丸、使用超级床单反弹攻击的全能型斗士。他比马力欧要慢，但是攻击也更高。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			一开始技能就没设计好，但我还是要占个位置……现在设计好了，然而已经改了很多次了……",
 			sst_palutena:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0705. 帕露蒂娜/Palutena/パルテナ<br>\
 			系列：Kid Icarus（光神话）<br>\
 			初登场：Kid Icarus（光神话）<br>\
 			在《新光神话：帕露蒂娜之镜》中，这位光之女神通过心灵感应和彼特交流，并且赐予他各种对冒险有帮助的奇迹。在大乱斗中，她也有能适应各种场合的技能。以及，在大乱斗四代中，她的每个自定义技能都和基础技能完全不同，可以将她打造成不同风格的斗士。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			稍微认真点也没关系哦～",
 			sst_marth:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0610. 马尔斯/Marth/マルス<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem: Shadow Dragon and the Blade of Light（火焰纹章 暗黑龙与光之剑）<br>\
 			初代《火焰纹章》的主角，阿提利亚王国的王子，也是英雄的后裔。在大乱斗中，他是一个标志性的剑人，剑法精湛而优雅。他的剑尖比剑根能的攻击力更高，还可以使用防反来应对对方的攻击。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“那正是英雄王本人”",
 			sst_rosalina:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0009. 罗莎塔/Rosalina/ロゼッタ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Galaxy（超级马力欧 银河）<br>\
 			神秘的罗莎塔和琪琪们一起生活在长尾星天文台。在大乱斗中，罗莎塔和琪琪能同时在不同位置攻击。如果你能将对手夹在罗莎塔和琪琪中间，她们就能合力打出超高伤害！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			欢迎来到新的银河。",
 			sst_zero_suit_samus:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0266. 零装甲萨姆斯/Zero Suit Samus/ゼロスーツサムス<br>\
 			系列：Metroid（密特罗德）<br>\
 			初登场：Metroid: Zero Mission（密特罗德 零点任务）<br>\
 			即使不穿能量装甲，萨姆斯也很强。虽然没有装甲形态的高火力，但她的动力鞋给了她高机动性。而她的麻痹手枪既可以定住对手，也能发射等离子鞭进行抓取或回场。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“化整为零。”",
 			sst_luigi:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0004. 路易吉/Luigi/ルイージ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Mario Bros.（马力欧兄弟）<br>\
 			虽说有专门为他庆贺的“路易吉年（2013年）”，也曾经在某种意义上成为了电影明星，但这些关注只是让他变得更内向和不知所措了。不论是在原作中还是在大乱斗中，他都倾向于模仿哥哥的举动，不过他也将哥哥的部分招式改良了，比如他的超级跳跃拳在特定时机击飞力超高。以及，他的嘲讽都是100%纯原创的哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			和哥哥一起！",
 			sst_bowser:"武将作者：mario not mary<br>\
 			插图作者：mario not mary<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0007. 酷霸王/Bowser/クッパ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros.（超级马力欧兄弟）<br>\
 			马力欧的死对头，也是桃花公主老被绑架的罪魁祸首。他的阴谋基本上都没有实现，相反，有时候他甚至还会和马力欧合作。在大乱斗中，他是全游戏最重的人物，并且不会被轻攻击打出硬直。你必须得揍得足够大力才能将他击飞！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
-			就算是调整强度了，依旧没有武将图片……",
+			<hr>\
+			终于有武将图片了。",
 			sst_peach:"武将作者：mario not mary<br>\
 			插图作者：ゲB<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/50055037")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0005. 桃花公主/Peach/ピーチ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros.（超级马力欧兄弟）<br>\
 			蘑菇王国的公主，也是强大和可爱可以共存的最好证明。在大乱斗中，桃花公主可以在空中飘浮，随后突然落地掏出一堆武器来——包括但不限于平底锅、阳伞和奇诺比奥——所以她到底把这些都放在哪的啊？<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			哦～我赢了吗？",
 			sst_byleth_female:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1381. 贝雷丝/Byleth (Female)/ベレス<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
 			作为士官学校的老师，除了教学生战斗技巧之外，还可以请他们喝茶聊天。5年前亲密的学生们5年后却要各自为敌，实在令人唏嘘。顺便，5年后贝老师的头发会变成绿色。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			老师真的很希望你们都能活下来……",
 			sst_byleth_male:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1380. 贝雷特/Byleth (Male)/ベレト<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
 			赛罗斯骑士团前任团长杰拉尔特的儿子/女儿，因为在意外中救了几名学生，成为了加尔古·玛库士官学校的教师。缺乏情绪起伏，被称为灰色恶魔。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“你还算是个男人嘛？！”",
 			sst_massy:"武将作者：mario not mary<br>\
 			插图作者：mario not mary<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			Massy，唯一的神！",
 			sst_samus:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0264. 萨姆斯/Samus/サムス<br>\
 			系列：Metroid（密特罗德）<br>\
 			初登场：Metroid（密特罗德）<br>\
 			萨姆斯·亚兰是游戏历史上第一个女主角，以只身一人在外星球的作战闻名。她的能量装甲是高等文明“鸟人族”的成果，给了她强大的火力、防护力和升级的可能性。在大乱斗中，虽然她是道具人，但是她的体术也不差。她的蓄力射击威力惊人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“萨姆斯，很不幸的消息……”",
 			sst_ridley:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0267. 利德雷/Ridley/リドリー<br>\
 			系列：Metroid（密特罗德）<br>\
 			初登场：Metroid（密特罗德）<br>\
 			萨姆斯的死对头，是杀害了她至亲的仇人，也是宇宙海盗的干部之一。看上去像是野兽，但是具有高度智慧。虽然一直到这代大乱斗才成为斗士，但在之前的大乱斗里也以其他的形式露过面。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“没有任何洗白的余地与必要”",
 			sst_dark_samus:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0265. 黑暗萨姆斯/Dark Samus/ダークサムス<br>\
 			系列：Metroid（密特罗德）<br>\
 			初登场：Metroid Prime（密特罗德 究极）<br>\
 			萨姆斯的废弃盔甲、究极密特罗德和有机矿石“啡宗”结合的产物，不但有强大的恢复能力，还能精神控制其他生物和制造自己的分身。它在3ds和WiiU版《任天堂明星大乱斗》中作为辅助模型的时候还能使用啡宗的力量攻击，成为斗士之后各个招式倒是完全和萨姆斯一样了，遗憾。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“堕入黑暗”",
 			sst_mr_game_watch:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0689. Mr. Game & Watch/Mr.ゲーム & ウォッチ<br>\
 			系列：Game & Watch（游戏手表）<br>\
 			初登场：Game & Watch（游戏手表）<br>\
 			Game & Watch是任天堂于80年代推出的一系列游戏及其设备的统称，既能玩游戏也能当时钟，这一设备也是之后的GB以及DS掌机的雏形。在大乱斗中，Game & Watch先生会使用来自原作的各种要素攻击。不过因为它是真实意义上的纸片人，所以非常轻，容易被击飞。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“是9！是9！”",
 			sst_mario_not_mary:"武将作者：mario not mary<br>\
 			插图作者：mario not mary<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			这才是大佬！九州第一库巴！完全虐爆我！连续让我回炉重造！",
 			sst_yumikohimi:"武将作者：mario not mary<br>\
 			插图作者：mario not mary<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			那个九州第一库巴的女朋友！依然是完全虐爆我！不过比MNM好相处……",
 			sst_haine:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			公认的渣男！",
 			sst_terry:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1356. 特瑞·博加德/Terry Bogard/テリー・ボガード<br>\
 			系列：Fatal Fury（饿狼传说）<br>\
 			初登场：Fatal Fury（饿狼传说）<br>\
 			被称为“传说之狼”的传奇格斗家，多次夺得KOF的冠军，实际上却是一个南镇街头的无业游民。年少时为了替养父杰夫报仇而踏上了击败吉斯的旅途。师从中华武术大师唐福禄门下，招数却都是从杰夫那里学来的。在南镇的大街小巷的一次次的战斗中，他逐渐对和吉斯之间无穷无尽的复仇产生了质疑，但吉斯并没有给他反悔的机会。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			OK！",
 			sst_simon:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1050. 西蒙·贝尔蒙特/Simon Belmont/シモン・ベルモンド<br>\
 			系列：Castlevania（恶魔城）<br>\
 			初登场：Castlevania（恶魔城）<br>\
 			初代《恶魔城》的主角，最著名的吸血鬼猎人之一，个性勇敢莽撞。依靠除魔圣鞭和其他神圣武器击败了百年后卷土重来的德古拉，并且通过焚烧德古拉遗体破解了他给自己施加的诅咒。在原作中还有如骑士般武装或是清秀优雅的形象，大乱斗中的这个形象是他最初登场时的样子。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“滚回黑暗。”",
 			sst_incineroar:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0419. 炽焰咆哮虎/Incineroar/ガオガエン<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Sun and Moon（精灵宝可梦 太阳／月亮）<br>\
 			以反派摔角手为原型的宝可梦，是《宝可梦：太阳/月亮》中初始宝可梦火斑喵的最终进化。性格暴躁又任性，但讨厌欺凌弱小这类无聊的事。对于强大的对手会拿出干劲来。在大乱斗中，它主要使用各种与摔角有关的招式。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			宇宙第一宝可梦！",
 			sst_greninja:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0418. 甲贺忍蛙/Greninja/ゲッコウガ<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon X and Y（精灵宝可梦 Ｘ／Ｙ）<br>\
 			甲贺忍蛙是水+恶属性的宝可梦，完全想不到最初呆萌的呱呱泡蛙会进化成这样。它和所有忍者一样敏捷而致命，投掷的飞水手里剑甚至能切割金属。在大乱斗中，它是高速型的斗士，回场能力也非常不错。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“变幻自在”",
 			sst_kirby:"武将作者：mario not mary<br>\
 			插图作者：kotori<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/26818738")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0323. 卡比/Kirby/カービィ<br>\
 			系列：Kirby（星之卡比）<br>\
 			初登场：Kirby\x27s Dream Land（星之卡比）<br>\
 			圆圆滚滚的可爱卡比在波普之星过着平静的生活。它可以吸入物品或者生物，并且将它们吐出来或者复制能力。在大乱斗中，卡比吸入斗士之后可以复制他们的通常必杀技。它虽然很容易被击飞，但回场能力还不错。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			樱井亲儿子，粉红恶魔，灯火之星。",
 			sst_king_k_rool:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0136. 库鲁鲁王/King K. Rool/キングクルール<br>\
 			系列：Donkey Kong（森喜刚）<br>\
 			初登场：Donkey Kong Country（超级森喜刚）<br>\
 			就像马力欧的死对头是酷霸王一样，森喜刚的死对头是库鲁鲁王。他是个性格恶劣的鳄鱼，拥有坚硬的肚皮铠甲和闪亮的皇冠。想要他和森喜刚合作甚至成为朋友是几乎不可能的。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			别说他了，现在连森喜刚新作也没有个影子……",
 			sst_donkey_kong:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0134. 森喜刚/Donkey Kong/ドンキーコング<br>\
 			系列：Donkey Kong（森喜刚）<br>\
 			初登场：Donkey Kong（森喜刚）<br>\
 			丛林的王者，也是最狂热的香蕉狂魔。他的冒险总是以某人偷了他的香蕉开始。在大乱斗中，他的力度和投技是众所周知的。虽然体积很大，但是速度也不是特别慢。他的前投掷还能扛着对手走哦！要合理利用这一点！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			最近来了次史诗级加强。",
 			sst_richter:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1051. 里希特·贝尔蒙特/Richter Belmont/リヒター・ベルモンド<br>\
 			系列：Castlevania（恶魔城）<br>\
 			初登场：Castlevania: Rondo of Blood（恶魔城X 血之轮回）<br>\
 			《恶魔城X：血之轮回》的主角，吸血鬼猎人家族的后代，他从德古拉手中救出了自己的恋人，还曾经和德古拉的儿子阿鲁卡多并肩作战。他擅长使用杂技般灵活的体术与敌人周旋，还能解放除鞭子外其他神圣武器的力量，进行更强力的攻击。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“我有愧于此称……”",
 			sst_pokemon_trainer_red:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0412. 宝可梦训练家（男性）/Pokémon Trainer (Male)/ポケモントレーナー（男性）<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Red and Green Versions（宝可梦 红／绿）<br>\
 			历代《宝可梦》的主线里都有一个以冠军为目标的训练师，带着宝可梦博士给的初始宝可梦踏上旅途。他们还会骑自行车或者滑轮滑。在大乱斗中，宝可梦训练师会一直在场地后面，负责切换宝可梦和为他的同伴加油鼓劲。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“……”",
 			sst_isabelle:"武将作者：mario not mary、Yumikohimi<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0827. 西施惠/Isabelle/しずえ<br>\
 			系列：Animal Crossing（动物森友会）<br>\
 			初登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>\
 			在3DS版《动物森友会》中，她是村民们的可靠秘书；而在NS版中，她也为每个无人岛居民提供生活服务。她有时可能健忘，但总的来说很靠谱。有个叫西施德的弟弟。她在3DS和WiiU版《任天堂明星大乱斗》中是辅助模型，NS版中则成为了斗士。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			大家都爱的秘书西施惠！",
 			sst_daisy:"武将作者：mario not mary<br>\
 			插图作者：高橋うもり<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/73249081")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0006. 菊花公主/Daisy/デイジー<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Land（超级马力欧大陆）<br>\
 			虽然是萨拉萨大陆的公主，但菊花公主完全没有身为王族的优雅，反而相当活泼任性，这也是她的独特之处。据说路易吉对她很着迷？和桃花公主不同，菊花公主只被绑架过一次。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			嘿！我是黛西！",
 			sst_meta_knight:"武将作者：mario not mary<br>\
 			插图作者：糸谷さいれん<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/60069126")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0324. 魅塔骑士/Meta Knight/メタナイト<br>\
 			系列：Kirby（星之卡比）<br>\
 			初登场：Kirby\x27s Adventure（星之卡比 梦之泉物语）<br>\
 			卡比的神秘劲敌，披风可以变成翅膀的样子。在大乱斗里，他以剑术和强大的空战能力著称。他拥有多段跳，并且所有的必杀技都能用来回场。在Wii版《任天堂明星大乱斗》里，他的强度甚至破坏了平衡。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“Fight me.”",
 			sst_little_mac:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0932. 小麦克/Little Mac/リトル・マック<br>\
 			系列：Punch-Out!!（击拳热斗！！）<br>\
 			初登场：Punch-Out!!（击拳热斗！！）<br>\
 			击拳热斗系列的主角，虽然身材矮小，但斗志满满。无论是在世界拳击大赛中面对高大的对手们，还是在大乱斗中面对游戏明星们，都毫不畏惧。在大乱斗中，他的拳法简单粗暴。当KO槽蓄满时，他就可以使用击飞力超强的上勾拳。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			加油！麦克！",
 			sst_oc:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			霸凌你哦！",
 			sst_mr_8:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			据说大乱斗人都叫他东北吴彦祖。",
 			sst_dark_link:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			????. Dark Link/ダークリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：Zelda II: The Adventure of Link（林克的冒险）<br>\
 			暗黑林克是林克的邪恶面。他是《塞尔达传说》系列中最神秘的敌人角色之一，通常在没有背景故事和对话的情况下出现，尽管在很多场合都暗示它只是由暗影魔法构成。对于林克来说，暗黑林克不仅仅是一场与怪物的战斗，而是一场与自己的战斗，因为这位年轻的英雄必须面对自己的力量与他作对。正因为如此，暗黑林克通常是终极挑战。他有一次成为正式的最终Boss（《林克的冒险》），以及在《四剑神殿》和“Take \x27Em All On!”等中作为可选挑战的最终Boss。<br>\
 			——翻译自《塞尔达维基》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			话说塞尔达传说的第二部和系列其他作品很不一样。",
 			sst_kyuukou:"武将作者：mario not mary<br>\
 			插图作者：封羽翎烈<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			经典白给！",
 			sst_windier:"武将作者：mario not mary<br>\
 			插图作者：封羽翎烈<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			这里几乎所有武将介绍都取材于封羽翎烈的《任天堂明星大乱斗特别版全命魂介绍》，还不快去"+get.formatUrl("https://ssbuspirits.top")+"支持一下？",
 			sst_rentianshu:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			当了很久的“任豚”了。",
 			sst_srf:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			看来又是一个渣男。",
 			sst_bowser_jr:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0010. 酷霸王Jr. /Bowser Jr. /クッパJr.<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Sunshine（超级马力欧 阳光）<br>\
 			酷霸王超宠爱的孩子，有标志性的带大嘴巴图案的围脖。和他爸一样，酷霸王Jr.也想打败马力欧。在大乱斗中，他乘坐全副武装的酷霸王小丑飞船出战。如果被击中飞船而不是本体，受伤会更少，所以要注意走位。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			MNM又没写介绍，他的父亲表示对MNM非常生气。",
 			sst_koopalings:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0011. 伊吉/Iggy/イギー<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			伊吉戴着黑框眼镜，梳着个菠萝发型，有些爱搞恶作剧。他说话语气卖萌，但是笑起来又疯疯癫癫的。他还喜欢训练汪汪，在《新超级马力欧兄弟2》中，他就靠一只暴躁的汪汪来对付马力欧。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0012. 温缇/Wendy/ウェンディ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			酷霸王7人组中唯一的一个女孩子。她非常莽，也非常傲慢自大，并且将桃花公主和菊花公主视为对手。虽然性格像是假小子，但是也不排斥用粉色蝴蝶结和高跟鞋展示自己女性化的一面。在《新超级马力欧兄弟U》中，她还展示了自己优雅的溜冰技巧。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0013. 雷米/Lemmy/レミー<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			酷霸王7人组中身材最矮小的一个，是个一脸怪相又不失稚气的小捣蛋。在《新超级马力欧兄弟U》中，他是第一关的Boss，踩在球上投掷炸弹攻击，与此同时炫彩的头发一抖一抖的。不要低估他的实力哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0014. 洛伊/Roy/ロイ（スーパーマリオブラザーズ）<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			酷霸王7人组中的重量级选手，经常四处耀武扬威。他的粉色墨镜虽然没什么压迫感，但他灵活可变的速度却威胁不小。在《超级马力欧兄弟3》中，他通过制造地震和使用魔法来攻击马力欧，还真是挺棘手的！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0015. 拉里/Larry/ラリー<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			酷霸王7人组中年纪最小的一个，总是想在各种事情上赢过别人——即使别人并没有想与他竞争。他高耸的蓝色头发非常引人注目。在《新超级马力欧兄弟Wii》里，他在第一关出现。虽说他的蓝色火球和刺壳旋转看起来很难对付，但其实他的行动非常套路化。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0016. 洛德威格/Ludwig/ルドウィッグ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			酷霸王7人组中最聪明的一个，有非常标志性的蓝色中分头。虽然可以表现的很成熟，但是他更喜欢装逼。在《新超级马力欧兄弟Wii》里，他是第七关的Boss，可以使用追踪魔法弹，还会故意悬在空中躲避攻击。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0017. 莫顿/Morton/モートン<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros. 3（超级马力欧兄弟3）<br>\
 			酷霸王7人组中体格最大的一个。他标志性的特征是三根呆毛——不对，应该是脸上的星星标记。他四肢发达头脑简单，在《新超级马力欧兄弟2》中，他在第四关出现，你不打他他就不会动。也许他真的是很不爱动吧！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			MNM又没写介绍，他们的养父表示对MNM比较生气。",
 			sst_ryu:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0977. 隆/Ryu/リュウ<br>\
 			系列：Street Fighter（街头霸王）<br>\
 			初登场：Street Fighter（街头霸王）<br>\
 			隆，武道上永恒的探求者，凭借着从刚拳处学来的波动流暗杀术，他遍历全球挑战强者，在夺得大赛冠军后却淡泊名利不去领奖，因为他的目标只有一个，也是豪鬼留给他的问题：战斗的意义，除了杀戮，还有什么？他也曾为了追求力量迷失自我，将自己沉浸在杀意中，但现在的他已经将阴影从心中驱逐，俨然一代宗师。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			你必须击败我的升龙拳才能得到一线转机。",
 			sst_ken:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0978. 肯/Ken/ケン<br>\
 			系列：Street Fighter（街头霸王）<br>\
 			初登场：Street Fighter（街头霸王）<br>\
 			肯是隆的头号挚友兼劲敌，两人师出同门，与风餐露宿四处苦行的隆不同，肯有着自己的家族与财大气粗的产业，据说现在空手道网课也办的红红火火。他在年轻时因为急躁吃过不少败仗，但现在的他已经有了自己的家庭，即便如此，在顾家的闲暇也一定要挤出时间与挚友对战几局，才是男人的快乐。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			我准备好了，来吧。",
 			sst_sans:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			????. Sans/サンス<br>\
 			系列：Undertale（传说之下）<br>\
 			初登场：Undertale（传说之下）<br>\
 			Sans是由Toby Fox为2015年角色扮演游戏《Undertale》创造的虚构角色。Sans在《Undertale》中为NPC，但如果玩家选择完成“种族灭绝路线”并消灭游戏中的怪物种族，他将成为事实上的最终boss。他的名字基于Comic Sans字体，而该字体用于他的大部分游戏对话。该角色因其对话，以及被认为是游戏中最难的boss战斗而被评论家称赞。他在粉丝群体中相当出名，激发了很多人为其创造同人作品。<br>\
 			——翻译自《维基百科》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			外面是多么美好的一天啊，鸟儿在歌唱，花儿在绽放……",
 			sst_waluigi:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0035. 瓦路易吉/Waluigi/ワルイージ<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Mario Tennis（马力欧网球64）<br>\
 			一看他那个硬而扭曲的胡子，还有红色的鹰钩鼻，就知道这是个带恶人了。他自称是路易吉的劲敌，性格狡猾，行动敏捷。当作为辅助模型被召唤时，他会将离他最近的斗士猛踩到地里，然后用网球拍殴打他的受害者。不知道为什么，在国外希望瓦路易基参战大乱斗的呼声相当高，甚至都成为烂梗了。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			金钱，名声，邀请函，都会是本大爷的！",
 			sst_master_hand:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1095. 大师之手/Master Hand/マスターハンド<br>\
 			系列：Super Smash Bros.（任天堂明星大乱斗）<br>\
 			初登场：Super Smash Bros.（任天堂明星大乱斗）<br>\
 			创造大乱斗世界的神秘之手。它会在取胜乱斗中所有对手被打败后出现在终点。它的招数极其多样，并且在生命不足时会变得更强大。如果知道什么时候攻击，什么时候躲闪，应对它就不是难事！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			右手，代表着创造。",
 			sst_ike:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0614. 艾克（苍炎之轨迹）/Ike (Path of Radiance)/アイク（蒼炎の軌跡）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem: Path of Radiance（火焰纹章 苍炎之轨迹）<br>\
 			《火焰纹章：苍炎之轨迹》的主角，父亲被神秘的漆黑骑士所杀，于是继承了父亲的佣兵团，并且承担了保卫未来女皇的任务。拥有恐怖的力量，他的剑本来是双手剑，但他可以单手使用。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			大！天！空！",
 			sst_sheik:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0174. 希克/Sheik/シーク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda: Ocarina of Time（塞尔达传说 时之笛）<br>\
 			在《塞尔达传说：时之笛》中，希克自称是从灾难中幸存的希卡族人，不过她其实是塞尔达公主为了躲避加侬多夫的追捕而女扮男装的形态。在大乱斗中，希克以高速连招为主，和塞尔达的战斗风格有很大差别。<br>\
 			——封羽翎烈、无敌阿尔宙斯，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“接下来这段旋律，你要铭记于心……”",
 			sst_miumiu:"武将作者：mario not mary<br>\
 			插图作者：mario not mary<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			据说家里裙子比其他女生还要多。",
 			sst_toon_link:"武将作者：mario not mary、Yumikohimi<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0177. 卡通林克/Toon Link/トゥーンリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda: The Wind Waker（塞尔达传说 风之杖）<br>\
 			这个林克来自《塞尔达传说：风之律动》，偶尔也会被称为猫眼林克。在大乱斗中，他的技能组看似和另外两个林克相同，但他的炸弹爆炸范围更大，上必杀滞空时间也更长。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“故事到处都有，传说仅此一个。”",
 			sst_wolf:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0384. 沃鲁夫/Wolf O\x27Donnell/ウルフ<br>\
 			系列：Star Fox（星际火狐）<br>\
 			初登场：Star Fox 64（星际火狐64）<br>\
 			沃鲁夫曾经为安德罗斯效力，和“星际火狐”小队多次交战。在安德罗斯被流放后，他自己组建了“星狼”小队。虽然偶尔也会和火狐并肩作战，但总体而言他们还是死对头。他的通常必杀技射出的子弹比火狐和佛克都要强力。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			游戏结束了！星际火狐！",
 			sst_young_link:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0176. 幼年林克/Young Link/こどもリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda: Ocarina of Time（塞尔达传说 时之笛）<br>\
 			《塞尔达传说：时之笛》中的林克，在原作中可以通过时之笛切换幼年和成年两个形态。幼年形态是不能使用大师剑的。在大乱斗中，他的通常必杀技射出的是火箭，相比另两个林克的箭性能更好。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			老摸有时候能写出让我吐血的武将……比如这个……现在〖假面〗好像废了，在找解决方法。现在应该可以了，然而要重新编写好多技能的代码啊……",
 			sst_ocarina_of_time_link:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0176. 幼年林克/Young Link/こどもリンク<br>\
 			系列：The Legend of Zelda（塞尔达传说）<br>\
 			初登场：The Legend of Zelda: Ocarina of Time（塞尔达传说 时之笛）<br>\
 			《塞尔达传说：时之笛》中的林克，在原作中可以通过时之笛切换幼年和成年两个形态。幼年形态是不能使用大师剑的。在大乱斗中，他的通常必杀技射出的是火箭，相比另两个林克的箭性能更好。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			物是人非，沧海桑田……",
 			sst_spring_man:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1287. 弹簧人/Spring Man/スプリングマン<br>\
 			系列：ARMS（神臂斗士）<br>\
 			初登场：ARMS（神臂斗士）<br>\
 			在弹簧竞技场进行修炼的、热血的弹簧斗士。他的梦想是有朝一日能在ARMS大奖赛中打败最强铜领，夺得冠军。他最喜欢吃披萨，靠自己的手臂，可以在吃的时候拉出长长的奶酪丝。在大乱斗中，作为辅助模型的他会使用弹簧手臂连击对手。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			然而却是面面参战了……",
 			sst_joker:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1304. Joker（怪盗）/Joker (Phantom Thief)/ジョーカー（怪盗）<br>\
 			系列：Persona（女神异闻录）<br>\
 			初登场：Persona 5（女神异闻录5）<br>\
 			P5主人公在异世界的形态，是由反抗意识觉醒了人格面具的样子。初始人格面具为亚森——大乱斗里也是这家伙，戴着白鸟外形眼部为黑色的面具。身穿黑色的风衣，棕色古巴高跟鞋，灰衬衫和黑色长裤，配上标志性的红色手套。代号“Joker”，是“王牌”的意思。<br>\
 			——Eric、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1305. Joker（学生）/Joker (Student)/ジョーカー（学生）<br>\
 			系列：Persona（女神异闻录）<br>\
 			初登场：Persona 5（女神异闻录5）<br>\
 			P5主人公的常服。身穿秀尽学园的校服，戴着黑框眼镜，有着黑色卷发和深灰的瞳孔。在平常他会以这身装束行动，虽然打扮并不出众，但却是个美男子，所以能与许多人建立关系。<br>\
 			——Eric、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“真不愧是Joker！”",
 			sst_rex:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0966. 莱克斯/Rex/レックス<br>\
 			系列：Xenoblade Chronicles（异度神剑）<br>\
 			初登场：Xenoblade Chronicles 2（异度神剑2）<br>\
 			平时生活在巨神兽“青龙”的身上，以打捞为生的少年，梦想是登上远方的世界树，去往“乐园”。有一次接受了报酬丰厚的打捞沉船委托，并意外的唤醒了沉船中的异刃“焰”。他接受了焰分给他的一半生命，并立志要带她一起去乐园。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“莱克斯，你一个人……也已经没问题了吧。”",
 			sst_cuphead_mugman:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1398. 茶杯头/Cuphead/カップヘッド<br>\
 			系列：Cuphead（茶杯头）<br>\
 			初登场：Cuphead（茶杯头）<br>\
 			人如其名，脑袋是个茶杯，甚至还可以拿下来或者用吸管吸里面的水。他和弟弟马克杯人误入魔鬼的赌场并被魔鬼欺骗，不得不帮助魔鬼回收他其他债主的灵魂——这些债主可一个比一个难缠。所以说，一开始就不要跟魔鬼打交道啊！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“不要和恶魔做交易。”",
 			sst_krystal:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0387. 水晶/Krystal/クリスタル<br>\
 			系列：Star Fox（星际火狐）<br>\
 			初登场：Star Fox Adventures（星际火狐冒险）<br>\
 			她曾经被囚禁在水晶中，这段经历太符合她的名字了。火狐在救出水晶之后邀请她加入小队，在小队中，她的读心能力发挥了很大作用。她之后还和火狐坠入爱河，不知读心能力是促成了还是阻碍了他们的关系呢？<br>\
 			——煤球，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			可惜当初没能在Brawl参战，后来彻底没机会了……",
 			sst_snake:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0749. 固蛇/Solid Snake/ソリッド・スネーク<br>\
 			系列：Metal Gear（合金装备）<br>\
 			初登场：Metal Gear（合金装备）<br>\
 			前Foxhound成员，IQ达180，能操流利六国语言。有“传说之佣兵”的称号，被称为“将不可能化为可能的男人”，是潜入任务中的专家，藏身纸皮箱躲过守卫进行潜入行动的桥段一直就为人津津乐道。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“The Man Who Makes the Impossible Possible.”",
 			sst_mega_man:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0864. 洛克人/Mega Man/ロックマン<br>\
 			系列：Mega Man（洛克人）<br>\
 			初登场：Mega Man（洛克人）<br>\
 			CAPCOM公司的元祖洛克人系列的主角，首次登场于1987年。他需要通过各个关卡，打败关底的机器人Boss得到他们的武器。在大乱斗中，他所使用的各种技能就来源于此，总共超过10种。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			有段时间老摸一直在玩洛克人……",
 			sst_captain_falcon:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>\
 			系列：F-Zero（零式赛车）<br>\
 			初登场：F-Zero（零式赛车）<br>\
 			在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			亮招来见。",
 			sst_jigglypuff:"武将作者：mario not mary、南柯<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0409. 胖丁/Jigglypuff/プリン<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Red and Green Versions（宝可梦 红／绿）<br>\
 			胖丁是一般+妖精属性的宝可梦，以其催眠性的歌声闻名。在大乱斗中，它空战很强，还有多段跳的能力。不过它的缺点是太轻了，如果露出破绽，很容易就会被击飞。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			什么叫超级方差斗士啊！",
 			sst_lucario:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0417. 路卡利欧/Lucario/ルカリオ<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Mystery Dungeon: Red Rescue Team and Blue Rescue Team（宝可梦不可思议迷宫 赤之救助队／青之救助队）<br>\
 			路卡利欧是格斗+钢属性的宝可梦，通过观察和操纵波导来攻击。路卡利欧受到的伤害越多，自身的伤害也越高，最多可以造成1.8倍的伤害，此时波导弹也会变大！如果敌人没有击杀路卡利欧，那就很难办了。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			波导之力永存吾心。",
 			sst_pichu:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0410. 皮丘/Pichu/ピチュー<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Gold and Silver Versions（精灵宝可梦 金／银）<br>\
 			皮卡丘尚未进化时就是皮丘。它还不擅长蓄电。惊讶或者发笑时，就会立刻进行放电。在大乱斗中，虽然皮丘各个技能的力度比皮卡丘强，但它每次放电都会伤到自己。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			自损八百，可伤敌一千——某张姓女子。",
 			sst_king_dedede:"武将作者：mario not mary<br>\
 			插图作者：太春/バルテー<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/42226957")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0325. 帝帝帝大王/King Dedede/デデデ大王<br>\
 			系列：Kirby（星之卡比）<br>\
 			初登场：Kirby\x27s Dream Land（星之卡比）<br>\
 			他自称这片大陆的大王，但其实没什么统治的欲望。他是个大吃货，所以不出意外的是个重型斗士。和他有关的bgm都很魔性。虽然体积大、速度慢，但是可以多段跳。他的火箭锤威力非常惊人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			你休想欺负我的瓦豆鲁迪！",
 			sst_corrin:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0618. 神威（男性）/Corrin (Male)/カムイ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Fates（火焰纹章if）<br>\
 			《火焰纹章：if》的主角，形象和性别可以自定义。出生和成长分别在两个文化截然不同的王国，在成人后又卷入两国之间的冲突。拥有龙的血统，可以将身体的部分或全部变为龙形态。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0619. 神威（女性）/Corrin (Female)/カムイ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Fates（火焰纹章if）<br>\
 			《火焰纹章：if》的主角，形象和性别可以自定义。因为常年被关在城堡里，所以对人情世故一无所知，因此很被亲友们担心。手里的剑是最终形态的“夜刀神”，只认她一个主人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			我选择……",
 			sst_corrin_male:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0618. 神威（男性）/Corrin (Male)/カムイ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Fates（火焰纹章if）<br>\
 			《火焰纹章：if》的主角，形象和性别可以自定义。出生和成长分别在两个文化截然不同的王国，在成人后又卷入两国之间的冲突。拥有龙的血统，可以将身体的部分或全部变为龙形态。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			我选择……<br>（已选择男性）",
 			sst_corrin_female:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0619. 神威（女性）/Corrin (Female)/カムイ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
 			初登场：Fire Emblem Fates（火焰纹章if）<br>\
 			《火焰纹章：if》的主角，形象和性别可以自定义。因为常年被关在城堡里，所以对人情世故一无所知，因此很被亲友们担心。手里的剑是最终形态的“夜刀神”，只认她一个主人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			我选择……<br>（已选择女性）",
 			sst_steve:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1428. 史蒂夫/Steve/スティーブ<br>\
 			系列：Minecraft（我的世界）<br>\
 			初登场：Minecraft（我的世界）<br>\
 			来自一个由立方体构成的世界的神秘人物，身为一名探险家（同时还是一名矿工），他将（和他心爱的镐子）探索这个世界，并与各位斗士们进行一次武艺切磋。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“想挖到钻石吗？尝试在Y=11找找！”<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			（Show-K注：Steve能参战我是真的很惊讶，猜到他会来却又猜不到他会在这个时候来吧……）",
 			sst_ma:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			我们都是初级人～",
 			sst_feiji:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			打了吗？还没有！",
 			sst_sonic:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0775. 索尼克/Sonic the Hedgehog/ソニック・ザ・ヘッジホッグ<br>\
 			系列：Sonic the Hedgehog（刺猬索尼克）<br>\
 			初登场：Rad Mobile（刺激赛车）<br>\
 			索尼克系列的主角，很好相处，喜欢用速度证明自己的实力。事实上，他是大乱斗中跑步速度最快的斗士。他可以利用速度优势躲避攻击并进行快攻。在过去，索尼克系列曾经对马力欧系列形成了强力的竞争。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“SONIC SPEED！”",
 			sst_hero:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1324. 勇者（勇者斗恶龙XI S）/Hero (DRAGON QUEST XI S)/勇者（ドラゴンクエストXI S）<br>\
 			系列：Dragon Quest（勇者斗恶龙）<br>\
 			初登场：Dragon Quest XI S（勇者斗恶龙XI S）<br>\
 			勇者斗恶龙系列中的每个主角都不会说话，名字也是玩家自定义的，但他们的设定各不相同。《勇者斗恶龙XI S》中的勇者左手有世界树的标志，然而因为国王被魔王控制，他很长一段时间都被污蔑为恶魔之子并遭到追捕。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1325. 勇者（勇者斗恶龙III）/Hero (DRAGON QUEST III)/勇者（ドラゴンクエストIII）<br>\
 			系列：Dragon Quest（勇者斗恶龙）<br>\
 			初登场：Dragon Quest III（勇者斗恶龙III）<br>\
 			系列中最为标志性的勇者，通常被称为洛特，《勇者斗恶龙》和《勇者斗恶龙II》的主角都是他的后代。他为了完成父亲未竟的讨伐魔王大业，而和三个同伴一同冒险。这也是拥有转职系统的第一作。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1326. 勇者（勇者斗恶龙IV）/Hero (DRAGON QUEST IV)/勇者（ドラゴンクエストIV）<br>\
 			系列：Dragon Quest（勇者斗恶龙）<br>\
 			初登场：Dragon Quest IV（勇者斗恶龙IV）<br>\
 			这位勇者虽然肩负击败魔王的预言，生活却很平静，直到魔王发现了他隐居的村庄并将之洗劫。勇者的青梅竹马为掩护他逃跑而牺牲。一无所有的勇者决心解开自己的身世之谜，完成使命。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1327. 勇者（勇者斗恶龙VIII）/Hero (DRAGON QUEST VIII)/勇者（ドラゴンクエストVIII）<br>\
 			系列：Dragon Quest（勇者斗恶龙）<br>\
 			初登场：Dragon Quest VIII（勇者斗恶龙VIII）<br>\
 			这位勇者本来是一名皇家护卫，邪恶小丑诅咒了整个王国，将人们都变成了动植物，他只能带着变成动物的国王与公主逃离，寻找击败小丑的方法。他口袋里有一只名为Munchie的仓鼠，如果给它吃奶酪，它也会帮助战斗。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			超级摸奖。",
 			sst_fox:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0382. 火狐/Fox McCloud/フォックス<br>\
 			系列：Star Fox（星际火狐）<br>\
 			初登场：Star Fox（星际火狐）<br>\
 			火狐是星际佣兵小队“星际火狐”的队长，多次和邪恶的安德罗斯交战。他的飞机驾驶技术出神入化，即使在大乱斗里难得开一次飞机，他也能依靠自身的高速进行战斗。他的反射盾可以反射对方的飞行道具，同时增加其威力。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			这里是火狐，前来支援！",
 			sst_mii_fighters:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1090. Mii格斗类型/Mii Brawler/Miiファイター 格闘タイプ<br>\
 			系列：Mii<br>\
 			初登场：Mii Channel（Mii频道）<br>\
 			这个斗士的形象以玩家的Mii形象为基准。他/她擅长近身格斗，十分敏捷，以各种高机动性的技能灵活应战，并且冲刺和跳跃性能非常优秀。和对手贴身大干一场吧——你很快就能击败他们的！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1091. Mii剑术类型/Mii Swordfighter/Miiファイター 剣術タイプ<br>\
 			系列：Mii<br>\
 			初登场：Mii Channel（Mii频道）<br>\
 			以玩家的Mii形象为基准，使用剑的斗士。攻击距离相当不错，但是出招相应较慢。当然，你可以给他装上蓄力、反击或飞行道具技能。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1092. Mii射击类型/Mii Gunner/Miiファイター 射撃タイプ<br>\
 			系列：Mii<br>\
 			初登场：Mii Channel（Mii频道）<br>\
 			带有臂炮的Mii斗士，非常适合喜欢远距离战的玩家。Mii射击类型有很多类型的飞行道具，你可以自取所需、灵活运用。不过也不要忘了多用A键的各种技能哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			可能只有玩过灯火之星的人才知道Mii斗士有默认配置。",
 			sst_alex:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1429. 艾莉克斯/Alex/アレックス（Minecraft）<br>\
 			系列：Minecraft（我的世界）<br>\
 			初登场：Minecraft（我的世界）<br>\
 			身为史蒂夫的女朋友，她也一同来到了大乱斗的世界，并在这里继续进行她的创造与建设，小心她所布置的各种机关！它们可能会让你陷入大麻烦。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			好像Minecraft官方的确有说过她是史蒂夫的女朋友。",
 			sst_min_min:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1414. 面面（斗士）/Min Min (Fighter)/ミェンミェン（ファイター）<br>\
 			系列：ARMS（神臂斗士）<br>\
 			初登场：ARMS（神臂斗士）<br>\
 			在2020年6月，面面作为第6个DLC斗士加入了大乱斗，打破了“有命魂和Mii服装的系列就无法参战”的前例。她使用A和B分别控制双臂的机制相当特殊，而踢回飞行道具、龙臂等要素也很还原。总之大家跟着她一起来喊——“我爱拉面！”<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			我！爱！拉！面！",
 			sst_pikachu:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0407. 皮卡丘/Pikachu/ピカチュウ<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Red and Green Versions（宝可梦 红／绿）<br>\
 			世界知名的超人气宝可梦！皮卡丘是电属性宝可梦，红红的脸颊储存电力用来作战。在大乱斗里，皮卡丘的强度算是非常高的，能使用迅速而强力的攻击。他的电光石火可以改变2次方向。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			皮～卡～丘！",
 			sst_falco:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0383. 佛克/Falco Lombardi/ファルコ<br>\
 			系列：Star Fox（星际火狐）<br>\
 			初登场：Star Fox（星际火狐）<br>\
 			“星际火狐”小队里才华横溢、不拘小节的队员。在加入火狐的小队之前，他曾经在多个帮派待过。在大乱斗里，他的跳跃和空战能力很不错，并且可以将反射盾踢出去进行攻击。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			放心，一个也别想逃。",
 			sst_pyra_mythra:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1458. 焰（斗士）/Pyra(Fighter)/ホムラ（ファイター）<br>\
 			系列：Xenoblade Chronicles（异度神剑）<br>\
 			初登场：Xenoblade Chronicles 2（异度神剑2）<br>\
 			没错，不是莱克斯参战，而是天之圣杯参战了！——当然，莱克斯还是会在进场、炫耀和胜利画面中出现的。作为斗士的焰速度较慢，但伤害和击杀能力非常强。如有需要，她还能随时切换为光。立绘姿势来源于之前出的手办。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1459. 光（斗士）/Mythra(Fighter)/ヒカリ（ファイター）<br>\
 			系列：Xenoblade Chronicles（异度神剑）<br>\
 			初登场：Xenoblade Chronicles 2（异度神剑2）<br>\
 			光的机动性和回场能力明显高于焰，但她的招式伤害较低。此外，在恰当的时机闪避还能触发“因果律预测”，创造反击机会。灵活运用天之圣杯不同形态的特点是取胜的关键。立绘姿势同样来源于之前出的手办。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			最终，少年遇到了少女。",
 			sst_enderman:"武将作者：mario not mary、Yumikohimi、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1434. 末影人/Enderman/エンダーマン<br>\
 			系列：Minecraft（我的世界）<br>\
 			初登场：Minecraft（我的世界）<br>\
 			细长的四肢，紫色的眼睛。这比黑夜更黑暗的生物可不是你瞪眼的理想对象。它们通常出现在下界和末地，在主世界较为稀有。而更为稀有的，是曾经与它的眼神接触，然后幸存下来讲述其恐怖经历的玩家。不过放心，参加这次大乱斗的末影人并不会这样做，而是用各种技巧来击垮对手。<br>\
 			——谁的错820、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			小黑！",
 			sst_sephiroth:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1439. 萨菲罗斯/Sephiroth/セフィロス<br>\
 			系列：Final Fantasy（最终幻想）<br>\
 			初登场：Final Fantasy VII（最终幻想VII）<br>\
 			曾经是神罗公司里最伟大的战士，也是人和外星生命“杰诺瓦”进行融合的实验产物。他了解到自己身世之后，逐渐对人类产生恨意，开始了一系列的毁灭活动。只要有足够杰诺瓦细胞，他就能够重生。似乎以在战斗中和精神上折磨克劳德为乐。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			Sephiroth♫~",
 			sst_pokemon_trainer_leaf:"武将作者：南柯、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0413. 宝可梦训练家（女性）/Pokémon Trainer (Female)/ポケモントレーナー（女性）<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon FireRed and LeafGreen Versions（宝可梦 火红／叶绿）<br>\
 			在早一些的《宝可梦》游戏中，如果你选择了女性训练家，则你的劲敌就会变成男性，反之亦然。从《宝可梦：X/Y》开始，训练家们不但可以选择肤色，还可以更换服装了——夺冠虽然重要，但打扮也不可或缺！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			来看看新人设计的第一个武将！",
 			sst_kyo_kusanagi:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1362. 草薙京/Kyo Kusanagi/草薙京<br>\
 			系列：The King of Fighters（拳皇）<br>\
 			初登场：The King of Fighters \x2794（拳皇\x2794）<br>\
 			炎之贵公子草薙京，三神器之一“草薙剑”的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>\
 			——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			所以拳皇XV终于憋出来了……",
 			sst_pauline:"武将作者：mario not mary<br>\
 			插图作者：맛감쟈<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/84875359")+"<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0079. 宝琳/Pauline/ポリーン<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Donkey Kong（森喜刚）<br>\
 			宝琳登场于1981年的初代《森喜刚》游戏，在那个游戏中，森喜刚不断从台阶上扔下木桶，而马力欧需要躲开木桶救出宝琳。经过这么多年之后，她现在的形象和最初登场时也截然不同了。在《超级马力欧奥德赛》中，她作为纽敦市市长举办了一场盛大的庆典。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			此次推出的三噩梦命魂武将其一。",
 			sst_dr_wily:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0873. 威利博士/Dr. Wily/Dr.ワイリー<br>\
 			系列：Mega Man（洛克人）<br>\
 			初登场：Mega Man（洛克人）<br>\
 			洛克人系列中的疯狂科学家，制造了许多战斗机器人想要掌控世界。他也丝毫不介意偷走其他科学家开发的机器人并将它们改造得更加邪恶。一般来说要击败他改造的8个机器人（初代《洛克人》为6个）才能和他对战。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			此次推出的三噩梦命魂武将其二。",
 			sst_9_volt_18_volt:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
 			系列：Wario（瓦力欧）<br>\
 			初登场：<br>\
@@ -1104,105 +1104,105 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			十八伏特——WarioWare: Twisted!（まわる 瓦力欧制造）<br>\
 			九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			此次推出的三噩梦命魂武将其三。",
 			sst_kazuya:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1474. 三岛一八/Kazuya Mishima/三島一八<br>\
 			系列：Tekken（铁拳）<br>\
 			初登场：Tekken（铁拳）<br>\
 			为什么这位格斗家执意要把斗士们都扔下悬崖？因为这不但符合大乱斗的规则，也是在原作中他和父亲斗得你死我活的表现。作为斗士的三岛一八拥有非常丰富的技能组，还有特殊的移动方式和投技。巧妙利用各种招式制胜！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			MNM终于开始对弃牌堆大打出手了。",
 			sst_kraid:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0283. 克雷德/Kraid/クレイド<br>\
 			系列：Metroid（密特罗德）<br>\
 			初登场：Metroid（密特罗德）<br>\
 			宇宙海盗的干部之一，在初代《密特罗德》就有登场。那个时候的它受机能限制还非常小只，但在《超级密特罗德》和《密特罗德：零点任务》中的它就相当巨大了，会从肚子中发射爪子攻击。它也出现在“布林斯塔深部”这个场地的背景中。在“灯火之星”中，它能赋予命魂“重战车流”的效果。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			直接上8血魔将了……",
 			sst_sora:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1500. 索拉/Sora/ソラ<br>\
 			系列：Kingdom Hearts（王国之心）<br>\
 			初登场：Kingdom Hearts（王国之心）<br>\
 			让我们热烈欢迎这一代大乱斗的最后一个斗士登场！虽然索拉并没有带着他的迪士尼伙伴们一起来，但他仍然能使用标志性的钥匙剑“钥刃”和各种魔法，施展灵活的攻击。不过要注意，他的重量比较轻，容易被击飞。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			第一次见到这个“施法”就大为震惊……不过索拉能来大乱斗显然比这个更震惊。",
 			sst_pac_man:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0946. 吃豆人/PAC-MAN/パックマン<br>\
 			系列：Pac-Man（吃豆人）<br>\
 			初登场：Pac-Man（吃豆人）<br>\
 			黄黄圆圆的吃豆人！他的原作可是创造了“最成功的投币式街机游戏”这一吉尼斯世界纪录的。在大乱斗中，他的技能大多基于最初代的吃豆人。在他的炫耀动作中还有不少南梦宫的其他ip出场。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			大游戏天下，已半入我手！",
 			sst_mewtwo:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0411. 超梦/Mewtwo/ミュウツー<br>\
 			系列：Pokémon（宝可梦）<br>\
 			初登场：Pokémon Red and Green Versions（宝可梦 红／绿）<br>\
 			使用梦幻的基因制造出来的宝可梦，科学力量可以造出它的身体，给予它强大的力量和极高的智慧，却无法造出一颗温柔的心。它一方面厌恶人类，另一方面又为自己的身份认同而迷茫。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			由强行添加进去的数据强行诞生。",
 			sst_olimar:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0798. 欧力马/Olimar/キャプテン·オリマー<br>\
 			系列：Pikmin（皮克敏）<br>\
 			初登场：Pikmin（皮克敏）<br>\
 			老练的宇宙飞行家欧力马是多露芬号飞船的船长，他和皮克敏一起在大乱斗中作战，可以拔出皮克敏和使用哨子号令它们。在拥有皮克敏的时候，欧力马的强度会更高，并且不同颜色的皮克敏有不同的效果，在对战之前要查阅清楚。顺便，他的名字倒过来就是马力欧。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0799. 阿尔福/Alph/アルフ<br>\
 			系列：Pikmin（皮克敏）<br>\
 			初登场：Pikmin 3（皮克敏3）<br>\
 			阿尔福是坠毁在星球PNF-404上的年轻探险家，他需要尽快找到失散的船员和飞船。他醒来后发现的第一种生物就是皮克敏。除了探索星球，他和船员们还需要寻找食物以维持生存和供给母星。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0803. 红色皮克敏/Red Pikmin/赤ピクミン<br>\
 			系列：Pikmin（皮克敏）<br>\
 			初登场：Pikmin（皮克敏）<br>\
 			红色皮克敏有着尖尖的鼻子，这也是欧力马遇到的第一种皮克敏。在原作中，它们不怕火。在大乱斗中，红色皮克敏的攻击力是第二高的，并且攻击带火属性。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0804. 蓝色皮克敏/Blue Pikmin/青ピクミン<br>\
 			系列：Pikmin（皮克敏）<br>\
 			初登场：Pikmin（皮克敏）<br>\
 			蓝色皮克敏的嘴角一直耷拉着，看起来不太开心。在原作中，它们可以进入水中取物。在大乱斗中，蓝色皮克敏的防御力是第二高的，投掷出去的伤害也相当可观。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			0805. 黄色皮克敏/Yellow Pikmin/黄ピクミン<br>\
 			系列：Pikmin（皮克敏）<br>\
 			初登场：Pikmin（皮克敏）<br>\
 			黄色皮克敏有尖尖的“耳朵”——其实这个结构的作用仍然不清楚。它们在原作中免疫电，并且是最轻的皮克敏。在大乱斗中，它们被投掷出去时抛物线比其他皮克敏高，并且能对接触到的斗士造成电属性伤害。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			这个游戏系列真正实现了主机/手柄玩即时战略游戏的梦想。",
 			sst_marioraz:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			“樱井懂个屁大乱斗”",
 			sst_piranha_plant:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			1303. 吞食花/Piranha Plant/パックンフラワー<br>\
 			系列：Mario（马力欧）<br>\
 			初登场：Super Mario Bros.（超级马力欧兄弟）<br>\
 			这些植物与其说是肉食性的，不如说是马力欧食性的。世界上有非常多种吞食花，如果让自然王来给你讲甚至能讲出绕口令来。总之，没有什么吞食花不是火球和震地不能解决的啦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			━━━━━━━━━━━━━━━━━<br>\
+			<hr>\
 			某紫衣男子已绝望。"
 		},
 		characterTitle:{
@@ -1479,7 +1479,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseControl("sst_light","sst_darkness","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",function(){return ["sst_light","sst_darkness","sst_spirit","sst_reality"].randomGet()});
+					player.chooseControl("sst_light","sst_dark","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",function(){return ["sst_light","sst_dark","sst_spirit","sst_reality"].randomGet()});
 					"step 1"
 					player.changeGroup(result.control);
 				}
@@ -6427,7 +6427,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					content:"你和$获得〖享乐〗直到你的下个回合开始"
 				},
 				onremove:true,
-				trigger:{player:["phaseBeginStart","dieBegin"]},
+				trigger:{player:["phaseBeginStart","die"]},
 				forceDie:true,
 				forced:true,
 				popup:false,
@@ -8679,7 +8679,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					game.log(player,"将武将变更为","#b"+get.translation("sst_young_link"));
 					player.reinit(player.name,"sst_young_link");
-					player.changeGroup("sst_darkness",false);
+					player.changeGroup("sst_dark",false);
 					game.triggerEnter(player);
 				}
 			},
@@ -11625,7 +11625,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					lib.inpile.push("sst_aegises");
 					var card=game.createCard4("sst_aegises","","","",["sst_pyra_mythra"]);
 					player.give(card,target,"give",true);
-					target.addAdditionalSkill("sst_fuxin","sst_fuxin_card");
+					target.addTempSkill("sst_fuxin_card",{player:"die"});
 				},
 				ai:{
 					order:1,
@@ -12914,7 +12914,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forceDie:true,
 				forced:true,
 				popup:false,
-				trigger:{global:["phaseBeginStart","dieBegin"]},
+				trigger:{global:["phaseBeginStart","die"]},
 				filter:function(event,player){
 					return typeof player.storage.sst_qixin_effect=="object"&&Array.isArray(player.storage.sst_qixin_effect[event.player.playerid]);
 				},
@@ -13564,7 +13564,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.$throw(player.deckCards);
 						}
 						player.deckCards=cards;
-						player.addAdditionalSkill("sst_chunni","sst_chunni_effect");
+						player.addTempSkill("sst_chunni_effect",{player:"die"});
 					}
 					game.updateRoundNumber();
 				}
@@ -13633,7 +13633,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Marioraz
 			sst_buxi:{
 				init:function(player){
-					if(_status.videoInited){
+					if(_status.gameStarted){
 						player.logSkill("sst_buxi");
 						player.gainMaxHp();
 					}
@@ -13848,7 +13848,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tunshi3:{
 				forced:true,
 				popup:false,
-				trigger:{global:"dieBegin"},
+				trigger:{global:"die"},
 				filter:function(event,player){
 					return Array.isArray(player.storage.sst_tunshi_origin[event.player.playerid])&&player.storage.sst_tunshi_origin[event.player.playerid].length;
 				},
@@ -13981,8 +13981,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Soldier
 			shibing1sst_light:"士兵",
 			shibing2sst_light:"士兵",
-			shibing1sst_darkness:"士兵",
-			shibing2sst_darkness:"士兵",
+			shibing1sst_dark:"士兵",
+			shibing2sst_dark:"士兵",
 			shibing1sst_spirit:"士兵",
 			shibing2sst_spirit:"士兵",
 			shibing1sst_reality:"士兵",
@@ -13996,7 +13996,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_wario:"瓦力欧",
 			sst_villager:"村民",
 			sst_zelda:"塞尔达",
-			sst_ganondorf:"盖侬多夫",
+			sst_ganondorf:"加侬多夫",
 			sst_dr_mario:"马力欧医生",
 			sst_palutena:"帕露蒂娜",
 			sst_marth:"马尔斯",
@@ -14695,8 +14695,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Soldier
 			shibing1sst_light:"Soldier",
 			shibing2sst_light:"Soldier",
-			shibing1sst_darkness:"Soldier",
-			shibing2sst_darkness:"Soldier",
+			shibing1sst_dark:"Soldier",
+			shibing2sst_dark:"Soldier",
 			shibing1sst_spirit:"Soldier",
 			shibing2sst_spirit:"Soldier",
 			shibing1sst_reality:"Soldier",

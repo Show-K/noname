@@ -2,7 +2,9 @@
 game.import("extension", function(lib,game,ui,get,ai,_status){return { name:"十周年UI",
 content:function(config, pack){
 	'use strict';
-	
+	if (['tafang','chess'].contains(get.mode()) && lib.config['extension_十周年UI_closeWhenChess']) {
+		return;
+	}
 	var extensionName = decadeUIName;
 	var extension = lib.extensionMenu['extension_' + extensionName];
 	var extensionPath = lib.assetURL + 'extension/' + extensionName + '/';
@@ -131,6 +133,7 @@ content:function(config, pack){
 					phaseLoop: game.phaseLoop,
 					bossPhaseLoop: game.bossPhaseLoop,
 					gameDraw: game.gameDraw,
+					swapSeat:game.swapSeat,
 				},
 				lib:{
 					element:{
@@ -160,6 +163,7 @@ content:function(config, pack){
 							$damagepop: lib.element.player.$damagepop,
 							$dieAfter: lib.element.player.$dieAfter,
 							$skill: lib.element.player.$skill,
+							setSeatNum:lib.element.player.setSeatNum,
 						},
 						event:{
 							send: lib.element.event.send,
@@ -546,21 +550,30 @@ content:function(config, pack){
 				Player.directgain = function (cards, broadcast, gaintag) {
 					var player = this;
 					var handcards = player.node.handcards1;
+					var handcards2 = player.node.handcards2;
 					var fragment = document.createDocumentFragment();
-					
+					var fragment2 = document.createDocumentFragment();
+
 					var card;
+
+					var hs = this.getCards('hs');
 					for (var i = 0; i < cards.length; i++) {
 						card = cards[i];
 						card.fix();
-						if (card.parentNode == handcards) {
+						if (hs.contains(cards[i])) {
 							cards.splice(i--, 1);
 							continue;
 						}
 						
 						if (gaintag)
 							card.addGaintag(gaintag);
+						var sort = lib.config.sort_card(cards[i]);
 						
-						fragment.insertBefore(card, fragment.firstChild);
+						if (get.is.singleHandcard() || sort > 0) {
+							fragment.insertBefore(card, fragment.firstChild);
+						} else {
+							fragment2.insertBefore(card, fragment.firstChild);
+						}
 					}
 					
 					if (player == game.me) {
@@ -569,11 +582,39 @@ content:function(config, pack){
 					}
 					
 					var s = player.getCards('s');
-					if (s.length)
-						handcards.insertBefore(fragment, s[0]);
-					else
+					if (s.length) {
+						var found = false;
+						for (var i = 0; i < handcards.childElementCount; i++) {
+							if (handcards.childNodes[i] == s[0]) {
+								handcards.insertBefore(fragment, s[0]);
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							handcards.appendChild(fragment);
+						}
+					} else {
 						handcards.appendChild(fragment);
+					}
+					s = player.getCards('s');
+					if (s.length) {
+						var found = false;
+						for (var i = 0; i < handcards2.childElementCount; i++) {
+							if (handcards2.childNodes[i] == s[0]) {
+								handcards2.insertBefore(fragment2, s[0]);
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							handcards2.appendChild(fragment2);
+						}
+					} else {
+						handcards2.appendChild(fragment2);
+					}
 
+					if (this == game.me || _status.video) ui.updatehl();
 					if (!_status.video) {
 						game.addVideo('directgain', this, get.cardsInfo(cards));
 						this.update();
@@ -1120,7 +1161,7 @@ content:function(config, pack){
 				};
 				EventContent.chooseBool = function () {
 					"step 0"
-					if (event.isMine()) {
+					if ((typeof event.isMine == 'function') && event.isMine()) {
 						if (event.frequentSkill && !lib.config.autoskilllist.contains(event.frequentSkill)) {
 							ui.click.ok();
 							return;
@@ -1191,7 +1232,7 @@ content:function(config, pack){
 				};
 				EventContent.chooseTarget = function () {
 					"step 0"
-					if (event.isMine()) {
+					if ((typeof event.isMine == 'function') && event.isMine()) {
 						if (event.hsskill && !event.forced && _status.prehidden_skills.contains(event.hsskill)) {
 							ui.click.cancel();
 							return;
@@ -1232,7 +1273,12 @@ content:function(config, pack){
 								tipText = tipText.replace(/<\/?.+?\/?>/g, '');
 								handTip.appendText(tipText);
 								if (event.promptbar != 'none') {
-									event.promptbar = handTip.appendText(' 0 - ' + get.select(event.selectTarget)[1]);
+									var from = get.select(event.selectTarget)[0];
+									var to = get.select(event.selectTarget)[1];
+									if (!isFinite(to)) {
+										to = '∞';
+									}
+									event.promptbar = handTip.appendText(' ' + from + ' - ' + to);
 									event.promptbar.sels = 0;
 									event.promptbar.reqs = get.numStr(get.select(event.selectTarget)[1], 'target');
 									event.custom.add.target = function() {
@@ -1279,7 +1325,7 @@ content:function(config, pack){
 					if (event.onresult) {
 						event.onresult(event.result);
 					}
-					if (event.result.bool && event.autodelay && !event.isMine()) {
+					if (event.result.bool && event.autodelay && !((typeof event.isMine == 'function') && event.isMine())) {
 						if (typeof event.autodelay == 'number') {
 							game.delayx(event.autodelay);
 						} else {
@@ -1315,7 +1361,7 @@ content:function(config, pack){
 						}
 						var range = get.select(event.selectCard);
 						game.check();
-						if (event.isMine()) {
+						if ((typeof event.isMine == 'function') && event.isMine()) {
 							if (event.hsskill && !event.forced && _status.prehidden_skills.contains(event.hsskill)) {
 								ui.click.cancel();
 								return;
@@ -1372,8 +1418,13 @@ content:function(config, pack){
 									event.dialog = handTip;
 									tipText = tipText.replace(/<\/?.+?\/?>/g, '');
 									handTip.appendText(tipText);
+									var from = event.selectCard[0];
+									var to = event.selectCard[1];
+									if (!isFinite(to)) {
+										to = '∞';
+									}
 									if (Array.isArray(event.selectCard)) {
-										event.promptbar = handTip.appendText(' 0 - ' + event.selectCard[1]);
+										event.promptbar = handTip.appendText(' ' + from + ' - ' + to);
 										event.promptbar.sels = 0;
 										event.promptbar.reqs = get.numStr(event.selectCard[1], 'card');
 										event.custom.add.card = function() {
@@ -1429,7 +1480,7 @@ content:function(config, pack){
 						event.promptdiscard.close();
 					}
 					"step 3"
-					if (event.result.bool && event.result.cards && event.result.cards.length && !game.online && event.autodelay && !event.isMine()) {
+					if (event.result.bool && event.result.cards && event.result.cards.length && !game.online && event.autodelay && !((typeof event.isMine == 'function') && event.isMine())) {
 						if (typeof event.autodelay == 'number') {
 							game.delayx(event.autodelay);
 						} else {
@@ -1476,7 +1527,7 @@ content:function(config, pack){
 						if (game.modeSwapPlayer && !_status.auto && player.isUnderControl()) {
 							game.modeSwapPlayer(player);
 						}
-						if (event.isMine()) {
+						if ((typeof event.isMine == 'function') && event.isMine()) {
 							if (event.hsskill && !event.forced && _status.prehidden_skills.contains(event.hsskill)) {
 								ui.click.cancel();
 								return;
@@ -1680,7 +1731,7 @@ content:function(config, pack){
 					}
 					_status.noclearcountdown = true;
 					if (event.type == 'phase') {
-						if (event.isMine()) {
+						if ((typeof event.isMine == 'function') && event.isMine()) {
 							event.endButton = ui.create.control('结束回合', 'stayleft',
 							function() {
 								if (_status.event.skill) {
@@ -1702,7 +1753,7 @@ content:function(config, pack){
 							bool: false
 						}
 						return;
-					} else if (event.isMine()) {
+					} else if ((typeof event.isMine == 'function') && event.isMine()) {
 						if (event.hsskill && !event.forced && _status.prehidden_skills.contains(event.hsskill)) {
 							ui.click.cancel();
 							return;
@@ -1753,7 +1804,7 @@ content:function(config, pack){
 										tipText = '请选择一张卡牌';
 									}
 									
-									if (event.type == 'phase' && event.isMine()) {
+									if (event.type == 'phase' && (typeof event.isMine == 'function') && event.isMine()) {
 										handTip.appendText('出牌阶段', 'phase');
 										tipText = '，' + tipText
 									}
@@ -2770,7 +2821,7 @@ content:function(config, pack){
 					if (typeof event.skillDialog == 'object') {
 						event.skillDialog.close();
 					}
-					if (event.isMine()) {
+					if ((typeof event.isMine == 'function') && event.isMine()) {
 						event.skillDialog = true;
 					}
 					game.uncheck();
@@ -3022,12 +3073,19 @@ content:function(config, pack){
 							if (!cur.node.seat)
 								cur.node.seat = decadeUI.element.create('seat', cur);
 							
-							cur.seat = get.distance(firstAction, cur, 'absolute') + 1;
+							cur.seat = cur.getSeatNum();
 							cur.node.seat.innerHTML = get.cnNumber(cur.seat, true);
 						}
 					}, player);
 					
 					return this._super.phaseLoop.apply(this, arguments);
+				};
+				Game.swapSeat = function (player1, player2, prompt, behind, noanimate) {
+					base.game.swapSeat.apply(this, arguments);
+					player1.seat = player1.getSeatNum();
+					if (player1.node.seat) player1.node.seat.innerHTML = get.cnNumber(player1.seat, true);
+					player2.seat = player2.getSeatNum();
+					if (player2.node.seat) player2.node.seat.innerHTML = get.cnNumber(player2.seat, true);
 				};
 				
 				// if (get.mode() == 'boss') {
@@ -3753,6 +3811,12 @@ content:function(config, pack){
 							return nodeMark;
 						},
 						
+						setSeatNum:function(){
+							base.lib.element.player.setSeatNum.apply(this, arguments);
+							this.seat = this.getSeatNum();
+							this.node.seat.innerHTML = get.cnNumber(this.seat, true);
+						},
+						
 						markSkillCharacter:function(id, target, name, content){
 							if (typeof target == 'object') target = target.name;
 							game.broadcastAll(function(player, target, name, content, id) {
@@ -3976,7 +4040,6 @@ content:function(config, pack){
 							that.node.dieidentity.innerHTML = '';
 							that.node.dieidentity.style.backgroundImage = 'url("' + url + '")';
 							image.src = url;
-							//that.node.dieidentity.innerHTML = decadeUI.getPlayerIdentity(that, that.identity, true) + '<br>阵亡';
 							setTimeout(function(){
 								var rect = that.getBoundingClientRect();
 								decadeUI.animation.playSpine('effect_zhenwang', {
@@ -4509,7 +4572,7 @@ content:function(config, pack){
 							this.classList.add('selected');
 							this.updateTransform(true);
 						}
-						if (game.chess && get.config('show_range') && !_status.event.skill && this.classList.contains('selected') && _status.event.isMine() && _status.event.name == 'chooseToUse') {
+						if (game.chess && get.config('show_range') && !_status.event.skill && this.classList.contains('selected')&&(typeof _status.event.isMine=='function') && _status.event.isMine() && _status.event.name == 'chooseToUse') {
 							var player = _status.event.player;
 							var range = get.info(this).range;
 							if (range) {
@@ -4811,7 +4874,7 @@ content:function(config, pack){
 							event._cardChoice = [];
 							firstCheck = true;
 						}
-						if (event.isMine() && event.name == 'chooseToUse' && event.parent.name == 'phaseUse' && !event.skill && !event._targetChoice && !firstCheck && window.Map && !lib.config.compatiblemode) {
+						if ((typeof event.isMine == 'function') && event.isMine() && event.name == 'chooseToUse' && event.parent.name == 'phaseUse' && !event.skill && !event._targetChoice && !firstCheck && window.Map && !lib.config.compatiblemode) {
 							event._targetChoice = new Map();
 							for (var i = 0; i < event._cardChoice.length; i++) {
 								if (!lib.card[event._cardChoice[i].name].complexTarget) {
@@ -4986,7 +5049,7 @@ content:function(config, pack){
 					if (event._skillChoice) {
 						skills2 = event._skillChoice;
 						for (var i = 0; i < skills2.length; i++) {
-							if (event.isMine() || !event._aiexclude.contains(skills2[i])) {
+							if (((typeof event.isMine == 'function') && event.isMine()) || !event._aiexclude.contains(skills2[i])) {
 								skills.push(skills2[i]);
 							}
 						}
@@ -5020,7 +5083,7 @@ content:function(config, pack){
 							}
 							
 							if (enable) {
-								if (event.isMine() || !event._aiexclude.contains(skills2[i])) {
+								if (((typeof event.isMine == 'function') && event.isMine()) || !event._aiexclude.contains(skills2[i])) {
 									skills.add(skills2[i]);
 								}
 								event._skillChoice.add(skills2[i]);
@@ -5085,7 +5148,7 @@ content:function(config, pack){
 				} else if (_status.event.multitarget) {
 					_status.multitarget = true;
 				}
-				if (event.isMine()) {
+				if ((typeof event.isMine == 'function') && event.isMine()) {
 					if (game.chess && game.me && get.config('show_distance')) {
 						for (var i = 0; i < players.length; i++) {
 							if (players[i] == game.me) {
@@ -5357,7 +5420,7 @@ content:function(config, pack){
                     if (get.mode() == 'guozhan') {
                         identityList = {
 							sst_light:'光',
-							sst_darkness:'暗',
+							sst_dark:'暗',
 							sst_spirit:'魂',
 							sst_reality:'现',
 							sst_smash:'斗',
@@ -5457,18 +5520,16 @@ content:function(config, pack){
 				}
 			};
 			
-			/*
-			if ((typeof ui.create.menu) == 'function') {
-				var str = ui.create.menu.toString();
-				str = str.substring(str.indexOf('{'));
-				str = str.replace(/game\.documentZoom|1\.3/g, '1');
-				createMenuFunction = new Function('connectMenu', '_status','lib','game','ui','get','ai', str);
-			}
+			// if ((typeof ui.create.menu) == 'function') {
+				// var str = ui.create.menu.toString();
+				// str = str.substring(str.indexOf('{'));
+				// str = str.replace(/game\.documentZoom|1\.3/g, '1');
+				// createMenuFunction = new Function('connectMenu', '_status','lib','game','ui','get','ai', str);
+			// }
 			
-			ui.create.menu = function(connectMenu){
-				return createMenuFunction.call(this, connectMenu, _status, lib, game, ui, get, ai);
-			};
-			*/
+			// ui.create.menu = function(connectMenu){
+				// return createMenuFunction.call(this, connectMenu, _status, lib, game, ui, get, ai);
+			// };
 			
 			ui.create.arena = function(){
 				ui.updatez();
@@ -5961,31 +6022,29 @@ content:function(config, pack){
 			};
 			
 			// 不联机就不用
-			/*
-			ui.create.chat = function(){
-				var chatBox = ui.arena.appendChild(decadeUI.component.chatBox());
-				for (var i = 0; i < lib.chatHistory.length; i++) {
-					chatBox.addEntry(lib.chatHistory[i]);
-				}
+			// ui.create.chat = function(){
+				// var chatBox = ui.arena.appendChild(decadeUI.component.chatBox());
+				// for (var i = 0; i < lib.chatHistory.length; i++) {
+					// chatBox.addEntry(lib.chatHistory[i]);
+				// }
 				
-				_status.addChatEntry = chatBox.addEntry;
-				Object.defineProperties(_status, {
-					addChatEntry: {
-						configurable: true,
-						get:function(){
-							return chatBox.addEntry;
-						},
-						set:function(value){
-							chatBox.overrideEntry = value;
-						}
-					},
-				});
+				// _status.addChatEntry = chatBox.addEntry;
+				// Object.defineProperties(_status, {
+					// addChatEntry: {
+						// configurable: true,
+						// get:function(){
+							// return chatBox.addEntry;
+						// },
+						// set:function(value){
+							// chatBox.overrideEntry = value;
+						// }
+					// },
+				// });
 				
-				var retVal = base.ui.create.chat.apply(this, arguments);
-				chatBox.addEntry._origin = chatBox;
-				return retVal;
-			};
-			*/
+				// var retVal = base.ui.create.chat.apply(this, arguments);
+				// chatBox.addEntry._origin = chatBox;
+				// return retVal;
+			// };
 			
 			lib.init.cssstyles = function(){
 			    var temp = lib.config.glow_phase;
@@ -6407,9 +6466,14 @@ content:function(config, pack){
 
 				game.log(player, '的拼点牌为', event.card1);
 				game.log(target, '的拼点牌为', event.card2);
-				
-				event.num1 = event.card1.number;
-				event.num2 = event.card2.number;
+				var getNum=function(card){
+					for(var i of event.lose_list){
+						if(i[1]==card) return get.number(card,i[0]);
+					}
+					return get.number(card,false);
+				}
+				event.num1=getNum(event.card1);
+				event.num2=getNum(event.card2);
 				event.trigger('compare');
 				decadeUI.delay(400);
 				
@@ -6567,6 +6631,13 @@ content:function(config, pack){
 				"step 2"
 				var cards = [];
 				var lose_list = [];
+				event.lose_list = lose_list;
+				event.getNum=function(card){
+					for(var i of event.lose_list){
+						if(i[1].contains&&i[1].contains(card)) return get.number(card,i[0]);
+					}
+					return get.number(card,false);
+				};
 				if (event.fixedResult && event.fixedResult[player.playerid]) {
 					event.list.unshift(player);
 					result.unshift({
@@ -6601,7 +6672,7 @@ content:function(config, pack){
 				event.cardlist = cards;
 				event.cards = cards;
 				event.card1 = result[0].cards[0];
-				event.num1 = event.card1.number;
+				event.num1 = event.getNum(event.card1);
 				event.iwhile = 0;
 				event.result = {
 					player: event.card1,
@@ -6625,7 +6696,7 @@ content:function(config, pack){
 					// event.target.animate('target');
 					// player.animate('target');
 					event.card2 = event.cardlist[event.iwhile];
-					event.num2 = event.card2.number;
+					event.num2 = event.getNum(event.card2);
 					game.log(event.target, '的拼点牌为', event.card2);
 					player.line(event.target);
 					
@@ -6790,7 +6861,7 @@ content:function(config, pack){
 					
 					event.player.wait();
 					decadeUI.game.wait();
-				} else if (!event.isMine()) {
+				} else if (!(typeof event.isMine == 'function' && event.isMine())) {
 					event.switchToAuto();
 				}
 				"step 1"
@@ -9485,6 +9556,9 @@ content:function(config, pack){
 	console.timeEnd(extensionName);
 },
 precontent:function(){
+	if(['tafang','chess'].contains(get.mode()) && lib.config['extension_十周年UI_closeWhenChess']){
+		return;
+	}
 	window.decadeUIName = '十周年UI';
 	window.decadeUIPath = lib.assetURL + 'extension/' + decadeUIName + '/';
 	if (lib.config['extension_' + decadeUIName + '_eruda']) {
@@ -9770,7 +9844,10 @@ config:{
 			if (window.decadeUI) ui.arena.dataset.playerMarkStyle = lib.config['extension_十周年UI_playerMarkStyle'];
 		}
     },
-
+	closeWhenChess:{
+		name: '战棋模式关闭UI',
+        init: false,
+	}
 },
 package:{
     character:{
@@ -9795,8 +9872,10 @@ package:{
     intro:(function(){
 		var log = [
 			'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
-			'当前版本：1.2.0.220113',
-			'更新日期：2022-01-14',
+			'当前版本：1.2.0.220114.5（寰宇星城修复版）',
+			'更新日期：2022-05-30',
+			'- 跟进无名杀最新版本，拼点点数计算。',
+			/*
 			'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 			'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
 			'- 优化了主玩家攻击指示线的位置显示；',
@@ -9807,7 +9886,7 @@ package:{
 			'- 修复挑战模式下界武将名丢失的问题；',
 			'- 修复挑战模式下动皮异常拉伸的问题；',
 			'- 修复了加载其他目录的特效文件问题；',
-			'- 修复低版本窗口改动后动皮模糊问题；'
+			'- 修复低版本窗口改动后动皮模糊问题；'*/
 		];
 		
 		return '<p style="color:rgb(210,210,000); font-size:12px; line-height:14px; text-shadow: 0 0 2px black;">' + log.join('<br>') + '</p>';
@@ -9815,7 +9894,7 @@ package:{
     author:"原作者：短歌 QQ464598631<br>修改者（未经允许）：Show-K",
     diskURL:"",
     forumURL:"",
-    version:"1.2.0.220114SST",
+    version:"1.2.0.220114.5SST",
 },
 files:{
     "character":[],

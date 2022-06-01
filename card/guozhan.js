@@ -63,7 +63,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						return;
 					}
 					event.current=current;
-					if(current.identity!='sst_darkness'){
+					if(current.identity!='sst_dark'){
 						current.chooseToDiscard('he','弃置一张牌，并视为对'+get.translation(target)+'使用一张【杀】，或点击「取消」可以弃置其一张牌').set('ai',function(card){
 							if(!_status.event.goon) return 0;
 							return 5-get.value(card);
@@ -85,7 +85,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						if(current.isIn()&&current.canUse({name:'sha',isCard:true},target,false)) current.useCard({name:'sha',isCard:true},target,false);
 					}
 					else{
-						current[current.identity=='sst_darkness'?'gainPlayerCard':'discardPlayerCard'](target,'he').set('boolline',true);
+						current[current.identity=='sst_dark'?'gainPlayerCard':'discardPlayerCard'](target,'he').set('boolline',true);
 					}
 					if(event.list.length) event.goto(1);
 				},

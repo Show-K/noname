@@ -3016,7 +3016,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'sst_duck_hunt',
 				'sst_ness','sst_chrom','sst_lucina','sst_robin'
 			],
-			sst_darkness:[
+			sst_dark:[
 				'sst_wario','sst_ganondorf','sst_bowser','sst_ridley','sst_dark_samus','sst_mr_game_watch',
 				'sst_simon','sst_incineroar','sst_greninja','sst_king_k_rool','sst_richter','sst_meta_knight',
 				'sst_bowser_jr','sst_koopalings','sst_sheik','sst_wolf','sst_young_link','sst_joker',

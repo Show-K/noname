@@ -2792,7 +2792,7 @@ div:not(.handcards)>.card>.info>span,
 	background-image: radial-gradient(circle at bottom left, rgb(255, 218, 71), rgb(224, 191, 62))
 }
 
-.identitycircle > div > div[data-color='sst_darkness'] {
+.identitycircle > div > div[data-color='sst_dark'] {
 	background-image: radial-gradient(circle at bottom left, rgb(157, 198, 255), rgb(117, 147, 189))
 }
 
@@ -4095,7 +4095,7 @@ span[data-nature='woodmm'] {
 .player .identity[data-color="bZhu"],
 .player .identity[data-color="bZhong"],
 .player .identity[data-color="bNei"],
-.player .identity[data-color="sst_darkness"],
+.player .identity[data-color="sst_dark"],
 .player .identity[data-color="falsezhu"],
 .player .identity[data-color="friend"],
 .water,
