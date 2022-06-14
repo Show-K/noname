@@ -11371,6 +11371,8 @@
 						updateButtons();
 						
 						event.custom.replace.button=function(button){
+							var node=button.parentNode;
+							if(!buttonss.contains(node)) return;
 							if(!ui.selected.guanxing_button){
 								ui.selected.guanxing_button=button;
 								button.classList.add('glow2');
@@ -17923,6 +17925,28 @@
 				},
 				//SST new add end
 				//新函数
+				changeZhuanhuanji:function(skill){
+					var player=this,info=get.info(skill),zhuanhuan=info.zhuanhuanji;
+					if(typeof zhuanhuan=='function') zhuanhuan(player,skill);
+					else if(zhuanhuan=='number') player.addMark(skill,1,false);
+					else player.storage[skill]=!player.storage[skill];
+					game.broadcastAll(function(player,skill){
+						player.$changeZhuanhuanji(skill);
+					},player,skill);
+				},
+				$changeZhuanhuanji:function(skill){
+					var mark=this.marks[skill];
+					if(mark){
+						if(mark.firstChild.reversed){
+							mark.firstChild.reversed=false;
+							mark.firstChild.style.transform='none';
+						}
+						else{
+							mark.firstChild.reversed=true;
+							mark.firstChild.style.transform='rotate(180deg)';
+						}
+					}
+				},
 				setSeatNum:function(num){
 					_status.seatNumSettled=true;
 					game.broadcastAll(function(player,num){
@@ -28885,7 +28909,7 @@
 									}
 									this.remove();
 									delete ui.removeObserve;
-								},true);
+								},true,true);
 							}
 						}
 						else{
@@ -51944,7 +51968,7 @@
 					var next={
 						name:get.name(card),
 						suit:get.suit(card),
-						number:card.number,
+						number:get.number(card),
 						nature:get.nature(card),
 						isCard:true,
 						cardid:card.cardid,
