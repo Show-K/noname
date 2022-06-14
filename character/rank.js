@@ -157,7 +157,8 @@ window.noname_character_rank={
 			"sst_min_min",
 			"ska_bandana_waddle_dee",
 			"sst_enderman",
-			"ska_magolor"
+			"ska_magolor",
+			"xsj_dante"
 		],
 		junk:[]
 	}

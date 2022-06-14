@@ -101,7 +101,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			<br>\
 			系列：（）<br>\
-			初登场：（）<br>\
+			首次登场：（）<br>\
 			<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -112,7 +112,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0264. 萨姆斯/Samus/サムス<br>\
 			系列：Metroid（密特罗德）<br>\
-			初登场：Metroid（密特罗德）<br>\
+			首次登场：Metroid（密特罗德）<br>\
 			萨姆斯·亚兰是游戏历史上第一个女主角，以只身一人在外星球的作战闻名。她的能量装甲是高等文明“鸟人族”的成果，给了她强大的火力、防护力和升级的可能性。在大乱斗中，虽然她是道具人，但是她的体术也不差。她的蓄力射击威力惊人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -122,7 +122,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0978. 肯/Ken/ケン<br>\
 			系列：Street Fighter（街头霸王）<br>\
-			初登场：Street Fighter（街头霸王）<br>\
+			首次登场：Street Fighter（街头霸王）<br>\
 			肯是隆的头号挚友兼劲敌，两人师出同门，与风餐露宿四处苦行的隆不同，肯有着自己的家族与财大气粗的产业，据说现在空手道网课也办的红红火火。他在年轻时因为急躁吃过不少败仗，但现在的他已经有了自己的家庭，即便如此，在顾家的闲暇也一定要挤出时间与挚友对战几局，才是男人的快乐。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -132,7 +132,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1386. 库罗德/Claude/クロード<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
-			初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
+			首次登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
 			雷斯塔诸侯同盟盟主之孙、爵位继承人。喜欢策略，喜欢琢磨战术，为了达到目标可以不择手段。不论玩家选择的是贝雷特还是贝雷丝，他都会以“兄弟”称呼他的老师。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -142,7 +142,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0134. 森喜刚/Donkey Kong/ドンキーコング<br>\
 			系列：Donkey Kong（森喜刚）<br>\
-			初登场：Donkey Kong（森喜刚）<br>\
+			首次登场：Donkey Kong（森喜刚）<br>\
 			丛林的王者，也是最狂热的香蕉狂魔。他的冒险总是以某人偷了他的香蕉开始。在大乱斗中，他的力度和投技是众所周知的。虽然体积很大，但是速度也不是特别慢。他的前投掷还能扛着对手走哦！要合理利用这一点！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -152,7 +152,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0265. 黑暗萨姆斯/Dark Samus/ダークサムス<br>\
 			系列：Metroid（密特罗德）<br>\
-			初登场：（）<br>\
+			首次登场：（）<br>\
 			萨姆斯的废弃盔甲、究极密特罗德和有机矿石“啡宗”结合的产物，不但有强大的恢复能力，还能精神控制其他生物和制造自己的分身。它在3ds和WiiU版《任天堂明星大乱斗》中作为辅助模型的时候还能使用啡宗的力量攻击，成为斗士之后各个招式倒是完全和萨姆斯一样了，遗憾。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -165,7 +165,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1051. 里希特·贝尔蒙特/Richter Belmont/リヒター・ベルモンド<br>\
 			系列：Castlevania（恶魔城）<br>\
-			初登场：Castlevania: Rondo of Blood（恶魔城X 血之轮回）<br>\
+			首次登场：Castlevania: Rondo of Blood（恶魔城X 血之轮回）<br>\
 			《恶魔城X：血之轮回》的主角，吸血鬼猎人家族的后代，他从德古拉手中救出了自己的恋人，还曾经和德古拉的儿子阿鲁卡多并肩作战。他擅长使用杂技般灵活的体术与敌人周旋，还能解放除鞭子外其他神圣武器的力量，进行更强力的攻击。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -175,7 +175,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0977. 隆/Ryu/リュウ<br>\
 			系列：Street Fighter（街头霸王）<br>\
-			初登场：Street Fighter（街头霸王）<br>\
+			首次登场：Street Fighter（街头霸王）<br>\
 			隆，武道上永恒的探求者，凭借着从刚拳处学来的波动流暗杀术，他遍历全球挑战强者，在夺得大赛冠军后却淡泊名利不去领奖，因为他的目标只有一个，也是豪鬼留给他的问题：战斗的意义，除了杀戮，还有什么？他也曾为了追求力量迷失自我，将自己沉浸在杀意中，但现在的他已经将阴影从心中驱逐，俨然一代宗师。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -186,7 +186,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0104. Geno/ジーノ<br>\
 			系列：Mario（马力欧）<br>\
-			初登场：Super Mario RPG（超级马力欧RPG）<br>\
+			首次登场：Super Mario RPG（超级马力欧RPG）<br>\
 			他是星之族的一员，本来没有身体，本名也是无法拼读的“♡♪!?”，所以选择附身在一个叫Geno的木偶上行动。他总是自信满满，擅长分析问题，战斗能力也相当出色。他会和马力欧、桃花公主、酷霸王和Mallow一起打败恶人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\

@@ -11,7 +11,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_bandana_waddle_dee","ska_magolor"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
-				sst_xsj:["xsj_yu_narukami"],
+				sst_xsj:["xsj_yu_narukami","xsj_dante"],
 				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
 			}
 		},
@@ -37,7 +37,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
 			ska_bandana_waddle_dee:["male","sst_spirit",3,["ska_qiangdu","ska_mengchen"],[]],
-			ska_magolor:["male","sst_spirit","1/1/5",["ska_xianghuan","ska_mofan"],[]]
+			ska_magolor:["male","sst_spirit","1/1/5",["ska_xianghuan","ska_mofan"],[]],
+			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -56,7 +57,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			<br>\
 			系列：（）<br>\
-			初登场：（）<br>\
+			首次登场：（）<br>\
 			<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -67,7 +68,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0827. 西施惠/Isabelle/しずえ<br>\
 			系列：Animal Crossing（动物森友会）<br>\
-			初登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>\
+			首次登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>\
 			在3DS版《动物森友会》中，她是村民们的可靠秘书；而在NS版中，她也为每个无人岛居民提供生活服务。她有时可能健忘，但总的来说很靠谱。有个叫西施德的弟弟。她在3DS和WiiU版《任天堂明星大乱斗》中是辅助模型，NS版中则成为了斗士。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -76,9 +77,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：海鮮炒め<br>"+
 			get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
 			<hr>\
-			????. 炸弹彬/Bobby/ボム平<br>\
+			S003. 炸弹彬/Bobby/ボム平<br>\
 			系列：Mario（马力欧）<br>\
-			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
@@ -90,7 +91,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
 			系列：Mario（马力欧）<br>\
-			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			由掌握赋生折法的匠人制作的折纸，奥利王的妹妹。非常天真烂漫，对世界充满了好奇心。为了阻止哥哥的野心而踏上冒险之途，虽然也有过悲痛和犹豫，但是还是走到了最后。非常擅长唱歌跳舞，喜欢泡温泉和撸狗。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -98,21 +99,27 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_super_xiaojie:"武将作者：Show-K<br>\
 			插图作者：未知<br>\
 			<hr>\
+			R017. 超级小桀\
+			<hr>\
 			喜欢没事说嬲，但更喜欢不放弃。",
 			ska_show_k:"武将作者：Show-K<br>\
 			插图作者：Show-K<br>\
+			<hr>\
+			R016. 小溪/Show-K\
 			<hr>\
 			有人建议我给我自己写一个，于是我就写出来了。",
 			ymk_yumikohimi:"武将作者：Yumikohimi<br>\
 			插图作者：mario not mary<br>\
 			<hr>\
+			R003. 柚子/Yumikohimi\
+			<hr>\
 			果然刚设计出来就要被削，果然还是三方定律。现在削了，感觉可以。",
 			ska_professor_toad:"武将作者：Show-K<br>\
 			插图作者：未知<br>\
 			<hr>\
-			????. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
+			S004. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
 			系列：Mario（马力欧）<br>\
-			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
@@ -123,7 +130,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
-			初登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
+			首次登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
 			阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>\
 			——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -133,7 +140,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1362. 草薙京/Kyo Kusanagi/草薙京<br>\
 			系列：The King of Fighters（拳皇）<br>\
-			初登场：The King of Fighters \x2794（拳皇\x2794）<br>\
+			首次登场：The King of Fighters \x2794（拳皇\x2794）<br>\
 			炎之贵公子草薙京，三神器之一“草薙剑”的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>\
 			——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -143,7 +150,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>\
 			系列：F-Zero（零式赛车）<br>\
-			初登场：F-Zero（零式赛车）<br>\
+			首次登场：F-Zero（零式赛车）<br>\
 			在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -154,7 +161,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1427. 奥利王/King Olly/オリー王<br>\
 			系列：Mario（马力欧）<br>\
-			初登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
 			由掌握赋生折法的匠人制作的折纸，奥莉维亚的哥哥。自称折纸国王，将匠人的所有文具变为了自己的手下，有把整个纸片世界都变成折纸的野心。手段残忍，即使是亲妹妹也会毫不犹豫的下手。骄傲的背后其实是极端的玻璃心和无知。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -164,7 +171,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0037. 慢慢龟/Koopa Troopa/ノコノコ<br>\
 			系列：Mario（马力欧）<br>\
-			初登场：Super Mario Bros.（超级马力欧兄弟）<br>\
+			首次登场：Super Mario Bros.（超级马力欧兄弟）<br>\
 			在酷霸王军团里，最常见的不是栗宝宝就是慢慢龟了。它们看起来很温顺，但它们也有奋不顾身地跳崖的勇气。马力欧如果踩到慢慢龟，它们会缩进壳里，这个状态下的它们经常被踢来踢去或者扔来扔去。马力欧游戏的不少地名都是以慢慢龟命名的哦。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -174,7 +181,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
 			系列：Wario（瓦力欧）<br>\
-			初登场：WarioWare, Inc.: Mega Microgame$!（瓦力欧制造）<br>\
+			首次登场：WarioWare, Inc.: Mega Microgame$!（瓦力欧制造）<br>\
 			九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -184,13 +191,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
-			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
-			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -200,7 +207,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
-			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -210,7 +217,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
 			系列：Fire Emblem（火焰纹章）<br>\
-			初登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -220,7 +227,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			1241. 不来方夕莉/Yuri Kozukata/不来方夕莉<br>\
 			系列：Fatal Frame（零）<br>\
-			初登场：Fatal Frame: Maiden of Black Water（零～濡鸦之巫女～）<br>\
+			首次登场：Fatal Frame: Maiden of Black Water（零～濡鸦之巫女～）<br>\
 			在经历过交通事故之后，拥有了能看见死者的能力。被这个能力困扰的她本想自杀，最后被人救下，并学会了使用“射影机”对抗怨灵。在一次委托中，她逐渐发现了灵山中的真相。在大乱斗中，作为辅助模型的她可以使用射影机对被拍到的斗士造成伤害。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -228,13 +235,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_tianyi:"武将作者：Yumikohimi<br>\
 			插图作者：未知<br>\
 			<hr>\
+			R018. 天翊\
+			<hr>\
 			啊对对对。",
 			xsj_yu_narukami:"武将作者：小时节、Yumikohimi<br>\
 			插图作者：未知<br>\
 			<hr>\
-			????. 鸣上悠/Yu Narukami/鳴上悠<br>\
+			S005. 鸣上悠/Yu Narukami/鳴上悠<br>\
 			系列：Persona（女神异闻录）<br>\
-			初登场：Persona 4（女神异闻录4）<br>\
+			首次登场：Persona 4（女神异闻录4）<br>\
 			鸣上悠是Atlus开发的《女神异闻录》系列中的一个虚构角色，作为2008年角色扮演视频游戏《女神异闻录4》的主角首次亮相。在游戏中，鸣上悠本身不说话，其思想和行动由玩家决定。作为一名高中生，他搬到远离城市的农村地区稻叶，与他的叔叔堂岛辽太郎和表弟菜菜子住在一起，而他的父母正忙于工作。抵达稻叶后不久，鸣上悠开始调查一起谋杀案，受害者在他居住的小镇上被神秘绑架并挂在电话线上。他与同学们合作，探索另一个被称为电视世界的维度，在那里他获得了一种被称为“Persona”的力量——他潜意识的物理表现，以对抗并击败谋杀第一批受害者的生物Shadows。鸣上悠还出现在与《女神异闻录4》相关的其他作品中，包括名为《女神异闻录4 动画》的动画改编、漫画版和几款衍生游戏。对于这些作品，鸣上悠在故事中得到了自己的刻画和发展。<br>\
 			——翻译自《维基百科》<br>\
 			<hr>\
@@ -245,7 +254,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
 			系列：Kirby（星之卡比）<br>\
-			初登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
+			首次登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
 			头巾瓦豆鲁迪并非一个种群，而是指一位特定的戴蓝色头巾的瓦豆鲁迪。他是族群中的精英，使得一手好长枪，自《星之卡比：重返梦幻岛》以来多次作为可操作角色出场，可以用长枪使出暴风骤雨般的攻击。他直接效忠于帝帝帝大王，但同时也是卡比最好的朋友之一。目前他在星之卡比系列中的戏份地位堪比主角，仅次于卡比，帝帝帝大王，魅塔骑士。如果星之卡比系列还有人能够参战大乱斗，他将是最有竞争力的候选人之一。<br>\
 			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -256,11 +265,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0355. 魔法洛亚/Magolor/マホロア<br>\
 			系列：Kirby（星之卡比）<br>\
-			初登场：Kirby\x27s Return to Dream Land（星之卡比Wii）<br>\
+			首次登场：Kirby\x27s Return to Dream Land（星之卡比Wii）<br>\
 			某一天，梦幻岛的上空出现了大洞，魔法洛亚的飞船从洞中摔到了地面。虽然飞船坏了，但是魔法洛亚本人并没有事。他拜托卡比和它的朋友们一起收集飞船的部件，并且一起穿越次元回到自己的家乡。一切看起来好像都很平常，直到……<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。"
+			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。",
+			xsj_dante:"武将作者：小时节、Yumikohimi<br>\
+			插图作者：未知<br>\
+			<hr>\
+			S006. 但丁/Dante/ダンテ<br>\
+			系列：Devil May Cry（鬼泣）<br>\
+			首次登场：Devil May Cry（鬼泣）<br>\
+			但丁是鬼泣系列的游戏角色。但丁是1代至3代的主角，以华丽的动作身手成为一个受欢迎的人物。在4代和5代中，但丁将会担任游戏后半段的主角。<br>\
+			——《维基百科》<br>\
+			<hr>\
+			啊，差点就忘记了。"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -284,7 +303,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
 			ska_bandana_waddle_dee:"瓦豆鲁迪的传说",
-			ska_magolor:"心中的最佳盟友"
+			ska_magolor:"心中的最佳盟友",
+			xsj_dante:"斯巴达之子"
 		},
 		skill:{
 			//SP Isabelle
@@ -415,7 +435,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterTarget:function(card,player,target){
 					return player.inRange(target);
 				},
-				delay:false,
 				content:function(){
 					"step 0"
 					player.judge(function(card){
@@ -1883,13 +1902,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					prompt:function(){return "请选择〖折生〗的目标";},
 				},
 				contentx:function(){
-					var card=lib.skill.ska_zhesheng_backup.cards[0];
-					//targets[0].$throw(card);
-					_status.renku.remove(card);
+					"step 0"
+					event.card=lib.skill.ska_zhesheng_backup.cards[0];
+					_status.renku.remove(event.card);
 					game.updateRenku();
-					game.cardsGotoOrdering(card);
-					player.showCards(card);
-					targets[0].useCard(card,targets[1],false,"noai");
+					game.cardsGotoOrdering(event.card);
+					player.showCards(event.card);
+					"step 1"
+					targets[0].useCard(event.card,targets[1],false,"noai");
 				},
 				ai:{
 					combo:["ska_shenqi","ska_shenqi2"],
@@ -2159,8 +2179,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				locked:false,
 				forced:true,
 				trigger:{
-					global:"gameStart",
+					global:"phaseBefore",
 					player:"enterGame"
+				},
+				filter:function(event,player){
+					return event.name!="phase"||game.phaseNumber==0;
 				},
 				content:function(){
 					player.addMark("alz_yingjian",3);
@@ -2169,7 +2192,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			alz_yingjian2:{
 				zhuanhuanji:true,
-				delay:false,
 				prompt:function(){
 					var player=_status.event.player;
 					if(player.storage.alz_yingjian2) return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一个“灵”";
@@ -2339,22 +2361,27 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"phaseBegin"},
 				content:function(){
 					"step 0"
-					player.draw("nodelay");
+					player.draw();
 					"step 1"
-					player.showCards(result);
-					player.storage.xsj_dongqie=result[0];
-					player.markSkill("xsj_dongqie");
-					var evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.xsj_dongqie){
-						evt.set("xsj_dongqie",true);
-						var next=game.createEvent("xsj_dongqie_clear");
-						event.next.remove(next);
-						evt.after.push(next);
-						next.set("player",player);
-						next.setContent(function(){
-							delete player.storage.xsj_dongqie;
-							player.unmarkSkill("xsj_dongqie");
-						});
+					var cards=result.filter(function(card){
+						return player.getCards("he").contains(card);
+					});
+					if(cards.length){
+						player.showCards(cards);
+						player.storage.xsj_dongqie=cards[0];
+						player.markSkill("xsj_dongqie");
+						var evt=event.getParent("phase");
+						if(evt&&evt.name=="phase"&&!evt.xsj_dongqie){
+							evt.set("xsj_dongqie",true);
+							var next=game.createEvent("xsj_dongqie_clear");
+							event.next.remove(next);
+							evt.after.push(next);
+							next.set("player",player);
+							next.setContent(function(){
+								delete player.storage.xsj_dongqie;
+								player.unmarkSkill("xsj_dongqie");
+							});
+						}
 					}
 				},
 				group:"xsj_dongqie2"
@@ -2456,22 +2483,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:"ska_qiangdu_init"
 			},
 			ska_qiangdu_init:{
+				forced:true,
+				locked:false,
 				trigger:{
 					global:"phaseBefore",
 					player:"enterGame"
 				},
-				forced:true,
-				locked:false,
-				filter:function(){
-					return !lib.inpile.contains("ska_spear_thrust");
+				filter:function(event,player){
+					return (event.name!="phase"||game.phaseNumber==0)&&!lib.inpile.contains("ska_spear_thrust");
 				},
 				content:function(){
+					var cards=[];
 					for(var i=1;i<=11;i++){
 						var card=game.createCard2("ska_spear_thrust","spade",i);
+						cards.push(card);
 						ui.cardPile.insertBefore(card,ui.cardPile.childNodes[get.rand(0,ui.cardPile.childNodes.length)]);
 					}
-					game.broadcastAll(function(){lib.inpile.add("ska_spear_thrust")});
+					game.broadcastAll(function(){
+						lib.inpile.add("ska_spear_thrust");
+					});
 					game.updateRoundNumber();
+					player.$throw(cards);
+					game.delayx();
 				}
 			},
 			ska_qiangdux:{
@@ -2500,11 +2533,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 2"
 					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
 						event.targets=result.targets;
 						player.logSkill("ska_mengchen",event.targets);
 						event.cards=[];
 						event.num=0;
-						event.targets.push(player).sortBySeat(_status.currentPhase);
+						event.targets.push(player);
+						event.targets.sortBySeat(_status.currentPhase);
 					}
 					else{
 						event.finish();
@@ -2617,7 +2652,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:true,
 				selectCard:[1,3],
 				position:"he",
-				delay:false,
 				content:function(){
 					player.storage.ska_mofan_mahou=[cards.length,cards.length];
 					player.addTempSkill("ska_mofan_mahou",{player:"die"});
@@ -2704,6 +2738,72 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			//Dante
+			xsj_wanxie:{
+				trigger:{global:["loseAfter","cardsDiscardAfter"]},
+				direct:true,
+				filter:function(event,player){
+					return event.cards&&event.cards.filter(function(card){
+						return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
+					}).length>0;
+				},
+				content:function(){
+					"step 0"
+					if(trigger.delay==false) game.delay();
+					"step 1"
+					player.chooseToRespond().set("ai",function(card){
+						var cards=_status.event.getTrigger().cards.filter(function(card){
+							return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
+						});
+						var val=0;
+						for(var i=0;i<cards.length;i++){
+							val+=get.value(cards[i]);
+						}
+						return val-get.value(card);
+					}).set("position","hes").set("logSkill","xsj_wanxie").set("prompt",get.prompt("xsj_wanxie")).set("prompt2","你可以打出一张牌，然后获得"+get.translation(trigger.cards.filter(function(card){
+						return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
+					})));
+					"step 2"
+					if(result.card){
+						var cards=trigger.cards.filter(function(card){
+							return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
+						});
+						if(cards.length) player.gain(cards,"gain2");
+					}
+				}
+			},
+			xsj_moxue:{
+				direct:true,
+				trigger:{player:"damageEnd"},
+				filter:function(event,player){
+					return player.countCards("e");
+				},
+				content:function(){
+					"step 0"
+					player.chooseCard(get.prompt2("xsj_moxue"),"e").set("ai",function(card){
+						if(player.hasValueTarget({name:"juedou",isCard:true})) return 8-get.value(card);
+						return 0;
+					});
+					"step 1"
+					if(result.cards&&result.cards.length){
+						player.logSkill("xsj_moxue");
+						player.gain(result.cards,"gain2");
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.chooseUseTarget({name:"juedou",isCard:true});
+				},
+				ai:{
+					maixie:true,
+					maixie_defend:true,
+					maixie_hp:true,
+					skillTagFilter:function(player){
+						if(!player.countCards("e")) return false;
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2754,6 +2854,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_yu_narukami:"鸣上悠",
 			ska_bandana_waddle_dee:"头巾瓦豆鲁迪",
 			ska_magolor:"魔法洛亚",
+			xsj_dante:"但丁",
 			//Character ab.
 			ska_bobby_ab:"炸弹兵",
 			ska_professor_toad_ab:"奇诺比奥",
@@ -2863,6 +2964,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你指定一张计入上限的手牌不计入上限直到离开手牌区，且本局游戏你的手牌上限+1。",
 			ska_mofan:"魔帆",
 			ska_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
+			xsj_wanxie:"万械",
+			xsj_wanxie_info:"当武器牌进入弃牌堆后，你可以打出一张牌，然后获得武器牌。",
+			xsj_moxue:"魔血",
+			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为你使用一张【决斗】。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2896,7 +3001,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_tianyi:"Tianyi",
 			xsj_yu_narukami:"Yu Narukami",
 			ska_bandana_waddle_dee:"Bandana Waddle Dee",
-			ska_magolor:"Magolor"
+			ska_magolor:"Magolor",
+			xsj_dante:"Dante"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
