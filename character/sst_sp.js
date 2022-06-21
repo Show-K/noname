@@ -797,7 +797,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_jiyan:{
 				dutySkill:true,
 				init:function(player){
-					player.storage.ska_jiyan=["sha","shan","tao","jiu"];
+					if(!Array.isArray(player.storage.ska_jiyan)) player.storage.ska_jiyan=["sha","shan","tao","jiu"];
 				},
 				group:["ska_jiyan_sha","ska_jiyan_shan","ska_jiyan_tao","ska_jiyan_jiu","ska_jiyan_achieve"],
 				subSkill:{
@@ -2187,6 +2187,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.addMark("alz_yingjian",3);
+					game.delayx();
 				},
 				group:["alz_yingjian2","alz_yingjian3"]
 			},
@@ -2211,12 +2212,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					if(!player.storage.alz_yingjian2){
-						player.storage.alz_yingjian2=true;
+					var current=player.storage.alz_yingjian2==true;
+					player.changeZhuanhuanji(event.name);
+					if(!current){
 						target.turnOver();
 					}
 					else{
-						player.storage.alz_yingjian2=false;
 						target.addTempSkill("fengyin","roundStart");
 					}
 					"step 1"
@@ -2750,8 +2751,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					if(trigger.delay==false) game.delay();
-					"step 1"
 					player.chooseToRespond().set("ai",function(card){
 						var cards=_status.event.getTrigger().cards.filter(function(card){
 							return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
@@ -2764,7 +2763,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("position","hes").set("logSkill","xsj_wanxie").set("prompt",get.prompt("xsj_wanxie")).set("prompt2","你可以打出一张牌，然后获得"+get.translation(trigger.cards.filter(function(card){
 						return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
 					})));
-					"step 2"
+					"step 1"
 					if(result.card){
 						var cards=trigger.cards.filter(function(card){
 							return get.position(card,true)=="d"&&get.subtype(card,false)=="equip1";
@@ -2808,13 +2807,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		dynamicTranslate:{
 			ska_jiyan:function(player){
-				if(!player.storage.ska_jiyan||!player.storage.ska_jiyan.length) return "使命技。①每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。②使命：你以此法使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。";
-				var str="使命技。①每个选项限一次，你可以视为使用一张：";
+				if(!player.storage.ska_jiyan||!player.storage.ska_jiyan.length) return "使命技。每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。<br>\
+				成功：你使用牌结算后，若所有选项均选择过，你增加1点体力上限并回复1点体力。";
+				var str="使命技。每个选项限一次，你可以视为使用一张：";
 				str+=player.storage.ska_jiyan.contains("sha")?"<span class=\"bluetext\">1. 【杀】；</span>":"<span style=\"opacity:0.5\">1. 【杀】；</span>";
 				str+=player.storage.ska_jiyan.contains("shan")?"<span class=\"bluetext\">2. 【闪】；</span>":"<span style=\"opacity:0.5\">2. 【闪】；</span>";
 				str+=player.storage.ska_jiyan.contains("tao")?"<span class=\"bluetext\">3. 【桃】；</span>":"<span style=\"opacity:0.5\">3. 【桃】；</span>";
 				str+=player.storage.ska_jiyan.contains("jiu")?"<span class=\"bluetext\">4. 【酒】。</span>":"<span style=\"opacity:0.5\">4. 【酒】。</span>";
-				str+="②使命：你使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。";
+				str+="<br>成功：你使用牌结算后，若所有选项均选择过，你增加1点体力上限并回复1点体力。";
 				return str;
 			},
 			alz_yingjian:function(player){
@@ -2869,7 +2869,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_jixing:"激行",
 			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色，然后你判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_wangshi:"惘事",
-			ska_wangshi_info:"使命技。①你区域内的♠牌和♠判定牌均视为♦。②使命：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
+			ska_wangshi_info:"使命技。你区域内的♠牌和♠判定牌均视为♦。<br>\
+			成功：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
 			ska_yangxun:"洋寻",
 			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其交给你一张牌。",
 			ska_shenqi:"神祇-",
@@ -2886,7 +2887,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_jiyan_shan:"籍验·闪",
 			ska_jiyan_tao:"籍验·桃",
 			ska_jiyan_jiu:"籍验·酒",
-			ska_jiyan_info:"使命技。①每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。②使命：你使用牌结算后，若你已没有可选选项，你增加1点体力上限并回复1点体力。",
+			ska_jiyan_info:"使命技。每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。<br>\
+			成功：你使用牌结算后，若所有选项均选择过，你增加1点体力上限并回复1点体力。",
 			ska_lunli:"论理",
 			ska_lunli_info:"当你成为一名角色使用牌的目标后，你可以展示一张与此牌点数差等于你的体力值的牌，若如此做，你可以摸一张牌，然后你可以令来源弃置一张牌。",
 			ska_shubian:"数变",

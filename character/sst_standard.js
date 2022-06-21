@@ -4157,7 +4157,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Dark Samus
 			sst_yingliu:{
-				trigger:{player:"phaseZhunbeiAfter"},
+				trigger:{player:"phaseZhunbeiBegin"},
 				forced:true,
 				content:function(){
 					"step 0"
@@ -4603,10 +4603,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				prompt:function(){
 					var player=_status.event.player;
 					if(player.storage.sst_qixiao){
-						return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸两张牌。";
+						return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数），你每以此法造成伤害后，摸两张牌。";
 					}
 					else{
-						return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸一张牌。";
+						return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数），你每以此法造成伤害后，摸一张牌。";
 					}
 				},
 				content:function(){
@@ -4641,7 +4641,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:function(storage,player){
 						if(player.storage.sst_qixiao){
-							return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸两张牌。";
+							return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数），你每以此法造成伤害后，摸两张牌。";
 						}
 					}
 				}
@@ -4681,7 +4681,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.log(player,"更改了","#g【奇嚣】","的描述");
 					player.popup("更改描述");
 					player.storage.sst_qixiao=true;
-					//player.markSkill("sst_qixiao");
 					player.addTempSkill("sst_xuansha_effect");
 					player.awakenSkill(event.name);
 					player.storage.sst_xuansha=true;
@@ -5479,20 +5478,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							}).set("filterCard",function(card,player){
 								if(get.type(card)!="basic") return false;
 								return lib.filter.filterCard.apply(this,arguments);
-								//return lib.filter.cardEnabled(card,player,"forceEnable");
-								//return true;
 							}).set("targetx",player);
-							/*
-							event.current.chooseToUse("是否对"+get.translation(player)+"使用一张基本牌？").set("targetRequired",true).set("complexSelect",true).set("filterTarget",function(card,player,target){
-								if(target!=_status.event.sourcex&&!ui.selected.targets.contains(_status.event.sourcex)) return false;
-								return lib.filter.filterTarget.apply(this,arguments);
-							}).set("filterCard",function(card){
-								return get.type(card)=="basic";
-							}).set("sourcex",player);
-							*/
 						}
 						event.redo();
 					}
+					"step 4"
+					if(!game.hasPlayere2(function(current){
+						return current.hasHistory("useCard",function(evt){
+							var parent=evt.getParent("chooseToUse");
+							return parent&&parent.name=="chooseToUse"&&parent.getParent().name=="sst_badao";
+						});
+					})) game.delayx();
 				},
 				ai:{
 					expose:0.2
@@ -5646,7 +5642,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				},
 				derivation:["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"],
-				zhuanhuanji:"number",
+				zhuanhuanji:function(player,skill){
+					if(player.storage[skill]<3){
+						player.storage[skill]++;
+					}
+					else{
+						player.storage[skill]=1;
+						player.drawTo(player.getHandcardLimit());
+					}
+				},
 				locked:false,
 				forced:true,
 				trigger:{player:["sst_shengxi_qiongtuAfter","sst_shengxi_shengfaAfter","sst_shengxi_yonghunAfter"]},
@@ -5654,18 +5658,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					var skills=["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"];
 					var before=player.storage.sst_shengxi-1;
-					if(player.storage.sst_shengxi>=3){
-						player.storage.sst_shengxi=1;
-					}
-					else{
-						player.storage.sst_shengxi++;
-						event.finish();
-					}
+					player.changeZhuanhuanji(event.name);
 					var after=player.storage.sst_shengxi-1;
 					player.removeSkill(skills[before]);
 					player.addSkill(skills[after]);
-					"step 1"
-					player.drawTo(player.getHandcardLimit());
 				}
 			},
 			sst_shengxi_qiongtu:{
@@ -6921,12 +6917,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return false;
 				},
 				onuse:function(result,player){
-					if(!player.storage.sst_diebu){
-						player.storage.sst_diebu=true;
-					}
-					else{
-						player.storage.sst_diebu=false;
-					}
+					player.changeZhuanhuanji("sst_diebu");
 				},
 				mod:{
 					targetInRange:function(card){
@@ -7307,17 +7298,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("complexSelect",true);
 					"step 2"
 					if(result.links&&result.links.length){
-						event.links=result.links;
-						player.gain(event.links,"gain2");
+						event.now=1;
+						for(var i=0;i<result.links.length;i++){
+							if(get.name(result.links[i])!="sha"){
+								event.now=2;
+								break;
+							}
+						}
+						event.previous=player.storage.sst_tandao;
+						player.storage.sst_tandao=event.now;
+						player.gain(result.links,"gain2");
 					}
 					"step 3"
-					var now=1;
-					for(var i=0;i<event.links.length;i++){
-						if(get.name(event.links[i])!="sha") now=2;
-					}
-					var previous=player.storage.sst_tandao;
-					player.storage.sst_tandao=now;
-					if(now==1&&previous==1) player.addTempSkill("sst_tandao_effect");
+					if(event.now==1&&event.previous==1) player.addTempSkill("sst_tandao_effect");
 				}
 			},
 			sst_tandao_effect:{
@@ -7872,7 +7865,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_shouyin",result.targets);
 						event.target=result.targets[0];
-						event.chooseToUse=event.target.chooseToUse("授音：你可以使用一张"+get.translation(get.type(trigger.card,"trick"))+"牌",function(card,player,event){
+						event.target.chooseToUse("授音：你可以使用一张"+get.translation(get.type(trigger.card,"trick"))+"牌",function(card,player,event){
 							if(get.type(card,"trick")!=get.type(_status.event.cardx,"trick")) return false;
 							return lib.filter.filterCard.apply(this,arguments);
 						}).set("cardx",trigger.card).set("addCount",false);
@@ -7886,7 +7879,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					if(!event.target.hasHistory("useCard",function(evt){
 						var parent=evt.getParent("chooseToUse");
-						return parent&&parent.name=="chooseToUse"&&parent==event.chooseToUse;
+						return parent&&parent.name=="chooseToUse"&&parent.getParent().name=="sst_shouyin";
 					})) game.delayx();
 				},
 				ai:{
@@ -8212,9 +8205,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						prompt2:str
 					});
 					"step 1"
-					if(result.bool){
-						//result.targets[0].logSkill("sst_chihang");
-						player.logSkill("sst_chihang",result.targets);
+					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
+						event.card=result.cards[0];
+						event.target=result.targets[0];
+						player.logSkill("sst_chihang",event.target);
 						var translateTargets=function(targets){
 							if(get.itemtype(targets)=="player") targets=[targets];
 							var str="";
@@ -8228,13 +8222,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							else str=get.translation(targets);
 							return str;
 						};
-						player.showCards(result.cards,get.translation(player)+"对"+translateTargets(result.targets)+"发动了【"+get.skillTranslation(event.name,player)+"】");
-						if(result.targets[0]!=player) player.give(result.cards,result.targets[0]);
-						var suit=get.suit(result.cards[0]);
-						//game.log(suit);
-						player.storage.sst_chihang_effect=suit;
-						player.addTempSkill("sst_chihang_effect","phaseUseEnd");
+						player.showCards(event.card,get.translation(player)+"对"+translateTargets(event.target)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(event.target!=player) player.give(event.card,event.target);
+					"step 3"
+					player.storage.sst_chihang_effect=get.suit(event.card);
+					player.addTempSkill("sst_chihang_effect","phaseUseEnd");
+					game.delayx();
 				}
 			},
 			sst_chihang_effect:{
@@ -10520,6 +10518,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.popup(event.sst_xuhuang[player.playerid].result?"是":"否");
 					player.$fullscreenpop(event.sst_xuhuang[player.playerid].result?"造成伤害":"不造成伤害",event.identical?"wood":"fire");
 					game.log(player,"公布了结果","#y"+(event.sst_xuhuang[player.playerid].result?"造成伤害":"不造成伤害"));
+					game.delayx();
 					"step 2"
 					if(event.identical){
 						player.popup("猜中");
@@ -11570,8 +11569,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return player.getDiscardableCards(player,get.position(ui.selected.buttons[0].link)).length;
 					}).set("ai",function(button){
 						if(get.position(button.link)=="j") return 10;
-						if(get.position(button.link)=="e") return 8-get.useful(button.link);
-						return 6-get.useful(button.link);
+						if(get.position(button.link)=="e") return 10-get.useful(button.link);
+						return 8-get.useful(button.link);
 					}).set("complexSelect",true).set("logSkill","sst_duoshan");
 					"step 1"
 					if(result.cards&&result.cards.length){
@@ -11656,14 +11655,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					if(!player.storage[event.name]){
-						event[event.name]=false;
-						player.storage[event.name]=true;
+					event[event.name]=player.storage[event.name]==true;
+					player.changeZhuanhuanji(event.name);
+					if(!event[event.name]){
 						player.chooseToCompare(target);
 					}
 					else{
-						event[event.name]=true;
-						player.storage[event.name]=false;
 						player.chooseToComparePileTop();
 					};
 					"step 1"
@@ -11690,6 +11687,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets[0].damage(player,!event[event.name]?"fire":"thunder","nocard");
 						player.addExpose(0.2);
 					}
+					else{
+						event.finish();
+					}
+					"step 4"
+					game.delayx();
 				},
 				ai:{
 					order:5,
@@ -13539,7 +13541,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(_status.event.skill=="sst_liedui") return true;
 					}
 				},
-				zhuanhuanji:"number",
+				zhuanhuanji:function(player,skill){
+					if(player.storage[skill]<5){
+						player.storage[skill]++;
+					}
+					else{
+						player.storage[skill]=1;
+						player.drawTo(player.getHandcardLimit());
+					}
+				},
 				log:false,
 				enable:"chooseToUse",
 				viewAs:function(cards,player){
@@ -13589,8 +13599,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				precontent:function(){
 					"step 0"
 					player.logSkill("sst_liedui");
-					player.storage.sst_liedui++;
-					if(player.storage.sst_liedui>5) player.storage.sst_liedui=1;
+					player.changeZhuanhuanji("sst_liedui");
 					if(event.result.cards&&event.result.cards.length) event.color1=get.color(event.result.cards[0]);
 					if(ui.discardPile.childNodes.length) event.color2=get.color(ui.discardPile.lastChild);
 					player.discard(event.result.cards);
@@ -13602,9 +13611,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(typeof event.color1=="string"&&typeof event.color2=="string"&&event.color1!=event.color2){
 						player.chooseControl("sha","shan","tao","jiu","wuxie","cancel2").set("ai",function(){
 							var player=_status.event.player;
-							var val=player.getUseValue("sha");
+							var val=player.getUseValue("tao");
 							var result="sha";
-							["jiu","wuxie","shan","tao"].forEach(function(name){
+							["sha","jiu","wuxie","shan"].forEach(function(name){
 								var temp=player.getUseValue(name);
 								if(temp>=val){
 									val=temp;
@@ -14024,8 +14033,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return "锁定技，你使用【杀】指定目标后，你令目标角色选择一项：此【杀】不可被响应，或此【杀】伤害+1。";
 			},
 			sst_qixiao:function(player){
-				if(player.storage.sst_qixiao) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸两张牌。";
-				return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制），你每以此法造成伤害后，摸一张牌。";
+				if(player.storage.sst_qixiao) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数），你每以此法造成伤害后，摸两张牌。";
+				return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数），你每以此法造成伤害后，摸一张牌。";
 			},
 			sst_chixing:function(player){
 				return "你使用的最后一张牌为红色的回合结束后，你可以令至多｛<span class=\"bluetext\">"+player.getBraces()+"</span>｝名角色将手牌数调整到与你另外指定的一名角色相等。";
@@ -14383,7 +14392,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			为9，你对其造成3点伤害。",
 			sst_qixiao:"奇嚣",
 			sst_qixiao2:"奇嚣",
-			sst_qixiao_info:"出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制），你每于此技能流程造成伤害后，摸一张牌。",
+			sst_qixiao_info:"出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数），你每于此技能流程造成伤害后，摸一张牌。",
 			sst_xuansha:"喧杀",
 			sst_xuansha_effect:"喧杀",
 			sst_xuansha_info:"觉醒技，准备阶段，若你的体力值为1，你增加1点体力上限，然后修改〖奇嚣〗描述，本回合你的手牌均视为【桃】。",
@@ -14391,7 +14400,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xuansha_faq:"*",
 			sst_xuansha_faq_info:"“一”修改为“两”，“1”修改为“2”，“两名角色”修改为“至多两名角色”。",
 			sst_yingji:"鹰击",
-			sst_yingji_info:"出牌阶段限一次，你可以令一名其他角色摸X-1张牌（若为〇则不摸牌），视为对其使用一张不计入次数的【杀】。（X为你计算与其的距离）。",
+			sst_yingji_info:"出牌阶段限一次，你可以令一名其他角色摸X-1张牌（若为〇则不摸牌），视为对其使用一张不受使用次数限制且不计入次数的【杀】。（X为你计算与其的距离）。",
 			sst_huxiao:"虎啸",
 			sst_huxiao_info:"一名角色使用【杀】时，你可以弃置一张红色牌，为此【杀】增加一个目标。",
 			sst_yiqing:"移情",
