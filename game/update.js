@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.114.2SST',
-	update:'1.9.114.1SST',
+	version:'1.9.114.3SST',
+	update:'1.9.114.2SST',
 	changeLog:[
 		'护甲图标修改',
 		'转换技机制优化',
