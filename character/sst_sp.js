@@ -1527,6 +1527,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						game.log(player,"将",get.cnNumber(result.cards.length),"张牌置于牌堆底");
 						player.lose(result.cards,ui.cardPile);
 					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					game.broadcastAll(ui.clear);
 				}
 			},
 			//Edelgard
@@ -1827,7 +1832,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.$throw(event.card);
 						game.log(player,"将",event.card,"置入了仁库");
 					}
+					else{
+						event.goto(3);
+					}
 					"step 2"
+					game.broadcastAll(ui.clear);
+					"step 3"
 					for(var i=0;i<event.cards.length;i++){
 						ui.cardPile.appendChild(event.cards[i]);
 					}
@@ -2362,8 +2372,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"phaseBegin"},
 				content:function(){
 					"step 0"
-					player.draw();
+					var evt=event.getParent("phase");
+					if(evt&&evt.name=="phase"&&!evt.xsj_dongqie){
+						evt.set("xsj_dongqie",true);
+						var next=game.createEvent("xsj_dongqie_clear");
+						event.next.remove(next);
+						evt.after.push(next);
+						next.set("player",player);
+						next.setContent(function(){
+							delete player.storage.xsj_dongqie;
+							player.unmarkSkill("xsj_dongqie");
+						});
+					}
 					"step 1"
+					player.draw();
+					"step 2"
 					var cards=result.filter(function(card){
 						return player.getCards("he").contains(card);
 					});
@@ -2371,18 +2394,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.showCards(cards);
 						player.storage.xsj_dongqie=cards[0];
 						player.markSkill("xsj_dongqie");
-						var evt=event.getParent("phase");
-						if(evt&&evt.name=="phase"&&!evt.xsj_dongqie){
-							evt.set("xsj_dongqie",true);
-							var next=game.createEvent("xsj_dongqie_clear");
-							event.next.remove(next);
-							evt.after.push(next);
-							next.set("player",player);
-							next.setContent(function(){
-								delete player.storage.xsj_dongqie;
-								player.unmarkSkill("xsj_dongqie");
-							});
-						}
 					}
 				},
 				group:"xsj_dongqie2"
@@ -2494,6 +2505,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return (event.name!="phase"||game.phaseNumber==0)&&!lib.inpile.contains("ska_spear_thrust");
 				},
 				content:function(){
+					"step 0"
 					var cards=[];
 					for(var i=1;i<=11;i++){
 						var card=game.createCard2("ska_spear_thrust","spade",i);
@@ -2505,6 +2517,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					game.updateRoundNumber();
 					player.$throw(cards);
+					"step 1"
+					game.broadcastAll(ui.clear);
 					game.delayx();
 				}
 			},

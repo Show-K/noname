@@ -15334,7 +15334,7 @@
 					else{
 						game.log(player,'展示了',cards);
 					}
-					game.delayx(2);
+					game.delayx(typeof event.delay=='number'?event.delay:2);
 					game.addVideo('showCards',player,[event.str,get.cardsInfo(cards)]);
 					"step 1"
 					game.broadcast('closeDialog',event.dialogid);
@@ -20952,10 +20952,11 @@
 					next._args=Array.from(arguments);
 					return next;
 				},
-				showCards:function(cards,str){
+				showCards:function(cards,str,delay){
 					var next=game.createEvent('showCards');
 					next.player=this;
 					next.str=str;
+					next.delay=delay;
 					if(typeof cards=='string'){
 						str=cards;
 						cards=next.str;
