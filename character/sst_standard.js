@@ -689,6 +689,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			《火焰纹章：苍炎之轨迹》的主角，父亲被神秘的漆黑骑士所杀，于是继承了父亲的佣兵团，并且承担了保卫未来女皇的任务。拥有恐怖的力量，他的剑本来是双手剑，但他可以单手使用。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
+			0615. 艾克（晓之女神）/Ike (Radiant Dawn)/アイク（暁の女神）<br>\
+			系列：Fire Emblem（火焰纹章）<br>\
+			首次登场：Fire Emblem: Path of Radiance（火焰纹章 苍炎之轨迹）<br>\
+			《火焰纹章：晓之女神》的故事发生于前作《苍炎之轨迹》的3年后，狂王战争后一切百废待兴，然而又有新的势力出现威胁和平。经历过这么多事情后，艾克真能称得上是英雄。在大乱斗中，他的各种技能击飞力度也很强。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
 			大！天！空！",
 			sst_sheik:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
@@ -6317,7 +6323,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.draw(4-player.countCards("h"),"nodelay");
 					}
 					else{
-						player.chooseToDiscard("绝境：弃置"+get.cnNumber(player.countCards("h")-4)+"张牌",player.countCards("h")-4,true).set("delay",false);
+						player.chooseToDiscard("绝境：弃置"+get.cnNumber(player.countCards("h")-4)+"张手牌",player.countCards("h")-4,true).set("delay",false);
 					}
 				},
 				ai:{
@@ -6771,7 +6777,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var num2=event.targets[i].countCards("h");
 							source.line(event.targets[i],"green");
 							if(num<num2){
-								var next=event.targets[i].chooseToDiscard("赤行：弃置"+get.cnNumber(num2-num)+"张手牌",num2-num,true,"h");
+								var next=event.targets[i].chooseToDiscard("赤行：弃置"+get.cnNumber(num2-num)+"张手牌",num2-num,true);
 								if(i<event.targets.length-1) next.set("delay",false);
 							}
 							else{
@@ -8188,6 +8194,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
 						event.card=result.cards[0];
+						event.suit=get.suit(event.card);
 						event.target=result.targets[0];
 						player.logSkill("sst_chihang",event.target);
 						var translateTargets=function(targets){
@@ -8211,7 +8218,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(event.target!=player) player.give(event.card,event.target);
 					"step 3"
-					player.storage.sst_chihang_effect=get.suit(event.card);
+					player.storage.sst_chihang_effect=event.suit;
 					player.addTempSkill("sst_chihang_effect","phaseUseEnd");
 					game.delayx();
 				}
@@ -8801,7 +8808,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var num=_status.currentPhase.countCards("h");
 					var num2=player.countCards("h");
 					if(num-1<num2){
-						player.chooseToDiscard("神臂：弃置"+get.cnNumber(num2-num+1)+"张手牌",num2-num+1,true,"h").set("delay",false);
+						player.chooseToDiscard("神臂：弃置"+get.cnNumber(num2-num+1)+"张手牌",num2-num+1,true).set("delay",false);
 					}
 					else{
 						player.drawTo(num-1,["nodelay"]);
@@ -8922,7 +8929,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("prompt","蓝波：选择一项");
 					"step 1"
 					if(result.control=="弃置手牌"){
-						player.chooseToDiscard("蓝波：弃置"+get.cnNumber(player.needsToDiscard())+"张牌",player.needsToDiscard(),true,"h");
+						player.chooseToDiscard("蓝波：弃置"+get.cnNumber(player.needsToDiscard())+"张手牌",player.needsToDiscard(),true);
 						event.finish();
 					}
 					else{
@@ -11685,6 +11692,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						str+=!event[event.name]?"火焰":"雷电";
 						str+="伤害";
 						player.chooseTarget(str,true).set("ai",function(target){
+							var player=_status.event.player;
 							var evt=_status.event.getParent();
 							return get.damageEffect(target,player,player,!evt[evt.name]?"fire":"thunder");
 						});
@@ -14618,7 +14626,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenbi_info:"你可以将手牌数调整至比当前回合角色少1，视为使用或打出一张无距离限制的【杀】。当你以此法使用或打出【杀】时，你选择未选择过的一项：1. 你使用的下一张【杀】伤害基数+1；2. 此【杀】不可被响应；3. 失去一点体力。然后若均已选择过或你体力值为1，重置此技能。",
 			sst_lanbo:"蓝波",
 			sst_lanbo2:"蓝波",
-			sst_lanbo_info:"你可以弃置超出你手牌上限的牌或删除〖神臂〗的一个选项，视为使用一张【闪】。",
+			sst_lanbo_info:"你可以弃置超出你手牌上限张牌或删除〖神臂〗的一个选项，视为使用一张【闪】。",
 			sst_daoxin:"盗心",
 			sst_daoxin_info:"锁定技，你使用带有「伤害」标签的牌指定目标后，目标角色摸一张牌，然后若其手牌数不小于你，你观看其手牌并获得所有红色牌。",
 			sst_fanni:"反逆",
@@ -15009,16 +15017,46 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_corrin_female:["sst_corrin","sst_corrin_male"]
 		},
 		help:{
-			"大乱桌斗":"<div style=\"margin:10px\">举荐</div><ul style=\"margin-top:0\">\
-			<li>你亮出牌堆顶的一张牌，若此牌满足指定条件，你获得此牌，否则将此牌置入弃牌堆并重复此流程</ul>\
-			<div style=\"margin:10px\">破军</div><ul style=\"margin-top:0\">\
-			<li>你将目标的指定牌扣置于其武将牌上，回合结束时其获得武将牌上的这些牌</ul>\
-			<div style=\"margin:10px\">提前执行回合</div><ul style=\"margin-top:0\">\
-			<li>你执行一个额外回合，若如此做，本轮你的下一个非额外回合开始前，你取消之</ul>\
-			<div style=\"margin:10px\">销毁</div><ul style=\"margin-top:0\">\
-			<li>将一张牌永久移出游戏</ul>\
-			<div style=\"margin:10px\">移除武将牌</div><ul style=\"margin-top:0\">\
-			<li>计算机端会将武将替换为同势力同性别无技能的士兵，且不触发武将登场"
+			"大乱桌斗":"<div style=\"margin:10px\">\
+				举荐\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					你亮出牌堆顶的一张牌，若此牌满足指定条件，你获得此牌，否则将此牌置入弃牌堆并重复此流程\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				破军\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					你将目标的指定牌扣置于其武将牌上，回合结束时其获得武将牌上的这些牌\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				提前执行回合\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					你执行一个额外回合，若如此做，本轮你的下一个非额外回合开始前，你取消之\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				销毁\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					将一张牌永久移出游戏\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				移除武将牌\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					计算机端会将武将替换为同势力同性别无技能的士兵，且不触发武将登场\
+				</li>\
+			</ul>"
 		}
 	};
 	/*

@@ -158,7 +158,8 @@ window.noname_character_rank={
 			"sst_bandana_waddle_dee",
 			"sst_enderman",
 			"sst_magolor",
-			"xsj_dante"
+			"xsj_dante",
+			"sst_roy"
 		],
 		junk:[]
 	}

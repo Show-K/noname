@@ -2528,7 +2528,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
 			mnm_9_volt_18_volt_ab:"九伏十八伏",
-			ska_bandana_waddle_dee_ab:"瓦豆鲁迪",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",

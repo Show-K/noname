@@ -8,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_extra:{
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
 				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee"],
-				sst_attack_by_stratagem:["sst_magolor"]
+				sst_attack_by_stratagem:["sst_magolor","sst_roy"]
 			}
 		},
 		character:{
@@ -23,7 +23,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:["female","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
-			sst_magolor:["male","sst_spirit","1/1/5",["sst_xianghuan","sst_mofan"],[]]
+			sst_magolor:["male","sst_spirit","1/1/5",["sst_xianghuan","sst_mofan"],[]],
+			sst_roy:["male","sst_light",4,["sst_nuyan"],[]]
 		},
 		characterFilter:{
 		},
@@ -169,7 +170,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			某一天，梦幻岛的上空出现了大洞，魔法洛亚的飞船从洞中摔到了地面。虽然飞船坏了，但是魔法洛亚本人并没有事。他拜托卡比和它的朋友们一起收集飞船的部件，并且一起穿越次元回到自己的家乡。一切看起来好像都很平常，直到……<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。"
+			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。",
+			sst_roy:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
+			<hr>\
+			0612. 罗伊/Roy (Fire Emblem)/ロイ（ファイアーエムブレム）<br>\
+			系列：Fire Emblem（火焰纹章）<br>\
+			首次登场：Super Smash Bros. Melee（任天堂明星大乱斗DX）<br>\
+			在父亲突病、局势动荡时毅然担当起责任，率兵抵抗敌国入侵的贵族少年。小小年纪就擅长带兵打仗和取信于人。顺便，他是先在大乱斗中出场，随后原作才发售的存在。以及，他和酷霸王军团中的洛伊是同一个英文名。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			率先体验谋攻篇。"
 		},
 		characterTitle:{
 			sst_claude:"连系世界之王",
@@ -183,7 +194,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:"卓越的战术师",
 			sst_paipai:"针强砭弱",
 			sst_bandana_waddle_dee:"瓦豆鲁迪的传说",
-			sst_magolor:"心中的最佳盟友"
+			sst_magolor:"心中的最佳盟友",
+			sst_roy:"年轻的狮子"
 		},
 		skill:{
 			//Claude
@@ -1595,6 +1607,106 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			//Roy
+			_sst_nuyan_rage:{
+				ruleSkill:true,
+				charlotte:true,
+				forced:true,
+				popup:false,
+				trigger:{source:"damageBegin1"},
+				filter:function(event,player){
+					var evt=event.getParent(2);
+					if(!evt||evt.name!="useCard") return false;
+					if(typeof evt.rage!="object") return false;
+					if(typeof evt.rage[player.playerid]!="number") return false;
+					return evt.rage[player.playerid]!=0;
+				},
+				content:function(){
+					var evt=trigger.getParent(2);
+					trigger.num+=evt.rage[player.playerid];
+				}
+			},
+			sst_nuyan:{
+				direct:true,
+				trigger:{player:"useCard"},
+				filter:function(event){
+					return ["sha","shan","juedou","huogong","tao"].contains(get.name(event.card));
+				},
+				content:function(){
+					"step 0"
+					player.chooseToDiscard(get.prompt2(event.name),function(card){
+						return get.color(card)=="red";
+					},"he").set("ai",function(card){
+						if(get.tag(card,"fireDamage")) return get.unuseful3(card);
+						if(get.name(card)=="shan"){
+							//TODO: Check shanRequired
+							return 0;
+						}
+						return 5-get.useful(card);
+					}).set("logSkill",event.name);
+					"step 1"
+					if(result.cards&&result.cards.length){
+						event.cards=result.cards;
+						var cardName=get.name(trigger.card);
+						if(cardName=="sha"){
+							var map=trigger.customArgs;
+							game.filterPlayer2(function(current){
+								var id=current.playerid;
+								if(!map[id]) map[id]={};
+								if(typeof map[id].shanRequired=="number"){
+									map[id].shanRequired++;
+								}
+								else{
+									map[id].shanRequired=2;
+								}
+							})
+						}
+						else if(cardName=="shan"){
+							var evt=trigger.getParent(3);
+							if(evt&&evt.name=="sha"){
+								evt.shanRequired--;
+							}
+						}
+						else if(cardName=="juedou"){
+							if(typeof trigger.rage!="object") trigger.rage={};
+							if(typeof trigger.rage[player.playerid]!="number") trigger.rage[player.playerid]=0;
+							trigger.rage[player.playerid]++;
+						}
+						else if(cardName=="huogong"||cardName=="tao"){
+							trigger.baseDamage++;
+						}
+						player.popup(cardName,"fire");
+						game.log(player,"的",trigger.card,"被强化了");
+						game.delayx();
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					var cards=event.cards.filter(function(card){
+						return get.tag(card,"fireDamage");
+					})
+					if(cards.length){
+						player.chooseTarget("怒炎：你可以对一名角色造成1点火焰伤害").set("ai",function(target){
+							return get.damageEffect(target,player,player,"fire");
+						});
+					}
+					"step 3"
+					if(result.targets&&result.targets.length){
+						player.line(result.targets,"fire");
+						result.targets[0].damage(player,"nocard");
+						player.addExpose(0.2);
+					}
+					else{
+						event.finish();
+					}
+					"step 4"
+					game.delayx();
+				},
+				ai:{
+					damage:true
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -1622,6 +1734,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_paipai:"派派",
 			sst_bandana_waddle_dee:"头巾瓦豆鲁迪",
 			sst_magolor:"魔法洛亚",
+			sst_roy:"罗伊",
 			//Character ab.
 			sst_geno_ab:"Geno",
 			sst_bandana_waddle_dee_ab:"瓦豆鲁迪",
@@ -1674,6 +1787,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你指定一张计入上限的手牌不计入上限直到离开手牌区，且本局游戏你的手牌上限+1。",
 			sst_mofan:"魔帆",
 			sst_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
+			sst_nuyan:"怒炎",
+			sst_nuyan_info:"当你使用可以被怒气强化的牌时，你可以弃置一张红色牌强化之，然后若弃置的牌可以造成火属性伤害，你可以对一名角色造成1点火焰伤害。",
 			//Tag
 			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",
@@ -1694,7 +1809,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:"Robin",
 			sst_paipai:"Paipai",
 			sst_bandana_waddle_dee:"Bandana Waddle Dee",
-			sst_magolor:"Magolor"
+			sst_magolor:"Magolor",
+			sst_roy:"Roy"
 		},
 		perfectPair:{
 			sst_claude:["sst_byleth_male","sst_byleth_female"],
@@ -1708,19 +1824,75 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_magolor:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee"]
 		},
 		help:{
-			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\">\
-			<li>你执行背水效果后，依次执行上述两项/上述出现的“或”改为“和”</ul>\
-			<div style=\"margin:10px\">交给技能</div><ul style=\"margin-top:0\">\
-			<li>交给技能为专属技能\
-			<li>理论上，场上只能存在一个交给技能\
-			<li>将交给技能交给一名角色前，先前角色失去此交给技能</ul>\
-			<div style=\"margin:10px\">使命技</div><ul style=\"margin-top:0\">\
-			<li>本身可包含子技能\
-			<li>若满足成功条件，失去此技能，执行成功分支的效果\
-			<li>若满足失败条件，失去此技能，执行失败分支的效果</ul>\
-			<div style=\"margin:10px\">应变篇</div><ul style=\"margin-top:0\">\
-			<li>派派：专属应变效果\
-			<ul style=\"padding-left:20px;padding-top:5px\"><li>回复：回复1点体力</ul>"
+			"乱斗EX":"<div style=\"margin:10px\">\
+				背水\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					你执行背水效果后，依次执行上述两项/上述出现的“或”改为“和”\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				交给技能\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					交给技能为专属技能\
+				</li>\
+				<li>\
+					理论上，场上只能存在一个交给技能\
+				</li>\
+				<li>\
+					将交给技能交给一名角色前，先前角色失去此交给技能\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				使命技\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					本身可包含子技能\
+				</li>\
+				<li>\
+					若满足成功条件，失去此技能，执行成功分支的效果\
+				</li>\
+				<li>\
+					若满足失败条件，失去此技能，执行失败分支的效果\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				应变篇\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					派派：专属应变效果\
+					<ul style=\"padding-left:20px;padding-top:5px\">\
+						<li>\
+							回复：回复1点体力\
+						</li>\
+					</ul>\
+				</li>\
+			</ul>\
+			<div style=\"margin:10px\">\
+				怒气强化说明\
+			</div>\
+			<ul style=\"margin-top:0\">\
+				<li>\
+					【杀】：消耗1点怒气强化，需要一张强化【闪】或两张【闪】才能抵消\
+				</li>\
+				<li>\
+					【闪】：消耗1点怒气强化，使用时视为两张【闪】的效果\
+				</li>\
+				<li>\
+					【决斗】：消耗2点怒气强化，对目标造成伤害时，伤害+1\
+				</li>\
+				<li>\
+					【火攻】：消耗2点怒气强化，造成的伤害+1\
+				</li>\
+				<li>\
+					【桃】：消耗3点怒气强化，回复的体力+1\
+				</li>\
+			</ul>"
 		}
 	};
 	return sst_extra;
