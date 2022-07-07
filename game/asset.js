@@ -126,6 +126,8 @@ window.noname_asset_list=[
 	'image/character/sst_robin_male.png',
 	'image/character/sst_robin_female.png',
 	'image/character/sst_paipai.png',
+	'image/character/sst_bandana_waddle_dee.png',
+	'image/character/sst_magolor.png',
 
 	'image/character/ymk_isabelle.png',
 	'image/character/ska_bobby.png',
@@ -147,8 +149,6 @@ window.noname_asset_list=[
 	'image/character/alz_yuri_kozukata.png',
 	'image/character/ymk_tianyi.png',
 	'image/character/xsj_yu_narukami.png',
-	'image/character/ska_bandana_waddle_dee.png',
-	'image/character/ska_magolor.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',

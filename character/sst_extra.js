@@ -7,7 +7,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst_extra:{
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
-				sst_beginning:["sst_ness","sst_chrom","sst_lucina","sst_robin"]
+				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee"],
+				sst_attack_by_stratagem:["sst_magolor"]
 			}
 		},
 		character:{
@@ -20,7 +21,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin:["none","sst_dark",3,["sst_zuozhan","sst_junce"],[]],
 			sst_robin_male:["male","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
 			sst_robin_female:["female","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
-			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]]
+			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
+			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
+			sst_magolor:["male","sst_spirit","1/1/5",["sst_xianghuan","sst_mofan"],[]]
 		},
 		characterFilter:{
 		},
@@ -144,7 +147,29 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			R015. 派派\
 			<hr>\
-			然后MNM开始对指定牌不能响应大打出手了。"
+			然后MNM开始对指定牌不能响应大打出手了。",
+			sst_bandana_waddle_dee:"武将作者：Show-K<br>\
+			插图作者：Azuki<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/93078264")+"<br>\
+			<hr>\
+			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
+			系列：Kirby（星之卡比）<br>\
+			首次登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
+			头巾瓦豆鲁迪并非一个种群，而是指一位特定的戴蓝色头巾的瓦豆鲁迪。他是族群中的精英，使得一手好长枪，自《星之卡比：重返梦幻岛》以来多次作为可操作角色出场，可以用长枪使出暴风骤雨般的攻击。他直接效忠于帝帝帝大王，但同时也是卡比最好的朋友之一。目前他在星之卡比系列中的戏份地位堪比主角，仅次于卡比，帝帝帝大王，魅塔骑士。如果星之卡比系列还有人能够参战大乱斗，他将是最有竞争力的候选人之一。<br>\
+			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			一是为了蹭《星之卡比 探索发现》的热度，二是为了庆祝无名杀武将牌上牌机制变革，三是为了调侃卡比四人组中就剩他一直没有参战了。",
+			sst_magolor:"武将作者：Show-K<br>\
+			插图作者：邪仁寿<br>"+
+			get.formatUrl("https://www.pixiv.net/artworks/22504365")+"<br>\
+			<hr>\
+			0355. 魔法洛亚/Magolor/マホロア<br>\
+			系列：Kirby（星之卡比）<br>\
+			首次登场：Kirby\x27s Return to Dream Land（星之卡比Wii）<br>\
+			某一天，梦幻岛的上空出现了大洞，魔法洛亚的飞船从洞中摔到了地面。虽然飞船坏了，但是魔法洛亚本人并没有事。他拜托卡比和它的朋友们一起收集飞船的部件，并且一起穿越次元回到自己的家乡。一切看起来好像都很平常，直到……<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。"
 		},
 		characterTitle:{
 			sst_claude:"连系世界之王",
@@ -156,7 +181,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin:"卓越的战术师",
 			sst_robin_male:"卓越的战术师",
 			sst_robin_female:"卓越的战术师",
-			sst_paipai:"针强砭弱"
+			sst_paipai:"针强砭弱",
+			sst_bandana_waddle_dee:"瓦豆鲁迪的传说",
+			sst_magolor:"心中的最佳盟友"
 		},
 		skill:{
 			//Claude
@@ -1181,6 +1208,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
 							if(card&&_status.event.respondToCard&&get.number(card)>get.number(_status.event.respondToCard)) return false;
+							if(!_status.event.sstAoshangFilterCard) return true;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
 						trigger.set("respondToCard",trigger.respondTo[1]);
@@ -1249,6 +1277,324 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			//Bandana Waddle Dee
+			sst_qiangdu:{
+				locked:false,
+				direct:true,
+				mod:{
+					targetInRange:function(card){
+						if(card.name=="sst_spear_thrust") return true;
+					}
+				},
+				trigger:{
+					player:"loseAfter",
+					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","addToExpansionAfter"]
+				},
+				filter:function(event,player){
+					if(!player.countCards("he")) return false;
+					var evt=event.getl(player);
+					if(evt){
+						if(event.visible&&evt.hs&&evt.hs.length){
+							for(var i of evt.hs){
+								if(get.suit(i,player)=="spade") return true;
+							}
+						}
+						if(evt.es&&evt.es.length){
+							for(var i of evt.es){
+								if(get.suit(i,player)=="spade") return true;
+							}
+						}
+						if(evt.js&&evt.js.length){
+							for(var i of evt.js){
+								if(get.suit(i,player)=="spade") return true;
+							}
+						}
+					}
+					return false;
+				},
+				content:function(){
+					var next=player.chooseToUse();
+					next.set("prompt",get.prompt("sst_qiangdu"));
+					next.set("prompt2","你可以将一张牌当作【刺枪】使用");
+					next.set("logSkill","sst_qiangdu");
+					next.set("norestore",true);
+					next.set("_backupevent","sst_qiangdux");
+					next.backup("sst_qiangdux");
+					next.set("addCount",false);
+					next.set("custom",{
+						add:{},
+						replace:{window:function(){}}
+					});
+				},
+				ai:{
+					effect:{
+						player:function(card){
+							if(card.suit=="spade") return [1,1];
+						}
+					}
+				},
+				group:"sst_qiangdu_init"
+			},
+			sst_qiangdu_init:{
+				forced:true,
+				locked:false,
+				trigger:{
+					global:"phaseBefore",
+					player:"enterGame"
+				},
+				filter:function(event,player){
+					return (event.name!="phase"||game.phaseNumber==0)&&!lib.inpile.contains("sst_spear_thrust");
+				},
+				content:function(){
+					"step 0"
+					var cards=[];
+					for(var i=1;i<=11;i++){
+						var card=game.createCard2("sst_spear_thrust","spade",i);
+						cards.push(card);
+						ui.cardPile.insertBefore(card,ui.cardPile.childNodes[get.rand(0,ui.cardPile.childNodes.length)]);
+					}
+					game.broadcastAll(function(){
+						lib.inpile.add("sst_spear_thrust");
+					});
+					game.updateRoundNumber();
+					player.$throw(cards);
+					"step 1"
+					game.broadcastAll(ui.clear);
+					game.delayx();
+				}
+			},
+			sst_qiangdux:{
+				viewAs:{name:"sst_spear_thrust"},
+				filterCard:function(card){
+					return get.itemtype(card)=="card";
+				},
+				position:"hes",
+				check:function(card){return 5-get.value(card);}
+			},
+			sst_mengchen:{
+				direct:true,
+				trigger:{player:"damageEnd"},
+				content:function(){
+					"step 0"
+					event.count=trigger.num;
+					"step 1"
+					if(event.count){
+						event.count--;
+						player.chooseTarget(get.prompt2("sst_mengchen")).set("ai",function(target){
+							return get.rawAttitude(_status.event.player,target);
+						});
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						event.targets=result.targets;
+						player.logSkill("sst_mengchen",event.targets);
+						event.cards=[];
+						event.num=0;
+						event.targets.push(player);
+						event.targets.sortBySeat(_status.currentPhase);
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					event.targets[event.num].draw();
+					"step 4"
+					event.targets[event.num].chooseToDiscard("盟谌：弃置一张牌","he",true);
+					"step 5"
+					if(result.cards&&result.cards.length){
+						event.cards.addArray(result.cards);
+					}
+					event.num++;
+					if(event.num<event.targets.length) event.goto(3);
+					"step 6"
+					if(event.cards.length){
+						event.target.chooseCardButton("盟谌：你可以使用"+get.translation(event.cards)+"中的一张牌",event.cards).set("filterButton",function(button){
+							return ["o","d"].contains(get.position(button.link,true))&&_status.event.player.hasUseTarget(button.link);
+						}).set("ai",function(button){
+							return _status.event.player.getUseValue(button.link);
+						});
+					}
+					else{
+						event.goto(1);
+					}
+					"step 7"
+					if(result.links&&result.links.length){
+						event.target.chooseUseTarget(result.links[0],false);
+					}
+					event.goto(1);
+				},
+				ai:{
+					expose:0.2,
+					maixie:true,
+					maixie_hp:true
+				}
+			},
+			//Magolor
+			sst_xianghuan:{
+				forced:true,
+				trigger:{player:"damageBegin4"},
+				filter:function(event,player){
+					return event.num>1&&player.hujia;
+				},
+				content:function(){
+					trigger.num=1;
+				},
+				ai:{
+					filterDamage:true,
+					skillTagFilter:function(player){
+						if(!player.hujia) return false;
+					}
+				},
+				group:"sst_xianghuan2"
+			},
+			sst_xianghuan2:{
+				forced:true,
+				trigger:{player:"changeHujiaAfter"},
+				filter:function(event,player){
+					return event.num<0;
+				},
+				content:function(){
+					"step 0"
+					player.addSkill("sst_xianghuan_effect");
+					if(player.countCards("h",function(card){
+						if(game.checkMod(card,player,false,"ignoredHandcard",player)==true) return false;
+						return true;
+					})) player.chooseCard("乡幻：指定"+get.cnNumber(-trigger.num)+"张计入上限的手牌不计入上限直到离开手牌区",-trigger.num,function(card){
+						if(game.checkMod(card,player,false,"ignoredHandcard",player)==true) return false;
+						return true;
+					},true).set("ai",get.value);
+					"step 1"
+					if(result.cards&&result.cards.length) player.addGaintag(result.cards,"sst_xianghuan");
+					"step 2"
+					player.addMark("sst_xianghuan_effect",-trigger.num,false);
+					game.delayx();
+				},
+				ai:{
+					maixie:true,
+					skillTagFilter:function(player){
+						if(!player.hujia) return false;
+					}
+				}
+			},
+			sst_xianghuan_effect:{
+				charlotte:true,
+				intro:{
+					content:function(storage,player){
+						return "本局游戏你的手牌上限+"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
+					}
+				},
+				onremove:true,
+				mod:{
+					ignoredHandcard:function(card){
+						if(card.hasGaintag("sst_xianghuan")) return true;
+					},
+					maxHandcard:function(player,num){
+						return num+player.countMark("sst_xianghuan_effect");
+					}
+				}
+			},
+			sst_mofan:{
+				global:"sst_mofan_effect",
+				mahouSkill:true,
+				enable:"phaseUse",
+				usable:1,
+				filter:function(event,player){
+					return player.countCards("he")&&!player.hasSkill("sst_mofan_mahou");
+				},
+				filterCard:true,
+				selectCard:[1,3],
+				position:"he",
+				content:function(){
+					player.storage.sst_mofan_mahou=[cards.length,cards.length];
+					player.addTempSkill("sst_mofan_mahou",{player:"die"});
+					game.delayx();
+				},
+				check:function(card){
+					var player=_status.event.player;
+					var val=6-get.useful(card);
+					var needsToDiscard=player.needsToDiscard();
+					if(ui.selected.cards&&ui.selected.cards.length){
+						for(var i=0;i<ui.selected.cards.length;i++){
+							if(get.position(ui.selected.cards[i])=="h"&&game.checkMod(ui.selected.cards[i],player,false,"ignoredHandcard",player)!=true) needsToDiscard--;
+						}
+					}
+					if(needsToDiscard>0&&get.position(card)=="h"&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) val+=5;
+					return val;
+				},
+				ai:{
+					order:1,
+					result:{
+						player:1
+					}
+				},
+				subSkill:{
+					mahou:{
+						trigger:{global:"phaseEnd"},
+						forced:true,
+						popup:false,
+						charlotte:true,
+						content:function(){
+							"step 0"
+							var list=player.storage.sst_mofan_mahou;
+							list[1]--;
+							if(list[1]==0){
+								event.num=list[0];
+								game.log(player,"的“魔帆”魔法生效");
+								player.removeSkill("sst_mofan_mahou");
+								player.chooseTarget("魔帆：你可以令至多"+get.cnNumber(5-event.num)+"名角色摸"+get.cnNumber(event.num)+"张牌（手牌数大于手牌上限的角色少摸一张牌）",[1,5-event.num]).set("ai",function(target){
+									return get.attitude(_status.event.player,target);
+								});
+							}
+							else{
+								game.log(player,"的“魔帆”魔法剩余","#g"+(list[1])+"回合");
+								player.markSkill("sst_mofan_mahou");
+								event.finish();
+							}
+							"step 1"
+							if(result.targets&&result.targets.length){
+								event.targets=result.targets.sortBySeat(_status.currentPhase);
+								player.logSkill("sst_mofan_mahou",event.targets);
+								event.numTarget=0;
+							}
+							else{
+								event.finish();
+							}
+							"step 2"
+							var draw=event.num;
+							if(event.targets[event.numTarget].countCards()>event.targets[event.numTarget].getHandcardLimit()) draw--;
+							if(draw>0) event.targets[event.numTarget].draw(draw,(event.numTarget<event.targets.length-1)?"nodelay":undefined);
+							"step 3"
+							event.numTarget++;
+							if(event.numTarget<event.targets.length){
+								event.goto(2);
+							}
+						},
+						ai:{
+							expose:0.2
+						},
+						mark:true,
+						onremove:true,
+						marktext:"♗",
+						intro:{
+							name:"施法：魔帆",
+							markcount:function(storage){
+								if(storage) return storage[1];
+								return 0;
+							},
+							content:function(storage){
+								if(storage){
+									return "经过"+storage[1]+"个“回合结束时”后，可以令至多"+get.cnNumber(5-storage[0])+"名角色摸"+get.cnNumber(storage[0])+"张牌（手牌数大于手牌上限的角色少摸一张牌）";
+								}
+								return "未指定施法效果";
+							}
+						}
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -1262,14 +1608,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				失败：以此法展示三次手牌后，此技能改为非使命技，“场上等量的牌”改为“场上等量的红色牌”。";
 			}
 		},
-		/*
-		characterReplace:{
-			ska_mario:["sst_mario","sst_dr_mario","ska_mario"],
-			ska_bowser:["sst_bowser","ska_bowser"],
-			ymk_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
-			ymk_isabelle:["sst_isabelle","ymk_isabelle"],
-		},
-		*/
 		translate: {
 			//Character
 			sst_claude:"库罗德",
@@ -1282,8 +1620,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_male:"鲁弗莱",
 			sst_robin_female:"鲁弗莱",
 			sst_paipai:"派派",
+			sst_bandana_waddle_dee:"头巾瓦豆鲁迪",
+			sst_magolor:"魔法洛亚",
 			//Character ab.
 			sst_geno_ab:"Geno",
+			sst_bandana_waddle_dee_ab:"瓦豆鲁迪",
 			//Skill
 			sst_yunchou:"运筹",
 			sst_yunchou_info:"若你使用的牌具有应变效果，你可以令此牌允许满足任意一种应变条件。",
@@ -1322,12 +1663,24 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_aoshang_info:"锁定技，你使用的牌不能被点数大于此牌的牌响应且拥有「空巢→回复1点体力」应变效果。",
 			sst_lianxia:"怜下",
 			sst_lianxia_info:"出牌阶段限一次，你可以将一张牌交给一名手牌数小于你的角色，然后手牌数最多的角色依次交给你一张牌（若为你则无需交给牌）。",
+			sst_qiangdu:"枪笃",
+			sst_qiangdu_init:"枪笃",
+			sst_qiangdu_info:"游戏开始时，你将11张【刺枪】加入牌堆。你使用【刺枪】无距离限制。当你的♠牌正面向上离开你的区域后，你可以将一张牌当作【刺枪】使用。",
+			sst_mengchen:"盟谌",
+			sst_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用其中一张牌。",
+			sst_xianghuan:"乡幻",
+			sst_xianghuan2:"乡幻",
+			sst_xianghuan_effect:"乡幻",
+			sst_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你指定一张计入上限的手牌不计入上限直到离开手牌区，且本局游戏你的手牌上限+1。",
+			sst_mofan:"魔帆",
+			sst_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
 			//Tag
 			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",
 			//Sort
 			sst_response:"应变",
-			sst_beginning:"始计"
+			sst_laying_plans:"始计",
+			sst_attack_by_stratagem:"谋攻"
 		},
 		translateEnglish:{
 			sst_claude:"Claude",
@@ -1339,7 +1692,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin:"Robin",
 			sst_robin_male:"Robin",
 			sst_robin_female:"Robin",
-			sst_paipai:"Paipai"
+			sst_paipai:"Paipai",
+			sst_bandana_waddle_dee:"Bandana Waddle Dee",
+			sst_magolor:"Magolor"
 		},
 		perfectPair:{
 			sst_claude:["sst_byleth_male","sst_byleth_female"],
@@ -1348,7 +1703,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_lucina:["sst_marth","sst_robin","sst_robin_male","sst_robin_female"],
 			sst_robin:["sst_robin_male","sst_robin_female"],
 			sst_robin_male:["sst_robin","sst_robin_female"],
-			sst_robin_female:["sst_robin","sst_robin_male"]
+			sst_robin_female:["sst_robin","sst_robin_male"],
+			sst_bandana_waddle_dee:["sst_kirby","sst_meta_knight","sst_king_dedede"],
+			sst_magolor:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee"]
 		},
 		help:{
 			"乱斗EX":"<div style=\"margin:10px\">背水</div><ul style=\"margin-top:0\">\

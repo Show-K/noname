@@ -8,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_bandana_waddle_dee","ska_magolor"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_xsj:["xsj_yu_narukami","xsj_dante"],
@@ -36,8 +36,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
-			ska_bandana_waddle_dee:["male","sst_spirit",3,["ska_qiangdu","ska_mengchen"],[]],
-			ska_magolor:["male","sst_spirit","1/1/5",["ska_xianghuan","ska_mofan"],[]],
 			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]]
 		},
 		characterFilter:{
@@ -248,28 +246,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——翻译自《维基百科》<br>\
 			<hr>\
 			总算有新人来设计武将了。",
-			ska_bandana_waddle_dee:"武将作者：Show-K<br>\
-			插图作者：Azuki<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/93078264")+"<br>\
-			<hr>\
-			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
-			系列：Kirby（星之卡比）<br>\
-			首次登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
-			头巾瓦豆鲁迪并非一个种群，而是指一位特定的戴蓝色头巾的瓦豆鲁迪。他是族群中的精英，使得一手好长枪，自《星之卡比：重返梦幻岛》以来多次作为可操作角色出场，可以用长枪使出暴风骤雨般的攻击。他直接效忠于帝帝帝大王，但同时也是卡比最好的朋友之一。目前他在星之卡比系列中的戏份地位堪比主角，仅次于卡比，帝帝帝大王，魅塔骑士。如果星之卡比系列还有人能够参战大乱斗，他将是最有竞争力的候选人之一。<br>\
-			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			一是为了蹭《星之卡比 探索发现》的热度，二是为了庆祝无名杀武将牌上牌机制变革，三是为了调侃卡比四人组中就剩他一直没有参战了。",
-			ska_magolor:"武将作者：Show-K<br>\
-			插图作者：長月有明<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/70836644")+"<br>\
-			<hr>\
-			0355. 魔法洛亚/Magolor/マホロア<br>\
-			系列：Kirby（星之卡比）<br>\
-			首次登场：Kirby\x27s Return to Dream Land（星之卡比Wii）<br>\
-			某一天，梦幻岛的上空出现了大洞，魔法洛亚的飞船从洞中摔到了地面。虽然飞船坏了，但是魔法洛亚本人并没有事。他拜托卡比和它的朋友们一起收集飞船的部件，并且一起穿越次元回到自己的家乡。一切看起来好像都很平常，直到……<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。",
 			xsj_dante:"武将作者：小时节、Yumikohimi<br>\
 			插图作者：未知<br>\
 			<hr>\
@@ -302,8 +278,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
-			ska_bandana_waddle_dee:"瓦豆鲁迪的传说",
-			ska_magolor:"心中的最佳盟友",
 			xsj_dante:"斯巴达之子"
 		},
 		skill:{
@@ -2436,324 +2410,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(respond&&respond.cards&&respond.cards.filterInD("od").length) player.gain(respond.cards.filterInD("od"),"gain2");
 				}
 			},
-			//Bandana Waddle Dee
-			ska_qiangdu:{
-				locked:false,
-				direct:true,
-				mod:{
-					targetInRange:function(card){
-						if(card.name=="ska_spear_thrust") return true;
-					}
-				},
-				trigger:{
-					player:"loseAfter",
-					global:["equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","addToExpansionAfter"]
-				},
-				filter:function(event,player){
-					if(!player.countCards("he")) return false;
-					var evt=event.getl(player);
-					if(evt){
-						if(event.visible&&evt.hs&&evt.hs.length){
-							for(var i of evt.hs){
-								if(get.suit(i,player)=="spade") return true;
-							}
-						}
-						if(evt.es&&evt.es.length){
-							for(var i of evt.es){
-								if(get.suit(i,player)=="spade") return true;
-							}
-						}
-						if(evt.js&&evt.js.length){
-							for(var i of evt.js){
-								if(get.suit(i,player)=="spade") return true;
-							}
-						}
-					}
-					return false;
-				},
-				content:function(){
-					var next=player.chooseToUse();
-					next.set("prompt",get.prompt("ska_qiangdu"));
-					next.set("prompt2","你可以将一张牌当作【刺枪】使用");
-					next.set("logSkill","ska_qiangdu");
-					next.set("norestore",true);
-					next.set("_backupevent","ska_qiangdux");
-					next.backup("ska_qiangdux");
-					next.set("addCount",false);
-					next.set("custom",{
-						add:{},
-						replace:{window:function(){}}
-					});
-				},
-				ai:{
-					effect:{
-						player:function(card){
-							if(card.suit=="spade") return [1,1];
-						}
-					}
-				},
-				group:"ska_qiangdu_init"
-			},
-			ska_qiangdu_init:{
-				forced:true,
-				locked:false,
-				trigger:{
-					global:"phaseBefore",
-					player:"enterGame"
-				},
-				filter:function(event,player){
-					return (event.name!="phase"||game.phaseNumber==0)&&!lib.inpile.contains("ska_spear_thrust");
-				},
-				content:function(){
-					"step 0"
-					var cards=[];
-					for(var i=1;i<=11;i++){
-						var card=game.createCard2("ska_spear_thrust","spade",i);
-						cards.push(card);
-						ui.cardPile.insertBefore(card,ui.cardPile.childNodes[get.rand(0,ui.cardPile.childNodes.length)]);
-					}
-					game.broadcastAll(function(){
-						lib.inpile.add("ska_spear_thrust");
-					});
-					game.updateRoundNumber();
-					player.$throw(cards);
-					"step 1"
-					game.broadcastAll(ui.clear);
-					game.delayx();
-				}
-			},
-			ska_qiangdux:{
-				viewAs:{name:"ska_spear_thrust"},
-				filterCard:function(card){
-					return get.itemtype(card)=="card";
-				},
-				position:"hes",
-				check:function(card){return 5-get.value(card);}
-			},
-			ska_mengchen:{
-				direct:true,
-				trigger:{player:"damageEnd"},
-				content:function(){
-					"step 0"
-					event.count=trigger.num;
-					"step 1"
-					if(event.count){
-						event.count--;
-						player.chooseTarget(get.prompt2("ska_mengchen")).set("ai",function(target){
-							return get.rawAttitude(_status.event.player,target);
-						});
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						event.targets=result.targets;
-						player.logSkill("ska_mengchen",event.targets);
-						event.cards=[];
-						event.num=0;
-						event.targets.push(player);
-						event.targets.sortBySeat(_status.currentPhase);
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					event.targets[event.num].draw();
-					"step 4"
-					event.targets[event.num].chooseToDiscard("盟谌：弃置一张牌","he",true);
-					"step 5"
-					if(result.cards&&result.cards.length){
-						event.cards.addArray(result.cards);
-					}
-					event.num++;
-					if(event.num<event.targets.length) event.goto(3);
-					"step 6"
-					if(event.cards.length){
-						event.target.chooseCardButton("盟谌：你可以使用"+get.translation(event.cards)+"中的一张牌",event.cards).set("filterButton",function(button){
-							return ["o","d"].contains(get.position(button.link,true))&&_status.event.player.hasUseTarget(button.link);
-						}).set("ai",function(button){
-							return _status.event.player.getUseValue(button.link);
-						});
-					}
-					else{
-						event.goto(1);
-					}
-					"step 7"
-					if(result.links&&result.links.length){
-						event.target.chooseUseTarget(result.links[0],false);
-					}
-					event.goto(1);
-				},
-				ai:{
-					expose:0.2,
-					maixie:true,
-					maixie_hp:true
-				}
-			},
-			//Magolor
-			ska_xianghuan:{
-				forced:true,
-				trigger:{player:"damageBegin4"},
-				filter:function(event,player){
-					return event.num>1&&player.hujia;
-				},
-				content:function(){
-					trigger.num=1;
-				},
-				ai:{
-					filterDamage:true,
-					skillTagFilter:function(player){
-						if(!player.hujia) return false;
-					}
-				},
-				group:"ska_xianghuan2"
-			},
-			ska_xianghuan2:{
-				forced:true,
-				trigger:{player:"changeHujiaAfter"},
-				filter:function(event,player){
-					return event.num<0;
-				},
-				content:function(){
-					"step 0"
-					player.addSkill("ska_xianghuan_effect");
-					if(player.countCards("h",function(card){
-						if(game.checkMod(card,player,false,"ignoredHandcard",player)==true) return false;
-						return true;
-					})) player.chooseCard("乡幻：指定"+get.cnNumber(-trigger.num)+"张计入上限的手牌不计入上限直到离开手牌区",-trigger.num,function(card){
-						if(game.checkMod(card,player,false,"ignoredHandcard",player)==true) return false;
-						return true;
-					},true).set("ai",get.value);
-					"step 1"
-					if(result.cards&&result.cards.length) player.addGaintag(result.cards,"ska_xianghuan");
-					"step 2"
-					player.addMark("ska_xianghuan_effect",-trigger.num,false);
-					game.delayx();
-				},
-				ai:{
-					maixie:true,
-					skillTagFilter:function(player){
-						if(!player.hujia) return false;
-					}
-				}
-			},
-			ska_xianghuan_effect:{
-				charlotte:true,
-				intro:{
-					content:function(storage,player){
-						return "本局游戏你的手牌上限+"+storage+"<br>当前你的手牌上限："+player.getHandcardLimit();
-					}
-				},
-				onremove:true,
-				mod:{
-					ignoredHandcard:function(card){
-						if(card.hasGaintag("ska_xianghuan")) return true;
-					},
-					maxHandcard:function(player,num){
-						return num+player.countMark("ska_xianghuan_effect");
-					}
-				}
-			},
-			ska_mofan:{
-				global:"ska_mofan_effect",
-				mahouSkill:true,
-				enable:"phaseUse",
-				usable:1,
-				filter:function(event,player){
-					return player.countCards("he")&&!player.hasSkill("ska_mofan_mahou");
-				},
-				filterCard:true,
-				selectCard:[1,3],
-				position:"he",
-				content:function(){
-					player.storage.ska_mofan_mahou=[cards.length,cards.length];
-					player.addTempSkill("ska_mofan_mahou",{player:"die"});
-					game.delayx();
-				},
-				check:function(card){
-					var player=_status.event.player;
-					var val=6-get.useful(card);
-					var needsToDiscard=player.needsToDiscard();
-					if(ui.selected.cards&&ui.selected.cards.length){
-						for(var i=0;i<ui.selected.cards.length;i++){
-							if(get.position(ui.selected.cards[i])=="h"&&game.checkMod(ui.selected.cards[i],player,false,"ignoredHandcard",player)!=true) needsToDiscard--;
-						}
-					}
-					if(needsToDiscard>0&&get.position(card)=="h"&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) val+=5;
-					return val;
-				},
-				ai:{
-					order:1,
-					result:{
-						player:1
-					}
-				},
-				subSkill:{
-					mahou:{
-						trigger:{global:"phaseEnd"},
-						forced:true,
-						popup:false,
-						charlotte:true,
-						content:function(){
-							"step 0"
-							var list=player.storage.ska_mofan_mahou;
-							list[1]--;
-							if(list[1]==0){
-								event.num=list[0];
-								game.log(player,"的“魔帆”魔法生效");
-								player.removeSkill("ska_mofan_mahou");
-								player.chooseTarget("魔帆：你可以令至多"+get.cnNumber(5-event.num)+"名角色摸"+get.cnNumber(event.num)+"张牌（手牌数大于手牌上限的角色少摸一张牌）",[1,5-event.num]).set("ai",function(target){
-									return get.attitude(_status.event.player,target);
-								});
-							}
-							else{
-								game.log(player,"的“魔帆”魔法剩余","#g"+(list[1])+"回合");
-								player.markSkill("ska_mofan_mahou");
-								event.finish();
-							}
-							"step 1"
-							if(result.targets&&result.targets.length){
-								event.targets=result.targets.sortBySeat(_status.currentPhase);
-								player.logSkill("ska_mofan_mahou",event.targets);
-								event.numTarget=0;
-							}
-							else{
-								event.finish();
-							}
-							"step 2"
-							var draw=event.num;
-							if(event.targets[event.numTarget].countCards()>event.targets[event.numTarget].getHandcardLimit()) draw--;
-							if(draw>0) event.targets[event.numTarget].draw(draw,(event.numTarget<event.targets.length-1)?"nodelay":undefined);
-							"step 3"
-							event.numTarget++;
-							if(event.numTarget<event.targets.length){
-								event.goto(2);
-							}
-						},
-						ai:{
-							expose:0.2
-						},
-						mark:true,
-						onremove:true,
-						marktext:"♗",
-						intro:{
-							name:"施法：魔帆",
-							markcount:function(storage){
-								if(storage) return storage[1];
-								return 0;
-							},
-							content:function(storage){
-								if(storage){
-									return "经过"+storage[1]+"个“回合结束时”后，可以令至多"+get.cnNumber(5-storage[0])+"名角色摸"+get.cnNumber(storage[0])+"张牌（手牌数大于手牌上限的角色少摸一张牌）";
-								}
-								return "未指定施法效果";
-							}
-						}
-					}
-				}
-			},
 			//Dante
 			xsj_wanxie:{
 				trigger:{global:["loseAfter","cardsDiscardAfter"]},
@@ -2866,8 +2522,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"不来方夕莉",
 			ymk_tianyi:"天翊",
 			xsj_yu_narukami:"鸣上悠",
-			ska_bandana_waddle_dee:"头巾瓦豆鲁迪",
-			ska_magolor:"魔法洛亚",
 			xsj_dante:"但丁",
 			//Character ab.
 			ska_bobby_ab:"炸弹兵",
@@ -2969,17 +2623,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_dongqie_info:"回合开始时，你可以摸一张牌并展示之。本回合你使用与之花色相同的【杀】或带有「伤害」标签的锦囊牌结算后，若对其他角色造成了伤害，你可以视为对一名角色使用【乐不思蜀】。",
 			xsj_taluo:"塔罗",
 			xsj_taluo_info:"当你使用或打出牌响应【杀】或带有「伤害」标签的锦囊牌后，你可以获得被响应的牌。",
-			ska_qiangdu:"枪笃",
-			ska_qiangdu_init:"枪笃",
-			ska_qiangdu_info:"游戏开始时，你将11张【刺枪】加入牌堆。你使用【刺枪】无距离限制。当你的♠牌正面向上离开你的区域后，你可以将一张牌当作【刺枪】使用。",
-			ska_mengchen:"盟谌",
-			ska_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用其中一张牌。",
-			ska_xianghuan:"乡幻",
-			ska_xianghuan2:"乡幻",
-			ska_xianghuan_effect:"乡幻",
-			ska_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你指定一张计入上限的手牌不计入上限直到离开手牌区，且本局游戏你的手牌上限+1。",
-			ska_mofan:"魔帆",
-			ska_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
 			xsj_wanxie:"万械",
 			xsj_wanxie_info:"当武器牌进入弃牌堆后，你可以打出一张牌，然后获得武器牌。",
 			xsj_moxue:"魔血",
@@ -3016,8 +2659,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"Yuri Kozukata",
 			ymk_tianyi:"Tianyi",
 			xsj_yu_narukami:"Yu Narukami",
-			ska_bandana_waddle_dee:"Bandana Waddle Dee",
-			ska_magolor:"Magolor",
 			xsj_dante:"Dante"
 		},
 		perfectPair:{
@@ -3034,9 +2675,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
 			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
-			xsj_yu_narukami:["sst_joker"],
-			ska_bandana_waddle_dee:["sst_kirby","sst_meta_knight","sst_king_dedede"],
-			ska_magolor:["sst_kirby","sst_meta_knight","sst_king_dedede","ska_bandana_waddle_dee"]
+			xsj_yu_narukami:["sst_joker"]
 		}
 	};
 	return sst_sp;

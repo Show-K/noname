@@ -2462,8 +2462,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets){
 						player.logSkill("sst_shengbing",result.targets);
 						event.target=result.targets[0];
-						for(var i=0;i<trigger.es.length;i++){
-							if(event.target.canEquip(trigger.es[i],true)) event.target.equip(trigger.es[i]).set("delay",true);
+						var equips=trigger.es.filter(function(card){
+							return event.target.canEquip(card,true);
+						});
+						for(var i=0;i<equips.length;i++){
+							var next=event.target.equip(trigger.es[i]);
+							if(i>=equips.length-1) next.set("delay",true);
 						}
 					}
 					else{
@@ -5753,7 +5757,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var translateTargets=function(targets){
 						if(get.itemtype(targets)=="player") targets=[targets];
 						var str="";
-						if(targets[0]==this){
+						if(targets[0]==player){
 							str="自己";
 							if(targets.length>1){
 								str+="、";
@@ -7649,7 +7653,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var translateTargets=function(targets){
 							if(get.itemtype(targets)=="player") targets=[targets];
 							var str="";
-							if(targets[0]==this){
+							if(targets[0]==player){
 								str="自己";
 								if(targets.length>1){
 									str+="、";
@@ -8189,7 +8193,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var translateTargets=function(targets){
 							if(get.itemtype(targets)=="player") targets=[targets];
 							var str="";
-							if(targets[0]==this){
+							if(targets[0]==player){
 								str="自己";
 								if(targets.length>1){
 									str+="、";
@@ -9558,7 +9562,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var translateTargets=function(targets){
 								if(get.itemtype(targets)=="player") targets=[targets];
 								var str="";
-								if(targets[0]==this){
+								if(targets[0]==player){
 									str="自己";
 									if(targets.length>1){
 										str+="、";
