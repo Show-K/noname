@@ -65,8 +65,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0827. 西施惠/Isabelle/しずえ<br>\
-			系列：Animal Crossing（动物森友会）<br>\
-			首次登场：Animal Crossing: New Leaf（来吧！动物森友会）<br>\
+			系列：<ruby>动物森友会<rp>（</rp><rt>Animal Crossing</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>来吧！动物森友会<rp>（</rp><rt>Animal Crossing: New Leaf</rt><rp>）</rp></ruby><br>\
 			在3DS版《动物森友会》中，她是村民们的可靠秘书；而在NS版中，她也为每个无人岛居民提供生活服务。她有时可能健忘，但总的来说很靠谱。有个叫西施德的弟弟。她在3DS和WiiU版《任天堂明星大乱斗》中是辅助模型，NS版中则成为了斗士。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -76,8 +76,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
 			<hr>\
 			S003. 炸弹彬/Bobby/ボム平<br>\
-			系列：Mario（马力欧）<br>\
-			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
@@ -88,8 +88,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
 			<hr>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
-			系列：Mario（马力欧）<br>\
-			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			由掌握赋生折法的匠人制作的折纸，奥利王的妹妹。非常天真烂漫，对世界充满了好奇心。为了阻止哥哥的野心而踏上冒险之途，虽然也有过悲痛和犹豫，但是还是走到了最后。非常擅长唱歌跳舞，喜欢泡温泉和撸狗。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -116,8 +116,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			S004. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
-			系列：Mario（马力欧）<br>\
-			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
@@ -127,8 +127,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			1382. 艾黛尔贾特/Edelgard/エーデルガルト<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 风花雪月<rp>（</rp><rt>Fire Emblem: Three Houses</rt><rp>）</rp></ruby><br>\
 			阿德剌斯忒亚帝国的皇女、皇位继承人。气质高雅充满自信，有很强的执行能力，怀有深藏不露的野心。似乎和神秘人“炎帝”有什么关系？<br>\
 			——Marioraz、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -137,8 +137,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			1362. 草薙京/Kyo Kusanagi/草薙京<br>\
-			系列：The King of Fighters（拳皇）<br>\
-			首次登场：The King of Fighters \x2794（拳皇\x2794）<br>\
+			系列：<ruby>拳皇<rp>（</rp><rt>The King of Fighters</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>拳皇\x2794<rp>（</rp><rt>The King of Fighters \x2794</rt><rp>）</rp></ruby><br>\
 			炎之贵公子草薙京，三神器之一“草薙剑”的传人，因此能够使用神器所带来的火焰之力。三神器家族自1800年前便与大蛇结下了宿命的渊源。大蛇作为地球的意志，想要清除一直以来破坏地球的人类，而三神器一族则世世代代守护着大蛇的封印。他们也背负上了与大蛇一族战斗的宿命。不过听说他现在还拿不到中学毕业证。<br>\
 			——Mario_not_mary、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -147,8 +147,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0591. 飞隼队长/Captain Falcon/キャプテン・ファルコン<br>\
-			系列：F-Zero（零式赛车）<br>\
-			首次登场：F-Zero（零式赛车）<br>\
+			系列：<ruby>零式赛车<rp>（</rp><rt>F-Zero</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>零式赛车<rp>（</rp><rt>F-Zero</rt><rp>）</rp></ruby><br>\
 			在F-Zero赛车大赛中，飞隼队长驾驶着他的“蓝色猎鹰”取得了优秀的成绩。虽然参战了大乱斗，但他的真实身份仍然是个谜。他的速度和力量都很强，还有演出效果爆炸的招牌技能“飞隼拳”，可以在落地的时候尝试使用哦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -158,8 +158,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
 			<hr>\
 			1427. 奥利王/King Olly/オリー王<br>\
-			系列：Mario（马力欧）<br>\
-			首次登场：Paper Mario: The Origami King（纸片马力欧 折纸国王）<br>\
+			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			由掌握赋生折法的匠人制作的折纸，奥莉维亚的哥哥。自称折纸国王，将匠人的所有文具变为了自己的手下，有把整个纸片世界都变成折纸的野心。手段残忍，即使是亲妹妹也会毫不犹豫的下手。骄傲的背后其实是极端的玻璃心和无知。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -168,8 +168,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0037. 慢慢龟/Koopa Troopa/ノコノコ<br>\
-			系列：Mario（马力欧）<br>\
-			首次登场：Super Mario Bros.（超级马力欧兄弟）<br>\
+			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>超级马力欧兄弟<rp>（</rp><rt>Super Mario Bros.</rt><rp>）</rp></ruby><br>\
 			在酷霸王军团里，最常见的不是栗宝宝就是慢慢龟了。它们看起来很温顺，但它们也有奋不顾身地跳崖的勇气。马力欧如果踩到慢慢龟，它们会缩进壳里，这个状态下的它们经常被踢来踢去或者扔来扔去。马力欧游戏的不少地名都是以慢慢龟命名的哦。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -178,8 +178,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
-			系列：Wario（瓦力欧）<br>\
-			首次登场：WarioWare, Inc.: Mega Microgame$!（瓦力欧制造）<br>\
+			系列：<ruby>瓦力欧<rp>（</rp><rt>Wario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>瓦力欧制造<rp>（</rp><rt>WarioWare, Inc.: Mega Microgame$!</rt><rp>）</rp></ruby><br>\
 			九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -188,14 +188,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -204,8 +204,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -214,8 +214,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -224,8 +224,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			1241. 不来方夕莉/Yuri Kozukata/不来方夕莉<br>\
-			系列：Fatal Frame（零）<br>\
-			首次登场：Fatal Frame: Maiden of Black Water（零～濡鸦之巫女～）<br>\
+			系列：<ruby>零<rp>（</rp><rt>Fatal Frame</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>零～濡鸦之巫女～<rp>（</rp><rt>Fatal Frame: Maiden of Black Water</rt><rp>）</rp></ruby><br>\
 			在经历过交通事故之后，拥有了能看见死者的能力。被这个能力困扰的她本想自杀，最后被人救下，并学会了使用“射影机”对抗怨灵。在一次委托中，她逐渐发现了灵山中的真相。在大乱斗中，作为辅助模型的她可以使用射影机对被拍到的斗士造成伤害。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -240,8 +240,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			S005. 鸣上悠/Yu Narukami/鳴上悠<br>\
-			系列：Persona（女神异闻录）<br>\
-			首次登场：Persona 4（女神异闻录4）<br>\
+			系列：<ruby>女神异闻录<rp>（</rp><rt>Persona</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>女神异闻录4<rp>（</rp><rt>Persona 4</rt><rp>）</rp></ruby><br>\
 			鸣上悠是Atlus开发的《女神异闻录》系列中的一个虚构角色，作为2008年角色扮演视频游戏《女神异闻录4》的主角首次亮相。在游戏中，鸣上悠本身不说话，其思想和行动由玩家决定。作为一名高中生，他搬到远离城市的农村地区稻叶，与他的叔叔堂岛辽太郎和表弟菜菜子住在一起，而他的父母正忙于工作。抵达稻叶后不久，鸣上悠开始调查一起谋杀案，受害者在他居住的小镇上被神秘绑架并挂在电话线上。他与同学们合作，探索另一个被称为电视世界的维度，在那里他获得了一种被称为“Persona”的力量——他潜意识的物理表现，以对抗并击败谋杀第一批受害者的生物Shadows。鸣上悠还出现在与《女神异闻录4》相关的其他作品中，包括名为《女神异闻录4 动画》的动画改编、漫画版和几款衍生游戏。对于这些作品，鸣上悠在故事中得到了自己的刻画和发展。<br>\
 			——翻译自《维基百科》<br>\
 			<hr>\
@@ -250,8 +250,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			S006. 但丁/Dante/ダンテ<br>\
-			系列：Devil May Cry（鬼泣）<br>\
-			首次登场：Devil May Cry（鬼泣）<br>\
+			系列：<ruby>鬼泣<rp>（</rp><rt>Devil May Cry</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>鬼泣<rp>（</rp><rt>Devil May Cry</rt><rp>）</rp></ruby><br>\
 			但丁是鬼泣系列的游戏角色。但丁是1代至3代的主角，以华丽的动作身手成为一个受欢迎的人物。在4代和5代中，但丁将会担任游戏后半段的主角。<br>\
 			——《维基百科》<br>\
 			<hr>\

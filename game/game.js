@@ -14853,29 +14853,29 @@
 							if(hs.length){
 								event.dialog.addText('手牌区');
 								hs.randomSort();
-								var hs_invisible=[];
-								var hs_visible=[];
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
 									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
+									var hsInvisible=[];
+									var hsVisible=[];
 									for(var j=0;j<hs.length;j++){
 										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
-											hs_visible.push(hs[j]);
+											hsVisible.push(hs[j]);
 										}
 										else{
-											hs_invisible.push(hs[j]);
+											hsInvisible.push(hs[j]);
 										}
 									}
-									if(hs_invisible.length){
+									if(hsInvisible.length){
 										event.dialog.addText('不可见手牌');
-										event.dialog.add([hs_invisible,'blank']);
+										event.dialog.add([hsInvisible,'blank']);
 									}
-									if(hs_visible.length){
+									if(hsVisible.length){
 										event.dialog.addText('可见手牌');
-										event.dialog.add(hs_visible);
+										event.dialog.add(hsVisible);
 										directh=false;
 									}
 								}
@@ -14995,29 +14995,29 @@
 							if(hs.length){
 								event.dialog.addText('手牌区');
 								hs.randomSort();
-								var hs_invisible=[];
-								var hs_visible=[];
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
 									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
+									var hsInvisible=[];
+									var hsVisible=[];
 									for(var j=0;j<hs.length;j++){
 										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
-											hs_visible.push(hs[j]);
+											hsVisible.push(hs[j]);
 										}
 										else{
-											hs_invisible.push(hs[j]);
+											hsInvisible.push(hs[j]);
 										}
 									}
-									if(hs_invisible.length){
+									if(hsInvisible.length){
 										event.dialog.addText('不可见手牌');
-										event.dialog.add([hs_invisible,'blank']);
+										event.dialog.add([hsInvisible,'blank']);
 									}
-									if(hs_visible.length){
+									if(hsVisible.length){
 										event.dialog.addText('可见手牌');
-										event.dialog.add(hs_visible);
+										event.dialog.add(hsVisible);
 										directh=false;
 									}
 								}
@@ -15160,29 +15160,29 @@
 							if(hs.length){
 								event.dialog.addText('手牌区');
 								hs.randomSort();
-								var hs_invisible=[];
-								var hs_visible=[];
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
 									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
+									var hsInvisible=[];
+									var hsVisible=[];
 									for(var j=0;j<hs.length;j++){
 										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
-											hs_visible.push(hs[j]);
+											hsVisible.push(hs[j]);
 										}
 										else{
-											hs_invisible.push(hs[j]);
+											hsInvisible.push(hs[j]);
 										}
 									}
-									if(hs_invisible.length){
+									if(hsInvisible.length){
 										event.dialog.addText('不可见手牌');
-										event.dialog.add([hs_invisible,'blank']);
+										event.dialog.add([hsInvisible,'blank']);
 									}
-									if(hs_visible.length){
+									if(hsVisible.length){
 										event.dialog.addText('可见手牌');
-										event.dialog.add(hs_visible);
+										event.dialog.add(hsVisible);
 										directh=false;
 									}
 								}

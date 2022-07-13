@@ -128,6 +128,7 @@ window.noname_asset_list=[
 	'image/character/sst_paipai.png',
 	'image/character/sst_bandana_waddle_dee.png',
 	'image/character/sst_magolor.png',
+	'image/character/sst_roy.png',
 
 	'image/character/ymk_isabelle.png',
 	'image/character/ska_bobby.png',

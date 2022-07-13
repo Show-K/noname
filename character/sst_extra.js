@@ -50,8 +50,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			1386. 库罗德/Claude/クロード<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem: Three Houses（火焰纹章 风花雪月）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 风花雪月<rp>（</rp><rt>Fire Emblem: Three Houses</rt><rp>）</rp></ruby><br>\
 			雷斯塔诸侯同盟盟主之孙、爵位继承人。喜欢策略，喜欢琢磨战术，为了达到目标可以不择手段。不论玩家选择的是贝雷特还是贝雷丝，他都会以“兄弟”称呼他的老师。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -61,8 +61,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
 			<hr>\
 			0104. Geno/ジーノ<br>\
-			系列：Mario（马力欧）<br>\
-			首次登场：Super Mario RPG（超级马力欧RPG）<br>\
+			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>超级马力欧RPG<rp>（</rp><rt>Super Mario RPG: Legend of the Seven Stars</rt><rp>）</rp></ruby><br>\
 			他是星之族的一员，本来没有身体，本名也是无法拼读的“♡♪!?”，所以选择附身在一个叫Geno的木偶上行动。他总是自信满满，擅长分析问题，战斗能力也相当出色。他会和马力欧、桃花公主、酷霸王和Mallow一起打败恶人。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -71,8 +71,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0974. 打猎/Duck Hunt/ダックハント<br>\
-			系列：Duck Hunt（打猎）<br>\
-			首次登场：Duck Hunt（打猎）<br>\
+			系列：<ruby>打猎<rp>（</rp><rt>Duck Hunt</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>打猎<rp>（</rp><rt>Duck Hunt</rt><rp>）</rp></ruby><br>\
 			《打猎》是1984年的FC游戏，经常和FC捆绑销售。玩家需要用光枪打鸭子，而这只看起来有点欠揍的狗负责捡鸭子。在大乱斗中，狗和鸭子转而并肩作战。它们扔出的罐子和飞盘都会被某人射击从而移动或爆炸。让对手也尝尝被打猎的感觉吧！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -81,8 +81,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0563. 奈斯/Ness/ネス<br>\
-			系列：EarthBound（地球冒险）<br>\
-			首次登场：EarthBound（地球冒险）<br>\
+			系列：<ruby>地球冒险<rp>（</rp><rt>EarthBound</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>地球冒险<rp>（</rp><rt>EarthBound</rt><rp>）</rp></ruby><br>\
 			奈斯在Eagleland国的Onett镇上长大，虽然看起来很普通，但却能使用意念能力。在原作中，他要对抗邪恶的Giygas，在大乱斗中，他的意念能力让大家感到难以对付。他的意念之雷如果击中自己就能向前突进，而意念之火击中对手后会持续燃烧。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -91,8 +91,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0613. 库洛姆/Chrom/クロム<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			伊利斯圣王国的王子，英雄王马尔斯的后代。他率领一个保卫王国的自卫团。虽然他在训练时经常很莽以至于搞砸事情，但在战场上他是非常可靠的。他还会在鲁弗莱的最终必杀中出场。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -101,8 +101,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0611. 露琪娜/Lucina/ルキナ<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			库洛姆的女儿，伊利斯圣王国的公主，从悲惨的未来穿越到现在，阻止那种未来发生。她最初以女扮男装，自称马尔斯的形态出现。在大乱斗中，她的技能和马尔斯是一样的，但没有马尔斯那种剑尖与剑根的伤害差异。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -111,14 +111,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -127,8 +127,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -137,8 +137,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			插图作者：未知<br>\
 			<hr>\
 			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Fire Emblem Awakening（火焰纹章 觉醒）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
 			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -154,8 +154,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			get.formatUrl("https://www.pixiv.net/artworks/93078264")+"<br>\
 			<hr>\
 			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
-			系列：Kirby（星之卡比）<br>\
-			首次登场：Kirby Super Star（星之卡比 超级豪华版）<br>\
+			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>星之卡比 超级豪华版<rp>（</rp><rt>Kirby Super Star</rt><rp>）</rp></ruby><br>\
 			头巾瓦豆鲁迪并非一个种群，而是指一位特定的戴蓝色头巾的瓦豆鲁迪。他是族群中的精英，使得一手好长枪，自《星之卡比：重返梦幻岛》以来多次作为可操作角色出场，可以用长枪使出暴风骤雨般的攻击。他直接效忠于帝帝帝大王，但同时也是卡比最好的朋友之一。目前他在星之卡比系列中的戏份地位堪比主角，仅次于卡比，帝帝帝大王，魅塔骑士。如果星之卡比系列还有人能够参战大乱斗，他将是最有竞争力的候选人之一。<br>\
 			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -165,18 +165,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			get.formatUrl("https://www.pixiv.net/artworks/22504365")+"<br>\
 			<hr>\
 			0355. 魔法洛亚/Magolor/マホロア<br>\
-			系列：Kirby（星之卡比）<br>\
-			首次登场：Kirby\x27s Return to Dream Land（星之卡比Wii）<br>\
+			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>星之卡比Wii<rp>（</rp><rt>Kirby\x27s Return to Dream Land</rt><rp>）</rp></ruby><br>\
 			某一天，梦幻岛的上空出现了大洞，魔法洛亚的飞船从洞中摔到了地面。虽然飞船坏了，但是魔法洛亚本人并没有事。他拜托卡比和它的朋友们一起收集飞船的部件，并且一起穿越次元回到自己的家乡。一切看起来好像都很平常，直到……<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。",
 			sst_roy:"武将作者：mario not mary<br>\
-			插图作者：无<br>\
+			插图作者：未知<br>\
 			<hr>\
 			0612. 罗伊/Roy (Fire Emblem)/ロイ（ファイアーエムブレム）<br>\
-			系列：Fire Emblem（火焰纹章）<br>\
-			首次登场：Super Smash Bros. Melee（任天堂明星大乱斗DX）<br>\
+			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>任天堂明星大乱斗DX<rp>（</rp><rt>Super Smash Bros. Melee</rt><rp>）</rp></ruby><br>\
 			在父亲突病、局势动荡时毅然担当起责任，率兵抵抗敌国入侵的贵族少年。小小年纪就擅长带兵打仗和取信于人。顺便，他是先在大乱斗中出场，随后原作才发售的存在。以及，他和酷霸王军团中的洛伊是同一个英文名。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -1474,16 +1474,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.addSkill("sst_xianghuan_effect");
 					if(player.countCards("h",function(card){
-						if(game.checkMod(card,player,false,"ignoredHandcard",player)==true) return false;
-						return true;
-					})) player.chooseCard("乡幻：指定"+get.cnNumber(-trigger.num)+"张计入上限的手牌不计入上限直到离开手牌区",-trigger.num,function(card){
-						if(game.checkMod(card,player,false,"ignoredHandcard",player)==true) return false;
-						return true;
+						return !card.hasGaintag("viewHandcard");
+					})) player.chooseCard("乡幻：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,function(card){
+						return !card.hasGaintag("viewHandcard");
 					},true).set("ai",get.value);
 					"step 1"
-					if(result.cards&&result.cards.length) player.addGaintag(result.cards,"sst_xianghuan");
+					if(result.cards&&result.cards.length){
+						player.$give(result.cards,player,false);
+						player.addGaintag(result.cards,"viewHandcard");
+						player.addGaintag(result.cards,"sst_xianghuan");
+						game.log(player,"明置了",result.cards);
+						game.delayx();
+					}
 					"step 2"
 					player.addMark("sst_xianghuan_effect",-trigger.num,false);
+					player.$damagepop(player.countMark("sst_xianghuan_effect"),"water");
 					game.delayx();
 				},
 				ai:{
@@ -1503,7 +1508,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				onremove:true,
 				mod:{
 					ignoredHandcard:function(card){
-						if(card.hasGaintag("sst_xianghuan")) return true;
+						if(card.hasGaintag("viewHandcard")) return true;
 					},
 					maxHandcard:function(player,num){
 						return num+player.countMark("sst_xianghuan_effect");
@@ -1670,8 +1675,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						else if(cardName=="juedou"){
 							if(typeof trigger.rage!="object") trigger.rage={};
-							if(typeof trigger.rage[player.playerid]!="number") trigger.rage[player.playerid]=0;
-							trigger.rage[player.playerid]++;
+							if(typeof trigger.rage[trigger.player.playerid]!="number") trigger.rage[trigger.player.playerid]=0;
+							trigger.rage[trigger.player.playerid]++;
 						}
 						else if(cardName=="huogong"||cardName=="tao"){
 							trigger.baseDamage++;
@@ -1784,7 +1789,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xianghuan:"乡幻",
 			sst_xianghuan2:"乡幻",
 			sst_xianghuan_effect:"乡幻",
-			sst_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你指定一张计入上限的手牌不计入上限直到离开手牌区，且本局游戏你的手牌上限+1。",
+			sst_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你明置一张暗置手牌，且本局游戏你的手牌上限+1。你的明置手牌不计入上限。",
 			sst_mofan:"魔帆",
 			sst_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
 			sst_nuyan:"怒炎",
