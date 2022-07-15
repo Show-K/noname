@@ -12,7 +12,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
 				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora","sst_piranha_plant"],
-				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_kyo_kusanagi","sst_pauline","sst_dr_wily","sst_9_volt_18_volt","sst_kraid"],
+				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_kyo_kusanagi","sst_pauline","sst_dr_wily","sst_kraid"],
 				sst_players:["sst_mario_not_mary","sst_yumikohimi","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji","sst_marioraz"]
 			}
 		},
@@ -121,7 +121,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],["type:support"]],
 			sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],["type:balance"]],
 			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],["type:support"]],
-			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:support"]],
 			sst_kazuya:["male","sst_dark",5,["sst_chouyu","sst_xuehai"],["type:balance"]],
 			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],["type:balance"]],
 			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],["type:balance"]],
@@ -195,7 +194,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			0729. 瓦力欧/Wario/ワリオ<br>\
 			系列：<ruby>瓦力欧<rp>（</rp><rt>Wario</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>玛利欧世界 第二集<rp>（</rp><rt>Super Mario Land: 6 Golden Coins</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>超级马力欧乐园 六个金币<rp>（</rp><rt>Super Mario Land: 6 Golden Coins</rt><rp>）</rp></ruby><br>\
 			瓦力欧简直就是恶趣味的集合体。这个怪人自称是马力欧的发小，并且相当厌恶马力欧。同时他还视财如命。在大乱斗中，他是个灵活的重量级斗士，还可以通过积攒屁来释放强力攻击——真的是太恶趣味了！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -302,7 +301,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			终于有武将图片了。",
 			sst_peach:"武将作者：mario not mary<br>\
 			插图作者：ゲB<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/50055037")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/50055037")+"<br>\
 			<hr>\
 			0005. 桃花公主/Peach/ピーチ<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -437,7 +436,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			“变幻自在”",
 			sst_kirby:"武将作者：mario not mary<br>\
 			插图作者：kotori<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/26818738")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/26818738")+"<br>\
 			<hr>\
 			0323. 卡比/Kirby/カービィ<br>\
 			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -498,7 +497,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			大家都爱的秘书西施惠！",
 			sst_daisy:"武将作者：mario not mary<br>\
 			插图作者：高橋うもり<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/73249081")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/73249081")+"<br>\
 			<hr>\
 			0006. 菊花公主/Daisy/デイジー<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -509,7 +508,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			嘿！我是黛西！",
 			sst_meta_knight:"武将作者：mario not mary<br>\
 			插图作者：糸谷さいれん<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/60069126")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/60069126")+"<br>\
 			<hr>\
 			0324. 魅塔骑士/Meta Knight/メタナイト<br>\
 			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -681,7 +680,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			右手，代表着创造。",
 			sst_ike:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：北千里<br>\
+			——《TCG火焰纹章<ruby>0<rp>（</rp><rt>Cipher</rt><rp>）</rp></ruby>》<br>\
 			<hr>\
 			0614. 艾克（苍炎之轨迹）/Ike (Path of Radiance)/アイク（蒼炎の軌跡）<br>\
 			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
@@ -870,7 +870,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			自损八百，可伤敌一千——某张姓女子。",
 			sst_king_dedede:"武将作者：mario not mary<br>\
 			插图作者：太春/バルテー<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/42226957")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/42226957")+"<br>\
 			<hr>\
 			0325. 帝帝帝大王/King Dedede/デデデ大王<br>\
 			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -1107,7 +1107,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			所以拳皇XV终于憋出来了……",
 			sst_pauline:"武将作者：mario not mary<br>\
 			插图作者：맛감쟈<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/84875359")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/84875359")+"<br>\
 			<hr>\
 			0079. 宝琳/Pauline/ポリーン<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -1126,18 +1126,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			此次推出的三噩梦命魂武将其二。",
-			sst_9_volt_18_volt:"武将作者：mario not mary、Show-K<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
-			系列：<ruby>瓦力欧<rp>（</rp><rt>Wario</rt><rp>）</rp></ruby><br>\
-			首次登场：<br>\
-			九伏特——<ruby>瓦力欧制造<rp>（</rp><rt>WarioWare, Inc.: Mega Microgame$!</rt><rp>）</rp></ruby><br>\
-			十八伏特——<ruby>まわる 瓦力欧制造<rp>（</rp><rt>WarioWare: Twisted!</rt><rp>）</rp></ruby><br>\
-			九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			此次推出的三噩梦命魂武将其三。",
 			sst_kazuya:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
 			<hr>\
@@ -1332,7 +1320,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kyo_kusanagi:"炎之贵公子",
 			sst_pauline:"纡朱怀金",
 			sst_dr_wily:"反逆的齿轮",
-			sst_9_volt_18_volt:"电子幻界",
 			sst_kazuya:"末日铁拳",
 			sst_kraid:"地崩山摧",
 			sst_sora:"命运之子",
@@ -1343,122 +1330,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_piranha_plant:"层林尽染"
 		},
 		skill:{
-			//Civil War mode reference
-			_guozhan_marks:{
-				ruleSkill:true,
-				enable:"phaseUse",
-				filter:function(event,player){
-					return player.hasMark("yexinjia_mark")||player.hasMark("xianqu_mark")||player.hasMark("yinyang_mark")||player.hasMark("zhulianbihe_mark");
-				},
-				chooseButton:{
-					dialog:function(event,player){
-						return ui.create.dialog("###国战标记###弃置一枚对应的标记，发动其对应的效果");
-					},
-					chooseControl:function(event,player){
-						var list=[],bool=player.hasMark("yexinjia_mark");
-						if(bool||player.hasMark("xianqu_mark")) list.push("先驱");
-						if(bool||player.hasMark("zhulianbihe_mark")){
-							list.push("珠联(摸牌)");
-							if(event.filterCard({name:"tao",isCard:true},player,event)) list.push("珠联(桃)");
-						}
-						if(bool||player.hasMark("yinyang_mark")) list.push("阴阳鱼");
-						list.push("cancel2");
-						return list;
-					},
-					check:function(){
-						var player=_status.event.player,bool=player.hasMark("yexinjia_mark");
-						if((bool||player.hasMark("xianqu_mark"))&&(4-player.countCards("h"))>1) return "先驱";
-						if(bool||player.hasMark("zhulianbihe_mark")){
-							if(_status.event.getParent().filterCard({name:"tao",isCard:true},player,event)&&get.effect_use(player,{name:"tao"},player)>0) return "珠联(桃)";
-							if(player.getHandcardLimit()-player.countCards("h")>1&&!game.hasPlayer(function(current){
-								return current!=player&&current.isFriendOf(player)&&current.hp+current.countCards("h","shan")<=2;
-							})) return "珠联(摸牌)";
-						}
-						if(player.hasMark("yinyang_mark")&&player.getHandcardLimit()-player.countCards("h")>0) return "阴阳鱼";
-						return "cancel2";
-					},
-					backup:function(result,player){
-						switch(result.control){
-							case "珠联(桃)": return get.copy(lib.skill._zhulianbihe_mark_tao);
-							case "珠联(摸牌)": return {
-								content:function(){
-								 player.draw(2);
-								 player.removeMark(player.hasMark("zhulianbihe_mark")?"zhulianbihe_mark":"yexinjia_mark",1);
-								},
-							};
-							case "阴阳鱼": return {
-								content:function(){
-									player.draw();
-									player.removeMark(player.hasMark("yinyang_mark")?"yinyang_mark":"yexinjia_mark",1);
-								}
-							};
-							case "先驱": return {content:lib.skill.xianqu_mark.content};
-						}
-					}
-				},
-				ai:{
-					order:1,
-					result:{
-						player:1
-					}
-				}
-			},
-			xianqu_mark:{
-				intro:{
-					content:"◇出牌阶段，你可以弃置此标记，然后将手牌摸至四张并观看一名其他角色的一张武将牌。",
-				},
-				content:function(){
-					"step 0"
-					player.removeMark(player.hasMark("xianqu_mark")?"xianqu_mark":"yexinjia_mark",1);
-					var num=4-player.countCards("h");
-					if(num) player.draw(num);
-					"step 1"
-					if(game.hasPlayer(function(current){
-						return current!=player&&current.isUnseen(2);
-					})) player.chooseTarget("是否观看一名其他角色的一张暗置武将牌？",function(card,player,target){
-						return target!=player&&target.isUnseen(2);
-					}).set("ai",function(target){
-						if(target.isUnseen()){
-							var next=_status.event.player.getNext();
-							if (target!=next) return 10;
-							return 9;
-						}
-						return -get.attitude(_status.event.player,target);
-					});
-					else event.finish();
-					"step 2"
-					if(result.bool){
-						event.target=result.targets[0];
-						player.line(event.target,"green");
-						var controls=[];
-						if(event.target.isUnseen(0)) controls.push("主将");
-						if(event.target.isUnseen(1)) controls.push("副将");
-						if(controls.length>1){
-							player.chooseControl(controls);
-						}
-						if(controls.length==0) event.finish();
-					}
-					else{
-						player.removeSkill("xianqu_mark");
-						event.finish();
-					}
-					"step 3"
-					if(result.control){
-						if(result.control=="主将"){
-							player.viewCharacter(event.target,0);
-						}
-						else{
-							player.viewCharacter(event.target,1);
-						}
-					}
-					else if(target.isUnseen(0)){
-						player.viewCharacter(event.target,0);
-					}
-					else{
-						player.viewCharacter(event.target,1);
-					}
-				}
-			},
 			//Background skill
 			_sst_sex_select:{
 				charlotte:true,
@@ -5449,14 +5320,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					event.players=game.filterPlayer(function(current){
+					event.inRanges=game.filterPlayer(function(current){
 						return current!=player&&current.inRange(player);
 					});
-					event.players.sortBySeat(_status.currentPhase);
-					player.line(event.players,"green");
+					if(event.inRanges.length){
+						event.inRanges.sortBySeat(_status.currentPhase);
+						player.line(event.inRanges,"green");
+					}
+					else{
+						event.finish();
+					}
 					"step 3"
-					if(event.players.length){
-						event.current=event.players.shift();
+					if(event.inRanges.length){
+						event.current=event.inRanges.shift();
 						if(player.isIn()){
 							event.current.chooseToUse("霸岛：是否以"+get.translation(player)+"为目标使用一张基本牌？").set("filterTarget",function(card,player,target){
 								if(target!=_status.event.targetx) return false;
@@ -10344,7 +10220,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(player.storage.sst_tankuang.length>10){
 						player.addTempSkill("sst_tankuang2");
 						player.damage("nosource","nocard");
-						event.finish();
+						event.goto(5);
 					}
 					"step 4"
 					if(get.suit(event.card)==event.control||get.type(event.card,"trick")==event.control){
@@ -10355,6 +10231,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						game.cardsDiscard(event.card);
 						event.goto(2);
 					}
+					"step 5"
+					game.delayx();
 				},
 				ai:{
 					threaten:3,
@@ -12481,6 +12359,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					trigger.cancel();
 				}
 			},
+			//Dr. Wily
 			sst_zaowu:{
 				init:function(player){
 					player.addSkill("sst_zaowu_effect");
@@ -12619,76 +12498,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(!player.hasMark("sst_zaowu")||player.hp>1) return false;
 					},
 					combo:"sst_zaowu"
-				}
-			},
-			sst_tanfen:{
-				trigger:{player:"phaseDrawBegin1"},
-				filter:function(event,player){
-					return !event.numFixed&&player.countCards()<player.getHandcardLimit();
-				},
-				direct:true,
-				content:function(){
-					"step 0"
-					player.chooseControl(lib.suit,"cancel2").set("ai",function(){
-						var statistic={};
-						for(var i=0;i<ui.cardPile.childNodes.length;i++){
-							var suit=get.suit(ui.cardPile.childNodes[i]);
-							if(!lib.suit.contains(suit)) continue;
-							if(!statistic[suit]) statistic[suit]=0;
-							statistic[suit]++;
-						}
-						var min=ui.cardPile.childNodes.length;
-						var choice="cancel2";
-						for(var i in statistic){
-							if(!lib.suit.contains(i)) continue;
-							if(statistic[i]<min){
-								min=statistic[i];
-								choice=i;
-							}
-						}
-						return choice;
-					}).set("prompt",get.prompt("sst_tanfen")).set("prompt2",get.translation("sst_tanfen_info"));
-					"step 1"
-					if(result.control!="cancel2"){
-						player.logSkill("sst_tanfen");
-						player.popup(result.control);
-						game.log(player,"声明了","#y"+get.translation(result.control));
-						event.control=result.control;
-						trigger.changeToZero();
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					event.card=get.cards()[0];
-					game.cardsGotoOrdering(event.card);
-					player.showCards(event.card,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】（声明了"+get.translation(event.control)+"）",0.5);
-					"step 3"
-					player.gain(event.card);
-					player.$gain2(event.card,true);
-					if(get.suit(event.card)!=event.control) event.goto(2);
-					/*
-					"step 4"
-					if(player.countCards()-player.maxHp>0){
-						var num=player.countCards()-player.maxHp;
-						player.chooseToDiscard("贪分：弃置"+get.cnNumber(num)+"张手牌",num,true);
-					}
-					*/
-				},
-				ai:{
-					threaten:3
-				}
-			},
-			sst_sutong:{
-				frequent:true,
-				trigger:{player:"phaseJieshuBegin"},
-				filter:function(event,player){
-					if(player.hasMark("xianqu_mark")) return false;
-					var history=player.getHistory("useCard");
-					return history&&history.length<=player.countCards();
-				},
-				content:function(){
-					player.addMark("xianqu_mark",1);
 				}
 			},
 			//Kazuya
@@ -14268,7 +14077,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kyo_kusanagi:"草薙京",
 			sst_pauline:"宝琳",
 			sst_dr_wily:"威利博士",
-			sst_9_volt_18_volt:"九伏特＆十八伏特",
 			sst_kazuya:"一八",
 			sst_kraid:"克雷德",
 			sst_sora:"索拉",
@@ -14290,7 +14098,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_cuphead_mugman_ab:"杯子兄弟",
 			sst_snake_ab:"固蛇",
 			sst_king_dedede_ab:"帝帝帝",
-			sst_9_volt_18_volt_ab:"九伏十八伏",
 			sst_olimar_ab:"皮克敏",
 			//Identity mode skill
 			sst_jueyi:"决意",
@@ -14981,7 +14788,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_kyo_kusanagi:"Kyo Kusanagi",
 			sst_pauline:"Pauline",
 			sst_dr_wily:"Dr. Wily",
-			sst_9_volt_18_volt:"9-Volt & 18-Volt",
 			sst_kazuya:"Kazuya",
 			sst_kraid:"Kraid",
 			sst_sora:"Sora",
@@ -14997,7 +14803,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bowser_jr:["sst_koopalings"],
 			sst_luigi:["sst_yoshi","sst_peach","sst_daisy"],
 			sst_peach:["sst_daisy"],
-			sst_wario:["sst_waluigi","sst_9_volt_18_volt"],
+			sst_wario:["sst_waluigi"],
 			sst_link:["sst_zelda","sst_young_link","sst_ocarina_of_time_link","sst_toon_link","sst_massy"],
 			sst_zelda:["sst_sheik","sst_young_link","sst_ocarina_of_time_link","sst_toon_link"],
 			sst_villager:["sst_isabelle"],

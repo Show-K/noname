@@ -191,7 +191,7 @@ window.noname_asset_list=[
 	
 	'image/card/sst_hylian_shield.png',
 	
-	'image/card/ska_spear_thrust.png',
+	'image/card/sst_spear_thrust.png',
 	
 	'image/card/ska_sauce.png',
 	'image/card/ska_rise_of_the_block.png',
@@ -1145,7 +1145,7 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/card/shuiyanqijunx.webp',
 	'extension/十周年UI/image/card/shuiyanqijuny.webp',
 	'extension/十周年UI/image/card/shunshou.webp',
-	'extension/十周年UI/image/card/ska_spear_thrust.webp',
+	'extension/十周年UI/image/card/sst_spear_thrust.webp',
 	'extension/十周年UI/image/card/sst_aegises.webp',
 	'extension/十周年UI/image/card/suijiyingbian.webp',
 	'extension/十周年UI/image/card/suolianjia.webp',

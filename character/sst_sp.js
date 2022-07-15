@@ -73,19 +73,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			上次柚子的武将就被老摸吵着要删，这次希望不要太IMBA……老摸的西施慧出来了，柚子的武将至少还是被借鉴了一点的。",
 			ska_bobby:"武将作者：Show-K<br>\
 			插图作者：海鮮炒め<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
 			<hr>\
 			S003. 炸弹彬/Bobby/ボム平<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
 			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
 			——翻译自《超级马力欧维基》<br>"+
-			get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
+			"——"+get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
 			<hr>\
 			“我？哦，我是炸弹兵。”",
 			ska_olivia:"武将作者：Show-K<br>\
 			插图作者：蛇のこ<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
 			<hr>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -120,7 +120,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
 			——翻译自《超级马力欧维基》<br>"+
-			get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
+			"——"+get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
 			<hr>\
 			大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"武将作者：mario not mary<br>\
@@ -155,7 +155,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			MNM曾经提过一个“面杀”版本技能，最近无名杀能玩音游了，于是我就借鉴了这种思路（不就是小游戏武将吗）。",
 			ska_king_olly:"武将作者：Show-K<br>\
 			插图作者：チョコ<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
 			<hr>\
 			1427. 奥利王/King Olly/オリー王<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -2614,7 +2614,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian2:"影见+",
 			alz_yingjian3:"影见-",
 			alz_yingjian3_backup:"影见-",
-			alz_yingjian_info:"游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以弃一枚“灵”，视为你使用一张基本牌。",
+			alz_yingjian_info:"游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用一张基本牌。",
 			ymk_kaibai:"开摆",
 			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
 			xsj_dongqie:"洞怯",

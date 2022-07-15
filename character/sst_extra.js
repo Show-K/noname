@@ -6,12 +6,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,
 		characterSort:{
 			sst_extra:{
+				sst_civil_war:["sst_9_volt_18_volt"],
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
 				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee"],
 				sst_attack_by_stratagem:["sst_magolor","sst_roy"]
 			}
 		},
 		character:{
+			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:support"]],
 			sst_claude:["male","sst_spirit",3,["sst_yunchou","sst_guimou"],[]],
 			sst_geno:["male","sst_spirit",3,["sst_fuyuan","sst_xingjiang"],[]],
 			sst_duck_hunt:["male","sst_light",3,["sst_gonglie","sst_weishou"],[]],
@@ -23,7 +25,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_robin_female:["female","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
-			sst_magolor:["male","sst_spirit","1/1/5",["sst_xianghuan","sst_mofan"],[]],
+			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
 			sst_roy:["male","sst_light",4,["sst_nuyan"],[]]
 		},
 		characterFilter:{
@@ -46,8 +48,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			"
 			*/
-			sst_claude:"武将作者：mario not mary、Yumikohimi<br>\
+			sst_9_volt_18_volt:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
+			<hr>\
+			0733. 九伏特&十八伏特【九伏&十八伏】/9-Volt & 18-Volt/ナインボルト & エイティーンボルト<br>\
+			系列：<ruby>瓦力欧<rp>（</rp><rt>Wario</rt><rp>）</rp></ruby><br>\
+			首次登场：<br>\
+			九伏特——<ruby>瓦力欧制造<rp>（</rp><rt>WarioWare, Inc.: Mega Microgame$!</rt><rp>）</rp></ruby><br>\
+			十八伏特——<ruby>まわる 瓦力欧制造<rp>（</rp><rt>WarioWare: Twisted!</rt><rp>）</rp></ruby><br>\
+			九伏特和十八伏特是最要好的朋友，目前正在钻石城市读小学——没错，看起来高大又成熟的十八伏特其实是个小学生。两人都喜欢玩游戏，其中九伏特会在晚上躲着妈妈偷偷玩。九伏特有个黄色的像素宠物蓬蓬，而十八伏特还很擅长rap，作为rapper的标志是老虎。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			此次推出的三噩梦命魂武将其三。",
+			sst_claude:"武将作者：mario not mary、Yumikohimi<br>\
+			插图作者：井塚大介<br>\
+			——《TCG火焰纹章<ruby>0<rp>（</rp><rt>Cipher</rt><rp>）</rp></ruby>》<br>\
 			<hr>\
 			1386. 库罗德/Claude/クロード<br>\
 			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
@@ -58,7 +73,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
 			sst_geno:"武将作者：Show-K<br>\
 			插图作者：ハルノ＠マリオ垢<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
 			<hr>\
 			0104. Geno/ジーノ<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -88,7 +103,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			接着MNM开始对使命技大打出手了。",
 			sst_chrom:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：北千里<br>\
+			——《TCG火焰纹章<ruby>0<rp>（</rp><rt>Cipher</rt><rp>）</rp></ruby>》<br>\
 			<hr>\
 			0613. 库洛姆/Chrom/クロム<br>\
 			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
@@ -98,7 +114,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			“运命改变了！”",
 			sst_lucina:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：北千里<br>\
+			——《TCG火焰纹章<ruby>0<rp>（</rp><rt>Cipher</rt><rp>）</rp></ruby>》<br>\
 			<hr>\
 			0611. 露琪娜/Lucina/ルキナ<br>\
 			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
@@ -150,8 +167,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			然后MNM开始对指定牌不能响应大打出手了。",
 			sst_bandana_waddle_dee:"武将作者：Show-K<br>\
-			插图作者：Azuki<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/93078264")+"<br>\
+			插图作者：Konna-Nani<br>"+
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/98930493")+"<br>\
 			<hr>\
 			0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
 			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -162,7 +179,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			一是为了蹭《星之卡比 探索发现》的热度，二是为了庆祝无名杀武将牌上牌机制变革，三是为了调侃卡比四人组中就剩他一直没有参战了。",
 			sst_magolor:"武将作者：Show-K<br>\
 			插图作者：邪仁寿<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/22504365")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/22504365")+"<br>\
 			<hr>\
 			0355. 魔法洛亚/Magolor/マホロア<br>\
 			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -172,7 +189,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			比起某个把“无双，万军取首”作为台词的武将，他这个大骗子属性简直可以忽略不计了。",
 			sst_roy:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
+			插图作者：山田孝太郎<br>\
+			——《TCG火焰纹章<ruby>0<rp>（</rp><rt>Cipher</rt><rp>）</rp></ruby>》<br>\
 			<hr>\
 			0612. 罗伊/Roy (Fire Emblem)/ロイ（ファイアーエムブレム）<br>\
 			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
@@ -183,6 +201,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			率先体验谋攻篇。"
 		},
 		characterTitle:{
+			sst_9_volt_18_volt:"电子幻界",
 			sst_claude:"连系世界之王",
 			sst_geno:"星路战士",
 			sst_duck_hunt:"天敌共演",
@@ -198,6 +217,189 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_roy:"年轻的狮子"
 		},
 		skill:{
+			//Civil War mode reference
+			_guozhan_marks:{
+				ruleSkill:true,
+				enable:"phaseUse",
+				filter:function(event,player){
+					return player.hasMark("yexinjia_mark")||player.hasMark("xianqu_mark")||player.hasMark("yinyang_mark")||player.hasMark("zhulianbihe_mark");
+				},
+				chooseButton:{
+					dialog:function(event,player){
+						return ui.create.dialog("###国战标记###弃置一枚对应的标记，发动其对应的效果");
+					},
+					chooseControl:function(event,player){
+						var list=[],bool=player.hasMark("yexinjia_mark");
+						if(bool||player.hasMark("xianqu_mark")) list.push("先驱");
+						if(bool||player.hasMark("zhulianbihe_mark")){
+							list.push("珠联(摸牌)");
+							if(event.filterCard({name:"tao",isCard:true},player,event)) list.push("珠联(桃)");
+						}
+						if(bool||player.hasMark("yinyang_mark")) list.push("阴阳鱼");
+						list.push("cancel2");
+						return list;
+					},
+					check:function(){
+						var player=_status.event.player,bool=player.hasMark("yexinjia_mark");
+						if((bool||player.hasMark("xianqu_mark"))&&(4-player.countCards("h"))>1) return "先驱";
+						if(bool||player.hasMark("zhulianbihe_mark")){
+							if(_status.event.getParent().filterCard({name:"tao",isCard:true},player,event)&&get.effect_use(player,{name:"tao"},player)>0) return "珠联(桃)";
+							if(player.getHandcardLimit()-player.countCards("h")>1&&!game.hasPlayer(function(current){
+								return current!=player&&current.isFriendOf(player)&&current.hp+current.countCards("h","shan")<=2;
+							})) return "珠联(摸牌)";
+						}
+						if(player.hasMark("yinyang_mark")&&player.getHandcardLimit()-player.countCards("h")>0) return "阴阳鱼";
+						return "cancel2";
+					},
+					backup:function(result,player){
+						switch(result.control){
+							case "珠联(桃)": return get.copy(lib.skill._zhulianbihe_mark_tao);
+							case "珠联(摸牌)": return {
+								content:function(){
+								 player.draw(2);
+								 player.removeMark(player.hasMark("zhulianbihe_mark")?"zhulianbihe_mark":"yexinjia_mark",1);
+								},
+							};
+							case "阴阳鱼": return {
+								content:function(){
+									player.draw();
+									player.removeMark(player.hasMark("yinyang_mark")?"yinyang_mark":"yexinjia_mark",1);
+								}
+							};
+							case "先驱": return {content:lib.skill.xianqu_mark.content};
+						}
+					}
+				},
+				ai:{
+					order:1,
+					result:{
+						player:1
+					}
+				}
+			},
+			xianqu_mark:{
+				intro:{
+					content:"◇出牌阶段，你可以弃置此标记，然后将手牌摸至四张并观看一名其他角色的一张武将牌。",
+				},
+				content:function(){
+					"step 0"
+					player.removeMark(player.hasMark("xianqu_mark")?"xianqu_mark":"yexinjia_mark",1);
+					var num=4-player.countCards("h");
+					if(num) player.draw(num);
+					"step 1"
+					if(game.hasPlayer(function(current){
+						return current!=player&&current.isUnseen(2);
+					})) player.chooseTarget("是否观看一名其他角色的一张暗置武将牌？",function(card,player,target){
+						return target!=player&&target.isUnseen(2);
+					}).set("ai",function(target){
+						if(target.isUnseen()){
+							var next=_status.event.player.getNext();
+							if (target!=next) return 10;
+							return 9;
+						}
+						return -get.attitude(_status.event.player,target);
+					});
+					else event.finish();
+					"step 2"
+					if(result.bool){
+						event.target=result.targets[0];
+						player.line(event.target,"green");
+						var controls=[];
+						if(event.target.isUnseen(0)) controls.push("主将");
+						if(event.target.isUnseen(1)) controls.push("副将");
+						if(controls.length>1){
+							player.chooseControl(controls);
+						}
+						if(controls.length==0) event.finish();
+					}
+					else{
+						player.removeSkill("xianqu_mark");
+						event.finish();
+					}
+					"step 3"
+					if(result.control){
+						if(result.control=="主将"){
+							player.viewCharacter(event.target,0);
+						}
+						else{
+							player.viewCharacter(event.target,1);
+						}
+					}
+					else if(target.isUnseen(0)){
+						player.viewCharacter(event.target,0);
+					}
+					else{
+						player.viewCharacter(event.target,1);
+					}
+				}
+			},
+			//9-Volt & 18-Volt
+			sst_tanfen:{
+				trigger:{player:"phaseDrawBegin1"},
+				filter:function(event,player){
+					return !event.numFixed&&player.countCards()<player.getHandcardLimit();
+				},
+				direct:true,
+				content:function(){
+					"step 0"
+					player.chooseControl(lib.suit,"cancel2").set("ai",function(){
+						var statistic={};
+						for(var i=0;i<ui.cardPile.childNodes.length;i++){
+							var suit=get.suit(ui.cardPile.childNodes[i]);
+							if(!lib.suit.contains(suit)) continue;
+							if(!statistic[suit]) statistic[suit]=0;
+							statistic[suit]++;
+						}
+						var min=ui.cardPile.childNodes.length;
+						var choice="cancel2";
+						for(var i in statistic){
+							if(!lib.suit.contains(i)) continue;
+							if(statistic[i]<min){
+								min=statistic[i];
+								choice=i;
+							}
+						}
+						return choice;
+					}).set("prompt",get.prompt("sst_tanfen")).set("prompt2",get.translation("sst_tanfen_info"));
+					"step 1"
+					if(result.control!="cancel2"){
+						player.logSkill("sst_tanfen");
+						player.popup(result.control);
+						game.log(player,"声明了","#y"+get.translation(result.control));
+						event.control=result.control;
+						trigger.changeToZero();
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					event.card=get.cards()[0];
+					game.cardsGotoOrdering(event.card);
+					player.showCards(event.card,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】（声明了"+get.translation(event.control)+"）",0.5);
+					"step 3"
+					player.gain(event.card);
+					player.$gain2(event.card,true);
+					if(get.suit(event.card)!=event.control) event.goto(2);
+					"step 4"
+					game.delayx();
+				},
+				ai:{
+					threaten:3
+				}
+			},
+			sst_sutong:{
+				frequent:true,
+				trigger:{player:"phaseJieshuBegin"},
+				filter:function(event,player){
+					if(player.hasMark("xianqu_mark")) return false;
+					var history=player.getHistory("useCard");
+					return history&&history.length<=player.countCards();
+				},
+				content:function(){
+					player.addMark("xianqu_mark",1);
+					game.delayx();
+				}
+			},
 			//Claude
 			sst_yunchou:{
 				frequent:true,
@@ -455,16 +657,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.links&&result.links.length){
 						event.toUse.removeArray(result.links);
 						player.addTempSkill("sst_xingjiang2");
-						player.chooseUseTarget(result.links[0],false);
+						player.chooseUseTarget(result.links[0],"nodistance",false);
 						event.goto(1);
 					}
 				},
 				ai:{
 					order:1,
 					result:{
-						player:function(){
+						player:function(player){
 							if(!game.hasPlayer(function(current){
-								return game.checkMod(card,player,current,"unchanged","playerEnabled",player)!=false;
+								return game.checkMod(null,player,current,"unchanged","playerEnabled",player)!=false;
 							})) return 0;
 							return 1;
 						}
@@ -1447,7 +1649,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Magolor
-			sst_xianghuan:{
+			sst_miulu:{
 				forced:true,
 				trigger:{player:"damageBegin4"},
 				filter:function(event,player){
@@ -1462,9 +1664,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(!player.hujia) return false;
 					}
 				},
-				group:"sst_xianghuan2"
+				group:"sst_miulu2"
 			},
-			sst_xianghuan2:{
+			sst_miulu2:{
 				forced:true,
 				trigger:{player:"changeHujiaAfter"},
 				filter:function(event,player){
@@ -1472,23 +1674,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.addSkill("sst_xianghuan_effect");
+					player.addSkill("sst_miulu_effect");
 					if(player.countCards("h",function(card){
 						return !card.hasGaintag("viewHandcard");
-					})) player.chooseCard("乡幻：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,function(card){
+					})) player.chooseCard("谬陆：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,function(card){
 						return !card.hasGaintag("viewHandcard");
 					},true).set("ai",get.value);
 					"step 1"
 					if(result.cards&&result.cards.length){
 						player.$give(result.cards,player,false);
 						player.addGaintag(result.cards,"viewHandcard");
-						player.addGaintag(result.cards,"sst_xianghuan");
+						player.addGaintag(result.cards,"sst_miulu");
 						game.log(player,"明置了",result.cards);
 						game.delayx();
 					}
 					"step 2"
-					player.addMark("sst_xianghuan_effect",-trigger.num,false);
-					player.$damagepop(player.countMark("sst_xianghuan_effect"),"water");
+					player.addMark("sst_miulu_effect",-trigger.num,false);
+					player.$damagepop(player.countMark("sst_miulu_effect"),"water");
 					game.delayx();
 				},
 				ai:{
@@ -1498,7 +1700,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			sst_xianghuan_effect:{
+			sst_miulu_effect:{
 				charlotte:true,
 				intro:{
 					content:function(storage,player){
@@ -1511,7 +1713,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(card.hasGaintag("viewHandcard")) return true;
 					},
 					maxHandcard:function(player,num){
-						return num+player.countMark("sst_xianghuan_effect");
+						return num+player.countMark("sst_miulu_effect");
 					}
 				}
 			},
@@ -1683,7 +1885,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						player.popup(cardName,"fire");
 						game.log(player,"的",trigger.card,"被强化了");
-						game.delayx();
 					}
 					else{
 						event.finish();
@@ -1696,6 +1897,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.chooseTarget("怒炎：你可以对一名角色造成1点火焰伤害").set("ai",function(target){
 							return get.damageEffect(target,player,player,"fire");
 						});
+					}
+					else{
+						event.finish();
 					}
 					"step 3"
 					if(result.targets&&result.targets.length){
@@ -1727,6 +1931,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		translate: {
 			//Character
+			sst_9_volt_18_volt:"九伏特＆十八伏特",
 			sst_claude:"库罗德",
 			sst_geno:"♡♪!?",
 			sst_duck_hunt:"打猎",
@@ -1741,6 +1946,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_magolor:"魔法洛亚",
 			sst_roy:"罗伊",
 			//Character ab.
+			sst_9_volt_18_volt_ab:"九伏十八伏",
 			sst_geno_ab:"Geno",
 			sst_bandana_waddle_dee_ab:"瓦豆鲁迪",
 			//Skill
@@ -1752,7 +1958,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fuyuan_effect:"复愿",
 			sst_fuyuan_info:"每轮游戏开始时，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
 			sst_xingjiang:"星降",
-			sst_xingjiang_info:"限定技，出牌阶段，你可以弃置至少一张牌。若如此做，你亮出牌堆顶两倍数量的牌且可以使用之（其应变效果直接生效）。",
+			sst_xingjiang_info:"限定技，出牌阶段，你可以弃置至少一张牌。若如此做，你亮出牌堆顶两倍数量的牌且可以使用之（无距离限制且应变效果直接生效）。",
 			sst_gonglie:"共猎",
 			sst_gonglie_info:"你使用【杀】可以为其附加「助战→目标+1」应变效果；然后若有人响应「助战」且【杀】造成了伤害，其可以获得受到此【杀】伤害的角色一张牌。",
 			sst_weishou:"围狩",
@@ -1786,10 +1992,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qiangdu_info:"游戏开始时，你将11张【刺枪】加入牌堆。你使用【刺枪】无距离限制。当你的♠牌正面向上离开你的区域后，你可以将一张牌当作【刺枪】使用。",
 			sst_mengchen:"盟谌",
 			sst_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用其中一张牌。",
-			sst_xianghuan:"乡幻",
-			sst_xianghuan2:"乡幻",
-			sst_xianghuan_effect:"乡幻",
-			sst_xianghuan_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你明置一张暗置手牌，且本局游戏你的手牌上限+1。你的明置手牌不计入上限。",
+			sst_miulu:"谬陆",
+			sst_miulu2:"谬陆",
+			sst_miulu_effect:"谬陆",
+			sst_miulu_info:"锁定技，若你有护甲，你最多受到1点伤害。每当你失去1点护甲，你明置一张暗置手牌，且本局游戏你的手牌上限+1。你的明置手牌不计入上限。",
 			sst_mofan:"魔帆",
 			sst_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
 			sst_nuyan:"怒炎",
@@ -1798,11 +2004,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",
 			//Sort
+			sst_civil_war:"国战",
 			sst_response:"应变",
 			sst_laying_plans:"始计",
 			sst_attack_by_stratagem:"谋攻"
 		},
 		translateEnglish:{
+			sst_9_volt_18_volt:"9-Volt & 18-Volt",
 			sst_claude:"Claude",
 			sst_geno:"♡♪!?",
 			sst_duck_hunt:"Duck Hunt",
@@ -1818,6 +2026,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_roy:"Roy"
 		},
 		perfectPair:{
+			sst_9_volt_18_volt:["sst_wario"],
 			sst_claude:["sst_byleth_male","sst_byleth_female"],
 			sst_geno:["sst_mario","sst_bowser","sst_peach"],
 			sst_chrom:["sst_marth","sst_lucina","sst_robin","sst_robin_male","sst_robin_female"],

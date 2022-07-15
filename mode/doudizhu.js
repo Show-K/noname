@@ -3016,20 +3016,22 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'sst_falco','sst_pyra_mythra','sst_pokemon_trainer_leaf','sst_sora','sst_pac_man',"sst_olimar",
 				//----------------
 				'sst_duck_hunt',
-				'sst_ness','sst_chrom','sst_lucina','sst_robin'
+				'sst_ness','sst_chrom','sst_lucina','sst_robin','sst_roy'
 			],
 			sst_dark:[
 				'sst_wario','sst_ganondorf','sst_bowser','sst_ridley','sst_dark_samus','sst_mr_game_watch',
 				'sst_simon','sst_incineroar','sst_greninja','sst_king_k_rool','sst_richter','sst_meta_knight',
 				'sst_bowser_jr','sst_koopalings','sst_sheik','sst_wolf','sst_young_link','sst_joker',
 				'sst_snake','sst_lucario','sst_king_dedede','sst_enderman','sst_sephiroth','sst_kazuya',
+				'sst_piranha_plant'
 			],
 			sst_spirit:[
 				'sst_dark_link','sst_sans','sst_waluigi','sst_master_hand','sst_spring_man','sst_rex',
 				'sst_cuphead_mugman','sst_krystal','sst_kyo_kusanagi','sst_pauline','sst_dr_wily','sst_9_volt_18_volt',
 				'sst_kraid',
 				//----------------
-				'sst_geno'
+				'sst_geno','sst_bandana_waddle_dee',
+				'sst_magolor'
 			],
 			sst_reality:[
 				'sst_massy','sst_mario_not_mary','sst_yumikohimi','sst_haine','sst_oc','sst_mr_8',

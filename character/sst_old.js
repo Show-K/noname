@@ -182,7 +182,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			你必须击败我的升龙拳才能得到一线转机。",
 			old_sst_geno:"武将作者：Show-K<br>\
 			插图作者：ハルノ＠マリオ垢<br>"+
-			get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
+			"——"+get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
 			<hr>\
 			0104. Geno/ジーノ<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\

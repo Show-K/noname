@@ -4,87 +4,6 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 		name:"sst_sp",
 		connect:true,
 		card:{
-			ska_spear_thrust:{
-				nodelay:true,
-				fullskin:true,
-				type:"basic",
-				enable:true,
-				range:function(card,player,target){
-					return player.inRange(target);
-				},
-				selectTarget:1,
-				filterTarget:function(card,player,target){return player!=target;},
-				content:function(){
-					"step 0"
-					if(typeof event.baseDamage!="number") event.baseDamage=1;
-					if(event.directHit){
-						event._result={bool:false};
-					}
-					else{
-						var str="刺枪：打出一张基本牌";
-						if(target.countCards("sx")){
-							str+="（或取消并改为决定是否将武将牌上一张牌置入弃牌堆）";
-						}
-						else{
-							str+="，否则"+get.translation(player)+"对你造成1点伤害";
-						}
-						var next=target.chooseToRespond(str,function(card){
-							return get.type(card)=="basic";
-						});
-						next.set("ai",function(card){
-							var evt=_status.event.getParent();
-							if(get.damageEffect(evt.target,evt.player,_status.event.player)>=0) return 0;
-							return get.order(card);
-						});
-						next.set("position","hes");
-					}
-					"step 1"
-					if(result.bool==false){
-						if(target.countCards("sx")){
-							target.chooseCardButton("刺枪：将武将牌上一张牌置入弃牌堆，否则"+get.translation(player)+"对你造成1点伤害",target.getCards("sx")).set("ai",function(button){
-								return 11-get.useful(button.link);
-							});
-						}
-						else{
-							target.damage(player);
-							event.finish();
-						}
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(result.links&&result.links.length){
-						target.loseToDiscardpile(result.links);
-					}
-					else{
-						target.damage(player);
-					}
-				},
-				ai:{
-					basic:{
-						useful:[5,3,1],
-						value:[5,3,1]
-					},
-					order:3.05,
-					result:{
-						target:function(player,target,card){
-							if((target.hasSha()||target.mayHaveShan())&&!player.hasSkillTag("directHit_ai",true,{
-								target:target,
-								card:card
-							},true)) return -1.5/1.2;
-							return -1.5;
-						}
-					},
-					tag:{
-						respond:1,
-						respondSha:1,
-						respondShan:1,
-						respondTao:1,
-						damage:1
-					}
-				}
-			},
 			ska_grab:{
 				//fullskin:true,
 				type:"basic",
@@ -1098,10 +1017,6 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			//Type
 			food:"食物",
 			star:"明星",
-			//Exclusive
-			ska_spear_thrust:"刺枪",
-			ska_spear_thrust_info:"出牌阶段，对你攻击范围内的一名角色使用。其须打出一张基本牌或将其武将牌上一张牌置入弃牌堆，否则你对其造成1点伤害。",
-			ska_spear_thrust_append:"<span class=\"text\" style=\"font-family: fzktk\">吾乃波普之星头巾瓦豆鲁迪也！</span>",
 			//Test
 			ska_grab:"抓",
 			ska_grab_info:"出牌阶段，对你攻击范围内的一名角色使用。其须展示一张【闪】，否则你弃置其一张牌。",

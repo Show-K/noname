@@ -847,13 +847,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				usable:1,
 				prompt:'将至多三张可合纵的牌交给一名与你势力不同的角色，或未确定势力的角色，若你交给与你势力不同的角色，则你摸等量的牌',
 				filter:function(event,player){
-					return (player.getCards('h',function(card){
-						return card.hasTag('lianheng');
-					}).length);
+					if(player.hasSkillTag('lianheng')) return true;
+					return player.hasCard(function(card){
+						return card.hasTag('lianheng')||card.hasGaintag('_lianheng');
+					},'h');
 				},
 				filterCard:function(card){
 					if(_status.event.player.hasSkillTag('lianheng')) return true;
-					return card.hasTag('lianheng');
+					return card.hasTag('lianheng')||card.hasGaintag('_lianheng');
 				},
 				filterTarget:function(card,player,target){
 					if(target==player) return false;
