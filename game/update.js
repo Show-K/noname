@@ -62,6 +62,7 @@ window.noname_update={
 		//'mode/single.js',
 		//'mode/stone.js',
 		//'mode/tafang.js',
+		'mode/th_mougong.js',
 		//'mode/versus.js',
 		//'game/game.js',
 		//'game/keyWords.js',

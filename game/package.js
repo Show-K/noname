@@ -48,6 +48,7 @@ window.noname_package={
 	},
 	mode:{
 		identity:'身份',
+		th_mougong:'谋攻',
 		guozhan:'国战',
 		versus:'对决',
 		connect:'联机',

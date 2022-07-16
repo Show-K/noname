@@ -4232,6 +4232,8 @@ window.noname_asset_list=[
 	'image/background/xinsha_bg.jpg',
 	'image/background/xiaowu_bg.jpg',
 
+	'image/other/qunliao.jpg',
+
 	'image/card/minguangkai.png',
 	'image/card/db_atk1.jpg',
 	'image/card/db_atk2.jpg',
