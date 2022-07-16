@@ -1816,29 +1816,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Roy
-			_sst_nuyan_rage:{
-				ruleSkill:true,
-				charlotte:true,
-				forced:true,
-				popup:false,
-				trigger:{source:"damageBegin1"},
-				filter:function(event,player){
-					var evt=event.getParent(2);
-					if(!evt||evt.name!="useCard") return false;
-					if(typeof evt.rage!="object") return false;
-					if(typeof evt.rage[player.playerid]!="number") return false;
-					return evt.rage[player.playerid]!=0;
-				},
-				content:function(){
-					var evt=trigger.getParent(2);
-					trigger.num+=evt.rage[player.playerid];
-				}
-			},
 			sst_nuyan:{
 				direct:true,
 				trigger:{player:"useCard"},
 				filter:function(event){
-					return ["sha","shan","juedou","huogong","tao"].contains(get.name(event.card));
+					return _status.mougong_buff.contains(get.name(event.card));
 				},
 				content:function(){
 					"step 0"
@@ -1867,24 +1849,24 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								else{
 									map[id].shanRequired=2;
 								}
-							})
+							});
 						}
 						else if(cardName=="shan"){
-							var evt=trigger.getParent(3);
+							var evt=trigger.getParent(2);
 							if(evt&&evt.name=="sha"){
 								evt.shanRequired--;
 							}
 						}
 						else if(cardName=="juedou"){
-							if(typeof trigger.rage!="object") trigger.rage={};
-							if(typeof trigger.rage[trigger.player.playerid]!="number") trigger.rage[trigger.player.playerid]=0;
-							trigger.rage[trigger.player.playerid]++;
+							if(typeof trigger.th_anger!="object") trigger.th_anger={};
+							if(typeof trigger.th_anger[trigger.player.playerid]!="number") trigger.th_anger[trigger.player.playerid]=0;
+							trigger.th_anger[trigger.player.playerid]++;
 						}
 						else if(cardName=="huogong"||cardName=="tao"){
 							trigger.baseDamage++;
 						}
 						player.popup(cardName,"fire");
-						game.log(player,"的",trigger.card,"被强化了");
+						game.log(player,"强化了",trigger.card);
 					}
 					else{
 						event.finish();

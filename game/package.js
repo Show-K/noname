@@ -51,14 +51,6 @@ window.noname_package={
 			two:'欢乐成双',
 			siguo:'四国争霸',
 			standard:'自由对决'
-		},
-		chess:{
-			combat:'战棋模式',
-			three:'战棋统率',
-			leader:'战棋君主'
-		},
-		single:{
-			normal:'新1v1'
 		}
 	},
 	background:{

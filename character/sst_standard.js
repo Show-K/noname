@@ -9271,7 +9271,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					order:function(){
 						if(game.hasPlayer(function(current){
-							return current.hasSex("male")&&get.attitude(player,current)>0;
+							return current.hasSex("male")&&get.attitude(_status.event.player,current)>0;
 						})) return get.order({name:"sha"})+0.3;
 					},
 					respondSha:true,
@@ -9471,7 +9471,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					for(var i=0;i<cards.length;i++){
 						if(event.target.isIn()&&lib.filter.targetEnabled3(cards[i],player,event.target)){
-							player.useCard(cards[i],event.target,false);
+							player.useCard(cards[i],event.target,false,"noai");
 						}
 					}
 				}
