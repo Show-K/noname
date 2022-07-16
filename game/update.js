@@ -63,6 +63,7 @@ window.noname_update={
 		'mode/guozhan.js',
 		'mode/identity.js',
 		'mode/versus.js',
+		'mode/th_mougong.js',
 		'game/game.js',
 		'game/keyWords.js',
 		//'game/NoSleep.js',
