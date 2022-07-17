@@ -1,5 +1,14 @@
 window.noname_asset_list=[
 	'v1.9.114.3',
+	'image/card/enemy2.png',
+	'image/card/fan2.png',
+	'image/card/friend2.png',
+	'image/card/nei2.png',
+	'image/card/zhong2.png',
+	'image/card/zhu2.png',
+	'image/other/qunliao.jpg',
+	'image/splash/th_mougong.jpg',
+
 	'audio/background/aozhan_chaoming.mp3',
 	'audio/background/aozhan_online.mp3',
 	'audio/background/aozhan_rewrite.mp3',
@@ -4231,8 +4240,6 @@ window.noname_asset_list=[
 	'image/background/zhanyun_bg.jpg',
 	'image/background/xinsha_bg.jpg',
 	'image/background/xiaowu_bg.jpg',
-
-	'image/other/qunliao.jpg',
 
 	'image/card/minguangkai.png',
 	'image/card/db_atk1.jpg',
