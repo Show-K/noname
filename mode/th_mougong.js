@@ -150,27 +150,27 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 		card: {
 			fan2: {
 				forceDie: true,
-				fullimage: true,
+				fullskin: true,
 			},
 			zhu2: {
 				forceDie: true,
-				fullimage: true,
+				fullskin: true,
 			},
 			zhong2: {
 				forceDie: true,
-				fullimage: true,
+				fullskin: true,
 			},
 			nei2: {
 				forceDie: true,
-				fullimage: true,
+				fullskin: true,
 			},
 			enemy2: {
 				forceDie: true,
-				fullimage: true,
+				fullskin: true,
 			},
 			friend2: {
 				forceDie: true,
-				fullimage: true,
+				fullskin: true,
 			},
 		},
 		game: {
@@ -1922,6 +1922,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				ruleSkill: true,
 				trigger: { player: 'useCard1' },
 				filter: function (event, player) {
+					if (game.roundNumber == 1) return false;
 					if (!player.hasMark('th_anger')) return false;
 					var cardName = get.name(event.card);
 					if (!_status.mougong_buff.contains(cardName)) return false;
@@ -2373,6 +2374,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					'step 0'
 					delete player.storage.th_weizhuang;
 					player.showIdentity();
+					player.$fullscreenpop(get.translation(player) + '→重振', 'wood');
 					game.log(player, '的身份是', '#g反贼');
 					player.discard(player.getCards('hej'));
 					player.markSkill('_chongzhen_chong');
@@ -2416,6 +2418,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				content: function () {
 					'step 0'
 					player.storage.th_mingjun = true;
+					player.$fullscreenpop(get.translation(player) + '→明君', 'fire');
 					game.log(player, '的身份是', '#g主公');
 					player.showIdentity();
 					player.markSkill('_mingjun_ming');
@@ -2461,12 +2464,11 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				trigger: { global: 'gameStart' },
 				forced: true,
 				popup: false,
-				filter: function (event, player) {
-					if (player.identity != 'nei') return false;
-					return true;
-				},
 				content: function () {
 					'step 0'
+					if (player.identity == 'nei') event.goto(1);
+					else event.goto(3);
+					'step 1'
 					var list = [];
 					for (var i = 0; i < game.players.length; i++) {
 						if (game.players[i].identity == 'fan') {
@@ -2479,19 +2481,22 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						event.target.setIdentity('fan');
 						event.target.node.identity.classList.remove('guessing');
 						event.target.fanfixed = true;
+						if (!player.storage.zhibi) player.storage.zhibi = [];
+						player.storage.zhibi.add(event.target);
 						player.line(event.target, 'green');
-						player.chooseControl('ok').set('dialog', [get.translation(event.target) + '是反贼', [
+						player.chooseControl('ok', 'cancel2').set('dialog', [get.translation(event.target) + '是反贼，是否伪装' + get.translation(event.target) + '的身份？', [
 							[event.target.name], 'character'
-						]]);
+						]]).ai = () => 0;
 					}
-					'step 1'
-					if (!player.storage.zhibi) player.storage.zhibi = [];
-					player.storage.zhibi.add(event.target);
-					player.chooseBool('是否对' + get.translation(event.target) + '的身份进行伪装？').ai = () => true;
 					'step 2'
-					if (result.bool) {
+					if (result.index == 0) {
 						event.target.storage.th_weizhuang = true;
 					}
+					event.finish();
+					'step 3'
+					player.chooseControl('ok').set('dialog', ['你是' + get.translation(player.identity + '2'), [
+						[player.name], 'character'
+					]]);
 				}
 			},
 			// _levelUpCard1: {

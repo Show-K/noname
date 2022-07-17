@@ -1,6 +1,12 @@
 window.noname_asset_list=[
 	'v1.9.114.3SST',
 	//New add
+	'image/card/enemy2.png',
+	'image/card/fan2.png',
+	'image/card/friend2.png',
+	'image/card/nei2.png',
+	'image/card/zhong2.png',
+	'image/card/zhu2.png',
 	'image/other/qunliao.jpg',
 
 	'image/character/shibing1.png',
@@ -499,8 +505,6 @@ window.noname_asset_list=[
 	'image/background/final_destination_bg.png',
 	'image/background/smash_bg.png',
 	//New add end
-
-	'image/other/qunliao.jpg',
 
 	'image/card/minguangkai.png',
 	'image/card/db_atk1.jpg',
