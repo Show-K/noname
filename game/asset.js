@@ -500,6 +500,8 @@ window.noname_asset_list=[
 	'image/background/smash_bg.png',
 	//New add end
 
+	'image/other/qunliao.jpg',
+
 	'image/card/minguangkai.png',
 	'image/card/db_atk1.jpg',
 	'image/card/db_atk2.jpg',

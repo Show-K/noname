@@ -1225,6 +1225,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						setTimeout(function () {
 							ui.arena.classList.remove('choose-character');
 						}, 500);
+						game.addGlobalSkill('useAnger');
 					}, result2, result);
 
 					for (var i in result2) {
@@ -1242,6 +1243,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					setTimeout(function () {
 						ui.arena.classList.remove('choose-character');
 					}, 500);
+					game.addGlobalSkill('useAnger');
 				});
 			}
 		},
@@ -2430,7 +2432,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 							list.push(player.skills[i]);
 						}
 					}
-					if (list.length) game.log(player, '重新获得了主公技' + '#g【' + get.translation(list) + '】');
+					if (list.length) game.log(player, '重新获得了主公技', '#g【' + get.translation(list) + '】');
 				},
 				subSkill: {
 					ming: {
