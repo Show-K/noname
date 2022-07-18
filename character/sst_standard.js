@@ -11837,12 +11837,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 1"
 					player.chooseTarget("向筑：将"+get.translation(event.card)+"移动到一名其他角色的装备区内",function(card,player,target){
-						var cardx=_status.event.cardx;
-						return target!=player&&target.isEmpty(get.subtype(cardx));
-					},true).set("cardx",event.card).set("ai",function(target){
+						return target!=player&&target.isEmpty(get.subtype(_status.event.getParent().card));
+					},true).set("ai",function(target){
 						var player=_status.event.player;
-						var cardx=_status.event.cardx;
-						return get.effect(target,cardx,player,player);
+						return get.effect(target,_status.event.getParent().card,player,player);
 					});
 					"step 2"
 					if(result.targets&&result.targets.length){
