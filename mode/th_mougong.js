@@ -2362,6 +2362,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			_chongzhen: {
 				charlotte: true,
 				ruleSkill: true,
+				skillAnimation: true,
+				animationStr: "重振",
+				animationColor: "wood",
 				trigger: { player: 'dying' },
 				forced: true,
 				filter: function (event, player) {
@@ -2374,7 +2377,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					'step 0'
 					delete player.storage.th_weizhuang;
 					player.showIdentity();
-					player.$fullscreenpop(get.translation(player) + '→重振', 'wood');
 					game.log(player, '的身份是', '#g反贼');
 					player.discard(player.getCards('hej'));
 					player.markSkill('_chongzhen_chong');
@@ -2404,6 +2406,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			_mingjun: {
 				charlotte: true,
 				ruleSkill: true,
+				skillAnimation: true,
+				animationStr: "明君",
+				animationColor: "fire",
 				trigger: { global: 'dieAfter', player: ['phaseBegin', 'dying'] },
 				forced: true,
 				filter: function (event, player) {
@@ -2418,7 +2423,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				content: function () {
 					'step 0'
 					player.storage.th_mingjun = true;
-					player.$fullscreenpop(get.translation(player) + '→明君', 'fire');
 					game.log(player, '的身份是', '#g主公');
 					player.showIdentity();
 					player.markSkill('_mingjun_ming');
@@ -2466,8 +2470,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				popup: false,
 				content: function () {
 					'step 0'
-					if (player.identity == 'nei') event.goto(1);
-					else event.goto(3);
+					if (player.identity != 'nei') event.goto(3);
 					'step 1'
 					var list = [];
 					for (var i = 0; i < game.players.length; i++) {
@@ -2484,18 +2487,28 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						if (!player.storage.zhibi) player.storage.zhibi = [];
 						player.storage.zhibi.add(event.target);
 						player.line(event.target, 'green');
-						player.chooseControl('ok', 'cancel2').set('dialog', [get.translation(event.target) + '是反贼，是否伪装' + get.translation(event.target) + '的身份？', [
+						player.chooseBool('ok', 'cancel2').set('dialog', ui.create.dialog(get.translation(event.target) + '是反贼，是否伪装' + get.translation(event.target) + '的身份？', [
 							[event.target.name], 'character'
-						]]).ai = () => 0;
+						], [
+							['fan2'], 'vcard'
+						])).ai = () => true;
 					}
 					'step 2'
-					if (result.index == 0) {
+					if (result.bool) {
 						event.target.storage.th_weizhuang = true;
 					}
 					event.finish();
 					'step 3'
-					player.chooseControl('ok').set('dialog', ['你是' + get.translation(player.identity + '2'), [
+					var identityInfo = function (identity) {
+						if (identity == 'fan') return '，仔细观察局势，找到其他反贼，击败主公';
+						if (identity == 'zhong') return '，仔细观察局势，找到并保护主公';
+						if (identity == 'zhu') return '，仔细观察局势，保护自己';
+						return '';
+					};
+					player.chooseControl('ok').set('dialog', ['你是' + get.translation(player.identity + '2') + identityInfo(player.identity), [
 						[player.name], 'character'
+					], [
+						[player.identity + '2'], 'vcard'
 					]]);
 				}
 			},
@@ -2609,7 +2622,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					if (player1.countMark('th_anger') == 0) return false;
 					if (player1 == event.player) return false;
 					if (event.player.identityShown == true) return false;
-					if (player1.storage.zhibi && player1.storage.zhibi.contains(event.player) || player1.storage.seen && player1.storage.seen[event.player.name] != undefined) return false;
 					return true;
 				},
 				direct: true,
@@ -2621,7 +2633,10 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						event.player1 = trigger.parent.source;
 					}
 					event.player1.chooseBool('是否消耗1点怒气值查看' + get.translation(trigger.player) + '的身份？').ai = () => {
-						if (trigger.player.identityShown == true) return false;
+						var eventPlayer = _status.event.getTrigger().player;
+						if (eventPlayer.identityShown == true) return false;
+						var player1 = _status.event.getParent().player1;
+						if (player1.storage.zhibi && player1.storage.zhibi.contains(eventPlayer) || player1.storage.seen && player1.storage.seen[eventPlayer.name] != undefined) return false;
 						return true;
 					};
 					'step 1'
