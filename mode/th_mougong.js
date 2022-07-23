@@ -90,6 +90,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			if (ui.coin) {
 				_status.coinCoeff = get.coinCoeff([game.me.name]);
 			}
+			if (!_status.firstAct) {
+				_status.firstAct = game.players[Math.floor(Math.random() * game.players.length)];
+			}
 			if (game.players.length == 2) {
 				game.showIdentity(true);
 				var map = {};
@@ -547,7 +550,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						table.style.width = '100%';
 						table.style.position = 'relative';
 						var listi = ['random', 'zhu', 'zhong', 'nei', 'fan'];
-						var zuowei = Math.ceil(Math.random() * game.players.length);
 						for (var i = 0; i < listi.length; i++) {
 							var td = ui.create.div('.shadowed.reduce_radius.pointerdiv.tdnode');
 							td.link = listi[i];
@@ -620,12 +622,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						seats.style.width = '100%';
 						seats.style.position = 'relative';
 
-						_status.firstAct2 = game.me;
-						var goal = game.me;
-						for (var i = 1; i < zuowei; i++) {
-							_status.firstAct2 = goal.previous;
-							goal = goal.previous;
-						}
 						for (var i = 1; i <= game.players.length; i++) {
 							var td = ui.create.div('.shadowed.reduce_radius.pointerdiv.tdnode');
 							td.innerHTML = get.cnNumber(i, true);
@@ -1950,6 +1946,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						var val = 0;
 						game.filterPlayer(function (current) {
 							if (event.targets.contains(current)) {
+								if (cardName == 'sha' && !current.mayHaveShan()) return;
 								if (cardName == 'tao' && current.hp + event.baseDamage + 1 > current.maxHp) return;
 								val += get.effect(current, event.card, event.player, player);
 							}
@@ -2014,8 +2011,8 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					respondShan: true,
 					save: true,
 					skillTagFilter: function (player, tag, arg) {
-						if (tag == 'respondShan') return player.countCards('hs', { name: 'shan' }) > 0 && player.hasMark('th_anger');
-						if (tag == 'save') return player.countCards('hs', { name: 'tao' }) > 0 && player.countMark('th_anger') > 2;
+						if (tag == 'respondShan' && !(player.countCards('hs', { name: 'shan' }) > 0 && player.hasMark('th_anger'))) return false;
+						if (tag == 'save' && !(player.countCards('hs', { name: 'tao' }) > 0 && player.countMark('th_anger') > 2)) return false;
 					}
 				}
 			},
