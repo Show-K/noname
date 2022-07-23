@@ -1991,7 +1991,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return get.color(card)=="red";
 					},"he").set("ai",function(card){
 						if(get.tag(card,"fireDamage")) return get.unuseful3(card);
-						var evt=_status.getTrigger();
+						var evt=_status.event.getTrigger();
 						var cardName=get.name(evt.card);
 						if(cardName=="sha"||cardName=="juedou"||cardName=="huogong"||cardName=="tao"){
 							var val=0;
