@@ -7569,6 +7569,7 @@
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>短歌</i>（《十周年UI》、《导入助手》程序开发）</ul>'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>诗笺</i>（《在线更新》、Windows版客户端程序开发）</ul>'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>玄武</i>（Android版客户端程序开发）</ul>'+
+			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>雷</i>（谋攻篇模式开发）</ul>'+
 			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除。</ul>',
 			'相关链接':'<ul><li>GitHub仓库：'+
 			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://github.com/Show-K/noname')+'</ul>'+

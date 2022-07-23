@@ -8,7 +8,8 @@ content:function(config, pack){
 	var extensionName = decadeUIName;
 	var extension = lib.extensionMenu['extension_' + extensionName];
 	var extensionPath = lib.assetURL + 'extension/' + extensionName + '/';
-	
+
+
     if (!(extension && extension.enable && extension.enable.init)) return;
     
 	lib.arenaReady.push(function() {
@@ -2258,22 +2259,22 @@ content:function(config, pack){
 					"step 0"
 					if (_status.brawl && _status.brawl.noGameDraw)
 						return event.goto(4);
-
+						
 					var end = player;
 					var gainNum = num;
 					do {
 						if (typeof num == 'function')
 							gainNum = num(player);
-
+						
 						if (player.getTopCards)
 							player.directgain(player.getTopCards(gainNum));
 						else
 							player.directgain(get.cards(gainNum));
-
+							
 						player.$draw(gainNum);
 						if (player.singleHp === true && get.mode() != 'guozhan' && (lib.config.mode != 'doudizhu' || _status.mode != 'online'))
 							player.doubleDraw();
-
+						
 						player._start_cards = player.getCards('h');
 						player = player.next;
 					} while ( player != end );
@@ -4895,18 +4896,35 @@ content:function(config, pack){
 							if (lib.config.cardtempname != 'off') {
 								var cardname = get.name(cards[i]);
 								var cardnature = get.nature(cards[i]);
-								if ((cards[i].name != cardname) || (cards[i].nature != cardnature)) {
+								var cardsuit = get.suit(cards[i]);
+								var cardnumber = get.number(cards[i]);
+								if ((cards[i].name != cardname) || (cards[i].nature != cardnature) || (cards[i].suit!=cardsuit) ||(cards[i].number!=cardnumber)) {
 									if (!cards[i]._tempName) cards[i]._tempName = ui.create.div('.temp-name', cards[i]);
-									
-									var tempname = get.translation(cardname);
-									if (cardnature) {
-										cards[i]._tempName.dataset.nature = cardnature;
-										if (cardname == 'sha') {
-											tempname = get.translation(cardnature) + tempname;
+									var tempname = '';
+									if(cards[i].suit!=cardsuit){
+										var suitData = {
+											'heart':"<span style='color:red;'>♥</span>",
+											'diamond':"<span style='color:red;'>♦</span>",
+											'spade':"<span style='color:black;'>♠</span>",
+											'club':"<span style='color:black;'>♣</span>",
+										};
+										tempname += suitData[cardsuit];
+									}
+									if(cards[i].number!=cardnumber){
+										tempname += "<b>"+cardnumber+"</b>";
+									}
+									if((cards[i].name != cardname) || (cards[i].nature != cardnature)){
+										var tempname2 = get.translation(cardname);
+										if (cardnature) {
+											cards[i]._tempName.dataset.nature = cardnature;
+											if (cardname == 'sha') {
+												tempname2 = get.translation(cardnature) + tempname2;
+											}
 										}
+										tempname += tempname2;
 									}
 									
-									cards[i]._tempName.textContent = tempname;
+									cards[i]._tempName.innerHTML = tempname;
 									cards[i]._tempName.tempname = tempname;
 								}
 							}
@@ -5221,7 +5239,8 @@ content:function(config, pack){
 						cards[j].classList.remove('selected');
 						cards[j].classList.remove('selectable');
 						if (cards[j]._tempName) {
-							cards[j]._tempName.textContent = '';
+							//cards[j]._tempName.textContent = '';
+							cards[j]._tempName.innerHTML = '';
 						}
 						cards[j].updateTransform();
 					}
@@ -5703,6 +5722,15 @@ content:function(config, pack){
 							var checked;
 							var identity = this.parentNode.dataset.color;
 							var gameMode = get.mode();
+							var isExt = false;
+							if(lib.decade_extIdentity && (lib.decade_extIdentity[this.player.identity] || lib.decade_extIdentity[value]) && value!='猜'){
+								if(lib.decade_extIdentity[value]){
+									filename = lib.decade_extIdentity[value];
+								}else{
+									filename = lib.decade_extIdentity[this.player.identity];
+								}
+								isExt = true;
+							}else{
 							switch (value) {
 								case '猜':
 									filename = 'cai';
@@ -5791,9 +5819,10 @@ content:function(config, pack){
 									this.style.visibility = '';
 									this.parentNode.style.backgroundImage = '';
 									return;
+								}
 							}
 							
-							if (!checked && this.parentNode.dataset.color) {
+							if (!checked && this.parentNode.dataset.color && !isExt) {
 								if (this.parentNode.dataset.color[0] == 'b') {
 									filename += '_blue';
 									this.player.classList.add('opposite-camp');
@@ -5806,8 +5835,11 @@ content:function(config, pack){
 								var image = new Image();
 								image.node = this;
 								image.onerror = function() { this.node.style.visibility = ''; };
-								
-								image.src = extensionPath + 'image/decoration/identity_' + filename + '.png';
+								if(isExt){
+									image.src = filename;
+								}else{
+									image.src = extensionPath + 'image/decoration/identity_' + filename + '.png';
+								}
 								this.parentNode.style.backgroundImage = 'url("' + image.src + '")';
 							} else {
 								this.style.visibility = '';
@@ -5927,6 +5959,9 @@ content:function(config, pack){
 								    var that = this;
 									var image = new Image();
 									var url = extensionPath + 'image/decoration/name_' + value + '.png';
+									if(lib.decade_extGroupImage && lib.decade_extGroupImage[value]){
+										url = lib.decade_extGroupImage[value];
+									}
 								    that._finalGroup = value;
 									
 								    image.onerror = function(){
@@ -8278,6 +8313,7 @@ content:function(config, pack){
 								tempname = get.translation(cardnature) + tempname;
 							}
 						}
+
 						
 						card._tempName.textContent = tempname;
 						card._tempName.tempname = tempname;
@@ -8935,6 +8971,11 @@ content:function(config, pack){
 				var judgeCost;
 				for(var i = 0; i < judges.length; i++){
 					var judge = get.judge(judges[i]);
+					if(typeof judge != 'function'){
+						judge = function(){
+							return 1;
+						};
+					}
 					cards.sort(function(a, b) {
 						return friendly ? judge(b) - judge(a) : judge(a) - judge(b);
 					});
@@ -9556,6 +9597,7 @@ content:function(config, pack){
 	console.timeEnd(extensionName);
 },
 precontent:function(){
+	lib.decade_isXingchengVersion = true;
 	if(['tafang','chess'].contains(get.mode()) && lib.config['extension_十周年UI_closeWhenChess']){
 		return;
 	}
@@ -9872,9 +9914,13 @@ package:{
     intro:(function(){
 		var log = [
 			'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
-			'当前版本：1.2.0.220114.5（寰宇星城修复版）',
-			'更新日期：2022-05-30',
-			'- 跟进无名杀最新版本，拼点点数计算。',
+			'当前版本：1.2.0.220114.8.1（寰宇星城修复版）',
+			'更新日期：2022-06-05',
+			'- 修复了十周年标记样式护甲不显示图标的异常。',
+			'- 新增lib.decade_extIdentity，用于兼容扩展身份面具显示。',
+			'- 新增lib.decade_extGroupImage，用于兼容扩展势力图片显示。',
+			'- 新增当手牌中的牌花色被视为其它花色时，显示被视为的花色的功能。',
+			'- 新增当手牌中的牌点数被视为其它点数时，显示被视为的点数的功能。',
 			/*
 			'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 			'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
@@ -9894,7 +9940,7 @@ package:{
     author:"原作者：短歌 QQ464598631<br>修改者（未经允许）：Show-K",
     diskURL:"",
     forumURL:"",
-    version:"1.2.0.220114.5SST",
+    version:"1.2.0.220114.8.1SST",
 },
 files:{
     "character":[],

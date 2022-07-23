@@ -6,13 +6,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,
 		characterSort:{
 			sst_extra:{
-				sst_civil_war:["sst_9_volt_18_volt"],
+				sst_civil_war:["sst_pyra_mythra","sst_9_volt_18_volt"],
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
 				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee"],
 				sst_attack_by_stratagem:["sst_magolor","sst_roy"]
 			}
 		},
 		character:{
+			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:support"]],
 			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:support"]],
 			sst_claude:["male","sst_spirit",3,["sst_yunchou","sst_guimou"],[]],
 			sst_geno:["male","sst_spirit",3,["sst_fuyuan","sst_xingjiang"],[]],
@@ -28,8 +29,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
 			sst_roy:["male","sst_light",4,["sst_nuyan"],[]]
 		},
-		characterFilter:{
-		},
+		characterFilter:{},
 		characterIntro:{
 			/*
 			"武将作者：Yumikohimi<br>\
@@ -48,6 +48,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			"
 			*/
+			sst_pyra_mythra:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
+			<hr>\
+			1458. 焰（斗士）/Pyra(Fighter)/ホムラ（ファイター）<br>\
+			系列：<ruby>异度神剑<rp>（</rp><rt>Xenoblade Chronicles</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>异度神剑2<rp>（</rp><rt>Xenoblade Chronicles 2</rt><rp>）</rp></ruby><br>\
+			没错，不是莱克斯参战，而是天之圣杯参战了！——当然，莱克斯还是会在进场、炫耀和胜利画面中出现的。作为斗士的焰速度较慢，但伤害和击杀能力非常强。如有需要，她还能随时切换为光。立绘姿势来源于之前出的手办。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			1459. 光（斗士）/Mythra(Fighter)/ヒカリ（ファイター）<br>\
+			系列：<ruby>异度神剑<rp>（</rp><rt>Xenoblade Chronicles</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>异度神剑2<rp>（</rp><rt>Xenoblade Chronicles 2</rt><rp>）</rp></ruby><br>\
+			光的机动性和回场能力明显高于焰，但她的招式伤害较低。此外，在恰当的时机闪避还能触发“因果律预测”，创造反击机会。灵活运用天之圣杯不同形态的特点是取胜的关键。立绘姿势同样来源于之前出的手办。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			最终，少年遇到了少女。",
 			sst_9_volt_18_volt:"武将作者：mario not mary、Show-K<br>\
 			插图作者：未知<br>\
 			<hr>\
@@ -201,6 +217,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			率先体验谋攻篇。"
 		},
 		characterTitle:{
+			sst_pyra_mythra:"天之圣杯",
 			sst_9_volt_18_volt:"电子幻界",
 			sst_claude:"连系世界之王",
 			sst_geno:"星路战士",
@@ -330,6 +347,152 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					else{
 						player.viewCharacter(event.target,1);
+					}
+				}
+			},
+			//Pyra/Mythra
+			sst_xuanyi:{
+				init:function(player,skill){
+					if(typeof player.storage[skill]!="boolean") player.storage[skill]=false;
+				},
+				zhuanhuanji:true,
+				enable:"phaseUse",
+				usable:1,
+				filter:function(event,player){
+					if(!player.storage.sst_xuanyi){
+						return game.hasPlayer(function(current){
+							return player.canCompare(current);
+						});
+					}
+					else{
+						return player.canComparePlayer();
+					}
+				},
+				filterTarget:function(card,player,target){
+					if(!player.storage.sst_xuanyi){
+						return player.canCompare(target);
+					}
+					else{
+						return false;
+					}
+				},
+				selectTarget:function(){
+					var player=_status.event.player;
+					if(!player.storage.sst_xuanyi){
+						return 1;
+					}
+					else{
+						return 0;
+					}
+				},
+				delay:false,
+				content:function(){
+					"step 0"
+					event[event.name]=player.storage[event.name]==true;
+					player.changeZhuanhuanji(event.name);
+					if(!event[event.name]){
+						player.chooseToCompare(target);
+					}
+					else{
+						player.chooseToComparePileTop();
+					};
+					"step 1"
+					if(result.winner){
+						event.winner=result.winner;
+						event.winner.gain(event.winner==player?result.target:result.player,"gain2");
+					}
+					"step 2"
+					if(event.winner!=player){
+						var str="炫奕：对一名角色造成1点";
+						str+=!event[event.name]?"火焰":"雷电";
+						str+="伤害";
+						player.chooseTarget(str,true).set("ai",function(target){
+							var player=_status.event.player;
+							var evt=_status.event.getParent();
+							return get.damageEffect(target,player,player,!evt[evt.name]?"fire":"thunder");
+						});
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					if(result.targets&&result.targets.length){
+						player.line(result.targets[0],!event[event.name]?"fire":"thunder");
+						result.targets[0].damage(player,!event[event.name]?"fire":"thunder","nocard");
+						player.addExpose(0.2);
+					}
+					else{
+						event.finish();
+					}
+					"step 4"
+					game.delayx();
+				},
+				ai:{
+					order:5,
+					expose:0.2,
+					damage:true,
+					result:{
+						player:function(player,target){
+							if(!player.storage.sst_xuanyi) return -get.attitude(player,target)/2;
+							return 1;
+						}
+					}
+				}
+			},
+			sst_fuxin:{
+				skillAnimation:true,
+				animationStr:"付心",
+				animationColor:"fire",
+				line:"fire",
+				enable:"phaseUse",
+				usable:1,
+				filterTarget:function(card,player,target){
+					return target!=player;
+				},
+				content:function(){
+					"step 0"
+					var name=player.name;
+					var next=game.createEvent("removeCharacter");
+					next.set("player",player);
+					next.toRemove=name;
+					next.setContent(function(){
+						var name=player.name;
+						var info=lib.character[name];
+						if(!info) return;
+						var to="shibing"+(info[0]=="male"?1:2)+info[1];
+						game.log(player,"移除了武将牌","#b"+name);
+						player.reinit(name,to,false);
+						if(_status.characterlist) _status.characterlist.add(name);
+					});
+					"step 1"
+					lib.inpile.push("sst_aegises");
+					var card=game.createCard4("sst_aegises","","","",["sst_pyra_mythra"]);
+					player.give(card,target,"give",true);
+					target.addTempSkill("sst_fuxin_card",{player:"die"});
+				},
+				ai:{
+					order:1,
+					expose:0.2,
+					damage:true,
+					result:{
+						target:function(player,target){
+							if(player.hp<3) return 1;
+						}
+					}
+				}
+			},
+			sst_fuxin_card:{
+				trigger:{player:"phaseZhunbeiBegin"},
+				filter:function(event,player){
+					return !player.hasCard(function(card){
+						return get.name(card)=="sst_aegises";
+					},"hej");
+				},
+				frequent:true,
+				content:function(){
+					var card=get.cardPile("sst_aegises","field");
+					if(card){
+						player.gain(card,"gain2");
 					}
 				}
 			},
@@ -1828,10 +1991,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return get.color(card)=="red";
 					},"he").set("ai",function(card){
 						if(get.tag(card,"fireDamage")) return get.unuseful3(card);
-						if(get.name(card)=="shan"){
-							//TODO: Check shanRequired
-							return 0;
+						var evt=_status.getTrigger();
+						var cardName=get.name(evt.card);
+						if(cardName=="sha"||cardName=="juedou"||cardName=="huogong"||cardName=="tao"){
+							var val=0;
+							game.filterPlayer(function(current){
+								if(evt.targets.contains(current)){
+									if(cardName=="sha"&&!current.mayHaveShan()) return;
+									if(cardName=="tao"&&current.hp+evt.baseDamage+1>current.maxHp) return;
+									val+=get.effect(current,evt.card,evt.player,player);
+								}
+							}).length;
+							val/=evt.targets.length;
+							return val-get.useful(card);
 						}
+						var sha=evt.getParent(2);
+						if(!sha||sha.name!="sha"||sha.shanRequired<2) return false;
 						return 5-get.useful(card);
 					}).set("logSkill",event.name);
 					"step 1"
@@ -1912,7 +2087,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			}
 		},
 		translate: {
+			//Civil War mode reference
+			_guozhan_marks:"标记",
+			_guozhan_marks_backup:"标记",
+			xianqu_mark:"先驱",
 			//Character
+			sst_pyra_mythra:"焰／光",
 			sst_9_volt_18_volt:"九伏特＆十八伏特",
 			sst_claude:"库罗德",
 			sst_geno:"♡♪!?",
@@ -1983,6 +2163,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_nuyan:"怒炎",
 			sst_nuyan_info:"当你使用可以被怒气强化的牌时，你可以弃置一张红色牌强化之，然后若弃置的牌可以造成火属性伤害，你可以对一名角色造成1点火焰伤害。",
 			//Tag
+			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",
 			//Sort
@@ -1992,6 +2173,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_attack_by_stratagem:"谋攻"
 		},
 		translateEnglish:{
+			sst_pyra_mythra:"Pyra/Mythra",
 			sst_9_volt_18_volt:"9-Volt & 18-Volt",
 			sst_claude:"Claude",
 			sst_geno:"♡♪!?",
@@ -2008,6 +2190,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_roy:"Roy"
 		},
 		perfectPair:{
+			sst_pyra_mythra:["sst_rex"],
 			sst_9_volt_18_volt:["sst_wario"],
 			sst_claude:["sst_byleth_male","sst_byleth_female"],
 			sst_geno:["sst_mario","sst_bowser","sst_peach"],

@@ -11,7 +11,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf","sst_olimar"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
-				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_pyra_mythra","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora","sst_piranha_plant"],
+				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora","sst_piranha_plant"],
 				sst_spirits:["sst_dark_link","sst_sans","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_kyo_kusanagi","sst_pauline","sst_dr_wily","sst_kraid"],
 				sst_players:["sst_mario_not_mary","sst_yumikohimi","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji","sst_marioraz"]
 			}
@@ -114,7 +114,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],["type:balance"]],
 			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],["type:support"]],
 			sst_falco:["male","sst_light",4,["sst_juao"],["type:balance"]],
-			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:support"]],
 			sst_enderman:["none","sst_dark",2,["sst_lingying","sst_fankui","sst_xiangzhu"],["type:balance"]],
 			sst_sephiroth:["male","sst_dark",5,["sst_fenshi","sst_xingduo"],["type:support"]],
 			sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],["type:support"]],
@@ -1049,22 +1048,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			放心，一个也别想逃。",
-			sst_pyra_mythra:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
-			<hr>\
-			1458. 焰（斗士）/Pyra(Fighter)/ホムラ（ファイター）<br>\
-			系列：<ruby>异度神剑<rp>（</rp><rt>Xenoblade Chronicles</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>异度神剑2<rp>（</rp><rt>Xenoblade Chronicles 2</rt><rp>）</rp></ruby><br>\
-			没错，不是莱克斯参战，而是天之圣杯参战了！——当然，莱克斯还是会在进场、炫耀和胜利画面中出现的。作为斗士的焰速度较慢，但伤害和击杀能力非常强。如有需要，她还能随时切换为光。立绘姿势来源于之前出的手办。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			1459. 光（斗士）/Mythra(Fighter)/ヒカリ（ファイター）<br>\
-			系列：<ruby>异度神剑<rp>（</rp><rt>Xenoblade Chronicles</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>异度神剑2<rp>（</rp><rt>Xenoblade Chronicles 2</rt><rp>）</rp></ruby><br>\
-			光的机动性和回场能力明显高于焰，但她的招式伤害较低。此外，在恰当的时机闪避还能触发“因果律预测”，创造反击机会。灵活运用天之圣杯不同形态的特点是取胜的关键。立绘姿势同样来源于之前出的手办。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			最终，少年遇到了少女。",
 			sst_enderman:"武将作者：mario not mary、Yumikohimi、Show-K<br>\
 			插图作者：未知<br>\
 			<hr>\
@@ -1313,7 +1296,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_min_min:"玉盘珍馐",
 			sst_pikachu:"电光一闪",
 			sst_falco:"鹰击长空",
-			sst_pyra_mythra:"天之圣杯",
 			sst_enderman:"末地住民",
 			sst_sephiroth:"片翼天使",
 			sst_pokemon_trainer_leaf:"三位一体",
@@ -7157,7 +7139,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var num=evt.cards.filter(function(card){
 							return get.name(card)!="sha";
 						}).length;
-						if(_status.event.player.storage.sst_tandao==2) return [num,num+1];
+						if(_status.event.player.storage.sst_tandao==2){
+							var chosenSha=false;
+							ui.selected.buttons.forEach(function(button){
+								if(get.name(button.link)=="sha") chosenSha=true;
+							});
+							if(chosenSha) return num+1;
+							return [num,num+1];
+						}
 						return num;
 					}).set("complexSelect",true);
 					"step 2"
@@ -11520,152 +11509,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.die();
 				}
 			},
-			//Pyra/Mythra
-			sst_xuanyi:{
-				init:function(player,skill){
-					if(typeof player.storage[skill]!="boolean") player.storage[skill]=false;
-				},
-				zhuanhuanji:true,
-				enable:"phaseUse",
-				usable:1,
-				filter:function(event,player){
-					if(!player.storage.sst_xuanyi){
-						return game.hasPlayer(function(current){
-							return player.canCompare(current);
-						});
-					}
-					else{
-						return player.canComparePlayer();
-					}
-				},
-				filterTarget:function(card,player,target){
-					if(!player.storage.sst_xuanyi){
-						return player.canCompare(target);
-					}
-					else{
-						return false;
-					}
-				},
-				selectTarget:function(){
-					var player=_status.event.player;
-					if(!player.storage.sst_xuanyi){
-						return 1;
-					}
-					else{
-						return 0;
-					}
-				},
-				delay:false,
-				content:function(){
-					"step 0"
-					event[event.name]=player.storage[event.name]==true;
-					player.changeZhuanhuanji(event.name);
-					if(!event[event.name]){
-						player.chooseToCompare(target);
-					}
-					else{
-						player.chooseToComparePileTop();
-					};
-					"step 1"
-					if(result.winner){
-						event.winner=result.winner;
-						event.winner.gain(event.winner==player?result.target:result.player,"gain2");
-					}
-					"step 2"
-					if(event.winner!=player){
-						var str="炫奕：对一名角色造成1点";
-						str+=!event[event.name]?"火焰":"雷电";
-						str+="伤害";
-						player.chooseTarget(str,true).set("ai",function(target){
-							var player=_status.event.player;
-							var evt=_status.event.getParent();
-							return get.damageEffect(target,player,player,!evt[evt.name]?"fire":"thunder");
-						});
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					if(result.targets&&result.targets.length){
-						player.line(result.targets[0],!event[event.name]?"fire":"thunder");
-						result.targets[0].damage(player,!event[event.name]?"fire":"thunder","nocard");
-						player.addExpose(0.2);
-					}
-					else{
-						event.finish();
-					}
-					"step 4"
-					game.delayx();
-				},
-				ai:{
-					order:5,
-					expose:0.2,
-					damage:true,
-					result:{
-						player:function(player,target){
-							if(!player.storage.sst_xuanyi) return -get.attitude(player,target)/2;
-							return 1;
-						}
-					}
-				}
-			},
-			sst_fuxin:{
-				skillAnimation:true,
-				animationStr:"付心",
-				animationColor:"fire",
-				line:"fire",
-				enable:"phaseUse",
-				usable:1,
-				filterTarget:function(card,player,target){
-					return target!=player;
-				},
-				content:function(){
-					"step 0"
-					var name=player.name;
-					var next=game.createEvent("removeCharacter");
-					next.set("player",player);
-					next.toRemove=name;
-					next.setContent(function(){
-						var name=player.name;
-						var info=lib.character[name];
-						if(!info) return;
-						var to="shibing"+(info[0]=="male"?1:2)+info[1];
-						game.log(player,"移除了武将牌","#b"+name);
-						player.reinit(name,to,false);
-						if(_status.characterlist) _status.characterlist.add(name);
-					});
-					"step 1"
-					lib.inpile.push("sst_aegises");
-					var card=game.createCard4("sst_aegises","","","",["sst_pyra_mythra"]);
-					player.give(card,target,"give",true);
-					target.addTempSkill("sst_fuxin_card",{player:"die"});
-				},
-				ai:{
-					order:1,
-					expose:0.2,
-					damage:true,
-					result:{
-						target:function(player,target){
-							if(player.hp<3) return 1;
-						}
-					}
-				}
-			},
-			sst_fuxin_card:{
-				trigger:{player:"phaseZhunbeiBegin"},
-				filter:function(event,player){
-					return !player.hasCard(function(card){
-						return get.name(card)=="sst_aegises";
-					},"hej");
-				},
-				frequent:true,
-				content:function(){
-					var card=get.cardPile("sst_aegises","field");
-					if(card){
-						player.gain(card,"gain2");
-					}
-				}
-			},
 			//Enderman
 			sst_lingying:{
 				forced:true,
@@ -13330,20 +13173,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
 					if(!Array.isArray(player.storage.sst_xiongli)) return false;
-					if(player.storage.sst_xiongli.contains("sst_xiongli_first")){
-						var damage=0;
-						player.getLastRoundHistory(1,"sourceDamage",function(evt){
-							damage+=evt.num;
-						});
-						return !game.hasPlayer(function(current){
-							var damage2=0;
-							current.getLastRoundHistory(1,"sourceDamage",function(evt){
-								damage2+=evt.num;
-							});
-							return damage2<damage;
-						})
-					}
-					return (player.storage.sst_xiongli.contains("sst_xiongli_second")&&player.isMinHp())||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&player.isMinEquip());
+					return (player.storage.sst_xiongli.contains("sst_xiongli_first")&&lib.skill.sst_xiongli_effect.isMin(player,player))||(player.storage.sst_xiongli.contains("sst_xiongli_second")&&player.isMinHp())||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&player.isMinEquip());
 				},
 				content:function(){
 					"step 0"
@@ -13967,10 +13797,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		*/
 		translate:{
-			//Civil War mode reference
-			_guozhan_marks:"标记",
-			_guozhan_marks_backup:"标记",
-			xianqu_mark:"先驱",
 			//Soldier
 			shibing1sst_light:"士兵",
 			shibing2sst_light:"士兵",
@@ -14068,7 +13894,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_min_min:"面面",
 			sst_pikachu:"皮卡丘",
 			sst_falco:"佛克",
-			sst_pyra_mythra:"焰／光",
 			sst_enderman:"末影人",
 			sst_sephiroth:"萨菲罗斯",
 			sst_pokemon_trainer_leaf:"碧蓝",
@@ -14667,7 +14492,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yangfen:"养分",
 			sst_yangfen_info:"一名角色死亡后，你可以摸其体力上限张数牌。",
 			//Tag
-			sst_pyra_mythra_tag:"焰／光",
 			sst_jichang_first_tag:"摸牌阶段额外摸牌数",
 			sst_jichang_second_tag:"攻击范围增加数",
 			sst_jichang_third_tag:"额外使用【杀】次数",
@@ -14779,7 +14603,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_min_min:"Min Min",
 			sst_pikachu:"Pikachu",
 			sst_falco:"Falco",
-			sst_pyra_mythra:"Pyra/Mythra",
 			sst_enderman:"Enderman",
 			sst_sephiroth:"Sephiroth",
 			sst_pokemon_trainer_leaf:"Blue",
@@ -14819,7 +14642,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_fox:["sst_falco","sst_krystal","sst_wolf"],
 			sst_pikachu:["sst_pichu"],
 			sst_steve:["sst_alex"],
-			sst_rex:["sst_pyra_mythra"],
 			sst_pokemon_trainer_red:["sst_pokemon_trainer_red","sst_pikachu"],
 			sst_pokemon_trainer_leaf:["sst_pikachu"],
 			sst_pauline:["sst_donkey_kong"],
