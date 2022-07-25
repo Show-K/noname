@@ -138,10 +138,12 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					name2: players[i].name2,
 					identity: players[i].identity
 				});
-				players[i].markSkill('th_anger');
 			}
 			_status.videoInited = true;
 			game.addVideo('init', null, info);
+			for (var i = 0; i < players.length; i++) {
+				players[i].markSkill('th_anger');
+			}
 			"step 6"
 			game.gameDraw(_status.firstAct2 || game.zhong || game.zhu || _status.firstAct || game.me, function (player) {
 				return 4;
@@ -973,7 +975,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					setTimeout(function () {
 						ui.arena.classList.remove('choose-character');
 					}, 500);
-					game.addGlobalSkill('useAnger');
 				});
 			},
 			chooseCharacterOL: function () {
@@ -1221,7 +1222,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						setTimeout(function () {
 							ui.arena.classList.remove('choose-character');
 						}, 500);
-						game.addGlobalSkill('useAnger');
 					}, result2, result);
 
 					for (var i in result2) {
@@ -1239,7 +1239,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					setTimeout(function () {
 						ui.arena.classList.remove('choose-character');
 					}, 500);
-					game.addGlobalSkill('useAnger');
 				});
 			}
 		},
@@ -1267,7 +1266,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			ai_strategy_5: '天使',
 			ai_strategy_6: '仇主',
 			_chongzhen: '重振',
-			useAnger: '怒气',
+			_useAnger: '怒气',
 			_letMeSee: '洞察',
 			_mingjun: '明君',
 			identity_card: "身份牌"
@@ -1911,7 +1910,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			},
 		},
 		skill: {
-			useAnger: {
+			_useAnger: {
 				audio: true,
 				forceaudio: true,
 				charlotte: true,
@@ -2016,345 +2015,13 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					}
 				}
 			},
-			/*
-			useAnger: {
-				delay: false,
-				enable: 'chooseToUse',
-				direct: true,
-				filter: function (event, player) {
-					if (player.storage.useNuqi) return true;
-					if (game.roundNumber == 1) return false;
-					if (player.getStorage('th_anger') == 0) return false;
-					for (var i of player.getCards('hs')) {
-						if (!game.checkMod(i, player, 'unchanged', 'cardEnabled2', player)) continue;
-						for (var j of _status.mougong_buff) {
-							var name = get.name(i, player), nature = get.nature(i, player);
-							if (j == name) {
-								var num = 1;
-								if (j == 'juedou' || j == 'huogong') num = 2;
-								if (j == 'tao') num = 3;
-								if (event.filterCard({ name: j, nature: nature, isCard: true, cards: [i] }, player, event)) {
-									if (player.storage.th_anger >= num) return true;
-								}
-							}
-						}
-					}
-					return false;
-				},
-				selectTarget: -1,
-				filterTarget: function (card, player, target) {
-					return target == player;
-				},
-				// filterCard: function (card, player, event) {
-				//     event = event || _status.event;
-				//     var filter = event._backup.filterCard;
-				//     var names = _status.mougong_buff;
-				//     for (var name of names) {
-				//         var myName = get.name(card, player), nature = get.nature(card, player);
-				//         if (name == myName) {
-				//             var num = 1;
-				//             if (name == 'juedou' || name == 'huogong') num = 2;
-				//             if (name == 'tao') num = 3;
-				//             // if (lib.filter.filterCard({ name: name, nature: nature, isCard: true, cards: [card] }, player, _status.event)) {
-				//             if (filter({ name: name, nature: nature, isCard: true, cards: [card] }, player, _status.event)) {
-				//                 if (player.storage.th_anger >= num)
-				//                     return true;
-				//             }
-				//         }
-				//     }
-				//     return false;
-				// },
-				content: function () {
-					if (!player.storage.useNuqi) {
-						player.storage.useNuqi = true;
-						player.logSkill('useAnger');
-						game.playAudio('..', 'extension', '谋之攻', 'useAnger');
-						if (typeof event.baseDamage != 'number') event.baseDamage = 1;
-						game.addVideo('jiuNode', player, true);
-						if (!player.storage.useAnger) player.storage.useAnger = 0;
-						player.storage.useAnger += event.baseDamage;
-						game.broadcastAll(function (player) {
-							player.addSkill('useAnger2');
-							if (!player.node.useAnger) {
-								player.node.useAnger = ui.create.div('.playerjiu', player.node.avatar);
-								player.node.useAnger2 = ui.create.div('.playerjiu', player.node.avatar2);
-							}
-
-						}, player);
-						var str = ''
-						for (var i of player.getCards('hs')) {
-							switch (i.name) {
-								case 'sha': case 'shan':
-									str = '1点怒气'; break;
-								case 'juedou': case 'huogong':
-									str = '2点怒气'; break;
-								case 'tao': str = '3点怒气'; break;
-								default: str = '';
-							}
-							if (str.length) player.addGaintag(i, str);
-						}
-						player.addSkill('useAnger4');
-					} else {
-						game.addVideo('jiuNode', player, false);
-						game.broadcastAll(function (player) {
-							if (player.hasSkill('useAnger2')) player.removeSkill('useAnger2');
-						}, player);
-						if (player.node.useAnger) {
-							player.node.useAnger.delete();
-							player.node.useAnger2.delete();
-							delete player.node.useAnger;
-							delete player.node.useAnger2;
-						}
-						delete player.storage.useAnger;
-						if (player.storage.useNuqi) delete player.storage.useNuqi;
-						for (var i of ['1点怒气', '2点怒气', '3点怒气']) {
-							player.removeGaintag(i);
-						}
-						if (player.hasSkill('useAnger4')) player.removeSkill('useAnger4');
-					}
-					event.getParent(2).goto(0);
-				},
-				ai: {
-					order: function (item, player) {
-						if (_status.event.getParent().name == 'sha') {
-							console.log(_status.event);
-							if (!_status.event.getParent(2).mougong_shaBuffed) return 0;
-							return 5;
-						}
-						return Math.max(get.order({ name: 'sha' }), 5) + 1.5;
-					},
-					respondShan: true,
-					save: true,
-					skillTagFilter: function (player, tag, arg) {
-						if (tag == 'respondShan') return player.countCards('hs', { name: 'shan' }) > 0;
-						if (tag == 'save') return player.countCards('hs', { name: 'tao' }) > 0 && player.getStorage('th_anger') > 2 && get.attitude(player, _status.event.getParent().dying) > 0;
-					},
-					result: {
-						// player: function (player, target) {
-						//     if (player.storage.useNuqi) return 0;
-						//     return 1;
-						// },
-						target: function (player, target) {
-							if (target.storage.useNuqi) return 0;
-							if (!player.storage.zhibi && !player.storage.seen && !game.hasPlayer(function (current) {
-								return current.identityShown == true;
-							})) return 0;
-							var event = _status.event;
-							console.log(event);
-							if (event.getParent().name == '_save' && get.attitude(target, event.getParent().dying) > 0) return 2;
-							if (event.getParent(2).mougong_shaBuffed) return 2;
-							if (target && !target.isPhaseUsing()) return 0;
-							var shas = player.getCards('h', 'sha');
-							if (shas.length > 1 && (player.getCardUsable('sha') > 1 || player.countCards('h', 'zhuge'))) {
-								return 0;
-							}
-							var tricks = player.getCards('h', function (card) {
-								return (card.name == 'juedou' || card.name == 'huogong') && player.getUseValue(card);
-							});
-							shas.sort(function (a, b) {
-								return get.order(b) - get.order(a);
-							})
-							var card;
-							if (tricks && player.th_anger > 1) return 1;
-							if (shas.length) {
-								for (var i = 0; i < shas.length; i++) {
-									if (lib.filter.filterCard(shas[i], target)) {
-										card = shas[i]; break;
-									}
-								}
-							}
-							else if (player.hasSha() && player.needsToDiscard()) {
-								if (player.countCards('h', 'hufu') != 1) {
-									card = { name: 'sha' };
-								}
-							}
-							if (card) {
-								if (game.hasPlayer(function (current) {
-									return (get.attitude(target, current) < 0 &&
-										target.canUse(card, current, true, true) &&
-										!current.hasSkillTag('filterDamage', null, {
-											player: player,
-											card: card,
-										}) &&
-										get.effect(current, card, target) > 0 && current.hasShan());
-								})) {
-									return 1;
-								}
-							}
-							return 0;
-						},
-					},
-				}
-			},
-			useAnger2: {
-				trigger: { player: 'useCard1' },
-				filter: function (event) {
-					return event.card && _status.mougong_buff.contains(event.card.name);
-				},
-				forced: true,
-				charlotte: true,
-				priority: 999,
-				content: function () {
-					var num;
-					switch (trigger.card.name) {
-						case 'sha': case 'shan':
-							num = 1; break;
-						case 'huogong': case 'juedou':
-							num = 2; break;
-						case 'tao':
-							num = 3;
-					}
-					player.removeMark('th_anger', num);
-					game.log(player, '消耗了' + num + '点怒气强化了', trigger.card);
-					if (num > 1) {
-						if (!trigger.baseDamage) trigger.baseDamage = 1;
-						trigger.baseDamage += player.storage.useAnger;
-						game.addVideo('jiuNode', player, false);
-						game.broadcastAll(function (player) {
-							player.removeSkill('useAnger2');
-						}, player);
-					} else {
-						if (trigger.card.name == 'sha') {
-							var target = (trigger.target || trigger.targets[0]);
-							var id = target.playerid;
-							var map = trigger.customArgs;
-							if (!map[id]) map[id] = {};
-							if (typeof map[id].shanRequired == 'number') {
-								map[id].shanRequired++;
-							}
-							else {
-								map[id].shanRequired = 2;
-							}
-							trigger.mougong_shaBuffed = true;
-						} else {
-							trigger.mougong_shanBuffed = true;
-							player.addTempSkill('useAnger5');
-						}
-					}
-				},
-				temp: true,
-				vanish: true,
-				silent: true,
-				popup: false,
-				nopop: true,
-				onremove: function (player) {
-					if (player.node.useAnger) {
-						player.node.useAnger.delete();
-						player.node.useAnger2.delete();
-						delete player.node.useAnger;
-						delete player.node.useAnger2;
-					}
-					delete player.storage.useAnger;
-					for (var i of ['1点怒气', '2点怒气', '3点怒气']) {
-						player.removeGaintag(i);
-					}
-					if (player.storage.useNuqi) delete player.storage.useNuqi;
-					if (player.hasSkill('useAnger4')) player.removeSkill('useAnger4');
-				},
-				ai: {
-					damageBonus: true
-				},
-				group: 'useAnger3'
-			},
-			useAnger3: {
-				trigger: { player: 'useCard2', global: 'phaseAfter' },
-				priority: 2,
-				firstDo: true,
-				charlotte: true,
-				filter: function (event) {
-					if (event.name == 'useCard') return (event.card && (_status.mougong_buff.contains(event.card.name)));
-					return true;
-				},
-				forced: true,
-				popup: false,
-				audio: false,
-				content: function () {
-					game.broadcastAll(function (player) {
-						player.removeSkill('useAnger2');
-					}, player);
-					game.addVideo('jiuNode', player, false);
-				},
-			},
-			useAnger4: {
-				mod: {
-					cardEnabled: function (card, player) {
-						var num = player.getStorage('th_anger'), name = get.name(card);
-						if (!_status.mougong_buff.contains(name)) return false;
-						switch (name) {
-							case 'sha': case 'shan':
-								return num > 0;
-							case 'huogong': case 'juedou':
-								return num > 1;
-							case 'tao': return num > 2;
-						}
-					},
-				}
-			},
-			useAnger5: {
-				trigger: {
-					player: 'shanEnd',
-				},
-				forced: true,
-				silent: true,
-				popup: false,
-				charlotte: true,
-				filter: function (event, player) {
-					return event.getParent(3).name == 'sha' && event.getParent(4).mougong_shaBuffed;
-				},
-				content: function (event, player) {
-					if (trigger.getParent(3).shanRequired) trigger.getParent(3).shanRequired--;
-				}
-			},
-			// _useAnger6: {
-			//     trigger: { player: 'chooseToUseBegin' },
-			//     filter: function (event, player) {
-			//         if (game.roundNumber < 2) return false;
-			//         if (player == game.me) return false;
-			//         if (event.getParent().card && get.name(event.getParent().card) != 'sha') return false;
-			//         if (event.getParent().target && event.getParent().target != player) return false;
-			//         //if (get.effect(event.target, event.card, event.player, event.target) && get.effect(event.target, event.card, event.player, event.target) >= 0) return false;
-			//         if (player.countCards('h', 'shan') == 0) return false;
-			//         if (player.storage.th_anger == 0) return false;
-			//         return true;
-			//     },
-			//     check: function (event, player) {
-			//         return event.getParent(2).mougong_shaBuffed == true;
-			//     },
-			//     content: function () {
-			//         player.logSkill('useAnger');
-			//         player.storage.useNuqi = true;
-			//         game.addVideo('angerNode', player, true);
-			//         game.broadcastAll(function (player) {
-			//             player.addSkill('useAnger2');
-			//             if (!player.node.useAnger) {
-			//                 player.node.useAnger = ui.create.div('.playerjiu', player.node.avatar);
-			//                 player.node.useAnger2 = ui.create.div('.playerjiu', player.node.avatar2);
-			//             }
-
-			//         }, player);
-			//         var str = ''
-			//         for (var i of player.getCards('hs')) {
-			//             switch (i.name) {
-			//                 case 'sha': case 'shan':
-			//                     str = '1点怒气'; break;
-			//                 case 'juedou': case 'huogong':
-			//                     str = '2点怒气'; break;
-			//                 case 'tao': str = '3点怒气'; break;
-			//                 default: str = '';
-			//             }
-			//             if (str.length) player.addGaintag(i, str);
-			//         }
-			//         player.addSkill('useAnger4');
-			//     }
-			// },
-			*/
 			th_anger: {
 				mark: true,
 				intro: {
 					content: function (content, player) {
 						return '已有' + get.cnNumber(player.storage.th_anger) + '点怒气值';
 					}
-				},
+				}
 			},
 			_chongzhen: {
 				charlotte: true,
@@ -2373,7 +2040,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				content: function () {
 					'step 0'
 					delete player.storage.th_weizhuang;
-					player.showIdentity();
+					game.broadcastAll(function (player) {
+						player.showIdentity();
+					}, player);
 					game.log(player, '的身份是', '#g反贼');
 					player.discard(player.getCards('hej'));
 					player.markSkill('_chongzhen_chong');
@@ -2421,11 +2090,15 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					'step 0'
 					player.storage.th_mingjun = true;
 					game.log(player, '的身份是', '#g主公');
-					player.showIdentity();
+					game.broadcastAll(function (player) {
+						player.showIdentity();
+					}, player);
 					player.markSkill('_mingjun_ming');
 					'step 1'
-					game.zhu = player;
-					player.isZhu = true;
+					game.broadcastAll(function (player) {
+						game.zhu = player;
+						player.isZhu = true;
+					}, player);
 					'step 2'
 					player.recover();
 					player.draw();
