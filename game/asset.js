@@ -6920,6 +6920,9 @@ window.noname_asset_list=[
 	'image/card/zhong2.png',
 	'image/card/zhu2.png',
 	'image/other/qunliao.jpg',
-	'image/splash/th_mougong.jpg'
+	'image/splash/th_mougong.jpg',
+
+	'audio/skill/_neiTequan.mp3',
+	'audio/skill/_useAnger.mp3'
 ];
 window.noname_skin_list={};
