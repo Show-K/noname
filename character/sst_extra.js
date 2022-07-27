@@ -1578,23 +1578,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				popup:false,
 				trigger:{global:["chooseToUseBegin","chooseToRespondBegin"]},
 				filter:function(event,player){
-					return event.respondTo&&event.respondTo[0]==player&&event.respondTo[1]&&get.number(event.respondTo[1]);
+					var evt=event.getParent(2);
+					if(!evt||evt.name!="useCard") return false;
+					return evt.player==player&&typeof get.number(evt.card)=="number";
 				},
 				content:function(){
+					var evt=trigger.getParent(2);
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
 							if(card&&_status.event.respondToCard&&get.number(card)>get.number(_status.event.respondToCard)) return false;
-							if(!_status.event.sstAoshangFilterCard) return true;
+							if(typeof _status.event.sstAoshangFilterCard!="function") return true;
 							return _status.event.sstAoshangFilterCard.apply(this,arguments);
 						});
-						trigger.set("respondToCard",trigger.respondTo[1]);
+						trigger.set("respondToCard",evt.card);
 					}
 					else{
 						trigger.set("filterCard",function(card){
 							return card&&_status.event.respondToCard&&!(get.number(card)>get.number(_status.event.respondToCard));
 						});
-						trigger.set("respondToCard",trigger.respondTo[1]);
+						trigger.set("respondToCard",evt.card);
 					}
 				}
 			},
