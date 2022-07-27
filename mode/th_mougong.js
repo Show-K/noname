@@ -141,9 +141,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			}
 			_status.videoInited = true;
 			game.addVideo('init', null, info);
-			for (var i = 0; i < players.length; i++) {
-				players[i].markSkill('th_anger');
-			}
 			"step 6"
 			game.gameDraw(_status.firstAct2 || game.zhong || game.zhu || _status.firstAct || game.me, function (player) {
 				return 4;
@@ -1606,6 +1603,16 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			}
 		},
 		get: {
+			infoHujia: function (hp) {
+				for (var i = 0; i < game.players.length; i++) {
+					game.players[i].markSkill('th_anger');
+				}
+				if (typeof hp == 'string' && hp.indexOf('/') != -1) {
+					var splited = hp.split('/');
+					if (splited.length > 2) return parseInt(splited[2]);
+				}
+				return 0;
+			},
 			rawAttitude: function (from, to) {
 				var x = 0,
 					num = 0,
@@ -2018,8 +2025,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			th_anger: {
 				mark: true,
 				intro: {
-					content: function (content, player) {
-						return '已有' + get.cnNumber(player.storage.th_anger) + '点怒气值';
+					content: function (storage) {
+						if (typeof storage != 'number') return '已有〇点怒气值'
+						return '已有' + get.cnNumber(storage) + '点怒气值';
 					}
 				}
 			},
@@ -2149,22 +2157,23 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						}
 					}
 					event.target = list.randomGet();
-					if (player == game.me) {
-						game.playAudio('skill', '_neiTequan');
-						event.target.setIdentity('fan');
-						event.target.node.identity.classList.remove('guessing');
-						event.target.fanfixed = true;
-						if (!player.storage.zhibi) player.storage.zhibi = [];
-						player.storage.zhibi.add(event.target);
-						player.line(event.target, 'green');
-						player.chooseBool('ok', 'cancel2').set('dialog', ui.create.dialog(get.translation(event.target) + '是反贼，是否伪装' + get.translation(event.target) + '的身份？', [
-							[event.target.name], 'character'
-						], [
-							['fan2'], 'vcard'
-						])).ai = () => true;
-					}
+					game.broadcastAll(function (player, target) {
+						if (player == game.me) {
+							game.playAudio('skill', '_neiTequan');
+							target.setIdentity('fan');
+							target.node.identity.classList.remove('guessing');
+							target.fanfixed = true;
+						}
+					}, player, event.target);
+					if (!player.storage.zhibi) player.storage.zhibi = [];
+					player.storage.zhibi.add(event.target);
+					player.chooseControl('ok2', 'cancel2').set('dialog', [get.translation(event.target) + '是反贼，是否伪装' + get.translation(event.target) + '的身份？', [
+						[event.target.name], 'character'
+					], [
+						['fan2'], 'vcard'
+					]]).set('ai', () => 'ok2');
 					'step 2'
-					if (result.bool) {
+					if (result.control == 'ok2') {
 						event.target.storage.th_weizhuang = true;
 					}
 					event.finish();
@@ -2175,7 +2184,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						if (identity == 'zhu') return '，仔细观察局势，保护自己';
 						return '';
 					};
-					player.chooseControl('ok').set('dialog', ['你是' + get.translation(player.identity + '2') + identityInfo(player.identity), [
+					player.chooseControl('ok2').set('dialog', ['你是' + get.translation(player.identity + '2') + identityInfo(player.identity), [
 						[player.name], 'character'
 					], [
 						[player.identity + '2'], 'vcard'
