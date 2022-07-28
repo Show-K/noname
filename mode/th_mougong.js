@@ -2073,7 +2073,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				subSkill: {
 					chong: {
 						mark: true,
-						intro: { content: '【重振】已发动' },
+						intro: { content: '已发动' },
 					}
 				}
 			},
@@ -2122,7 +2122,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 				subSkill: {
 					ming: {
 						mark: true,
-						intro: { content: '【明君】已发动' },
+						intro: { content: '已发动' },
 					}
 				}
 			},
