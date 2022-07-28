@@ -680,52 +680,59 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					ui.cardPile.insertBefore(event.pileTop.fix(),ui.cardPile.firstChild);
 					player.showCards(event.pileTop,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
-					player.chooseCard("复愿：你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令其一个限定技视为未发动过","he").set("ai",function(card){
-						var pileTop=_status.event.getParent().pileTop;
-						var num=5.5-get.value(card);
-						if(get.number(card)==get.number(pileTop)&&game.hasPlayer(function(current){
-							var skills=current.getSkills(null,null,false);
+					player.chooseCardTarget({
+						position:"he",
+						ai1:function(card){
+							var pileTop=_status.event.getParent().pileTop;
+							var num=5.5-get.value(card);
+							if(get.number(card)==get.number(pileTop)&&game.hasPlayer(function(current){
+								var skills=current.getSkills(null,null,false);
+								for(var i=0;i<skills.length;i++){
+									var info=get.info(skills[i]);
+									if(info.limited&&current.awakenedSkills.contains(skills[i])) return true;
+								}
+								return false;
+							})) num+=3;
+							return num;
+						},
+						ai2:function(target){
+							var att=get.sgnAttitude(player,target);
+							var skills=target.getSkills(null,null,false);
 							for(var i=0;i<skills.length;i++){
 								var info=get.info(skills[i]);
-								if(info.limited&&current.awakenedSkills.contains(skills[i])) return true;
+								if(info.limited&&target.awakenedSkills.contains(skills[i])){
+									att*=2;
+									break;
+								}
 							}
-							return false;
-						})) num+=3;
-						return num;
+							return att;
+						},
+						prompt:"复愿：你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令其一个限定技视为未发动过"
 					});
 					"step 2"
 					if(result.cards&&result.cards.length){
 						player.loseToDiscardpile(result.cards).set("skill","_chongzhu");
 						player.draw();
 						if(get.number(result.cards[0])==get.number(event.pileTop)) event.equal=true;
+						if(result.targets&&result.targets.length){
+							event.target=result.targets[0];
+							player.line(event.target,"green");
+							if(event.target!=player) player.addExpose(0.2);
+						}
+						else{
+							event.finish();
+						}
+					}
+					else{
+						event.finish();
 					}
 					"step 3"
-					var str="复愿：令一名角色下次造成伤害后再次结算此伤害";
-					if(event.equal) str+="，然后令其一个限定技视为未发动过";
-					player.chooseTarget(str,true).set("ai",function(target){
-						var att=get.sgnAttitude(player,target);
-						var skills=target.getSkills(null,null,false);
-						for(var i=0;i<skills.length;i++){
-							var info=get.info(skills[i]);
-							if(info.limited&&target.awakenedSkills.contains(skills[i])){
-								att*=2;
-								break;
-							}
-						}
-						return att;
-					});
-					"step 4"
-					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.line(event.target,"green");
-						if(event.target!=player) player.addExpose(0.2);
-						event.target.addSkill("sst_fuyuan_effect");
-						event.target.addMark("sst_fuyuan_effect",1,false);
-						game.log(player,"令",event.target,"下次造成伤害后再次结算此伤害");
-						game.delayx();
-					}
+					event.target.addSkill("sst_fuyuan_effect");
+					event.target.addMark("sst_fuyuan_effect",1,false);
+					game.log(player,"令",event.target,"下次造成伤害后再次结算此伤害");
+					game.delayx();
 					if(!event.equal) event.finish();
-					"step 5"
+					"step 4"
 					var list=[];
 					var skills=event.target.getSkills(null,null,false);
 					for(var i=0;i<skills.length;i++){
@@ -738,7 +745,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						event.finish();
 					}
-					"step 6"
+					"step 5"
 					if(result.control){
 						event.target.restoreSkill(result.control);
 						event.target.popup(result.control,"fire");

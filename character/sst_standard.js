@@ -6279,56 +6279,61 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseTarget(get.prompt2("sst_geliao"),function(card,player,target){
-						return player!=target;
-					}).set("ai",function(target){
-						var player=_status.event.player;
-						var att=get.attitude(player,target);
-						att+=(player.countCards("h")-6);
-						if(att>0&&(target.hasSkill("xiangle")||target.hasSkill("sst_xiangle"))) att-=2;
-						return att;
-					});
-					"step 1"
-					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.logSkill("sst_geliao",event.target);
-						trigger.cancel();
-						player.chooseCard([1,Infinity],"鸽了：你可以交给"+get.translation(event.target)+"任意张手牌",function(card){
-							var player=_status.event.player;
-							var target=_status.event.targetx;
-							return lib.filter.canBeGained(card,target,player);
-						}).set("ai",function(card){
-							var player=_status.event.player;
-							var target=_status.event.targetx;
-							if(get.attitude(player,target)<=0) return 0;
+					player.chooseCardTarget({
+						selectCard:[0,Infinity],
+						filterTarget:function(card,player,target){
+							if(target==player) return false;
+							if(ui.selected.cards&&ui.selected.cards.length){
+								for(var i=0;i<ui.selected.cards.length;i++){
+									if(!lib.filter.canBeGained(ui.selected.cards[i],target,player)) return false;
+								}
+							}
+							return true;
+						},
+						ai1:function(card){
 							var needsToDiscard=player.needsToDiscard();
 							if(ui.selected.cards&&ui.selected.cards.length){
 								for(var i=0;i<ui.selected.cards.length;i++){
 									if(get.position(ui.selected.cards[i])=="h"&&game.checkMod(ui.selected.cards[i],player,false,"ignoredHandcard",player)!=true) needsToDiscard--;
 								}
 							}
-							if(needsToDiscard>0&&get.position(card)=="h"&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) return 11-get.useful(card);
+							if(needsToDiscard>0&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) return 11-get.useful(card);
 							return 3-get.useful(card);
-						}).set("targetx",event.target);
+						},
+						ai2:function(target){
+							if(!ui.selected.cards||!ui.selected.cards.length) return 0;
+							var player=_status.event.player;
+							var att=0;
+							for(var i=0;i<ui.selected.cards.length;i++){
+								att+=Math.cbrt(get.attitude(player,target)*get.value(ui.selected.cards[i],target));
+							}
+							att/=ui.selected.cards.length;
+							if(att>0&&(target.hasSkill("xiangle")||target.hasSkill("sst_xiangle"))) att-=2;
+							return att;
+						},
+						prompt:get.prompt("sst_geliao"),
+						prompt2:get.skillInfoTranslation("sst_geliao")
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.logSkill("sst_geliao",event.target);
+						trigger.cancel();
+						if(result.cards&&result.cards.length) player.give(result.cards,event.target);
 					}
 					else{
 						event.finish();
 					}
 					"step 2"
-					if(result.cards&&result.cards.length) player.give(result.cards,event.target);
-					"step 3"
 					player.addSkill("sst_geliao_effect");
 					player.markAuto("sst_geliao_effect",[event.target]);
-					if(!player.hasSkill("sst_xiangle")){
-						player.addAdditionalSkill("sst_geliao_effect","sst_xiangle");
-						player.popup("sst_xiangle","thunder");
-						game.log(player,"获得了技能","#g【享乐】");
-					}
-					if(!event.target.hasSkill("sst_xiangle")){
-						event.target.addAdditionalSkill("sst_geliao_effect","sst_xiangle");
-						event.target.popup("sst_xiangle","thunder");
-						game.log(event.target,"获得了技能","#g【享乐】");
-					}
+					[player,event.target].sortBySeat(_status.currentPhase).forEach(function(current){
+						if(!current.hasSkill("sst_xiangle")){
+							current.addAdditionalSkill("sst_geliao_effect","sst_xiangle");
+							current.popup("sst_xiangle","thunder");
+							game.log(current,"获得了技能","#g【享乐】");
+						}
+					});
 				},
 				ai:{
 					expose:0.2
@@ -12323,6 +12328,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.cards[i]._destroy=true;
 					}
 					"step 1"
+					player.markAuto("sst_zaowu_effect",event.cards.map(function(card){
+						return get.name(card);
+					}));
 					game.log(event.cards,"被销毁了");
 					player.$throw(event.cards);
 					player.lose(event.cards,ui.special).set("_triggered",null);
