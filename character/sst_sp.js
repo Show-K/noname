@@ -2179,8 +2179,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				zhuanhuanji:true,
 				prompt:function(){
 					var player=_status.event.player;
-					if(player.storage.alz_yingjian2) return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一个“灵”";
-					return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”";
+					if(player.storage.alz_yingjian2) return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一枚“灵”";
+					return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”";
 				},
 				enable:"phaseUse",
 				usable:1,
@@ -2229,7 +2229,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			alz_yingjian3:{
-				enable:"chooseToUse",
+				enable:["chooseToUse","chooseToRespond"],
 				filter:function(event,player){
 					if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=player.getHp()) return false;
 					for(var i of lib.inpile){
@@ -2238,7 +2238,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return false;
 				},
-				prompt:()=>"若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌",
+				prompt:()=>"若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌",
 				chooseButton:{
 					dialog:function(){
 						var list=[];
@@ -2257,12 +2257,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					backup:function(links,player){
 						return {
-							log:false,
 							filterCard:()=>false,
 							selectCard:-1,
 							popname:true,
 							viewAs:{name:links[0][2],nature:links[0][3],isCard:true},
 							precontent:function(){
+								delete event.result.skill;
 								player.logSkill("alz_yingjian3_backup",event.result.targets);
 								player.removeMark("alz_yingjian",1);
 							}
@@ -2488,8 +2488,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return str;
 			},
 			alz_yingjian:function(player){
-				if(player.storage.alz_yingjian2) return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。";
-				return "游戏开始时，你获得三个“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一个“灵”；若你拥有“灵”且数量大于体力值，你可以弃一个“灵”，视为你使用一张基本牌。";
+				if(player.storage.alz_yingjian2) return "游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌。";
+				return "游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌。";
 			}
 		},
 		/*
@@ -2614,7 +2614,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yingjian2:"影见+",
 			alz_yingjian3:"影见-",
 			alz_yingjian3_backup:"影见-",
-			alz_yingjian_info:"游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用一张基本牌。",
+			alz_yingjian_info:"游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌。",
 			ymk_kaibai:"开摆",
 			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
 			xsj_dongqie:"洞怯",

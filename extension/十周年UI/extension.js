@@ -1534,7 +1534,7 @@ content:function(config, pack){
 								return;
 							}
 							var ok = game.check();
-							if (!ok) {
+							if (!ok || !lib.config.auto_confirm) {
 								game.pause();
 								var tipText;
 								var handTip = event.handTip = dui.showHandTip();
