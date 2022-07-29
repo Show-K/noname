@@ -2078,6 +2078,23 @@ content:function(config, pack){
 							}
 						}, player, card);
 					}
+					if(event.skill){
+						if(player.stat[player.stat.length-1].skill[event.skill]==undefined){
+							player.stat[player.stat.length-1].skill[event.skill]=1;
+						}
+						else{
+							player.stat[player.stat.length-1].skill[event.skill]++;
+						}
+						var sourceSkill=get.info(event.skill).sourceSkill;
+						if(sourceSkill){
+							if(player.stat[player.stat.length-1].skill[sourceSkill]==undefined){
+								player.stat[player.stat.length-1].skill[sourceSkill]=1;
+							}
+							else{
+								player.stat[player.stat.length-1].skill[sourceSkill]++;
+							}
+						}
+					}
 					if (cards.length && (cards.length > 1 || cards[0].name != card.name)) {
 						game.log(player, '打出了', card, '（', cards, '）');
 					} else {
