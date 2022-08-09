@@ -6920,6 +6920,7 @@ window.noname_asset_list=[
 	'image/card/zhong2.png',
 	'image/card/zhu2.png',
 	'image/other/qunliao.jpg',
+	'image/splash/huanhuazhizhan.jpg',
 	'image/splash/th_mougong.jpg',
 
 	'audio/skill/_neiTequan.mp3',

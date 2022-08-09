@@ -2825,6 +2825,25 @@ div:not(.handcards)>.card>.info>span,
 	transform: rotate(180deg);
 }
 
+/*--------位置(10人)------*/
+[data-number='10']>.player[data-position='1']{top:calc(200% / 3 - 185px);left:auto;right:0px;}
+[data-number='10']>.player[data-position='2']{top:0px;left:auto;right:0px;}
+[data-number='10']>.player[data-position='3']{top:0px;left:auto;right:calc(18% - 32px);}
+[data-number='10']>.player[data-position='4']{top:0px;left:auto;right:calc(32.5% - 28px);}
+[data-number='10']>.player[data-position='5']{top:0px;left:calc(50% - 60px);}
+[data-number='10']>.player[data-position='6']{top:0px;left:calc(32.5% - 28px);}
+[data-number='10']>.player[data-position='7']{top:0px;left:calc(18% - 32px);}
+[data-number='10']>.player[data-position='8']{top:0px;left:0px;}
+[data-number='10']>.player[data-position='9']{top:calc(200% / 3 - 185px);left:0px;}
+/*--------位置(9人)------*/
+[data-number='9']>.player[data-position='1']{top:calc(200% / 3 - 200px);left:auto;right:0px;}
+[data-number='9']>.player[data-position='2']{top:0px;left:auto;right:calc(14% - 18px);}
+[data-number='9']>.player[data-position='3']{top:0px;left:auto;right:calc(27% - 19px);}
+[data-number='9']>.player[data-position='4']{top:0px;left:auto;right:calc(40% - 20px);}
+[data-number='9']>.player[data-position='5']{top:0px;left:calc(40% - 20px);}
+[data-number='9']>.player[data-position='6']{top:0px;left:calc(27% - 19px);}
+[data-number='9']>.player[data-position='7']{top:0px;left:calc(14% - 18px);}
+[data-number='9']>.player[data-position='8']{top:calc(200% / 3 - 200px);left:0px;}
 /*--------位置(8人)------*/
 [data-number='8']>.player[data-position='1'] {
 	top: calc(200% / 3 - 90px);

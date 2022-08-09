@@ -23,8 +23,8 @@ window.config={
 	all:{
 		sgscharacters:['standard','shenhua','xinghuoliaoyuan','refresh','yijiang','sp','sp2','extra','old','mobile','tw','yingbian','offline'],
 		sgscards:['standard','extra','sp','guozhan','zhulu','yingbian','yongjian'],
-		sgsmodes:['identity','th_mougong','guozhan','versus','doudizhu','single','brawl','connect'],
-		stockmode:['identity','th_mougong','guozhan','versus','boss','doudizhu','single','chess','stone','connect','brawl','tafang'],
+		sgsmodes:['identity','th_mougong','guozhan','versus','doudizhu','single','brawl','connect','huanhuazhizhan'],
+		stockmode:['identity','th_mougong','guozhan','versus','boss','doudizhu','single','chess','stone','connect','brawl','tafang','huanhuazhizhan'],
 		stockextension:['boss','cardpile','coin','wuxing'],
 		layout:['default','newlayout'],
 		theme:['woodden','music','simple'],
@@ -79,7 +79,7 @@ window.config={
 	alteredSkills:[],
 	brokenFile:[],
 
-	theme:'woodden',
+	theme:'simple',
 	layout:'mobile',
 	card_style:'default',
 	cardback_style:'default',
@@ -168,6 +168,8 @@ window.config={
 				['zhu','zhong','nei','fan','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','nei','nei','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan'],
 			],
 			choice:{
 				zhu:3,
