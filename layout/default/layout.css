@@ -2850,16 +2850,7 @@ div:not(.handcards)>.card>.info>span,
 	transform: rotate(180deg);
 }
 
-/* 9-17人布局 */
-[data-number='9']>.player[data-position='1']{top:calc(200% / 3 - 200px);left:auto;right:0px;}
-[data-number='9']>.player[data-position='2']{top:0px;left:auto;right:calc(14% - 18px);}
-[data-number='9']>.player[data-position='3']{top:0px;left:auto;right:calc(27% - 19px);}
-[data-number='9']>.player[data-position='4']{top:0px;left:auto;right:calc(40% - 20px);}
-[data-number='9']>.player[data-position='5']{top:0px;left:calc(40% - 20px);}
-[data-number='9']>.player[data-position='6']{top:0px;left:calc(27% - 19px);}
-[data-number='9']>.player[data-position='7']{top:0px;left:calc(14% - 18px);}
-[data-number='9']>.player[data-position='8']{top:calc(200% / 3 - 200px);left:0px;}
-
+/*--------位置(10人)------*/
 [data-number='10']>.player[data-position='1']{top:calc(200% / 3 - 185px);left:auto;right:0px;}
 [data-number='10']>.player[data-position='2']{top:0px;left:auto;right:0px;}
 [data-number='10']>.player[data-position='3']{top:0px;left:auto;right:calc(18% - 32px);}
@@ -2869,104 +2860,15 @@ div:not(.handcards)>.card>.info>span,
 [data-number='10']>.player[data-position='7']{top:0px;left:calc(18% - 32px);}
 [data-number='10']>.player[data-position='8']{top:0px;left:0px;}
 [data-number='10']>.player[data-position='9']{top:calc(200% / 3 - 185px);left:0px;}
-
-[data-number='11']>.player[data-position='1']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='11']>.player[data-position='2']{top:36px;left:auto;right:calc(12% - 28px);}
-[data-number='11']>.player[data-position='3']{top:18px;left:auto;right:calc(22% - 26px);}
-[data-number='11']>.player[data-position='4']{top:9px;left:auto;right:calc(32% - 24px);}
-[data-number='11']>.player[data-position='5']{top:0px;left:auto;right:calc(42% - 22.5px);}
-[data-number='11']>.player[data-position='6']{top:0px;left:calc(42% - 22.5px);}
-[data-number='11']>.player[data-position='7']{top:9px;left:calc(32% - 24px);}
-[data-number='11']>.player[data-position='8']{top:18px;left:calc(22% - 26px);}
-[data-number='11']>.player[data-position='9']{top:36px;left:calc(12% - 28px);}
-[data-number='11']>.player[data-position='10']{top:72px;left:calc(2% - 30px);}
-
-[data-number='12']>.player[data-position='1']{top:275px;left:auto;right:calc(2% - 30px);}
-[data-number='12']>.player[data-position='2']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='12']>.player[data-position='3']{top:36px;left:auto;right:calc(14% - 38px);}
-[data-number='12']>.player[data-position='4']{top:18px;left:auto;right:calc(25% - 32px);}
-[data-number='12']>.player[data-position='5']{top:9px;left:auto;right:calc(36% - 28px);}
-[data-number='12']>.player[data-position='6']{top:0px;left:calc(47% - 22.5px);}
-[data-number='12']>.player[data-position='7']{top:9px;left:calc(36% - 28px);}
-[data-number='12']>.player[data-position='8']{top:18px;left:calc(25% - 32px);}
-[data-number='12']>.player[data-position='9']{top:36px;left:calc(14% - 38px);}
-[data-number='12']>.player[data-position='10']{top:72px;left:calc(2% - 30px);}
-[data-number='12']>.player[data-position='11']{top:275px;left:calc(2% - 30px);}
-
-[data-number='13']>.player[data-position='1']{top:275px;left:auto;right:calc(2% - 30px);}
-[data-number='13']>.player[data-position='2']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='13']>.player[data-position='3']{top:36px;left:auto;right:calc(12% - 28px);}
-[data-number='13']>.player[data-position='4']{top:18px;left:auto;right:calc(22% - 26px);}
-[data-number='13']>.player[data-position='5']{top:9px;left:auto;right:calc(32% - 24px);}
-[data-number='13']>.player[data-position='6']{top:0px;left:auto;right:calc(42% - 22.5px);}
-[data-number='13']>.player[data-position='7']{top:0px;left:calc(42% - 22.5px);}
-[data-number='13']>.player[data-position='8']{top:9px;left:calc(32% - 24px);}
-[data-number='13']>.player[data-position='9']{top:18px;left:calc(22% - 26px);}
-[data-number='13']>.player[data-position='10']{top:36px;left:calc(12% - 28px);}
-[data-number='13']>.player[data-position='11']{top:72px;left:calc(2% - 30px);}
-[data-number='13']>.player[data-position='12']{top:275px;left:calc(2% - 30px);}
-
-[data-number='14']>.player[data-position='1']{top:275px;left:auto;right:calc(12% - 28px);}
-[data-number='14']>.player[data-position='2']{top:275px;left:auto;right:calc(2% - 30px);}
-[data-number='14']>.player[data-position='3']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='14']>.player[data-position='4']{top:36px;left:auto;right:calc(14% - 38px);}
-[data-number='14']>.player[data-position='5']{top:18px;left:auto;right:calc(25% - 32px);}
-[data-number='14']>.player[data-position='6']{top:9px;left:auto;right:calc(36% - 28px);}
-[data-number='14']>.player[data-position='7']{top:0px;left:calc(47% - 22.5px);}
-[data-number='14']>.player[data-position='8']{top:9px;left:calc(36% - 28px);}
-[data-number='14']>.player[data-position='9']{top:18px;left:calc(25% - 32px);}
-[data-number='14']>.player[data-position='10']{top:36px;left:calc(14% - 38px);}
-[data-number='14']>.player[data-position='11']{top:72px;left:calc(2% - 30px);}
-[data-number='14']>.player[data-position='12']{top:275px;left:calc(2% - 30px);}
-[data-number='14']>.player[data-position='13']{top:275px;left:calc(12% - 28px);}
-
-[data-number='15']>.player[data-position='1']{top:275px;left:auto;right:calc(12% - 28px);}
-[data-number='15']>.player[data-position='2']{top:275px;left:auto;right:calc(2% - 30px);}
-[data-number='15']>.player[data-position='3']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='15']>.player[data-position='4']{top:36px;left:auto;right:calc(12% - 28px);}
-[data-number='15']>.player[data-position='5']{top:18px;left:auto;right:calc(22% - 26px);}
-[data-number='15']>.player[data-position='6']{top:9px;left:auto;right:calc(32% - 24px);}
-[data-number='15']>.player[data-position='7']{top:0px;left:auto;right:calc(42% - 22.5px);}
-[data-number='15']>.player[data-position='8']{top:0px;left:calc(42% - 22.5px);}
-[data-number='15']>.player[data-position='9']{top:9px;left:calc(32% - 24px);}
-[data-number='15']>.player[data-position='10']{top:18px;left:calc(22% - 26px);}
-[data-number='15']>.player[data-position='11']{top:36px;left:calc(12% - 28px);}
-[data-number='15']>.player[data-position='12']{top:72px;left:calc(2% - 30px);}
-[data-number='15']>.player[data-position='13']{top:275px;left:calc(2% - 30px);}
-[data-number='15']>.player[data-position='14']{top:275px;left:calc(12% - 28px);}
-
-[data-number='16']>.player[data-position='1']{top:275px;left:auto;right:calc(22% - 26px);}
-[data-number='16']>.player[data-position='2']{top:275px;left:auto;right:calc(12% - 28px);}
-[data-number='16']>.player[data-position='3']{top:275px;left:auto;right:calc(2% - 30px);}
-[data-number='16']>.player[data-position='4']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='16']>.player[data-position='5']{top:36px;left:auto;right:calc(14% - 38px);}
-[data-number='16']>.player[data-position='6']{top:18px;left:auto;right:calc(25% - 32px);}
-[data-number='16']>.player[data-position='7']{top:9px;left:auto;right:calc(36% - 28px);}
-[data-number='16']>.player[data-position='8']{top:0px;left:calc(47% - 22.5px);}
-[data-number='16']>.player[data-position='9']{top:9px;left:calc(36% - 28px);}
-[data-number='16']>.player[data-position='10']{top:18px;left:calc(25% - 32px);}
-[data-number='16']>.player[data-position='11']{top:36px;left:calc(14% - 38px);}
-[data-number='16']>.player[data-position='12']{top:72px;left:calc(2% - 30px);}
-[data-number='16']>.player[data-position='13']{top:275px;left:calc(2% - 30px);}
-[data-number='16']>.player[data-position='14']{top:275px;left:calc(12% - 28px);}
-[data-number='16']>.player[data-position='15']{top:275px;left:calc(22% - 26px);}
-
-[data-number='17']>.player[data-position='1']{top:275px;left:auto;right:calc(22% - 26px);}
-[data-number='17']>.player[data-position='2']{top:275px;left:auto;right:calc(12% - 28px);}
-[data-number='17']>.player[data-position='3']{top:275px;left:auto;right:calc(2% - 30px);}
-[data-number='17']>.player[data-position='4']{top:72px;left:auto;right:calc(2% - 30px);}
-[data-number='17']>.player[data-position='5']{top:36px;left:auto;right:calc(12% - 28px);}
-[data-number='17']>.player[data-position='6']{top:18px;left:auto;right:calc(22% - 26px);}
-[data-number='17']>.player[data-position='7']{top:9px;left:auto;right:calc(32% - 24px);}
-[data-number='17']>.player[data-position='8']{top:0px;left:auto;right:calc(42% - 22.5px);}
-[data-number='17']>.player[data-position='9']{top:0px;left:calc(42% - 22.5px);}
-[data-number='17']>.player[data-position='10']{top:9px;left:calc(32% - 24px);}
-[data-number='17']>.player[data-position='11']{top:18px;left:calc(22% - 26px);}
-[data-number='17']>.player[data-position='12']{top:36px;left:calc(12% - 28px);}
-[data-number='17']>.player[data-position='13']{top:72px;left:calc(2% - 30px);}
-[data-number='17']>.player[data-position='14']{top:275px;left:calc(2% - 30px);}
-[data-number='17']>.player[data-position='15']{top:275px;left:calc(12% - 28px);}
-[data-number='17']>.player[data-position='16']{top:275px;left:calc(22% - 26px);}
+/*--------位置(9人)------*/
+[data-number='9']>.player[data-position='1']{top:calc(200% / 3 - 200px);left:auto;right:0px;}
+[data-number='9']>.player[data-position='2']{top:0px;left:auto;right:calc(14% - 18px);}
+[data-number='9']>.player[data-position='3']{top:0px;left:auto;right:calc(27% - 19px);}
+[data-number='9']>.player[data-position='4']{top:0px;left:auto;right:calc(40% - 20px);}
+[data-number='9']>.player[data-position='5']{top:0px;left:calc(40% - 20px);}
+[data-number='9']>.player[data-position='6']{top:0px;left:calc(27% - 19px);}
+[data-number='9']>.player[data-position='7']{top:0px;left:calc(14% - 18px);}
+[data-number='9']>.player[data-position='8']{top:calc(200% / 3 - 200px);left:0px;}
 /*--------位置(8人)------*/
 [data-number='8']>.player[data-position='1'] {
 	top: calc(200% / 3 - 90px);

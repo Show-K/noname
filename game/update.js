@@ -61,6 +61,7 @@ window.noname_update={
 		'mode/connect.js',
 		'mode/doudizhu.js',
 		'mode/guozhan.js',
+		'mode/huanhuazhizhan.js',
 		'mode/identity.js',
 		'mode/versus.js',
 		'mode/th_mougong.js',

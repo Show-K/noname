@@ -2,6 +2,11 @@
 game.import("mode", function (lib, game, ui, get, ai, _status) {
 	return {
 		name: 'th_mougong',
+		onreinit: function () {
+			for (var i = 0; i < game.players.length; i++) {
+				game.players[i].markSkill('th_anger');
+			}
+		},
 		start: function () {
 			"step 0"
 			if (!lib.config.new_tutorial) {
@@ -290,7 +295,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			},
 			addRecord: function (bool) {
 				if (typeof bool == 'boolean') {
-					var data = lib.config.gameRecord.identity.data;
+					var data = lib.config.gameRecord.th_mougong.data;
 					var identity = game.me.identity;
 					if (!data[identity]) {
 						data[identity] = [0, 0];
@@ -307,7 +312,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 							str += lib.translate[list[i] + '2'] + '：' + data[list[i]][0] + '胜' + ' ' + data[list[i]][1] + '负<br>';
 						}
 					}
-					lib.config.gameRecord.identity.str = str;
+					lib.config.gameRecord.th_mougong.str = str;
 					game.saveConfig('gameRecord', lib.config.gameRecord);
 				}
 			},
@@ -957,6 +962,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 							event.ai(game.players[i], event.list.splice(0, get.config('choice_' + game.players[i].identity)), null, event.list)
 						}
 					}
+					for (var i = 0; i < game.players.length; i++) {
+						game.players[i].markSkill('th_anger');
+					}
 					"step 3"
 					if (event.group) {
 						game.me.group = event.group;
@@ -1226,6 +1234,10 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 							lib.playerOL[i].init(result2[i][0], result2[i][1]);
 						}
 						if (result[i] && result[i].length) lib.playerOL[i].changeGroup(result[i], false, false);
+					}
+
+					for (var i = 0; i < game.players.length; i++) {
+						game.players[i].markSkill('th_anger');
 					}
 
 					for (var i = 0; i < game.players.length; i++) {
@@ -1603,16 +1615,6 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 			}
 		},
 		get: {
-			infoHujia: function (hp) {
-				for (var i = 0; i < game.players.length; i++) {
-					game.players[i].markSkill('th_anger');
-				}
-				if (typeof hp == 'string' && hp.indexOf('/') != -1) {
-					var splited = hp.split('/');
-					if (splited.length > 2) return parseInt(splited[2]);
-				}
-				return 0;
-			},
 			rawAttitude: function (from, to) {
 				var x = 0,
 					num = 0,
@@ -2311,13 +2313,13 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					} else if (trigger.getParent().name == 'damage') {
 						event.player1 = trigger.parent.source;
 					}
-					event.player1.chooseBool('是否消耗1点怒气值查看' + get.translation(trigger.player) + '的身份？').ai = () => {
+					event.player1.chooseBool('是否消耗1点怒气值查看' + get.translation(trigger.player) + '的身份？').set('ai', () => {
 						var eventPlayer = _status.event.getTrigger().player;
 						if (eventPlayer.identityShown == true) return false;
 						var player1 = _status.event.getParent().player1;
 						if (player1.storage.zhibi && player1.storage.zhibi.contains(eventPlayer) || player1.storage.seen && player1.storage.seen[eventPlayer.name] != undefined) return false;
 						return true;
-					};
+					});
 					'step 1'
 					trigger.set('hasSeen', true);
 					if (result.bool) {

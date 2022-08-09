@@ -4391,7 +4391,9 @@
 							'5':'五人',
 							'6':'六人',
 							'7':'七人',
-							'8':'八人'
+							'8':'八人',
+							'9':'九人',
+							'10':'十人'
 						},
 						frequent:true,
 						restart:true,
@@ -4585,14 +4587,7 @@
 							'7':'七人',
 							'8':'八人',
 							'9':'九人',
-							'10':'十人',
-							'11':'十一人',
-							'12':'十二人',
-							'13':'十三人',
-							'14':'十四人',
-							'15':'十五人',
-							'16':'十六人',
-							'17':'十七人'
+							'10':'十人'
 						},
 						frequent:true,
 						restart:true,
@@ -5394,9 +5389,15 @@
 						name:'游戏人数',
 						init:'6',
 						item:{
+							'2':'两人',
+							'3':'三人',
+							'4':'四人',
+							'5':'五人',
 							'6':'六人',
 							'7':'七人',
-							'8':'八人'
+							'8':'八人',
+							'9':'九人',
+							'10':'十人'
 						},
 						frequent:true,
 						restart:true,
@@ -5451,9 +5452,15 @@
 						name:'游戏人数',
 						init:'6',
 						item:{
+							'2':'两人',
+							'3':'三人',
+							'4':'四人',
+							'5':'五人',
 							'6':'六人',
 							'7':'七人',
-							'8':'八人'
+							'8':'八人',
+							'9':'九人',
+							'10':'十人'
 						},
 						frequent:true,
 						restart:true,
@@ -5738,7 +5745,9 @@
 							'5':'五人',
 							'6':'六人',
 							'7':'七人',
-							'8':'八人'
+							'8':'八人',
+							'9':'九人',
+							'10':'十人'
 						},
 						frequent:true,
 						restart:true,
@@ -5836,14 +5845,8 @@
 							'6':'六人',
 							'7':'七人',
 							'8':'八人',
-							'10':'十人',
-							'11':'十一人',
-							'12':'十二人',
-							'13':'十三人',
-							'14':'十四人',
-							'15':'十五人',
-							'16':'十六人',
-							'17':'十七人'
+							'9':'九人',
+							'10':'十人'
 						},
 						frequent:true,
 						restart:true,
@@ -6632,6 +6635,94 @@
 							}
 						}
 					},
+				}
+			},
+			huanhuazhizhan:{
+				name:'幻化',
+				connect:{
+					update:function(config,map){
+						map.connect_player_number.show();
+					},
+					connect_player_number:{
+						name:'游戏人数',
+						init:'8',
+						item:{
+							'2':'两人',
+							'3':'三人',
+							'4':'四人',
+							'5':'五人',
+							'6':'六人',
+							'7':'七人',
+							'8':'八人',
+							'9':'九人',
+							'10':'十人'
+						},
+						frequent:true,
+						restart:true,
+					},
+				},
+				config:{
+					update:function(config,map){
+						map.player_number.show();
+					},
+					player_number:{
+						name:'游戏人数',
+						init:'8',
+						item:{
+							'2':'两人',
+							'3':'三人',
+							'4':'四人',
+							'5':'五人',
+							'6':'六人',
+							'7':'七人',
+							'8':'八人',
+							'9':'九人',
+							'10':'十人'
+						},
+						frequent:true,
+						restart:true,
+					},
+					dierestart:{
+						name:'死亡后显示重来',
+						init:true,
+						onclick:function(bool){
+							game.saveConfig('dierestart',bool,this._link.config.mode);
+							if(get.config('dierestart')){
+								if(!ui.restart&&game.me.isDead()&&!_status.connectMode){
+									ui.restart=ui.create.control('restart',game.reload);
+								}
+							}
+							else if(ui.restart){
+								ui.restart.close();
+								delete ui.restart;
+							}
+						}
+					},
+					revive:{
+						name:'死亡后显示复活',
+						init:false,
+						onclick:function(bool){
+							game.saveConfig('revive',bool,this._link.config.mode);
+							if(get.config('revive')){
+								if(!ui.revive&&game.me.isDead()){
+									ui.revive=ui.create.control('revive',ui.click.dierevive);
+								}
+							}
+							else if(ui.revive){
+								ui.revive.close();
+								delete ui.revive;
+							}
+						}
+					},
+					difficulty:{
+						name:'AI对人类态度',
+						init:'normal',
+						item:{
+							easy:'友好',
+							normal:'一般',
+							hard:'仇视'
+						}
+					}
 				}
 			},
 			boss:{
@@ -7966,7 +8057,7 @@
 							this.setBackgroundDB(dbimage.slice(3));
 							return this;
 						}
-						else if(modeimage){
+						else if(mode!='huanhuazhizhan'&&modeimage){
 							src='image/mode/'+modeimage+'/character/'+name+ext;
 						}
 						else if(type=='character'&&lib.config.skin[name]&&arguments[2]!='noskin'){
@@ -11246,6 +11337,8 @@
 			unknown5:'六号位',
 			unknown6:'七号位',
 			unknown7:'八号位',
+			unknown8:'九号位',
+			unknown9:'十号位',
 			
 			feichu_equip1:"已废除",
 			feichu_equip1_info:"武器栏已废除",
@@ -19691,17 +19784,26 @@
 					//New add
 					if(str[0]=='/'){
 						var chat=str.slice(1);
-						if(chat.indexOf(' ')>=0){
+						if(chat.indexOf(' ')!=-1){
 							chat=chat.split(' ');
 							var func=chat.shift();
-							if(func=='audio'&&chat.length){
-								var audio=chat.shift();
-								game.trySkillAudio(audio,this,true);
-								if(chat.length){
-									str=chat.join(' ');
-								}
-								else{
-									return;
+							if(func=='playAudio'&&chat.length){
+								var directory=chat.shift();
+								if((directory=='die'||directory=='skill')&&chat.length){
+									var filename=chat.shift();
+									game.broadcastAll(function(directory,filename){
+										game.playAudio(directory,filename);
+									},directory,filename);
+									if(chat.length){
+										str=chat.join(' ');
+									}
+									else{
+										var translation=filename;
+										while(translation==get.translation(translation)&&translation.length){
+											translation=translation.slice(0,-1);
+										}
+										str=translation.length?get.translation(translation):filename;
+									}
 								}
 							}
 						}
@@ -32256,7 +32358,7 @@
 				}
 				ui.updatehl();
 				for(var i=0;i<players.length;i++){
-					if(lib.config.mode=='identity'||lib.config.mode=='th_mougong'){
+					if(lib.config.mode=='identity'||lib.config.mode=='th_mougong'||lib.config.mode=='huanhuazhizhan'){
 						game.players[i].init(players[i].name,players[i].name2);
 						game.players[i].setIdentity(players[i].identity);
 					}
@@ -47751,7 +47853,7 @@
 			},
 			connectPlayers:function(ip){
 				game.connectPlayers=[];
-				for(var i=0;i<8;i++){
+				for(var i=0;i<10;i++){
 					var player=ui.create.player(ui.window);
 					player.dataset.position=i;
 					player.classList.add('connect');
@@ -52388,7 +52490,6 @@
 				return false;
 			},
 			banWords:function(str){
-				if(get.is.emoji(str)) return true;
 				for(var i of window.bannedKeyWords){
 					if(str.indexOf(i)!=-1) return true;
 				}
@@ -53102,6 +53203,7 @@
 			}
 		},
 		modetrans:function(config,server){
+			if(config.qunxionggeju) return '群雄割据';
 			if(config.mode=='doudizhu'){
 				switch(config.doudizhu_mode){
 					case 'kaihei':return '开黑斗地主';

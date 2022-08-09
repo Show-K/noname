@@ -3189,6 +3189,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				else{
 					num={mark:'标记',draw:'摸牌'}[lib.configOL.initshow_draw];
 				}
+				uiintro.add('<div class="text chat">群雄割据：'+(lib.configOL.qunxionggeju?'开启':'关闭'));
 				uiintro.add('<div class="text chat">首亮奖励：'+num);
 				uiintro.add('<div class="text chat">珠联璧合：'+(lib.configOL.zhulian?'开启':'关闭'));
 				uiintro.add('<div class="text chat">出牌时限：'+lib.configOL.choose_timeout+'秒');
@@ -3275,8 +3276,13 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 			getVideoName:function(){
 				var str=get.translation(game.me.name1)+'/'+get.translation(game.me.name2);
-				var str2=get.cnNumber(parseInt(get.config('player_number')))+'人'+
-					get.translation(lib.config.mode);
+				var str2='';
+				if((_status.connectMode&&lib.configOL.qunxionggeju)||(!_status.connectMode&&get.config('qunxionggeju'))){
+					str2+=get.translation('qunxionggeju');
+				}
+				else{
+					str2+=get.cnNumber(parseInt(get.config('player_number')))+'人'+get.translation(lib.config.mode);
+				}
 				if(game.me.identity=='ye'){
 					str2+=' - 野心家';
 				}
@@ -3756,6 +3762,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								}
 							}
 						}
+						if(lib.configOL.qunxionggeju) return true;
 						if(ui.selected.buttons.length==0){
 							if(get.is.double(button.link)) return false;
 							if(lib.character[button.link][1]=='ye') return true;
@@ -3785,7 +3792,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}).set('processAI',function(){
 						var buttons=_status.event.dialog.buttons;
 						var filterChoice=function(name1,name2){
-							if(get.config('qunxionggeju')) return true;
+							if(lib.configOL.qunxionggeju) return true;
 							if(get.is.double(name1)) return false;
 							var group1=lib.character[name1][1];
 							var group2=lib.character[name2][1];
@@ -3922,6 +3929,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			}
 		},
 		translate:{
+			qunxionggeju:'群雄割据',
+
 			ye:'野',
 			ye2:'野心家',
 			yexinjia_mark:'野心家',
@@ -4700,7 +4709,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 			player:{
 				getGuozhanGroup:function(num){
-					if(get.config('qunxionggeju')){
+					if((_status.connectMode&&lib.configOL.qunxionggeju)||(!_status.connectMode&&get.config('qunxionggeju'))){
 						if(num==1) return lib.character[this.name2][1];
 						return lib.character[this.name1][1];
 					}
@@ -5135,7 +5144,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					game.tryResult();
 				},
 				wontYe:function(group){
-					if(get.config('qunxionggeju')){
+					if((_status.connectMode&&lib.configOL.qunxionggeju)||(!_status.connectMode&&get.config('qunxionggeju'))){
 						if(!group) group=lib.character[this.name1][1];
 						if(_status.yeidentity&&_status.yeidentity.contains(group)) return false;
 						if(get.zhu(this,null,true)) return true;

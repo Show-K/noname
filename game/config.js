@@ -19,8 +19,8 @@ window.config={
 	all:{
 		sgscharacters:[],
 		sgscards:['standard','extra','sp','guozhan','zhulu','yingbian','yongjian'],
-		sgsmodes:['identity','th_mougong','guozhan','versus','doudizhu','brawl','connect'],
-		stockmode:['identity','th_mougong','guozhan','versus','doudizhu','connect','brawl'],
+		sgsmodes:['identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
+		stockmode:['identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
 		stockextension:['boss','cardpile','coin','wuxing'],
 		layout:['default','newlayout'],
 		theme:['woodden','music','simple'],
@@ -176,15 +176,8 @@ window.config={
 				['zhu','zhong','nei','fan','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan'],
 				['zhu','zhong','zhong','nei','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','nei','fan','fan','fan','fan'],
+				['zhu','zhong','zhong','nei','nei','fan','fan','fan','fan'],
 				['zhu','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','fan','fan','fan','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','zhong','zhong','nei','nei','fan','fan','fan','fan','fan','fan','fan'],
-				['zhu','zhong','zhong','zhong','zhong','zhong','nei','nei','nei','fan','fan','fan','fan','fan','fan','fan','fan']
 			],
 			choice:{
 				zhu:3,

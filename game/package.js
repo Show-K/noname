@@ -33,6 +33,7 @@ window.noname_package={
 		guozhan:'国战',
 		versus:'对决',
 		connect:'联机',
+		huanhuazhizhan:'幻化',
 		doudizhu:'斗地主',
 		brawl:'乱斗'
 	},
