@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.114.4',
-	update:'1.9.114.3.1',
+	version:'1.9.114.4.1',
+	update:'1.9.114.4',
 	changeLog:[
 		'弃置外牌打出双赢 头巾瓦豆鲁迪',
 		'星盾限伤施法骗局 魔法洛亚',

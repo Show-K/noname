@@ -5026,7 +5026,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						return;
 					}
 					game.addVideo('showCharacter',this,num);
-					if(this.identity=='unknown'||(this.identity!='ye'&&(num==0||num==2)&&lib.character[this.name1][1]=='ye')){
+					if(this.identity=='unknown'||((num==0||num==2)&&lib.character[this.name1][1]=='ye')){
 						this.group=this.getGuozhanGroup(num);
 						this._group=this.group;
 						if((num==0||num==2)&&lib.character[this.name1][1]=='ye'){
