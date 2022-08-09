@@ -3513,20 +3513,6 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						}
 						var next=game.me.chooseButton(dialog,true,2).set('onfree',true);
 						next.filterButton=function(button){
-							if(get.config('qunxionggeju')){
-								if(ui.dialog.buttons.length<=10){
-									for(var i=0;i<ui.dialog.buttons.length;i++){
-										if(ui.dialog.buttons[i]!=button){
-											if(lib.element.player.perfectPair.call({
-												name1:button.link,name2:ui.dialog.buttons[i].link
-											})){
-												button.classList.add('glow2');
-											}
-										}
-									}
-								}
-								return true;
-							}
 							if(ui.dialog.buttons.length<=10){
 								for(var i=0;i<ui.dialog.buttons.length;i++){
 									if(ui.dialog.buttons[i]!=button){
@@ -3538,6 +3524,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 									}
 								}
 							}
+							if(get.config('qunxionggeju')) return true;
 							if(lib.character[button.link][4].contains('hiddenSkill')) return false;
 							if(ui.selected.buttons.length==0){
 								if(get.is.double(button.link)) return false;
@@ -5173,7 +5160,6 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					var name2=this.name2;
 					if(name1.indexOf('gz_shibing')==0) return false;
 					if(name2.indexOf('gz_shibing')==0) return false;
-					//if(lib.character[name1][1]!='ye'&&lib.character[name2][1]!='ye'&&lib.character[name1][1]!=lib.character[name2][1]) return false;
 					if(get.is.jun(this.name1)) return true;
 					var list=['re','diy','sp','jsp','shen','jg','xin','old','gz','ol'];
 					for(var i=0;i<list.length;i++){

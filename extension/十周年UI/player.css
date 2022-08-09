@@ -1243,6 +1243,10 @@
     z-index: 99;
 }
 
+.player.connect>div:not(.avatar):not(.name):not(.nameol):not(.hp):not(.room):not(.gaming):not(.identity).chat-bubble {
+	display: block !important;
+}
+
 .player>.jie-mark {
 	position: absolute;
     top: 108px;

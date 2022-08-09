@@ -2296,7 +2296,7 @@ content:function(config, pack){
 						player = player.next;
 					} while ( player != end );
 					event.changeCard = get.config('change_card');
-					if (_status.connectMode || (lib.config.mode == 'doudizhu' && _status.mode == 'online') || lib.config.mode != 'identity' && lib.config.mode != 'guozhan' && lib.config.mode != 'doudizhu' && lib.config.mode != 'th_mougong') {
+					if (_status.connectMode || (lib.config.mode == 'doudizhu' && _status.mode == 'online') || lib.config.mode != 'identity' && lib.config.mode != 'guozhan' && lib.config.mode != 'doudizhu' && lib.config.mode != 'huanhuazhizhan' && lib.config.mode != 'th_mougong') {
 						event.changeCard = 'disabled';
 					}
 					"step 1"
@@ -8570,7 +8570,7 @@ content:function(config, pack){
 			var translated = false;
 			if (!chinese) {
 				switch (mode) {
-					case 'identity': case 'th_mougong':
+					case 'identity': case 'huanhuazhizhan': case 'th_mougong':
 						if (!player.isAlive() || player.identityShown || player == game.me) {
 							identity = (player.special_identity ? player.special_identity : identity).replace(/identity_/, '');
 						}
@@ -8622,7 +8622,7 @@ content:function(config, pack){
 				}
 			} else {
 				switch(mode){
-					case 'identity': case 'th_mougong':
+					case 'identity': case 'huanhuazhizhan': case 'th_mougong':
 						if (identity.indexOf('cai') < 0) {
 							if (isMark) {
 								if (player.special_identity) identity = player.special_identity + '_bg';
@@ -9931,13 +9931,11 @@ package:{
     intro:(function(){
 		var log = [
 			'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
-			'当前版本：1.2.0.220114.8.1（寰宇星城修复版）',
-			'更新日期：2022-06-05',
-			'- 修复了十周年标记样式护甲不显示图标的异常。',
-			'- 新增lib.decade_extIdentity，用于兼容扩展身份面具显示。',
-			'- 新增lib.decade_extGroupImage，用于兼容扩展势力图片显示。',
-			'- 新增当手牌中的牌花色被视为其它花色时，显示被视为的花色的功能。',
-			'- 新增当手牌中的牌点数被视为其它点数时，显示被视为的点数的功能。',
+			'当前版本：1.2.0.220114.10（Show-K修复版）',
+			'更新日期：2022-07-29',
+			'- 修复了万能视为打出牌时无限循环的异常（举例：管宁〖遁世〗）。',
+			'- 修复了因技能打出牌后不计入技能次数的异常（举例：管宁〖遁世〗）。',
+			'- 修复了体力条样式为默认时诡异的显示效果的异常。',
 			/*
 			'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 			'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
@@ -9957,7 +9955,7 @@ package:{
     author:"原作者：短歌 QQ464598631<br>修改者（未经允许）：Show-K",
     diskURL:"",
     forumURL:"",
-    version:"1.2.0.220114.8.1SST",
+    version:"1.2.0.220114.10SST",
 },
 files:{
     "character":[],

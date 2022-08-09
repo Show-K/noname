@@ -1533,13 +1533,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forced:true,
 				trigger:{player:"dieBefore"},
 				filter:function(event,player){
-					return !player.storage.mnm_yanhai&&player.identity!="zhu";
+					return player.identity!="zhu";
 				},
 				content:function(){
 					"step 0"
-					trigger.cancel();
 					player.awakenSkill("mnm_yanhai");
-					player.storage.mnm_yanhai=true;
+					trigger.cancel();
 					"step 1"
 					if(2-player.hp>0) player.recover(2-player.hp);
 					"step 2"
@@ -1547,10 +1546,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					player.addTempSkill("mnm_yanhai2",{player:"die"});
 					"step 4"
-					player.identity="nei";
-					player.setIdentity("炎");
-					player.identityShown=true;
-					player.node.identity.dataset.color="zhu";
+					game.broadcastAll(function(player){
+						player.identity="nei";
+						player.setIdentity("炎");
+						player.identityShown=true;
+						player.node.identity.dataset.color="zhu";
+					},player);
 				}
 			},
 			mnm_yanhai2:{
@@ -2477,7 +2478,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		dynamicTranslate:{
 			ska_jiyan:function(player){
-				if(!player.storage.ska_jiyan||!player.storage.ska_jiyan.length) return "使命技。每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。<br>\
+				if(!Array.isArray(player.storage.ska_jiyan)) return "使命技。每个选项限一次，你可以视为使用一张：<span class=\"bluetext\">1. 【杀】；</span><span class=\"bluetext\">2. 【闪】；</span><span class=\"bluetext\">3. 【桃】；</span><span class=\"bluetext\">4. 【酒】。</span><br>\
+				成功：你使用牌结算后，若所有选项均选择过，你增加1点体力上限并回复1点体力。";
+				if(!player.storage.ska_jiyan.length) return "使命技。每个选项限一次，你可以视为使用一张：1. 【杀】；2. 【闪】；3. 【桃】；4. 【酒】。<br>\
 				成功：你使用牌结算后，若所有选项均选择过，你增加1点体力上限并回复1点体力。";
 				var str="使命技。每个选项限一次，你可以视为使用一张：";
 				str+=player.storage.ska_jiyan.contains("sha")?"<span class=\"bluetext\">1. 【杀】；</span>":"<span style=\"opacity:0.5\">1. 【杀】；</span>";

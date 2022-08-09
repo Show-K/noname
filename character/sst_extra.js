@@ -352,9 +352,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Pyra/Mythra
 			sst_xuanyi:{
-				init:function(player,skill){
-					if(typeof player.storage[skill]!="boolean") player.storage[skill]=false;
-				},
 				zhuanhuanji:true,
 				enable:"phaseUse",
 				usable:1,
@@ -1361,16 +1358,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				derivation:["sst_hanmang","sst_cuifeng"],
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return player.storage.sst_suxing&&!player.storage.sst_shengyi;
+					return player.storage.sst_suxing;
 				},
 				forced:true,
-				//priority:3,
 				content:function(){
+					"step 0"
+					player.awakenSkill("sst_shengyi");
 					player.loseMaxHp();
+					"step 1"
 					player.addSkillLog("sst_hanmang");
 					player.addSkillLog("sst_cuifeng");
-					player.awakenSkill("sst_shengyi");
-					player.storage.sst_shengyi=true;
 				}
 			},
 			//Robin

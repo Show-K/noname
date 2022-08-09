@@ -10,6 +10,12 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				type:"equip",
 				subtype:"equip1",
 				distance:{attackFrom:-2},
+				onEquip:function(){
+					player.markSkill("sst_aegises_skill");
+				},
+				onLose:function(){
+					player.unmarkSkill("sst_aegises_skill");
+				},
 				ai:{
 					basic:{
 						equipValue:4.5
@@ -101,10 +107,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 		},
 		skill:{
 			sst_aegises_skill:{
-				init:function(player,skill){
-					if(typeof player.storage[skill]!="boolean") player.storage[skill]=false;
-				},
-				mark:true,
+				marktext:"☯",
 				intro:{
 					content:function(storage,player){
 						return storage?"转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。":"转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。";
