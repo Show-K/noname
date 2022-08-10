@@ -592,6 +592,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			_lingli:'聚灵',
 			_lingli_bg:'灵',
 			_lingli_draw:'聚灵',
+			xiandeng:'先登',
+			xiandeng_info:'锁定技，出牌阶段，你使用的第一张【杀】不计入次数且无距离限制。',
+			shulv:'熟虑',
+			shulv_info:'出牌阶段限一次，若你的手牌数大于体力值，则你可以弃置一张牌并摸一张牌。',
+			xisheng:'牺牲',
+			xisheng_info:'每名其他角色的回合限一次，你可以将两张牌当做【桃】使用。',
 			hhzz_huilei:'挥泪',
 			hhzz_youlian:'犹怜',
 			hhzz_zhencang:'珍藏',
@@ -1000,10 +1006,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		},
 		characterPack:{
 			mode_huanhuazhizhan:{
-				hhzz_shiona:['female','key',1,['hhzz_huilei']],
-				hhzz_kanade:['female','key',2,['hhzz_youlian']],
-				hhzz_takaramono1:['male','qun',5,['hhzz_jubao','hhzz_huizhen']],
-				hhzz_takaramono2:['male','qun',3,['hhzz_jubao','hhzz_zhencang']],
+				hhzz_shiona:['female','sst_smash',1,['hhzz_huilei']],
+				hhzz_kanade:['female','sst_smash',2,['hhzz_youlian']],
+				hhzz_takaramono1:['male','sst_smash',5,['hhzz_jubao','hhzz_huizhen']],
+				hhzz_takaramono2:['male','sst_smash',3,['hhzz_jubao','hhzz_zhencang']],
 			}
 		},
 		skill:{
@@ -1112,6 +1118,35 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					game.log(trigger.player,'帮助了保护目标');
 					trigger.player.changeLingli(1);
+				},
+			},
+			xisheng:{
+				enable:'chooseToUse',
+				usable:1,
+				viewAs:{name:'tao'},
+				viewAsFilter:function(player){
+					return player!=_status.currentPhase&&player.countCards('hes')>1;
+				},
+				selectCard:2,
+				filterCard:true,
+				position:'hes',
+			},
+			shulv:{
+				inherit:'zhiheng',
+				prompt:'弃置一张牌并摸一张牌',
+				selectCard:1,
+				filter:function(event,player){
+					return player.countCards('hs')>player.hp;
+				},
+			},
+			xiandeng:{
+				mod:{
+					cardUsable:function(card,player,num){
+						if(card.name=='sha') return num+1;
+					},
+					targetInRange:function(card,player){
+						if(card.name=='sha'&&player.countUsed('sha',true)==0) return true;
+					},
 				},
 			},
 			_hhzz_qiankunbagua:{
