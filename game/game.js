@@ -49,7 +49,7 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/super-smash-tabletop',
+			coding:'https://raw.fastgit.org/Show-K/noname/super-smash-tabletop',
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
