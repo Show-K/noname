@@ -49,7 +49,7 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'https://raw.fastgit.org/Show-K/noname/super-smash-tabletop',
+			coding:'http://123.56.240.30/super-smash-tabletop',
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
@@ -12464,7 +12464,7 @@
 					game.updateRoundNumber();
 				},
 				orderingDiscard:function(){
-					var cards=event.relatedEvent.orderingCards;
+					var cards=event.relatedEvent.orderingCards.slice(0);
 					for(var i=0;i<cards.length;i++){
 						if(get.position(cards[i],true)!='o') cards.splice(i--,1);
 					}
@@ -12682,7 +12682,7 @@
 						custom:[],
 					});
 					game.countPlayer2(function(current){
-						current.actionHistory.push({useCard:[],respond:[],skipped:[],lose:[],gain:[],sourceDamage:[],damage:[],custom:[]});
+						current.actionHistory.push({useCard:[],respond:[],skipped:[],lose:[],gain:[],sourceDamage:[],damage:[],custom:[],useSkill:[]});
 						current.stat.push({card:{},skill:{}});
 						if(event.parent._roundStart){
 							current.getHistory().isRound=true;
@@ -14001,6 +14001,9 @@
 					}
 					event.resume();
 					if(event.result){
+						if(event.result._sendskill){
+							lib.skill[event.result._sendskill[0]]=event.result._sendskill[1];
+						}
 						if(event.result.skill){
 							var info=get.info(event.result.skill);
 							if(info&&info.chooseButton){
@@ -14151,6 +14154,9 @@
 					"step 2"
 					event.resume();
 					if(event.result){
+						if(event.result._sendskill){
+							lib.skill[event.result._sendskill[0]]=event.result._sendskill[1];
+						}
 						if(event.result.skill){
 							var info=get.info(event.result.skill);
 							if(info&&info.chooseButton){
@@ -16839,6 +16845,66 @@
 						player.syncStorage(roundname);
 						player.markSkill(roundname);
 					}
+					var name=event.skill;
+					var players=player.getSkills(null,false,false);
+					var equips=player.getSkills('e');
+					var global=lib.skill.global.slice(0);
+					var logInfo={
+						skill:name,
+						targets:targets,
+						event:_status.event,
+					};
+					if(info.sourceSkill){
+						logInfo.sourceSkill=name;
+						if(global.contains(name)){
+							logInfo.type='global';
+						}
+						else if(players.contains(name)){
+							logInfo.type='player';
+						}
+						else if(equips.contains(name)){
+							logInfo.type='equip';
+						}
+					}
+					else{
+						if(global.contains(name)){
+							logInfo.sourceSkill=name;
+							logInfo.type='global';
+						}
+						else if(players.contains(name)){
+							logInfo.sourceSkill=name;
+							logInfo.type='player';
+						}
+						else if(equips.contains(name)){
+							logInfo.sourceSkill=name;
+							logInfo.type='equip';
+						}
+						else{
+							var bool=false;
+							for(var i of players){
+								var expand=[i];
+								game.expandSkills(expand);
+								if(expand.contains(name)){
+									bool=true;
+									logInfo.sourceSkill=i;
+									logInfo.type='player';
+									break;
+								}
+							}
+							if(!bool){
+								for(var i of players){
+									var expand=[i];
+									game.expandSkills(expand);
+									if(expand.contains(name)){
+										logInfo.sourceSkill=i;
+										logInfo.type='equip';
+										break;
+									}
+								}
+							}
+						}
+					}
+					player.getHistory('useSkill').push(logInfo);
 					"step 1"
 					var info=get.info(event.skill);
 					if(info&&info.contentBefore){
@@ -17124,7 +17190,8 @@
 					target.$giveAuto(event.cards2,player);
 					'step 1'
 					event.cards=event.cards1;
-					var next=player.lose(event.cards,ui.ordering).getlx=false;
+					var next=player.lose(event.cards,ui.ordering);
+					next.getlx=false;
 					next.relatedEvent=event.getParent();
 					if(player==game.me){
 						event.delayed=true;
@@ -17134,7 +17201,8 @@
 					}
 					'step 2'
 					event.cards=event.cards2;
-					var next=target.lose(event.cards,ui.ordering).getlx=false;
+					var next=target.lose(event.cards,ui.ordering);
+					next.getlx=false;
 					next.relatedEvent=event.getParent();
 					if(target==game.me){
 						event.delayed=true;
@@ -23221,6 +23289,66 @@
 					else if(info&&info.logv!==false){
 						game.logv(this,name,targets);
 					}
+					var player=this;
+					var players=player.getSkills(null,false,false);
+					var equips=player.getSkills('e');
+					var global=lib.skill.global.slice(0);
+					var logInfo={
+						skill:name,
+						targets:targets,
+						event:_status.event,
+					};
+					if(info.sourceSkill){
+						logInfo.sourceSkill=name;
+						if(global.contains(name)){
+							logInfo.type='global';
+						}
+						else if(players.contains(name)){
+							logInfo.type='player';
+						}
+						else if(equips.contains(name)){
+							logInfo.type='equip';
+						}
+					}
+					else{
+						if(global.contains(name)){
+							logInfo.sourceSkill=name;
+							logInfo.type='global';
+						}
+						else if(players.contains(name)){
+							logInfo.sourceSkill=name;
+							logInfo.type='player';
+						}
+						else if(equips.contains(name)){
+							logInfo.sourceSkill=name;
+							logInfo.type='equip';
+						}
+						else{
+							var bool=false;
+							for(var i of players){
+								var expand=[i];
+								game.expandSkills(expand);
+								if(expand.contains(name)){
+									bool=true;
+									logInfo.sourceSkill=i;
+									logInfo.type='player';
+									break;
+								}
+							}
+							if(!bool){
+								for(var i of players){
+									var expand=[i];
+									game.expandSkills(expand);
+									if(expand.contains(name)){
+										logInfo.sourceSkill=i;
+										logInfo.type='equip';
+										break;
+									}
+								}
+							}
+						}
+					}
+					player.getHistory('useSkill').push(logInfo);
 					if(this._hookTrigger){
 						for(var i=0;i<this._hookTrigger.length;i++){
 							var info=lib.skill[this._hookTrigger[i]].hookTrigger;
@@ -47825,7 +47953,7 @@
 				node.damagepopups=[];
 				node.judging=[];
 				node.stat=[{card:{},skill:{}}];
-				node.actionHistory=[{useCard:[],respond:[],skipped:[],lose:[],gain:[],sourceDamage:[],damage:[],custom:[]}];
+				node.actionHistory=[{useCard:[],respond:[],skipped:[],lose:[],gain:[],sourceDamage:[],damage:[],custom:[],useSkill:[]}];
 				node.tempSkills={};
 				node.storage={};
 				node.marks={};
@@ -54010,9 +54138,11 @@
 				return get.suit(card.cards,player);
 			}
 			else{
-				var owner=player||get.owner(card);
-				if(owner){
-					return game.checkMod(card,card.suit,'suit',owner);
+				if(player!==false){
+					var owner=player||get.owner(card);
+					if(owner){
+						return game.checkMod(card,card.suit,'suit',owner);
+					}
 				}
 				return card.suit;
 			}
@@ -54036,17 +54166,22 @@
 		},
 		number:function(card,player){
 			//狗卡你是真敢出啊
+			var number;
+			if(card.hasOwnProperty('number')){
+				number=card.number;
+				if(typeof number!='number') return null;
+			}
+			else{
+				if(card.cards&&card.cards.length==1) return get.number(card.cards[0]);
+				return null;
+			}
 			if(player!==false){
-				var number=card.number;
 				var owner=player||get.owner(card);
 				if(owner){
 					return game.checkMod(card,owner,number,'cardnumber',owner);
 				}
-				return number;
 			}
-			if(typeof card.number=='number') return card.number;
-			else if(card.cards&&card.cards.length==1) return get.number(card.cards[0]);
-			return null;
+			return number;
 		},
 		nature:function(card,player){
 			if(get.itemtype(player)=='player'||player!==false){

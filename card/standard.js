@@ -2375,6 +2375,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					trigger.target.addTempSkill('qinggang2');
 					trigger.target.storage.qinggang2.add(trigger.card);
+					trigger.target.markSkill('qinggang2');
 				},
 				ai:{
 					unequip_ai:true,
@@ -2409,7 +2410,6 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					player.storage.qinggang2.remove(trigger.card);
 					if(!player.storage.qinggang2.length) player.removeSkill('qinggang2');
 				},
-				mark:true,
 				marktext:'※',
 				intro:{content:'当前防具技能已失效'},
 			},

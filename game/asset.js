@@ -1,5 +1,6 @@
 window.noname_asset_list=[
-	'v1.9.114.4',
+	'v1.9.115',
+	
 	'audio/card/default.mp3',
 	
 	'audio/card/female/caomu.mp3',
@@ -297,6 +298,7 @@ window.noname_asset_list=[
 	'image/card/bintieshuangji.png',
 	'image/card/sanlve.png',
 	'image/card/zhaogujing.png',
+	'image/card/changandajian_equip1.png',
 
 	'image/card/bagua.png',
 	'image/card/baiyin.png',
