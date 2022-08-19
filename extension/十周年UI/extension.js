@@ -468,7 +468,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 									hpNode.innerHTML = '';
 									hpNode.classList.remove('textstyle');
 									while (hpMax > hpNode.childNodes.length) ui.create.div(hpNode);
-									while (hpMax < hpNode.childNodes.length) hpNode.lastChild.remove();
+									while (hpNode.childNodes.length && hpMax < hpNode.childNodes.length) hpNode.lastChild.remove();
 
 									for (var i = 0; i < hpMax; i++) {
 										if (i < hp) {
@@ -9932,11 +9932,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			intro: (function () {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
-					'当前版本：1.2.0.220114.10（Show-K修复版）',
-					'更新日期：2022-07-29',
-					'- 修复了万能视为打出牌时无限循环的异常（举例：管宁〖遁世〗）。',
-					'- 修复了因技能打出牌后不计入技能次数的异常（举例：管宁〖遁世〗）。',
-					'- 修复了体力条样式为默认时诡异的显示效果的异常。',
+					'当前版本：1.2.0.220114.11SST（Show-K修复版）',
+					'更新日期：2022-08-19',
+					'- 修复了减体力上限至负数会报错的异常。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
@@ -9956,7 +9954,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			author: "原作者：短歌 QQ464598631<br>修改者（未经允许）：Show-K",
 			diskURL: "",
 			forumURL: "",
-			version: "1.2.0.220114.10SST",
+			version: "1.2.0.220114.11SST",
 		},
 		files: {
 			"character": [],
