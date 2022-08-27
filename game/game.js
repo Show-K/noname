@@ -38,7 +38,7 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'http://123.56.240.30/master',
+			coding:'http://123.56.240.30/once-and-for-all',
 			github:'https://raw.githubusercontent.com/Show-K/noname/master',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/master',
