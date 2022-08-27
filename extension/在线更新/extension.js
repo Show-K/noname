@@ -357,8 +357,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 									id: 1,
 									title: '更新提醒',
 									text: str + '\n' + str2,
-									// 点击进入app
-									ongoing: true,
 								});
 							}
 						}
@@ -1025,7 +1023,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			}
 
 			game.shijianHasLocalNotification = () => {
-				return window.cordova && cordova.plugins && cordova.plugins.notification && cordova.plugins.notification.local;
+				return !!(window.cordova && cordova.plugins && cordova.plugins.notification && cordova.plugins.notification.local);
 			}
 
 			game.updateErrors = 0;
@@ -1321,8 +1319,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 										id: 2,
 										title: '游戏版本更新',
 										text: `正在下载文件（${n1}/${n2}）`,
-										// 点击进入app
-										ongoing: true,
 										// 进度
 										progressBar: { value: 0 }
 									});
@@ -1354,8 +1350,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 													id: 4,
 													title: '游戏版本更新',
 													text: `游戏版本更新完啦，点击进入无名杀`,
-													// 点击进入app
-													ongoing: true,
 												});
 											}
 										}
@@ -1377,16 +1371,14 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 												let button2 = document.createElement('button');
 												button2.innerHTML = '重新启动';
 												button2.onclick = game.reload;
-												//button2.style.marginTop = '8px';
+												// button2.style.marginTop = '8px';
 												parentNode.insertBefore(button2, parentNode.firstElementChild);
 											}, 750);
 										}, 250);
 									}, (current, loaded, total) => {
-										if (!game.getExtensionConfig('在线更新', 'logProgress')) return false;
 										if (total != 0) {
 											progress.setFileName(`${current}(已完成${Math.round((loaded / total) * 100)}%)`);
 										} else {
-											console.log(current, loaded, parseSize(loaded));
 											progress.setFileName(`${current}(已下载${parseSize(loaded)})`);
 										}
 									});
@@ -1646,8 +1638,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 										id: 3,
 										title: '游戏素材更新',
 										text: `正在下载文件（${n1}/${n2}）`,
-										// 点击进入app
-										ongoing: true,
 										// 进度
 										progressBar: { value: 0 }
 									});
@@ -1682,8 +1672,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 												id: 5,
 												title: '游戏素材更新',
 												text: `游戏素材更新完啦，点击进入无名杀`,
-												// 点击进入app
-												ongoing: true,
 											});
 										}
 									}
@@ -1711,7 +1699,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 									if (total != 0) {
 										progress.setFileName(`${current}(已完成${Math.round((loaded / total) * 100)}%)`);
 									} else {
-										console.log(current, loaded, parseSize(loaded));
 										progress.setFileName(`${current}(已下载${parseSize(loaded)})`);
 									}
 								});
@@ -1719,13 +1706,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 							/**
 							 * 
-								 * 
-							 * 
 							 * @param { string[] } updates 
-								 * @param { string[] } updates 
-							 * @param { string[] } updates 
-							 * @param { VoidFunction } proceed 
-								 * @param { VoidFunction } proceed 
 							 * @param { VoidFunction } proceed 
 							 */
 							let checkFileList = (updates, proceed) => {
