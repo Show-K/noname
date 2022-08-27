@@ -848,7 +848,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 					if(result.card){
 						var evt=trigger.getParent();
 						evt.excluded.add(player);
-						var cards=evt.cards.filterInD("o");
+						var cards=evt.cards.filterInD("od");
 						if(cards&&cards.length) player.gain(cards,"gain2");
 					}
 				}

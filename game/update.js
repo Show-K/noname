@@ -10,9 +10,6 @@ window.noname_update={
 		'其他'
 	],
 	files:[
-		'layout/default/layout.css',
-		'layout/default/menu.css',
-		'image/character/sst_bandana_waddle_dee.png',
 		'card/sst_standard.js',
 		'card/sst_extra.js',
 		'card/sst_sp.js',
@@ -57,6 +54,7 @@ window.noname_update={
 		'extension/十周年UI/skill.js',
 		'extension/十周年UI/spine.js',
 		'extension/在线更新/extension.js',
+		'extension/在线更新/typings/index.d.ts',
 		'mode/brawl.js',
 		'mode/connect.js',
 		'mode/doudizhu.js',
@@ -73,7 +71,6 @@ window.noname_update={
 		'game/source.js',
 		'theme/style/hp/custom.css',
 		'theme/style/hp/emotion.css',
-		'theme/style/hp/image',
 		'theme/style/hp/image/shield.png',
 	]
 };

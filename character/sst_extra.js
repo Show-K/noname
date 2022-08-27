@@ -22,8 +22,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chrom:["male","sst_light",4,["sst_niming","sst_cuifeng"],[]],
 			sst_lucina:["female","sst_light",4,["sst_suxing","sst_shengyi"],[]],
 			sst_robin:["none","sst_dark",3,["sst_zuozhan","sst_junce"],[]],
-			sst_robin_male:["male","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
-			sst_robin_female:["female","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
@@ -156,26 +154,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			然后MNM开始对智囊大打出手了。",
-			sst_robin_male:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
-			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
-			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			然后MNM开始对智囊大打出手了。（已选择男性）",
-			sst_robin_female:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
-			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
-			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			然后MNM开始对智囊大打出手了。（已选择女性）",
 			sst_paipai:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
 			<hr>\
@@ -226,8 +204,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chrom:"英雄王的血裔",
 			sst_lucina:"觉醒的圣王女",
 			sst_robin:"卓越的战术师",
-			sst_robin_male:"卓越的战术师",
-			sst_robin_female:"卓越的战术师",
 			sst_paipai:"针强砭弱",
 			sst_bandana_waddle_dee:"瓦豆鲁迪的传说",
 			sst_magolor:"心中的最佳盟友",
@@ -352,6 +328,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Pyra/Mythra
 			sst_xuanyi:{
+				mark:true,
+				marktext:"☯",
+				intro:{
+					content:function(storage){
+						return storage?"转换技，出牌阶段限一次，你可以与牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点雷电伤害。":"转换技，出牌阶段限一次，你可以与一名角色拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点火焰伤害。";
+					}
+				},
 				zhuanhuanji:true,
 				enable:"phaseUse",
 				usable:1,
@@ -1947,7 +1930,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							"step 1"
 							if(result.targets&&result.targets.length){
 								event.targets=result.targets.sortBySeat(_status.currentPhase);
-								player.logSkill("sst_mofan_mahou",event.targets);
+								player.logSkill("sst_mofan",event.targets);
 								event.numTarget=0;
 							}
 							else{
@@ -2108,8 +2091,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chrom:"库洛姆",
 			sst_lucina:"露琪娜",
 			sst_robin:"鲁弗莱",
-			sst_robin_male:"鲁弗莱",
-			sst_robin_female:"鲁弗莱",
 			sst_paipai:"派派",
 			sst_bandana_waddle_dee:"头巾瓦豆鲁迪",
 			sst_magolor:"魔法洛亚",
@@ -2119,6 +2100,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_geno_ab:"Geno",
 			sst_bandana_waddle_dee_ab:"瓦豆鲁迪",
 			//Skill
+			sst_xuanyi:"炫奕",
+			sst_xuanyi_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
+			sst_fuxin:"付心",
+			sst_fuxin_info:"出牌阶段，你可以移除此武将牌，然后将此武将牌视为攻击范围3的武器牌加入游戏并交给一名其他角色。该角色的准备阶段，若这张牌不在其区域内，其可以检索并获得这张牌。",
+			sst_fuxin_card:"付心",
+			sst_fuxin_card_info:"准备阶段，若【天之圣杯】不在你区域内，你可以检索并获得【天之圣杯】。",
+			sst_tanfen:"贪分",
+			sst_tanfen_info:"摸牌阶段，若你的手牌数小于手牌上限，你可以放弃摸牌，改为声明一种花色，然后重复亮出并获得牌堆顶的牌，直到你以此法获得了你所声明花色的牌。",
+			sst_sutong:"速通",
+			sst_sutong_info:"结束阶段，若你没有“先驱”标记，且本回合使用牌数量不大于手牌数，你可以获得一个“先驱”标记。",
 			sst_yunchou:"运筹",
 			sst_yunchou_info:"若你使用的牌具有应变效果，你可以令此牌允许满足任意一种应变条件。",
 			sst_guimou:"鬼谋",
@@ -2189,8 +2180,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chrom:"Chrom",
 			sst_lucina:"Lucina",
 			sst_robin:"Robin",
-			sst_robin_male:"Robin",
-			sst_robin_female:"Robin",
 			sst_paipai:"Paipai",
 			sst_bandana_waddle_dee:"Bandana Waddle Dee",
 			sst_magolor:"Magolor",
@@ -2201,11 +2190,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_9_volt_18_volt:["sst_wario"],
 			sst_claude:["sst_byleth_male","sst_byleth_female"],
 			sst_geno:["sst_mario","sst_bowser","sst_peach"],
-			sst_chrom:["sst_marth","sst_lucina","sst_robin","sst_robin_male","sst_robin_female"],
-			sst_lucina:["sst_marth","sst_robin","sst_robin_male","sst_robin_female"],
-			sst_robin:["sst_robin_male","sst_robin_female"],
-			sst_robin_male:["sst_robin","sst_robin_female"],
-			sst_robin_female:["sst_robin","sst_robin_male"],
+			sst_chrom:["sst_marth","sst_lucina","sst_robin"],
+			sst_lucina:["sst_marth","sst_robin"],
 			sst_bandana_waddle_dee:["sst_kirby","sst_meta_knight","sst_king_dedede"],
 			sst_magolor:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee"]
 		},

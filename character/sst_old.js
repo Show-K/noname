@@ -4089,10 +4089,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:"方块君",
 			old_sst_richter:"旧里希特",
 			old_sst_ryu:"旧隆",
-			old_sst_geno:"♡♪!?",
+			old_sst_geno:"旧♡♪!?",
 			//Character ab.
 			old_sst_dark_samus_ab:"黑暗萨姆斯",
-			old_sst_geno_ab:"Geno",
+			old_sst_geno_ab:"旧Geno",
 			//Identity mode skill
 			old_sst_juezhan:"绝战",
 			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
@@ -4153,7 +4153,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:"577",
 			old_sst_richter:"Old Richter",
 			old_sst_ryu:"Old Ryu",
-			old_sst_geno:"♡♪!?"
+			old_sst_geno:"Old ♡♪!?"
 		},
 		perfectPair:{
 			//LTK

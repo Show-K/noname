@@ -1525,9 +1525,9 @@
 					cardback_style:{
 						name:'卡背样式',
 						intro:'设置背面朝上的卡牌的样式',
-						init:'noname',
+						init:'super_smash_tabletop',
 						item:{
-							noname:'无名',
+							super_smash_tabletop:'大乱桌斗',
 							// wood:'木纹',
 							// music:'音乐',
 							official:'原版',
@@ -1602,7 +1602,7 @@
 									node.className='button character dashedmenubutton';
 									break;
 								}
-								case 'noname':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/noname.png');break;
+								case 'super_smash_tabletop':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/super_smash_tabletop.png');break;
 								case 'new':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/new.png');break;
 								case 'feicheng':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/feicheng.png');break;
 								case 'official':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/official.png');break;

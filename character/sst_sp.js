@@ -31,9 +31,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
 			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
 			nnk_robin:["none","sst_dark",4,["nnk_yuanlei"],[]],
-			nnk_robin_male:["male","sst_dark",4,["nnk_yuanlei"],["unseen"]],
-			nnk_robin_female:["female","sst_dark",4,["nnk_yuanlei"],["unseen"]],
-			alz_yuri_kozukata:["female","sst_spirit","2/3",["alz_yingjian"]],
+			alz_yuri_kozukata:["female","sst_spirit","3",["alz_yingjian","alz_qushui"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
 			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]]
@@ -200,27 +198,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			南柯设计的第二个武将，值得一试。",
-			nnk_robin_male:"武将作者：南柯<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>\
-			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
-			《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			南柯设计的第二个武将，值得一试。（已选择男性）",
-			nnk_robin_female:"武将作者：南柯<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>\
-			系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>\
-			《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			南柯设计的第二个武将，值得一试。（已选择女性）",
-			alz_yuri_kozukata:"武将作者：Axel_Zhai<br>\
+			alz_yuri_kozukata:"武将作者：Show-K、Axel_Zhai<br>\
 			插图作者：未知<br>\
 			<hr>\
 			1241. 不来方夕莉/Yuri Kozukata/不来方夕莉<br>\
@@ -246,7 +224,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——翻译自《维基百科》<br>\
 			<hr>\
 			总算有新人来设计武将了。",
-			xsj_dante:"武将作者：小时节、Yumikohimi<br>\
+			xsj_dante:"武将作者：Show-K、小时节、Yumikohimi<br>\
 			插图作者：未知<br>\
 			<hr>\
 			S006. 但丁/Dante/ダンテ<br>\
@@ -273,8 +251,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_koopa_troopa:"从逸不逾",
 			mnm_9_volt_18_volt:"电子幻界",
 			nnk_robin:"卓越的战术师",
-			nnk_robin_male:"卓越的战术师",
-			nnk_robin_female:"卓越的战术师",
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
@@ -499,7 +475,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					player.chooseTarget("洋寻：选择一名角色，其获得弃牌堆顶两张牌中一张牌，然后若其不是你，其交给你一张牌",true).set("ai",function(target){
+					player.chooseTarget("洋寻：选择一名角色，其获得弃牌堆顶的一张牌，然后若其不是你，其交给你一张牌",true).set("ai",function(target){
 						if(!target.countCards("he")) return 0;
 						return get.attitude(_status.event.player,target);
 					});
@@ -507,21 +483,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						player.line(result.targets,"green");
 						event.target=result.targets[0];
-						//player.gain(trigger.result.card,"gain2");
-						if(ui.discardPile.childNodes.length>1){
-							var cards=[];
-							if(get.position(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],true)=="d") cards.push(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1]);
-							if(get.position(ui.discardPile.childNodes[ui.discardPile.childNodes.length-2],true)=="d") cards.push(ui.discardPile.childNodes[ui.discardPile.childNodes.length-2]);
-							player.chooseCardButton("洋寻：选择一张牌，令"+get.translation(event.target)+"获得此牌",true,cards).set("ai",function(button){
-								return get.value(button.link);
-							});
-						}
-						else if(ui.discardPile.childNodes.length){
-							var card=ui.discardPile.childNodes[ui.discardPile.childNodes.length-1];
-							if(card) event.target.gain(card,"gain2");
-							player.chat("只有一张牌可得了吗");
-							game.log("但是弃牌堆里面已经只有一张牌了！");
-							event.goto(3);
+						if(ui.discardPile.childNodes.length){
+							event.target.gain(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],"gain2");
 						}
 						else{
 							player.chat("无牌可得了吗");
@@ -529,18 +492,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.finish();
 						}
 					}
-					"step 2"
-					if(result.links&&result.links.length){
-						event.target.gain(result.links,"gain2");
-					}
 					else{
 						event.finish();
 					}
-					"step 3"
+					"step 2"
 					if(event.target!=player){
 						event.target.chooseCard("洋寻：交给"+get.translation(player)+"一张牌","he",true);
 					}
-					"step 4"
+					"step 3"
 					if(result.cards&&result.cards.length){
 						event.target.give(result.cards,player);
 					}
@@ -549,12 +508,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Olivia
 			ska_shenqi:{
 				preHidden:true,
-				trigger:{global:["roundStart","damageEnd"]},
+				trigger:{global:"damageEnd"},
 				frequent:true,
 				init:function(player){
 					player.storage.renku=true;
 				},
-				filter:function(event,player){
+				filter:function(){
 					if(!_status.renku) return true;
 					return _status.renku.length<6;
 				},
@@ -643,7 +602,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.card=lib.skill.ska_zhefu_backup.cards[0];
 					_status.renku.remove(event.card);
 					game.updateRenku();
-					game.cardsGotoOrdering(event.card);
+					game.cardsGotoOrdering(event.card).set("fromRenku",true);
 					player.showCards(event.card);
 					target.chooseCard("he","折赋：交给"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card),function(card){
 						var target=_status.event.targetx;
@@ -682,22 +641,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Super Xiaojie
 			ska_kezhi:{
-				init:function(player){
-					if(!player.hasSkill("ska_kezhi_respond")) player.addSkill("ska_kezhi_respond");
-				},
-				trigger:{player:"useCardAfter"},
+				trigger:{global:["useCard","respond"]},
 				direct:true,
 				filter:function(event,player){
-					return event.ska_kezhi&&player.countCards("hes");
+					return player.countCards("hes")&&event.respondTo&&event.respondTo[0]&&event.respondTo[0]==player&&event.respondTo[1];
 				},
 				content:function(){
-					if(!player.hasSkill("ska_kezhi_effect")) player.addSkill("ska_kezhi_effect");
-					var card=Object.assign({},trigger.card);
+					player.addTempSkill("ska_kezhi_effect");
+					var card=Object.assign({},trigger.respondTo[1]);
 					delete card.isCard;
 					var next=player.chooseToUse();
 					next.set("logSkill","ska_kezhi");
 					next.set("prompt",get.prompt("ska_kezhi"));
-					next.set("prompt2","你可以失去1点体力并将一张牌当作"+get.translation(trigger.card)+"使用");
+					next.set("prompt2","你可以失去1点体力并将一张牌当作"+get.translation(trigger.respondTo[1])+"使用，若此牌造成过伤害，你可以回复1点体力或摸两张牌");
 					next.set("norestore",true);
 					next.set("_backupevent","ska_kezhix");
 					next.backup("ska_kezhix");
@@ -714,58 +670,26 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			ska_kezhix:{
 				viewAs:function(){
-					//return {name:_status.event.cardx.name,nature:_status.event.cardx.nature};
 					return _status.event.cardx;
 				},
 				filterCard:function(card){
 					return get.itemtype(card)=="card";
 				},
-				/*
-				filterTarget:function(){
-					return lib.filter.filterTarget.apply(this,arguments);
-				},
-				selectTarget:function(){
-					return lib.filter.selectTarget.apply(this,arguments);
-				},
-				*/
 				position:"hes",
 				check:function(card){return 5-get.value(card);},
 				onuse:function(result,player){
 					player.loseHp();
 				}
 			},
-			ska_kezhi_respond:{
+			ska_kezhi_effect:{
 				charlotte:true,
-				trigger:{global:["respond","useCard"]},
-				filter:function(event,player){
-					if(!event.respondTo) return false;
-					if(player!=event.respondTo[0]) return false;
-					return true;
+				trigger:{player:"useCardAfter"},
+				filter:function(event){
+					return event.skill=="ska_kezhix"&&game.cardCausedDamage(event.card);
 				},
 				silent:true,
 				content:function(){
-					//game.log(trigger.getParent(3));
-					trigger.getParent("useCard").set("ska_kezhi",true);
-				}
-			},
-			ska_kezhi_effect:{
-				charlotte:true,
-				usable:1,
-				trigger:{player:"useCardEnd"},
-				filter:function(event,player){
-					return event.skill=="ska_kezhix"&&player.hasHistory("sourceDamage",function(evt){
-						return evt.card==event.card;
-					});
-				},
-				forced:true,
-				popup:false,
-				content:function(){
-					"step 0"
 					player.chooseDrawRecover(2,"恪志：你可以回复1点体力或摸两张牌");
-					"step 1"
-					if(result.control=="cancel2"){
-						player.storage.counttrigger[event.name]--;
-					}
 				}
 			},
 			ska_jiyan:{
@@ -776,6 +700,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				group:["ska_jiyan_sha","ska_jiyan_shan","ska_jiyan_tao","ska_jiyan_jiu","ska_jiyan_achieve"],
 				subSkill:{
 					sha:{
+						locked:false,
+						mod:{
+							targetInRange:function(){
+								if(_status.event.skill=="ska_jiyan_sha") return true;
+							}
+						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false;},
 						selectCard:-1,
@@ -804,6 +734,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					shan:{
+						locked:false,
+						mod:{
+							targetInRange:function(){
+								if(_status.event.skill=="ska_jiyan_shan") return true;
+							}
+						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false;},
 						selectCard:-1,
@@ -832,6 +768,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					tao:{
+						locked:false,
+						mod:{
+							targetInRange:function(){
+								if(_status.event.skill=="ska_jiyan_tao") return true;
+							}
+						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false;},
 						selectCard:-1,
@@ -861,6 +803,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					jiu:{
+						locked:false,
+						mod:{
+							targetInRange:function(){
+								if(_status.event.skill=="ska_jiyan_jiu") return true;
+							}
+						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:function(){return false;},
 						selectCard:-1,
@@ -1788,7 +1736,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//King Olly
 			ska_shenqi2:{
 				preHidden:true,
-				trigger:{global:["roundStart","damageSource"]},
+				trigger:{global:"damageSource"},
 				frequent:true,
 				init:function(player){
 					player.storage.renku=true;
@@ -1891,7 +1839,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.card=lib.skill.ska_zhesheng_backup.cards[0];
 					_status.renku.remove(event.card);
 					game.updateRenku();
-					game.cardsGotoOrdering(event.card);
+					game.cardsGotoOrdering(event.card).set("fromRenku",true);
 					player.showCards(event.card);
 					"step 1"
 					targets[0].useCard(event.card,targets[1],false,"noai");
@@ -2155,65 +2103,117 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Yuri Kozukata
 			alz_yingjian:{
-				marktext:"灵",
-				intro:{
-					name:"灵",
-					content:"mark"
-				},
-				zhuanhuanji:true,
-				locked:false,
-				forced:true,
-				trigger:{
-					global:"phaseBefore",
-					player:"enterGame"
-				},
+				direct:true,
+				trigger:{global:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return event.name!="phase"||game.phaseNumber==0;
+					if(!_status.renku||!_status.renku.length||!game.hasPlayer2(function(current){
+						return current.hasHistory("useCard",function(evt){
+							return evt.targets.contains(player);
+						});
+					})) return false;
+					var used=[];
+					game.filterPlayer2(function(current){
+						current.getHistory("useCard",function(evt){
+							if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
+						});
+					});
+					return used.length;
 				},
 				content:function(){
-					player.addMark("alz_yingjian",3);
-					game.delayx();
+					"step 0"
+					var used=[];
+					game.filterPlayer2(function(current){
+						current.getHistory("useCard",function(evt){
+							if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
+						});
+					});
+					used=used.map(function(card){
+						return [card.suit,card.number,card.name,card.nature];
+					});
+					player.chooseButton([get.prompt2("alz_yingjian"),"仁库中的牌",_status.renku,"本回合使用过的基本牌或普通锦囊牌",[used,"vcard"]]).set("filterButton",function(button){
+						if(_status.renku.contains(button.link)){
+							if(!ui.selected.buttons||!ui.selected.buttons.length) return true;
+							for(var i=0;i<ui.selected.buttons.length;i++){
+								if(_status.renku.contains(ui.selected.buttons[i].link)) return false;
+							}
+							return true;
+						}
+						return _status.event.player.hasUseTarget({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
+					}).set("selectButton",2).set("complexSelect",true);
+					"step 1"
+					if(result.links&&result.links.length>1){
+						player.logSkill("alz_yingjian");
+						var card,viewAs;
+						result.links.forEach(function(link){
+							if(_status.renku.contains(link)){
+								card=link;
+							}
+							else{
+								viewAs=link;
+							}
+						});
+						_status.renku.remove(card);
+						game.updateRenku();
+						game.cardsGotoOrdering(card).set("fromRenku",true);
+						player.chooseUseTarget({suit:viewAs[0],number:viewAs[1],name:viewAs[2],nature:viewAs[3]},[card],false,true).set("viewAs",true);
+					}
 				},
-				group:["alz_yingjian2","alz_yingjian3"]
+				ai:{
+					threaten:function(){
+						if(_status.renku&&_status.renku.length) return 0.8;
+						return 1;
+					}
+				}
 			},
-			alz_yingjian2:{
-				zhuanhuanji:true,
-				prompt:function(){
-					var player=_status.event.player;
-					if(player.storage.alz_yingjian2) return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一枚“灵”";
-					return "转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”";
+			alz_qushui:{
+				mark:true,
+				marktext:"☯",
+				intro:{
+					content:function(storage){
+						return storage?"转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色本轮非锁定技失效。":"转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色翻面。";
+					}
 				},
+				init:function(player){
+					player.storage.renku=true;
+				},
+				zhuanhuanji:true,
 				enable:"phaseUse",
 				usable:1,
-				filterTarget:function(card,player,target){
-					if(!player.storage.alz_yingjian2) return true;
-					return !target.hasSkill("fengyin");
-				},
+				filterTarget:true,
 				filterCard:true,
-				selectCard:2,
+				selectCard:3,
+				discard:false,
+				lose:false,
+				delay:false,
 				position:"he",
 				check:function(card){
 					return 7-get.value(card);
 				},
 				content:function(){
 					"step 0"
-					var current=player.storage.alz_yingjian2==true;
+					event.zhuanhuanji=player.storage.alz_qushui==true;
 					player.changeZhuanhuanji(event.name);
-					if(!current){
+					player.$throw(cards);
+					game.log(player,"将",cards,"置入了仁库");
+					player.lose(cards,ui.special,"toRenku");
+					"step 1"
+					game.delayx();
+					"step 2"
+					if(!event.zhuanhuanji){
 						target.turnOver();
 					}
 					else{
 						target.addTempSkill("fengyin","roundStart");
 					}
-					"step 1"
-					if(player.countMark("alz_yingjian")<player.getHp()) player.addMark("alz_yingjian");
+					"step 3"
 					game.delayx();
 				},
 				ai:{
+					threaten:1.25,
 					order:5,
 					result:{
 						target:function(player,target){
-							if(!player.storage.alz_yingjian2){
+							if(!player.storage.alz_qushui){
 								if(target.hasSkillTag("noturn")) return -0.5;
 								return target.isTurnedOver()?2:-2;
 							}
@@ -2225,72 +2225,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								}
 							}
 							return -0.5;
-						}
-					}
-				}
-			},
-			alz_yingjian3:{
-				enable:["chooseToUse","chooseToRespond"],
-				filter:function(event,player){
-					if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=player.getHp()) return false;
-					for(var i of lib.inpile){
-						var type=get.type(i);
-						if(type=="basic"&&lib.filter.filterCard({name:i,isCard:true},player,event)) return true;
-					}
-					return false;
-				},
-				prompt:()=>"若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌",
-				chooseButton:{
-					dialog:function(){
-						var list=[];
-						for(var i of lib.inpile){
-							if(get.type(i)=="basic"){
-								list.push(["基本","",i]);
-								if(i=="sha"){
-									for(var j of lib.inpile_nature) list.push(["基本","","sha",j]);
-								}
-							}
-						}
-						return ui.create.dialog("影见",[list,"vcard"],"hidden");
-					},
-					filter:function(button,player){
-						return _status.event.getParent().filterCard({name:button.link[2]},player,_status.event.getParent());
-					},
-					backup:function(links,player){
-						return {
-							filterCard:()=>false,
-							selectCard:-1,
-							popname:true,
-							viewAs:{name:links[0][2],nature:links[0][3],isCard:true},
-							precontent:function(){
-								delete event.result.skill;
-								player.logSkill("alz_yingjian3_backup",event.result.targets);
-								player.removeMark("alz_yingjian",1);
-							}
-						}
-					},
-					prompt:function(links,player){
-						return "视为使用"+(get.translation(links[0][3])||"")+get.translation(links[0][2]);
-					}
-				},
-				hiddenCard:function(player,name){
-					var type=get.type(name);
-					return type=="basic"&&player.hasMark("alz_yingjian")&&player.countMark("alz_yingjian")>player.getHp();
-				},
-				ai:{
-					respondSha:true,
-					respondShan:true,
-					respondTao:true,
-					save:true,
-					skillTagFilter:function(player,tag,arg){
-						if(arg!="use") return false;
-						if(!player.hasMark("alz_yingjian")||player.countMark("alz_yingjian")<=player.getHp()) return false;
-					},
-					order:1,
-					result:{
-						player:function(player){
-							if(_status.event.dying) return get.attitude(player,_status.event.dying);
-							return 1;
 						}
 					}
 				}
@@ -2490,9 +2424,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				str+="<br>成功：你使用牌结算后，若所有选项均选择过，你增加1点体力上限并回复1点体力。";
 				return str;
 			},
-			alz_yingjian:function(player){
-				if(player.storage.alz_yingjian2) return "游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌。";
-				return "游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌。";
+			alz_qushui:function(player){
+				if(player.storage.alz_qushui) return "转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色①翻面<span class=\"bluetext\">②本轮非锁定技失效</span>。";
+				return "转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。";
 			}
 		},
 		/*
@@ -2520,8 +2454,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_koopa_troopa:"慢慢龟",
 			mnm_9_volt_18_volt:"SP九伏特＆十八伏特",
 			nnk_robin:"SP鲁弗莱",
-			nnk_robin_male:"SP鲁弗莱",
-			nnk_robin_female:"SP鲁弗莱",
 			alz_yuri_kozukata:"不来方夕莉",
 			ymk_tianyi:"天翊",
 			xsj_yu_narukami:"鸣上悠",
@@ -2537,20 +2469,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_mihu:"迷糊",
 			ymk_mihu_info:"锁定技，当你使用基本牌或普通锦囊牌指定目标后，你判定。若判定结果为：红色：此牌增加X+1个目标（不足则全选）；黑色：此牌减少X+1个目标（不足则全选）。（X为你损失的体力值）",
 			ska_jixing:"激行",
-			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色，然后你判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
+			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色并判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_wangshi:"惘事",
 			ska_wangshi_info:"使命技。你区域内的♠牌和♠判定牌均视为♦。<br>\
 			成功：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
 			ska_yangxun:"洋寻",
-			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶两张牌中一张牌，然后若其不是你，其交给你一张牌。",
+			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶的一张牌，然后若其不是你，其交给你一张牌。",
 			ska_shenqi:"神祇-",
 			ska_shenqi3:"神祇",
-			ska_shenqi_info:"每轮游戏开始时或一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得与此牌颜色相同的一张牌。",
+			ska_shenqi_info:"一名角色受到伤害后，若仁库中牌未满，你可以判定，然后将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得与此牌颜色相同的一张牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
 			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
 			ska_kezhi:"恪志",
-			ska_kezhi_info:"你使用牌结算后，若此牌被响应，你可以失去1点体力并将一张牌当作此牌使用。每回合限一次，你以此法使用牌后，若此牌造成过伤害，你可以回复1点体力或摸两张牌。",
+			ska_kezhi_info:"一名角色使用或打出牌响应你使用的牌时，你可以失去1点体力并将一张牌当作被响应牌使用。若以此法使用的牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_jiyan:"籍验",
 			ska_jiyan2:"籍验",
 			ska_jiyan_sha:"籍验·杀",
@@ -2564,7 +2496,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_shubian:"数变",
 			ska_shubian_info:"出牌阶段限一次，你可以弃置任意张点数和等于13的牌，然后指定等量角色，你依次令其回复1点体力或受到你造成的1点伤害。",
 			ska_jingli:"径理",
-			ska_jingli_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌。（X/Y为你/其手牌数一半且向上取整，若为零则无需交给牌）",
+			ska_jingli_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌。（X/Y为你/其手牌数一半且向上取整，若为0则无需交给牌）",
 			ska_zhiyi:"执异",
 			ska_zhiyi2:"执异",
 			ska_zhiyi_info:"你使用从一名角色获得的牌结算后，若此牌：被响应，你可以将一张牌当作此牌使用；未被响应，你可以摸一张牌。",
@@ -2593,7 +2525,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_jijing:"急竞",
 			mnm_jijing_info:"出牌阶段限一次，你可以与一名其他角色依次演奏《Big Blue》的前奏，然后若你的评级：大于其，你对其造成1点伤害；小于其，其对你造成1点伤害。；等于其，你与其各摸两张牌。",
 			ska_shenqi2:"神祇+",
-			ska_shenqi2_info:"每轮游戏开始时或一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
+			ska_shenqi2_info:"一名角色造成伤害后，你可以观看牌堆底两张牌，然后将其中一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
 			ska_zhesheng_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
@@ -2603,7 +2535,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_xiangshi:"向矢",
 			ska_xiangshi_info:"出牌阶段限一次，你可以翻面。若如此做，你可以打出一张牌，然后弃置一名角色区域内的一张牌。若这两张牌的花色相同，你翻面。",
 			mnm_huaijiu:"怀旧",
-			mnm_huaijiu_info:"准备阶段，你可以获得一名《三国杀：标准》武将的技能，直到你的下一个回合开始。",
+			mnm_huaijiu_info:"准备阶段，你可以获得一名《三国杀 标准版》武将的技能，直到你的下一个回合开始。",
 			mnm_huaijiu_append:"<span style=\"font-family: fzktk\">*可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
 			mnm_huaijiu_faq:"*",
 			mnm_huaijiu_faq_info:"可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
@@ -2612,12 +2544,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			nnk_yuanlei_effect:"远雷",
 			nnk_yuanlei_effect3:"远雷",
 			nnk_yuanlei_effect4:"远雷",
-			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸两张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为一）",
+			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸两张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为1）",
 			alz_yingjian:"影见",
-			alz_yingjian2:"影见+",
-			alz_yingjian3:"影见-",
-			alz_yingjian3_backup:"影见-",
-			alz_yingjian_info:"游戏开始时，你获得三枚“灵”；转换技，出牌阶段限一次，你可以弃置两张牌，令一名角色①翻面②本轮非锁定技失效。然后若你的“灵”数量小于体力值，你获得一枚“灵”；若你拥有“灵”且数量大于体力值，你可以移除一枚“灵”，视为你使用或打出一张基本牌。",
+			alz_yingjian_backup:"影见",
+			alz_yingjian_info:"一名角色的结束阶段，若有角色对你使用过牌，你可以将仁库中的一张牌当作一张本回合使用过的基本牌或普通锦囊牌使用。",
+			alz_qushui:"趋水",
+			alz_qushui_info:"转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色①翻面②本轮非锁定技失效。",
 			ymk_kaibai:"开摆",
 			ymk_kaibai_info:"每回合限一次，当你成为一名角色使用非装备牌的目标时，你可以弃置所有手牌并判定，然后你摸X张牌（X为判定结果点数的一半且向上取整）。若此牌对你造成了伤害，你弃置一半手牌（向下取整）。",
 			xsj_dongqie:"洞怯",
@@ -2656,8 +2588,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_koopa_troopa:"Koopa Troopa",
 			mnm_9_volt_18_volt:"SP 9-Volt & 18-Volt",
 			nnk_robin:"SP Robin",
-			nnk_robin_male:"SP Robin",
-			nnk_robin_female:"SP Robin",
 			alz_yuri_kozukata:"Yuri Kozukata",
 			ymk_tianyi:"Tianyi",
 			xsj_yu_narukami:"Yu Narukami",
@@ -2673,9 +2603,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_koopa_troopa:["sst_mario"],
 			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
 			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
-			nnk_robin:["nnk_robin_male","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
-			nnk_robin_male:["nnk_robin","nnk_robin_female","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
-			nnk_robin_female:["nnk_robin","nnk_robin_male","sst_robin","sst_robin_male","sst_robin_female","sst_lucina","sst_chrom"],
+			nnk_robin:["sst_robin","sst_lucina","sst_chrom"],
 			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
 			xsj_yu_narukami:["sst_joker"]
 		}

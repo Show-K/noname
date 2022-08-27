@@ -62,6 +62,7 @@ window.noname_source_list=[
 	'extension/wuxing/extension.js',
 	//Online Update
 	'extension/在线更新/extension.js',
+	'extension/在线更新/typings/index.d.ts',
 	//Drag Read
 	/*
 	'extension/拖拽读取/catalogTemplate.txt',
@@ -126,9 +127,9 @@ window.noname_source_list=[
 	'theme/style/cardback/liusha.css',
 	'theme/style/cardback/music.css',
 	'theme/style/cardback/new.css',
-	'theme/style/cardback/noname.css',
 	'theme/style/cardback/ol.css',
 	'theme/style/cardback/official.css',
+	'theme/style/cardback/super_smash_tabletop.css',
 	'theme/style/cardback/wood.css',
 	'theme/style/cardback/image/feicheng.png',
 	'theme/style/cardback/image/feicheng2.png',
@@ -136,12 +137,12 @@ window.noname_source_list=[
 	'theme/style/cardback/image/liusha2.png',
 	'theme/style/cardback/image/new.png',
 	'theme/style/cardback/image/new2.png',
-	'theme/style/cardback/image/noname.png',
-	'theme/style/cardback/image/noname2.png',
 	'theme/style/cardback/image/official.png',
 	'theme/style/cardback/image/official2.png',
 	'theme/style/cardback/image/ol.png',
 	'theme/style/cardback/image/ol2.png',
+	'theme/style/cardback/image/super_smash_tabletop.png',
+	'theme/style/cardback/image/super_smash_tabletop2.png',
 	'theme/style/hp/custom.css',
 	'theme/style/hp/default.css',
 	'theme/style/hp/emotion.css',

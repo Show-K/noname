@@ -3759,13 +3759,19 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 										mark.text = decadeUI.element.create('mark-text', mark);
 										if (lib.skill[item] && lib.skill[item].markimage) {
 											markText = '　';
+											mark.text.style.animation = 'none';
 											mark.text.setBackgroundImage(lib.skill[item].markimage);
-											// mark.text.style['box-shadow'] = 'none';
+											mark.text.style['box-shadow'] = 'none';
 											mark.text.style.backgroundPosition = 'center';
 											mark.text.style.backgroundSize = 'contain';
 											mark.text.style.backgroundRepeat = 'no-repeat';
+											mark.text.classList.add('before-hidden');
 										} else {
 											if (markText.length == 2) mark.text.classList.add('small-text');
+										}
+										if (lib.skill[item] && lib.skill[item].zhuanhuanji) {
+											mark.text.style.animation = 'none';
+											mark.text.classList.add('before-hidden');
 										}
 										mark.text.innerHTML = markText;
 									}
@@ -4012,8 +4018,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 											num = this.storage[name];
 										} else if (Array.isArray(this.storage[name])) {
 											num = this.storage[name].length;
-										} else if (typeof this.storage[name] == 'boolean') {
-											num = this.storage[name] ? '+' : '-';
 										}
 
 										if (num) {
@@ -5682,7 +5686,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								gain: [],
 								sourceDamage: [],
 								damage: [],
-								custom: []
+								custom: [],
+								useSkill: []
 							}],
 							tempSkills: {},
 							storage: {},
@@ -9933,8 +9938,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
 					'当前版本：1.2.0.220114.11SST（Show-K修复版）',
-					'更新日期：2022-08-19',
+					'更新日期：2022-08-24',
 					'- 修复了减体力上限至负数会报错的异常。',
+					'- 修复了转换技标记在黄色/红色的人物标记样式下无法旋转的异常。',
+					'- 优化了图片标记的显示效果（举例：护甲）。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
