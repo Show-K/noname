@@ -53,7 +53,7 @@
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
-		mirrorURL:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/super-smash-tabletop',
+		mirrorURL:'http://123.56.240.30/super-smash-tabletop',
 		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],

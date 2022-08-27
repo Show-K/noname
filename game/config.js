@@ -1,6 +1,6 @@
 window.config={
 	extension_sources:{
-		Coding:'https://show-kadot.coding.net/p/noname/d/noname-extension/git/raw/super-smash-tabletop/',
+		Coding:'https://raw.fastgit.org/Show-K/noname-extension/super-smash-tabletop/',
 		GitHub:'https://raw.githubusercontent.com/Show-K/noname-extension/super-smash-tabletop/',
 	},
 	extension_source:'Coding',
