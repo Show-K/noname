@@ -49,11 +49,11 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'http://123.56.240.30/super-smash-tabletop',
+			coding:'http://123.56.240.30/Show-K/noname/super-smash-tabletop',
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
-		mirrorURL:'http://123.56.240.30/super-smash-tabletop',
+		mirrorURL:'http://123.56.240.30/Show-K/noname/super-smash-tabletop',
 		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],
