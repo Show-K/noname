@@ -38,11 +38,11 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'http://123.56.240.30/once-and-for-all',
+			coding:'http://123.56.240.30/Show-K/noname/master',
 			github:'https://raw.githubusercontent.com/Show-K/noname/master',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/master',
-		mirrorURL:'https://show-kadot.coding.net/p/noname/d/noname/git/raw/master',
+		mirrorURL:'http://123.56.240.30/Show-K/noname/master',
 		hallURL:'123.56.240.30',
 		assetURL:'',
 		changeLog:[],
