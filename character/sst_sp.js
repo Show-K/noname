@@ -17,7 +17,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		character:{
 			ymk_isabelle:["female","sst_light",3,["ymk_zhongmi","ymk_mihu"],[]],
-			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_wangshi","ska_yangxun"],[]],
+			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_yangxun","ska_wangshi"],[]],
 			ska_olivia:["female","sst_spirit",3,["ska_shenqi","ska_zhefu"],[]],
 			ska_super_xiaojie:["male","sst_reality",3,["ska_kezhi","ska_jiyan"],[]],
 			ska_show_k:["male","sst_reality",3,["ska_jingli","ska_zhiyi"],[]],
@@ -412,6 +412,44 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			ska_yangxun:{
+				trigger:{global:"judgeAfter"},
+				forced:true,
+				filter:function(event,player){
+					return event.result.color=="red";
+				},
+				content:function(){
+					"step 0"
+					player.chooseTarget("洋寻：选择一名角色，其获得弃牌堆顶的一张牌，然后若其不是你，其交给你一张牌",true).set("ai",function(target){
+						if(!target.countCards("he")) return 0;
+						return get.attitude(_status.event.player,target);
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.line(result.targets,"green");
+						event.target=result.targets[0];
+						if(ui.discardPile.childNodes.length){
+							event.target.gain(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],"gain2");
+						}
+						else{
+							player.chat("无牌可得了吗");
+							game.log("但是弃牌堆里面已经没有牌了！");
+							event.finish();
+						}
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(event.target!=player){
+						event.target.chooseCard("洋寻：交给"+get.translation(player)+"一张牌","he",true);
+					}
+					"step 3"
+					if(result.cards&&result.cards.length){
+						event.target.give(result.cards,player);
+					}
+				}
+			},
 			ska_wangshi:{
 				dutySkill:true,
 				mod:{
@@ -464,44 +502,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							"step 3"
 							if(player.getDamagedHp()) player.recover(player.maxHp-player.hp);
 						}
-					}
-				}
-			},
-			ska_yangxun:{
-				trigger:{global:"judgeAfter"},
-				forced:true,
-				filter:function(event,player){
-					return event.result.color=="red";
-				},
-				content:function(){
-					"step 0"
-					player.chooseTarget("洋寻：选择一名角色，其获得弃牌堆顶的一张牌，然后若其不是你，其交给你一张牌",true).set("ai",function(target){
-						if(!target.countCards("he")) return 0;
-						return get.attitude(_status.event.player,target);
-					});
-					"step 1"
-					if(result.targets&&result.targets.length){
-						player.line(result.targets,"green");
-						event.target=result.targets[0];
-						if(ui.discardPile.childNodes.length){
-							event.target.gain(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],"gain2");
-						}
-						else{
-							player.chat("无牌可得了吗");
-							game.log("但是弃牌堆里面已经没有牌了！");
-							event.finish();
-						}
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(event.target!=player){
-						event.target.chooseCard("洋寻：交给"+get.translation(player)+"一张牌","he",true);
-					}
-					"step 3"
-					if(result.cards&&result.cards.length){
-						event.target.give(result.cards,player);
 					}
 				}
 			},
@@ -694,6 +694,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			ska_jiyan:{
 				dutySkill:true,
+				locked:true,
 				init:function(player){
 					if(!Array.isArray(player.storage.ska_jiyan)) player.storage.ska_jiyan=["sha","shan","tao","jiu"];
 				},

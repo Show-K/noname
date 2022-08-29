@@ -4189,13 +4189,15 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						create: {
 							rarity: function (button) {
 								var rarity = game.getRarity(button.link);
-								var intro = button.node.intro;
-								intro.classList.add('showintro');
-								intro.classList.add('rarity');
-								if (intro.innerText)
-									intro.innerText = '';
+								if (lib.config.show_rarity) {
+									var intro = button.node.intro;
+									intro.classList.add('showintro');
+									intro.classList.add('rarity');
+									if (intro.innerText)
+										intro.innerText = '';
 
-								intro.style.backgroundImage = 'url("' + decadeUIPath + 'assets/image/rarity_' + rarity + '.png")';
+									intro.style.backgroundImage = 'url("' + decadeUIPath + 'assets/image/rarity_' + rarity + '.png")';
+								}
 								if ((button.link == 'sst_massy') && button.node && button.node.name && button.node.group) {
 									if (button.classList.contains('newstyle')) {
 										button.node.name.dataset.nature = 'thundermm';

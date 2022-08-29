@@ -952,6 +952,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.storage.sst_wenxin_record=[];
 				},
 				dutySkill:true,
+				locked:true,
 				direct:true,
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
