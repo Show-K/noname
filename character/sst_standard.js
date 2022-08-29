@@ -7173,8 +7173,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					target.chooseToDiscard("焰扬：弃置一张牌","he",true).set("ai",function(card){
-						if(get.name(card)=="sha"&&get.attitude(_status.event.player,_status.event.targetx)<0) return 10;
-						if(get.position(card)!="h") return 0;
+						if(get.name(card)=="sha"&&get.damageEffect(_status.event.targetx,_status.event.player,_status.event.player)>0) return 0;
+						if(get.position(card)!="h") return -10;
 						return get.unuseful(card);
 					}).set("targetx",player);
 					"step 1"
@@ -14127,7 +14127,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xuansha_faq:"*",
 			sst_xuansha_faq_info:"“一”修改为“两”，“1”修改为“2”，“两名角色”修改为“至多两名角色”。",
 			sst_yingji:"鹰击",
-			sst_yingji_info:"出牌阶段限一次，你可以令一名其他角色摸X-1张牌（若为〇则不摸牌），视为对其使用一张不受使用次数限制且不计入次数的【杀】。（X为你计算与其的距离）。",
+			sst_yingji_info:"出牌阶段限一次，你可以令一名其他角色摸X-1张牌（若为0则不摸牌），视为对其使用一张不受使用次数限制且不计入次数的【杀】。（X为你计算与其的距离）。",
 			sst_huxiao:"虎啸",
 			sst_huxiao_info:"一名角色使用【杀】时，你可以弃置一张红色牌，为此【杀】增加一个目标。",
 			sst_yiqing:"移情",
@@ -14198,7 +14198,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_renqing_faq_info:"你的回合内，不以此法执行的摸牌阶段，出牌阶段，弃牌阶段开始前，你可以跳过此阶段，改为从上述其他两个阶段选择一个执行。若如此做，本回合结束时，若本回合没有执行过弃牌阶段，你失去1点体力。",
 			sst_manchan:"蛮缠",
 			sst_manchan_effect:"蛮缠",
-			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整，若为零则无需弃置牌），然后你可以于伤害来源的下个回合内发动〖任情〗。",
+			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整，若为0则无需弃置牌），然后你可以于伤害来源的下个回合内发动〖任情〗。",
 			sst_canyun:"残云",
 			sst_canyun_effect:"残云",
 			sst_canyun_info:"出牌阶段，你可以弃置一张牌（不得与本回合以此法弃置过的牌的花色相同），令所有角色本回合不能使用或打出与此牌花色相同的牌，然后视为你使用一张【决斗】。",
