@@ -1990,22 +1990,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yane:{
 				trigger:{global:"phaseZhunbeiBegin"},
 				filter:function(event,player){
-					var players=game.filterPlayer();
-					for(var i=0;i<players.length;i++){
-						if(players[i].group!=player.group){
-							players.remove(players[i]);
-							if(i<players.length) i--;
-						}
-					}
-					return players.contains(event.player)&&player.hasZhuSkill("sst_yane");
+					return event.player.group==player.group&&player.hasZhuSkill("sst_yane");
 				},
 				unique:true,
 				zhuSkill:true,
 				logTarget:"player",
 				check:function(event,player){
-					if(get.attitude(player,event.player)<0) return get.damageEffect(event.player,player,player)>0;
-					if(get.attitude(player,event.player)>0) return event.player.hp-event.player.getDamagedHp()>0;
-					return false;
+					return get.damageEffect(event.player,player,player)+get.attitude(player,event.player)*2;
 				},
 				content:function(){
 					trigger.player.damage(player,"nocard");
@@ -13963,7 +13954,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_huoluan2:"祸乱",
 			sst_huoluan_info:"锁定技，你使用牌结算后，你须弃置X张牌（X为你本回合使用牌的次数，若在你的回合内则-1）。你失去最后的手牌时，减1点体力上限。",
 			sst_yane:"延厄",
-			sst_yane_info:"主公技，同势力角色的准备阶段，你可以对其造成1点伤害，令其摸两张牌。",
+			sst_yane_info:"主公技，本势力角色的准备阶段，你可以对其造成1点伤害，令其摸两张牌。",
 			sst_quji:"祛疾",
 			sst_quji_info:"牌堆顶的牌始终对你可见；每回合限一次，一名角色使用牌时，你可以将牌堆顶一张与之花色相同的牌置入弃牌堆，或弃置一张与之花色相同的手牌，取消之。",
 			sst_qiji:"奇迹",
