@@ -389,7 +389,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 		precontent: function () {
 			// 添加两个更新地址
 			Object.assign(lib.updateURLS, {
-				coding: 'http://123.56.240.30/super-smash-tabletop',
 				fastgit: 'https://raw.fastgit.org/Show-K/noname/super-smash-tabletop',
 			});
 
