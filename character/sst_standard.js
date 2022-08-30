@@ -7217,12 +7217,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yebao2:{
 				trigger:{global:"damageEnd"},
 				filter:function(event,player){
-					return event.player!=player&&event.source==player&&event.player.isIn()&&event.player.getDamagedHp()&&!event.player.hasSkill("sst_yebao_effect");
+					return event.player!=player&&event.source==player&&event.player.isIn()&&event.player.getDamagedHp();
 				},
 				forced:true,
 				logTarget:"player",
 				content:function(){
 					trigger.player.addSkill("sst_yebao_effect");
+					trigger.player.sst_yebao_effect.push(trigger.player.getDamagedHp());
 				},
 				ai:{
 					effect:{
@@ -7238,33 +7239,33 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				mark:true,
 				init:function(player){
-					player.storage.sst_yebao_effect=0;
+					player.storage.sst_yebao_effect=[];
 				},
 				intro:{
 					name:"业报",
 					content:function(storage,player){
-						return "接下来"+get.cnNumber(player.getDamagedHp()-storage)+"个回合的回合结束时弃置一张牌";
+						var str="";
+						for(var i=0;i<storage.length;i++){
+							str+="接下来"+get.cnNumber(storage[i])+"个回合的回合结束时弃置一张牌";
+							if(i<storage.length-1) str+="<br>";
+						}
+						return str;
 					}
 				},
+				onremove:true,
 				trigger:{global:"phaseEnd"},
 				forced:true,
 				content:function(){
-					"step 0"
-					player.storage.sst_yebao_effect++;
-					if(player.storage.sst_yebao_effect>=player.getDamagedHp()) player.removeSkill("sst_yebao_effect");
-					player.chooseToDiscard("业报：弃置一张牌","he",true);
-				},
-				group:"sst_yebao_effect2"
-			},
-			sst_yebao_effect2:{
-				forced:true,
-				popup:false,
-				trigger:{player:"changeHp"},
-				filter:function(event,player){
-					return player.storage.sst_yebao_effect>=player.getDamagedHp();
-				},
-				content:function(){
-					player.removeSkill("sst_yebao_effect");
+					var total=0;
+					for(var i=0;i<player.storage.sst_yebao_effect.length;i++){
+						player.storage.sst_yebao_effect[i]--;
+						total++;
+						if(player.storage.sst_yebao_effect[i]<=0) player.storage.sst_yebao_effect.splice(i--,1);
+					}
+					if(!player.storage.sst_yebao_effect.length) player.removeSkill("sst_yebao_effect");
+					for(var i=0;i<total;i++){
+						player.chooseToDiscard("业报：弃置一张牌","he",true);
+					}
 				}
 			},
 			sst_caijue:{
@@ -14210,8 +14211,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yebao:"业报",
 			sst_yebao2:"业报",
 			sst_yebao_effect:"业报",
-			sst_yebao_effect2:"业报",
-			sst_yebao_info:"锁定技，你对一名角色造成伤害时，若其未使用过【杀】，取消之；一名其他角色受到你造成的伤害后，接下来X个回合的回合结束时，其弃置一张牌。（X为其已损失的体力值）",
+			sst_yebao_info:"锁定技，当你对一名角色造成伤害时，若其未使用过【杀】，你防止此伤害；当一名其他角色受到你造成的伤害后，其于此后X个回合的回合结束时弃置一张牌。（X为其已损失的体力值）",
 			sst_caijue:"裁决",
 			sst_caijue_info:"锁定技，一名受到过你造成的伤害的角色的结束阶段，若其累计使用【杀】的数量大于全场存活角色数，你将你与其所有牌依次当作【杀】对其使用，然后你失去〖决心〗。",
 			sst_zhamou:"诈谋",
