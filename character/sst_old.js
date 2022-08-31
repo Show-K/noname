@@ -2808,7 +2808,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					switch(result.control){
 						case "回复一点体力":{
 							player.logSkill("old_ymk_yunchou");
-							player.recover();
+							player.recover("nocard");
 							break;
 						}
 						case "移动场上的一张牌":{

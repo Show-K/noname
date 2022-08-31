@@ -500,7 +500,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								player.draw();
 							}
 							"step 3"
-							if(player.getDamagedHp()) player.recover(player.maxHp-player.hp);
+							if(player.getDamagedHp()) player.recover(player.maxHp-player.hp,"nocard");
 						}
 					}
 				}
@@ -849,7 +849,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							game.log(player,"成功完成使命");
 							player.awakenSkill("ska_jiyan");
 							player.gainMaxHp();
-							player.recover();
+							player.recover("nocard");
 						}
 					}
 				}
@@ -955,7 +955,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(player.ai.shown>0.95) player.ai.shown=0.95;
 					}
 					if(result.bool){
-						target.recover();
+						target.recover("nocard");
 					}
 					else{
 						target.damage(player,"nocard");
@@ -1489,7 +1489,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.awakenSkill("mnm_yanhai");
 					trigger.cancel();
 					"step 1"
-					if(2-player.hp>0) player.recover(2-player.hp);
+					if(2-player.hp>0) player.recover(2-player.hp,"nocard");
 					"step 2"
 					player.draw(3);
 					"step 3"

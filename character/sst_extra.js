@@ -8,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_extra:{
 				sst_civil_war:["sst_pyra_mythra","sst_9_volt_18_volt"],
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
-				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee"],
+				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans"],
 				sst_attack_by_stratagem:["sst_magolor","sst_roy"]
 			}
 		},
@@ -25,7 +25,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
-			sst_roy:["male","sst_light",4,["sst_nuyan"],[]]
+			sst_roy:["male","sst_light",4,["sst_nuyan"],[]],
+			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],["type:unknown","frag:20","step:1","over:99"]]
 		},
 		characterFilter:{},
 		characterIntro:{
@@ -192,7 +193,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			在父亲突病、局势动荡时毅然担当起责任，率兵抵抗敌国入侵的贵族少年。小小年纪就擅长带兵打仗和取信于人。顺便，他是先在大乱斗中出场，随后原作才发售的存在。以及，他和酷霸王军团中的洛伊是同一个英文名。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			率先体验谋攻篇。"
+			率先体验谋攻篇。",
+			sst_sans:"武将作者：Show-K、mario not mary<br>\
+			插图作者：未知<br>\
+			<hr>\
+			S002. Sans/サンス<br>\
+			系列：<ruby>传说之下<rp>（</rp><rt>Undertale</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>传说之下<rp>（</rp><rt>Undertale</rt><rp>）</rp></ruby><br>\
+			Sans是由Toby Fox为2015年角色扮演游戏《Undertale》创造的虚构角色。Sans在《Undertale》中为NPC，但如果玩家选择完成“种族灭绝路线”并消灭游戏中的怪物种族，他将成为事实上的最终boss。他的名字基于Comic Sans字体，而该字体用于他的大部分游戏对话。该角色因其对话，以及被认为是游戏中最难的boss战斗而被评论家称赞。他在粉丝群体中相当出名，激发了很多人为其创造同人作品。<br>\
+			——翻译自《维基百科》<br>\
+			<hr>\
+			外面是多么美好的一天啊，鸟儿在歌唱，花儿在绽放……"
 		},
 		characterTitle:{
 			sst_pyra_mythra:"天之圣杯",
@@ -207,7 +218,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_paipai:"针强砭弱",
 			sst_bandana_waddle_dee:"瓦豆鲁迪的传说",
 			sst_magolor:"心中的最佳盟友",
-			sst_roy:"年轻的狮子"
+			sst_roy:"年轻的狮子",
+			sst_sans:"审判之眼"
 		},
 		skill:{
 			//Civil War mode reference
@@ -1276,7 +1288,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 					}
 					else if(get.color(trigger.card)=="red"){
-						if(player.getDamagedHp()) player.recover();
+						if(player.getDamagedHp()) player.recover("nocard");
 						event.finish();
 					}
 					else{
@@ -1529,7 +1541,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 									info.yingbian=function(event){
 										var card=event.card;
 										if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
-											event.player.recover();
+											event.player.recover("nocard");
 										}
 										this.backup_yingbian.apply(this,arguments);
 									}
@@ -1539,7 +1551,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 									info.yingbian=function(event){
 										var card=event.card;
 										if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0){
-											event.player.recover();
+											event.player.recover("nocard");
 										}
 										this.sst_aoshang_yingbian.apply(this,arguments);
 									}
@@ -1747,7 +1759,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					event.count=trigger.num;
 					"step 1"
-					if(event.count){
+					if(event.count>0){
 						event.count--;
 						player.chooseTarget(get.prompt2("sst_mengchen")).set("ai",function(target){
 							return get.rawAttitude(_status.event.player,target);
@@ -1932,20 +1944,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(result.targets&&result.targets.length){
 								event.targets=result.targets.sortBySeat(_status.currentPhase);
 								player.logSkill("sst_mofan",event.targets);
-								event.numTarget=0;
 							}
 							else{
 								event.finish();
 							}
 							"step 2"
-							var draw=event.num;
-							if(event.targets[event.numTarget].countCards()>event.targets[event.numTarget].getHandcardLimit()) draw--;
-							if(draw>0) event.targets[event.numTarget].draw(draw,(event.numTarget<event.targets.length-1)?"nodelay":undefined);
+							var asyncDraw=[];
+							event.targets.forEach(function(current){
+								var draw=event.num;
+								if(current.countCards()>current.getHandcardLimit()) draw--;
+								asyncDraw.push(draw);
+							});
+							game.asyncDraw(event.targets,asyncDraw);
 							"step 3"
-							event.numTarget++;
-							if(event.numTarget<event.targets.length){
-								event.goto(2);
-							}
+							game.delayx();
 						},
 						ai:{
 							expose:0.2
@@ -2064,6 +2076,180 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					damage:true
 				}
+			},
+			//Sans
+			sst_yebao:{
+				trigger:{source:"damageBegin2"},
+				filter:function(event,player){
+					return event.player!=player&&!event.player.getAllHistory("useCard",function(evt){
+						return get.name(evt.card)=="sha";
+					}).length;
+				},
+				forced:true,
+				logTarget:"player",
+				content:function(){
+					trigger.cancel();
+				},
+				ai:{
+					effect:{
+						player:function(card,player,target){
+							if(get.tag(card,"damage")&&target!=player&&!target.getAllHistory("useCard",function(evt){
+								return get.name(evt.card)=="sha";
+							}).length){
+								return "zeroplayertarget";
+							}
+						}
+					}
+				},
+				group:"sst_yebao2"
+			},
+			sst_yebao2:{
+				trigger:{global:"damageEnd"},
+				filter:function(event,player){
+					return event.player!=player&&event.source==player&&event.player.isIn()&&event.player.getDamagedHp();
+				},
+				forced:true,
+				logTarget:"player",
+				content:function(){
+					trigger.player.addSkill("sst_yebao_effect");
+					trigger.player.storage.sst_yebao_effect.push(trigger.player.getDamagedHp());
+					trigger.player.markSkill("sst_yebao_effect");
+				},
+				ai:{
+					effect:{
+						player:function(card,player,target){
+							if(get.tag(card,"damage")&&target!=player&&get.attitude(player,target)>0){
+								return [1,-10];
+							}
+						}
+					}
+				}
+			},
+			sst_yebao_effect:{
+				charlotte:true,
+				mark:true,
+				init:function(player){
+					player.storage.sst_yebao_effect=[];
+				},
+				intro:{
+					name:"业报",
+					content:function(storage){
+						var str="";
+						for(var i=0;i<storage.length;i++){
+							str+="接下来"+get.cnNumber(storage[i])+"个回合的回合结束时弃置一张牌";
+							if(i<storage.length-1) str+="<br>";
+						}
+						return str;
+					},
+					markcount:function(storage){
+						var num=0;
+						for(var i=0;i<storage.length;i++){
+							num+=storage[i];
+						}
+						return num;
+					}
+				},
+				onremove:true,
+				trigger:{global:"phaseEnd"},
+				forced:true,
+				content:function(){
+					for(var i=0;Array.isArray(player.storage.sst_yebao_effect)&&i<player.storage.sst_yebao_effect.length;i++){
+						player.storage.sst_yebao_effect[i]--;
+						if(player.storage.sst_yebao_effect[i]<=0) player.storage.sst_yebao_effect.splice(i--,1);
+						player.markSkill("sst_yebao_effect");
+						if(!player.storage.sst_yebao_effect.length) player.removeSkill("sst_yebao_effect");
+						player.chooseToDiscard("业报：弃置一张牌","he",true);
+					}
+				}
+			},
+			sst_juexin:{
+				dutySkill:true,
+				forced:true,
+				trigger:{player:"changeHp"},
+				filter:function(event){
+					return event.num<0;
+				},
+				content:function(){
+					"step 0"
+					event.count=-trigger.num;
+					"step 1"
+					event.count--;
+					player.chooseTarget("决心：令一名角色判定并获得判定牌，若判定结果大于游戏轮数，你回复1点体力",true).set("ai",function(target){
+						return get.sgnAttitude(_status.event.player,target);
+					});
+					"step 2"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.line(event.target,"green");
+						event.target.judge(function(card){
+							var num=get.number(card);
+							if(num>game.roundNumber) return 2;
+							return -2;
+						}).set("callback",function(){
+							if(get.position(card,true)=="o") event.getParent(2).target.gain(card,"gain2");
+						});
+						player.addExpose(0.2);
+					}
+					else{
+						event.goto(4);
+					}
+					"step 3"
+					if(result.bool&&player.getDamagedHp()) player.recover("nocard");
+					"step 4"
+					if(event.count>0){
+						player.logSkill(event.name);
+						event.goto(1);
+					}
+				},
+				ai:{
+					maixie:true,
+					maixie_hp:true,
+					maiHp:true,
+					threaten:0.5
+				},
+				group:"sst_juexin_fail",
+				subSkill:{
+					fail:{
+						skillAnimation:true,
+						animationColor:"fire",
+						trigger:{global:"phaseJieshuBegin"},
+						filter:function(event,player){
+							return event.player.hasAllHistory("damage",function(evt){
+								return evt.source==player;
+							})&&event.player.getAllHistory("useCard",function(evt){
+								return get.name(evt.card)=="sha";
+							}).length>game.players.length&&lib.filter.targetEnabled({name:"sha"},player,event.player)&&event.player.isIn();
+						},
+						forced:true,
+						logTarget:"player",
+						content:function(){
+							"step 0"
+							game.log(player,"使命失败");
+							player.awakenSkill("sst_juexin");
+							event.cards=[];
+							event.players=[player,trigger.player].sortBySeat(_status.currentPhase);
+							event.players.forEach(current=>{
+								event.cards.addArray(current.getCards("he",function(card){
+									return lib.filter.cardEnabled(card,player);
+								}));
+							});
+							if(!event.cards.length) event.finish();
+							"step 1"
+							var card=event.cards.shift();
+							var owner=get.owner(card);
+							if(owner&&event.players.contains(owner)){
+								if(trigger.player.isIn()){
+									if(owner!=player) owner.lose(card,ui.special);
+									player.useCard({name:"sha"},[card],trigger.player,false);
+									if(event.cards.length) event.redo();
+								}
+							}
+							else{
+								if(event.cards.length) event.redo();
+							}
+						}
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2096,6 +2282,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bandana_waddle_dee:"头巾瓦豆鲁迪",
 			sst_magolor:"魔法洛亚",
 			sst_roy:"罗伊",
+			sst_sans:"Sans",
 			//Character ab.
 			sst_9_volt_18_volt_ab:"九伏十八伏",
 			sst_geno_ab:"Geno",
@@ -2160,7 +2347,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mofan:"魔帆",
 			sst_mofan_info:"出牌阶段限一次，你可以弃置X张牌并施法：可以令至多5-X名角色摸X张牌（手牌数大于手牌上限的角色少摸一张牌）。",
 			sst_nuyan:"怒炎",
-			sst_nuyan_info:"当你使用可以被怒气强化的牌时，你可以弃置一张红色牌强化之，然后若弃置的牌可以造成火属性伤害，你可以对一名角色造成1点火焰伤害。",
+			sst_nuyan_info:"当你使用可以被怒气强化的牌时，你可以弃置一张红色牌强化之，然后若弃置的牌可以造成火焰伤害，你可以对一名角色造成1点火焰伤害。",
+			sst_yebao:"业报",
+			sst_yebao2:"业报",
+			sst_yebao_effect:"业报",
+			sst_yebao_info:"锁定技，当你对一名其他角色造成伤害时，若其未使用过【杀】，你防止此伤害；当一名其他角色受到你造成的伤害后，其于此后X个回合的回合结束时弃置一张牌。（X为其已损失的体力值）",
+			sst_juexin:"决心",
+			sst_juexin_info:"使命技。当你扣减1点体力时，你令一名角色判定并获得判定牌，若判定结果大于游戏轮数，你回复1点体力。<br>\
+			失败：一名受到过你造成的伤害的角色的结束阶段，若其使用过【杀】的数量大于存活角色数，你将你与其所有牌依次当作【杀】对其使用。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
@@ -2184,7 +2378,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_paipai:"Paipai",
 			sst_bandana_waddle_dee:"Bandana Waddle Dee",
 			sst_magolor:"Magolor",
-			sst_roy:"Roy"
+			sst_roy:"Roy",
+			sst_sans:"Sans"
 		},
 		perfectPair:{
 			sst_pyra_mythra:["sst_rex"],

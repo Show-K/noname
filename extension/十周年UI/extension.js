@@ -1618,6 +1618,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 							"step 2"
 							event.resume();
 							if (event.result) {
+								if (event.result._sendskill) {
+									lib.skill[event.result._sendskill[0]] = event.result._sendskill[1];
+								}
 								if (event.result.skill) {
 									var info = get.info(event.result.skill);
 									if (info && info.chooseButton) {
@@ -1889,6 +1892,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 							}
 							event.resume();
 							if (event.result) {
+								if (event.result._sendskill) {
+									lib.skill[event.result._sendskill[0]] = event.result._sendskill[1];
+								}
 								if (event.result.skill) {
 									var info = get.info(event.result.skill);
 									if (info && info.chooseButton) {
@@ -7093,6 +7099,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 							node.textContent = num;
 							node.dataset.text = num;
 							node.nature = nature || 'soil';
+							node.dataset.nature = node.nature;
 							this.damagepopups.push(node);
 						}
 

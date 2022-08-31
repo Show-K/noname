@@ -1031,24 +1031,29 @@
     z-index: -1;
 }
 
-/* .player>.damage[data-nature='metal']::before { */
-	/* -webkit-text-stroke: 4px #FFCB00; */
-/* } */
-/* .player>.damage[data-nature='wood']::before { */
-	/* -webkit-text-stroke: 4px #5D832C; */
-/* } */
-/* .player>.damage[data-nature='water']::before { */
-	/* -webkit-text-stroke: 4px #355CA1; */
-/* } */
-/* .player>.damage[data-nature='fire']::before { */
-	/* -webkit-text-stroke: 4px #EE7F01; */
-/* } */
-/* .player>.damage[data-nature='soil']::before { */
-	/* -webkit-text-stroke: 4px #803B02; */
-/* } */
-/* .player>.damage[data-nature='thunder']::before { */
-	/* -webkit-text-stroke: 4px #644A8B; */
-/* } */
+.player>.damage[data-nature='metal']::before {
+	-webkit-text-stroke: 4px #FFCB00;
+}
+
+.player>.damage[data-nature='wood']::before {
+	-webkit-text-stroke: 4px #5D832C;
+}
+
+.player>.damage[data-nature='water']::before {
+	-webkit-text-stroke: 4px #355CA1;
+}
+
+.player>.damage[data-nature='fire']::before {
+	-webkit-text-stroke: 4px #EE7F01;
+}
+
+.player>.damage[data-nature='soil']::before {
+	-webkit-text-stroke: 4px #803B02;
+}
+
+.player>.damage[data-nature='thunder']::before {
+	-webkit-text-stroke: 4px #644A8B;
+}
 
 
 
