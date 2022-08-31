@@ -125,6 +125,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			];
 			var characters=[];
 			for(var name in lib.character){
+				if(['hhzz_shiona','hhzz_kanade','hhzz_takaramono1','hhzz_takaramono2'].contains(name)) continue;
 				if(!lib.character[name]) continue;
 				if(_status.connectMode&&!get.charactersOL().contains(name)) continue;
 				if(lib.filter.characterDisabled(name)) continue;
