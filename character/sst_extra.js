@@ -13,8 +13,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			}
 		},
 		character:{
-			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:support"]],
-			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:support"]],
+			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
+			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],[]],
 			sst_claude:["male","sst_spirit",3,["sst_yunchou","sst_guimou"],[]],
 			sst_geno:["male","sst_spirit",3,["sst_fuyuan","sst_xingjiang"],[]],
 			sst_duck_hunt:["male","sst_light",3,["sst_gonglie","sst_weishou"],[]],
@@ -26,7 +26,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
 			sst_roy:["male","sst_light",4,["sst_nuyan"],[]],
-			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],["type:unknown","frag:20","step:1","over:99"]]
+			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],[]]
 		},
 		characterFilter:{},
 		characterIntro:{

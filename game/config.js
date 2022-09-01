@@ -19,8 +19,8 @@ window.config={
 	all:{
 		sgscharacters:['sst_standard','sst_extra','sst_sp','sst_old'],
 		sgscards:['sst_standard','sst_extra','sst_sp','sst_land','standard','extra','sp','guozhan','zhulu','yingbian','yongjian'],
-		sgsmodes:['identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
-		stockmode:['identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
+		sgsmodes:['super_smash_tabletop','identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
+		stockmode:['super_smash_tabletop','identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
 		stockextension:['boss','cardpile','coin','wuxing'],
 		layout:['default','newlayout'],
 		theme:['woodden','music','simple'],

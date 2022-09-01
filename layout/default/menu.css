@@ -207,52 +207,29 @@
 	top: calc(50% - 208px);
 	animation: dialog_start2 0.3s;
 	-webkit-animation: dialog_start2 0.3s;
-}
-.menubg.characterstats>.text{
-	font-family: 'fzhtk';
+	display: grid;
+	column-gap: 18px;
+	grid-template-columns: 1fr 15% 15% 1fr;
+	grid-template-rows: 1fr 1fr;
 	font-size: 24px;
-	z-index: 2;
-	color: white;
-	text-shadow: black 0 0 3px;
-	height: 24px;
 	line-height: 24px;
-	pointer-events: none;
 }
-.menubg.characterstats>.text.fragstat{
-	right: 73.5%;
-	font-weight: bolder;
+.menubg.characterstats>div{
+	position: relative;
 }
-.menubg.characterstats>.text.frag{
-	right: 57%;
-	opacity: 0.6;
+.menubg.characterstats>div:nth-child(4n-3),
+.menubg.characterstats>div:nth-child(4n-2){
+	text-align: right;
 }
-.menubg.characterstats>.text.step{
-	left: 57%;
-	opacity: 0.6;
+.menubg.characterstats>div:nth-child(4n-2){
+	justify-self: left;
 }
-.menubg.characterstats>.text.stepstat{
-	left: 73.5%;
-	font-weight: bolder;
+.menubg.characterstats>div:nth-child(4n-1),
+.menubg.characterstats>div:nth-child(4n){
+	text-align: left;
 }
-.menubg.characterstats>.text.typestat{
-	bottom: 0%;
-	right: 73.5%;
-	font-weight: bolder;
-}
-.menubg.characterstats>.text.type{
-	bottom: 0%;
-	right: 57%;
-	opacity: 0.6;
-}
-.menubg.characterstats>.text.over{
-	bottom: 0%;
-	left: 57%;
-	opacity: 0.6;
-}
-.menubg.characterstats>.text.overstat{
-	bottom: 0%;
-	left: 73.5%;
-	font-weight: bolder;
+.menubg.characterstats>div:nth-child(4n-1){
+	justify-self: right;
 }
 /*New add end*/
 .menubg.charactercard>.menubutton.large.ava{

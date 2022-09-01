@@ -28,6 +28,7 @@ window.noname_package={
 		coin:'富甲天下'
 	},
 	mode:{
+		super_smash_tabletop:'大乱桌斗',
 		identity:'身份',
 		th_mougong:'谋攻',
 		guozhan:'国战',

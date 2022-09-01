@@ -48,6 +48,7 @@ window.noname_source_list=[
 	'layout/newlayout/global.css',
 	'layout/newlayout/layout.css',
 	'layout/nova/layout.css',
+	'mode/super_smash_tabletop.js',
 	'mode/doudizhu.js',
 	'mode/guozhan.js',
 	'mode/identity.js',
