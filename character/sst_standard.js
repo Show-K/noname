@@ -1,7 +1,7 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
-	var sst={
+	var sst_standard={
 		name:"sst_standard",
 		connect:true,
 		characterSort:{
@@ -14563,43 +14563,5 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			</ul>"
 		}
 	};
-	/*
-	for(var i in sst.character){
-		sst.character[i][4].push(i+".png");
-	}
-	*/
-	/*
-	if(lib.device||lib.node){
-		for(var i in sst.character){
-			sst.character[i][4].push("ext:大乱桌斗/"+i+".png");
-		}
-	}
-	else{
-		for(var i in sst.character){
-			sst.character[i][4].push("db:extension-大乱桌斗:"+i+".png");
-		}
-	}
-	*/
-	/*
-	if(lib.config.sst_zhuless){
-		for(var i in sst.character){
-			if(sst.character[i][4].indexOf("zhu")>-1) sst.character[i][4].splice(sst.character[i][4].indexOf("zhu"),1);
-		}
-	}
-	*/
-	/*
-	if(lib.config.sst_hidden){
-		for(var i in sst.character){
-			if(sst.character[i][4].indexOf("hiddenSkill")<0) sst.character[i][4].push("hiddenSkill");
-		}
-	}
-	if(lib.config.sst_compare!="4"){
-		lib.element.player.canCompare=function(target){
-			if(this==target) return false;
-			if(this.hasSkillTag("noCompareSource")||target.hasSkillTag("noCompareTarget")) return false;
-			return true;
-		};
-	}
-	*/
-	return sst;
+	return sst_standard;
 });

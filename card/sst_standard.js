@@ -1,6 +1,6 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
-	var sst={
+	var sst_standard={
 		name:"sst_standard",
 		connect:true,
 		card:{
@@ -184,5 +184,5 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 		},
 		list:[]
 	};
-	return sst;
+	return sst_standard;
 });
