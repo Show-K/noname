@@ -71,5 +71,7 @@ window.noname_update={
 		'game/asset.js',
 		'game/source.js',
 		'layout/default/menu.css',
+		'layout/mode/chess.css',
+		'layout/mode/story.css',
 	]
 };
