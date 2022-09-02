@@ -70,8 +70,6 @@ window.noname_update={
 		'game/package.js',
 		'game/asset.js',
 		'game/source.js',
-		'theme/style/hp/custom.css',
-		'theme/style/hp/emotion.css',
-		'theme/style/hp/image/shield.png',
+		'layout/default/menu.css',
 	]
 };

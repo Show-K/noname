@@ -10877,6 +10877,12 @@
 		},
 		translate:{
 			//New
+			attack:'攻击',
+			shield:'防御',
+			grab:'投掷',
+			neutral:'中立',
+			support:'辅助',
+			overdrive:'过载',
 			braces:'｛｝',
 			pileTop:'牌堆顶',
 			pileBottom:'牌堆底',
@@ -50882,14 +50888,14 @@
 				}
 				//New add
 				var characterstats=ui.create.div('.menubg.characterstats',layer);
-				ui.create.div('',get.characterStatTranslation(get.characterStat(name,'type')),characterstats);
+				ui.create.div('',get.translation(get.characterStat(name,'type')),characterstats);
 				ui.create.div('','TYP',characterstats,{opacity:0.6});
-				ui.create.div('','PWR',characterstats,{opacity:0.6});
-				ui.create.div('',get.characterStatTranslation(get.characterStat(name,'power')).toString(),characterstats);
-				ui.create.div('',get.characterStatTranslation(get.characterStat(name,'attack')).toString(),characterstats);
+				ui.create.div('','PRI',characterstats,{opacity:0.6});
+				ui.create.div('',get.characterStat(name,'primary').toString(),characterstats);
+				ui.create.div('',get.characterStat(name,'attack').toString(),characterstats);
 				ui.create.div('','ATK',characterstats,{opacity:0.6});
 				ui.create.div('','DEF',characterstats,{opacity:0.6});
-				ui.create.div('',get.characterStatTranslation(get.characterStat(name,'defense')).toString(),characterstats);
+				ui.create.div('',get.characterStat(name,'defense').toString(),characterstats);
 				//New add end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
 				var playerbg=ui.create.div('.menubutton.large.ava',uiintro);
@@ -52158,25 +52164,13 @@
 				for(var i of lib.character[name][4]){
 					if(i.indexOf(key+':')==0){
 						var value=i.split(':').slice(1);
-						if(key=='power'||key=='attack'||key=='defense') return parseInt(value);
+						if(key=='primary'||key=='attack'||key=='defense') return parseFloat(value);
 						return value;
 					}
 				}
 			}
-		},
-		/**
-		 * Get character stat translation
-		 * @param value 
-		 */
-		characterStatTranslation:function(value){
-			if(value=='attack') return '攻击';
-			if(value=='shield') return '防御';
-			if(value=='grab') return '投掷';
-			if(value=='neutral') return '无';
-			if(value=='support') return '辅助';
-			if(value=='unknown') return '???';
-			if(value=='overdrive') return '过载';
-			if(typeof value=='number') return value*4/10000;
+			if(key=='primary'||key=='attack'||key=='defense') return 0;
+			return '';
 		},
 		//New add end
 		connectNickname:function(){
