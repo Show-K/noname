@@ -1,13 +1,13 @@
 window.noname_update={
-	version:'1.9.115',
-	update:'1.9.114.4.1',
+	version:'1.9.115.1',
+	update:'1.9.115',
 	changeLog:[
 		'弃置外牌打出双赢 头巾瓦豆鲁迪',
 		'星盾限伤施法骗局 魔法洛亚',
 		'怒气强化火炎直伤 罗伊',
+		'（实验）不来方夕莉、加侬多夫、Sans调整',
 		'代码优化',
-		'bug修复',
-		'其他'
+		'技能调整与bug修复'
 	],
 	files:[
 		'card/sst_standard.js',

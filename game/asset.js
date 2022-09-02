@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.115',
+	'v1.9.115.1',
 	
 	'audio/card/default.mp3',
 	
@@ -182,11 +182,14 @@ window.noname_asset_list=[
 	'audio/effect/equip4.mp3',
 	'audio/effect/equip5.mp3',
 	'audio/effect/equip6.mp3',
+	'audio/effect/ignotus.mp3',
 	'audio/effect/judge.mp3',
 	'audio/effect/link.mp3',
 	'audio/effect/lose.mp3',
 	'audio/effect/loseHp.mp3',
 	'audio/effect/recover.mp3',
+	'audio/effect/sm3dw_overworld.mp3',
+	'audio/effect/taketori_hishou.mp3',
 	'audio/effect/throw_egg1.mp3',
 	'audio/effect/throw_egg2.mp3',
 	'audio/effect/throw_flower1.mp3',
@@ -196,9 +199,8 @@ window.noname_asset_list=[
 	'audio/effect/throw_wine1.mp3',
 	'audio/effect/throw_wine2.mp3',
 	'audio/effect/tie.mp3',
-	'audio/effect/win.mp3',
 	'audio/effect/tori_no_uta.mp3',
-	'audio/effect/taketori_hishou.mp3',
+	'audio/effect/win.mp3',
 
 	'audio/skill/bagua_skill.mp3',
 	'audio/skill/baiyin_skill.mp3',

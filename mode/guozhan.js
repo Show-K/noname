@@ -1097,6 +1097,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								list[i].setIdentity();
 							}
 						},yelist,player.group);
+						game.tryResult();
 					}
 					else event.finish();
 					'step 2'
