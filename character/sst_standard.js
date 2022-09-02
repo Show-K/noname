@@ -13194,6 +13194,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(control!=-1){
 						control++;
 						player.storage.sst_liedui=control;
+						player.markSkill("sst_liedui");
 						var zeroToTwentyAsCircledNumber=function(n){
 							if(n===0){
 								return String.fromCharCode(9450);
