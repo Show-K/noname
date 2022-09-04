@@ -5266,6 +5266,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).length-1>0){
 						player.turnOver();
 						player.removeSkill(event.name);
+						player.popup(event.name,"fire");
 						game.log(player,"失去了技能","#g【金甲】");
 						event.finish();
 					}
@@ -6260,6 +6261,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.removeSkill("sst_geliao_effect");
 					player.removeAdditionalSkill("sst_geliao_effect");
 					if(!player.hasSkill("sst_xiangle")){
+						player.popup("sst_xiangle","fire");
 						game.log(player,"失去了技能","#g【享乐】");
 					}
 					var players=game.filterPlayer(function(current){
@@ -6268,6 +6270,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<players.length;i++){
 						players[i].removeAdditionalSkill("sst_geliao_effect");
 						if(!players[i].hasSkill("sst_xiangle")){
+							players[i].popup("sst_xiangle","fire");
 							game.log(players[i],"失去了技能","#g【享乐】");
 						}
 					}
@@ -7532,7 +7535,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						list.push(["装备","",name]);
 					}
 					if(list.length){
-						player.chooseButton(["绮裳：视为你装备一张装备牌",[list,"vcard"]],true).set("filterButton",function(button){
+						player.chooseButton(["绮裳：视为装备一张装备牌",[list,"vcard"]],true).set("filterButton",function(button){
 							var player=_status.event.player;
 							var card={name:button.link[2],isCard:true};
 							return lib.filter.targetEnabled3(card,player,player);
@@ -8953,7 +8956,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					trigger.getParent().set("sst_liaoyi",true);
 					"step 1"
 					event.cardName=get.name(trigger.card);
-					player.chooseTarget("聊依：指定一名男性角色，其可以打出一张"+get.translation(event.cardName)+"，若其如此做，视为你"+(trigger.name=="useCard"?"使用":"打出")+"一张"+get.translation(event.cardName)+"，然后其获得你一张牌",function(card,player,target){
+					player.chooseTarget("聊依：指定一名男性角色，其可以打出一张"+get.translation(event.cardName)+"，若其如此做，视为"+(trigger.name=="useCard"?"使用":"打出")+"一张"+get.translation(event.cardName)+"，然后其获得你一张牌",function(card,player,target){
 						return target.hasSex("male");
 					},true).set("ai",function(target){
 						var player=_status.event.player;
@@ -11739,6 +11742,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.delayx();
 					"step 2"
 					player.removeSkill("sst_jiliu");
+					player.popup("sst_jiliu","fire");
 					game.log(player,"失去了技能","#g【激流】");
 					player.addSkillLog("sst_maosheng");
 					game.delayx();
@@ -11799,6 +11803,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.link) game.delayx();
 					"step 4"
 					player.removeSkill("sst_maosheng");
+					player.popup("sst_maosheng","fire");
 					game.log(player,"失去了技能","#g【茂盛】");
 					player.addSkillLog("sst_menghuo");
 					game.delayx();
@@ -11837,6 +11842,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.removeSkill("sst_menghuo");
+					player.popup("sst_menghuo","fire");
 					game.log(player,"失去了技能","#g【猛火】");
 					player.addSkillLog("sst_jiliu");
 					game.delayx();
@@ -14033,7 +14039,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整，若为0则无需弃置牌），然后你可以于伤害来源的下个回合内发动〖任情〗。",
 			sst_canyun:"残云",
 			sst_canyun_effect:"残云",
-			sst_canyun_info:"出牌阶段，你可以弃置一张牌（不得与本回合以此法弃置过的牌的花色相同），令所有角色本回合不能使用或打出与此牌花色相同的牌，然后视为你使用一张【决斗】。",
+			sst_canyun_info:"出牌阶段，你可以弃置一张牌（不得与本回合以此法弃置过的牌的花色相同），令所有角色本回合不能使用或打出与此牌花色相同的牌，然后视为使用一张【决斗】。",
 			sst_douhun:"斗魂",
 			sst_douhun_effect:"斗魂",
 			sst_douhun_effect_sha:"斗魂",
@@ -14098,7 +14104,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shenglong:"升龙",
 			sst_shenglong_info:"锁定技，与你距离最近的其他角色不能响应你使用的牌。",
 			sst_zhamou:"诈谋",
-			sst_zhamou_info:"出牌阶段限一次，你可以令一名其他角色弃置你一张手牌，若为黑色，视为你对其使用一张任意普通锦囊牌，然后你选择一项：1. 收回此牌；2. 令此技能视为此出牌阶段未发动过。",
+			sst_zhamou_info:"出牌阶段限一次，你可以令一名其他角色弃置你一张手牌，若为黑色，视为对其使用一张任意普通锦囊牌，然后你选择一项：1. 收回此牌；2. 令此技能视为此出牌阶段未发动过。",
 			sst_zhuzai:"主宰",
 			sst_zhuzai2:"主宰",
 			sst_zhuzai3:"主宰",
@@ -14115,9 +14121,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_qichang:"绮裳",
 			sst_qichang_effect:"绮裳",
 			sst_qichang_effect2:"绮裳",
-			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后视为你装备了一张你声明的装备牌（【木牛流马】除外，不可替换原有装备），直到你的下回合开始。",
+			sst_qichang_info:"准备阶段，你可以令你本回合手牌上限-1，然后视为装备了一张你声明的装备牌（【木牛流马】除外，不可替换原有装备），直到你的下回合开始。",
 			sst_qichang_faq:"*",
-			sst_qichang_faq_info:"准备阶段，你可以令你本回合手牌上限-1，然后视为你装备一张装备牌（【木牛流马】除外，不可替换原有装备，不能弃置，被弃置或获得）。若如此做，你的回合开始时或失去此牌后，销毁之。",
+			sst_qichang_faq_info:"准备阶段，你可以令你本回合手牌上限-1，然后视为装备一张装备牌（【木牛流马】除外，不可替换原有装备，不能弃置，被弃置或获得）。若如此做，你的回合开始时或失去此牌后，销毁之。",
 			sst_shizhu:"拾珠",
 			sst_shizhu_info:"弃牌阶段，你可以令一名其他角色弃置与你数量相同的牌，或其他角色的弃牌阶段，你可以弃置与其等量的牌；然后你可以从此阶段进入弃牌堆的牌中选择任意张对你或其使用。",
 			sst_shizhu_faq:"*",
@@ -14154,7 +14160,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_daoxin:"盗心",
 			sst_daoxin_info:"锁定技，你使用带有「伤害」标签的牌指定目标后，目标角色摸一张牌，然后若其手牌数不小于你，你观看其手牌并获得所有红色牌。",
 			sst_fanni:"反逆",
-			sst_fanni_info:"出牌阶段限一次，你可以调换体力值与手牌数，若体力因此超出上限，防止超出上限的数值并视为你依次使用等量张【杀】。",
+			sst_fanni_info:"出牌阶段限一次，你可以调换体力值与手牌数，若体力因此超出上限，防止超出上限的数值并视为依次使用等量张【杀】。",
 			sst_qianban:"牵绊",
 			sst_qianban2:"牵绊",
 			sst_qianban3:"牵绊",
@@ -14171,9 +14177,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_liaoyi:"聊依",
 			sst_liaoyi1:"聊依·杀",
 			sst_liaoyi2:"聊依·闪",
-			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，视为你使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
-			sst_liaoyi1_info:"当你需要使用或打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为你使用或打出一张【杀】，然后其获得你一张牌。",
-			sst_liaoyi2_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为你使用或打出一张【闪】，然后其获得你一张牌。",
+			sst_liaoyi_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张【杀】/【闪】并指定一名男性角色，其可以打出一张【杀】/【闪】，若其如此做，视为使用或打出一张【杀】/【闪】，然后其获得你一张牌。",
+			sst_liaoyi1_info:"当你需要使用或打出一张【杀】时，你可以展示一张【杀】并指定一名男性角色，其可以打出一张【杀】，若其如此做，视为使用或打出一张【杀】，然后其获得你一张牌。",
+			sst_liaoyi2_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为使用或打出一张【闪】，然后其获得你一张牌。",
 			sst_shuanghan:"霜寒",
 			sst_shuanghan_info:"你使用牌指定其他角色为目标时，若其手牌数不小于你，你可以令此牌对其无效，改为弃置其区域内两张牌。",
 			sst_qianlong:"潜龙",
@@ -14301,7 +14307,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_congyun:"丛云",
 			sst_congyun_info:"出牌阶段限一次，你可以视为使用一张【火攻】。",
 			sst_fuzhuo:"祓濯",
-			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，视为你依次使用X张火【杀】。（X为你已损失的体力值）",
+			sst_fuzhuo_info:"当你造成火焰伤害后，你可以摸一张牌；每回合限一次，若此时是你的出牌阶段，视为依次使用X张火【杀】。（X为你已损失的体力值）",
 			sst_shangzheng:"商政",
 			sst_shangzheng2:"商政",
 			sst_shangzheng_info:"一名其他角色的出牌阶段限一次，若其本阶段已使用过【杀】，其可以交给你一张其此时不能使用的牌，然后你可以令其获得除其外与其距离最近的角色一张牌。",

@@ -1386,6 +1386,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<players.length;i++){
 						player.line(players[i],"green");
 						players[i].removeSkill("sst_junce");
+						player.popup("sst_junce","fire");
 						game.log(players[i],"失去了技能","#g【军策】");
 						players[i].draw(2);
 					}

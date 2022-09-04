@@ -7843,7 +7843,13 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						if (totalW > limitW) {
 							xMargin = csw - Math.abs(limitW - csw * cards.length) / (cards.length - 1);
 							if (lib.config.fold_card) {
-								var min = 27 * cs;
+								var foldCardMinWidth = lib.config['extension_十周年UI_foldCardMinWidth'];
+								var min = cs;
+								if (foldCardMinWidth == 'cardWidth') {
+									min *= cw;
+								} else {
+									min *= (foldCardMinWidth && foldCardMinWidth.length ? parseInt(foldCardMinWidth) : 81);
+								}
 								if (xMargin < min) {
 									expand = true;
 									xMargin = min;
@@ -9945,6 +9951,27 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			closeWhenChess: {
 				name: '战棋模式关闭UI',
 				init: false,
+			},
+			foldCardMinWidth: {
+				name: '折叠手牌最小宽度',
+				intro: '设置当手牌过多时，折叠手牌露出部分的最小宽度（默认为81）',
+				init: '81',
+				item: {
+					'9': '9',
+					'18': '18',
+					'27': '27',
+					'36': '36',
+					'45': '45',
+					'54': '54',
+					'63': '63',
+					'72': '72',
+					'81': '81',
+					'90': '90',
+					'cardWidth': '卡牌宽度'
+				},
+				update: function () {
+					if (window.decadeUI) decadeUI.layout.updateHand();
+				}
 			}
 		},
 		package: {
@@ -9970,13 +9997,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			intro: (function () {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
-					'当前版本：1.2.0.220114.11SST（Show-K修复版）',
+					'当前版本：1.2.0.220114.12SST（Show-K修复版）',
 					'更新日期：2022-09-03',
-					'- 修复了减体力上限至负数会报错的异常。',
-					'- 修复了转换技标记在黄色/红色的人物标记样式下无法旋转的异常。',
-					'- 优化了图片标记的显示效果（举例：护甲）。',
-					'- 修复了古锭刀特效出现在武将牌下方的异常。',
-					'- 修复了chooseToRespond事件的AI操作逻辑（举例：神马超〖狩骊〗）',
+					'- 现在可以设置折叠手牌最小宽度了，且默认值修改为81。',
+					'- 为牌名辅助显示的文字增加了背景颜色，使之更容易阅读。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
@@ -9996,7 +10020,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			author: "短歌 QQ464598631<br>(Show-K未经允许修改)",
 			diskURL: "",
 			forumURL: "",
-			version: "1.2.0.220114.11SST",
+			version: "1.2.0.220114.12SST",
 		},
 		files: {
 			"character": [],

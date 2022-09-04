@@ -2561,7 +2561,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_wanxie:"万械",
 			xsj_wanxie_info:"当武器牌进入弃牌堆后，你可以打出一张牌，然后获得武器牌。",
 			xsj_moxue:"魔血",
-			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为你使用一张【决斗】。",
+			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为使用一张【决斗】。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",

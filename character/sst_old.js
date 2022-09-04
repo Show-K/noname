@@ -2886,7 +2886,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					},
 					prompt:function(links,player){
-						return "将武将牌上的一张牌置于牌堆顶，视为你使用一张"+get.translation(links[0][2]);
+						return "将武将牌上的一张牌置于牌堆顶，视为使用一张"+get.translation(links[0][2]);
 					},
 				},
 				ai:{
@@ -4111,7 +4111,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_ymk_guimou3:"鬼谋",
 			old_ymk_guimou4:"鬼谋",
 			old_ymk_guimou5:"鬼谋",
-			old_ymk_guimou_info:"当你需要使用或打出一张基本牌或普通锦囊牌时，你可以将武将牌上的一张牌置于牌堆顶，视为你使用或打出这张牌。",
+			old_ymk_guimou_info:"当你需要使用或打出一张基本牌或普通锦囊牌时，你可以将武将牌上的一张牌置于牌堆顶，视为使用或打出这张牌。",
 			old_sst_baochui:"爆锤",
 			old_sst_baochui2:"爆锤",
 			old_sst_baochui3:"爆锤",
