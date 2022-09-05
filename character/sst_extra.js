@@ -1364,6 +1364,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					player.addSkillLog("sst_hanmang");
 					player.addSkillLog("sst_cuifeng");
+					game.delayx();
 				}
 			},
 			//Robin

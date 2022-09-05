@@ -1801,7 +1801,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							},
 							selectTarget:2,
 							multitarget:true,
-							targetprompt:["<span class=\"firetext\">使用者</span>","<span class=\"bluetext\">使用目标</span>"],
+							targetprompt:["使用者","使用目标"],
 							complexTarget:true,
 							cards:links,
 							delay:false,

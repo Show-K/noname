@@ -5122,57 +5122,59 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				forceDie:true,
 				content:function(){
 					"step 0"
-					event.players=game.filterPlayer(function(current){
-						return current!=player&&current.hasSkill("sst_xinghuo");
-					}).sortBySeat(_status.currentPhase);
-					event.num=0;
+					event.targeted=[];
 					"step 1"
-					if(event.num<event.players.length){
-						event.num1=1;
-						event.num2=1;
-						var controls=["draw_card"];
-						if(event.players[event.num].getDamagedHp()){
-							event.num2=Math.min(event.num2,event.players[event.num].maxHp-event.players[event.num].hp);
-							controls.push("recover_hp");
-						}
-						controls.push("cancel2");
-						var prompt="";
-						if(event.players[event.num].isHealthy()){
-							prompt+="你可以令"+get.translation(event.players[event.num])+"摸一张牌";
-						}
-						else{
-							prompt+="你可以令"+get.translation(event.players[event.num])+"摸一张牌或回复1点体力";
-						}
-						player.chooseControl(controls).set("forceDie",true).set("prompt",get.prompt("sst_xinghuo",event.players[event.num])).set("prompt2",prompt).set("ai",function(){
-							var player=_status.event.player;
-							var target=_status.event.targetx;
-							var num1=_status.event.num1;
-							var num2=_status.event.num2;
-							if(get.attitude(player,target)<=0) return "cancel2";
-							if(target.isDamaged()&&get.recoverEffect(target)>0&&(
-								target.hp==1||target.needsToDiscard()||
-								target.hasSkillTag("maixie_hp")||num2>num1||
-								(num2==num1&&target.needsToDiscard(1))
-							)){
-								return "recover_hp";
-							}
-							else{
-								return "draw_card";
-							}
-						}).set("targetx",event.players[event.num]).set("num1",event.num1).set("num2",event.num2);
+					var players=game.filterPlayer(function(current){
+						return current!=player&&!event.targeted.contains(current)&&current.hasSkill("sst_xinghuo");
+					}).sortBySeat(_status.currentPhase);
+					if(players.length){
+						event.current=players[0];
+						event.targeted.push(event.current);
 					}
 					else{
 						event.finish();
 					}
 					"step 2"
-					if(result.control!="cancel2"){
-						//event.players[event.num].logSkill("sst_xinghuo");
-						player.logSkill("sst_xinghuo",event.players[event.num]);
-						if(result.control=="draw_card"){
-							event.players[event.num].draw(event.num1);
+					event.num1=1;
+					event.num2=1;
+					var controls=["draw_card"];
+					if(event.current.getDamagedHp()){
+						event.num2=Math.min(event.num2,event.current.maxHp-event.current.hp);
+						controls.push("recover_hp");
+					}
+					controls.push("cancel2");
+					var prompt="";
+					if(event.current.isHealthy()){
+						prompt+="你可以令"+get.translation(event.current)+"摸一张牌";
+					}
+					else{
+						prompt+="你可以令"+get.translation(event.current)+"摸一张牌或回复1点体力";
+					}
+					player.chooseControl(controls).set("forceDie",true).set("prompt",get.prompt("sst_xinghuo",event.current)).set("prompt2",prompt).set("ai",function(){
+						var player=_status.event.player;
+						var target=_status.event.getParent().current;
+						var num1=_status.event.num1;
+						var num2=_status.event.num2;
+						if(get.attitude(player,target)<=0) return "cancel2";
+						if(target.isDamaged()&&get.recoverEffect(target)>0&&(
+							target.hp==1||target.needsToDiscard()||
+							target.hasSkillTag("maixie_hp")||num2>num1||
+							(num2==num1&&target.needsToDiscard(1))
+						)){
+							return "recover_hp";
 						}
 						else{
-							event.players[event.num].recover(event.num2,"nocard");
+							return "draw_card";
+						}
+					}).set("num1",event.num1).set("num2",event.num2);
+					"step 3"
+					if(result.control!="cancel2"){
+						player.logSkill("sst_xinghuo",event.current);
+						if(result.control=="draw_card"){
+							event.current.draw(event.num1);
+						}
+						else{
+							event.current.recover(event.num2,"nocard");
 						}
 						event.num++;
 						event.goto(1);
@@ -5249,6 +5251,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					})) game.delayx();
 				},
 				ai:{
+					threaten:2,
 					expose:0.2
 				}
 			},
@@ -5404,14 +5407,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				derivation:["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"],
 				zhuanhuanji:function(player,skill){
+					var fullRotation=false;
 					if(player.storage[skill]<3){
 						player.storage[skill]++;
 					}
 					else{
+						fullRotation=true;
 						player.storage[skill]=1;
-						player.drawTo(player.getHandcardLimit());
 					}
 					player.markSkill(skill);
+					if(fullRotation) player.drawTo(player.getHandcardLimit());
 				},
 				locked:false,
 				forced:true,
@@ -5446,13 +5451,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					event.skill=["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1];
-					trigger.source.chooseBool("血轮：是否获得"+get.translation(event.skill)+"？").set("ai",()=>true);
+					event.current=["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1];
+					trigger.source.chooseBool("血轮：是否获得"+get.translation(event.current)+"？").set("ai",()=>true);
 					"step 1"
 					if(result.bool){
-						trigger.source.addTempSkill(event.skill,{player:event.skill+"After"});
-						trigger.source.popup(event.skill,"thunder");
-						game.log(trigger.source,"获得了技能","#g【"+get.translation(event.skill)+"】");
+						trigger.source.addAdditionalSkill("sst_xuelun",event.current,true);
+						trigger.source.addSkill("sst_xuelun_effect");
+						trigger.source.popup(event.current,"thunder");
+						game.log(trigger.source,"获得了技能","#g【"+get.translation(event.current)+"】");
 					}
 					else{
 						game.log(trigger.source,"拒绝了",player,"的请求");
@@ -5462,6 +5468,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					expose:0.2
+				}
+			},
+			sst_xuelun_effect:{
+				charlotte:true,
+				silent:true,
+				trigger:{player:["sst_shengxi_qiongtuAfter","sst_shengxi_shengfaAfter","sst_shengxi_yonghunAfter"]},
+				filter:function(event,player){
+					if(!player.additionalSkills.sst_xuelun) return false;
+					if(!player.hasHistory("useSkill",function(evt){
+						return evt.skill==event.name&&evt.event==event;
+					})) return false;
+					return true;
+				},
+				content:function(){
+					player.removeAdditionalSkill("sst_xuelun",trigger.name);
+					if(player.additionalSkills.sst_xuelun){
+						var additionalSkills=player.additionalSkills.sst_xuelun;
+						if(Array.isArray(additionalSkills)&&!additionalSkills.length) player.removeSkill("sst_xuelun_effect");
+					}
+					else{
+						player.removeSkill("sst_xuelun_effect");
+					}
 				}
 			},
 			//Red
@@ -9812,7 +9840,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Corrin
 			sst_juelu:{
 				intro:{
-					content:function(storage,player){
+					content:function(storage){
 						var str="标记的身份："+get.translation(storage+"2")+"<br>";
 						var players=game.filterPlayer();
 						var num=1;
@@ -9825,6 +9853,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 						str+=get.translation(storage+"2")+"人数排名："+num;
 						return str;
+					},
+					markcount:function(storage){
+						var players=game.filterPlayer();
+						var num=1;
+						var list=[];
+						for(var i=0;i<players.length;i++){
+							if(!list.contains(players[i].identity)) list.push(players[i].identity);
+						}
+						for(var i=0;i<list.length;i++){
+							if(get.population(list[i])>get.population(storage)) num++;
+						}
+						return num;
 					}
 				},
 				trigger:{
@@ -13673,22 +13713,22 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengxi:function(player){
 				if(typeof player.storage.sst_shengxi!="number") return "转换技，你视为拥有<span class=\"bluetext\">①〖茕途〗</span>②〖圣罚〗③〖勇魂〗，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。";
 				var str="转换技，你视为拥有";
-				var switchSkill=["①〖茕途〗","②〖圣罚〗","③〖勇魂〗"][player.storage.sst_shengxi-1];
-				str+="①〖茕途〗"==switchSkill?"<span class=\"bluetext\">"+"①〖茕途〗"+"</span>":"①〖茕途〗";
-				str+="②〖圣罚〗"==switchSkill?"<span class=\"bluetext\">"+"②〖圣罚〗"+"</span>":"②〖圣罚〗";
-				str+="③〖勇魂〗"==switchSkill?"<span class=\"bluetext\">"+"③〖勇魂〗"+"</span>":"③〖勇魂〗";
+				var rotativeSkill=["①〖茕途〗","②〖圣罚〗","③〖勇魂〗"][player.storage.sst_shengxi-1];
+				str+="①〖茕途〗"==rotativeSkill?"<span class=\"bluetext\">"+"①〖茕途〗"+"</span>":"①〖茕途〗";
+				str+="②〖圣罚〗"==rotativeSkill?"<span class=\"bluetext\">"+"②〖圣罚〗"+"</span>":"②〖圣罚〗";
+				str+="③〖勇魂〗"==rotativeSkill?"<span class=\"bluetext\">"+"③〖勇魂〗"+"</span>":"③〖勇魂〗";
 				str+="，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。";
 				return str;
 			},
 			sst_liedui:function(player){
 				if(typeof player.storage.sst_liedui!="number") return "转换技，当你需要使用一张<span class=\"bluetext\">①【杀】</span>②【闪】③【桃】④【酒】⑤【无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。";
 				var str="转换技，当你需要使用一张";
-				var switchSkill=["①【杀】","②【闪】","③【桃】","④【酒】","⑤【无懈可击】"][player.storage.sst_liedui-1];
-				str+="①【杀】"==switchSkill?"<span class=\"bluetext\">"+"①【杀】"+"</span>":"①【杀】";
-				str+="②【闪】"==switchSkill?"<span class=\"bluetext\">"+"②【闪】"+"</span>":"②【闪】";
-				str+="③【桃】"==switchSkill?"<span class=\"bluetext\">"+"③【桃】"+"</span>":"③【桃】";
-				str+="④【酒】"==switchSkill?"<span class=\"bluetext\">"+"④【酒】"+"</span>":"④【酒】";
-				str+="⑤【无懈可击】"==switchSkill?"<span class=\"bluetext\">"+"⑤【无懈可击】"+"</span>":"⑤【无懈可击】";
+				var rotativeSkill=["①【杀】","②【闪】","③【桃】","④【酒】","⑤【无懈可击】"][player.storage.sst_liedui-1];
+				str+="①【杀】"==rotativeSkill?"<span class=\"bluetext\">"+"①【杀】"+"</span>":"①【杀】";
+				str+="②【闪】"==rotativeSkill?"<span class=\"bluetext\">"+"②【闪】"+"</span>":"②【闪】";
+				str+="③【桃】"==rotativeSkill?"<span class=\"bluetext\">"+"③【桃】"+"</span>":"③【桃】";
+				str+="④【酒】"==rotativeSkill?"<span class=\"bluetext\">"+"④【酒】"+"</span>":"④【酒】";
+				str+="⑤【无懈可击】"==rotativeSkill?"<span class=\"bluetext\">"+"⑤【无懈可击】"+"</span>":"⑤【无懈可击】";
 				str+="时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。";
 				return str;
 			}
