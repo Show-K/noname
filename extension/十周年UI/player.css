@@ -611,7 +611,7 @@
     margin-right: 0;
 	margin-bottom: 5px;
 	width: 18px;
-	height: 18px;
+	height: auto;
 	border-radius: 0;
 	font-family: fzhtk;
 	box-shadow:  none;

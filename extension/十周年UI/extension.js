@@ -714,22 +714,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								game.linexy([x1, y1, x2, y2], config, true);
 							}
 						};
-						Player.prompt = function (str, nature) {
-							var node;
-							if (this.node.prompt) {
-								node = this.node.prompt;
-								node.innerHTML = '';
-								node.className = 'damage normal-font damageadded';
-							} else {
-								node = ui.create.div('.damage.normal-font', this);
-								this.node.prompt = node;
-								ui.refresh(node);
-								node.classList.add('damageadded');
-							}
-							node.innerHTML = str;
-							node.dataset.text = str;
-							node.dataset.nature = nature || 'soil';
-						};
 						Player.checkBoundsCache = function (forceUpdate) {
 							var update;
 							var refer = dui.boundsCaches.arena;
@@ -7100,6 +7084,23 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						}
 					};
 
+					lib.element.player.prompt = function (str, nature) {
+						var node;
+						if (this.node.prompt) {
+							node = this.node.prompt;
+							node.innerHTML = '';
+							node.className = 'damage normal-font damageadded';
+						} else {
+							node = ui.create.div('.damage.normal-font', this);
+							this.node.prompt = node;
+							ui.refresh(node);
+							node.classList.add('damageadded');
+						}
+						node.innerHTML = str;
+						node.dataset.text = str;
+						node.dataset.nature = nature || 'soil';
+					};
+
 					lib.element.player.$damagepop = function (num, nature, font, nobroadcast) {
 						if (typeof num == 'number' || typeof num == 'string') {
 							game.addVideo('damagepop', this, [num, nature, font]);
@@ -10018,6 +10019,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					'- 现在可以设置折叠手牌最小宽度了，且默认值修改为81。',
 					'- 为牌名辅助显示的文字增加了背景颜色，使之更容易阅读。',
 					'- 修复了targetprompt无描边的异常（举例：【借刀杀人】）。',
+					'- 修复了若游戏本体路径包含半角括号，觉醒技/限定技特效等不显示的异常。',
+					'- 将拼点对话框等对话框的z-index调低，使之不会遮挡游戏牌。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
