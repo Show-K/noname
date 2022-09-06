@@ -1986,7 +1986,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				zhuSkill:true,
 				logTarget:"player",
 				check:function(event,player){
-					return Math.cbrt(get.damageEffect(event.player,player,player))+get.attitude(player,event.player);
+					return get.damageEffect(event.player,player,player)+Math.cbrt(get.attitude(player,event.player));
 				},
 				content:function(){
 					"step 0"
@@ -9301,7 +9301,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.goon){
 						str="光炮：是否展示手牌并摸一张牌？";
 					}
-					player.chooseBool(str).set("frequentSkill","sst_guangpao");
+					player.chooseBool(str).set("ai",()=>true);
 					"step 3"
 					if(result.bool&&event.goon){
 						player.showHandcards();
@@ -13121,8 +13121,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					if(!Array.isArray(player.storage.sst_xiongli)) return false;
-					return (player.storage.sst_xiongli.contains("sst_xiongli_first")&&lib.skill.sst_xiongli_effect.isMin(player,player))||(player.storage.sst_xiongli.contains("sst_xiongli_second")&&player.isMinHp())||(player.storage.sst_xiongli.contains("sst_xiongli_third")&&player.isMinEquip());
+					return game.hasPlayer(function(current){
+						if(!Array.isArray(current.storage.sst_xiongli)) return false;
+						return (current.storage.sst_xiongli.contains("sst_xiongli_first")&&lib.skill.sst_xiongli_effect.isMin(current,player))||(current.storage.sst_xiongli.contains("sst_xiongli_second")&&player.isMinHp())||(current.storage.sst_xiongli.contains("sst_xiongli_third")&&player.isMinEquip());
+					});
 				},
 				content:function(){
 					"step 0"
@@ -13141,7 +13143,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.draw();
 				},
 				ai:{
-					combo:"sst_xiongli",
 					expose:0.2
 				}
 			},
@@ -14391,13 +14392,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_jiangshang:"奖赏",
 			sst_jiangshang_info:"锁定技，一张装备牌置入你的装备区时，你弃置之并摸两张牌。",
 			sst_xiongli:"凶戾",
+			sst_xiongli_animation:"逆袭",
 			sst_xiongli_info:"锁定技，每轮游戏开始时，你选择一个与上轮不同的条件：<br>\
 			1. 本轮造成伤害唯一最少的角色；<br>\
 			2. 体力唯一最少的角色；<br>\
 			3. 装备唯一最少的角色。<br>\
 			下一轮游戏开始你杀死该角色。",
 			sst_nixi:"逆袭",
-			sst_nixi_animation:"逆袭",
 			sst_nixi_info:"结束阶段，若你满足本轮〖凶戾〗的条件（可不为唯一），你可以对一名角色造成1点伤害并摸一张牌。",
 			sst_liedui:"列队",
 			sst_liedui_info:"转换技，当你需要使用一张①【杀】②【闪】③【桃】④【酒】⑤【无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。",
