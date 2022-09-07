@@ -119,7 +119,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],[]],
 			sst_kazuya:["male","sst_dark",5,["sst_chouyu","sst_xuehai"],[]],
 			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],[]],
-			sst_sora:["male","sst_light",3,["sst_qixin","sst_gongcun"],[]],
+			sst_sora:["male","sst_light",4,["sst_qixin","sst_gongcun"],[]],
 			sst_pac_man:["male","sst_light",3,["sst_jichang"],[]],
 			sst_mewtwo:["none","sst_dark",3,["sst_xiongli","sst_nixi"],[]],
 			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],[]],
@@ -3354,7 +3354,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_shenjiao",result.targets);
-						player.give(event.cards,result.targets[0]);
+						player.give(event.cards,result.targets[0],true);
 						if(trigger.getParent(2).name=="sst_potian"){
 							result.targets[0].addTempSkill("sst_shenjiao_effect",{player:"phaseBeginStart"});
 							//result.targets[0].markSkillCharacter("sst_shenjiao_effect",player,"身教","下一个回合内拥有【破天】");
