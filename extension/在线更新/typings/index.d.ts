@@ -85,13 +85,9 @@ declare interface LibConfigData {
 
 declare interface Lib {
 	updateURLS: {
-		coding: "https://nakamurayuri.coding.net/p/noname/d/noname/git/raw",
-		fastgit: "https://raw.fastgit.org/libccy/noname",
-		github: "https://raw.githubusercontent.com/libccy/noname",
-		/** 感谢寰宇星城 */
-		xuanwu: "https://kuangthree.coding.net/p/nonamexwjh/d/nonamexwjh/git/raw",
-		/** 感谢Show-K */
-		URC: "http://123.56.240.30",
+		coding: "http://123.56.240.30/Show-K/noname/super-smash-tabletop",
+		fastgit: "https://raw.fastgit.org/Show-K/noname/super-smash-tabletop",
+		github: "https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop",
 	},
 }
 
@@ -126,22 +122,18 @@ declare interface Game {
 	 * @param translate 默认为{
 		coding: 'Coding',
 		github: 'GitHub',
-		fastgit: 'GitHub镜像',
-		xuanwu: '玄武镜像',
-		URC: 'URC'
+		fastgit: 'GitHub镜像'
 	}
 	 */
 	getFastestUpdateURL: (updateURLS: SMap<string> = lib.updateURLS, translate: SMap<string> = {
 		coding: 'Coding',
 		github: 'GitHub',
-		fastgit: 'GitHub镜像',
-		xuanwu: '玄武镜像',
-		URC: 'URC'
-	}) => never | 
-		Promise<{ 
+		fastgit: 'GitHub镜像'
+	}) => never |
+		Promise<{
 			success: Array<{ key: string, finish: number }>;
 			failed: Error | Array<{ key: string, err: Error }>;
-			fastest?: { key: string, finish: number }; 
+			fastest?: { key: string, finish: number };
 		}>;
 
 	/**
@@ -173,6 +165,8 @@ declare interface Game {
 
 	/**
 	 * 从更新源获取要更新的文件(不包括素材)
+	 * 
+	 * 最大重试次数为5次
 	 */
 	shijianGetUpdateFiles: () => Promise<{
 		/** window.noname_update */
@@ -183,6 +177,8 @@ declare interface Game {
 
 	/**
 	 * 从更新源获取要更新的素材(皮肤文件除外)
+	 * 
+	 * 最大重试次数为5次
 	 */
 	shijianGetUpdateAssets: () => Promise<{
 		assets: string[],

@@ -60,6 +60,7 @@ window.noname_source_list=[
 	'extension/coin/extension.js',
 	'extension/wuxing/extension.js',
 	//Online Update
+	'extension/在线更新/extension.css',
 	'extension/在线更新/extension.js',
 	'extension/在线更新/typings/index.d.ts',
 	//Drag Read
