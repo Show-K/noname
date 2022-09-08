@@ -3780,7 +3780,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 									} else {
 										mark = ui.create.div('.card.mark');
 										var markText = lib.translate[item + '_bg'];
-										if (!markText || markText[0] == '+' || markText[0] == '-') {
+										if (!markText) {
 											markText = get.translation(item).substr(0, 2);
 											if (decadeUI.config.playerMarkStyle != 'decade') {
 												markText = markText[0];
