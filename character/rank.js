@@ -153,7 +153,8 @@ window.noname_character_rank={
 			"sst_enderman",
 			"sst_magolor",
 			"xsj_dante",
-			"sst_roy"
+			"sst_roy",
+			"ska_daroach"
 		],
 		junk:[]
 	}

@@ -16,7 +16,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
 			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],[]],
 			sst_claude:["male","sst_spirit",3,["sst_yunchou","sst_guimou"],[]],
-			sst_geno:["male","sst_spirit",3,["sst_fuyuan","sst_xingjiang"],[]],
+			sst_geno:["male","sst_spirit",3,["sst_fuyuan","sst_doujiang"],["hiddenSkill"]],
 			sst_duck_hunt:["male","sst_light",3,["sst_gonglie","sst_weishou"],[]],
 			sst_ness:["male","sst_light",4,["sst_wenxin"],[]],
 			sst_chrom:["male","sst_light",4,["sst_niming","sst_cuifeng"],[]],
@@ -665,7 +665,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Geno
 			sst_fuyuan:{
 				frequent:true,
-				trigger:{global:"roundStart"},
+				round:1,
+				trigger:{global:"phaseZhunbeiBegin"},
 				content:function(){
 					"step 0"
 					event.pileTop=get.cards()[0];
@@ -783,30 +784,30 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 				}
 			},
-			sst_xingjiang:{
+			sst_doujiang:{
 				unique:true,
 				mark:true,
+				hiddenSkill:true,
 				limited:true,
 				skillAnimation:true,
-				animationStr:"星降",
+				animationStr:"斗降",
 				animationColor:"metal",
 				intro:{
 					content:"limited"
 				},
-				group:"sst_xingjiang2",
 				enable:"phaseUse",
 				filterCard:true,
 				selectCard:[1,Infinity],
 				position:"he",
 				content:function(){
 					"step 0"
-					player.awakenSkill("sst_xingjiang");
+					player.awakenSkill("sst_doujiang");
 					event.toUse=get.cards(cards.length*2);
 					game.cardsGotoOrdering(event.toUse);
 					player.showCards(event.toUse,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
 					if(event.toUse.length){
-						player.chooseCardButton("星降：你可以使用"+get.translation(event.toUse),event.toUse).set("filterButton",function(button){
+						player.chooseCardButton("斗降：你可以使用"+get.translation(event.toUse),event.toUse).set("filterButton",function(button){
 							return _status.event.player.hasUseTarget(button.link);
 						}).set("ai",function(button){
 							return _status.event.player.getUseValue(button.link);
@@ -818,7 +819,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(result.links&&result.links.length){
 						event.toUse.removeArray(result.links);
-						player.addTempSkill("sst_xingjiang2");
+						player.addTempSkill("sst_doujiang2");
 						player.chooseUseTarget(result.links[0],"nodistance",false);
 						event.goto(1);
 					}
@@ -835,13 +836,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			sst_xingjiang2:{
+			sst_doujiang2:{
 				charlotte:true,
 				trigger:{player:"useCard1"},
 				forced:true,
 				popup:false,
 				filter:function(event){
-					return event.getParent(2).name=="sst_xingjiang"&&!event.card.yingbian&&get.is.yingbian(event.card);
+					return event.getParent(2).name=="sst_doujiang"&&!event.card.yingbian&&get.is.yingbian(event.card);
 				},
 				content:function(){
 					trigger.card.yingbian=true;
@@ -2306,9 +2307,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
-			sst_fuyuan_info:"每轮游戏开始时，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
-			sst_xingjiang:"星降",
-			sst_xingjiang_info:"限定技，出牌阶段，你可以弃置至少一张牌。若如此做，你亮出牌堆顶两倍数量的牌且可以使用之（无距离限制且应变效果直接生效）。",
+			sst_fuyuan_info:"每轮限一次，一名角色的准备阶段，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
+			sst_doujiang:"斗降",
+			sst_doujiang_info:"隐匿技，限定技，出牌阶段，你可以弃置至少一张牌，然后你亮出牌堆顶两倍数量的牌且可以使用之（无距离限制且应变效果直接生效）。",
 			sst_gonglie:"共猎",
 			sst_gonglie_info:"你使用【杀】可以为其附加「助战→目标+1」应变效果；然后若有人响应「助战」且【杀】造成了伤害，其可以获得受到此【杀】伤害的角色一张牌。",
 			sst_weishou:"围狩",

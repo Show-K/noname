@@ -8,7 +8,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach"],
 				sst_nnk:["nnk_robin"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_xsj:["xsj_yu_narukami","xsj_dante"],
@@ -34,7 +34,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:["female","sst_spirit","3",["alz_yingjian","alz_qushui"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
-			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]]
+			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]],
+			ska_daroach:["male","sst_spirit",3,["ska_zhidai","ska_siyi"],["hiddenSkill"]]
 		},
 		characterFilter:{
 			mnm_edelgard:function(mode){
@@ -233,7 +234,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			但丁是鬼泣系列的游戏角色。但丁是1代至3代的主角，以华丽的动作身手成为一个受欢迎的人物。在4代和5代中，但丁将会担任游戏后半段的主角。<br>\
 			——《维基百科》<br>\
 			<hr>\
-			啊，差点就忘记了。"
+			啊，差点就忘记了。",
+			ska_daroach:"武将作者：Show-K<br>\
+			插图作者：HAL研究所<br>\
+			——《星之卡比 新星同盟》\
+			<hr>\
+			0351. 怪盗洛切/Daroach/ドロッチェ<br>\
+			系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>星之卡比 参上！呐喊团<rp>（</rp><rt>Kirby: Squeak Squad</rt><rp>）</rp></ruby><br>\
+			洛切是探寻宝藏的怪盗组织呐喊团的领导者，他们盗取了自认为装有宝物的宝箱，却被卡比认为是盗取了他的蛋糕的凶手（整个游戏直到最终关前以卡比视角来看就是在追逐自己的蛋糕）。在冰雪之岛，卡比终于追上了洛切并将其打败，魅塔骑士却突然出现并夺走了宝箱，卡比不得不为了自己的“蛋糕”重新追了上去。<br>\
+			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			团长！你在干什么啊！团长！"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -254,7 +266,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
-			xsj_dante:"斯巴达之子"
+			xsj_dante:"斯巴达之子",
+			ska_daroach:"宇宙盗贼团前来拜访"
 		},
 		skill:{
 			//SP Isabelle
@@ -510,24 +523,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				preHidden:true,
 				trigger:{global:"damageEnd"},
 				frequent:true,
-				init:function(player){
+				init:player=>{
 					player.storage.renku=true;
 				},
-				filter:function(){
+				filter:()=>{
 					if(!_status.renku) return true;
 					return _status.renku.length<6;
 				},
-				content:function(){
-					"step 0"
-					player.judge(function(card){
-						return get.value(card)/2;
+				content:()=>{
+					player.judge(card=>get.value(card)).set("callback",()=>{
+						if(get.position(card,true)=="o"){
+							game.log(_status.event.player,"将",card,"置入了仁库");
+							game.cardsGotoSpecial(card,"toRenku");
+						}
 					}).set("judge2",()=>true);
-					"step 1"
-					var card=result.card;
-					if(get.position(card,true)=="d"){
-						game.log(player,"将",card,"置入了仁库");
-						game.cardsGotoSpecial(card,"toRenku");
-					}
 				},
 				ai:{
 					maixie:true
@@ -2409,6 +2418,136 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(!player.countCards("e")) return false;
 					}
 				}
+			},
+			//Daroach
+			ska_zhidai:{
+				direct:true,
+				trigger:{global:"useCard1"},
+				filter:(event)=>event.player.countUsed(null,true)<=1,
+				content:()=>{
+					"step 0"
+					player.chooseToRespond().set("ai",card=>{
+						var player=_status.event.player;
+						var evt=_status.event.getTrigger();
+						var before=0,after=0,side=get.effect(player,evt.card,player,player);
+						evt.targets.forEach(target=>{
+							before+=get.effect(target,evt.card,evt.player,player);
+							after+=get.effect(target,card,evt.player,player);
+						});
+						before/=evt.targets.length;
+						after/=evt.targets.length;
+						return after-before+Math.cbrt(side);
+					}).set("noOrdering",true).set("position","hes").set("logSkill",["ska_zhidai",trigger.player]).set("prompt",get.prompt("ska_zhidai")).set("prompt2","你可以打出一张牌替换"+get.translation(trigger.card)+"对应的实体牌，若如此做，本回合结束阶段，你对自己使用"+get.translation(trigger.card)+"对应的实体牌");
+					"step 1"
+					if(result.card&&result.cards){
+						event.cards=trigger.cards.filterInD("o");
+						if(event.cards.length){
+							player.$gain2(event.cards,true);
+							player.gain(event.cards);
+							if(Array.isArray(player.storage.ska_zhidai_effect)){
+								player.storage.ska_zhidai_effect.addArray(event.cards);
+							}
+							else{
+								player.storage.ska_zhidai_effect=event.cards;
+							}
+							player.addTempSkill("ska_zhidai_effect");
+						}
+						trigger.card=result.card;
+						trigger.cards=result.cards;
+						if(!Array.isArray(trigger.orderingCards)) trigger.orderingCards=[];
+						trigger.orderingCards.addArray(result.cards);
+						trigger.throw=false;
+						trigger.noai=true;
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.addGaintag(event.cards,"ska_zhidai_effect");
+				},
+				ai:{
+					expose:0.2
+				}
+			},
+			ska_zhidai_effect:{
+				charlotte:true,
+				mod:{
+					aiUseful:(player,card,num)=>{
+						if(player.storage.ska_zhidai_effect.contains(card)) return num-1;
+					}
+				},
+				forced:true,
+				popup:false,
+				onremove:player=>{
+					player.removeGaintag("ska_zhidai_effect",player.storage.ska_zhidai_effect);
+					delete player.storage.ska_zhidai_effect;
+				},
+				trigger:{global:"phaseJieshuBegin"},
+				filter:(event,player)=>player.storage.ska_zhidai_effect.filter(card=>card.hasGaintag("ska_zhidai_effect")).length,
+				content:()=>{
+					"step 0"
+					event.cards=player.storage.ska_zhidai_effect.filter(card=>card.hasGaintag("ska_zhidai_effect"));
+					"step 1"
+					if(event.cards.length){
+						var card=event.cards.shift();
+						player.useCard(card,player,false);
+						event.redo();
+					}
+				},
+				ai:{
+					effect:{
+						player:(card,player)=>{
+							if(player.storage.ska_zhidai_effect.contains(card)) return [1,1];
+						}
+					}
+				}
+			},
+			ska_siyi:{
+				hiddenSkill:true,
+				direct:true,
+				trigger:{player:"showCharacterAfter"},
+				filter:(event,player)=>game.hasPlayer(current=>current.countGainableCards(player,"hej")),
+				content:()=>{
+					"step 0"
+					player.chooseTarget(get.prompt2("ska_siyi"),(card,player,target)=>target.countGainableCards(player,"hej")).set("ai",target=>{
+						var player=_status.event.player;
+						var att=get.attitude(player,target);
+						if(att<0){
+							att=-Math.sqrt(-att);
+						}
+						else{
+							att=Math.sqrt(att);
+						}
+						return att*lib.card.shunshou.ai.result.target(player,target)+10;
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.logSkill("ska_siyi",event.target);
+						player.gainPlayerCard("嘶咿：获得"+get.translation(event.target)+"区域内一张牌",event.target,"hej",true);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.addExpose(0.2);
+					player.storage.ska_siyi_effect=event.target;
+					player.addSkill("ska_siyi_effect");
+				}
+			},
+			ska_siyi_effect:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"本局游戏$的手牌对你可见"
+				},
+				onremove:true,
+				ai:{
+					viewHandcard:true,
+					skillTagFilter:(player,tag,arg)=>{
+						if(arg!=player.storage.ska_siyi_effect) return false;
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2459,6 +2598,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_tianyi:"天翊",
 			xsj_yu_narukami:"鸣上悠",
 			xsj_dante:"但丁",
+			ska_daroach:"怪盗洛切",
 			//Character ab.
 			ska_bobby_ab:"炸弹兵",
 			ska_professor_toad_ab:"奇诺比奥",
@@ -2562,6 +2702,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_wanxie_info:"当武器牌进入弃牌堆后，你可以打出一张牌，然后获得武器牌。",
 			xsj_moxue:"魔血",
 			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为使用一张【决斗】。",
+			ska_zhidai:"置代",
+			ska_zhidai_effect:"置代",
+			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，你可以打出一张牌替换之。若如此做，本回合结束阶段，你对自己使用被替换牌（无视合法性）。",
+			ska_siyi:"嘶咿",
+			ska_siyi_effect:"嘶咿",
+			ska_siyi_info:"隐匿技，当你登场后，你可以获得一名角色区域内的一张牌，令其手牌本局游戏对你可见。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2592,7 +2738,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			alz_yuri_kozukata:"Yuri Kozukata",
 			ymk_tianyi:"Tianyi",
 			xsj_yu_narukami:"Yu Narukami",
-			xsj_dante:"Dante"
+			xsj_dante:"Dante",
+			ska_daroach:"Daroach"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -2606,7 +2753,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
 			nnk_robin:["sst_robin","sst_lucina","sst_chrom"],
 			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
-			xsj_yu_narukami:["sst_joker"]
+			xsj_yu_narukami:["sst_joker"],
+			ska_daroach:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee","sst_magolor"]
 		}
 	};
 	return sst_sp;

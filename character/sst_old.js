@@ -56,7 +56,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
 			old_sst_richter:["male","sst_dark",4,["old_sst_shengxi","old_sst_xuelun"],[]],
 			old_sst_ryu:["male","sst_light",4,["old_sst_tandao","sst_bodong"],[]],
-			old_sst_geno:["male","sst_spirit",3,["old_sst_fuyuan","old_sst_xingjiang"],[]]
+			old_sst_geno:["male","sst_spirit",3,["old_sst_fuyuan","old_sst_doujiang"],[]]
 		},
 		characterFilter:{
 		},
@@ -3816,12 +3816,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					damageBonus:true
 				}
 			},
-			old_sst_xingjiang:{
+			old_sst_doujiang:{
 				unique:true,
 				mark:true,
 				limited:true,
 				skillAnimation:true,
-				animationStr:"星降",
+				animationStr:"斗降",
 				animationColor:"metal",
 				intro:{
 					content:"limited"
@@ -3848,7 +3848,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.num_draw&&event.num_discard) str+="并";
 					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
 					str+="，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）";
-					player.chooseTarget(get.prompt("old_sst_xingjiang"),str).set("ai",function(target){
+					player.chooseTarget(get.prompt("old_sst_doujiang"),str).set("ai",function(target){
 						var att=get.sgnAttitude(_status.event.player,target);
 						var diff_hp=target.countCards("h",function(card){
 							return lib.filter.cardDiscardable(card,player);
@@ -3875,10 +3875,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
-						player.logSkill("old_sst_xingjiang",event.target);
-						player.awakenSkill("old_sst_xingjiang");
+						player.logSkill("old_sst_doujiang",event.target);
+						player.awakenSkill("old_sst_doujiang");
 						if(event.num_draw) event.target.draw(event.num_draw);
-						if(event.num_discard) event.target.chooseToDiscard("星降：弃置"+get.cnNumber(event.num_discard)+"张牌",event.num_discard,true,"he");
+						if(event.num_discard) event.target.chooseToDiscard("斗降：弃置"+get.cnNumber(event.num_discard)+"张牌",event.num_discard,true,"he");
 					}
 					else{
 						event.finish();
@@ -3889,19 +3889,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.card=top[0];
 						ui.cardPile.insertBefore(event.card.fix(),ui.cardPile.firstChild);
 						//game.log(player,"观看了牌堆顶的一张牌");
-						player.viewCards("星降",top);
+						player.viewCards("斗降",top);
 					}
 					else{
 						event.finish();
 					}
 					"step 3"
-					player.addTempSkill("sst_xingjiang2");
+					player.addTempSkill("sst_doujiang2");
 					player.chooseUseTarget(event.card,false);
 				},
 				ai:{
 					expose:0.2
 				},
-				group:"sst_xingjiang2"
+				group:"sst_doujiang2"
 			}
 		},
 		dynamicTranslate:{
@@ -4140,8 +4140,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			old_sst_fuyuan:"复愿",
 			old_sst_fuyuan_effect:"复愿",
 			old_sst_fuyuan_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1。若两张牌点数相同，你可以令一名角色一个限定技视为未发动过。",
-			old_sst_xingjiang:"星降",
-			old_sst_xingjiang_info:"限定技，一名角色的结束阶段，你可以令一名角色摸X张牌并弃置Y张牌，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量）"
+			old_sst_doujiang:"斗降",
+			old_sst_doujiang_info:"限定技，一名角色的结束阶段，你可以令一名角色摸X张牌并弃置Y张牌，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量）"
 			//Sort
 		},
 		translateEnglish:{

@@ -3178,7 +3178,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						ui.arena.classList.remove("thrownhighlight");
 					});
 					game.addVideo("thrownhighlight2");
-					game.delay();
 				},
 				ai:{
 					threaten:0.8
@@ -3834,7 +3833,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					if(player.getDamagedHp()){
 						player.chooseTarget(player.getDamagedHp(),true,function(card,player,target){
-							return player!=target&&target.countCards("hej");
+							return player!=target&&target.countGainableCards(player,"hej");
 						}).set("ai",function(target){
 							var player=_status.event.player;
 							var att=get.attitude(player,target);
@@ -3851,11 +3850,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 4"
-					if(result.bool){
+					if(result.targets&&result.targets.length){
 						event.targets=result.targets;
 						event.targets.sortBySeat(_status.currentPhase);
 						player.line(event.targets,"green");
 						event.num=0;
+					}
+					else{
+						event.finish();
 					}
 					"step 5"
 					if(event.num<event.targets.length){
@@ -9287,8 +9289,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					target.damage(player,"nocard");
 					"step 1"
-					game.delayx();
-					"step 2"
 					var cardsx=player.getCards("h");
 					var name=get.name(cards[0]);
 					event.goon=true;
@@ -9303,14 +9303,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						str="光炮：是否展示手牌并摸一张牌？";
 					}
 					player.chooseBool(str).set("ai",()=>true);
-					"step 3"
+					"step 2"
 					if(result.bool&&event.goon){
 						player.showHandcards();
 					}
 					else{
 						event.finish();
 					}
-					"step 4"
+					"step 3"
 					player.draw();
 				},
 				ai:{
@@ -9369,14 +9369,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}).set("forceDie",true);
 					"step 2"
 					if(result.targets&&result.targets.length){
-						/*
-						for(var i=0;i<event.players.length;i++){
-							event.players[i].logSkill("sst_tewu");
-						}
-						*/
 						player.logSkill("sst_tewu2",result.targets[0]);
 						result.targets[0].addMark("sst_tewu",1,false);
-						game.delayx();
 					}
 				}
 			},
@@ -10156,25 +10150,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.chooseControl("是","否").set("ai",function(){
-						var evt=_status.event.getTrigger();
-						var target=evt.target;
-						var evt=_status.event.getParent(2);
-						if(evt.excluded&&evt.excluded.contains(target)) return "否";
-						var player=_status.event.player;
-						if(target==player){
-							if(player.hasUsableCard("shan")){
-								return "否";
+						var mayDamage=false;
+						_status.event.getTrigger().targets.forEach(function(target){
+							var evt=_status.event.getParent(2);
+							if(!evt.excluded||!evt.excluded.contains(target)){
+								var player=_status.event.player;
+								if(target==player){
+									if(!player.hasUsableCard("shan")){
+										mayDamage=true;
+									}
+								}
+								else{
+									var rand=0.95;
+									if(!target.hasUsableCard("shan")) rand=0.05;
+									if(!target.countCards("h")) rand=0;
+									if(Math.random()>rand) mayDamage=true;
+								}
 							}
-							else{
-								return "是";
-							}
-						}
-						else{
-							var rand=0.95;
-							if(!target.hasUsableCard("shan")) rand=0.05;
-							if(!target.countCards("h")) rand=0;
-							return Math.random()>rand?"是":"否";
-						}
+						});
+						return mayDamage?"是":"否";
 					}).set("prompt","虚晃："+get.translation(trigger.card)+"是否造成伤害？");
 					"step 1"
 					var evt=trigger.getParent();
@@ -12783,7 +12777,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return get.attitude(player,current)<0;
 						})){
 							if(button.link[0]=="sst_jichang_first"){
-								return button.link[1];
+								return button.link[1]-Math.random()*5;
 							}
 							return -button.link[1];
 						}

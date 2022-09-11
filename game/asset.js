@@ -1245,6 +1245,8 @@ window.noname_asset_list=[
 	'image/character/alz_yuri_kozukata.png',
 	'image/character/ymk_tianyi.png',
 	'image/character/xsj_yu_narukami.png',
+	'image/character/xsj_dante.png',
+	'image/character/ska_daroach.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',

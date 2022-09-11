@@ -397,7 +397,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				gz_sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],[]],
 				gz_sst_enderman:["male","sst_dark",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
 				gz_sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],[]],
-				gz_sst_geno:["male","sst_spirit",3,["sst_xingjiang","sst_fuyuan"],[]],
+				gz_sst_geno:["male","sst_spirit",3,["sst_doujiang","sst_fuyuan"],[]],
 				gz_sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],[]],
 				gz_sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],[]],
 				gz_sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],[]],
