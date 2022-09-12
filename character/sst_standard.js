@@ -7,8 +7,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst_standard:{
 				sst_64:["sst_mario","sst_donkey_kong","sst_link","sst_samus","sst_yoshi","sst_kirby","sst_luigi","sst_captain_falcon","sst_jigglypuff","sst_fox","sst_pikachu"],
-				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_sheik","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco","sst_mewtwo"],
-				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_snake","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf","sst_olimar"],
+				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco","sst_mewtwo"],
+				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf","sst_olimar"],
 				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
 				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora","sst_piranha_plant"],
@@ -81,7 +81,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],[]],
 			sst_master_hand:["male","sst_spirit",4,["sst_zhuzai","sst_zhixu"],["zhu"]],
 			sst_ike:["male","sst_light",4,["sst_tugu"],[]],
-			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin"],[]],
 			sst_miumiu:["female","sst_reality",3,["sst_qichang","sst_shizhu"],[]],
 			sst_toon_link:["male","sst_light",4,["sst_yufeng","sst_chihang"],[]],
 			sst_wolf:["male","sst_dark",4,["sst_xishou"],[]],
@@ -92,7 +91,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],[]],
 			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],[]],
 			sst_krystal:["female","sst_spirit",3,["sst_liaoyi","sst_shuanghan"],[]],
-			sst_snake:["male","sst_dark",4,["sst_qianlong"],[]],
 			sst_mega_man:["male","sst_light",4,["sst_guangpao","sst_tewu"],[]],
 			sst_captain_falcon:["male","sst_light",4,["sst_jijing"],[]],
 			sst_jigglypuff:["female","sst_light",3,["sst_yinyao","sst_anke"],[]],
@@ -676,16 +674,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			大！天！空！",
-			sst_sheik:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0174. 希克/Sheik/シーク<br>\
-			系列：<ruby>塞尔达传说<rp>（</rp><rt>The Legend of Zelda</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>塞尔达传说 时之笛<rp>（</rp><rt>The Legend of Zelda: Ocarina of Time</rt><rp>）</rp></ruby><br>\
-			在《塞尔达传说：时之笛》中，希克自称是从灾难中幸存的希卡族人，不过她其实是塞尔达公主为了躲避加侬多夫的追捕而女扮男装的形态。在大乱斗中，希克以高速连招为主，和塞尔达的战斗风格有很大差别。<br>\
-			——封羽翎烈、无敌阿尔宙斯，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			“接下来这段旋律，你要铭记于心……”",
 			sst_miumiu:"武将作者：mario not mary<br>\
 			插图作者：mario not mary<br>\
 			<hr>\
@@ -788,16 +776,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			——煤球，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			可惜当初没能在Brawl参战，后来彻底没机会了……",
-			sst_snake:"武将作者：mario not mary<br>\
-			插图作者：未知<br>\
-			<hr>\
-			0749. 固蛇/Solid Snake/ソリッド・スネーク<br>\
-			系列：<ruby>合金装备<rp>（</rp><rt>Metal Gear</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>合金装备<rp>（</rp><rt>Metal Gear</rt><rp>）</rp></ruby><br>\
-			前Foxhound成员，IQ达180，能操流利六国语言。有“传说之佣兵”的称号，被称为“将不可能化为可能的男人”，是潜入任务中的专家，藏身纸皮箱躲过守卫进行潜入行动的桥段一直就为人津津乐道。<br>\
-			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
-			<hr>\
-			“The Man Who Makes the Impossible Possible.”",
 			sst_mega_man:"武将作者：mario not mary<br>\
 			插图作者：未知<br>\
 			<hr>\
@@ -1224,7 +1202,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_waluigi:"奸巧狞猾",
 			sst_master_hand:"秩序之光",
 			sst_ike:"战场的屠夫",
-			sst_sheik:"倩影扫弦音",
 			sst_miumiu:"端砚点朱砂",
 			sst_toon_link:"海风奏鸣曲",
 			sst_wolf:"贪狼吞星",
@@ -1235,7 +1212,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_rex:"天之御刃者",
 			sst_cuphead_mugman:"推杯换盏",
 			sst_krystal:"冰清玉洁",
-			sst_snake:"潜龙谍影",
 			sst_mega_man:"蓝色英雄",
 			sst_captain_falcon:"风驰电掣",
 			sst_jigglypuff:"轻音留香",
@@ -3861,9 +3837,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 5"
 					if(event.num<event.targets.length){
-						if(event.targets[event.num].countCards("hej")){
-							player.gainPlayerCard("暴征：获得"+get.translation(event.targets[num])+"区域内一张牌",event.targets[num],"hej",true);
-						}
+						player.gainPlayerCard("暴征：获得"+get.translation(event.targets[event.num])+"区域内一张牌",event.targets[num],"hej",true);
 					}
 					else{
 						event.finish();
@@ -3871,10 +3845,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 6"
 					if(result.cards&&result.cards.length){
 						player.storage.sst_baozheng.addArray(result.cards);
-						event.num++;
-						event.goto(5);
 						player.addExpose(0.1);
 					}
+					event.num++;
+					event.goto(5);
 				},
 				ai:{
 					halfneg:true,
@@ -7036,6 +7010,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					player.addTempSkill("sst_duzhi_effect",{player:"phaseBeginStart"});
+					game.delayx();
 				},
 				ai:{
 					neg:true
@@ -7500,61 +7475,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						player:1
 					}
-				}
-			},
-			//Sheik
-			sst_nixing:{
-				filter:function(event,player){
-					return event.targets&&event.targets.length>1;
-				},
-				forced:true,
-				trigger:{target:"useCardToTarget"},
-				content:function(){
-					trigger.getParent().excluded.add(player);
-				},
-				ai:{
-					effect:{
-						target:function(card){
-							if(card.name=="tiesuo") return [0,0];
-							if(card.name=="yihuajiemu") return [0,1];
-							if(get.tag(card,"multitarget")) return [0,2];
-						}
-					}
-				}
-			},
-			sst_shouyin:{
-				trigger:{player:"useCardAfter"},
-				direct:true,
-				content:function(){
-					"step 0"
-					player.chooseTarget(get.prompt2("sst_shouyin"),function(card,player,target){
-						return target!=player;
-					}).set("ai",function(target){
-						return get.sgnAttitude(_status.event.player,target)*Math.max(1,target.countCards("h"));
-					});
-					"step 1"
-					if(result.targets&&result.targets.length){
-						player.logSkill("sst_shouyin",result.targets);
-						event.target=result.targets[0];
-						event.chooseToUse=event.target.chooseToUse("授音：你可以使用一张"+get.translation(get.type(trigger.card,"trick"))+"牌",function(card,player,event){
-							if(get.type(card,"trick")!=get.type(_status.event.cardx,"trick")) return false;
-							return lib.filter.filterCard.apply(this,arguments);
-						}).set("cardx",trigger.card).set("addCount",false);
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					if(result&&trigger.targets&&result.targets&&trigger.targets.length==1&&result.targets.length==1&&trigger.targets[0]==result.targets[0]){
-						player.draw();
-					}
-					if(!event.target.hasHistory("useCard",function(evt){
-						var parent=evt.getParent(2);
-						return parent&&parent.name=="chooseToUse"&&parent==event.chooseToUse;
-					})) game.delayx();
-				},
-				ai:{
-					expose:0.2
 				}
 			},
 			//缪缪
@@ -9172,116 +9092,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(trigger.player.countDiscardableCards(player,"he")){
 						player.line(trigger.target,"green");
 						player.discardPlayerCard("霜寒：弃置"+get.translation(trigger.target)+"两张牌","he",trigger.target,2,true);
-					}
-				}
-			},
-			//Snake
-			sst_qianlong:{
-				ignoreMod:true,
-				enable:"phaseUse",
-				usable:1,
-				filterCard:true,
-				position:"hes",
-				viewAs:{name:"sha",isCard:true},
-				viewAsFilter:function(player){
-					if(!player.countCards("hes")) return false;
-				},
-				check:function(card){
-					if(get.name(card)=="du") return 20;
-					if(get.name(card)=="sha") return 10;
-					return 5-get.value(card);
-				},
-				precontent:function(){
-					event.result.card.cards=[];
-					delete event.result.card.suit;
-					delete event.result.card.number;
-				},
-				ai:{
-					respondSha:true,
-					skillTagFilter:function(player,tag,arg){
-						if(arg!="use") return false;
-						if(!player.isPhaseUsing()) return false;
-					},
-					order:function(){
-						return get.order({name:"sha"})+0.3;
-					}
-				},
-				group:"sst_qianlong2"
-			},
-			sst_qianlong2:{
-				trigger:{player:"useCardBegin"},
-				silent:true,
-				filter:function(event,player){
-					return event.skill=="sst_qianlong";
-				},
-				content:function(){
-					"step 0"
-					event.cards=trigger.cards;
-					trigger.cards=[];
-					trigger.throw=false;
-					/*
-					var next=game.createEvent("sst_qianlong_use");
-					event.next.remove(next);
-					trigger.next.push(next);
-					next.set("player",player);
-					next.set("cards",event.cards);
-					next.setContent(function(){
-						player.lose(cards,ui.special).set("type","use");
-						player.$throw(cards.length);
-					});
-					*/
-					player.lose(event.cards,ui.special);
-					player.$throw(event.cards.length);
-					"step 1"
-					if(!trigger.sst_qianlong){
-						trigger.set("sst_qianlong",true);
-						var next=game.createEvent("sst_qianlong_clear");
-						event.next.remove(next);
-						trigger.after.push(next);
-						next.set("player",player);
-						next.set("card",trigger.card);
-						next.set("cards",event.cards);
-						next.setContent(lib.skill.sst_qianlong2.contentx);
-					}
-				},
-				contentx:function(){
-					"step 0"
-					game.cardsGotoOrdering(cards);
-					var history;
-					var players=game.filterPlayer();
-					var bool=false;
-					for(var i=0;i<players.length;i++){
-						history=players[i].getHistory("sourceDamage",function(evt){
-							return evt.card==card;
-						});
-						if(history.length&&history.length==1){
-							event.target=history[0].player;
-							var translateTargets=function(targets){
-								if(get.itemtype(targets)=="player") targets=[targets];
-								var str="";
-								if(targets[0]==player){
-									str="自己";
-									if(targets.length>1){
-										str+="、";
-										str+=get.translation(targets.slice(1));
-									}
-								}
-								else str=get.translation(targets);
-								return str;
-							};
-							player.showCards(cards,get.translation(player)+"对"+translateTargets(event.target)+"发动了【潜龙】");
-							bool=true;
-							break;
-						}
-					}
-					if(!bool){
-						event.finish();
-					}
-					"step 1"
-					for(var i=0;i<cards.length;i++){
-						if(event.target.isIn()&&lib.filter.targetEnabled3(cards[i],player,event.target)){
-							player.useCard(cards[i],event.target,false,"noai");
-						}
 					}
 				}
 			},
@@ -11729,12 +11539,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					if(!event.targets.length){
-						event.finish();
+					if(event.targets.length){
+						event.target=event.targets.shift();
+						if(!event.target.isIn()) event.redo();
 					}
 					else{
-						event.target=event.targets.shift();
-						if(!event.target.isIn()) event.goto(2);
+						event.finish();
 					}
 					"step 3"
 					event.target.chooseControl().set("ai",function(){
@@ -13736,7 +13546,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterReplace:{
 			sst_mario:["sst_mario","sst_dr_mario"],
 			sst_link:["sst_link","sst_young_link","sst_toon_link"],
-			sst_zelda:["sst_zelda","sst_sheik"],
 			sst_samus:["sst_samus","sst_zero_suit_samus"],
 			sst_byleth_male:["sst_byleth_male","sst_byleth_female"],
 		},
@@ -13806,7 +13615,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_waluigi:"瓦路易吉",
 			sst_master_hand:"大师之手",
 			sst_ike:"艾克",
-			sst_sheik:"希克",
 			sst_miumiu:"缪缪",
 			sst_toon_link:"卡通林克",
 			sst_wolf:"沃鲁夫",
@@ -13817,7 +13625,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_rex:"莱克斯",
 			sst_cuphead_mugman:"茶杯头＆马克杯人",
 			sst_krystal:"水晶",
-			sst_snake:"Snake",
 			sst_mega_man:"洛克人",
 			sst_captain_falcon:"飞隼队长",
 			sst_jigglypuff:"胖丁",
@@ -13861,7 +13668,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ocarina_of_time_link_ab:"林克",
 			sst_joker_ab:"雨宫莲",
 			sst_cuphead_mugman_ab:"杯子兄弟",
-			sst_snake_ab:"固蛇",
 			sst_king_dedede_ab:"帝帝帝",
 			sst_olimar_ab:"皮克敏",
 			//Identity mode skill
@@ -14153,10 +13959,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tugu:"突固",
 			sst_tugu_backup:"突固",
 			sst_tugu_info:"每回合限一次，你可以将一张不带有「伤害」标签的牌当作一张带有「伤害」标签的基本牌或普通锦囊牌使用。",
-			sst_nixing:"匿形",
-			sst_nixing_info:"锁定技，你成为牌的目标时，若你不是唯一目标，此牌对你无效。",
-			sst_shouyin:"授音",
-			sst_shouyin_info:"你使用牌结算后，可以令一名其他角色选择是否使用一张类别相同的牌，若其以此法使用了牌且两张牌目标唯一且相同，你摸一张牌。",
 			sst_qichang:"绮裳",
 			sst_qichang_effect:"绮裳",
 			sst_qichang_effect2:"绮裳",
@@ -14221,8 +14023,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_liaoyi2_info:"当你需要使用或打出一张【闪】时，你可以展示一张【闪】并指定一名男性角色，其可以打出一张【闪】，若其如此做，视为使用或打出一张【闪】，然后其获得你一张牌。",
 			sst_shuanghan:"霜寒",
 			sst_shuanghan_info:"你使用牌指定其他角色为目标时，若其手牌数不小于你，你可以令此牌对其无效，改为弃置其区域内两张牌。",
-			sst_qianlong:"潜龙",
-			sst_qianlong_info:"出牌阶段限一次，你可以将一张牌背面朝上当作【杀】使用，然后若此【杀】仅对一名角色造成了伤害，你亮出此牌并对该角色使用。",
 			sst_guangpao:"光炮",
 			sst_guangpao_info:"出牌阶段限一次，你可以弃置两张同名牌并对一名其他角色造成1点伤害，然后若你手牌中没有同名牌，你可以展示手牌并摸一张牌。",
 			sst_tewu:"特武",
@@ -14493,7 +14293,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_waluigi:"Waluigi",
 			sst_master_hand:"Master Hand",
 			sst_ike:"Ike",
-			sst_sheik:"Sheik",
 			sst_miumiu:"Miumiu",
 			sst_toon_link:"Toon Link",
 			sst_wolf:"Wolf",
@@ -14504,7 +14303,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_rex:"Rex",
 			sst_cuphead_mugman:"Cuphead & Mugman",
 			sst_krystal:"Krystal",
-			sst_snake:"Snake",
 			sst_mega_man:"Mega Man",
 			sst_captain_falcon:"Captain Falcon",
 			sst_jigglypuff:"Jigglypuff",
@@ -14546,7 +14344,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_peach:["sst_daisy"],
 			sst_wario:["sst_waluigi"],
 			sst_link:["sst_zelda","sst_young_link","sst_ocarina_of_time_link","sst_toon_link","sst_massy"],
-			sst_zelda:["sst_sheik","sst_young_link","sst_ocarina_of_time_link","sst_toon_link"],
+			sst_zelda:["sst_young_link","sst_ocarina_of_time_link","sst_toon_link"],
 			sst_villager:["sst_isabelle"],
 			sst_samus:["sst_zero_suit_samus"],
 			sst_byleth_male:["sst_byleth_female"],

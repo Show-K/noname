@@ -7,9 +7,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		characterSort:{
 			sst_extra:{
 				sst_civil_war:["sst_pyra_mythra","sst_9_volt_18_volt"],
-				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai"],
+				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai","sst_snake","sst_sheik"],
 				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans"],
-				sst_attack_by_stratagem:["sst_magolor","sst_roy"]
+				sst_attack_by_stratagem:["sst_magolor","sst_roy","sst_r_o_b"]
 			}
 		},
 		character:{
@@ -26,7 +26,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
 			sst_roy:["male","sst_light",4,["sst_nuyan"],[]],
-			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],[]]
+			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],[]],
+			sst_r_o_b:["male","sst_dark",5,["sst_yinbao","sst_zhuxin"],["hiddenSkill"]],
+			sst_snake:["male","sst_dark",4,["sst_qianlong"],["hiddenSkill"]],
+			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin"],["hiddenSkill"]]
 		},
 		characterFilter:{},
 		characterIntro:{
@@ -203,7 +206,37 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			Sans是由Toby Fox为2015年角色扮演游戏《Undertale》创造的虚构角色。Sans在《Undertale》中为NPC，但如果玩家选择完成“种族灭绝路线”并消灭游戏中的怪物种族，他将成为事实上的最终boss。他的名字基于Comic Sans字体，而该字体用于他的大部分游戏对话。该角色因其对话，以及被认为是游戏中最难的boss战斗而被评论家称赞。他在粉丝群体中相当出名，激发了很多人为其创造同人作品。<br>\
 			——翻译自《维基百科》<br>\
 			<hr>\
-			外面是多么美好的一天啊，鸟儿在歌唱，花儿在绽放……"
+			外面是多么美好的一天啊，鸟儿在歌唱，花儿在绽放……",
+			sst_r_o_b:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
+			<hr>\
+			0822. 机器人/R.O.B./ロボット<br>\
+			系列：<ruby>机器人<rp>（</rp><rt>R.O.B.</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>方块放置<rp>（</rp><rt>Stack-Up</rt><rp>）</rp></ruby><br>\
+			这是任天堂在80年代，为了开辟刚受到雅达利危机重创的北美游戏市场而推出的外设，它可以配合特定的游戏游玩。在大乱斗中，机器人有两种飞行道具，回场也很不错。它的机器人光束可以蓄力增加威力。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			THE SUBSPACE EMISSARY.",
+			sst_snake:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
+			<hr>\
+			0749. 固蛇/Solid Snake/ソリッド・スネーク<br>\
+			系列：<ruby>合金装备<rp>（</rp><rt>Metal Gear</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>合金装备<rp>（</rp><rt>Metal Gear</rt><rp>）</rp></ruby><br>\
+			前Foxhound成员，IQ达180，能操流利六国语言。有“传说之佣兵”的称号，被称为“将不可能化为可能的男人”，是潜入任务中的专家，藏身纸皮箱躲过守卫进行潜入行动的桥段一直就为人津津乐道。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			“The Man Who Makes the Impossible Possible.”",
+			sst_sheik:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
+			<hr>\
+			0174. 希克/Sheik/シーク<br>\
+			系列：<ruby>塞尔达传说<rp>（</rp><rt>The Legend of Zelda</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>塞尔达传说 时之笛<rp>（</rp><rt>The Legend of Zelda: Ocarina of Time</rt><rp>）</rp></ruby><br>\
+			在《塞尔达传说：时之笛》中，希克自称是从灾难中幸存的希卡族人，不过她其实是塞尔达公主为了躲避加侬多夫的追捕而女扮男装的形态。在大乱斗中，希克以高速连招为主，和塞尔达的战斗风格有很大差别。<br>\
+			——封羽翎烈、无敌阿尔宙斯，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			“接下来这段旋律，你要铭记于心……”"
 		},
 		characterTitle:{
 			sst_pyra_mythra:"天之圣杯",
@@ -219,7 +252,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bandana_waddle_dee:"瓦豆鲁迪的传说",
 			sst_magolor:"心中的最佳盟友",
 			sst_roy:"年轻的狮子",
-			sst_sans:"审判之眼"
+			sst_sans:"审判之眼",
+			sst_r_o_b:"亚空的使者",
+			sst_snake:"潜龙谍影",
+			sst_sheik:"倩影扫弦音"
 		},
 		skill:{
 			//Civil War mode reference
@@ -2253,6 +2289,277 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			//R.O.B.
+			sst_yinbao:{
+				hiddenSkill:true,
+				forced:true,
+				trigger:{player:"showCharacterEnd"},
+				logTarget:()=>game.filterPlayer().sortBySeat(_status.currentPhase),
+				content:()=>{
+					"step 0"
+					event.targets=lib.skill.sst_yinbao.logTarget();
+					"step 1"
+					if(event.targets.length){
+						event.target=event.targets.shift();
+						if(!event.target.isIn()) event.redo();
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					var next=event.target.chooseToRespond("引爆：打出一张闪，否则受到"+get.translation(player)+"造成的1点伤害",{name:"shan"});
+					next.set("ai",card=>{
+						var evt=_status.event.getParent();
+						if(get.damageEffect(evt.target,evt.player,evt.target)>=0) return 0;
+						if(evt.target.hasSkillTag("noShan")) return -1;
+						return get.order(card);
+					});
+					next.autochoose=lib.filter.autoRespondShan;
+					"step 3"
+					if(result.bool==false){
+						event.target.damage("nocard");
+					}
+					else{
+						event.goto(1);
+					}
+					"step 4"
+					game.delayx();
+					event.goto(1);
+				}
+			},
+			sst_zhuxin:{
+				trigger:{player:"changeHp"},
+				filter:event=>event.num<0,
+				check:(event,player)=>player.maxHp>1,
+				content:()=>{
+					"step 0"
+					player.loseMaxHp(-trigger.num);
+					player.changeHujia(-trigger.num);
+					event.targets=[];
+					event.num=0;
+					"step 1"
+					if(player.hujia){
+						var controls=["cancel2"];
+						for(var i=1;i<=player.hujia;i++){
+							controls.push(i.toString());
+						}
+						player.chooseControl(controls).set("prompt","铸心：你可以将任意点护甲分配给其他角色，分配完成后获得被分配角色区域内共计等量的牌").set("ai",()=>game.hasPlayer(current=>current!=_status.event.player&&get.attitude(_status.event.player,current)+lib.card.shunshou.ai.result.target(_status.event.player,current)>0)?1:0);
+					}
+					else{
+						event.goto(4);
+					}
+					"step 2"
+					if(result.index){
+						event.distribution=result.index;
+						event.num+=event.distribution;
+						player.chooseTarget("铸心：分配给一名其他角色"+event.distribution+"点护甲，分配完成后获得被分配角色区域内共计等量的牌",(card,player,target)=>target!=player,true).set("ai",target=>get.attitude(_status.event.player,target)+lib.card.shunshou.ai.result.target(_status.event.player,target));
+					}
+					else{
+						event.goto(4);
+					}
+					"step 3"
+					if(result.targets&&result.targets.length){
+						event.targets.addArray(result.targets);
+						player.line(result.targets,"green");
+						player.changeHujia(-event.distribution);
+						result.targets[0].changeHujia(event.distribution);
+						player.addExpose(0.1);
+					}
+					event.goto(1);
+					"step 4"
+					if(event.targets.length&&event.num>0){
+						player.chooseTarget("铸心：获得"+get.translation(event.targets)+"区域内共计"+get.cnNumber(event.num)+"张牌",(card,player,target)=>_status.event.getParent().targets.contains(target)&&target.countGainableCards(_status.event.player,"hej"),true).set("ai",target=>lib.card.shunshou.ai.result.target(_status.event.player,target));
+					}
+					else{
+						event.finish();
+					}
+					"step 5"
+					if(result.targets&&result.targets.length){
+						player.line(result.targets,"fire");
+						player.gainPlayerCard("铸心：获得"+get.translation(result.targets[0])+"区域内至多"+get.cnNumber(event.num)+"张牌",result.targets[0],[1,event.num],"hej",true);
+					}
+					else{
+						event.goto(4);
+					}
+					"step 6"
+					if(result.cards&&result.cards.length){
+						event.num-=result.cards.length;
+						player.addExpose(0.1);
+					}
+					event.goto(4);
+				},
+				ai:{
+					maixie:true,
+					maixie_hp:true,
+					maixie_defend:true,
+					maiHp:true
+				}
+			},
+			//Snake
+			sst_qianlong:{
+				ignoreMod:true,
+				enable:"phaseUse",
+				usable:1,
+				filterCard:true,
+				position:"hes",
+				viewAs:{name:"sha",isCard:true},
+				viewAsFilter:function(player){
+					if(!player.countCards("hes")) return false;
+				},
+				check:function(card){
+					if(get.name(card)=="du") return 20;
+					if(get.name(card)=="sha") return 10;
+					return 5-get.value(card);
+				},
+				precontent:function(){
+					event.result.card.cards=[];
+					delete event.result.card.suit;
+					delete event.result.card.number;
+				},
+				ai:{
+					respondSha:true,
+					skillTagFilter:function(player,tag,arg){
+						if(arg!="use") return false;
+						if(!player.isPhaseUsing()) return false;
+					},
+					order:function(){
+						return get.order({name:"sha"})+0.3;
+					}
+				},
+				group:"sst_qianlong2"
+			},
+			sst_qianlong2:{
+				trigger:{player:"useCardBegin"},
+				silent:true,
+				filter:function(event,player){
+					return event.skill=="sst_qianlong";
+				},
+				content:function(){
+					"step 0"
+					event.cards=trigger.cards;
+					trigger.cards=[];
+					trigger.throw=false;
+					/*
+					var next=game.createEvent("sst_qianlong_use");
+					event.next.remove(next);
+					trigger.next.push(next);
+					next.set("player",player);
+					next.set("cards",event.cards);
+					next.setContent(function(){
+						player.lose(cards,ui.special).set("type","use");
+						player.$throw(cards.length);
+					});
+					*/
+					player.lose(event.cards,ui.special);
+					player.$throw(event.cards.length);
+					"step 1"
+					if(!trigger.sst_qianlong){
+						trigger.set("sst_qianlong",true);
+						var next=game.createEvent("sst_qianlong_clear");
+						event.next.remove(next);
+						trigger.after.push(next);
+						next.set("player",player);
+						next.set("card",trigger.card);
+						next.set("cards",event.cards);
+						next.setContent(lib.skill.sst_qianlong2.contentx);
+					}
+				},
+				contentx:function(){
+					"step 0"
+					game.cardsGotoOrdering(cards);
+					var history;
+					var players=game.filterPlayer();
+					var bool=false;
+					for(var i=0;i<players.length;i++){
+						history=players[i].getHistory("sourceDamage",function(evt){
+							return evt.card==card;
+						});
+						if(history.length&&history.length==1){
+							event.target=history[0].player;
+							var translateTargets=function(targets){
+								if(get.itemtype(targets)=="player") targets=[targets];
+								var str="";
+								if(targets[0]==player){
+									str="自己";
+									if(targets.length>1){
+										str+="、";
+										str+=get.translation(targets.slice(1));
+									}
+								}
+								else str=get.translation(targets);
+								return str;
+							};
+							player.showCards(cards,get.translation(player)+"对"+translateTargets(event.target)+"发动了【潜龙】");
+							bool=true;
+							break;
+						}
+					}
+					if(!bool){
+						event.finish();
+					}
+					"step 1"
+					for(var i=0;i<cards.length;i++){
+						if(event.target.isIn()&&lib.filter.targetEnabled3(cards[i],player,event.target)){
+							player.useCard(cards[i],event.target,false,"noai");
+						}
+					}
+				}
+			},
+			//Sheik
+			sst_nixing:{
+				filter:function(event,player){
+					return event.targets&&event.targets.length>1;
+				},
+				forced:true,
+				trigger:{target:"useCardToTarget"},
+				content:function(){
+					trigger.getParent().excluded.add(player);
+				},
+				ai:{
+					effect:{
+						target:function(card){
+							if(card.name=="tiesuo") return [0,0];
+							if(card.name=="yihuajiemu") return [0,1];
+							if(get.tag(card,"multitarget")) return [0,2];
+						}
+					}
+				}
+			},
+			sst_shouyin:{
+				trigger:{player:"useCardAfter"},
+				direct:true,
+				content:function(){
+					"step 0"
+					player.chooseTarget(get.prompt2("sst_shouyin"),function(card,player,target){
+						return target!=player;
+					}).set("ai",function(target){
+						return get.sgnAttitude(_status.event.player,target)*Math.max(1,target.countCards("h"));
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.logSkill("sst_shouyin",result.targets);
+						event.target=result.targets[0];
+						event.chooseToUse=event.target.chooseToUse("授音：你可以使用一张"+get.translation(get.type(trigger.card,"trick"))+"牌",function(card,player,event){
+							if(get.type(card,"trick")!=get.type(_status.event.cardx,"trick")) return false;
+							return lib.filter.filterCard.apply(this,arguments);
+						}).set("cardx",trigger.card).set("addCount",false);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(result&&trigger.targets&&result.targets&&trigger.targets.length==1&&result.targets.length==1&&trigger.targets[0]==result.targets[0]){
+						player.draw();
+					}
+					if(!event.target.hasHistory("useCard",function(evt){
+						var parent=evt.getParent(2);
+						return parent&&parent.name=="chooseToUse"&&parent==event.chooseToUse;
+					})) game.delayx();
+				},
+				ai:{
+					expose:0.2
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2286,10 +2593,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_magolor:"魔法洛亚",
 			sst_roy:"罗伊",
 			sst_sans:"Sans",
+			sst_r_o_b:"机器人",
+			sst_snake:"Snake",
+			sst_sheik:"希克",
 			//Character ab.
 			sst_9_volt_18_volt_ab:"九伏十八伏",
 			sst_geno_ab:"Geno",
 			sst_bandana_waddle_dee_ab:"瓦豆鲁迪",
+			sst_snake_ab:"固蛇",
 			//Skill
 			sst_xuanyi:"炫奕",
 			sst_xuanyi_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
@@ -2358,6 +2669,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_juexin:"决心",
 			sst_juexin_info:"使命技。当你扣减1点体力时，你令一名角色判定并获得判定牌，若判定结果大于游戏轮数，你回复1点体力。<br>\
 			失败：一名受到过你造成的伤害的角色的结束阶段，若其使用过【杀】的数量大于存活角色数，你将你与其所有牌依次当作【杀】对其使用。",
+			sst_yinbao:"引爆",
+			sst_yinbao_info:"隐匿技，锁定技，当你登场时，所有角色须打出一张闪，否则受到你造成的1点伤害。",
+			sst_zhuxin:"铸心",
+			sst_zhuxin_info:"当你扣减体力时，你可以将等量体力上限变为护甲，然后你可以将任意点护甲分配给其他角色，并获得这些角色区域内共计等量的牌。",
+			sst_qianlong:"潜龙",
+			sst_qianlong_info:"出牌阶段限一次，你可以将一张牌背面朝上当作【杀】使用，然后若此【杀】仅对一名角色造成了伤害，你亮出此牌并对该角色使用。",
+			sst_nixing:"匿形",
+			sst_nixing_info:"锁定技，你成为牌的目标时，若你不是唯一目标，此牌对你无效。",
+			sst_shouyin:"授音",
+			sst_shouyin_info:"你使用牌结算后，可以令一名其他角色选择是否使用一张类别相同的牌，若其以此法使用了牌且两张牌目标唯一且相同，你摸一张牌。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
@@ -2382,7 +2703,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_bandana_waddle_dee:"Bandana Waddle Dee",
 			sst_magolor:"Magolor",
 			sst_roy:"Roy",
-			sst_sans:"Sans"
+			sst_sans:"Sans",
+			sst_r_o_b:"R.O.B.",
+			sst_snake:"Snake",
+			sst_sheik:"Sheik"
 		},
 		perfectPair:{
 			sst_pyra_mythra:["sst_rex"],
@@ -2392,7 +2716,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chrom:["sst_marth","sst_lucina","sst_robin"],
 			sst_lucina:["sst_marth","sst_robin"],
 			sst_bandana_waddle_dee:["sst_kirby","sst_meta_knight","sst_king_dedede"],
-			sst_magolor:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee"]
+			sst_magolor:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee"],
+			sst_sheik:["sst_zelda"]
 		},
 		help:{
 			"乱斗EX":"<div style=\"margin:10px\">\

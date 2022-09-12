@@ -2509,30 +2509,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:(event,player)=>game.hasPlayer(current=>current.countGainableCards(player,"hej")),
 				content:()=>{
 					"step 0"
-					player.chooseTarget(get.prompt2("ska_siyi"),(card,player,target)=>target.countGainableCards(player,"hej")).set("ai",target=>{
-						var player=_status.event.player;
-						var att=get.attitude(player,target);
-						if(att<0){
-							att=-Math.sqrt(-att);
-						}
-						else{
-							att=Math.sqrt(att);
-						}
-						return att*lib.card.shunshou.ai.result.target(player,target)+10;
-					});
+					player.chooseTarget(get.prompt2("ska_siyi"),(card,player,target)=>target.countGainableCards(player,"hej")).set("ai",target=>-get.attitude(_status.event.player,target));
 					"step 1"
 					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.logSkill("ska_siyi",event.target);
-						player.gainPlayerCard("嘶咿：获得"+get.translation(event.target)+"区域内一张牌",event.target,"hej",true);
+						player.logSkill("ska_siyi",result.targets);
+						player.storage.ska_siyi_effect=result.targets;
+						player.addSkill("ska_siyi_effect");
+						game.delayx();
 					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					player.addExpose(0.2);
-					player.storage.ska_siyi_effect=event.target;
-					player.addSkill("ska_siyi_effect");
+				},
+				ai:{
+					expose:0.2
 				}
 			},
 			ska_siyi_effect:{
@@ -2545,7 +2532,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					viewHandcard:true,
 					skillTagFilter:(player,tag,arg)=>{
-						if(arg!=player.storage.ska_siyi_effect) return false;
+						if(!player.storage.ska_siyi_effect.contains(arg)) return false;
 					}
 				}
 			}
@@ -2707,7 +2694,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，你可以打出一张牌替换之。若如此做，本回合结束阶段，你对自己使用被替换牌（无视合法性）。",
 			ska_siyi:"嘶咿",
 			ska_siyi_effect:"嘶咿",
-			ska_siyi_info:"隐匿技，当你登场后，你可以获得一名角色区域内的一张牌，令其手牌本局游戏对你可见。",
+			ska_siyi_info:"隐匿技，当你登场后，你可以令一名角色的手牌本局游戏对你可见。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",

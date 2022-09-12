@@ -3023,11 +3023,13 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			sst_dark:[
 				'sst_wario','sst_ganondorf','sst_bowser','sst_ridley','sst_dark_samus','sst_mr_game_watch',
 				'sst_simon','sst_incineroar','sst_greninja','sst_king_k_rool','sst_richter','sst_meta_knight',
-				'sst_bowser_jr','sst_koopalings','sst_sheik','sst_wolf','sst_young_link','sst_joker',
-				'sst_snake','sst_lucario','sst_king_dedede','sst_enderman','sst_sephiroth','sst_kazuya',
+				'sst_bowser_jr','sst_koopalings','sst_wolf','sst_young_link','sst_joker',
+				'sst_lucario','sst_king_dedede','sst_enderman','sst_sephiroth','sst_kazuya',
 				'sst_piranha_plant',
 				//----------------
-				'sst_robin'
+				'sst_snake','sst_sheik',
+				'sst_robin',
+				"sst_r_o_b"
 			],
 			sst_spirit:[
 				'sst_dark_link','sst_waluigi','sst_master_hand','sst_spring_man','sst_rex',
