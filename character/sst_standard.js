@@ -5394,18 +5394,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengxi:{
 				init:function(player){
 					if(typeof player.storage.sst_shengxi!="number") player.storage.sst_shengxi=1;
-					player.addSkill(["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1]);
+					player.addAdditionalSkill("sst_shengxi",["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1]);
 				},
 				onremove:function(player){
-					for(var skill of ["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"]){
-						player.removeSkill(skill);
-					}
+					player.removeAdditionalSkill("sst_shengxi");
 				},
 				mark:true,
 				marktext:"☯",
 				intro:{
 					content:function(storage){
-						return "转换技，你视为拥有"+["〖茕途〗","〖圣罚〗","〖勇魂〗"][storage-1]+"，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。";
+						return "转换技，你视为拥有"+["〖茕途〗","〖圣罚〗","〖勇魂〗"][storage-1]+"，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。";
 					}
 				},
 				derivation:["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"],
@@ -5419,29 +5417,45 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.storage[skill]=1;
 					}
 					player.markSkill(skill);
+					player.addAdditionalSkill(skill,["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage[skill]-1]);
 					if(fullRotation) player.drawTo(player.getHandcardLimit());
-				},
-				locked:false,
-				forced:true,
-				trigger:{player:["sst_shengxi_qiongtuAfter","sst_shengxi_shengfaAfter","sst_shengxi_yonghunAfter"]},
-				content:function(){
-					"step 0"
-					var skills=["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"];
-					var before=player.storage.sst_shengxi-1;
-					player.changeZhuanhuanji(event.name);
-					var after=player.storage.sst_shengxi-1;
-					player.removeSkill(skills[before]);
-					player.addSkill(skills[after]);
 				}
 			},
 			sst_shengxi_qiongtu:{
-				inherit:"sst_qiongtu"
+				inherit:"sst_qiongtu",
+				hookTrigger:{
+					log:function(player){
+						if(!_status.event.sst_shengxi&&_status.event.skill=="sst_shengxi_qiongtu"&&player.additionalSkills.sst_shengxi&&(player.additionalSkills.sst_shengxi=="sst_shengxi_qiongtu"||player.additionalSkills.sst_shengxi.contains("sst_shengxi_qiongtu"))){
+							_status.event.set("sst_shengxi",true);
+							player.logSkill("sst_shengxi");
+							player.changeZhuanhuanji("sst_shengxi");
+						}
+					}
+				}
 			},
 			sst_shengxi_shengfa:{
-				inherit:"sst_shengfa"
+				inherit:"sst_shengfa",
+				hookTrigger:{
+					log:function(player){
+						if(!_status.event.sst_shengxi&&_status.event.skill=="sst_shengxi_shengfa"&&player.additionalSkills.sst_shengxi&&(player.additionalSkills.sst_shengxi=="sst_shengxi_shengfa"||player.additionalSkills.sst_shengxi.contains("sst_shengxi_shengfa"))){
+							_status.event.set("sst_shengxi",true);
+							player.logSkill("sst_shengxi");
+							player.changeZhuanhuanji("sst_shengxi");
+						}
+					}
+				}
 			},
 			sst_shengxi_yonghun:{
-				inherit:"sst_yonghun"
+				inherit:"sst_yonghun",
+				hookTrigger:{
+					log:function(player){
+						if(!_status.event.sst_shengxi&&_status.event.name=="sst_shengxi_yonghun"&&player.additionalSkills.sst_shengxi&&(player.additionalSkills.sst_shengxi=="sst_shengxi_yonghun"||player.additionalSkills.sst_shengxi.contains("sst_shengxi_yonghun"))){
+							_status.event.set("sst_shengxi",true);
+							player.logSkill("sst_shengxi");
+							player.changeZhuanhuanji("sst_shengxi");
+						}
+					}
+				}
 			},
 			sst_xuelun:{
 				trigger:{global:"damageSource"},
@@ -5452,13 +5466,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				check:function(event,player){
 					return get.attitude(player,event.source)>0;
 				},
+				prompt2:function(event,player){
+					return "你可以询问"+get.translation(event.source)+"是否获得〖"+get.translation(["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1])+"〗直到其发动此技能后";
+				},
 				content:function(){
 					"step 0"
 					event.current=["sst_shengxi_qiongtu","sst_shengxi_shengfa","sst_shengxi_yonghun"][player.storage.sst_shengxi-1];
 					trigger.source.chooseBool("血轮：是否获得"+get.translation(event.current)+"？").set("ai",()=>true);
 					"step 1"
 					if(result.bool){
-						trigger.source.addAdditionalSkill("sst_xuelun",event.current,true);
+						trigger.source.addAdditionalSkill("sst_xuelun_effect",event.current,true);
 						trigger.source.addSkill("sst_xuelun_effect");
 						trigger.source.popup(event.current,"thunder");
 						game.log(trigger.source,"获得了技能","#g【"+get.translation(event.current)+"】");
@@ -5478,16 +5495,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				silent:true,
 				trigger:{player:["sst_shengxi_qiongtuAfter","sst_shengxi_shengfaAfter","sst_shengxi_yonghunAfter"]},
 				filter:function(event,player){
-					if(!player.additionalSkills.sst_xuelun) return false;
+					if(!player.additionalSkills.sst_xuelun_effect) return false;
 					if(!player.hasHistory("useSkill",function(evt){
-						return evt.skill==event.name&&evt.event==event;
+						return evt.skill==event.name&&(evt.event==event||evt.event==event.getParent());
 					})) return false;
 					return true;
 				},
 				content:function(){
-					player.removeAdditionalSkill("sst_xuelun",trigger.name);
-					if(player.additionalSkills.sst_xuelun){
-						var additionalSkills=player.additionalSkills.sst_xuelun;
+					player.removeAdditionalSkill("sst_xuelun_effect",trigger.name);
+					if(player.additionalSkills.sst_xuelun_effect){
+						var additionalSkills=player.additionalSkills.sst_xuelun_effect;
 						if(Array.isArray(additionalSkills)&&!additionalSkills.length) player.removeSkill("sst_xuelun_effect");
 					}
 					else{
@@ -12777,7 +12794,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							return get.attitude(player,current)<0;
 						})){
 							if(button.link[0]=="sst_jichang_first"){
-								return button.link[1]-Math.random()*5;
+								return button.link[1];
 							}
 							return -button.link[1];
 						}
@@ -12793,7 +12810,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(button.link[0]=="sst_jichang_third"){
 							return 5-Math.abs(button.link[1]+1-Math.random()*5);
 						}
-						return button.link[1];
+						return button.link[1]-Math.random()*5;
 					});
 					next.set("total",total);
 					"step 2"
@@ -13693,13 +13710,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				return str;
 			},
 			sst_shengxi:function(player){
-				if(typeof player.storage.sst_shengxi!="number") return "转换技，你视为拥有<span class=\"bluetext\">①〖茕途〗</span>②〖圣罚〗③〖勇魂〗，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。";
+				if(typeof player.storage.sst_shengxi!="number") return "转换技，你视为拥有<span class=\"bluetext\">①〖茕途〗</span>②〖圣罚〗③〖勇魂〗，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。";
 				var str="转换技，你视为拥有";
 				var rotativeSkill=["①〖茕途〗","②〖圣罚〗","③〖勇魂〗"][player.storage.sst_shengxi-1];
 				str+="①〖茕途〗"==rotativeSkill?"<span class=\"bluetext\">"+"①〖茕途〗"+"</span>":"①〖茕途〗";
 				str+="②〖圣罚〗"==rotativeSkill?"<span class=\"bluetext\">"+"②〖圣罚〗"+"</span>":"②〖圣罚〗";
 				str+="③〖勇魂〗"==rotativeSkill?"<span class=\"bluetext\">"+"③〖勇魂〗"+"</span>":"③〖勇魂〗";
-				str+="，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。";
+				str+="，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。";
 				return str;
 			},
 			sst_liedui:function(player){
@@ -14033,7 +14050,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_baochui_effect:"爆锤",
 			sst_baochui_info:"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为X+1。然后若此牌没有造成伤害，本局游戏你的手牌上限-1。（X为你本回合失去牌的数量除以2且向上取整）",
 			sst_shengxi:"圣袭",
-			sst_shengxi_info:"转换技，你视为拥有①〖茕途〗②〖圣罚〗③〖勇魂〗，发动上述技能后转换。每完成一轮转换，你将手牌补至手牌上限。",
+			sst_shengxi_info:"转换技，你视为拥有①〖茕途〗②〖圣罚〗③〖勇魂〗，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。",
 			sst_shengxi_qiongtu:"茕途",
 			sst_shengxi_qiongtu_info:"锁定技，每当你造成一次伤害，本局你的摸牌阶段摸牌数+1；每当你于弃牌阶段弃置一张牌，本局你的攻击范围+1；每当你使用牌被响应，本局你的体力上限+1（以上三项本局均至多+3）。然后你可以删除〖绝战〗一个｛｝内的内容。",
 			sst_shengxi_shengfa:"圣罚",

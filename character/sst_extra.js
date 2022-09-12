@@ -819,7 +819,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(result.links&&result.links.length){
 						event.toUse.removeArray(result.links);
-						player.addTempSkill("sst_doujiang2");
+						player.addTempSkill("sst_doujiang_effect");
 						player.chooseUseTarget(result.links[0],"nodistance",false);
 						event.goto(1);
 					}
@@ -836,7 +836,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			sst_doujiang2:{
+			sst_doujiang_effect:{
 				charlotte:true,
 				trigger:{player:"useCard1"},
 				forced:true,
