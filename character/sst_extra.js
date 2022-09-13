@@ -8,11 +8,24 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_extra:{
 				sst_civil_war:["sst_pyra_mythra","sst_9_volt_18_volt"],
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai","sst_snake","sst_sheik"],
+				sst_the_use_of_spies:["sst_inkling"],
 				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans"],
 				sst_attack_by_stratagem:["sst_magolor","sst_roy","sst_r_o_b"]
 			}
 		},
 		character:{
+			//Soldier
+			shibing1sst_light:["male","sst_light",0,[],["unseen"]],
+			shibing2sst_light:["female","sst_light",0,[],["unseen"]],
+			shibing1sst_dark:["male","sst_dark",0,[],["unseen"]],
+			shibing2sst_dark:["female","sst_dark",0,[],["unseen"]],
+			shibing1sst_spirit:["male","sst_spirit",0,[],["unseen"]],
+			shibing2sst_spirit:["female","sst_spirit",0,[],["unseen"]],
+			shibing1sst_reality:["male","sst_reality",0,[],["unseen"]],
+			shibing2sst_reality:["female","sst_reality",0,[],["unseen"]],
+			shibing1sst_smash:["male","sst_smash",0,[],["unseen"]],
+			shibing2sst_smash:["female","sst_smash",0,[],["unseen"]],
+			//Identity mode character
 			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],[]],
 			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],[]],
 			sst_claude:["male","sst_spirit",3,["sst_yunchou","sst_guimou"],[]],
@@ -29,7 +42,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],[]],
 			sst_r_o_b:["male","sst_dark",5,["sst_yinbao","sst_zhuxin"],["hiddenSkill"]],
 			sst_snake:["male","sst_dark",4,["sst_qianlong","sst_dieying"],["hiddenSkill"]],
-			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill"]]
+			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill"]],
+			sst_inkling:["none","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill"]]
 		},
 		characterFilter:{},
 		characterIntro:{
@@ -236,7 +250,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			在《塞尔达传说：时之笛》中，希克自称是从灾难中幸存的希卡族人，不过她其实是塞尔达公主为了躲避加侬多夫的追捕而女扮男装的形态。在大乱斗中，希克以高速连招为主，和塞尔达的战斗风格有很大差别。<br>\
 			——封羽翎烈、无敌阿尔宙斯，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			“接下来这段旋律，你要铭记于心……”"
+			“接下来这段旋律，你要铭记于心……”",
+			sst_inkling:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
+			<hr>\
+			1025.鱿鱼（女孩）/Inkling (Girl)/インクリング（ガール）<br>\
+			系列：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
+			让我们来认识一下鱿鱼吧，这可是经过万年的进化，能切换人和鱿鱼形态的生物！她们喜欢用疯狂的、五彩缤纷的占地对战来打发时间，也不会错过任何登上顶级排名的机会。她们的时尚不叫时尚，而是叫“鱿型”！<br>\
+			——谁的错820、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			1026. 鱿鱼（男孩）/Inkling (Boy)/インクリング（ボーイ）<br>\
+			系列：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
+			和女孩们一样，他们也喜欢激烈的占地对战。为了展示自己的风格，男孩们更喜欢将两条长触手绑成发髻而不是自然下垂。说起来，斯普拉遁里所有的衣服都是不限性别的，毕竟潮流不会有任何的限制！<br>\
+			——谁的错820、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			明明是鱿鱼却又怕水，好奇怪啊。"
 		},
 		characterTitle:{
 			sst_pyra_mythra:"天之圣杯",
@@ -255,7 +285,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sans:"审判之眼",
 			sst_r_o_b:"亚空的使者",
 			sst_snake:"潜龙谍影",
-			sst_sheik:"倩影扫弦音"
+			sst_sheik:"倩影扫弦音",
+			sst_inkling:"瞎喷乱涂"
 		},
 		skill:{
 			//Civil War mode reference
@@ -474,9 +505,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				line:"fire",
 				enable:"phaseUse",
 				usable:1,
-				filterTarget:function(card,player,target){
-					return target!=player;
-				},
+				filterTarget:lib.filter.notMe,
 				content:function(){
 					"step 0"
 					var name=player.name;
@@ -2331,7 +2360,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zhuxin:{
 				trigger:{player:"changeHp"},
 				filter:event=>event.num<0,
-				check:(event,player)=>player.maxHp>1,
+				check:(event,player)=>player.maxHp>1&&player.getDamagedHp(),
 				content:()=>{
 					"step 0"
 					player.loseMaxHp(-trigger.num);
@@ -2353,7 +2382,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.index){
 						event.distribution=result.index;
 						event.num+=event.distribution;
-						player.chooseTarget("铸心：分配给一名其他角色"+event.distribution+"点护甲，分配完成后获得被分配角色区域内共计等量的牌",(card,player,target)=>target!=player,true).set("ai",target=>get.attitude(_status.event.player,target)+lib.card.shunshou.ai.result.target(_status.event.player,target));
+						player.chooseTarget("铸心：分配给一名其他角色"+event.distribution+"点护甲，分配完成后获得被分配角色区域内共计等量的牌",lib.filter.notMe,true).set("ai",target=>get.attitude(_status.event.player,target)+lib.card.shunshou.ai.result.target(_status.event.player,target));
 					}
 					else{
 						event.goto(4);
@@ -2363,11 +2392,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.targets.addArray(result.targets);
 						player.line(result.targets,"green");
 						player.changeHujia(-event.distribution);
+						game.log(player,"失去了"+get.cnNumber(event.distribution)+"点护甲");
 						result.targets[0].changeHujia(event.distribution);
 						player.addExpose(0.1);
 					}
 					event.goto(1);
 					"step 4"
+					event.targets=event.targets.filter(target=>target.countGainableCards(player,"hej"));
 					if(event.targets.length&&event.num>0){
 						player.chooseTarget("铸心：获得"+get.translation(event.targets)+"区域内共计"+get.cnNumber(event.num)+"张牌",(card,player,target)=>_status.event.getParent().targets.contains(target)&&target.countGainableCards(_status.event.player,"hej"),true).set("ai",target=>lib.card.shunshou.ai.result.target(_status.event.player,target));
 					}
@@ -2510,7 +2541,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				hiddenSkill:true,
 				direct:true,
 				trigger:{player:"showCharacterEnd"},
-				filter:(event,player)=>game.hasPlayer(current.countGainableCards(player,"ej")),
+				filter:(event,player)=>game.hasPlayer(current=>current.countGainableCards(player,"ej")),
 				content:()=>{
 					"step 0"
 					player.chooseTarget(get.prompt2("sst_dieying"),(card,player,target)=>target.countGainableCards(player,"ej")).set("ai",target=>{
@@ -2567,9 +2598,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseTarget(get.prompt2("sst_shouyin"),function(card,player,target){
-						return target!=player;
-					}).set("ai",function(target){
+					player.chooseTarget(get.prompt2("sst_shouyin"),lib.filter.notMe).set("ai",function(target){
 						return get.sgnAttitude(_status.event.player,target)*Math.max(1,target.countCards("h"));
 					});
 					"step 1"
@@ -2629,6 +2658,53 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},player,player.storage.sst_anzong_effect);
 					delete player.storage.sst_anzong_effect;
 				}
+			},
+			//Inkling
+			sst_xumo:{
+				hiddenSkill:true,
+				forced:true,
+				trigger:{player:"showCharacterEnd"},
+				content:()=>{
+					player.draw(3);
+				}
+			},
+			sst_pentu:{
+				enable:"phaseUse",
+				usable:1,
+				filterCard:true,
+				filterTarget:true,
+				check:card=>5-get.value(card),
+				discard:false,
+				lose:true,
+				losetrigger:false,
+				delay:false,
+				content:()=>{
+					var sst_ink=game.createCard("sst_ink","","","");
+					sst_ink.cards=cards;
+					game.broadcast((sst_ink,cards)=>{
+						sst_ink.cards=cards;
+					},sst_ink,sst_ink.cards);
+					var next=game.createEvent("_yongjian_zengyu");
+					next.player=player;
+					next.target=target;
+					next.cards=[sst_ink];
+					next.setContent(lib.skill._yongjian_zengyu.content);
+				},
+				ai:{
+					result:{
+						target:(player,target)=>get.effect(target,{name:"sst_ink",cards:ui.selected.cards},player,target)
+					}
+				}
+			},
+			_sst_pentu_effect:{
+				charlotte:true,
+				superCharlotte:true,
+				trigger:{
+					player:"loseBegin",
+					global:["equipBegin","addJudgeBegin","gainBegin","loseAsyncBegin","addToExpansionBegin"]
+				},
+				filter:event=>event.cards&&event.cards.filter(card=>card.name=="sst_ink"&&Array.isArray(card.cards)).length,
+				content:()=>{}
 			}
 		},
 		dynamicTranslate:{
@@ -2647,6 +2723,17 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			_guozhan_marks:"标记",
 			_guozhan_marks_backup:"标记",
 			xianqu_mark:"先驱",
+			//Soldier
+			shibing1sst_light:"士兵",
+			shibing2sst_light:"士兵",
+			shibing1sst_dark:"士兵",
+			shibing2sst_dark:"士兵",
+			shibing1sst_spirit:"士兵",
+			shibing2sst_spirit:"士兵",
+			shibing1sst_reality:"士兵",
+			shibing2sst_reality:"士兵",
+			shibing1sst_smash:"士兵",
+			shibing2sst_smash:"士兵",
 			//Character
 			sst_pyra_mythra:"焰／光",
 			sst_9_volt_18_volt:"九伏特＆十八伏特",
@@ -2665,6 +2752,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_r_o_b:"机器人",
 			sst_snake:"Snake",
 			sst_sheik:"希克",
+			sst_inkling:"鱿鱼",
 			//Character ab.
 			sst_9_volt_18_volt_ab:"九伏十八伏",
 			sst_geno_ab:"Geno",
@@ -2753,6 +2841,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_anzong:"暗踪",
 			sst_anzong_effect:"暗踪",
 			sst_anzong_info:"隐匿技，锁定技，当你登场时，将杀死当前回合角色执行的奖惩改为：<span style=\"font-family: fzktk\">杀死其的角色摸三张牌</span>。",
+			sst_xumo:"蓄墨",
+			sst_xumo_info:"隐匿技，锁定技，当你登场时，摸三张牌。",
+			sst_pentu:"喷涂",
+			sst_pentu_info:"出牌阶段限一次，你可以将一张手牌背面朝上当作【墨水】对一名角色发动〖赠予〗。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
@@ -2760,10 +2852,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			//Sort
 			sst_civil_war:"国战",
 			sst_response:"应变",
+			sst_the_use_of_spies:"用间",
 			sst_laying_plans:"始计",
 			sst_attack_by_stratagem:"谋攻"
 		},
 		translateEnglish:{
+			//Soldier
+			shibing1sst_light:"Soldier",
+			shibing2sst_light:"Soldier",
+			shibing1sst_dark:"Soldier",
+			shibing2sst_dark:"Soldier",
+			shibing1sst_spirit:"Soldier",
+			shibing2sst_spirit:"Soldier",
+			shibing1sst_reality:"Soldier",
+			shibing2sst_reality:"Soldier",
+			shibing1sst_smash:"Soldier",
+			shibing2sst_smash:"Soldier",
+			//Character
 			sst_pyra_mythra:"Pyra/Mythra",
 			sst_9_volt_18_volt:"9-Volt & 18-Volt",
 			sst_claude:"Claude",
@@ -2780,7 +2885,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_sans:"Sans",
 			sst_r_o_b:"R.O.B.",
 			sst_snake:"Snake",
-			sst_sheik:"Sheik"
+			sst_sheik:"Sheik",
+			sst_inkling:"Inkling"
 		},
 		perfectPair:{
 			sst_pyra_mythra:["sst_rex"],

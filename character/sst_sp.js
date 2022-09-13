@@ -288,9 +288,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					event.num=player.maxHp-player.hp+1;
-					player.chooseTarget(get.prompt("ymk_zhongmi"),"你可以令一名其他角色摸"+get.cnNumber(event.num)+"张牌，或弃置一名其他角色的"+get.cnNumber(event.num)+"张牌",function(card,player,target){
-						return player!=target;
-					}).set("ai",function(target){
+					player.chooseTarget(get.prompt("ymk_zhongmi"),"你可以令一名其他角色摸"+get.cnNumber(event.num)+"张牌，或弃置一名其他角色的"+get.cnNumber(event.num)+"张牌",lib.filter.notMe).set("ai",function(target){
 						var player=_status.event.player;
 						if(get.attitude(_status.event.player,target)>0){
 							return 10+get.attitude(_status.event.player,target);
@@ -984,9 +982,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_jingli:{
 				enable:"phaseUse",
 				usable:1,
-				filterTarget:function(card,player,target){
-					return player!=target;
-				},
+				filterTarget:lib.filter.notMe,
 				filterCard:true,
 				selectCard:function(){
 					var player=_status.event.player;
@@ -1219,9 +1215,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				enable:"phaseUse",
 				usable:1,
-				filterTarget:function(card,player,target){
-					return player!=target;
-				},
+				filterTarget:lib.filter.notMe,
 				viewAsFilter:function(player){
 					if(!player.countCards("h")) return false;
 				},
@@ -1587,9 +1581,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				enable:"phaseUse",
 				usable:1,
 				delay:false,
-				filterTarget:function(card,player,target){
-					return target!=player;
-				},
+				filterTarget:lib.filter.notMe,
 				content:function(){
 					"step 0"
 					event.rank=[];
@@ -2509,7 +2501,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:(event,player)=>game.hasPlayer(current=>current.countGainableCards(player,"hej")),
 				content:()=>{
 					"step 0"
-					player.chooseTarget(get.prompt2("ska_siyi"),(card,player,target)=>target.countGainableCards(player,"hej")).set("ai",target=>-get.attitude(_status.event.player,target));
+					player.chooseTarget(get.prompt2("ska_siyi"),lib.filter.notMe).set("ai",target=>10-get.attitude(_status.event.player,target));
 					"step 1"
 					if(result.targets&&result.targets.length){
 						player.logSkill("ska_siyi",result.targets);
@@ -2694,7 +2686,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，你可以打出一张牌替换之。若如此做，本回合结束阶段，你对自己使用被替换牌（无视合法性）。",
 			ska_siyi:"嘶咿",
 			ska_siyi_effect:"嘶咿",
-			ska_siyi_info:"隐匿技，当你登场后，你可以令一名角色的手牌本局游戏对你可见。",
+			ska_siyi_info:"隐匿技，当你登场后，你可以令一名其他角色的手牌本局游戏对你可见。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",

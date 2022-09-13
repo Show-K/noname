@@ -103,12 +103,14 @@ html{
 	color:rgb(77, 60, 51);
 	text-shadow:none;
 	background: url('card.png');
-	background-size:100% 100%;
+	background-size:100% 138.75%;
+	background-position: center;
 }
 .card .markcount{
 	box-shadow: rgba(0, 0, 0, 0.8) 0 0 0 1px, rgba(0, 0, 0, 0.2) 0 3px 10px;
 	background: url('card.png');
-	background-size: cover;
+	background-size:100% 138.75% cover;
+	background-position: center;
 	/*color: white;*/
 }
 #me>div>div>.card,#arena>.card:not(*:empty){

@@ -17,18 +17,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			}
 		},
 		character:{
-			//Soldier
-			shibing1sst_light:["male","sst_light",0,[],["unseen"]],
-			shibing2sst_light:["female","sst_light",0,[],["unseen"]],
-			shibing1sst_dark:["male","sst_dark",0,[],["unseen"]],
-			shibing2sst_dark:["female","sst_dark",0,[],["unseen"]],
-			shibing1sst_spirit:["male","sst_spirit",0,[],["unseen"]],
-			shibing2sst_spirit:["female","sst_spirit",0,[],["unseen"]],
-			shibing1sst_reality:["male","sst_reality",0,[],["unseen"]],
-			shibing2sst_reality:["female","sst_reality",0,[],["unseen"]],
-			shibing1sst_smash:["male","sst_smash",0,[],["unseen"]],
-			shibing2sst_smash:["female","sst_smash",0,[],["unseen"]],
-			//Identity mode character
 			sst_mario:["male","sst_light",4,["sst_jueyi"],["type:neutral","primary:1","attack:1.6","defense:1.6"]],
 			sst_link:["male","sst_light",4,["sst_qingyong"],["type:shield","primary:1.4","attack:1.9","defense:1.6"]],
 			sst_yoshi:["male","sst_light",4,["sst_tanshi"],["type:grab","primary:1.4","attack:1.6","defense:1.5"]],
@@ -1259,7 +1247,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				firstDo:true,
 				priority:2020,
 				filter:function(event,player){
-					return player.sex=="none"&&["sst_corrin","sst_mii_fighters","sst_robin","nnk_robin"].contains(player.name);
+					return player.sex=="none"&&["sst_corrin","sst_mii_fighters","sst_robin","sst_inkling","nnk_robin"].contains(player.name);
 				},
 				content:function(){
 					"step 0"
@@ -1449,7 +1437,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.chooseTarget(get.prompt2("sst_huandai"),function(card,player,target){
 						return target!=player&&target.countGainableCards(player,"h");
-						//return target!=player;
 					}).set("ai",function(target){
 						if(_status.event.player.hasJudge("lebu")) return 0;
 						return get.attitude(target,_status.event.player);
@@ -2429,9 +2416,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							event.cards.remove(result.links[i]);
 						}
 						event.togive=result.links.slice(0);
-						player.chooseTarget("将"+get.translation(result.links)+"分配给一名其他角色",true,function(card,player,target){
-							return player!=target;
-						}).set("ai",function(target){
+						player.chooseTarget("将"+get.translation(result.links)+"分配给一名其他角色",true,lib.filter.notMe).set("ai",function(target){
 							var att=get.attitude(_status.event.player,target);
 							if(_status.event.enemy){
 								return -att;
@@ -3141,6 +3126,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var next=game.loseAsync({
 						player:player,
 						target:event.target,
+						cards:[event.card1,event.card2],
 						card1:event.card1,
 						card2:event.card2,
 					});
@@ -3321,9 +3307,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					var str="你可以将"+get.translation(event.cards)+"交给一名其他角色";
 					if(trigger.getParent(2).name=="sst_potian") str+="，然后你令该角色于其下一个回合内拥有【破天】";
-					player.chooseTarget(get.prompt("sst_shenjiao"),str,function(card,player,target){
-						return player!=target;
-					}).set("ai",function(target){
+					player.chooseTarget(get.prompt("sst_shenjiao"),str,lib.filter.notMe).set("ai",function(target){
 						//if(!_status.event.player.hasFriend()) return 0;
 						return get.attitude(_status.event.player,target);
 					});
@@ -3355,9 +3339,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yanchuan:{
 				enable:"phaseUse",
 				usable:1,
-				filterTarget:function(card,player,target){
-					return player!=target;
-				},
+				filterTarget:lib.filter.notMe,
 				filter:function(event,player){
 					return player.countCards("he");
 				},
@@ -4441,8 +4423,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					effect:{
 						target:function(card,player,target){
 							if(!target.hasFriend()) return;
-							if(get.tag(card,"damage")==1&&target.hp==2&&!target.isTurnedOver()&&
-							_status.currentPhase!=target&&get.distance(_status.currentPhase,target,"pure")<=3) return [0.5,1];
+							if(get.tag(card,"damage")==1&&target.hp==2&&!target.isTurnedOver()&&_status.currentPhase!=target&&get.distance(_status.currentPhase,target,"pure")<=3) return [0.5,1];
 						}
 					}
 				}
@@ -7209,21 +7190,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return player.countCards("h");
 				},
-				filterTarget:function(card,player,target){
-					return target!=player;
-				},
+				filterTarget:lib.filter.notMe,
 				delay:false,
 				content:function(){
 					"step 0"
 					target.discardPlayerCard("诈谋：弃置"+get.translation(player)+"一张手牌",player,"h",true);
-					/*.set("ai",function(button){
-						var val=get.buttonValue(button);
-						if(get.attitude(_status.event.player,get.owner(button.link))>0){
-							if(get.color(button.link)=="black") return 5-val;
-							return -val;
-						}
-						return val;
-					})*/
 					"step 1"
 					if(get.color(result.cards[0])=="black"){
 						event.card=result.cards[0];
@@ -7595,9 +7566,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					//if(player.storage.sst_qichang) event.qichang=player.storage.sst_qichang;
 					if(trigger.player==player){
-						player.chooseTarget(get.prompt("sst_shizhu"),"你可以令一名其他角色弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用",function(card,player,target){
-							return target!=player;
-						}).set("ai",function(target){
+						player.chooseTarget(get.prompt("sst_shizhu"),"你可以令一名其他角色弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用",lib.filter.notMe).set("ai",function(target){
 							return -get.attitude(_status.event.player,target);
 						}).set("num",trigger.cards.length);
 						event.control=1;
@@ -9088,9 +9057,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				check:function(card){
 					return 7-get.value(card);
 				},
-				filterTarget:function(card,player,target){
-					return target!=player;
-				},
+				filterTarget:lib.filter.notMe,
 				content:function(){
 					"step 0"
 					target.damage(player,"nocard");
@@ -11478,9 +11445,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseTarget(get.prompt2("sst_xingduo"),[1,3],function(card,player,target){
-						return target!=player;
-					}).set("ai",function(target){
+					player.chooseTarget(get.prompt2("sst_xingduo"),[1,3],lib.filter.notMe).set("ai",function(target){
 						var player=_status.event.player;
 						if(target.isTurnedOver()) return get.attitude(player,target);
 						if(target.hp==1) return 0;
@@ -12107,9 +12072,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				limited:true,
 				skillAnimation:"epic",
 				animationColor:"thunder",
-				filterTarget:function(card,player,target){
-					return target!=player;
-				},
+				filterTarget:lib.filter.notMe,
 				selectTarget:-1,
 				multitarget:true,
 				multiline:true,
@@ -13501,17 +13464,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		},
 		*/
 		translate:{
-			//Soldier
-			shibing1sst_light:"士兵",
-			shibing2sst_light:"士兵",
-			shibing1sst_dark:"士兵",
-			shibing2sst_dark:"士兵",
-			shibing1sst_spirit:"士兵",
-			shibing2sst_spirit:"士兵",
-			shibing1sst_reality:"士兵",
-			shibing2sst_reality:"士兵",
-			shibing1sst_smash:"士兵",
-			shibing2sst_smash:"士兵",
 			//Character
 			sst_mario:"马力欧",
 			sst_link:"林克",
@@ -14179,18 +14131,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_players:"玩家"
 		},
 		translateEnglish:{
-			//Soldier
-			shibing1sst_light:"Soldier",
-			shibing2sst_light:"Soldier",
-			shibing1sst_dark:"Soldier",
-			shibing2sst_dark:"Soldier",
-			shibing1sst_spirit:"Soldier",
-			shibing2sst_spirit:"Soldier",
-			shibing1sst_reality:"Soldier",
-			shibing2sst_reality:"Soldier",
-			shibing1sst_smash:"Soldier",
-			shibing2sst_smash:"Soldier",
-			//Character
 			sst_mario:"Mario",
 			sst_link:"Link",
 			sst_yoshi:"Yoshi",

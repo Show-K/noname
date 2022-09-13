@@ -19125,7 +19125,7 @@
 							if(this.name=='sst_massy') this.node.name.dataset.nature=get.groupnature('shen');
 						}
 						this.sex='male';
-						//this.group='unknown';
+						this.group='unknown';
 						this.storage.nohp=true;
 						skills.add('g_hidden_ai');
 					}
