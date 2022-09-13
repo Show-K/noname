@@ -7953,36 +7953,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.chooseTarget("时逝：弃置一名角色的一张牌",true,function(card,player,target){
 							return target.countDiscardableCards(player,"he");
 						}).set("ai",function(target){
-							var guohe=function(player,target){
-								var att=get.attitude(player,target);
-								var nh=target.countCards("h");
-								if(att>0){
-									if(target.getEquip("baiyin")&&target.isDamaged()&&
-										get.recoverEffect(target,player,player)>0){
-										if(target.hp==1&&!target.hujia) return 1.6;
-									}
-									if(target.countCards("e",function(card){
-										if(get.position(card)=="e") return get.value(card,target)<0;
-									})>0) return 1;
-								}
-								var es=target.getCards("e");
-								var noe=(es.length==0||target.hasSkillTag("noe"));
-								var noe2=(es.filter(function(esx){
-									return get.value(esx,target)>0;
-								}).length==0);
-								var noh=(nh==0||target.hasSkillTag("noh"));
-								if(noh&&(noe||noe2)) return 0;
-								if(att<=0&&!target.countCards("he")) return 1.5;
-								return -1.5;
-							};
-							var att=get.attitude(_status.event.player,target);
+							var player=_status.event.player;
+							var att=get.attitude(player,target);
 							if(att<0){
 								att=-Math.sqrt(-att);
 							}
 							else{
 								att=Math.sqrt(att);
 							}
-							return att*guohe(_status.event.player,target);
+							return att*lib.card.guohe_copy2.ai.result.target(player,target);
 						});
 					}
 					else{
@@ -11432,36 +11411,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseTarget(get.prompt("sst_fenshi"),"你可以弃置一名角色两张牌",function(card,player,target){
 						return target.countCards("he")>1;
 					}).set("ai",function(target){
-						var guohe=function(player,target){
-							var att=get.attitude(player,target);
-							var nh=target.countCards("h");
-							if(att>0){
-								if(target.getEquip("baiyin")&&target.isDamaged()&&
-									get.recoverEffect(target,player,player)>0){
-									if(target.hp==1&&!target.hujia) return 1.6;
-								}
-								if(target.countCards("e",function(card){
-									if(get.position(card)=="e") return get.value(card,target)<0;
-								})>0) return 1;
-							}
-							var es=target.getCards("e");
-							var noe=(es.length==0||target.hasSkillTag("noe"));
-							var noe2=(es.filter(function(esx){
-								return get.value(esx,target)>0;
-							}).length==0);
-							var noh=(nh==0||target.hasSkillTag("noh"));
-							if(noh&&(noe||noe2)) return 0;
-							if(att<=0&&!target.countCards("he")) return 1.5;
-							return -1.5;
-						};
-						var att=get.attitude(_status.event.player,target);
+						var player=_status.event.player;
+						var att=get.attitude(player,target);
 						if(att<0){
 							att=-Math.sqrt(-att);
 						}
 						else{
 							att=Math.sqrt(att);
 						}
-						return att*guohe(_status.event.player,target);
+						return att*lib.card.guohe_copy2.ai.result.target(player,target);
 					});
 					"step 8"
 					if(result.targets&&result.targets.length){
@@ -11817,14 +11775,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var eff=0;
 						for(var i=0;i<nearests.length;i++){
 							if(!nearests[i].countGainableCards(target,"he")) continue;
-							var shunshou=function(player,target){
-								if(get.attitude(player,target)<=0) return (target.countCards("he",function(card){
-									return get.value(card,target)>0&&card!=target.getEquip("jinhe");
-								})>0)?-1.5:1.5;
-								return (target.countCards("e",function(card){
-									return get.value(card,target)<=0;
-								})>0)?1.5:-1.5;
-							};
 							var att=get.attitude(target,nearests[i]);
 							if(att<0){
 								att=-Math.sqrt(-att);
@@ -11832,7 +11782,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							else{
 								att=Math.sqrt(att);
 							}
-							eff+=att*shunshou(target,nearests[i]);
+							eff+=att*lib.card.shunshou_copy2.ai.result.target(target,nearests[i]);
 						}
 						return eff>0;
 					}).set("targetx",player).set("nearests",event.nearests);

@@ -28,8 +28,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_roy:["male","sst_light",4,["sst_nuyan"],[]],
 			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],[]],
 			sst_r_o_b:["male","sst_dark",5,["sst_yinbao","sst_zhuxin"],["hiddenSkill"]],
-			sst_snake:["male","sst_dark",4,["sst_qianlong"],["hiddenSkill"]],
-			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin"],["hiddenSkill"]]
+			sst_snake:["male","sst_dark",4,["sst_qianlong","sst_dieying"],["hiddenSkill"]],
+			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill"]]
 		},
 		characterFilter:{},
 		characterIntro:{
@@ -2506,6 +2506,42 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			sst_dieying:{
+				hiddenSkill:true,
+				direct:true,
+				trigger:{player:"showCharacterEnd"},
+				filter:(event,player)=>game.hasPlayer(current.countGainableCards(player,"ej")),
+				content:()=>{
+					"step 0"
+					player.chooseTarget(get.prompt2("sst_dieying"),(card,player,target)=>target.countGainableCards(player,"ej")).set("ai",target=>{
+						var shunshou=(player,target)=>{
+							if(get.attitude(player,target)<=0) return (target.countCards("e",card=>get.value(card,target)>0&&card!=target.getEquip("jinhe"))>0)?-1.5:1.5;
+							return (target.countCards("ej",card=>{
+								if(get.position(card)=="e") return get.value(card,target)<=0;
+								var cardj=card.viewAs?{name:card.viewAs}:card;
+								return get.effect(target,cardj,target,player)<0;
+							})>0)?1.5:-1.5;
+						};
+						var player=_status.event.player;
+						var att=get.attitude(player,target);
+						if(att<0){
+							att=-Math.sqrt(-att);
+						}
+						else{
+							att=Math.sqrt(att);
+						}
+						return att*shunshou(player,target);
+					});
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.logSkill("sst_dieying",result.targets);
+						player.gainPlayerCard("谍影：获得"+get.translation(result.targets[0])+"场上一张牌",result.targets[0],"ej",true);
+					}
+				},
+				ai:{
+					expose:0.2
+				}
+			},
 			//Sheik
 			sst_nixing:{
 				filter:function(event,player){
@@ -2559,6 +2595,39 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					expose:0.2
+				}
+			},
+			sst_anzong:{
+				hiddenSkill:true,
+				forced:true,
+				trigger:{player:"showCharacterEnd"},
+				filter:()=>_status.currentPhase.isIn(),
+				logTarget:()=>_status.currentPhase,
+				content:()=>{
+					lib.skill.sst_anzong.logTarget().addSkill("sst_anzong_effect");
+					game.delayx();
+				}
+			},
+			sst_anzong_effect:{
+				charlotte:true,
+				init:player=>{
+					player.storage.sst_anzong_effect=player.dieAfter2;
+					game.broadcastAll((player,dieAfter2)=>{
+						player.dieAfter2=dieAfter2;
+					},player,source=>{
+						if(source) source.draw(3);
+					});
+				},
+				mark:true,
+				intro:{
+					content:"杀死你执行的奖惩为：<span style=\"font-family: fzktk\">杀死你的角色摸三张牌</span>",
+					markcount:()=>3
+				},
+				onremove:player=>{
+					game.broadcastAll((player,dieAfter2)=>{
+						player.dieAfter2=dieAfter2;
+					},player,player.storage.sst_anzong_effect);
+					delete player.storage.sst_anzong_effect;
 				}
 			}
 		},
@@ -2675,10 +2744,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_zhuxin_info:"当你扣减体力时，你可以将等量体力上限变为护甲，然后你可以将任意点护甲分配给其他角色，并获得这些角色区域内共计等量的牌。",
 			sst_qianlong:"潜龙",
 			sst_qianlong_info:"出牌阶段限一次，你可以将一张牌背面朝上当作【杀】使用，然后若此【杀】仅对一名角色造成了伤害，你亮出此牌并对该角色使用。",
+			sst_dieying:"谍影",
+			sst_dieying_info:"隐匿技，当你登场时，你可以获得场上的一张牌。",
 			sst_nixing:"匿形",
 			sst_nixing_info:"锁定技，你成为牌的目标时，若你不是唯一目标，此牌对你无效。",
 			sst_shouyin:"授音",
 			sst_shouyin_info:"你使用牌结算后，可以令一名其他角色选择是否使用一张类别相同的牌，若其以此法使用了牌且两张牌目标唯一且相同，你摸一张牌。",
+			sst_anzong:"暗踪",
+			sst_anzong_effect:"暗踪",
+			sst_anzong_info:"隐匿技，锁定技，当你登场时，将杀死当前回合角色执行的奖惩改为：<span style=\"font-family: fzktk\">杀死其的角色摸三张牌</span>。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
