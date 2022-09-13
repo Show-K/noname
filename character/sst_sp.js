@@ -2322,11 +2322,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseUseTarget(card,false).set("prompt",get.prompt("xsj_dongqie2")).set("prompt2",get.translation("xsj_dongqie_info")).set("logSkill","xsj_dongqie2");
 					card._destroy=true;
 					card.expired=true;
-					/*
-					game.broadcastAll(function(card){
+					game.broadcast(function(card){
 						card._destroy=true;
+						card.expired=true;
 					},card);
-					*/
 				},
 				ai:{
 					effect:{

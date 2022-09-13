@@ -499,6 +499,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_fuxin:{
+				delay:false,
 				skillAnimation:true,
 				animationStr:"付心",
 				animationColor:"fire",
@@ -597,11 +598,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.cardsGotoOrdering(event.card);
 					player.showCards(event.card,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】（声明了"+get.translation(event.control)+"）",0.5);
 					"step 3"
-					player.gain(event.card);
-					player.$gain2(event.card,true);
-					if(get.suit(event.card)!=event.control) event.goto(2);
-					"step 4"
-					game.delayx();
+					if(get.suit(event.card)!=event.control){
+						player.gain(event.card);
+						player.$gain2(event.card,true);
+						event.goto(2);
+					}
+					else{
+						player.gain(event.card,"gain2");
+					}
 				},
 				ai:{
 					threaten:3
@@ -1383,24 +1387,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Lucina
 			sst_suxing:{
-				init:function(player){
-					player.addSkill("sst_suxing2");
-				},
 				trigger:{global:"roundStart"},
 				forced:true,
 				filter:function(event,player){
-					return typeof player.storage.sst_suxing_enable=="number"&&game.roundNumber-player.storage.sst_suxing_enable==1;
+					return typeof player.storage.sst_suxing=="number"&&game.roundNumber-player.storage.sst_suxing==1;
 				},
 				content:function(){
-					player.storage.sst_suxing=true;
 					var next=player.phase("sst_suxing");
 					event.next.remove(next);
 					trigger.next.push(next);
 				}
 			},
-			sst_suxing2:{
+			_sst_suxing_effect:{
 				charlotte:true,
 				superCharlotte:true,
+				forceDie:true,
 				firstDo:true,
 				trigger:{global:"loseAfter"},
 				filter:function(event,player){
@@ -1409,7 +1410,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				silent:true,
 				content:function(){
-					player.storage.sst_suxing_enable=game.roundNumber;
+					player.storage.sst_suxing=game.roundNumber;
 				}
 			},
 			sst_shengyi:{
@@ -1420,7 +1421,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				derivation:["sst_hanmang","sst_cuifeng"],
 				trigger:{player:"phaseJieshuBegin"},
 				filter:function(event,player){
-					return player.storage.sst_suxing;
+					return player.hasAllHistory("useSkill",function(evt){
+						return evt.skill=="sst_suxing";
+					});
 				},
 				forced:true,
 				content:function(){
@@ -2349,18 +2352,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.bool==false){
 						event.target.damage("nocard");
 					}
-					else{
-						event.goto(1);
-					}
-					"step 4"
-					game.delayx();
 					event.goto(1);
 				}
 			},
 			sst_zhuxin:{
 				trigger:{player:"changeHp"},
 				filter:event=>event.num<0,
-				check:(event,player)=>player.maxHp>1&&player.getDamagedHp(),
+				check:(event,player)=>player.maxHp>-event.num&&player.getDamagedHp(),
 				content:()=>{
 					"step 0"
 					player.loseMaxHp(-trigger.num);
@@ -2669,6 +2667,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_pentu:{
+				delay:false,
 				enable:"phaseUse",
 				usable:1,
 				filterCard:true,
@@ -2677,7 +2676,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				discard:false,
 				lose:true,
 				losetrigger:false,
-				delay:false,
 				content:()=>{
 					var sst_ink=game.createCard("sst_ink","","","");
 					sst_ink.cards=cards;
@@ -2692,19 +2690,60 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					result:{
-						target:(player,target)=>get.effect(target,{name:"sst_ink",cards:ui.selected.cards},player,target)
+						target:(player,target)=>{
+							if(target.getEquip("sst_ink")) return 0;
+							return get.effect(target,{name:"sst_ink",cards:ui.selected.cards},player,target);
+						}
 					}
 				}
 			},
 			_sst_pentu_effect:{
 				charlotte:true,
 				superCharlotte:true,
-				trigger:{
-					player:"loseBegin",
-					global:["equipBegin","addJudgeBegin","gainBegin","loseAsyncBegin","addToExpansionBegin"]
+				forceDie:true,
+				firstDo:true,
+				silent:true,
+				trigger:{player:"loseBegin"},
+				filter:event=>{
+					if(!event.cards||!event.cards.length) return false;
+					for(var i=0;i<event.cards.length;i++){
+						if(event.cards[i].cards&&get.name(event.cards[i])=="sst_ink") return true;
+					}
+					return false;
 				},
-				filter:event=>event.cards&&event.cards.filter(card=>card.name=="sst_ink"&&Array.isArray(card.cards)).length,
-				content:()=>{}
+				content:()=>{
+					trigger.cards.filter(card=>card.cards&&get.name(card)=="sst_ink").forEach(sst_ink=>{
+						for(var i=0;i<sst_ink.cards.length;i++){
+							player.node.equips.appendChild(sst_ink.cards[i]);
+							sst_ink.cards[i].parentNode.classList.add("equips");
+						}
+						//trigger.cards.splice.apply(this,[trigger.cards.indexOf(sst_ink),1].concat(sst_ink.cards));
+						//trigger.cards.addArray(sst_ink.cards).remove(sst_ink);
+						var modify=cards=>{
+							var index=cards.indexOf(sst_ink);
+							var before=[],after=[];
+							if(index>0){
+								before=cards.slice(0,index-1);
+							}
+							if(index<cards.length-1){
+								after=cards.slice(index+1);
+							}
+							return before.concat(sst_ink.cards).concat(after);
+						};
+						trigger.cards=modify(trigger.cards);
+						var evt=trigger.getParent();
+						if(evt&&["lose","useCard","discard","loseToDiscardpile","respond","equip","addJudge","gain","loseAsync","addToExpansion"].contains(evt.name)&&evt.cards) evt.cards=modify(evt.cards);
+						var evt2=trigger.getParent(2);
+						if(evt2&&["lose","useCard","discard","loseToDiscardpile","respond","equip","addJudge","gain","loseAsync","addToExpansion"].contains(evt2.name)&&evt2.cards) evt2.cards=modify(evt2.cards);
+						delete sst_ink.cards;
+						sst_ink._destroy=true;
+						game.broadcast(sst_ink=>{
+							delete sst_ink.cards;
+							sst_ink._destroy=true;
+						},sst_ink);
+						player.lose(sst_ink).set("_triggered",null);
+					});
+				}
 			}
 		},
 		dynamicTranslate:{

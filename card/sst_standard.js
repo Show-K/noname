@@ -113,12 +113,12 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 				ai:{
 					order:9,
 					equipValue:card=>{
-						if(get.position(card)=="e") return -2;
-						return 2;
+						if(get.position(card)=="e") return -1;
+						return 1;
 					},
 					value:(card,player)=>{
-						if(player.getEquip(2)==card) return -3;
-						return 3;
+						if(player.getEquip(2)==card) return -2.5;
+						return 2.5;
 					},
 					basic:{
 						equipValue:5,
@@ -127,7 +127,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 						keepAI:true,
 						target:(player,target)=>{
 							var val=0;
-							var card=target.getEquip(1);
+							var card=target.getEquip(2);
 							if(card){
 								val=get.value(card,target);
 								if(val<0) return 0;

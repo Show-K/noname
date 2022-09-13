@@ -1238,6 +1238,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			_sst_sex_select:{
 				charlotte:true,
 				superCharlotte:true,
+				forceLoad:true,
 				trigger:{
 					global:"gameStart",
 					player:"enterGame"
@@ -1276,6 +1277,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			_sst_group_select:{
 				charlotte:true,
 				superCharlotte:true,
+				forceLoad:true,
 				trigger:{
 					global:"gameStart",
 					player:"enterGame"
@@ -7502,11 +7504,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.$gain2(card);
 						player.directequip([card]);
 						card._destroy=true;
-						/*
-						game.broadcastAll(function(card){
+						game.broadcast(function(card){
 							card._destroy=true;
 						},card);
-						*/
 						game.delayx();
 					}
 				}
@@ -9800,8 +9800,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 4"
 					if(get.suit(event.card)==event.control||get.type(event.card,"trick")==event.control){
-						player.gain(event.card);
-						player.$gain2(event.card,true);
+						player.gain(event.card,"gain2");
+						event.finish();
 					}
 					else{
 						game.cardsDiscard(event.card);
@@ -10477,8 +10477,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sync:function(sst_qiaoqi){
 					if(game.online) return;
 					if(typeof sst_qiaoqi.cards=="undefined"){
+						delete sst_qiaoqi.sst_qiaoqi;
 						game.broadcast(function(sst_qiaoqi){
-							if(typeof sst_qiaoqi.cards!="undefined") delete sst_qiaoqi.cards;
+							delete sst_qiaoqi.cards;
+							delete sst_qiaoqi.sst_qiaoqi;
 						},sst_qiaoqi);
 						return;
 					}
@@ -10490,12 +10492,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(sst_qiaoqi.cards.length){
 						game.broadcast(function(sst_qiaoqi,cards){
 							sst_qiaoqi.cards=cards;
+							sst_qiaoqi.sst_qiaoqi=true;
 						},sst_qiaoqi,sst_qiaoqi.cards);
 					}
 					else{
 						delete sst_qiaoqi.cards;
+						delete sst_qiaoqi.sst_qiaoqi;
 						game.broadcast(function(sst_qiaoqi){
 							delete sst_qiaoqi.cards;
+							delete sst_qiaoqi.sst_qiaoqi;
 						},sst_qiaoqi);
 					}
 				},
@@ -10548,8 +10553,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					if(muniu.cards==undefined) muniu.cards=[];
 					muniu.cards.push(cards[0]);
+					miniu.sst_qiaoqi=true;
 					game.broadcast(function(muniu,cards){
 						muniu.cards=cards;
+						miniu.sst_qiaoqi=true;
 					},muniu,muniu.cards);
 					target.markSkill("sst_qiaoqi");
 					game.delayx();
@@ -10582,7 +10589,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				filter:function(event,player){
 					var sst_qiaoqi=player.getCards("e",function(card){
-						return card.cards&&get.name(card)!="muniu";
+						return card.cards&&card.sst_qiaoqi;
 					});
 					/*
 					for(var h=0;h<sst_qiaoqi.length;h++){
@@ -10600,7 +10607,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.choosePlayerCard("巧器：选择一张“巧器”牌","e",player,true).set("filterButton",function(button){
-						if(button.link&&button.link.cards&&get.name(button.link)!="muniu"){
+						if(button.link&&button.link.cards&&button.link.sst_qiaoqi){
 							lib.skill.sst_qiaoqi.sync(button.link);
 							if(button.link.cards.length) return true;
 						}
@@ -10639,8 +10646,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					if(muniu.cards==undefined) muniu.cards=[];
 					muniu.cards.push(cards[0]);
+					muniu.sst_qiaoqi=true;
 					game.broadcast(function(muniu,cards){
 						muniu.cards=cards;
+						muniu.sst_qiaoqi=true;
 					},muniu,muniu.cards);
 					game.delayx();
 					"step 3"
@@ -10697,8 +10706,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					if(!event.es||!event.es.length) return false;
 					for(var i=0;i<event.es.length;i++){
-						if(get.name(event.es[i])=="muniu") continue;
-						if(event.es[i].cards) return true;
+						if(event.es[i].cards&&event.es[i].sst_qiaoqi) return true;
 					}
 					return false;
 				},
@@ -10708,7 +10716,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var card;
 					for(var i=0;i<trigger.es.length;i++){
 						card=trigger.es[i];
-						if(get.name(card)=="muniu") continue;
+						if(!card.sst_qiaoqi) continue;
 						if(!card||!card.cards||!card.cards.length) return;
 						if((!trigger.getParent()||trigger.getParent().name!="swapEquip")&&(trigger.type!="equip"||trigger.swapEquip)){
 							player.lose(card.cards,ui.discardPile);
@@ -10748,7 +10756,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(!event.ss||!event.ss.length) return false;
 					var cards=[];
 					var sst_qiaoqi=player.getCards("e",function(card){
-						return card.cards&&get.name(card)!="muniu";
+						return card.cards&&card.sst_qiaoqi;
 					});
 					for(var h=0;h<sst_qiaoqi.length;h++){
 						cards.addArray(sst_qiaoqi[h].cards);
@@ -10760,7 +10768,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					var sst_qiaoqi=player.getCards("e",function(card){
-						return card.cards&&get.name(card)!="muniu";
+						return card.cards&&card.sst_qiaoqi;
 					});
 					for(var h=0;h<sst_qiaoqi.length;h++){
 						var length=sst_qiaoqi[h].cards.length;
@@ -11903,6 +11911,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					event.card=lib.skill.sst_zaowu2_backup.card;
 					event.card._destroy=true;
+					game.broadcast(function(card){
+						card._destroy=true;
+					},event.card);
 					"step 1"
 					player.markAuto("sst_zaowu_effect",[get.name(event.card)]);
 					game.log(event.card,"被销毁了");
@@ -11938,6 +11949,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					event.cards=player.getExpansions("sst_zaowu");
 					for(var i=0;i<event.cards.length;i++){
 						event.cards[i]._destroy=true;
+						game.broadcast(function(card){
+							card._destroy=true;
+						},event.cards[i]);
 					}
 					"step 1"
 					player.markAuto("sst_zaowu_effect",event.cards.map(function(card){
