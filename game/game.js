@@ -28527,6 +28527,66 @@
 		},
 		skill:{
 			//New
+			_sst_sex_select:{
+				charlotte:true,
+				superCharlotte:true,
+				trigger:{
+					global:'gameStart',
+					player:['enterGame','showCharacterEnd']
+				},
+				ruleSkill:true,
+				silent:true,
+				firstDo:true,
+				priority:2020,
+				filter:function(event,player){
+					return player.sex=='';
+				},
+				content:function(){
+					'step 0'
+					player.chooseControl('male','female').set('prompt','选择性别').set('ai',function(){return ['male','female'].randomGet()});
+					'step 1'
+					var name=player.name;
+					var differentAvatar=['sst_corrin','sst_robin','nnk_robin'];
+					if(differentAvatar.contains(name)){
+						//player.reinit(name,name+'_'+result.control,false);
+						player.setAvatar(player.name,name+'_'+result.control);
+					}
+					else{
+						player.sex=result.control;
+						game.broadcast(function(player,sex){
+							player.sex=sex;
+						},player,result.control);
+					}
+					game.log(player,'将性别变为了','#y'+get.translation(result.control));
+					var differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
+					if(typeof differentGroup[name+'_'+result.control]=='string'){
+						player.changeGroup(differentGroup[name+'_'+result.control]);
+					}
+					player.update();
+				}
+			},
+			_sst_group_select:{
+				charlotte:true,
+				superCharlotte:true,
+				trigger:{
+					global:'gameStart',
+					player:['enterGame','showCharacterEnd']
+				},
+				ruleSkill:true,
+				silent:true,
+				firstDo:true,
+				priority:2019,
+				filter:function(event,player){
+					return !get.config('no_group')&&player.group=='sst_smash';
+				},
+				content:function(){
+					'step 0'
+					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',function(){return ['sst_light','sst_dark','sst_spirit','sst_reality'].randomGet()});
+					'step 1'
+					player.changeGroup(result.control);
+					player.update();
+				}
+			},
 			_useAnger_juedou:{
 				ruleSkill:true,
 				charlotte:true,

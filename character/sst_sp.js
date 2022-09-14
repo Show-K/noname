@@ -30,7 +30,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
 			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
-			nnk_robin:["none","sst_dark",4,["nnk_yuanlei"],[]],
+			nnk_robin:["","sst_dark",4,["nnk_yuanlei"],[]],
 			alz_yuri_kozukata:["female","sst_spirit","3",["alz_yingjian","alz_qushui"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],

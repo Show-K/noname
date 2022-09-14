@@ -9,7 +9,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_civil_war:["sst_pyra_mythra","sst_9_volt_18_volt"],
 				sst_response:["sst_claude","sst_geno","sst_duck_hunt","sst_paipai","sst_snake","sst_sheik"],
 				sst_the_use_of_spies:["sst_inkling"],
-				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans"],
+				sst_laying_plans:["sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans","sst_wii_fit_trainer"],
 				sst_attack_by_stratagem:["sst_magolor","sst_roy","sst_r_o_b"]
 			}
 		},
@@ -34,7 +34,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_ness:["male","sst_light",4,["sst_wenxin"],[]],
 			sst_chrom:["male","sst_light",4,["sst_niming","sst_cuifeng"],[]],
 			sst_lucina:["female","sst_light",4,["sst_suxing","sst_shengyi"],[]],
-			sst_robin:["none","sst_dark",3,["sst_zuozhan","sst_junce"],[]],
+			sst_robin:["","sst_dark",3,["sst_zuozhan","sst_junce"],[]],
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
@@ -43,7 +43,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_r_o_b:["male","sst_dark",5,["sst_yinbao","sst_zhuxin"],["hiddenSkill"]],
 			sst_snake:["male","sst_dark",4,["sst_qianlong","sst_dieying"],["hiddenSkill"]],
 			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill"]],
-			sst_inkling:["none","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill"]]
+			sst_inkling:["","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill"]]
 		},
 		characterFilter:{},
 		characterIntro:{
@@ -254,7 +254,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_inkling:"武将作者：mario not mary<br>\
 			插图作者：无<br>\
 			<hr>\
-			1025.鱿鱼（女孩）/Inkling (Girl)/インクリング（ガール）<br>\
+			1025. 鱿鱼（女孩）/Inkling (Girl)/インクリング（ガール）<br>\
 			系列：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
 			首次登场：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
 			让我们来认识一下鱿鱼吧，这可是经过万年的进化，能切换人和鱿鱼形态的生物！她们喜欢用疯狂的、五彩缤纷的占地对战来打发时间，也不会错过任何登上顶级排名的机会。她们的时尚不叫时尚，而是叫“鱿型”！<br>\
@@ -266,7 +266,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			和女孩们一样，他们也喜欢激烈的占地对战。为了展示自己的风格，男孩们更喜欢将两条长触手绑成发髻而不是自然下垂。说起来，斯普拉遁里所有的衣服都是不限性别的，毕竟潮流不会有任何的限制！<br>\
 			——谁的错820、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			明明是鱿鱼却又怕水，好奇怪啊。"
+			明明是鱿鱼却又怕水，好奇怪啊。",
+			sst_wii_fit_trainer:"武将作者：mario not mary<br>\
+			插图作者：无<br>\
+			<hr>\
+			0921. Wii Fit教练（女性）/Wii Fit Trainer (Female)/Wii Fit トレーナー（女性）<br>\
+			系列：<ruby>Wii健身<rp>（</rp><rt>Wii Fit</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>Wii健身<rp>（</rp><rt>Wii Fit</rt><rp>）</rp></ruby><br>\
+			在Wii Fit系列中帮助你锻炼的女教练。在大乱斗中，她许多招式都和瑜伽有关，既有强力的近战，也有不错的远程手段。她的下必杀技腹式呼吸如果在恰当时机按键，便能恢复累计伤害和短时间增强攻击力。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			0922. Wii Fit教练（男性）/Wii Fit Trainer (Male)/Wii Fit トレーナー（男性）<br>\
+			系列：<ruby>Wii健身<rp>（</rp><rt>Wii Fit</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>Wii健身<rp>（</rp><rt>Wii Fit</rt><rp>）</rp></ruby><br>\
+			在Wii Fit系列中帮助你锻炼的男教练。他的通常必杀技拜日式可以积蓄光球，当蓄满时发射它还会恢复一些累计伤害。他的通常空中攻击仰卧直腿（jackknife）原本是一种锻炼腹肌的姿势，其实有2次攻击判定。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			至今都有Wii的身影。"
 		},
 		characterTitle:{
 			sst_pyra_mythra:"天之圣杯",
@@ -286,7 +302,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_r_o_b:"亚空的使者",
 			sst_snake:"潜龙谍影",
 			sst_sheik:"倩影扫弦音",
-			sst_inkling:"瞎喷乱涂"
+			sst_inkling:"瞎喷乱涂",
+			sst_wii_fit_trainer:"修身养性"
 		},
 		skill:{
 			//Civil War mode reference
@@ -2792,6 +2809,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_snake:"Snake",
 			sst_sheik:"希克",
 			sst_inkling:"鱿鱼",
+			sst_wii_fit_trainer:"Wii Fit教练",
 			//Character ab.
 			sst_9_volt_18_volt_ab:"九伏十八伏",
 			sst_geno_ab:"Geno",
@@ -2884,6 +2902,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xumo_info:"隐匿技，锁定技，当你登场时，摸三张牌。",
 			sst_pentu:"喷涂",
 			sst_pentu_info:"出牌阶段限一次，你可以将一张手牌背面朝上当作【墨水】对一名角色发动〖赠予〗。",
+			sst_zuoxi:"作息",
+			sst_zuoxi_info:"出牌阶段开始时，你可以“整肃”；若你“整肃”成功，你可以令一名其他角色于其下个出牌阶段开始时“整肃”。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
@@ -2925,7 +2945,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_r_o_b:"R.O.B.",
 			sst_snake:"Snake",
 			sst_sheik:"Sheik",
-			sst_inkling:"Inkling"
+			sst_inkling:"Inkling",
+			sst_wii_fit_trainer:"Wii Fit Trainer"
 		},
 		perfectPair:{
 			sst_pyra_mythra:["sst_rex"],

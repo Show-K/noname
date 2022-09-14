@@ -85,14 +85,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_lucario:["male","sst_dark",4,["sst_bodao","sst_juyuan"],[]],
 			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],[]],
 			sst_king_dedede:["male","sst_dark",4,["sst_baoshi","sst_wangyan"],["zhu"]],
-			sst_corrin:["none","sst_smash",2,["sst_juelu","sst_longwei"],[]],
+			sst_corrin:["","sst_smash",2,["sst_juelu","sst_longwei"],[]],
 			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:unknown","primary:1","attack:2","defense:1.2"]],
 			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu"]],
 			sst_feiji:["male","sst_reality",4,["sst_xuhuang"],[]],
 			sst_sonic:["male","sst_light",4,["sst_jibu","sst_juechen"],[]],
 			sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],[]],
 			sst_fox:["male","sst_light",4,["sst_powei"],[]],
-			sst_mii_fighters:["none","sst_smash",4,["sst_bianshe"],[]],
+			sst_mii_fighters:["","sst_smash",4,["sst_bianshe"],[]],
 			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],["type:unknown","primary:1","attack:2","defense:1.2"]],
 			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
 			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],[]],
@@ -1234,70 +1234,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_piranha_plant:"层林尽染"
 		},
 		skill:{
-			//Background skill
-			_sst_sex_select:{
-				charlotte:true,
-				superCharlotte:true,
-				forceLoad:true,
-				trigger:{
-					global:"gameStart",
-					player:"enterGame"
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2020,
-				filter:function(event,player){
-					return player.sex=="none"&&["sst_corrin","sst_mii_fighters","sst_robin","sst_inkling","nnk_robin"].contains(player.name);
-				},
-				content:function(){
-					"step 0"
-					player.chooseControl("male","female").set("prompt","选择性别").set("ai",function(){return ["male","female"].randomGet()});
-					"step 1"
-					var name=player.name;
-					var differentAvatar=["sst_corrin","sst_robin","nnk_robin"];
-					if(differentAvatar.contains(name)){
-						//player.reinit(name,name+"_"+result.control,false);
-						player.setAvatar(player.name,name+"_"+result.control);
-					}
-					else{
-						player.sex=result.control;
-						game.broadcast(function(player,sex){
-							player.sex=sex;
-						},player,result.control);
-					}
-					game.log(player,"将性别变为了","#y"+get.translation(result.control));
-					var differentGroup={sst_corrin_male:"sst_dark",sst_corrin_female:"sst_light"};
-					if(typeof differentGroup[name+"_"+result.control]=="string"){
-						player.changeGroup(differentGroup[name+"_"+result.control]);
-					}
-					player.update();
-				}
-			},
-			_sst_group_select:{
-				charlotte:true,
-				superCharlotte:true,
-				forceLoad:true,
-				trigger:{
-					global:"gameStart",
-					player:"enterGame"
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2019,
-				filter:function(event,player){
-					return !get.config("no_group")&&player.group=="sst_smash";
-				},
-				content:function(){
-					"step 0"
-					player.chooseControl("sst_light","sst_dark","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",function(){return ["sst_light","sst_dark","sst_spirit","sst_reality"].randomGet()});
-					"step 1"
-					player.changeGroup(result.control);
-					player.update();
-				}
-			},
-			//Skill
 			//Mario
 			sst_jueyi:{
 				trigger:{player:"useCardToPlayer"},
