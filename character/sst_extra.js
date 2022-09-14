@@ -1,4 +1,7 @@
 "use strict";
+
+const { stat } = require("original-fs");
+
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_extra={
@@ -43,7 +46,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_r_o_b:["male","sst_dark",5,["sst_yinbao","sst_zhuxin"],["hiddenSkill"]],
 			sst_snake:["male","sst_dark",4,["sst_qianlong","sst_dieying"],["hiddenSkill"]],
 			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill"]],
-			sst_inkling:["","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill"]]
+			sst_inkling:["","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill"]],
+			sst_wii_fit_trainer:["","sst_light",4,["sst_zuoxi"],[]]
 		},
 		characterFilter:{},
 		characterIntro:{
@@ -894,9 +898,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(event.toUse.length){
 						player.chooseCardButton("斗降：你可以使用"+get.translation(event.toUse),event.toUse).set("filterButton",function(button){
-							return _status.event.player.hasUseTarget(button.link);
+							return _status.event.player.hasUseTarget(button.link,false);
 						}).set("ai",function(button){
-							return _status.event.player.getUseValue(button.link);
+							return _status.event.player.getUseValue(button.link,false);
 						});
 					}
 					else{
@@ -915,7 +919,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						player:function(player){
 							if(!game.hasPlayer(function(current){
-								return game.checkMod(null,player,current,"unchanged","playerEnabled",player)!=false;
+								return game.checkMod(null,player,current,"unchanged","playerEnabled",player)!=false&&get.attitude(player,current)!=0;
 							})) return 0;
 							return 1;
 						}
@@ -2155,11 +2159,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						result.targets[0].damage(player,"nocard");
 						player.addExpose(0.2);
 					}
-					else{
-						event.finish();
-					}
-					"step 4"
-					game.delayx();
 				},
 				ai:{
 					damage:true
@@ -2694,7 +2693,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				lose:true,
 				losetrigger:false,
 				content:()=>{
-					var sst_ink=game.createCard("sst_ink","","","");
+					var sst_ink=game.createCard3("sst_ink","","","",["sst_inkling"]);
 					sst_ink.cards=cards;
 					game.broadcast((sst_ink,cards)=>{
 						sst_ink.cards=cards;
@@ -2706,6 +2705,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					next.setContent(lib.skill._yongjian_zengyu.content);
 				},
 				ai:{
+					order:()=>get.order({name:"sst_ink"})+0.1,
 					result:{
 						target:(player,target)=>{
 							if(target.getEquip("sst_ink")) return 0;
@@ -2761,6 +2761,108 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.lose(sst_ink).set("_triggered",null);
 					});
 				}
+			},
+			//Wii Fit Trainer
+			sst_zuoxi:{
+				direct:true,
+				trigger:{player:"phaseUseBegin"},
+				filter:(event,player)=>!player.hasSkill("zhengsu"),
+				content:()=>{
+					"step 0"
+					player.chooseButton([get.prompt2("sst_zuoxi"),[["zhengsu_leijin","zhengsu_bianzhen","zhengsu_mingzhi"],"vcard"]]).set("ai",lib.skill.sst_zuoxi.zhengsuAi);
+					"step 1"
+					if(result.links&&result.links.length){
+						player.logSkill("sst_zuoxi");
+						var name=result.links[0][2];
+						player.addTempSkill("zhengsu",{player:"phaseDiscardAfter"});
+						player.addTempSkill(name,{player:"phaseDiscardAfter"});
+						player.popup(name,"thunder");
+						game.delayx();
+					}
+				},
+				zhengsuAi:button=>{
+					var player=_status.event.player;
+					if(button.link[2]=="zhengsu_leijin"){
+						var cards=player.getCards("hs",card=>lib.filter.cardEnabled(card,player)).sort((a,b)=>get.number(a)-get.number(b));
+						for(var i=1;i<cards.length;i++){
+							if(get.number(cards[i])==get.number(cards[i-1])) cards.splice(i--,1);
+						}
+						if(cards.length<3) return 0;
+						return cards.length;
+					}
+					if(button.link[2]=="zhengsu_bianzhen"){
+						var statistic={};
+						player.getCards("hs",card=>lib.filter.cardEnabled(card,player)).forEach(card=>{
+							var suit=get.suit(card);
+							if(typeof statistic[suit]=="undefined") statistic[suit]=0;
+							statistic[suit]++;
+						});
+						var num=Math.max(...Object.values(statistic));
+						if(num<2) return 0;
+						return num;
+					}
+					if(button.link[2]=="zhengsu_mingzhi"){
+						var statistic={};
+						player.getCards("h",card=>lib.filter.cardDiscardable(card,player)).forEach(card=>{
+							var suit=get.suit(card);
+							if(typeof statistic[suit]=="undefined") statistic[suit]=true;
+						});
+						var needsToDiscard=player.needsToDiscard();
+						if(needsToDiscard<2) return 0;
+						var num=Object.keys(statistic).length;
+						if(num<2) return 0;
+						return Math.min(needsToDiscard,num);
+					}
+					return 0;
+				},
+				group:"sst_zuoxi2"
+			},
+			sst_zuoxi2:{
+				direct:true,
+				trigger:{player:["drawAfter","recoverAfter"]},
+				filter:event=>event.getParent(2).name=="zhengsu",
+				content:()=>{
+					"step 0"
+					player.chooseTarget(get.prompt("sst_zuoxi2"),"你可以令一名其他角色于其下个出牌阶段开始时“整肃”",lib.filter.notMe).set("ai",target=>{
+						var player=_status.event.player;
+						return Math.max(get.effect(target,{name:"wuzhong"},target,player),get.recoverEffect(target,target,player));
+					});
+					"step 1"
+					if(result.bool){
+						var target=result.targets[0];
+						player.logSkill("sst_zuoxi2",target);
+						target.addSkill("sst_zuoxi_effect");
+						game.delayx();
+					}
+				},
+				ai:{
+					expose:0.2
+				}
+			},
+			sst_zuoxi_effect:{
+				charlotte:true,
+				mark:true,
+				intro:{
+					content:"下个出牌阶段开始时“整肃”"
+				},
+				forced:true,
+				popup:false,
+				trigger:{player:"phaseUseBegin"},
+				filter:(event,player)=>!player.hasSkill("zhengsu"),
+				content:()=>{
+					"step 0"
+					player.removeSkill("sst_zuoxi_effect");
+					player.chooseButton(["作息：选择整肃类型",[["zhengsu_leijin","zhengsu_bianzhen","zhengsu_mingzhi"],"vcard"]],true).set("ai",lib.skill.sst_zuoxi.zhengsuAi);
+					"step 1"
+					if(result.links&&result.links.length){
+						var name=result.links[0][2];
+						game.log(player,"开始","#g【整肃】");
+						player.addTempSkill("zhengsu",{player:"phaseDiscardAfter"});
+						player.addTempSkill(name,{player:"phaseDiscardAfter"});
+						player.popup(name,"thunder");
+						game.delayx();
+					}
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2815,6 +2917,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_geno_ab:"Geno",
 			sst_bandana_waddle_dee_ab:"瓦豆鲁迪",
 			sst_snake_ab:"固蛇",
+			sst_wii_fit_trainer_ab:"瑜伽教练",
 			//Skill
 			sst_xuanyi:"炫奕",
 			sst_xuanyi_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
@@ -2903,11 +3006,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_pentu:"喷涂",
 			sst_pentu_info:"出牌阶段限一次，你可以将一张手牌背面朝上当作【墨水】对一名角色发动〖赠予〗。",
 			sst_zuoxi:"作息",
+			sst_zuoxi2:"作息",
+			sst_zuoxi_effect:"作息",
 			sst_zuoxi_info:"出牌阶段开始时，你可以“整肃”；若你“整肃”成功，你可以令一名其他角色于其下个出牌阶段开始时“整肃”。",
 			//Tag
 			sst_pyra_mythra_tag:"焰／光",
 			yingbian_recover_tag:"(回复)",
 			zhinang_tricks_tag:"智囊",
+			sst_inkling_tag:"鱿鱼",
 			//Sort
 			sst_civil_war:"国战",
 			sst_response:"应变",

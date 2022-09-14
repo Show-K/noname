@@ -107,6 +107,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			sst_ink:{
 				type:"equip",
 				subtype:"equip2",
+				fullborder:"simple",
 				fullskin:true,
 				skills:["sst_ink_skill"],
 				selectTarget:[-1,-2],

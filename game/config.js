@@ -136,6 +136,7 @@ window.config={
 	plays:[],
 	extensions:['在线更新','十周年UI','导入助手'],
 	banned:[],
+	super_smash_tabletop_banned:['sst_claude'],
 	identity_banned:['sst_claude'],
 	th_mougong_banned:['sst_claude'],
 	guozhan_banned:['sst_claude'],

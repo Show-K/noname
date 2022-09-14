@@ -156,7 +156,8 @@ window.noname_character_rank={
 			"xsj_dante",
 			"sst_roy",
 			"ska_daroach",
-			"sst_inkling"
+			"sst_inkling",
+			"sst_wii_fit_trainer"
 		],
 		junk:[]
 	}
