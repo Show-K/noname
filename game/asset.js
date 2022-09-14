@@ -7111,7 +7111,6 @@ window.noname_asset_list=[
 	'image/card/nei2.png',
 	'image/card/zhong2.png',
 	'image/card/zhu2.png',
-	'image/other/qunliao.jpg',
 	'image/splash/huanhuazhizhan.jpg',
 	'image/splash/th_mougong.jpg',
 
