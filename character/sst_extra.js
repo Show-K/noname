@@ -1,7 +1,4 @@
 "use strict";
-
-const { stat } = require("original-fs");
-
 game.import("character",function(lib,game,ui,get,ai,_status){
 	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_extra={
