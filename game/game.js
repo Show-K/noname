@@ -554,8 +554,8 @@
 						init:'coding',
 						unfrequent:true,
 						item:{
-							coding:'Coding（Show-K）',
-							github:'GitHub（Show-K）',
+							coding:'Coding',
+							github:'GitHub',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
@@ -44079,10 +44079,10 @@
 						var li3=document.createElement('li');
 						var trimurl=function(str){
 							if(str==lib.updateURLS.github){
-								return 'GitHub（Show-K）';
+								return 'GitHub';
 							}
 							if(str==lib.updateURLS.coding){
-								return 'Coding（Show-K）'
+								return 'Coding'
 							}
 							var index;
 							index=str.indexOf('://');
@@ -44533,7 +44533,7 @@
 							updatepx.style.display='none';
 							updatepx.style.whiteSpace='nowrap';
 							updatepx.style.marginTop='8px';
-							var buttonx=ui.create.node('button','访问项目主页（Show-K）',function(){
+							var buttonx=ui.create.node('button','访问项目主页',function(){
 								window.open('https://github.com/Show-K/noname');
 							});
 							updatepx.appendChild(buttonx);
