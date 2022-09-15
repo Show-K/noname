@@ -2000,7 +2000,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								var next = owner.lose(card, ui.special, 'visible').set('type', 'equip').set('getlx', false);
 								next.animate = true;
 								next.blameEvent = event;
-							}
+							} else if (get.position(card) == 'c') event.updatePile = true;
 
 							"step 1"
 							if (event.cancelled) {
@@ -2054,11 +2054,11 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								if (lib.config.background_audio) {
 									game.playAudio('effect', type);
 								}
-							},
-								get.subtype(card));
+							}, get.subtype(card));
 							player.$equip(card);
 							game.addVideo('equip', player, get.cardInfo(card));
 							game.log(player, '装备了', card);
+							if (event.updatePile) game.updateRoundNumber();
 							"step 5"
 							var info = get.info(card, false);
 							if (info.onEquip && (!info.filterEquip || info.filterEquip(card, player))) {
@@ -2166,7 +2166,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 										var id = owner.playerid;
 										if (!map[id]) map[id] = [];
 										map[id].push(i);
-									}
+									} else if (!event.updatePile && get.position(i) == 'c') event.updatePile = true;
 								}
 								for (var i in map) {
 									var owner = (_status.connectMode ? lib.playerOL : game.playerMap)[i];
@@ -2300,6 +2300,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								game.log(player, '获得了', cards);
 							}
 							"step 4"
+							if (event.updatePile) game.updateRoundNumber();
 							event.finish();
 						};
 						EventContent.gameDraw = function () {
@@ -6277,8 +6278,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						if (cards) {
 							var owner = get.owner(cards[0]);
 							if (owner) {
-								event.relatedLose = owner.lose(cards, 'visible').set('getlx', false);
-							}
+								event.relatedLose = owner.lose(cards, 'visible', ui.special).set('getlx', false);
+							} else if (get.position(cards[0]) == 'c') event.updatePile = true;
 						};
 						"step 1";
 						if (cards[0].destroyed) {
@@ -6355,6 +6356,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 							game.addVideo('addJudge', player, [get.cardInfo(cards[0]), cards[0].viewAs]);
 						}
+						if (event.updatePile) game.updateRoundNumber();
 					};
 
 					lib.element.content.chooseToCompare = function () {
@@ -10015,12 +10017,13 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
 					'当前版本：1.2.0.220114.12SST（Show-K修复版）',
-					'更新日期：2022-09-05',
+					'更新日期：2022-09-15',
 					'- 现在可以设置折叠手牌最小宽度了，且默认值修改为81。',
 					'- 为牌名辅助显示的文字增加了背景颜色，使之更容易阅读。',
 					'- 修复了targetprompt无描边的异常（举例：【借刀杀人】）。',
 					'- 修复了若游戏本体路径包含半角括号，觉醒技/限定技特效等不显示的异常。',
 					'- 将拼点对话框等对话框的z-index调低，使之不会遮挡游戏牌。',
+					'- “代码机制调整：现在从牌堆中获得牌/装备牌/将牌置入装备区会自动触发updateRoundNumber了。”',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
