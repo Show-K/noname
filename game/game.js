@@ -49,12 +49,12 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'http://123.56.240.30/Show-K/noname/super-smash-tabletop',
+			coding:'https://unitedrhythmized.club/Show-K/noname/super-smash-tabletop',
 			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 		},
 		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
-		mirrorURL:'http://123.56.240.30/Show-K/noname/super-smash-tabletop',
-		hallURL:'123.56.240.30',
+		mirrorURL:'https://unitedrhythmized.club/Show-K/noname/super-smash-tabletop',
+		hallURL:'unitedrhythmized.club',
 		assetURL:'',
 		changeLog:[],
 		updates:[],
@@ -31306,8 +31306,8 @@
 			}
 		},
 		connect:function(ip,callback){
-			if(get.config('hall_ip')=='47.99.105.222') game.saveConfig('hall_ip','123.56.240.30','connect');
-			if(lib.config.last_ip=='47.99.105.222') game.saveConfig('last_ip','123.56.240.30');
+			if(get.config('hall_ip')=='47.99.105.222') game.saveConfig('hall_ip','unitedrhythmized.club','connect');
+			if(lib.config.last_ip=='47.99.105.222') game.saveConfig('last_ip','unitedrhythmized.club');
 			if(game.online) return;
 			var withport=false;
 			var index=ip.lastIndexOf(':');
@@ -31321,8 +31321,8 @@
 				ip=ip+':8080';
 			}
 			if(ip=='47.99.105.222:8080'){
-				alert('为保证官方服务器（47.99.105.222）安全，以及尊重现维护者苏婆玛丽奥，《一劳永逸》不允许连接官方服务器！\n如需进入，可用最新的离线/完整包重新覆盖等措施解除《一劳永逸》\n自动跳转至123.56.240.30');
-				ip='123.56.240.30:8080';
+				alert('为保证官方服务器（47.99.105.222）安全，以及尊重现维护者苏婆玛丽奥，《一劳永逸》不允许连接官方服务器！\n如需进入，可用最新的离线/完整包重新覆盖等措施解除《一劳永逸》\n自动跳转至unitedrhythmized.club');
+				ip='unitedrhythmized.club:8080';
 			}
 			_status.connectCallback=callback;
 			try{
