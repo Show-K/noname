@@ -16,7 +16,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.timeout = 5000;
-			xhr.open("GET", "https://www.bing.com");
+			xhr.open("GET", `https://www.bing.com?date=${(new Date()).getTime()}`);
 			xhr.send();
 			xhr.onload = () => {
 				if (xhr.status == 200 || xhr.status == 304) {
@@ -404,7 +404,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					const url = updateURLS[key];
 					const start = new Date().getTime();
 					promises.push(
-						myFetch(`${url}/game/update.js`)
+						myFetch(`${url}/game/update.js?date=${(new Date()).getTime()}`)
 							.then(async response => {
 								try {
 									await response.text();
@@ -516,9 +516,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 				if (window.FileTransfer) {
 					let fileTransfer = new FileTransfer();
-					fileTransfer.download(encodeURI(url), encodeURI(lib.assetURL + path + '/' + name), success, error);
+					fileTransfer.download(encodeURI(`${url}?date=${(new Date()).getTime()}`), encodeURI(lib.assetURL + path + '/' + name), success, error);
 				} else {
-					myFetch(url)
+					myFetch(`${url}?date=${(new Date()).getTime()}`)
 						.then(response => {
 							if (typeof onprogress == 'function') {
 								response.addEventListener('progress', e => {
@@ -1050,7 +1050,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 							let goupdate = (files, update) => {
 								lib.version = update.version;
-								myFetch(`${updateURL}game/source.js`)
+								myFetch(`${updateURL}game/source.js?date=${(new Date()).getTime()}`)
 									.then(response => response.text())
 									.then(text => {
 										try {
@@ -1250,7 +1250,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						if (window.noname_update) {
 							doNext();
 						} else {
-							myFetch(`${updateURL}game/update.js`)
+							myFetch(`${updateURL}game/update.js?date=${(new Date()).getTime()}`)
 								.then(response => response.text())
 								.then(text => {
 									//赋值window.noname_update
@@ -1339,7 +1339,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					} else {
 						button.innerHTML = '正在检查更新';
 						button.disabled = true;
-						myFetch(`${updateURL}game/asset.js`)
+						myFetch(`${updateURL}game/asset.js?date=${(new Date()).getTime()}`)
 							.then(response => response.text())
 							.then(text => {
 								//赋值window.noname_asset_list
