@@ -1,6 +1,15 @@
 window.noname_asset_list=[
-	'v1.9.115.1',
-	
+	'v1.9.115.2',
+	//'audio/background/aozhan_chaoming.mp3',
+	//'audio/background/aozhan_online.mp3',
+	//'audio/background/aozhan_rewrite.mp3',
+	//'audio/background/music_danji.mp3',
+	//'audio/background/music_default.mp3',
+	//'audio/background/music_diaochan.mp3',
+	//'audio/background/music_shezhan.mp3',
+	//'audio/background/music_jifeng.mp3',
+	//'audio/background/music_phliosophy.mp3',
+	//'audio/background/music_jilve.mp3',
 	'audio/card/default.mp3',
 	
 	'audio/card/female/caomu.mp3',
