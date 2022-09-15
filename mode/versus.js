@@ -3681,7 +3681,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			"sst_mario_not_mary","sst_yumikohimi","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji","sst_marioraz",
 			"sst_pyra_mythra","sst_9_volt_18_volt",
 			"sst_claude","sst_geno","sst_duck_hunt","sst_paipai","sst_snake","sst_sheik",
-			"sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans",
+			'sst_inkling',
+			"sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans",'sst_wii_fit_trainer',
 			"sst_magolor","sst_roy","sst_r_o_b"
 		],
 		choiceFour:[
@@ -3695,7 +3696,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			"sst_mario_not_mary","sst_yumikohimi","sst_massy","sst_haine","sst_oc","sst_mr_8","sst_kyuukou","sst_windier","sst_rentianshu","sst_srf","sst_miumiu","sst_ma","sst_feiji","sst_marioraz",
 			"sst_pyra_mythra","sst_9_volt_18_volt",
 			"sst_claude","sst_geno","sst_duck_hunt","sst_paipai","sst_snake","sst_sheik",
-			"sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans",
+			'sst_inkling',
+			"sst_ness","sst_chrom","sst_lucina","sst_robin","sst_bandana_waddle_dee","sst_sans",'sst_wii_fit_trainer',
 			"sst_magolor","sst_roy","sst_r_o_b"
 		],
 		translate:{

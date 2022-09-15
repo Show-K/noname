@@ -3017,6 +3017,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				//----------------
 				'sst_pyra_mythra',
 				'sst_duck_hunt',
+				'sst_inkling','sst_wii_fit_trainer',
 				'sst_ness','sst_chrom','sst_lucina',
 				'sst_roy'
 			],
