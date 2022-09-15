@@ -85,7 +85,7 @@ declare interface LibConfigData {
 
 declare interface Lib {
 	updateURLS: {
-		coding: "http://123.56.240.30/Show-K/noname/super-smash-tabletop",
+		coding: "https://unitedrhythmized.club/Show-K/noname/super-smash-tabletop",
 		fastgit: "https://raw.fastgit.org/Show-K/noname/super-smash-tabletop",
 		github: "https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop",
 	},
