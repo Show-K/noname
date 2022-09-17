@@ -28547,7 +28547,7 @@
 					player.chooseControl('male','female').set('prompt','选择性别').set('ai',function(){return ['male','female'].randomGet()});
 					'step 1'
 					var name=player.name;
-					var differentAvatar=['sst_corrin','sst_robin','nnk_robin'];
+					var differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
 					if(differentAvatar.contains(name)){
 						//player.reinit(name,name+'_'+result.control,false);
 						player.setAvatar(player.name,name+'_'+result.control);

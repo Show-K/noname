@@ -1229,6 +1229,11 @@ window.noname_asset_list=[
 	'image/character/sst_bandana_waddle_dee.png',
 	'image/character/sst_magolor.png',
 	'image/character/sst_roy.png',
+	'image/character/sst_r_o_b.png',
+	'image/character/sst_inkling.png',
+	'image/character/sst_inkling_male.png',
+	'image/character/sst_inkling_female.png',
+	'image/character/sst_wii_fit_trainer.png',
 
 	'image/character/ymk_isabelle.png',
 	'image/character/ska_bobby.png',
