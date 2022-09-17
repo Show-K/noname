@@ -223,7 +223,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			外面是多么美好的一天啊，鸟儿在歌唱，花儿在绽放……",
 			sst_r_o_b:"武将作者：mario not mary<br>\
-			插图作者：无<br>\
+			插图作者：未知<br>\
 			<hr>\
 			0822. 机器人/R.O.B./ロボット<br>\
 			系列：<ruby>机器人<rp>（</rp><rt>R.O.B.</rt><rp>）</rp></ruby><br>\
@@ -253,7 +253,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			“接下来这段旋律，你要铭记于心……”",
 			sst_inkling:"武将作者：mario not mary<br>\
-			插图作者：无<br>\
+			插图作者：未知<br>\
 			<hr>\
 			1025. 鱿鱼（女孩）/Inkling (Girl)/インクリング（ガール）<br>\
 			系列：<ruby>斯普拉遁<rp>（</rp><rt>Splatoon</rt><rp>）</rp></ruby><br>\
@@ -269,7 +269,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			<hr>\
 			明明是鱿鱼却又怕水，好奇怪啊。",
 			sst_wii_fit_trainer:"武将作者：mario not mary<br>\
-			插图作者：无<br>\
+			插图作者：未知<br>\
 			<hr>\
 			0921. Wii Fit教练（女性）/Wii Fit Trainer (Female)/Wii Fit トレーナー（女性）<br>\
 			系列：<ruby>Wii健身<rp>（</rp><rt>Wii Fit</rt><rp>）</rp></ruby><br>\
@@ -465,9 +465,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					event[event.name]=player.storage[event.name]==true;
+					event.rotation=player.storage[event.name]==true;
 					player.changeZhuanhuanji(event.name);
-					if(!event[event.name]){
+					if(!event.rotation){
 						player.chooseToCompare(target);
 					}
 					else{
@@ -481,7 +481,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(event.winner!=player){
 						var str="炫奕：对一名角色造成1点";
-						str+=!event[event.name]?"火焰":"雷电";
+						str+=!event.rotation?"火焰":"雷电";
 						str+="伤害";
 						player.chooseTarget(str,true).set("ai",function(target){
 							var player=_status.event.player;
@@ -494,8 +494,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					"step 3"
 					if(result.targets&&result.targets.length){
-						player.line(result.targets[0],!event[event.name]?"fire":"thunder");
-						result.targets[0].damage(player,!event[event.name]?"fire":"thunder","nocard");
+						player.line(result.targets[0],!event.rotation?"fire":"thunder");
+						result.targets[0].damage(player,!event.rotation?"fire":"thunder","nocard");
 						player.addExpose(0.2);
 					}
 					else{
@@ -2785,7 +2785,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							if(get.number(cards[i])==get.number(cards[i-1])) cards.splice(i--,1);
 						}
 						if(cards.length<3) return 0;
-						return cards.length;
+						return cards.length-2;
 					}
 					if(button.link[2]=="zhengsu_bianzhen"){
 						var statistic={};
@@ -2796,7 +2796,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						var num=Math.max(...Object.values(statistic));
 						if(num<2) return 0;
-						return num;
+						return num-1;
 					}
 					if(button.link[2]=="zhengsu_mingzhi"){
 						var statistic={};
@@ -2808,7 +2808,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(needsToDiscard<2) return 0;
 						var num=Object.keys(statistic).length;
 						if(num<2) return 0;
-						return Math.min(needsToDiscard,num);
+						return Math.min(needsToDiscard,num)-1;
 					}
 					return 0;
 				},

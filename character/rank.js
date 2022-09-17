@@ -82,7 +82,8 @@ window.noname_character_rank={
 			"sst_piranha_plant",
 			"alz_yuri_kozukata",
 			"sst_ganondorf",
-			"sst_r_o_b"
+			"sst_r_o_b",
+			"sst_bayonetta"
 		],
 		rare:[
 			"sst_mario",

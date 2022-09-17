@@ -1215,6 +1215,7 @@ window.noname_asset_list=[
 	'image/character/sst_olimar.png',
 	'image/character/sst_marioraz.png',
 	'image/character/sst_piranha_plant.png',
+	'image/character/sst_bayonetta.png',
 
 	'image/character/sst_claude.png',
 	'image/character/sst_geno.png',
@@ -1339,7 +1340,7 @@ window.noname_asset_list=[
 	'audio/card/male/lizhengshangyou.mp3',
 	'audio/card/male/tongzhougongji.mp3',
 	'audio/card/male/xionghuangjiu.mp3',
-	'audio/card/male/zong.mp3',
+	'audio/card/male/zong.mp3'
 	//New add end
 ];
 window.noname_skin_list={
@@ -1354,4 +1355,5 @@ window.noname_skin_list={
 	sst_young_link:1,
 	sst_zelda:1,
 	ymk_577:1,
+	sst_bayonetta:2
 };

@@ -9,7 +9,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				sst_64:["sst_mario","sst_donkey_kong","sst_link","sst_samus","sst_yoshi","sst_kirby","sst_luigi","sst_captain_falcon","sst_jigglypuff","sst_fox","sst_pikachu"],
 				sst_melee:["sst_bowser","sst_peach","sst_zelda","sst_dr_mario","sst_ganondorf","sst_mr_game_watch","sst_marth","sst_young_link","sst_pichu","sst_falco","sst_mewtwo"],
 				sst_brawl:["sst_zero_suit_samus","sst_wario","sst_pokemon_trainer_red","sst_meta_knight","sst_ike","sst_toon_link","sst_wolf","sst_king_dedede","sst_lucario","sst_sonic","sst_pokemon_trainer_leaf","sst_olimar"],
-				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man"],
+				sst_4:["sst_villager","sst_rosalina","sst_little_mac","sst_greninja","sst_palutena","sst_bowser_jr","sst_koopalings","sst_ryu","sst_mega_man","sst_corrin","sst_mii_fighters","sst_pac_man","sst_bayonetta"],
 				sst_ultimate:["sst_dark_samus","sst_daisy","sst_ridley","sst_simon","sst_richter","sst_king_k_rool","sst_isabelle","sst_incineroar","sst_ken"],
 				sst_dlc:["sst_terry","sst_byleth_male","sst_byleth_female","sst_joker","sst_steve","sst_alex","sst_hero","sst_min_min","sst_sephiroth","sst_enderman","sst_kazuya","sst_sora","sst_piranha_plant"],
 				sst_spirits:["sst_dark_link","sst_waluigi","sst_master_hand","sst_spring_man","sst_rex","sst_cuphead_mugman","sst_krystal","sst_kyo_kusanagi","sst_pauline","sst_dr_wily","sst_kraid"],
@@ -110,7 +110,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mewtwo:["none","sst_dark",3,["sst_xiongli","sst_nixi"],[]],
 			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],[]],
 			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu"]],
-			sst_piranha_plant:["none","sst_dark",4,["sst_tunshi","sst_yangfen"],[]]
+			sst_piranha_plant:["none","sst_dark",4,["sst_tunshi","sst_yangfen"],[]],
+			sst_bayonetta:["female","sst_dark",3,["sst_qiangyi","sst_moke"],[]]
 		},
 		characterFilter:{
 			sst_corrin:function(mode){
@@ -1135,7 +1136,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			这些植物与其说是肉食性的，不如说是马力欧食性的。世界上有非常多种吞食花，如果让自然王来给你讲甚至能讲出绕口令来。总之，没有什么吞食花不是火球和震地不能解决的啦！<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			某紫衣男子已绝望。"
+			某紫衣男子已绝望。",
+			sst_bayonetta:"武将作者：mario not mary<br>\
+			插图作者：未知<br>\
+			<hr>\
+			1006. 蓓优妮塔（安柏拉的魔女）/Bayonetta (Bayonetta 2)/ベヨネッタ（アンブラの魔女）<br>\
+			系列：<ruby>蓓优妮塔<rp>（</rp><rt>Bayonetta</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>蓓优妮塔2<rp>（</rp><rt>Bayonetta 2</rt><rp>）</rp></ruby><br>\
+			蓓优妮塔属于濒临灭绝的“安柏拉的魔女”一族。她擅长使用四肢的四把枪攻击，还能以头发为介质召唤恶魔。在大乱斗中，她的战法也和原作一样华丽。通常必杀技按住按键可以蓄力，并且连续两次使用时姿势必定不同。在3DS和WiiU版《任天堂明星大乱斗》中，她的强度甚至破坏了平衡。<br>\
+			——无敌阿尔宙斯、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			1007. 蓓优妮塔（丧失记忆的魔女）/Bayonetta (Bayonetta)/ベヨネッタ（記憶を失った魔女）<br>\
+			系列：<ruby>蓓优妮塔<rp>（</rp><rt>Bayonetta</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>蓓优妮塔 魔兵惊天录<rp>（</rp><rt>Bayonetta</rt><rp>）</rp></ruby><br>\
+			《蓓优妮塔：魔兵惊天录》中蓓优妮塔的形象。这位安柏拉的魔女从上百年的沉睡中醒来时失去了所有记忆。她的日常一般是扮作修女，吸引天使，然后猎杀它们，直到另一个拥有与她相同力量的魔女出现，她的记忆才开始逐渐恢复。她最后被卷进一场拯救世界的战斗中。<br>\
+			——无敌阿尔宙斯、封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			Broken!"
 		},
 		characterTitle:{
 			sst_mario:"炎烈意决",
@@ -1231,7 +1248,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mewtwo:"逆袭造物",
 			sst_olimar:"雨后春笋",
 			sst_marioraz:"漫卷长路",
-			sst_piranha_plant:"层林尽染"
+			sst_piranha_plant:"层林尽染",
+			sst_bayonetta:"猎天使魔女"
 		},
 		skill:{
 			//Mario
@@ -2521,7 +2539,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.draw(2);
 						player.storage.sst_qingying_effect=player;
 						player.addTempSkill("sst_qingying_effect");
-						//player.markSkillCharacter("sst_qingying_effect",player,"轻影","你本回合使用牌无距离与次数限制");
+						//player.markSkillCharacter("sst_qingying_effect",player,"轻影","你本回合使用牌无距离和次数限制");
 					}
 				},
 				ai:{
@@ -2559,7 +2577,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				mark:"character",
 				intro:{
-					content:"本回合你使用牌无距离与次数限制"
+					content:"本回合你使用牌无距离和次数限制"
 				},
 				mod:{
 					targetInRange:()=>true,
@@ -2646,7 +2664,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				prompt2:function(event,player){
 					var targets=lib.skill.sst_xiduo.logTarget(event,player);
-					return "你可以令"+get.translation(targets)+"选择一项：1. 令你获得其一张牌；2. 你对其使用牌无距离与次数限制且其非锁定技失效";
+					return "你可以令"+get.translation(targets)+"选择一项：1. 令你获得其一张牌；2. 你对其使用牌无距离和次数限制且其非锁定技失效";
 				},
 				check:function(event,player){
 					var targets=lib.skill.sst_xiduo.logTarget(event,player);
@@ -2671,7 +2689,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.target=target;
 						//player.line(target,"green");
 						if(target.countCards("he")){
-							target.chooseBool("袭夺：令"+get.translation(player)+"获得你一张牌，否则本回合"+get.translation(player)+"对你使用牌无距离与次数限制且你非锁定技失效").set("ai",function(){
+							target.chooseBool("袭夺：令"+get.translation(player)+"获得你一张牌，否则本回合"+get.translation(player)+"对你使用牌无距离和次数限制且你非锁定技失效").set("ai",function(){
 								var player=_status.event.player;
 								var source=_status.event.getTrigger().player;
 								if(get.attitude(source,player)>=0) return false;
@@ -2712,7 +2730,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xiduo_effect:{
 				charlotte:true,
 				intro:{
-					content:"本回合你对$使用牌无距离与次数限制"
+					content:"本回合你对$使用牌无距离和次数限制"
 				},
 				onremove:true,
 				mod:{
@@ -6408,14 +6426,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_chixing:{
 				locked:false,
 				mod:{
-					aiValue:function(player,card,num){
-						if(get.color(card)!="red") return num-3;
-					},
-					aiUseful:function(player,card,num){
-						if(get.color(card)!="red") return num-3;
-					},
 					aiOrder:function(player,card,num){
-						if(get.color(card)!="red") return num+3;
+						if(get.color(card)!="red") return num+10;
 					}
 				},
 				init:function(player){
@@ -6661,14 +6673,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return event.cards.length>0;
 				},
 				check:function(event,player){
-					var cards=player.getCards("h",function(card){
-						return get.type(card,"trick")==get.type(event.card,"trick");
+					return !player.countCards("h",function(card){
+						return get.type(card,"trick")==get.type(event.card,"trick")&&lib.filter.cardEnabled(card,player)&&lib.filter.cardUsable2(card,player);
 					});
-					if(!cards||!cards.length) return true;
-					for(var i=0;i<cards.length;i++){
-						if(lib.filter.cardEnabled(cards[i],player)&&lib.filter.cardUsable2(cards[i],player)) return false;
-					}
-					return true;
 				},
 				content:function(){
 					"step 0"
@@ -12823,7 +12830,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				marktext:"☯",
 				intro:{
 					content:function(storage){
-						return "转换技，当你需要使用一张"+["【杀】","【闪】","【桃】","【酒】","【无懈可击】"][storage-1]+"时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。";
+						return "转换技，当你需要使用一张"+["【杀】","【闪】","【桃】","【酒】","【无懈可击】"][storage-1]+"时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此转换技的状态。";
 					}
 				},
 				init:function(player){
@@ -12902,7 +12909,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								}
 							});
 							return result;
-						}).set("prompt","列队：你可以指定此技能的转换状态");
+						}).set("prompt","列队：你可以指定此转换技的状态");
 					}
 					else{
 						event.finish();
@@ -13310,6 +13317,138 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					threaten:2
 				}
+			},
+			//Bayonetta
+			sst_qiangyi:{
+				mark:true,
+				marktext:"☯",
+				intro:{
+					content:storage=>"转换技，你使用【杀】时，你可以"+["于结算后视为使用一张【杀】","令本阶段使用【杀】无距离和次数限制","于结算后摸两张牌，当前回合结束"][storage-1]+"。"
+				},
+				init:player=>{
+					if(typeof player.storage.sst_qiangyi!="number") player.storage.sst_qiangyi=1;
+				},
+				zhuanhuanji:(player,skill)=>{
+					if(player.storage[skill]<3){
+						player.storage[skill]++;
+					}
+					else{
+						player.storage[skill]=1;
+					}
+					player.markSkill(skill);
+				},
+				trigger:{player:"useCard"},
+				filter:event=>get.name(event.card)=="sha",
+				check:(event,player)=>{
+					var rotation=player.storage.sst_qiangyi||1;
+					if(rotation==1) return player.hasValueTarget({name:"sha",isCard:true},false);
+					if(rotation==2) return player.isPhaseUsing();
+					if(rotation==3) return (_status.currentPhase==player&&!player.countCards("h",card=>lib.filter.cardEnabled(card,player)&&lib.filter.cardUsable2(card,player)))||get.attitude(player,_status.currentPhase)<0;
+					return false;
+				},
+				content:()=>{
+					var rotation=player.storage.sst_qiangyi||1;
+					player.changeZhuanhuanji("sst_qiangyi");
+					if(rotation==1){
+						var next=game.createEvent("sst_qiangyi_clear");
+						event.next.remove(next);
+						trigger.after.push(next);
+						next.set("player",player);
+						next.setContent(()=>{
+							player.chooseUseTarget("枪艺：视为使用一张杀",{name:"sha",isCard:true},true,false,"nodistance");
+						});
+					}
+					else if(rotation==2){
+						player.storage.sst_qiangyi_effect=player;
+						player.addTempSkill("sst_qiangyi_effect","phaseUseEnd");
+					}
+					else if(rotation==3){
+						var next=game.createEvent("sst_qiangyi_clear");
+						event.next.remove(next);
+						trigger.after.push(next);
+						next.set("player",player);
+						next.setContent(lib.skill.sst_qiangyi.rotation3);
+						if(_status.currentPhase!=player) player.addExpose(0.2);
+					}
+				},
+				rotation3:()=>{
+					"step 0"
+					player.draw(2);
+					"step 1"
+					var evt=event.getParent("phase");
+					if(evt&&evt.name=="phase"){
+						game.resetSkills();
+						_status.event=evt;
+						_status.event.finish();
+						_status.event.untrigger(true);
+					}
+				}
+			},
+			sst_qiangyi_effect:{
+				charlotte:true,
+				mark:"character",
+				intro:{
+					content:"本阶段使用【杀】无距离和次数限制"
+				},
+				mod:{
+					targetInRange:card=>{
+						if(card.name=="sha") return true;
+					},
+					cardUsable:card=>{
+						if(card.name=="sha") return Infinity;
+					}
+				}
+			},
+			sst_moke:{
+				enable:"chooseToUse",
+				usable:1,
+				filterCard:true,
+				viewAs:{name:"shan"},
+				viewAsFilter:player=>{
+					if(!player.countCards("hes")) return false;
+				},
+				position:"hes",
+				check:()=>1,
+				onuse:(result,player)=>{
+					player.addTempSkill("sst_moke_effect");
+				},
+				ai:{
+					order:()=>get.order({name:"shan"})+0.1,
+					respondShan:true,
+					skillTagFilter:(player,tag,arg)=>{
+						if(arg!="use") return false;
+						if(!player.countCards("hes")) return false;
+					},
+					effect:{
+						target:(card,player,target,current)=>{
+							if(get.tag(card,"respondShan")&&current<0) return 0.6;
+						}
+					}
+				}
+			},
+			sst_moke_effect:{
+				charlotte:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"useCardAfter"},
+				filter:(event)=>event.skill=="sst_moke",
+				content:()=>{
+					var next=player.chooseToUse("魔刻：你可以将一张牌当作杀使用");
+					next.set("norestore",true);
+					next.set("_backupevent","sst_moke_effectx");
+					next.backup("sst_moke_effectx");
+					next.set("addCount",false);
+					next.set("custom",{
+						add:{},
+						replace:{window:function(){}}
+					});
+				}
+			},
+			sst_moke_effectx:{
+				viewAs:{name:"sha"},
+				filterCard:card=>get.itemtype(card)=="card",
+				position:"hes",
+				check:card=>5-get.value(card)
 			}
 		},
 		dynamicTranslate:{
@@ -13385,23 +13524,30 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_shengxi:function(player){
 				if(typeof player.storage.sst_shengxi!="number") return "转换技，你视为拥有<span class=\"bluetext\">①〖茕途〗</span>②〖圣罚〗③〖勇魂〗，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。";
 				var str="转换技，你视为拥有";
-				var rotativeSkill=["①〖茕途〗","②〖圣罚〗","③〖勇魂〗"][player.storage.sst_shengxi-1];
-				str+="①〖茕途〗"==rotativeSkill?"<span class=\"bluetext\">"+"①〖茕途〗"+"</span>":"①〖茕途〗";
-				str+="②〖圣罚〗"==rotativeSkill?"<span class=\"bluetext\">"+"②〖圣罚〗"+"</span>":"②〖圣罚〗";
-				str+="③〖勇魂〗"==rotativeSkill?"<span class=\"bluetext\">"+"③〖勇魂〗"+"</span>":"③〖勇魂〗";
+				str+=player.storage.sst_shengxi==1?"<span class=\"bluetext\">"+"①〖茕途〗"+"</span>":"①〖茕途〗";
+				str+=player.storage.sst_shengxi==2?"<span class=\"bluetext\">"+"②〖圣罚〗"+"</span>":"②〖圣罚〗";
+				str+=player.storage.sst_shengxi==3?"<span class=\"bluetext\">"+"③〖勇魂〗"+"</span>":"③〖勇魂〗";
 				str+="，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。";
 				return str;
 			},
 			sst_liedui:function(player){
-				if(typeof player.storage.sst_liedui!="number") return "转换技，当你需要使用一张<span class=\"bluetext\">①【杀】</span>②【闪】③【桃】④【酒】⑤【无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。";
+				if(typeof player.storage.sst_liedui!="number") return "转换技，当你需要使用一张<span class=\"bluetext\">①【杀】</span>②【闪】③【桃】④【酒】⑤【无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此转换技的状态。";
 				var str="转换技，当你需要使用一张";
-				var rotativeSkill=["①【杀】","②【闪】","③【桃】","④【酒】","⑤【无懈可击】"][player.storage.sst_liedui-1];
-				str+="①【杀】"==rotativeSkill?"<span class=\"bluetext\">"+"①【杀】"+"</span>":"①【杀】";
-				str+="②【闪】"==rotativeSkill?"<span class=\"bluetext\">"+"②【闪】"+"</span>":"②【闪】";
-				str+="③【桃】"==rotativeSkill?"<span class=\"bluetext\">"+"③【桃】"+"</span>":"③【桃】";
-				str+="④【酒】"==rotativeSkill?"<span class=\"bluetext\">"+"④【酒】"+"</span>":"④【酒】";
-				str+="⑤【无懈可击】"==rotativeSkill?"<span class=\"bluetext\">"+"⑤【无懈可击】"+"</span>":"⑤【无懈可击】";
-				str+="时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。";
+				str+=player.storage.sst_liedui==1?"<span class=\"bluetext\">"+"①【杀】"+"</span>":"①【杀】";
+				str+=player.storage.sst_liedui==2?"<span class=\"bluetext\">"+"②【闪】"+"</span>":"②【闪】";
+				str+=player.storage.sst_liedui==3?"<span class=\"bluetext\">"+"③【桃】"+"</span>":"③【桃】";
+				str+=player.storage.sst_liedui==4?"<span class=\"bluetext\">"+"④【酒】"+"</span>":"④【酒】";
+				str+=player.storage.sst_liedui==5?"<span class=\"bluetext\">"+"⑤【无懈可击】"+"</span>":"⑤【无懈可击】";
+				str+="时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此转换技的状态。";
+				return str;
+			},
+			sst_qiangyi:player=>{
+				if(typeof player.storage.sst_qiangyi!="number") return "转换技，你使用【杀】时，你可以<span class=\"bluetext\">①于结算后视为使用一张【杀】</span>②令本阶段使用【杀】无距离和次数限制③于结算后摸两张牌，当前回合结束。";
+				var str="转换技，你使用【杀】时，你可以";
+				str+=player.storage.sst_qiangyi==1?"<span class=\"bluetext\">"+"①于结算后视为使用一张【杀】"+"</span>":"①于结算后视为使用一张【杀】";
+				str+=player.storage.sst_qiangyi==2?"<span class=\"bluetext\">"+"②令本阶段使用【杀】无距离和次数限制"+"</span>":"②令本阶段使用【杀】无距离和次数限制";
+				str+=player.storage.sst_qiangyi==3?"<span class=\"bluetext\">"+"③于结算后摸两张牌，当前回合结束"+"</span>":"③于结算后摸两张牌，当前回合结束";
+				str+="。";
 				return str;
 			}
 		},
@@ -13509,6 +13655,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_olimar:"皮克敏＆欧力马＆阿尔福",
 			sst_marioraz:"升哥",
 			sst_piranha_plant:"吞食花",
+			sst_bayonetta:"蓓优妮塔",
 			//Character ab.
 			sst_dr_mario_ab:"马力欧",
 			sst_zero_suit_samus_ab:"萨姆斯",
@@ -13576,7 +13723,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guangsuo_info:"你使用【杀】结算完成后，你可以横置目标。你的回合内，已横置的其他角色不能使用或打出牌。",
 			sst_qingying:"轻影",
 			sst_qingying_effect:"轻影",
-			sst_qingying_info:"出牌阶段限一次，你可以弃置场上的一张牌，若你以此法弃置了你区域内的牌，你摸两张牌且本回合使用牌无距离与次数限制。",
+			sst_qingying_info:"出牌阶段限一次，你可以弃置场上的一张牌，若你以此法弃置了你区域内的牌，你摸两张牌且本回合使用牌无距离和次数限制。",
 			sst_que:"驱厄",
 			sst_que_info:"准备阶段，你可以观看一名其他角色的手牌，然后获得其中至多X+1张黑色牌。（X为你已损失的体力值）",
 			sst_guiyun:"诡运",
@@ -13584,7 +13731,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guiyun_info:"锁定技，回合结束阶段，若你于本回合内未使用和弃置过任何牌，取消你即将受到的所有伤害直到你的下一个准备阶段。",
 			sst_xiduo:"袭夺",
 			sst_xiduo_effect:"袭夺",
-			sst_xiduo_info:"准备阶段，你可以令所有体力值小于你的角色选择一项：1. 令你获得其一张牌；2. 本回合你对其使用牌无距离与次数限制且其非锁定技失效。",
+			sst_xiduo_info:"准备阶段，你可以令所有体力值小于你的角色选择一项：1. 令你获得其一张牌；2. 本回合你对其使用牌无距离和次数限制且其非锁定技失效。",
 			sst_xiongao:"雄傲",
 			sst_xiongao_info:"锁定技，若你的手牌数不小于体力值，你不能响应其他角色使用的牌。",
 			sst_yujun:"驭军",
@@ -14051,7 +14198,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_nixi:"逆袭",
 			sst_nixi_info:"结束阶段，若你满足本轮〖凶戾〗的条件（可不为唯一），你可以对一名角色造成1点伤害并摸一张牌。",
 			sst_liedui:"列队",
-			sst_liedui_info:"转换技，当你需要使用一张①【杀】②【闪】③【桃】④【酒】⑤【无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此技能的转换状态。",
+			sst_liedui_info:"转换技，当你需要使用一张①【杀】②【闪】③【桃】④【酒】⑤【无懈可击】时，你可以弃置一张牌视为使用之，若你弃置的牌与先前弃牌堆顶的牌颜色不同，你可以指定此转换技的状态。",
 			sst_chunni:"春泥",
 			sst_chunni_effect:"春泥",
 			sst_chunni_info:"限定技，准备阶段，你可以将弃牌堆洗牌并变为你专属的摸牌堆，且这些牌花色视为无色。",
@@ -14066,10 +14213,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_tunshi_info:"准备阶段，你可以将一名角色的所有牌置于你武将牌上；当你的手牌少于你武将牌上的这些牌时，你将这些牌归还到来源的手牌区。",
 			sst_yangfen:"养分",
 			sst_yangfen_info:"一名角色死亡后，你可以摸其体力上限张数牌。",
-			//Tag
-			sst_jichang_first_tag:"摸牌阶段额外摸牌数",
-			sst_jichang_second_tag:"攻击范围增加数",
-			sst_jichang_third_tag:"额外使用【杀】次数",
+			sst_qiangyi:"枪艺",
+			sst_qiangyi_effect:"枪艺",
+			sst_qiangyi_info:"转换技，你使用【杀】时，你可以①于结算后视为使用一张【杀】②令本阶段使用【杀】无距离和次数限制③于结算后摸两张牌，当前回合结束。",
+			sst_moke:"魔刻",
+			sst_moke_info:"每回合限一次，你可以将一张牌当作【闪】使用，然后你可以将一张牌当作【杀】使用。",
 			//Sort
 			sst_64:"64",
 			sst_melee:"Melee",
@@ -14174,7 +14322,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_mewtwo:"Mewtwo",
 			sst_olimar:"Pikmin & Olimar & Alph",
 			sst_marioraz:"Marioraz",
-			sst_piranha_plant:"Piranha Plant"
+			sst_piranha_plant:"Piranha Plant",
+			sst_bayonetta:"Bayonetta"
 		},
 		perfectPair:{
 			sst_mario:["sst_yoshi","sst_dr_mario","sst_rosalina","sst_luigi","sst_bowser","sst_peach","sst_donkey_kong","sst_daisy","sst_bowser_jr","sst_koopalings","sst_wario","sst_waluigi","sst_pauline","sst_piranha_plant"],
