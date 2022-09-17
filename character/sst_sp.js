@@ -2412,9 +2412,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Daroach
 			ska_zhidai:{
+				init:player=>{
+					player.storage.ska_zhidai=[];
+				},
 				direct:true,
 				trigger:{global:"useCard1"},
-				filter:(event)=>event.player.countUsed(null,true)<=1,
+				filter:event=>event.player.countUsed(null,true)<=1&&event.targets&&event.targets.length,
 				content:()=>{
 					"step 0"
 					player.chooseToRespond().set("ai",card=>{
@@ -2427,7 +2430,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						before/=evt.targets.length;
 						after/=evt.targets.length;
-						return after-before+Math.cbrt(side)-2;
+						return after-before+Math.cbrt(side);
 					}).set("noOrdering",true).set("position","hes").set("logSkill",["ska_zhidai",trigger.player]).set("prompt",get.prompt("ska_zhidai")).set("prompt2","你可以打出一张牌替换"+get.translation(trigger.card)+"对应的实体牌，若如此做，本回合结束阶段，你对自己使用"+get.translation(trigger.card)+"对应的实体牌");
 					"step 1"
 					if(result.card&&result.cards){
@@ -2435,13 +2438,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						if(event.cards.length){
 							player.$gain2(event.cards,true);
 							player.gain(event.cards);
-							if(Array.isArray(player.storage.ska_zhidai_effect)){
-								player.storage.ska_zhidai_effect.addArray(event.cards);
+							if(Array.isArray(player.storage.ska_zhidai)){
+								player.storage.ska_zhidai.addArray(event.cards);
 							}
 							else{
-								player.storage.ska_zhidai_effect=event.cards;
+								player.storage.ska_zhidai=event.cards;
 							}
-							player.addTempSkill("ska_zhidai_effect");
 						}
 						trigger.card=result.card;
 						trigger.cards=result.cards;
@@ -2449,35 +2451,42 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						trigger.orderingCards.addArray(result.cards);
 						trigger.throw=false;
 						trigger.noai=true;
+						var evt=event.getParent("phase");
+						if(evt&&evt.name=="phase"&&!evt.ska_zhidai){
+							evt.set("ska_zhidai",true);
+							var next=game.createEvent("ska_zhidai_clear");
+							event.next.remove(next);
+							evt.after.push(next);
+							next.set("player",player);
+							next.setContent(()=>{
+								player.removeGaintag("ska_zhidai",player.storage.ska_zhidai);
+								player.storage.ska_zhidai=[];
+							});
+						}
 					}
 					else{
 						event.finish();
 					}
 					"step 2"
-					player.addGaintag(event.cards,"ska_zhidai_effect");
+					player.addGaintag(event.cards,"ska_zhidai");
 				},
 				ai:{
 					expose:0.2
-				}
+				},
+				group:"ska_zhidai2"
 			},
-			ska_zhidai_effect:{
-				charlotte:true,
+			ska_zhidai2:{
 				mod:{
 					aiUseful:(player,card,num)=>{
-						if(player.storage.ska_zhidai_effect.contains(card)) return num-1;
+						if(player.storage.ska_zhidai.contains(card)) return num-1;
 					}
 				},
 				forced:true,
-				popup:false,
-				onremove:player=>{
-					player.removeGaintag("ska_zhidai_effect",player.storage.ska_zhidai_effect);
-					delete player.storage.ska_zhidai_effect;
-				},
 				trigger:{global:"phaseJieshuBegin"},
-				filter:(event,player)=>player.storage.ska_zhidai_effect.filter(card=>card.hasGaintag("ska_zhidai_effect")).length,
+				filter:(event,player)=>player.storage.ska_zhidai.filter(card=>card.hasGaintag("ska_zhidai")).length,
 				content:()=>{
 					"step 0"
-					event.cards=player.storage.ska_zhidai_effect.filter(card=>card.hasGaintag("ska_zhidai_effect"));
+					event.cards=player.storage.ska_zhidai.filter(card=>card.hasGaintag("ska_zhidai"));
 					"step 1"
 					if(event.cards.length){
 						var card=event.cards.shift();
@@ -2488,7 +2497,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					effect:{
 						player:(card,player)=>{
-							if(player.storage.ska_zhidai_effect.contains(card)) return [1,1];
+							if(player.storage.ska_zhidai.contains(card)) return [1,1];
 						}
 					}
 				}
@@ -2681,8 +2690,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_moxue:"魔血",
 			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为使用一张【决斗】。",
 			ska_zhidai:"置代",
-			ska_zhidai_effect:"置代",
-			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，你可以打出一张牌替换之。若如此做，本回合结束阶段，你对自己使用被替换牌（无视合法性）。",
+			ska_zhidai2:"置代",
+			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，若此牌有目标，你可以打出一张牌替换之。本回合结束阶段，你对自己依次使用被替换牌（无视合法性）。",
 			ska_siyi:"嘶咿",
 			ska_siyi_effect:"嘶咿",
 			ska_siyi_info:"隐匿技，当你登场后，你可以令一名其他角色的手牌本局游戏对你可见。",
