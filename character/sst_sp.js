@@ -2417,7 +2417,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				direct:true,
 				trigger:{global:"useCard1"},
-				filter:event=>event.player.countUsed(null,true)<=1&&event.targets&&event.targets.length,
+				filter:event=>event.player.countUsed(null,true)<=1&&!_status.dying.length&&event.targets&&event.targets.length,
 				content:()=>{
 					"step 0"
 					player.chooseToRespond().set("ai",card=>{
@@ -2478,7 +2478,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ska_zhidai2:{
 				mod:{
 					aiUseful:(player,card,num)=>{
-						if(player.storage.ska_zhidai.contains(card)) return num-1;
+						if(get.itemtype(card)=="card"&&card.hasGaintag("ska_zhidai")) return num-1;
 					}
 				},
 				forced:true,
@@ -2496,8 +2496,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				ai:{
 					effect:{
-						player:(card,player)=>{
-							if(player.storage.ska_zhidai.contains(card)) return [1,1];
+						player:card=>{
+							if(card.cards&&card.cards.filter(card=>get.itemtype(card)=="card"&&card.hasGaintag("ska_zhidai")).length) return [1,1];
 						}
 					}
 				}
@@ -2691,7 +2691,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为使用一张【决斗】。",
 			ska_zhidai:"置代",
 			ska_zhidai2:"置代",
-			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，若此牌有目标，你可以打出一张牌替换之。本回合结束阶段，你对自己依次使用被替换牌（无视合法性）。",
+			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，若场上没有处于濒死状态的角色，且此牌有目标，你可以打出一张牌替换之。本回合结束阶段，你对自己依次使用被替换牌（无视合法性）。",
 			ska_siyi:"嘶咿",
 			ska_siyi_effect:"嘶咿",
 			ska_siyi_info:"隐匿技，当你登场后，你可以令一名其他角色的手牌本局游戏对你可见。",

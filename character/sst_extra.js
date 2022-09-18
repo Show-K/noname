@@ -2706,7 +2706,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					result:{
 						target:(player,target)=>{
 							if(target.getEquip("sst_ink")) return 0;
-							return get.effect(target,{name:"sst_ink",cards:ui.selected.cards},player,target);
+							var card={name:"sst_ink",cards:ui.selected.cards};
+							if(!card||target.hasSkillTag("refuseGifts")) return 0;
+							return get.effect(target,card,target,target);
 						}
 					}
 				}
@@ -3001,7 +3003,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_xumo:"蓄墨",
 			sst_xumo_info:"隐匿技，锁定技，当你登场时，摸三张牌。",
 			sst_pentu:"喷涂",
-			sst_pentu_info:"出牌阶段限一次，你可以将一张手牌背面朝上当作【墨水】对一名角色发动〖赠予〗。",
+			sst_pentu_info:"出牌阶段限一次，你可以将一张手牌背面朝上当作【墨水】〖赠予〗一名角色。",
 			sst_zuoxi:"作息",
 			sst_zuoxi2:"作息",
 			sst_zuoxi_effect:"作息",

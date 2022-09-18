@@ -9965,6 +9965,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_jibu2:{
+				notemp:true,
 				trigger:{player:"phaseBefore"},
 				charlotte:true,
 				superCharlotte:true,
@@ -11461,7 +11462,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					player.addTempSkill("sst_jiliu_effect");
 					player.addMark("sst_jiliu_effect",1,false);
-					game.delayx();
 					"step 2"
 					player.removeSkill("sst_jiliu");
 					player.popup("sst_jiliu","fire");

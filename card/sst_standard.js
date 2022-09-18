@@ -218,7 +218,7 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			//Exclusive
 			sst_spear_thrust:"刺枪",
 			sst_spear_thrust_info:"出牌阶段，对你攻击范围内的一名角色使用。其须打出一张基本牌或将其武将牌上一张牌置入弃牌堆，否则你对其造成1点伤害。",
-			sst_spear_thrust_append:"<span class=\"text\" style=\"font-family: fzktk\">吾乃波普之星头巾瓦豆鲁迪也！</span>",
+			sst_spear_thrust_append:"<span class=\"text\" style=\"font-family: fzktk\">吾乃噗噗噗大陆头巾瓦豆鲁迪也！</span>",
 			//Equip
 			sst_aegises:"天之圣杯",
 			sst_aegises_info:"转换技，出牌阶段限一次，你可以与①一名角色②牌堆顶的一张牌拼点，赢的一方获得没赢的一方拼点的牌，然后若你没有获得牌，你对一名角色造成1点①火焰②雷电伤害。",
