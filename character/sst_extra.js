@@ -751,16 +751,31 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			},
 			//Geno
 			sst_fuyuan:{
-				frequent:true,
 				round:1,
 				trigger:{global:"phaseZhunbeiBegin"},
 				logTarget:"player",
+				check:function(event,player){
+					return get.attitude(player,event.player)>0;
+				},
 				content:function(){
 					"step 0"
 					event.target=trigger.player;
 					event.pileTop=get.cards()[0];
 					ui.cardPile.insertBefore(event.pileTop.fix(),ui.cardPile.firstChild);
-					player.showCards(event.pileTop,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
+					var translateTargets=function(targets){
+						if(get.itemtype(targets)=="player") targets=[targets];
+						var str="";
+						if(targets[0]==player){
+							str="自己";
+							if(targets.length>1){
+								str+="、";
+								str+=get.translation(targets.slice(1));
+							}
+						}
+						else str=get.translation(targets);
+						return str;
+					};
+					player.showCards(event.pileTop,get.translation(player)+"对"+translateTargets(event.target)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
 					player.chooseCard("复愿：你可以重铸一张牌，令"+get.translation(event.target)+"下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令"+get.translation(event.target)+"一个限定技视为未发动过","he").set("ai",function(card){
 						var evt=_status.event.getParent();
