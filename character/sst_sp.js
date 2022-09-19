@@ -2423,14 +2423,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					player.chooseToRespond().set("ai",card=>{
 						var player=_status.event.player;
 						var evt=_status.event.getTrigger();
-						var before=0,after=0,side=get.effect(player,evt.card,player,player);
+						var before=0,after=0;
 						evt.targets.forEach(target=>{
 							before+=get.effect(target,evt.card,evt.player,player);
 							after+=get.effect(target,card,evt.player,player);
 						});
 						before/=evt.targets.length;
 						after/=evt.targets.length;
-						return after-before+Math.cbrt(side);
+						return after-before;
 					}).set("noOrdering",true).set("position","hes").set("logSkill",["ska_zhidai",trigger.player]).set("prompt",get.prompt("ska_zhidai")).set("prompt2","你可以打出一张牌替换"+get.translation(trigger.card)+"对应的实体牌，若如此做，本回合结束阶段，你对自己使用"+get.translation(trigger.card)+"对应的实体牌");
 					"step 1"
 					if(result.card&&result.cards){

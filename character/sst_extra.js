@@ -754,49 +754,32 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				frequent:true,
 				round:1,
 				trigger:{global:"phaseZhunbeiBegin"},
+				logTarget:"player",
 				content:function(){
 					"step 0"
+					event.target=trigger.player;
 					event.pileTop=get.cards()[0];
 					ui.cardPile.insertBefore(event.pileTop.fix(),ui.cardPile.firstChild);
 					player.showCards(event.pileTop,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
-					player.chooseCardTarget({
-						position:"he",
-						ai1:function(card){
-							var pileTop=_status.event.getParent().pileTop;
-							var num=5.5-get.value(card);
-							if(get.number(card)==get.number(pileTop)&&game.hasPlayer(function(current){
-								var skills=current.getSkills(null,null,false);
-								for(var i=0;i<skills.length;i++){
-									var info=get.info(skills[i]);
-									if(info.limited&&current.awakenedSkills.contains(skills[i])) return true;
-								}
-								return false;
-							})) num+=3;
-							return num;
-						},
-						ai2:function(target){
-							var att=get.sgnAttitude(player,target);
-							var skills=target.getSkills(null,null,false);
-							for(var i=0;i<skills.length;i++){
-								var info=get.info(skills[i]);
-								if(info.limited&&target.awakenedSkills.contains(skills[i])){
-									att*=2;
-									break;
-								}
-							}
-							return att;
-						},
-						prompt:"复愿：你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令其一个限定技视为未发动过"
+					player.chooseCard("复愿：你可以重铸一张牌，令"+get.translation(event.target)+"下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令"+get.translation(event.target)+"一个限定技视为未发动过","he").set("ai",function(card){
+						var evt=_status.event.getParent();
+						var num=5.5-get.value(card);
+						if(get.number(card)!=get.number(evt.pileTop)) return num;
+						var target=evt.target;
+						var skills=target.getSkills(null,null,false);
+						for(var i=0;i<skills.length;i++){
+							var info=get.info(skills[i]);
+							if(info.limited&&target.awakenedSkills.contains(skills[i])) return num+3;
+						}
+						return num;
 					});
 					"step 2"
 					if(result.cards&&result.cards.length){
+						if(get.number(result.cards[0])==get.number(event.pileTop)) event.equal=true;
 						player.loseToDiscardpile(result.cards).set("skill","_chongzhu");
 						player.draw();
-						if(get.number(result.cards[0])==get.number(event.pileTop)) event.equal=true;
-						if(result.targets&&result.targets.length){
-							event.target=result.targets[0];
-							player.line(event.target,"green");
+						if(event.target.isIn()){
 							if(event.target!=player) player.addExpose(0.2);
 						}
 						else{
@@ -809,7 +792,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 3"
 					event.target.addSkill("sst_fuyuan_effect");
 					event.target.addMark("sst_fuyuan_effect",1,false);
-					game.log(player,"令",event.target,"下次造成伤害后再次结算此伤害");
 					game.delayx();
 					if(!event.equal) event.finish();
 					"step 4"
@@ -2934,7 +2916,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
-			sst_fuyuan_info:"每轮限一次，一名角色的准备阶段，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令一名角色下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
+			sst_fuyuan_info:"每轮限一次，一名角色的准备阶段，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令其下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
 			sst_doujiang:"斗降",
 			sst_doujiang_info:"隐匿技，限定技，出牌阶段，你可以弃置至少一张牌，然后你亮出牌堆顶两倍数量的牌且可以使用之（无距离限制且应变效果直接生效）。",
 			sst_gonglie:"共猎",
