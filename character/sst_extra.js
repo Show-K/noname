@@ -777,7 +777,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					};
 					player.showCards(event.pileTop,get.translation(player)+"对"+translateTargets(event.target)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					"step 1"
-					player.chooseCard("复愿：你可以重铸一张牌，令"+get.translation(event.target)+"下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令"+get.translation(event.target)+"一个限定技视为未发动过","he").set("ai",function(card){
+					player.chooseCard("复愿：你可以重铸一张牌，令"+get.translation(event.target)+"本回合下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令"+get.translation(event.target)+"一个限定技视为未发动过","he").set("ai",function(card){
 						var evt=_status.event.getParent();
 						var num=5.5-get.value(card);
 						if(get.number(card)!=get.number(evt.pileTop)) return num;
@@ -805,7 +805,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 3"
-					event.target.addSkill("sst_fuyuan_effect");
+					event.target.addTempSkill("sst_fuyuan_effect");
 					event.target.addMark("sst_fuyuan_effect",1,false);
 					game.delayx();
 					if(!event.equal) event.finish();
@@ -835,7 +835,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				forced:true,
 				intro:{
-					content:"你下&次造成伤害后再次结算此伤害"
+					content:"本回合你下&次造成伤害后再次结算此伤害"
 				},
 				onremove:true,
 				trigger:{source:"damageSource"},
@@ -2730,8 +2730,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							player.node.equips.appendChild(sst_ink.cards[i]);
 							sst_ink.cards[i].parentNode.classList.add("equips");
 						}
-						//trigger.cards.splice.apply(this,[trigger.cards.indexOf(sst_ink),1].concat(sst_ink.cards));
-						//trigger.cards.addArray(sst_ink.cards).remove(sst_ink);
 						var modify=cards=>{
 							var index=cards.indexOf(sst_ink);
 							var before=[],after=[];
@@ -2745,9 +2743,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						};
 						trigger.cards=modify(trigger.cards);
 						var evt=trigger.getParent();
-						if(evt&&["lose","useCard","discard","loseToDiscardpile","respond","equip","addJudge","gain","loseAsync","addToExpansion"].contains(evt.name)&&evt.cards) evt.cards=modify(evt.cards);
+						if(evt&&["lose","useCard","discard","loseToDiscardpile","respond","equip","addJudge","gain","loseAsync","addToExpansion"].contains(evt.name)&&evt.cards){
+							evt.cards=modify(evt.cards);
+							if(["useCard","respond"].contains(evt.name)&&evt.card.cardid==sst_ink.cardid) evt.card=get.autoViewAs(sst_ink.cards[0],sst_ink.cards);
+						}
 						var evt2=trigger.getParent(2);
-						if(evt2&&["lose","useCard","discard","loseToDiscardpile","respond","equip","addJudge","gain","loseAsync","addToExpansion"].contains(evt2.name)&&evt2.cards) evt2.cards=modify(evt2.cards);
+						if(evt2&&["lose","useCard","discard","loseToDiscardpile","respond","equip","addJudge","gain","loseAsync","addToExpansion"].contains(evt2.name)&&evt2.cards){
+							evt2.cards=modify(evt2.cards);
+							if(["useCard","respond"].contains(evt2.name)&&evt2.card&&evt2.card.cardid==sst_ink.cardid) evt2.card=get.autoViewAs(sst_ink.cards[0],sst_ink.cards);
+						}
 						delete sst_ink.cards;
 						sst_ink._destroy=true;
 						game.broadcast(sst_ink=>{
@@ -2931,7 +2935,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
-			sst_fuyuan_info:"每轮限一次，一名角色的准备阶段，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令其下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
+			sst_fuyuan_info:"每轮限一次，一名角色的准备阶段，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令其本回合下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
 			sst_doujiang:"斗降",
 			sst_doujiang_info:"隐匿技，限定技，出牌阶段，你可以弃置至少一张牌，然后你亮出牌堆顶两倍数量的牌且可以使用之（无距离限制且应变效果直接生效）。",
 			sst_gonglie:"共猎",

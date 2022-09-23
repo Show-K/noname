@@ -28,3 +28,4 @@ localStorage.json
 .vscode
 /typings
 /favicon.ico
+jsconfig.json

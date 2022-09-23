@@ -2420,7 +2420,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filter:event=>event.player.countUsed(null,true)<=1&&!_status.dying.length&&event.targets&&event.targets.length,
 				content:()=>{
 					"step 0"
-					player.chooseToRespond().set("ai",card=>{
+					player.chooseCard(get.prompt("ska_zhidai"),"你可以打出一张手牌替换"+get.translation(trigger.card)+"对应的实体牌，若如此做，本回合结束阶段，你对自己使用"+get.translation(trigger.card)+"对应的实体牌","hs",card=>{
+						var player=_status.event.player;
+						var mod2=game.checkMod(card,player,"unchanged","cardEnabled2",player);
+						if(mod2!="unchanged") return mod2;
+						var mod=game.checkMod(card,player,"unchanged","cardRespondable",player);
+						if(mod!="unchanged") return mod;
+						return true;
+					}).set("ai",card=>{
 						var player=_status.event.player;
 						var evt=_status.event.getTrigger();
 						var before=0,after=0;
@@ -2431,8 +2438,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						before/=evt.targets.length;
 						after/=evt.targets.length;
 						return after-before;
-					}).set("noOrdering",true).set("position","hes").set("logSkill",["ska_zhidai",trigger.player]).set("prompt",get.prompt("ska_zhidai")).set("prompt2","你可以打出一张牌替换"+get.translation(trigger.card)+"对应的实体牌，若如此做，本回合结束阶段，你对自己使用"+get.translation(trigger.card)+"对应的实体牌");
+					});
 					"step 1"
+					if(result.cards&&result.cards.length){
+						player.respond(result.cards,"highlight","ska_zhidai","noOrdering");
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
 					if(result.card&&result.cards){
 						event.cards=trigger.cards.filterInD("o");
 						if(event.cards.length){
@@ -2691,7 +2705,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xsj_moxue_info:"当你受到伤害后，你可以将装备区内的一张牌收回手牌，视为使用一张【决斗】。",
 			ska_zhidai:"置代",
 			ska_zhidai2:"置代",
-			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，若场上没有处于濒死状态的角色，且此牌有目标，你可以打出一张牌替换之。本回合结束阶段，你对自己依次使用被替换牌（无视合法性）。",
+			ska_zhidai_info:"当一名角色于回合内声明使用第一张牌时，若场上没有处于濒死状态的角色，且此牌有目标，你可以打出一张手牌替换之。本回合结束阶段，你对自己依次使用被替换牌（无视合法性）。",
 			ska_siyi:"嘶咿",
 			ska_siyi_effect:"嘶咿",
 			ska_siyi_info:"隐匿技，当你登场后，你可以令一名其他角色的手牌本局游戏对你可见。",

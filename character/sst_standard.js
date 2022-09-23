@@ -8467,7 +8467,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					player.gain(trigger.target.getGainableCards(player,"h",{color:"red"}),trigger.target,"give","bySelf");
+					player.gain(trigger.target.getGainableCards(player,"he",{color:"red"}),trigger.target,"give","bySelf");
 				}
 			},
 			sst_fanni:{
@@ -13350,41 +13350,31 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var rotation=player.storage.sst_qiangyi||1;
 					player.changeZhuanhuanji("sst_qiangyi");
 					if(rotation==1){
-						var next=game.createEvent("sst_qiangyi_clear");
-						event.next.remove(next);
-						trigger.after.push(next);
-						next.set("player",player);
-						next.setContent(()=>{
-							player.chooseUseTarget("枪艺：视为使用一张杀",{name:"sha",isCard:true},true,false,"nodistance");
-						});
+						trigger.set("sst_qiangyi_effect",1);
+						player.addTempSkill("sst_qiangyi_effect");
 					}
 					else if(rotation==2){
-						player.storage.sst_qiangyi_effect=player;
-						player.addTempSkill("sst_qiangyi_effect","phaseUseEnd");
+						player.storage.sst_qiangyi_effect2=player;
+						player.addTempSkill("sst_qiangyi_effect2","phaseUseEnd");
 					}
 					else if(rotation==3){
-						var next=game.createEvent("sst_qiangyi_clear");
-						event.next.remove(next);
-						trigger.after.push(next);
-						next.set("player",player);
-						next.setContent(lib.skill.sst_qiangyi.rotation3);
+						trigger.set("sst_qiangyi_effect",3);
+						player.addTempSkill("sst_qiangyi_effect3");
 						if(_status.currentPhase!=player) player.addExpose(0.2);
-					}
-				},
-				rotation3:()=>{
-					"step 0"
-					player.draw(2);
-					"step 1"
-					var evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"){
-						game.resetSkills();
-						_status.event=evt;
-						_status.event.finish();
-						_status.event.untrigger(true);
 					}
 				}
 			},
 			sst_qiangyi_effect:{
+				charlotte:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"useCardAfter"},
+				filter:event=>event.sst_qiangyi_effect==1,
+				content:()=>{
+					player.chooseUseTarget("枪艺：视为使用一张杀",{name:"sha",isCard:true},true,false,"nodistance");
+				}
+			},
+			sst_qiangyi_effect2:{
 				charlotte:true,
 				mark:"character",
 				intro:{
@@ -13396,6 +13386,25 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					},
 					cardUsable:card=>{
 						if(card.name=="sha") return Infinity;
+					}
+				}
+			},
+			sst_qiangyi_effect3:{
+				charlotte:true,
+				forced:true,
+				popup:false,
+				trigger:{player:"useCardAfter"},
+				filter:event=>event.sst_qiangyi_effect==3,
+				content:()=>{
+					"step 0"
+					player.draw(2);
+					"step 1"
+					var evt=event.getParent("phase");
+					if(evt&&evt.name=="phase"){
+						game.resetSkills();
+						_status.event=evt;
+						_status.event.finish();
+						_status.event.untrigger(true);
 					}
 				}
 			},
@@ -13430,17 +13439,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				charlotte:true,
 				forced:true,
 				popup:false,
-				trigger:{player:"useCardAfter"},
+				trigger:{player:"useCardBegin"},
 				filter:(event)=>event.skill=="sst_moke",
 				content:()=>{
 					var next=player.chooseToUse("魔刻：你可以将一张牌当作杀使用");
+					event.next.remove(next);
+					trigger.after.push(next);
 					next.set("norestore",true);
 					next.set("_backupevent","sst_moke_effectx");
 					next.backup("sst_moke_effectx");
 					next.set("addCount",false);
 					next.set("custom",{
 						add:{},
-						replace:{window:function(){}}
+						replace:{window:()=>{}}
 					});
 				}
 			},
@@ -14214,7 +14225,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_yangfen:"养分",
 			sst_yangfen_info:"一名角色死亡后，你可以摸其体力上限张数牌。",
 			sst_qiangyi:"枪艺",
-			sst_qiangyi_effect:"枪艺",
+			sst_qiangyi_effect2:"枪艺",
 			sst_qiangyi_info:"转换技，你使用【杀】时，你可以①于结算后视为使用一张【杀】②令本阶段使用【杀】无距离和次数限制③于结算后摸两张牌，当前回合结束。",
 			sst_moke:"魔刻",
 			sst_moke_info:"每回合限一次，你可以将一张牌当作【闪】使用，然后你可以将一张牌当作【杀】使用。",
