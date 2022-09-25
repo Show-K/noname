@@ -7101,6 +7101,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						node.innerHTML = str;
 						node.dataset.text = str;
 						node.dataset.nature = nature || 'soil';
+						node.style.animation = 'open-fade-in 0.6s';
 					};
 
 					lib.element.player.$damagepop = function (num, nature, font, nobroadcast) {
