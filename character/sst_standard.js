@@ -5850,6 +5850,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				filterCard:function(card,player){
 					return !Array.isArray(player.storage.sst_canyun_effect)||!player.storage.sst_canyun_effect.contains(get.suit(card));
 				},
+				filterTarget:true,
+				selectTarget:-1,
 				check:function(card){
 					return 6-get.value(card);
 				},
@@ -5857,7 +5859,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				delay:false,
 				content:function(){
 					"step 0"
-					player.line(game.filterPlayer());
 					player.addTempSkill("sst_canyun_effect");
 					player.markAuto("sst_canyun_effect",[get.suit(cards)]);
 					game.delayx();
@@ -10806,9 +10807,24 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				locked:false,
 				mod:{
 					cardUsableTarget:function(card,player,target){
-						if(target==player) return;
-						if(get.color(card)=="red"&&get.distance(player,target,"pure")>=Math.floor(game.countPlayer()/2)) return true;
-						if(get.color(card)=="black"&&get.distance(player,target,"pure")<=Math.ceil(game.countPlayer()/2)) return true;
+						if(get.color(card)=="red"){
+							var x=Math.ceil(game.countPlayer()/2),lefts=[],left=player;
+							for(var i=0;i<x;i++){
+								left=left.getPrevious();
+								lefts.push(left);
+							}
+							console.log(lefts.map(current=>current.name));
+							if(lefts.contains(target)) return true;
+						}
+						else if(get.color(card)=="black"){
+							var x=Math.ceil(game.countPlayer()/2),rights=[],right=player;
+							for(var i=0;i<x;i++){
+								right=right.getNext();
+								rights.push(right);
+							}
+							console.log(rights.map(current=>current.name));
+							if(rights.contains(target)) return true;
+						}
 					},
 					targetInRange:function(card,player,target,now){
 						return true;
@@ -10816,7 +10832,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			sst_fengcu:{
-				group:["sst_fengcu_sha","sst_fengcu_shan"],
+				group:["sst_fengcu_sha","sst_fengcu_shan","sst_fengcu2"],
 				subSkill:{
 					sha:{
 						enable:["chooseToUse","chooseToRespond"],
@@ -10832,7 +10848,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							var colors=[];
 							player.getCards("hes").forEach(card=>{
 								var color=get.color(card);
-								if(!colors.contains(color)) colors.push();
+								if(!colors.contains(color)) colors.push(color);
 							});
 							if(colors.length<2) return false;
 						},
@@ -10847,7 +10863,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								var colors=[];
 								player.getCards("hes").forEach(card=>{
 									var color=get.color(card);
-									if(!colors.contains(color)) colors.push();
+									if(!colors.contains(color)) colors.push(color);
 								});
 								if(colors.length<2) return false;
 							}
@@ -10864,7 +10880,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						position:"hes",
 						viewAs:{name:"shan"},
 						viewAsFilter:function(player){
-							if(!player.countCards("hes")) return false;
+							var colors=[];
+							player.getCards("hes").forEach(card=>{
+								var color=get.color(card);
+								if(!colors.contains(color)) colors.push(color);
+							});
+							if(colors.length<2) return false;
 						},
 						check:function(card){return 5-get.value(card);},
 						precontent:function(){
@@ -10877,14 +10898,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								var colors=[];
 								player.getCards("hes").forEach(card=>{
 									var color=get.color(card);
-									if(!colors.contains(color)) colors.push();
+									if(!colors.contains(color)) colors.push(color);
 								});
 								if(colors.length<2) return false;
 							}
 						}
 					}
-				},
-				group:"sst_fengcu2"
+				}
 			},
 			sst_fengcu2:{
 				trigger:{player:["useCardBegin","respondBegin"]},
@@ -10901,7 +10921,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					next.set("player",player);
 					next.set("card",trigger.card);
 					next.set("respondTo",trigger.respondTo);
-					next.setContent(lib.skill.sst_fengcu.contentx);
+					next.setContent(lib.skill.sst_fengcu2.contentx);
 				},
 				contentx:function(){
 					"step 0"
