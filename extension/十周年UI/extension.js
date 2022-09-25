@@ -1364,8 +1364,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 									}
 								}
 								var range = get.select(event.selectCard);
-								game.check();
 								if ((typeof event.isMine == 'function') && event.isMine()) {
+									game.check();
 									if (event.hsskill && !event.forced && _status.prehidden_skills.contains(event.hsskill)) {
 										ui.click.cancel();
 										return;
