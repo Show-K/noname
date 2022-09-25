@@ -943,25 +943,33 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return get.name(event.card)=="sha"&&!(get.cardtag(event.card,"yingbian_zhuzhan")&&get.cardtag(event.card,"yingbian_add"));
 				},
 				content:function(){
+					trigger.set("sst_gonglie",true);
 					if(!trigger.card.cardtags) trigger.card.cardtags=[];
 					trigger.card.cardtags.add("yingbian_zhuzhan");
 					trigger.card.cardtags.add("yingbian_add");
-					//game.log(get.cardtag(trigger.card,"yingbian_zhuzhan"));
-					player.addTempSkill("sst_gonglie2");
-					if(!trigger.sst_gonglie){
-						trigger.set("sst_gonglie",[true,null]);
-						var next=game.createEvent("sst_gonglie_clear");
-						event.next.remove(next);
-						trigger.after.push(next);
-						next.set("player",player);
-						next.set("card",trigger.card);
-						next.set("sst_gonglie",trigger.sst_gonglie);
-						next.setContent(lib.skill.sst_gonglie.contentx);
-					}
+					player.addTempSkill("sst_gonglie_zhuzhan");
+				}
+			},
+			sst_gonglie_zhuzhan:{
+				charlotte:true,
+				silent:true,
+				trigger:{player:"_yingbianAfter"},
+				filter:function(event){
+					return event.zhuzhanresult&&event.getParent(3).sst_gonglie;
+				},
+				content:function(){
+					var evt=trigger.getParent(3);
+					var next=game.createEvent("sst_gonglie_clear");
+					event.next.remove(next);
+					evt.after.push(next);
+					next.set("player",player);
+					next.set("card",evt.card);
+					next.set("sst_gonglie",trigger.zhuzhanresult);
+					next.setContent(lib.skill.sst_gonglie_zhuzhan.contentx);
 				},
 				contentx:function(){
 					"step 0"
-					if(get.itemtype(event.sst_gonglie[1])=="player"&&game.cardCausedDamage(card)){
+					if(get.itemtype(event.sst_gonglie)=="player"&&game.cardCausedDamage(card)){
 						event.targets=game.filterPlayer(function(current){
 							return current.hasHistory("damage",function(evt){
 								return evt.card==card;
@@ -969,7 +977,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 						if(event.targets&&event.targets.length){
 							event.num=0;
-							event.sst_gonglie[1].line(event.targets,"green");
+							event.sst_gonglie.line(event.targets,"green");
 						}
 						else{
 							event.finish();
@@ -979,21 +987,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 1"
-					event.sst_gonglie[1].gainPlayerCard("共猎：你可以获得"+get.translation(event.targets[event.num])+"一张牌",event.targets[event.num],"he");
+					event.sst_gonglie.gainPlayerCard("共猎：你可以获得"+get.translation(event.targets[event.num])+"一张牌",event.targets[event.num],"he");
 					"step 2"
 					event.num++;
-					if(event.num<event.target.length) event.goto(1);
-				}
-			},
-			sst_gonglie2:{
-				charlotte:true,
-				superCharlotte:true,
-				forced:true,
-				silent:true,
-				trigger:{player:"_yingbianAfter"},
-				content:function(){
-					var evt=trigger.getParent();
-					if(evt.sst_gonglie&&evt.sst_gonglie[0]&&trigger.zhuzhanresult) evt.sst_gonglie[1]=trigger.zhuzhanresult;
+					if(event.num<event.targets.length) event.goto(1);
 				}
 			},
 			sst_weishou:{
@@ -2939,10 +2936,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			sst_doujiang:"斗降",
 			sst_doujiang_info:"隐匿技，限定技，出牌阶段，你可以弃置至少一张牌，然后你亮出牌堆顶两倍数量的牌且可以使用之（无距离限制且应变效果直接生效）。",
 			sst_gonglie:"共猎",
-			sst_gonglie_info:"你使用【杀】可以为其附加「助战→目标+1」应变效果；然后若有人响应「助战」且【杀】造成了伤害，其可以获得受到此【杀】伤害的角色一张牌。",
+			sst_gonglie_info:"你使用【杀】可以为其附加「助战→目标+1」应变效果；然后若有人响应〖助战〗且【杀】造成了伤害，其可以获得受到此【杀】伤害的角色一张牌。",
 			sst_weishou:"围狩",
 			sst_weishou2:"围狩",
-			sst_weishou_info:"一名其他角色因响应「助战」而弃置时，可以改为将牌交给你。",
+			sst_weishou_info:"一名其他角色因响应〖助战〗而弃置时，可以改为将牌交给你。",
 			sst_wenxin:"问心",
 			sst_wenxin_effect:"问心",
 			sst_wenxin_info:"使命技。结束阶段，你可以弃置至少一张手牌并依次弃置场上等量的牌，然后展示手牌并摸等同于你弃置黑色牌数量的牌。<br>\
