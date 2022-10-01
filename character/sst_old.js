@@ -1,6 +1,5 @@
 "use strict";
 game.import("character",function(lib,game,ui,get,ai,_status){
-	if(!lib.translateEnglish) lib.translateEnglish={};
 	var sst_old={
 		name:"sst_old",
 		connect:true,
@@ -48,6 +47,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			xf_yiji:["male","sst_smash",3,["xinfu_jijie","xinfu_jiyuan"],["unseen"]],
 			re_yuanshu:["male","sst_smash",4,["rewangzun","retongji"],["unseen"]],
 			//SST
+			//ska_bowser:["male","sst_dark",4,["ska_mengjin"],[]],
 			old_sst_samus:["female","sst_light",4,["old_sst_juezhan","old_sst_zailu"],[]],
 			old_sst_ken:["male","sst_light",4,["old_sst_yanyang","sst_shenglong"],[]],
 			old_ymk_claude:["male","sst_spirit",3,["old_ymk_yunchou","old_ymk_guimou"],[]],
@@ -2552,6 +2552,210 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//SST
+			//Unused skills
+			ska_lunli:{
+				trigger:{target:"useCardToTargeted"},
+				direct:true,
+				filter:function(event,player){
+					return player.countCards("he");
+				},
+				content:function(){
+					"step 0"
+					player.chooseCard("he",get.prompt2("ska_lunli",trigger.player),function(card){
+						let number=get.number(_status.event.cardx);
+						let player=_status.event.player; 
+						return Math.abs(number-get.number(card))==player.hp;
+					}).set("cardx",trigger.card).set("ai",function(card){
+						return 11-get.value(card);
+					});
+					"step 1"
+					if(result.bool){
+						player.logSkill("ska_lunli",trigger.player);
+						player.showCards(result.cards);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.chooseBool("论理：是否摸一张牌？").set("ai",function(){
+						return true;
+					});
+					"step 3"
+					if(result.bool) player.draw();
+					"step 4"
+					player.chooseBool("论理：是否令"+get.translation(trigger.player)+"弃置一张牌？").set("ai",function(){
+						let player=_status.event.player;
+						let target=_status.event.targetx;
+						return get.attitude(player,target)<0;
+					}).set("targetx",trigger.player);
+					"step 5"
+					if(result.bool){
+						if(typeof player.ai.shown=="number"&&player.ai.shown<0.95){
+							player.ai.shown+=0.3;
+							if(player.ai.shown>0.95) player.ai.shown=0.95;
+						}
+						trigger.player.chooseToDiscard("论理：弃置一张牌","he",true);
+					}
+				}
+			},
+			ska_shubian:{
+				enable:"phaseUse",
+				usable:1,
+				position:"he",
+				complexCard:true,
+				filterTarget:true,
+				selectTarget:function(){
+					return ui.selected.cards.length;
+				},
+				filterCard:function(card){
+					let num=0;
+					for(let i=0;i<ui.selected.cards.length;i++){
+						num+=get.number(ui.selected.cards[i]);
+					}
+					return get.number(card)+num<=13;
+				},
+				selectCard:function(){
+					let num=0;
+					for(let i=0;i<ui.selected.cards.length;i++){
+						num+=get.number(ui.selected.cards[i]);
+					}
+					if(num==13) return ui.selected.cards.length;
+					return ui.selected.cards.length+2;
+				},
+				check:function(card){
+					let num=0;
+					for(let i=0;i<ui.selected.cards.length;i++){
+						num+=get.number(ui.selected.cards[i]);
+					}
+					if(num+get.number(card)==13) return 9-get.value(card);
+					if(ui.selected.cards.length==0){
+						let cards=_status.event.player.getCards("h");
+						for(let i=0;i<cards.length;i++){
+							for(let j=i+1;j<cards.length;j++){
+								if(cards[i].number+cards[j].number==13){
+									if(cards[i]==card||cards[j]==card) return 8.5-get.value(card);
+								}
+							}
+						}
+					}
+					return 0;
+				},
+				line:"thunder",
+				content:function (){
+					"step 0"
+					player.chooseBool("数变：令"+get.translation(target)+"回复1点体力，否则受到你造成的1点伤害").set("ai",function(){
+						let player=_status.event.player;
+						let target=_status.event.targetx;
+						return get.sgn(get.recoverEffect(target,player,player)-get.damageEffect(target,player,player))>0;
+					}).set("targetx",target);
+					"step 1"
+					if(typeof player.ai.shown=="number"&&player.ai.shown<0.95){
+						player.ai.shown+=0.3;
+						if(player.ai.shown>0.95) player.ai.shown=0.95;
+					}
+					if(result.bool){
+						target.recover("nocard");
+					}
+					else{
+						target.damage(player,"nocard");
+					}
+				},
+				ai:{
+					order:10,
+					result:{
+						target:function(player,target){
+							if(get.attitude(player,target)>0&&!target.getDamagedHp()) return -1;
+							return get.sgn(get.attitude(player,target));
+						},
+						player:1
+					}
+				}
+			},
+			ska_mengjin:{
+				locked:false,
+				init:function(player){
+					if(!player.storage.ska_mengjin) player.storage.ska_mengjin=[];
+				},
+				enable:"phaseUse",
+				usable:1,
+				filterTarget:lib.filter.notMe,
+				viewAsFilter:function(player){
+					if(!player.countCards("h")) return false;
+				},
+				filterCard:true,
+				selectCard:function(){
+					let player=_status.event.player;
+					return Math.ceil(player.countCards("h")/2);
+				},
+				check:function(card){
+					return 7-get.value(card);
+				},
+				discard:false,
+				lose:false,
+				delay:false,
+				position:"he",
+				content:function (){
+					"step 0"
+					target.gain(cards,player,"giveAuto");
+					"step 1"
+					let num=Math.ceil(target.countCards("h")/2);
+					if(num){
+						target.chooseCard("盟进：交给"+get.translation(player)+get.cnNumber(num)+"张牌",num,"he",true).set("ai",function(card){
+							if(get.attitude(_status.event.player,_status.event.getParent().player)>0){
+								return 11-get.value(card);
+							}
+							else{
+								return 7-get.value(card);
+							}
+						});
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(result.cards&&result.cards.length){
+						player.gain(result.cards,target,"giveAuto");
+						player.storage.ska_mengjin.addArray(result.cards);
+					}
+				},
+				mod:{
+					cardUsable:function(card,player){
+						let cards=player.storage.ska_mengjin;
+						for(let i=0;i<cards.length;i++){
+							if(card.cards&&card.cards.contains(cards[i])) return Infinity;
+						}
+					},
+					targetInRange:function(card,player){
+						let cards=player.storage.ska_mengjin;
+						for(let i=0;i<cards.length;i++){
+							if(card.cards&&card.cards.contains(cards[i])) return true;
+						}
+					}
+				},
+				ai:{
+					order:5,
+					expose:0.2,
+					result:{
+						target:function(player,target){
+							if(target.hasSkillTag("nogain")) return 0;
+							if(player.countCards("h")==player.countCards("h","du")) return -1;
+							if(get.attitude(player,target)<0) return player.countCards("h")/2-target.countCards("h")/2;
+							return 2;
+						},
+						player:1
+					}
+				},
+				group:"ska_mengjin_clear",
+				subSkill:{
+					clear:{
+						trigger:{global:"phaseAfter"},
+						silent:true,
+						content:function(){
+							player.storage.ska_mengjin=[];
+						}
+					}
+				}
+			},
 			//Samus
 			old_sst_juezhan:{
 				mod:{

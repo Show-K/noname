@@ -83,7 +83,8 @@ window.noname_character_rank={
 			"alz_yuri_kozukata",
 			"sst_ganondorf",
 			"sst_r_o_b",
-			"sst_bayonetta"
+			"sst_bayonetta",
+			"nnk_decidueye"
 		],
 		rare:[
 			"sst_mario",

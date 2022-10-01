@@ -1258,6 +1258,7 @@ window.noname_asset_list=[
 	'image/character/xsj_yu_narukami.png',
 	'image/character/xsj_dante.png',
 	'image/character/ska_daroach.png',
+	'image/character/nnk_decidueye.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',
@@ -1330,7 +1331,11 @@ window.noname_asset_list=[
 	'audio/background/music_dharkon.mp3',
 	'audio/background/music_galeem_dharkon.mp3',
 
+	'audio/effect/ignotus.mp3',
+	'audio/effect/sm3dw_overworld.mp3',
 	'audio/effect/sst_big_blue.mp3',
+	'audio/effect/taketori_hishou.mp3',
+	'audio/effect/tori_no_uta.mp3',
 
 	'audio/card/female/lizhengshangyou.mp3',
 	'audio/card/female/tongzhougongji.mp3',

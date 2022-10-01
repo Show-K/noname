@@ -11060,7 +11060,7 @@
 		element:{
 			content:{
 				//New
-				chooseToComparePileTop:function(){
+				chooseToComparePileTop:()=>{
 					'step 0'
 					if(((!event.fixedResult||!event.fixedResult[player.playerid])&&player.countCards('h')==0)||!ui.cardPile.childNodes.length){
 						event.result={cancelled:true,bool:false};
@@ -11087,7 +11087,7 @@
 						event.card1=result.cards[0];
 					}
 					'step 3'
-					var card=get.cards()[0];
+					const card=get.cards()[0];
 					//event.lose_list.push([player,card]);
 					event.card2=card;
 					'step 4'
@@ -11098,9 +11098,7 @@
 					}
 					if(event.card2) game.cardsGotoOrdering(event.card2);
 					'step 5'
-					game.broadcast(function(){
-						ui.arena.classList.add('thrownhighlight');
-					});
+					game.broadcast(()=>ui.arena.classList.add('thrownhighlight'));
 					ui.arena.classList.add('thrownhighlight');
 					game.addVideo('thrownhighlight1');
 					player.$compare(event.card1,player,event.card2);
@@ -11117,7 +11115,7 @@
 						num1:event.num1,
 						num2:event.num2
 					};
-					var str;
+					let str;
 					if(event.num1>event.num2){
 						event.result.bool=true;
 						event.result.winner=player;
@@ -11136,22 +11134,16 @@
 							player.popup('负');
 						}
 					}
-					game.broadcastAll(function(str){
-						var dialog=ui.create.dialog(str);
+					game.broadcastAll(str=>{
+						const dialog=ui.create.dialog(str);
 						dialog.classList.add('center');
-						setTimeout(function(){
-							dialog.close();
-						},1000);
+						setTimeout(()=>dialog.close(),1000);
 					},str);
 					game.delay(2);
 					'step 7'
-					game.broadcastAll(function(){
-						ui.arena.classList.remove('thrownhighlight');
-					});
+					game.broadcastAll(()=>ui.arena.classList.remove('thrownhighlight'));
 					game.addVideo('thrownhighlight2');
-					if(event.clear!==false){
-						game.broadcastAll(ui.clear);
-					}
+					if(event.clear!==false) game.broadcastAll(ui.clear);
 					if(typeof event.preserve=='function'){
 						event.preserve=event.preserve(event.result);
 					}
@@ -11162,7 +11154,7 @@
 						event.preserve=!event.result.bool;
 					}
 				},
-				judgeCard:function(){
+				judgeCard:()=>{
 					'step 0'
 					if(typeof event.card=='string'){
 						event.card=game.createCard(event.card,'','');
@@ -11174,32 +11166,31 @@
 					player.$phaseJudge(event.card);
 					event.cancelled=false;
 					event.trigger('judgeCard');
-					var name=event.card.viewAs||event.card.name;
-					player.popup(name,'thunder');
-					if(!lib.card[name].effect){
+					event.cardName=event.card.viewAs||event.card.name;
+					player.popup(event.cardName,'thunder');
+					if(!lib.card[event.cardName].effect){
 						game.delay();
 						event.finish();
 					}
-					else if(!lib.card[name].judge){
+					else if(!lib.card[event.cardName].judge){
 						game.delay();
 						event.nojudge=true;
 					}
 					'step 2'
 					if(!event.cancelled&&!event.nojudge) player.judge(event.card);
 					'step 3'
-					var name=event.card.viewAs||event.card.name;
 					if(event.cancelled&&!event.direct){
-						if(lib.card[name].cancel){
-							var next=game.createEvent(name+'Cancel');
-							next.setContent(lib.card[name].cancel);
+						if(lib.card[event.cardName].cancel){
+							const next=game.createEvent(event.cardName+'Cancel');
+							next.setContent(lib.card[event.cardName].cancel);
 							next.card=event.card;
 							next.cards=[event.card];
 							next.player=player;
 						}
 					}
 					else{
-						var next=game.createEvent(name);
-						next.setContent(lib.card[name].effect);
+						const next=game.createEvent(event.cardName);
+						next.setContent(lib.card[event.cardName].effect);
 						next._result=result;
 						next.card=event.card;
 						next.cards=[event.card];
@@ -11532,7 +11523,7 @@
 							else if(acc>=65) rank=['C','thunder'];
 							else rank=['D','fire'];
 							event.dialog.textPrompt.innerHTML='<div class="text center">演奏结束！<br>最大连击数：'+max_combo+'  精准度：'+acc+'%</div>';
-							game.me.$fullscreenpop('<span style="font-family:xinwei">演奏评级：<span data-nature="'+rank[1]+'">'+rank[0]+'</span></span>',null,null,false);
+							game.me.$fullscreenpop('<span style="font-family:fzhtk">演奏评级：<span data-nature="'+rank[1]+'">'+rank[0]+'</span></span>',null,null,false);
 							//返回结果并继续游戏
 							setTimeout(function(){
 								event._result={
@@ -18291,24 +18282,24 @@
 					return true;
 				},
 				chooseToComparePileTop:function(check){
-					var next=game.createEvent('chooseToCompare');
+					const next=game.createEvent('chooseToCompare');
 					next.set('player',this);
 					if(check){
 						next.set('ai',check);
 					}
 					else{
-						next.set('ai',function(card){
+						next.set('ai',card=>{
 							if(typeof card=='string'&&lib.skill[card]){
-								var ais=lib.skill[card].check||function(){return 0};
+								const ais=lib.skill[card].check||(()=>0);
 								return ais();
 							}
-							var player=get.owner(card);
-							var getn=function(card){
+							const player=get.owner(card);
+							const getn=card=>{
 								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13;
 								return get.number(card);
 							};
-							var event=_status.event.getParent();
-							var addi=(get.value(card)>=8&&get.type(card)!='equip')?-10:0;
+							const event=_status.event.getParent();
+							let addi=(get.value(card)>=8&&get.type(card)!='equip')?-10:0;
 							if(card.name=='du') addi+=5;
 							return getn(card)-get.value(card)/2+addi;
 						});
@@ -18332,9 +18323,7 @@
 				},
 				setBraces:function(num,log){
 					if(typeof num!='number') return;
-					if(log!==false){
-						game.log(this,'的','#g｛｝','内数值变为',num);
-					}
+					if(log!==false) game.log(this,'的','#g｛｝','内数值变为',num);
 					this.storage.braces=num;
 					this.syncStorage('braces');
 					this.markSkill('braces');
@@ -18342,17 +18331,13 @@
 				addBraces:function(num,log){
 					if(typeof num!='number') num=1;
 					if(!this.bracesInited()) this.initBraces();
-					if(log!==false){
-						game.log(this,'的','#g｛｝','内数值+',num);
-					}
+					if(log!==false) game.log(this,'的','#g｛｝','内数值+',num);
 					this.addMark('braces',num,false);
 				},
 				removeBraces:function(num,log){
 					if(typeof num!='number') num=1;
 					if(!this.bracesInited()) return;
-					if(log!==false){
-						game.log(this,'的','#g｛｝','内数值-',num);
-					}
+					if(log!==false) game.log(this,'的','#g｛｝','内数值-',num);
 					this.storage.braces-=num;
 					this.syncStorage('braces');
 					this.markSkill('braces');
@@ -18361,15 +18346,11 @@
 					return Math.max(0,this.hp);
 				},
 				getDeckCards:function(num){
-					if(typeof num!='number'){
-						num=1;
-					}
-					if(!this.deckCards){
-						return get.cards(num);
-					}
-					var player=this;
-					var list=[];
-					for(var i=0;i<num;i++){
+					if(typeof num!='number') num=1;
+					if(!this.deckCards) return get.cards(num);
+					const player=this;
+					const list=[];
+					for(let i=0;i<num;i++){
 						if(player.deckCards.length){
 							list.push(player.deckCards.pop());
 						}
@@ -18382,9 +18363,9 @@
 				},
 				getLastRoundHistory:function(round,key,filter,last){
 					if(typeof round!='number'||!round) round=1;
-					var list=[];
-					var all=[];
-					for(var i=this.actionHistory.length-1;i>=0;i--){
+					const list=[];
+					const all=[];
+					for(let i=this.actionHistory.length-1;i>=0;i--){
 						all.push(this.actionHistory[i]);
 						if(this.actionHistory[i].isRound){
 							round--;
@@ -18396,25 +18377,25 @@
 							}
 						}
 					}
-					for(var j=0;j<all.length;j++){
-						if(!key||!all[j][key]){
-							list.push(all[j]);
+					all.forEach(j=>{
+						if(!key||!j[key]){
+							list.push(j);
 						}
 						else{
-							if(!filter) list.addArray(all[j][key]);
+							if(!filter) list.addArray(j[key]);
 							else{
-								var history=all[j][key].slice(0);
+								let history=j[key].slice(0);
 								if(last) history=history.slice(0,history.indexOf(last)+1);
-								for(var i=0;i<history.length;i++){
-									if(filter(history[i])) list.push(history[i]);
-								}
+								history.forEach(i=>{
+									if(filter(i)) list.push(i);
+								});
 							}
 						}
-					}
+					});
 					return list;
 				},
 				judgeCard:function(card){
-					var next=game.createEvent('judgeCard');
+					const next=game.createEvent('judgeCard');
 					next.player=this;
 					next.card=card;
 					next.setContent('judgeCard');
@@ -28539,28 +28520,22 @@
 				silent:true,
 				firstDo:true,
 				priority:2020,
-				filter:function(event,player){
-					return player.sex=='';
-				},
-				content:function(){
+				filter:(event,player)=>player.sex=='',
+				content:()=>{
 					'step 0'
-					player.chooseControl('male','female').set('prompt','选择性别').set('ai',function(){return ['male','female'].randomGet()});
+					player.chooseControl('male','female').set('prompt','选择性别').set('ai',()=>['male','female'].randomGet());
 					'step 1'
 					player.sex=result.control;
-					game.broadcast(function(player,sex){
-						player.sex=sex;
-					},player,result.control);
-					var name=player.name;
-					var differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
+					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
+					const name=player.name;
+					const differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
 					if(differentAvatar.contains(name)){
 						//player.reinit(name,name+'_'+result.control,false);
 						player.setAvatar(player.name,name+'_'+result.control);
 					}
 					game.log(player,'将性别变为了','#y'+get.translation(result.control));
-					var differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
-					if(typeof differentGroup[name+'_'+result.control]=='string'){
-						player.changeGroup(differentGroup[name+'_'+result.control]);
-					}
+					const differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
+					if(typeof differentGroup[name+'_'+result.control]=='string') player.changeGroup(differentGroup[name+'_'+result.control]);
 					player.update();
 				}
 			},
@@ -28575,12 +28550,13 @@
 				silent:true,
 				firstDo:true,
 				priority:2019,
-				filter:function(event,player){
-					return !get.config('no_group')&&player.group=='sst_smash';
-				},
-				content:function(){
+				filter:(event,player)=>!get.config('no_group')&&player.group=='sst_smash',
+				content:()=>{
 					'step 0'
-					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',function(){return ['sst_light','sst_dark','sst_spirit','sst_reality'].randomGet()});
+					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',()=>{
+						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
+						return _status.event.controls.randomGet();
+					});
 					'step 1'
 					player.changeGroup(result.control);
 					player.update();
@@ -28592,17 +28568,14 @@
 				forced:true,
 				popup:false,
 				trigger:{source:'damageBegin1'},
-				filter:function(event,player){
-					var evt=event.getParent(2);
+				filter:(event,player)=>{
+					const evt=event.getParent(2);
 					if(!evt||evt.name!='useCard') return false;
 					if(typeof evt.th_anger!='object') return false;
 					if(typeof evt.th_anger[player.playerid]!='number') return false;
 					return evt.th_anger[player.playerid]!=0;
 				},
-				content:function(){
-					var evt=trigger.getParent(2);
-					trigger.num+=evt.th_anger[player.playerid];
-				}
+				content:()=>trigger.num+=trigger.getParent(2).th_anger[player.playerid]
 			},
 			braces:{
 				intro:{
@@ -30672,34 +30645,21 @@
 		],
 	};
 	var game={
-		//New add
-		updateDiscardpile:function(){
+		updateDiscardpile:()=>{
 			if(ui.discardPile){
 				_status.discardPile.length=0;
-				for(var i=0;i<ui.discardPile.childNodes.length;i++){
-					_status.discardPile.push(ui.discardPile.childNodes[i]);
-				}
+				_status.discardPile.push(...Array.from(ui.discardPile.childNodes));
 			}
-			game.broadcast(function(discardPile){
-				_status.discardPile=discardPile;
-			},_status.discardPile);
+			game.broadcast(discardPile=>_status.discardPile=discardPile,_status.discardPile);
 		},
-		findPlayersByPlayerid:function(playerid){
+		findPlayersByPlayerid:playerid=>{
 			if(Array.isArray(playerid)){
-				return game.filterPlayer2(function(current){
-					return playerid.contains(current.playerid);
-				})
+				return game.filterPlayer2(current=>playerid.contains(current.playerid));
 			}
-			return game.filterPlayer2(function(current){
-				return current.playerid==playerid;
-			});
+			return game.filterPlayer2(current=>current.playerid==playerid);
 		},
-		findPlayerByPlayerid:function(playerid){
-			return game.findPlayer2(function(current){
-				return current.playerid==playerid;
-			});
-		},
-		createCard3:function(name,suit,number,nature,tag){
+		findPlayerByPlayerid:playerid=>game.findPlayer2(current=>current.playerid==playerid),
+		createCard3:(name,suit,number,nature,tag)=>{
 			if(typeof name=='object'){
 				nature=name.nature;
 				number=name.number;
@@ -30709,7 +30669,7 @@
 			if(typeof name!='string'){
 				name='sha';
 			}
-			var noclick=false;
+			let noclick=false;
 			if(suit=='noclick'){
 				noclick=true;
 				suit=null;
@@ -30732,7 +30692,7 @@
 			if(typeof number!='number'&&typeof number!='string'){
 				number=Math.ceil(Math.random()*13);
 			}
-			var card;
+			let card;
 			if(noclick){
 				card=ui.create.card(ui.special,'noclick',true);
 			}
@@ -30743,15 +30703,14 @@
 			return card.init([suit,number,name,nature,tag]);
 		},
 		createCard4:function(){
-			var card=game.createCard3.apply(this,arguments);
+			const card=game.createCard3.apply(this,arguments);
 			delete card.storage.vanish;
 			return card;
 		},
-		cardCausedDamage:function(card,player,target){
-			var history;
+		cardCausedDamage:(card,player,target)=>{
 			if(get.itemtype(player)=='player'){
-				return player.hasHistory('sourceDamage',function(evt){
-					var bool=true;
+				return player.hasHistory('sourceDamage',evt=>{
+					let bool=true;
 					if(get.itemtype(target)=='player'){
 						bool=evt.player==target;
 					}
@@ -30761,18 +30720,16 @@
 					return evt.card==card&&bool;
 				});
 			}
-			return game.hasPlayer(function(current){
-				return current.hasHistory('sourceDamage',function(evt){
-					var bool=true;
-					if(get.itemtype(target)=='player'){
-						bool=evt.player==target;
-					}
-					else if(get.itemtype(target)=='players'){
-						bool=target.contains(evt.player);
-					}
-					return evt.card==card&&bool;
-				})
-			});
+			return game.hasPlayer2(current=>current.hasHistory('sourceDamage',evt=>{
+				let bool=true;
+				if(get.itemtype(target)=='player'){
+					bool=evt.player==target;
+				}
+				else if(get.itemtype(target)=='players'){
+					bool=target.contains(evt.player);
+				}
+				return evt.card==card&&bool;
+			}));
 		},
 		//New add end
 		updateRenku:function(){
@@ -56665,24 +56622,26 @@
 		//New add
 		/**
 		 * Insert line break opportunities into a URL
+		 * @param {string} url 
 		 */
-		formatUrl:function(url){
+		formatUrl:url=>{
 			// Split the URL into an array to distinguish double slashes from single slashes
-			var doubleSlash=url.split('//');
+			const doubleSlash=url.split('//');
 			// Format the strings on either side of double slashes separately
-			var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
+			const formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
 			return formatted;
 		},
 		/**
 		 * Get character stat
 		 * @param {string} name 
 		 * @param {string} key 
+		 * @return {number|string} 
 		 */
-		characterStat:function(name,key){
+		characterStat:(name,key)=>{
 			if(name&&lib.character[name]&&lib.character[name][4]){
-				for(var i of lib.character[name][4]){
+				for(const i of lib.character[name][4]){
 					if(i.indexOf(key+':')==0){
-						var value=i.split(':').slice(1);
+						const value=i.split(':').slice(1);
 						if(key=='primary'||key=='attack'||key=='defense') return parseFloat(value);
 						return value;
 					}
