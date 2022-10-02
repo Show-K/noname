@@ -8,7 +8,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
 				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach"],
-				sst_nnk:["nnk_robin","nnk_decidueye"],
+				sst_nnk:["nnk_robin","nnk_decidueye","nnk_machamp"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_xsj:["xsj_yu_narukami","xsj_dante"],
 				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
@@ -34,7 +34,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
 			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]],
 			ska_daroach:["male","sst_spirit",3,["ska_zhidai","ska_siyi"],["hiddenSkill"]],
-			nnk_decidueye:["male","sst_spirit",4,["nnk_fengying","nnk_biantou"],[]]
+			nnk_decidueye:["male","sst_spirit",4,["nnk_fengying","nnk_biantou"],[]],
+			nnk_machamp:["male","sst_spirit",4,["nnk_manwu","nnk_mianyu"],[]]
 		},
 		characterFilter:{
 			mnm_edelgard:mode=>mode=="identity"
@@ -243,7 +244,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
 			团长！你在干什么啊！团长！",
-			nnk_decidueye:"武将作者：南柯<br>\
+			nnk_decidueye:"武将作者：南柯、Show-K<br>\
 			插图作者：《宝可拳 POKKÉN TOURNAMENT DX》<br>\
 			<hr>\
 			S007. 狙射树枭/Decidueye/ジュナイパー<br>\
@@ -256,7 +257,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			洗翠地区的狙射树枭没有固定的地盘，会为找寻食物而四处改变居所。它的脚力十分发达，踢击的威力之大能折断树木，击裂岩石。与至今为止所发现的样子不同，它会积极发动近身战并以力量制服对手。擅长利用飞翔冲向对手发出踢技，并用藏在翅膀里的箭释放连续攻击的战法。另一方面，对于不存敌意的对手它似乎会有宽容的一面。<br>\
 			——《神奇宝贝百科》<br>\
 			<hr>\
-			竟然没有被《任天堂明星大乱斗 特别版》收录为命魂。"
+			竟然没有被《任天堂明星大乱斗 特别版》收录为命魂。",
+			nnk_machamp:"武将作者：南柯<br>\
+			插图作者：《宝可拳 POKKÉN TOURNAMENT DX》<br>\
+			<hr>\
+			0437. 怪力/Machamp/カイリキー<br>\
+			系列：<ruby>宝可梦<rp>（</rp><rt>Pokémon</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>宝可梦 红／绿<rp>（</rp><rt>Pokémon Red and Green Versions</rt><rp>）</rp></ruby><br>\
+			一种拥有无穷的力量的宝可梦，用发达的4只手在2秒内可以出拳1000发，四只手发出的格斗招式几乎无法阻挡。与此相对，它们相当不擅长干细活儿。虽然看上去非常雄壮，但其实也有雌性的怪力。<br>\
+			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
+			<hr>\
+			真的暴力。"
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -279,7 +290,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			xsj_yu_narukami:"钢之妹控番长",
 			xsj_dante:"斯巴达之子",
 			ska_daroach:"宇宙盗贼团前来拜访",
-			nnk_decidueye:"遮天蔽日"
+			nnk_decidueye:"遮天蔽日",
+			nnk_machamp:"百裂拳击"
 		},
 		skill:{
 			//SP Isabelle
@@ -645,14 +657,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					sha:{
 						locked:false,
 						mod:{
-							targetInRange:()=>{
-								if(_status.event.skill=="ska_jiyan_sha") return true;
+							targetInRange:card=>{
+								if(card.storage&&card.storage.ska_jiyan) return true;
 							}
 						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:()=>false,
 						selectCard:-1,
-						viewAs:{name:"sha",isCard:true},
+						viewAs:{name:"sha",isCard:true,storage:{ska_jiyan:true}},
 						filter:(event,player)=>player.storage.ska_jiyan.contains("sha"),
 						prompt:()=>"视为使用或打出一张【杀】",
 						precontent:()=>{
@@ -674,11 +686,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					},
 					shan:{
 						locked:false,
-						mod:{
-							targetInRange:()=>{
-								if(_status.event.skill=="ska_jiyan_shan") return true;
-							}
-						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:()=>false,
 						selectCard:-1,
@@ -704,11 +711,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					},
 					tao:{
 						locked:false,
-						mod:{
-							targetInRange:()=>{
-								if(_status.event.skill=="ska_jiyan_tao") return true;
-							}
-						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:()=>false,
 						selectCard:-1,
@@ -735,11 +737,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					},
 					jiu:{
 						locked:false,
-						mod:{
-							targetInRange:()=>{
-								if(_status.event.skill=="ska_jiyan_jiu") return true;
-							}
-						},
 						enable:["chooseToUse","chooseToRespond"],
 						filterCard:()=>false,
 						selectCard:-1,
@@ -1545,8 +1542,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_yuanlei:{
 				locked:false,
 				mod:{
-					targetInRange:()=>{
-						if(_status.event.skill=="nnk_yuanlei") return true;
+					targetInRange:card=>{
+						if(card.storage&&card.storage.nnk_yuanlei) return true;
 					}
 				},
 				enable:"phaseUse",
@@ -1554,7 +1551,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filterCard:true,
 				selectCard:()=>[1,_status.event.player.maxHp],
 				position:"hes",
-				viewAs:{name:"sha",nature:"thunder"},
+				viewAs:{name:"sha",nature:"thunder",storage:{nnk_yuanlei:true}},
 				viewAsFilter:player=>{
 					if(!player.countCards("hs")) return false;
 				},
@@ -1934,28 +1931,30 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					});
 					"step 1"
 					if(result.cards&&result.cards.length){
-						player.respond(result.cards,"highlight","ska_zhidai","noOrdering");
+						const next=player.respond(result.cards,"highlight","ska_zhidai","noOrdering");
+						event.card=next.card;
+						event.cards=next.cards;
 					}
 					else{
 						event.finish();
 					}
 					"step 2"
-					if(result.card&&result.cards){
-						event.cards=trigger.cards.filterInD("o");
-						if(event.cards.length){
-							player.$gain2(event.cards,true);
-							player.gain(event.cards);
+					if(card&&cards){
+						const original=trigger.cards.filterInD("o");
+						if(original.length){
+							player.$gain2(original,true);
+							player.gain(original);
 							if(Array.isArray(player.storage.ska_zhidai)){
-								player.storage.ska_zhidai.addArray(event.cards);
+								player.storage.ska_zhidai.addArray(original);
 							}
 							else{
-								player.storage.ska_zhidai=event.cards;
+								player.storage.ska_zhidai=original;
 							}
 						}
-						trigger.card=result.card;
-						trigger.cards=result.cards;
+						trigger.card=card;
+						trigger.cards=cards;
 						if(!Array.isArray(trigger.orderingCards)) trigger.orderingCards=[];
-						trigger.orderingCards.addArray(result.cards);
+						trigger.orderingCards.addArray(cards);
 						trigger.throw=false;
 						trigger.noai=true;
 						const evt=event.getParent("phase");
@@ -2067,7 +2066,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						event.finish();
 					}
 					"step 2"
-					if(result.cards&&result.cards.length) player.addToExpansion(result.cards,target,"give").gaintag.add("nnk_fengying");
+					if(result.cards&&result.cards.length) target.addToExpansion(result.cards,target,"give").gaintag.add("nnk_fengying");
 					"step 3"
 					event.expansions=target.getExpansions("nnk_fengying");
 					if(event.expansions.length){
@@ -2079,7 +2078,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							return false;
 						});
 						if(event.cards.length){
-							target.chooseBool("缝影：展示手牌并弃置"+get.translation(event.cards)+"并收回"+get.translation(event.expansions)+"，否则本局游戏不能使用或打出与"+get.translation(event.expansions)+"同名的牌").set("ai",()=>true);
+							target.chooseBool("缝影：展示手牌并弃置"+get.translation(event.cards)+"，否则本局游戏不能使用或打出与"+get.translation(event.expansions)+"同名的牌").set("ai",()=>{
+								if(_status.event.player.hasSkill("nnk_fengying_effect")) return false;
+								return true;
+							});
 						}
 						else{
 							target.chooseBool("缝影：本局游戏不能使用或打出与"+get.translation(event.expansions)+"同名的牌");
@@ -2099,17 +2101,21 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 					"step 5"
 					target.discard(cards);
-					"step 6"
-					target.gain(event.expansions,"gain2");
 				},
 				ai:{
-					expose:0.2
+					expose:0.2,
+					threaten:2
 				}
 			},
 			nnk_fengying_effect:{
 				charlotte:true,
+				mark:true,
 				intro:{
-					content:(storage,player)=>"本局游戏你不能使用或打出与"+get.translation(player.getExpansions("nnk_fengying"))+"同名的牌"
+					content:(storage,player)=>{
+						const cards=player.getExpansions("nnk_fengying");
+						if(cards.length) return "本局游戏你不能使用或打出与"+get.translation(cards)+"同名的牌";
+						return "没有“影”";
+					}
 				},
 				mod:{
 					cardEnabled:(card,player)=>{
@@ -2130,11 +2136,56 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			nnk_biantou:{
 				forced:true,
-				trigger:{source:"damageSource"},
-				filter:event=>!event.player.isDisabled("equip2")&&event.player.getExpansions("nnk_fengying").length,
+				trigger:{source:"damageBegin1"},
+				filter:event=>event.player.getExpansions("nnk_fengying").length,
 				logTarget:"player",
 				content:()=>{
-					trigger.player.disableEquip("equip2");
+					"step 0"
+					trigger.player.loseToDiscardpile(trigger.player.getExpansions("nnk_fengying"));
+					"step 1"
+					if(!trigger.player.isDisabled("equip2")){
+						trigger.player.disableEquip("equip2");
+					}
+					else{
+						trigger.num++;
+					}
+				},
+				ai:{
+					damageBonus:true
+				}
+			},
+			//Machamp
+			nnk_manwu:{
+				forced:true,
+				trigger:{source:"damageSource"},
+				filter:event=>event.card&&get.name(event.card)=="sha",
+				content:()=>{
+					player.loseHp();
+				},
+				group:"nnk_manwu2"
+			},
+			nnk_manwu2:{
+				forced:true,
+				trigger:{source:"damageBegin1"},
+				filter:(event,player)=>event.card&&get.name(event.card)=="sha"&&player.getDamagedHp(),
+				content:()=>{
+					trigger.num+=player.getDamagedHp();
+				},
+			},
+			nnk_mianyu:{
+				mod:{
+					cardname:card=>{
+						if(["shan","tao"].contains(card.name)) return "sha";
+					},
+					cardUsable:card=>{
+						if(card.name=="sha"&&card.isCard&&card.cards&&card.cards.length==1&&["shan","tao"].contains(card.cards[0].name)) return Infinity;
+					}
+				},
+				ai:{
+					unequip:true,
+					skillTagFilter:(player,tag,arg)=>{
+						if(!arg||!arg.card||arg.card.name!="sha"||!arg.card.isCard||!arg.card.cards||arg.card.cards.length!=1||!["shan","tao"].contains(arg.card.cards[0].name)) return false;
+					}
 				}
 			}
 		},
@@ -2188,6 +2239,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			xsj_dante:"但丁",
 			ska_daroach:"怪盗洛切",
 			nnk_decidueye:"狙射树枭",
+			nnk_machamp:"怪力",
 			//Character ab.
 			ska_bobby_ab:"炸弹兵",
 			ska_professor_toad_ab:"奇诺比奥",
@@ -2301,9 +2353,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_siyi_info:"隐匿技，当你登场后，你可以令一名其他角色的手牌本局游戏对你可见。",
 			nnk_fengying:"缝影",
 			nnk_fengying_effect:"缝影",
-			nnk_fengying_info:"回合开始时，你可以将一名没有“影”的角色的一张牌置于其武将牌上，称为“影”；然后其须展示手牌并弃置所有与“影”同名的牌（至少一张）并收回“影”，否则本局游戏不能使用或打出与“影”同名的牌。",
+			nnk_fengying_info:"回合开始时，你可以将一名没有“影”的角色的一张牌置于其武将牌上，称为“影”；然后其须展示手牌并弃置所有与“影”同名的牌（至少一张），否则本局游戏不能使用或打出与“影”同名的牌。",
 			nnk_biantou:"砭透",
-			nnk_biantou_info:"锁定技，当你对有“影”的角色造成伤害后，废除其防具栏。",
+			nnk_biantou_info:"锁定技，当你对有“影”的角色造成伤害时，你移去其所有“影”，然后废除其防具栏；若已废除，改为此伤害+1。",
+			nnk_manwu:"蛮武",
+			nnk_manwu2:"蛮武",
+			nnk_manwu_info:"锁定技，当你使用【杀】造成伤害后，你失去1点体力；你使用【杀】造成的伤害+X。（X为你已损失的体力值）",
+			nnk_mianyu:"免御",
+			nnk_mianyu_info:"锁定技，你的【闪】和【桃】均视为【杀】；你使用以此法视为的【杀】无次数限制且无视防具。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -2336,7 +2393,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			xsj_yu_narukami:"Yu Narukami",
 			xsj_dante:"Dante",
 			ska_daroach:"Daroach",
-			nnk_decidueye:"Decidueye"
+			nnk_decidueye:"Decidueye",
+			nnk_machamp:"Machamp"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],

@@ -1959,14 +1959,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				trigger:{global:"phaseEnd"},
 				forced:true,
 				content:()=>{
-					if(Array.isArray(player.storage.sst_yebao_effect)&&player.storage.sst_yebao_effect.length){
-						for(let i=0;i<player.storage.sst_yebao_effect.length;i++){
-							player.storage.sst_yebao_effect[i]--;
-							if(player.storage.sst_yebao_effect[i]<=0) player.storage.sst_yebao_effect.splice(i--,1);
-							player.markSkill("sst_yebao_effect");
-							if(!player.storage.sst_yebao_effect.length) player.removeSkill("sst_yebao_effect");
-							player.chooseToDiscard("业报：弃置一张牌","he",true);
-						}
+					for(let i=0;Array.isArray(player.storage.sst_yebao_effect)&&i<player.storage.sst_yebao_effect.length;i++){
+						player.storage.sst_yebao_effect[i]--;
+						if(player.storage.sst_yebao_effect[i]<=0) player.storage.sst_yebao_effect.splice(i--,1);
+						player.markSkill("sst_yebao_effect");
+						if(!player.storage.sst_yebao_effect.length) player.removeSkill("sst_yebao_effect");
+						player.chooseToDiscard("业报：弃置一张牌","he",true);
 					}
 				}
 			},
@@ -2071,7 +2069,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					});
 					next.autochoose=lib.filter.autoRespondShan;
 					"step 3"
-					if(result.bool==false) arget.damage("nocard");
+					if(result.bool==false) target.damage("nocard");
 					event.goto(1);
 				}
 			},

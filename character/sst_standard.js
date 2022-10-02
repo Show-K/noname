@@ -2364,10 +2364,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 0"
 					player.chooseTarget(get.prompt("sst_que"),"你可以观看一名其他角色的手牌，然后获得其中至多"+get.cnNumber(player.getDamagedHp()+1)+"张黑色牌",(card,player,target)=>target!=player&&target.countCards("h")).set("ai",target=>-get.attitude(_status.event.player,target));
 					"step 1"
-					if(result.bool){
+					if(result.targets&&result.targets.length){
 						player.logSkill("sst_que",result.targets);
 						player.gainPlayerCard("驱厄：你可以获得最多"+get.cnNumber(player.getDamagedHp()+1)+"张黑色牌",result.targets[0],[1,player.getDamagedHp()+1],"h","visible").set("filterButton",button=>get.color(button.link)=="black").set("visibleMove",true);
 					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					if(!result.cards||!result.cards.length) game.delayx();
 				},
 				ai:{
 					expose:0.2
@@ -3783,17 +3788,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				multiline:true,
 				delay:false,
 				prompt:()=>{
-					if(_status.event.player.hasMark("sst_qixiao")) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸两张牌。";
-					return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸一张牌。";
+					if(_status.event.player.hasMark("sst_qixiao")) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸两张牌。";
+					return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸一张牌。";
 				},
 				content:()=>{
 					if(player.hasMark("sst_qixiao")){
 						player.loseHp(2);
-						player.useCard({name:"sha",nature:"fire",isCard:true},targets,false);
+						player.useCard({name:"sha",nature:"fire",isCard:true,storage:{sst_qixiao:true}},targets,false);
 					}
 					else{
 						player.loseHp();
-						player.useCard({name:"sha",nature:"fire",isCard:true},target,false);
+						player.useCard({name:"sha",nature:"fire",isCard:true,storage:{sst_qixiao:true}},target,false);
 					}
 				},
 				ai:{
@@ -3811,8 +3816,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				group:"sst_qixiao2",
 				intro:{
 					content:storage=>{
-						if(storage) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸两张牌。";
-						return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸一张牌。";
+						if(storage) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸两张牌。";
+						return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸一张牌。";
 					}
 				}
 			},
@@ -3821,10 +3826,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				trigger:{source:"damageSource"},
 				forced:true,
 				popup:false,
-				filter:event=>{
-					const evt=event.getParent("sst_qixiao");
-					return evt&&evt.name=="sst_qixiao";
-				},
+				filter:event=>event.card&&event.card.storage&&event.card.storage.sst_qixiao,
 				content:()=>{
 					if(player.hasMark("sst_qixiao")){
 						player.draw(2);
@@ -4637,11 +4639,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 					return Math.random()>rand?true:false;
 				},
+				prompt2:(event,player)=>{
+					let str="出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为";
+					let num=0;
+					player.getHistory("lose",evt=>num+=evt.cards.length);
+					num=Math.ceil(num/2)+1;
+					return str+num+"；然后若此牌没有造成伤害，本局游戏你的手牌上限-1";
+				},
 				content:()=>{
 					let num=0;
 					player.getHistory("lose",evt=>num+=evt.cards.length);
 					num=Math.ceil(num/2)+1;
-					trigger.getParent().baseDamage=num;
+					trigger.getParent().baseDamage+=num-1;
 					const next=game.createEvent("sst_baochui_clear");
 					event.next.remove(next);
 					trigger.getParent().after.push(next);
@@ -4753,7 +4762,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						game.log(trigger.source,"拒绝了",player,"的请求");
 						trigger.source.chat("但是，我拒绝！");
 					}
-					game.delayx();
 				},
 				ai:{
 					expose:0.2
@@ -5344,6 +5352,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				trigger:{source:"damageBegin"},
 				forced:true,
 				onremove:true,
+				logTarget:"player",
 				content:()=>{
 					const num=player.countMark("sst_baling_effect");
 					player.removeSkill("sst_baling_effect");
@@ -5749,19 +5758,19 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				locked:false,
 				zhuanhuanji:true,
 				enable:"chooseToUse",
-				viewAs:(cards,player)=>({name:player.storage.sst_diebu?"shan":"sha",isCard:true}),
+				viewAs:(cards,player)=>({name:player.storage.sst_diebu?"shan":"sha",isCard:true,storage:{sst_diebu:true}}),
 				filterCard:()=>false,
 				selectCard:-1,
 				filter:(event,player)=>{
 					const filter=event.filterCard;
-					if(filter({name:"sha"},player,event)&&!player.storage.sst_diebu) return true;
-					if(filter({name:"shan"},player,event)&&player.storage.sst_diebu) return true;
+					if(filter({name:"sha",isCard:true,storage:{sst_diebu:true}},player,event)&&!player.storage.sst_diebu) return true;
+					if(filter({name:"shan",isCard:true,storage:{sst_diebu:true}},player,event)&&player.storage.sst_diebu) return true;
 					return false;
 				},
 				onuse:(result,player)=>player.changeZhuanhuanji("sst_diebu"),
 				mod:{
-					targetInRange:()=>{
-						if(_status.event.skill=="sst_diebu") return true;
+					targetInRange:card=>{
+						if(card.storage&&card.storage.sst_diebu) return true;
 					}
 				},
 				ai:{
@@ -5835,7 +5844,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const card=evt.card;
 						//const source=evt.player;
 						//if(evt.targets.map(i=>get.effect(i,card,source,player)).reduce((previousValue,currentValue)=>previousValue+currentValue,0)>0) return 0;
-						let eff=Math.cbrt(get.attitude(player,target)*lib.card.guohe_copy2.ai.result.target(player,target)+get.attitude(player,target)*target.getUseValue(card));
+						const att=get.attitude(player,target);
+						let eff=att*lib.card.guohe_copy2.ai.result.target(player,target);
+						if(target!=evt.player) eff+=att*target.getUseValue(card);
+						eff=Math.cbrt(eff);
 						if(target==player) eff+=2;
 						return eff;
 					});
@@ -7146,14 +7158,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				locked:false,
 				mod:{
-					targetInRange:()=>{
-						if(_status.event.skill=="sst_shenbi") return true;
+					targetInRange:card=>{
+						if(card.storage&&card.storage.sst_shenbi) return true;
 					}
 				},
 				enable:["chooseToUse","chooseToRespond"],
 				filterCard:()=>false,
 				selectCard:-1,
-				viewAs:{name:"sha",isCard:true},
+				viewAs:{name:"sha",isCard:true,storage:{sst_shenbi:true}},
 				viewAsFilter:player=>player.countCards("h")!=Math.max(0,_status.currentPhase.countCards("h")-1),
 				log:false,
 				precontent:()=>{
@@ -7172,7 +7184,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				ai:{
 					threaten:3,
 					respondSha:true,
-					order:()=>get.order({name:"sha",isCard:true})+0.1,
+					order:()=>get.order({name:"sha"})+0.1,
 					useful:-1,
 					value:-1
 				},
@@ -7180,7 +7192,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_shenbi2:{
 				trigger:{player:["useCard","respond"]},
-				filter:(event,player)=>event.skill=="sst_shenbi"&&player.storage.sst_shenbi_ready.length,
+				filter:(event,player)=>event.card.storage&&event.card.storage.sst_shenbi&&player.storage.sst_shenbi_ready.length,
 				forced:true,
 				popup:false,
 				content:()=>{
@@ -7585,8 +7597,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 0"
 					player.showCards(trigger.cards,get.translation(player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
 					event.cardName=get.name(trigger.card);
-					trigger.card.cards.length=0;
+					if(Array.isArray(trigger.card.cards)){
+						trigger.card.cards.length=0;
+					}
+					else{
+						trigger.card.cards=[];
+					}
 					trigger.cards.length=0;
+					delete trigger.cards.suit;
+					delete trigger.cards.number;
+					delete trigger.cards.nature;
 					delete trigger.skill;
 					trigger.getParent().set("sst_liaoyi",true);
 					"step 1"
@@ -7641,12 +7661,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					return !event.sst_liaoyi&&(event.type!="phase"||!player.hasSkill("sst_liaoyi3"))&&game.hasPlayer(current=>current.hasSex("male"));
 				},
 				position:"he",
-				viewAs:{name:"sha"},
+				viewAs:{name:"sha",isCard:true,storage:{sst_liaoyi:true}},
 				filterCard:card=>get.name(card)=="sha",
 				ignoreMod:true,
 				mod:{
-					targetInRange:()=>{
-						if(_status.event.skill=="sst_liaoyi1") return true;
+					targetInRange:card=>{
+						if(card.storage&&card.storage.sst_liaoyi) return true;
 					}
 				},
 				ai:{
@@ -7669,7 +7689,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					return !event.sst_liaoyi&&(event.type!="phase"||!player.hasSkill("sst_liaoyi3"))&&game.hasPlayer(current=>current.hasSex("male"));
 				},
 				position:"he",
-				viewAs:{name:"shan"},
+				viewAs:{name:"shan",isCard:true},
 				filterCard:card=>get.name(card)=="shan",
 				ignoreMod:true,
 				ai:{
@@ -9001,10 +9021,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(!muniu||!cards.length) cards.forEach(card=>card.discard());
 					if(muniu.cards==undefined) muniu.cards=[];
 					muniu.cards.addArray(cards);
-					miniu.sst_qiaoqi=true;
+					muniu.sst_qiaoqi=true;
 					game.broadcast((muniu,cards)=>{
 						muniu.cards=cards;
-						miniu.sst_qiaoqi=true;
+						muniu.sst_qiaoqi=true;
 					},muniu,muniu.cards);
 					target.markSkill("sst_qiaoqi");
 					game.delayx();
@@ -9749,7 +9769,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					player.chooseTarget(get.prompt("sst_fenshi"),"你可以对一名角色造成1点伤害").set("ai",target=>get.damageEffect(target,_status.event.player,_status.event.player));
 					"step 1"
 					if(result.targets&&result.targets.length){
-						targets.addArray(result.targets);
+						targets.push(...result.targets);
 						player.logSkill("sst_fenshi",result.targets);
 						result.targets[0].damage(player,"nocard");
 					}
@@ -9798,7 +9818,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					});
 					"step 8"
 					if(result.targets&&result.targets.length){
-						targets.addArray(result.targets);
+						targets.push(...result.targets);
 						player.logSkill("sst_fenshi",result.targets);
 						player.discardPlayerCard("焚世：弃置"+get.translation(result.targets[0])+"两张牌",result.targets[0],2,"he",true);
 					}
@@ -9854,6 +9874,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					player.chooseTarget(get.prompt2("sst_xingduo"),[1,3],lib.filter.notMe).set("ai",target=>{
+						if(_status.event.player.maxHp<=1) return 0;
 						if(target.isTurnedOver()) return get.attitude(_status.event.player,target);
 						if(target.hp==1) return 0;
 						return get.effect(target,{name:"losehp"},_status.event.player,_status.event.player);
@@ -10773,7 +10794,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						if(button.link[0]=="sst_jichang_third"){
 							return 5-Math.abs(button.link[1]+1-Math.random()*5);
 						}
-						return button.link[1]-Math.random()*5;
+						return button.link[1]-Math.random()*7;
 					});
 					next.set("total",total);
 					"step 2"
@@ -11096,8 +11117,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				locked:false,
 				mod:{
-					targetInRange:()=>{
-						if(_status.event.skill=="sst_liedui") return true;
+					targetInRange:card=>{
+						if(card.storage&&card.storage.sst_liedui) return true;
 					}
 				},
 				zhuanhuanji:(player,skill)=>{
@@ -11120,7 +11141,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						case 4:name="jiu";break;
 						case 5:name="wuxie";break;
 					}
-					if(name) return {name:name,isCard:true};
+					if(name) return {name:name,isCard:true,storage:{sst_liedui:true}};
 					return null;
 				},
 				check:card=>{
@@ -11135,11 +11156,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				position:"he",
 				filter:(event,player)=>{
 					const filter=event.filterCard;
-					if(filter({name:"sha",isCard:true},player,event)&&player.storage.sst_liedui==1) return true;
-					if(filter({name:"shan",isCard:true},player,event)&&player.storage.sst_liedui==2) return true;
-					if(filter({name:"tao",isCard:true},player,event)&&player.storage.sst_liedui==3) return true;
-					if(filter({name:"jiu",isCard:true},player,event)&&player.storage.sst_liedui==4) return true;
-					if(filter({name:"wuxie",isCard:true},player,event)&&player.storage.sst_liedui==5) return true;
+					if(filter({name:"sha",isCard:true,storage:{sst_liedui:true}},player,event)&&player.storage.sst_liedui==1) return true;
+					if(filter({name:"shan",isCard:true,storage:{sst_liedui:true}},player,event)&&player.storage.sst_liedui==2) return true;
+					if(filter({name:"tao",isCard:true,storage:{sst_liedui:true}},player,event)&&player.storage.sst_liedui==3) return true;
+					if(filter({name:"jiu",isCard:true,storage:{sst_liedui:true}},player,event)&&player.storage.sst_liedui==4) return true;
+					if(filter({name:"wuxie",isCard:true,storage:{sst_liedui:true}},player,event)&&player.storage.sst_liedui==5) return true;
 					return false;
 				},
 				precontent:()=>{
@@ -11221,7 +11242,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					order:(item,player)=>{
 						if(!player) return;
 						const name=["sha","shan","tao","jiu","wuxie"][player.storage.sst_liedui-1];
-						return get.order({name:name,isCard:true})+0.1;
+						return get.order({name:name})+0.1;
 					}
 				},
 				hiddenCard:(player,name)=>{
@@ -11668,8 +11689,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				return "锁定技，你使用【杀】指定目标后，你令目标角色选择一项：此【杀】不可被响应，或此【杀】伤害+1。";
 			},
 			sst_qixiao:player=>{
-				if(player.storage.sst_qixiao) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸两张牌。";
-				return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸一张牌。";
+				if(player.storage.sst_qixiao) return "出牌阶段限两次，你可以失去2点体力，视为对至多两名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸两张牌。";
+				return "出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸一张牌。";
 			},
 			sst_chixing:player=>"你使用的最后一张牌为红色的回合结束后，你可以令至多｛<span class=\"bluetext\">"+player.getBraces()+"</span>｝名角色将手牌数调整到与你另外指定的一名角色相等。",
 			sst_diebu:player=>{
@@ -12007,7 +12028,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			为9，你对其造成3点伤害。",
 			sst_qixiao:"奇嚣",
 			sst_qixiao2:"奇嚣",
-			sst_qixiao_info:"出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每于此技能流程造成伤害后，摸一张牌。",
+			sst_qixiao_info:"出牌阶段限一次，你可以失去1点体力，视为对一名角色使用火【杀】（不受使用次数限制，不计入使用次数）。你每以此法造成伤害后，摸一张牌。",
 			sst_xuansha:"喧杀",
 			sst_xuansha_effect:"喧杀",
 			sst_xuansha_info:"觉醒技，准备阶段，若你的体力值为1，你加1点体力上限，然后修改〖奇嚣〗描述，且本回合你的手牌均视为【桃】。",
@@ -12059,7 +12080,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_baochui:"爆锤",
 			sst_baochui2:"爆锤",
 			sst_baochui_effect:"爆锤",
-			sst_baochui_info:"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为X+1。然后若此牌没有造成伤害，本局游戏你的手牌上限-1。（X为你本回合失去牌的数量除以2且向上取整）",
+			sst_baochui_info:"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为X+1；然后若此牌没有造成伤害，本局游戏你的手牌上限-1。（X为你本回合失去牌的数量除以2且向上取整）",
 			sst_shengxi:"圣袭",
 			sst_shengxi_info:"转换技，你视为拥有①〖茕途〗②〖圣罚〗③〖勇魂〗，发动上述技能时转换。每完成一轮转换，你将手牌补至手牌上限。",
 			sst_shengxi_qiongtu:"茕途",

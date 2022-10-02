@@ -84,7 +84,8 @@ window.noname_character_rank={
 			"sst_ganondorf",
 			"sst_r_o_b",
 			"sst_bayonetta",
-			"nnk_decidueye"
+			"nnk_decidueye",
+			"nnk_machamp"
 		],
 		rare:[
 			"sst_mario",

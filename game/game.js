@@ -18593,7 +18593,8 @@
 						this.name=this.name1;
 						skills=lib.character[this.name][3]||[];
 						this.sex=lib.character[this.name][0];
-						if(this.group=='unknown') this.group=lib.character[this.name][1];
+						//if(this.group=='unknown') this.group=lib.character[this.name][1];
+						if(this.group=='unknown') this.changeGroup(lib.character[this.name][1],false);
 						this.classList.remove('unseen');
 						break;
 						case 1:
@@ -18612,7 +18613,8 @@
 						var skills=(lib.character[this.name][3]||[]);
 						if(this.name2) skills=skills.concat(lib.character[this.name2][3]||[]);
 						this.sex=lib.character[this.name][0];
-						if(this.group=='unknown') this.group=lib.character[this.name][1];
+						//if(this.group=='unknown') this.group=lib.character[this.name][1];
+						if(this.group=='unknown') this.changeGroup(lib.character[this.name][1],false);
 						this.classList.remove('unseen');
 						this.classList.remove('unseen2');
 						break;
@@ -19107,7 +19109,8 @@
 							if(this.name=='sst_massy') this.node.name.dataset.nature=get.groupnature('shen');
 						}
 						this.sex='male';
-						this.group='unknown';
+						//this.group='unknown';
+						this.changeGroup('unknown',false);
 						this.storage.nohp=true;
 						skills.add('g_hidden_ai');
 					}
