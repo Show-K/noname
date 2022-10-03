@@ -2162,7 +2162,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					player.loseHp();
 				},
-				group:"nnk_manwu2"
+				group:"nnk_manwu2",
+				ai:{
+					halfneg:true
+				}
 			},
 			nnk_manwu2:{
 				forced:true,
@@ -2171,6 +2174,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					trigger.num+=player.getDamagedHp();
 				},
+				ai:{
+					damageBonus:true
+				}
 			},
 			nnk_mianyu:{
 				mod:{
@@ -2182,9 +2188,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 				},
 				ai:{
+					halfneg:true,
 					unequip:true,
 					skillTagFilter:(player,tag,arg)=>{
-						if(!arg||!arg.card||arg.card.name!="sha"||!arg.card.isCard||!arg.card.cards||arg.card.cards.length!=1||!["shan","tao"].contains(arg.card.cards[0].name)) return false;
+						if(tag=="unequip"){
+							if(!arg||!arg.card||arg.card.name!="sha"||!arg.card.isCard||!arg.card.cards||arg.card.cards.length!=1||!["shan","tao"].contains(arg.card.cards[0].name)) return false;
+						}
 					}
 				}
 			}
