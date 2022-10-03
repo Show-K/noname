@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.115.2.1',
-	update:'1.9.115.2',
+	version:'1.9.115.3',
+	update:'1.9.115.2.1',
 	changeLog:[
 		'亚空使者 机器人',
 		'喷射战士 鱿鱼',
