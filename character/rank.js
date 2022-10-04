@@ -1,22 +1,13 @@
 window.noname_character_rank={
-	s:[
-	],
-	ap:[
-	],
-	a:[
-	],
-	am:[
-	],
-	bp:[
-	],
-	b:[
-	],
-	bm:[
-	],
-	c:[
-	],
-	d:[
-	],
+	s:[],
+	ap:[],
+	a:[],
+	am:[],
+	bp:[],
+	b:[],
+	bm:[],
+	c:[],
+	d:[],
 	rarity:{
 		legend:[
 			"ymk_isabelle",
