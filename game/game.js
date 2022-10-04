@@ -2,12 +2,13 @@
 (function(){
 	/**
 	 * Insert line break opportunities into a URL
-	*/
-	var formatUrl=function(url){
+	 * @param {String} url 
+	 */
+	const formatUrl=url=>{
 		// Split the URL into an array to distinguish double slashes from single slashes
-		var doubleSlash=url.split('//');
+		const doubleSlash=url.split('//');
 		// Format the strings on either side of double slashes separately
-		var formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
+		const formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
 		return formatted;
 	};
 	var _status={
