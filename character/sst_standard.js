@@ -2050,6 +2050,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				trigger:{source:"damageBegin1"},
 				filter:(event,player)=>player.getAttackRange()==Math.max(1,get.distance(player,event.player)),
 				forced:true,
+				logTarget:"player",
 				content:()=>{
 					trigger.num++;
 				},
@@ -5140,6 +5141,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filterCard:(card,player)=>!Array.isArray(player.storage.sst_canyun_effect)||!player.storage.sst_canyun_effect.contains(get.suit(card)),
 				filterTarget:true,
 				selectTarget:-1,
+				multitarget:true,
+				multiline:true,
 				check:card=>6-get.value(card),
 				position:"he",
 				delay:false,
@@ -5181,7 +5184,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				onremove:true
 			},
 			sst_canyun_effect2:{
-				charlotte:true,
 				mod:{
 					cardEnabled:card=>{
 						if(game.hasPlayer(current=>Array.isArray(current.storage.sst_canyun_effect)&&current.storage.sst_canyun_effect.contains(get.suit(card)))) return false;
@@ -8310,7 +8312,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						let value=0;
 						const choices=[];
 						const cardPile=Array.from(ui.cardPile.childNodes);
-						_status.event.controls.forEach(i=>{
+						lib.suit.concat(["basic","trick","equip"]).forEach(i=>{
 							cardPile.forEach(card=>{
 								if(lib.suit.contains(i)){
 									if(get.suit(card)==i) value+=player.getUseValue(card);
@@ -10236,7 +10238,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 						}
 					}),
-					prompt:"选择〖造物〗的目标"
+					prompt:()=>"选择〖造物〗的目标"
 				},
 				contentx:()=>{
 					"step 0"

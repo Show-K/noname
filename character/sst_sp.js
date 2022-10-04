@@ -25,7 +25,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			mnm_edelgard:["female","sst_spirit",3,["mnm_tianjiu","mnm_yanhai"],[]],
 			alz_kyo_kusanagi:["male","sst_spirit",4,["alz_wushi","alz_huangyao"],[]],
 			mnm_captain_falcon:["male","sst_light",4,["mnm_jijing"],[]],
-			ska_king_olly:["male","sst_spirit",3,["ska_shenqi2","ska_zhesheng"],[]],
+			ska_king_olly:["male","sst_spirit",3,["ska_shenqi_alter","ska_zhesheng"],[]],
 			ska_koopa_troopa:["male","sst_spirit",3,["ska_suixuan","ska_xiangshi"],[]],
 			mnm_9_volt_18_volt:["male","sst_spirit",4,["mnm_huaijiu"],[]],
 			nnk_robin:["","sst_dark",4,["nnk_yuanlei"],[]],
@@ -74,7 +74,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			<hr>\
 			S003. 炸弹彬/Bobby/ボム平<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			"——"+get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
@@ -86,11 +86,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			<hr>\
 			1426. 奥莉维亚/Olivia/オリビア<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			由掌握赋生折法的匠人制作的折纸，奥利王的妹妹。非常天真烂漫，对世界充满了好奇心。为了阻止哥哥的野心而踏上冒险之途，虽然也有过悲痛和犹豫，但是还是走到了最后。非常擅长唱歌跳舞，喜欢泡温泉和撸狗。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
-			一个拥有赋之能力的折纸妹妹，在和马里奥的冒险路途上成长很多啊……",
+			在和马力欧的冒险路途上成长诸多啊……",
 			ska_super_xiaojie:"武将作者：Show-K<br>\
 			插图作者：未知<br>\
 			<hr>\
@@ -114,7 +114,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			<hr>\
 			S004. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
 			——翻译自《超级马力欧维基》<br>"+
 			"——"+get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
@@ -156,7 +156,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			<hr>\
 			1427. 奥利王/King Olly/オリー王<br>\
 			系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
-			首次登场：<ruby>纸片马力欧：折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
+			首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 			由掌握赋生折法的匠人制作的折纸，奥莉维亚的哥哥。自称折纸国王，将匠人的所有文具变为了自己的手下，有把整个纸片世界都变成折纸的野心。手段残忍，即使是亲妹妹也会毫不犹豫的下手。骄傲的背后其实是极端的玻璃心和无知。<br>\
 			——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 			<hr>\
@@ -521,9 +521,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				ai:{
 					maixie:true
 				},
-				group:"ska_shenqi3"
+				group:"ska_shenqi2"
 			},
-			ska_shenqi3:{
+			ska_shenqi2:{
 				trigger:{player:"useCard"},
 				filter:event=>{
 					if(!_status.renku||!_status.renku.length) return false;
@@ -535,14 +535,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				direct:true,
 				content:()=>{
 					"step 0"
-					player.chooseCardButton(_status.renku,get.prompt("ska_shenqi3"),"你可以从仁库中获得与此牌颜色相同的一张牌").set("filterButton",button=>get.color(button.link)==get.color(_status.event.getTrigger().card)).set("ai",button=>{
+					player.chooseCardButton(_status.renku,"###"+get.prompt("ska_shenqi2")+"###你可以从仁库中获得与此牌颜色相同的一张牌").set("filterButton",button=>get.color(button.link)==get.color(_status.event.getTrigger().card)).set("ai",button=>{
 						if(get.name(button.link)=="du") return -10;
 						if(_status.event.player.isPhaseUsing()) return _status.event.player.getUseValue(button.link)+5;
 						return get.value(button.link)+5;
 					});
 					"step 1"
 					if(result.links&&result.links.length){
-						player.logSkill("ska_shenqi3");
+						player.logSkill("ska_shenqi2");
 						_status.renku.removeArray(result.links);
 						game.updateRenku();
 						player.gain(result.links,"fromRenku");
@@ -571,7 +571,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 						}
 					}),
-					prompt:"请选择〖折赋〗的目标",
+					prompt:()=>"请选择〖折赋〗的目标",
 				},
 				contentx:()=>{
 					"step 0"
@@ -1335,7 +1335,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				]
 			},
 			//King Olly
-			ska_shenqi2:{
+			ska_shenqi_alter:{
 				preHidden:true,
 				trigger:{global:"damageSource"},
 				frequent:true,
@@ -1352,7 +1352,34 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				ai:{
 					maixie:true
 				},
-				group:"ska_shenqi3"
+				group:"ska_shenqi_alter2"
+			},
+			ska_shenqi_alter2:{
+				trigger:{player:"useCard"},
+				filter:event=>{
+					if(!_status.renku||!_status.renku.length) return false;
+					for(const card of _status.renku){
+						if(get.color(event.card)==get.color(card)) return true;
+					}
+					return false;
+				},
+				direct:true,
+				content:()=>{
+					"step 0"
+					player.chooseCardButton(_status.renku,"###"+get.prompt("ska_shenqi_alter2")+"###你可以从仁库中获得与此牌颜色不同的一张牌").set("filterButton",button=>get.color(button.link)!=get.color(_status.event.getTrigger().card)).set("ai",button=>{
+						if(get.name(button.link)=="du") return -10;
+						if(_status.event.player.isPhaseUsing()) return _status.event.player.getUseValue(button.link)+5;
+						return get.value(button.link)+5;
+					});
+					"step 1"
+					if(result.links&&result.links.length){
+						player.logSkill("ska_shenqi_alter2");
+						_status.renku.removeArray(result.links);
+						game.updateRenku();
+						player.gain(result.links,"fromRenku");
+						player.$gain2(result.links,true);
+					}
+				}
 			},
 			ska_zhesheng:{
 				enable:"phaseUse",
@@ -1390,7 +1417,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 						}
 					}),
-					prompt:"请选择〖折生〗的目标",
+					prompt:()=>"请选择〖折生〗的目标",
 				},
 				contentx:()=>{
 					"step 0"
@@ -2267,11 +2294,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_wangshi_info:"使命技。你区域内的♠牌和♠判定牌均视为♦。<br>\
 			成功：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
 			ska_shenqi:"神祇-",
-			ska_shenqi3:"神祇",
-			ska_shenqi_info:"一名角色受到伤害后，你可以判定并将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得与此牌颜色相同的一张牌。",
+			ska_shenqi2:"神祇-",
+			ska_shenqi_info:"一名角色受到伤害后，你可以判定并将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
-			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得这张牌；2. 交给你一张牌，然后使用这张牌（若不能使用则弃置）。",
+			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得亮出牌；2. 交给你一张牌，然后使用亮出牌（若不能使用则置入弃牌堆）。",
 			ska_kezhi:"恪志",
 			ska_kezhi_info:"一名角色使用或打出牌响应你使用的牌时，你可以失去1点体力并将一张牌当作被响应牌使用。若以此法使用的牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_jiyan:"籍验",
@@ -2317,8 +2344,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			mnm_jijing_info:"出牌阶段限一次，你可以与一名其他角色依次演奏相同音乐，然后若你的评级：大于其，你对其造成1点伤害；小于其，其对你造成1点伤害；否则你与其各摸两张牌。",
 			mnm_jijing_faq:"目前的曲库",
 			mnm_jijing_faq_info:"　<br>《鸟之诗》- 折户伸治<br>《竹取飛翔　～ Lunatic Princess》- ZUN<br>《ignotus》- ak+q<br>《Super Mario 3D World Theme》- 横田真人<br>《Big Blue》 - 石田尚人",
-			ska_shenqi2:"神祇+",
-			ska_shenqi2_info:"一名角色造成伤害后，你可以将牌堆底一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
+			ska_shenqi_alter:"神祇+",
+			ska_shenqi_alter2:"神祇+",
+			ska_shenqi_alter_info:"一名角色造成伤害后，你可以将牌堆底一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色不同的牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
 			ska_zhesheng_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
