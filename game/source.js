@@ -172,4 +172,6 @@ window.noname_source_list=[
 	'node_modules/ultron/test.js',
 	'node_modules/options/package.json',
 	'node_modules/options/lib/options.js',
+	//Rewrite
+	'extension/十周年UI/image/card/sst_spear_thrust.webp'
 ];
