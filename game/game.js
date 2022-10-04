@@ -11,10 +11,10 @@
 		return formatted;
 	};
 	var _status={
-		//New add
+		//SST addition
 		mougong_buff:['sha','shan','juedou','huogong','tao'],
 		discardPile:[],
-		//New add end
+		//SST addition end
 		paused:false,
 		paused2:false,
 		paused3:false,
@@ -10857,7 +10857,7 @@
 			},
 		},
 		translate:{
-			//New
+			//SST addition
 			attack:'攻击',
 			shield:'防御',
 			grab:'投掷',
@@ -10868,7 +10868,7 @@
 			pileTop:'牌堆顶',
 			pileBottom:'牌堆底',
 			viewHandcard:'可见',
-			//New end
+			//SST addition end
 			flower:'鲜花',
 			egg:'鸡蛋',
 			wine:'酒杯',
@@ -11059,7 +11059,7 @@
 		translateEnglish:{},
 		element:{
 			content:{
-				//New
+				//SST addition
 				chooseToComparePileTop:()=>{
 					'step 0'
 					if(((!event.fixedResult||!event.fixedResult[player.playerid])&&player.countCards('h')==0)||!ui.cardPile.childNodes.length){
@@ -11447,7 +11447,7 @@
 						event.goto(0);
 					}
 				},
-				//New end
+				//SST addition end
 				emptyEvent:function(){
 					event.trigger(event.name);
 				},
@@ -18282,7 +18282,7 @@
 				},
 			},
 			player:{
-				//SST new add
+				//SST addition
 				canComparePlayer:function(){
 					if(!this.countCards('h')) return false;
 					if(this.hasSkillTag('noCompareSource')) return false;
@@ -18462,7 +18462,7 @@
 					next.setContent("phaseDiscard");
 					return next;
 				},
-				//SST new add end
+				//SST addition end
 				//新函数
 				changeZhuanhuanji:function(skill){
 					var player=this,info=get.info(skill),zhuanhuan=info.zhuanhuanji;
@@ -19551,7 +19551,7 @@
 				},
 				chat:function(str){
 					if(get.is.banWords(str)) return;
-					//New add
+					//SST addition
 					if(str[0]=='/'){
 						var chat=str.slice(1);
 						if(chat.indexOf(' ')!=-1){
@@ -19578,7 +19578,7 @@
 							}
 						}
 					}
-					//New add end
+					//SST addition end
 					lib.element.player.say.call(this,str);
 					game.broadcast(function(id,str){
 						if(lib.playerOL[id]){
@@ -28521,7 +28521,7 @@
 			}
 		},
 		skill:{
-			//New
+			//SST addition
 			_sst_sex_select:{
 				charlotte:true,
 				superCharlotte:true,
@@ -28670,7 +28670,7 @@
 					},player);
 				}
 			},
-			//New End
+			//SST addition End
 			zhengsu:{
 				trigger:{player:'phaseDiscardEnd'},
 				forced:true,
@@ -30658,6 +30658,7 @@
 		],
 	};
 	var game={
+		//SST addition
 		updateDiscardpile:()=>{
 			if(ui.discardPile){
 				_status.discardPile.length=0;
@@ -30744,7 +30745,7 @@
 				return evt.card==card&&bool;
 			}));
 		},
-		//New add end
+		//SST addition end
 		updateRenku:function(){
 			game.broadcast(function(renku){
 				_status.renku=renku;
@@ -32116,7 +32117,7 @@
 			game.loop();
 		},
 		videoContent:{
-			//New add
+			//SST addition
 			chooseToUseSkipNode:function(player,bool){
 				if(bool){
 					if(!player.node.chooseToUseFinish){
@@ -32165,7 +32166,7 @@
 					}
 				}
 			},
-			//New add end
+			//SST addition end
 			arrangeLib:function(content){
 				for(var i in content){
 					for(var j in content[i]){
@@ -50951,7 +50952,7 @@
 					if(resume) game.resume2();
 					return false;
 				}
-				//New add
+				//SST addition
 				var characterstats=ui.create.div('.menubg.characterstats',layer);
 				ui.create.div('',get.translation(get.characterStat(name,'type')),characterstats);
 				ui.create.div('','TYP',characterstats,{opacity:0.6});
@@ -50961,7 +50962,7 @@
 				ui.create.div('','ATK',characterstats,{opacity:0.6});
 				ui.create.div('','DEF',characterstats,{opacity:0.6});
 				ui.create.div('',get.characterStat(name,'defense').toString(),characterstats);
-				//New add end
+				//SST addition end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
 				var playerbg=ui.create.div('.menubutton.large.ava',uiintro);
 				var bg=ui.create.div('.avatar',playerbg,function(){
@@ -56633,7 +56634,7 @@
 		attitude2:function(to){
 			return get.attitude(_status.event.player,to);
 		},
-		//New add
+		//SST addition
 		/**
 		 * Insert line break opportunities into a URL
 		 * @param {string} url 
@@ -56664,7 +56665,7 @@
 			if(key=='primary'||key=='attack'||key=='defense') return 0;
 			return '';
 		}
-		//New add end
+		//SST addition end
 	};
 	var ai={
 		basic:{
