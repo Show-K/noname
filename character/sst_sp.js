@@ -1684,7 +1684,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				content:()=>{
 					"step 0"
-					let used=[];
+					const used=[];
 					game.filterPlayer2(current=>current.getHistory("useCard",evt=>{
 						if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
 					}));
@@ -1698,6 +1698,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							return true;
 						}
 						return _status.event.player.hasUseTarget({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
+					}).set("ai",button=>{
+						if(_status.renku.contains(button.link)) return 1;
+						return _status.event.player.getUseValue({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
 					}).set("selectButton",2).set("complexSelect",true);
 					"step 1"
 					if(result.links&&result.links.length>1){

@@ -683,7 +683,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_fuyuan:{
 				trigger:{global:"phaseZhunbeiBegin"},
 				logTarget:"player",
-				check:(event,player)=>get.attitude(player,event.player)>0,
+				frequent:true,
 				content:()=>{
 					"step 0"
 					event.target=trigger.player;
@@ -708,6 +708,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 1"
 					player.chooseCard("复愿：你可以重铸一张牌，令"+get.translation(target)+"本回合下次造成伤害后再次结算此伤害，然后若与"+get.translation(event.pileTop)+"的点数相同，你令"+get.translation(target)+"一个限定技视为未发动过","he").set("ai",card=>{
 						const evt=_status.event.getParent();
+						if(get.attitude(_status.event.player,evt.target)<=0) return 0;
 						const num=5.5-get.value(card);
 						if(get.number(card)!=get.number(evt.pileTop)) return num;
 						const skills=evt.target.getSkills(null,null,false);
