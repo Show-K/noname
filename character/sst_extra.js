@@ -1153,9 +1153,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				content:()=>{
 					"step 0"
-					const card=get.cards()[0];
-					event.card=card;
-					game.cardsGotoOrdering(card).relatedEvent=trigger;
+					event.card=get.cards()[0];
+					game.cardsGotoOrdering(event.card).relatedEvent=trigger;
 					"step 1"
 					player.$throw(card);
 					card.clone.classList.add("thrownhighlight");
