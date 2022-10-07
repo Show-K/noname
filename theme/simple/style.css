@@ -103,13 +103,13 @@ html{
 	color:rgb(77, 60, 51);
 	text-shadow:none;
 	background: url('card.png');
-	background-size:100% 138.75%;
+	background-size:100% 100%;
 	background-position: center;
 }
 .card .markcount{
 	box-shadow: rgba(0, 0, 0, 0.8) 0 0 0 1px, rgba(0, 0, 0, 0.2) 0 3px 10px;
 	background: url('card.png');
-	background-size:100% 138.75% cover;
+	background-size:100% 100% cover;
 	background-position: center;
 	/*color: white;*/
 }

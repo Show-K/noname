@@ -1,10 +1,10 @@
 .card:empty,.card.infohidden{
     background: url('image/super_smash_tabletop.png');
-    background-size: 100% 138.75%;
+    background-size: 100% 100%;
 	background-position: center;
 }
 .card.infohidden:not(.infoflip){
 	background: url('image/super_smash_tabletop2.png');
-    background-size: 100% 138.75%;
+    background-size: 100% 100%;
 	background-position: center;
 }
