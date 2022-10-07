@@ -2428,12 +2428,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							const index=cards.indexOf(sst_ink);
 							const before=[],after=[];
 							if(index>0){
-								before=cards.slice(0,index-1);
+								before.push(...cards.slice(0,index-1));
 							}
 							if(index<cards.length-1){
-								after=cards.slice(index+1);
+								after.push(...cards.slice(index+1));
 							}
-							return before.concat(sst_ink.cards).concat(after);
+							return before.concat(sst_ink.cards,after);
 						};
 						const modified=modify(trigger.cards);
 						trigger.cards.length=0;
