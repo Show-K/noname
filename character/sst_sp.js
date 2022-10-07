@@ -507,9 +507,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi:{
 				preHidden:true,
 				trigger:{global:"damageEnd"},
-				frequent:true,
 				init:player=>player.storage.renku=true,
 				filter:()=>_status.renku,
+				check:()=>true,
 				content:()=>{
 					player.judge(card=>Math.cbrt(get.value(card))).set("callback",()=>{
 						if(get.position(card,true)=="o"){
@@ -1338,8 +1338,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi_alter:{
 				preHidden:true,
 				trigger:{global:"damageSource"},
-				frequent:true,
 				init:player=>player.storage.renku=true,
+				check:()=>true,
 				content:()=>{
 					"step 0"
 					const cards=get.bottomCards();
