@@ -508,8 +508,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				preHidden:true,
 				trigger:{global:"damageEnd"},
 				init:player=>player.storage.renku=true,
-				filter:()=>_status.renku,
-				check:()=>true,
+				check:()=>_status.renku.length<6,
 				content:()=>{
 					player.judge(card=>Math.cbrt(get.value(card))).set("callback",()=>{
 						if(get.position(card,true)=="o"){
@@ -526,7 +525,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi2:{
 				trigger:{player:"useCard"},
 				filter:event=>{
-					if(!_status.renku||!_status.renku.length) return false;
+					if(!_status.renku.length) return false;
 					for(const card of _status.renku){
 						if(get.color(event.card)==get.color(card)) return true;
 					}
@@ -551,6 +550,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			ska_zhefu:{
+				init:player=>player.storage.renku=true,
 				enable:"phaseUse",
 				usable:1,
 				filter:()=>_status.renku&&_status.renku.length,
@@ -1339,7 +1339,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				preHidden:true,
 				trigger:{global:"damageSource"},
 				init:player=>player.storage.renku=true,
-				check:()=>true,
+				check:()=>_status.renku.length<6,
 				content:()=>{
 					"step 0"
 					const cards=get.bottomCards();
@@ -1357,7 +1357,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi_alter2:{
 				trigger:{player:"useCard"},
 				filter:event=>{
-					if(!_status.renku||!_status.renku.length) return false;
+					if(!_status.renku.length) return false;
 					for(const card of _status.renku){
 						if(get.color(event.card)==get.color(card)) return true;
 					}
@@ -1382,6 +1382,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			ska_zhesheng:{
+				init:player=>player.storage.renku=true,
 				enable:"phaseUse",
 				usable:1,
 				filter:()=>_status.renku&&_status.renku.length,
@@ -1672,10 +1673,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			//Yuri Kozukata
 			alz_yingjian:{
+				init:player=>player.storage.renku=true,
 				direct:true,
 				trigger:{global:"phaseJieshuBegin"},
 				filter:(event,player)=>{
-					if(!_status.renku||!_status.renku.length||!game.hasPlayer2(current=>current.hasHistory("useCard",evt=>evt.targets.contains(player)))) return false;
+					if(!_status.renku.length||!game.hasPlayer2(current=>current.hasHistory("useCard",evt=>evt.targets.contains(player)))) return false;
 					const used=[];
 					game.filterPlayer2(current=>current.getHistory("useCard",evt=>{
 						if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
