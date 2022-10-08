@@ -85,6 +85,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],[]],
 			sst_king_dedede:["male","sst_dark",4,["sst_baoshi","sst_wangyan"],["zhu"]],
 			sst_corrin:["","sst_smash",2,["sst_juelu","sst_longwei"],[]],
+			sst_corrin_female:["female","sst_smash",2,["sst_juelu","sst_longwei"],["unseen"]],
+			sst_corrin_male:["male","sst_smash",2,["sst_juelu","sst_longwei"],["unseen"]],
 			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:unknown","primary:1","attack:2","defense:1.2"]],
 			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu"]],
 			sst_feiji:["male","sst_reality",4,["sst_xuhuang"],[]],
@@ -1680,7 +1682,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						let val=player.getUseValue({
 							name:button.link[2],
 							nature:button.link[3],
-						})-player.getHistory("useSkill",evt=>evt.skill=="sst_chengli_backup"&&get.name(evt.event.result.card)==button.link[2]).length*3;
+						})-player.getHistory("useCard",evt=>evt.skill=="sst_chengli_backup"&&get.name(evt.card)==button.link[2]).length*3;
 						if(_status.event.getParent().type!="phase") val-=3;
 						return val;
 					},

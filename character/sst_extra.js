@@ -34,6 +34,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_chrom:["male","sst_light",4,["sst_niming","sst_cuifeng"],[]],
 			sst_lucina:["female","sst_light",4,["sst_suxing","sst_shengyi"],[]],
 			sst_robin:["","sst_dark",3,["sst_zuozhan","sst_junce"],[]],
+			sst_robin_female:["female","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
+			sst_robin_male:["male","sst_dark",3,["sst_zuozhan","sst_junce"],["unseen"]],
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],[]],
 			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_qiangdu","sst_mengchen"],[]],
 			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_mofan"],[]],
@@ -43,6 +45,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_snake:["male","sst_dark",4,["sst_qianlong","sst_dieying"],["hiddenSkill"]],
 			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill"]],
 			sst_inkling:["","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill"]],
+			sst_inkling_female:["female","sst_light",3,["sst_xumo","sst_pentu"],["unseen","hiddenSkill"]],
+			sst_inkling_male:["male","sst_light",3,["sst_xumo","sst_pentu"],["unseen","hiddenSkill"]],
 			sst_wii_fit_trainer:["","sst_light",4,["sst_zuoxi"],[]]
 		},
 		characterFilter:{},

@@ -28539,10 +28539,7 @@
 					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
 					const name=player.name;
 					const differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
-					if(differentAvatar.contains(name)){
-						//player.reinit(name,name+'_'+result.control,false);
-						player.setAvatar(player.name,name+'_'+result.control);
-					}
+					if(differentAvatar.contains(name)) player.setAvatar(name,name+'_'+result.control);
 					game.log(player,'将性别变为了','#y'+get.translation(result.control));
 					const differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
 					if(typeof differentGroup[name+'_'+result.control]=='string') player.changeGroup(differentGroup[name+'_'+result.control]);
