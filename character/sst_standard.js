@@ -1253,6 +1253,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		skill:{
 			//Mario
 			sst_jueyi:{
+				mod:{
+					aiOrder:(player,card,num)=>{
+						if(player.canUse(card,player)&&!game.hasPlayer(current=>current!=player&&player.canUse(card,current))) return num+10;
+					}
+				},
 				trigger:{player:"useCardToPlayer"},
 				filter:(event,player)=>event.getParent().targets.contains(event.target)&&event.target.countCards("h")>player.countCards("h"),
 				forced:true,
@@ -7174,7 +7179,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				log:false,
 				precontent:()=>{
 					const evt=event.getParent();
-					if(evt.name=="chooseToRespond") delete evt.logSkill;
+					console.log(evt);
+					if(evt.name=="chooseToRespond") delete evt.result.skill;
 					player.logSkill("sst_shenbi",event.result.targets);
 					const num=_status.currentPhase.countCards("h");
 					const num2=player.countCards("h");
@@ -9899,6 +9905,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						if(!event.target.isIn()) event.redo();
 					}
 					else{
+						game.delayx();
 						event.finish();
 					}
 					"step 3"
@@ -11466,15 +11473,19 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(typeof player.storage.sst_tunshi_origin!="object") player.storage.sst_tunshi_origin={};
 				},
 				intro:{
-					mark:(dialog,storage,player)=>game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(_status.currentPhase).forEach(current=>{
-						if(player.storage.sst_tunshi_origin[current.playerid].length){
-							dialog.addText(get.translation(current));
-							dialog.addAuto(player.storage.sst_tunshi_origin[current.playerid]);
-						}
-					}),
+					mark:(dialog,storage,player)=>{
+						lib.skill.sst_tunshi.sync(player);
+						game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(_status.currentPhase).forEach(current=>{
+							if(player.storage.sst_tunshi_origin[current.playerid].length){
+								dialog.addText(get.translation(current));
+								dialog.addAuto(player.storage.sst_tunshi_origin[current.playerid]);
+							}
+						});
+					},
 					markcount:"expansion"
 				},
 				onremove:(player,skill)=>{
+					lib.skill.sst_tunshi.sync(player);
 					const cards=player.getExpansions(skill);
 					if(cards.length){
 						game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(_status.currentPhase).forEach(current=>{
@@ -11483,7 +11494,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								cards.removeArray(player.storage.sst_tunshi_origin[current.playerid]);
 							}
 						});
-						delete player.storage.sst_tunshi_origin;
+						for(const i in player.storage.sst_tunshi_origin){
+							delete player.storage.sst_tunshi_origin[i];
+						}
 					}
 					if(cards.length) player.loseToDiscardpile(cards);
 				},
@@ -11504,7 +11517,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						player.addToExpansion(cards,result.targets[0],"give").gaintag.add("sst_tunshi");
 						if(!Array.isArray(player.storage.sst_tunshi_origin[result.targets[0].playerid])) player.storage.sst_tunshi_origin[result.targets[0].playerid]=[];
 						player.storage.sst_tunshi_origin[result.targets[0].playerid].addArray(cards);
+						lib.skill.sst_tunshi.sync(player);
 					}
+				},
+				sync:player=>{
+					const cards=player.getExpansions("sst_tunshi");
+					game.findPlayersByPlayerid(Object.keys(player.storage.sst_tunshi_origin)).sortBySeat(_status.currentPhase).forEach(current=>{
+						for(let i=0;i<player.storage.sst_tunshi_origin[current.playerid].length;i++){
+							if(!cards.contains(player.storage.sst_tunshi_origin[current.playerid][i])) player.storage.sst_tunshi_origin[current.playerid].splice(i--,1);
+						}
+					});
 				},
 				ai:{
 					expose:0.2,
@@ -11531,6 +11553,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					player.loseToDiscardpile(player.storage.sst_tunshi_origin[trigger.player.playerid]);
 					delete player.storage.sst_tunshi_origin[trigger.player.playerid];
+					lib.skill.sst_tunshi.sync(player);
 				}
 			},
 			sst_yangfen:{
@@ -12411,7 +12434,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_qixin_info:"准备阶段，你可以弃置一张♥基本牌或普通锦囊牌并选择一至三名角色，这些角色直到你的下个回合开始可以视为使用一次此牌。",
 			sst_gongcun:"共存",
 			sst_gongcun2:"共存",
-			sst_gongcun_info:"每回合限一次，一名角色正面朝上失去♥牌后，该角色相邻的两名角色可以选择交给其一张手牌。",
+			sst_gongcun_info:"每名角色每回合限一次，当与其相邻的角色正面朝上失去♥牌后，其可以交给该角色一张手牌。",
 			sst_jichang:"饥肠",
 			sst_jichang_effect:"饥肠",
 			sst_jichang_info:"锁定技，准备阶段，你弃置所有手牌，然后你设定本回合的以下数值：<br>\
