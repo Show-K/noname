@@ -3605,7 +3605,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 								return card.hasGaintag("old_sst_shengxi");
 							});
 							players[i].removeGaintag("old_sst_shengxi",cards);
-							players[i].removeGaintag("viewHandcard",cards);
+							players[i].removeGaintag("exposed",cards);
 						}
 					}
 				},
@@ -3627,7 +3627,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					player.choosePlayerCard(trigger.target,"h",get.prompt2("old_sst_shengxi",trigger.target)).set("filterButton",function(button){
-						return !button.link.hasGaintag("viewHandcard");
+						return !button.link.hasGaintag("exposed");
 					}).set("targetx",trigger.target).set("ai",function(button){
 						if(get.attitude(_status.event.player,_status.event.targetx)<0){
 							var val=get.buttonValue(button);
@@ -3642,7 +3642,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						player.logSkill("old_sst_shengxi2",trigger.target);
 						var card=result.cards[0];
 						trigger.target.$give(card,trigger.target,false);
-						trigger.target.addGaintag(card,"viewHandcard");
+						trigger.target.addGaintag(card,"exposed");
 						trigger.target.addGaintag(card,"old_sst_shengxi");
 						game.log(player,"明置了",trigger.target,"的",card);
 					}

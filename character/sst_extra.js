@@ -1713,11 +1713,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					player.addSkill("sst_miulu_effect");
-					if(player.countCards("h",card=>!card.hasGaintag("viewHandcard"))) player.chooseCard("谬陆：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,card=>!card.hasGaintag("viewHandcard"),true).set("ai",get.value);
+					if(player.countCards("h",card=>!card.hasGaintag("exposed"))) player.chooseCard("谬陆：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,card=>!card.hasGaintag("exposed"),true).set("ai",get.value);
 					"step 1"
 					if(result.cards&&result.cards.length){
 						player.$give(result.cards,player,false);
-						player.addGaintag(result.cards,"viewHandcard");
+						player.addGaintag(result.cards,"exposed");
 						player.addGaintag(result.cards,"sst_miulu");
 						game.log(player,"明置了",result.cards);
 						game.delayx();
@@ -1741,7 +1741,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				onremove:true,
 				mod:{
 					ignoredHandcard:card=>{
-						if(card.hasGaintag("viewHandcard")) return true;
+						if(card.hasGaintag("exposed")) return true;
 					},
 					maxHandcard:(player,num)=>num+player.countMark("sst_miulu_effect")
 				}

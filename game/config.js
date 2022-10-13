@@ -134,7 +134,7 @@ window.config={
 	connect_characters:[],
 	connect_cards:[],
 	plays:[],
-	extensions:['十周年UI','导入助手'],
+	extensions:['在线更新','十周年UI','导入助手'],
 	banned:[],
 	super_smash_tabletop_banned:['sst_claude'],
 	identity_banned:['sst_claude'],

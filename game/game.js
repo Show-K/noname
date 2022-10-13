@@ -10868,7 +10868,7 @@
 			braces:'｛｝',
 			pileTop:'牌堆顶',
 			pileBottom:'牌堆底',
-			viewHandcard:'可见',
+			exposed:'明置',
 			//SST addition end
 			flower:'鲜花',
 			egg:'鸡蛋',
@@ -15262,7 +15262,6 @@
 					}
 					event.result=result;
 				},
-				//Modified
 				choosePlayerCard:function(){
 					"step 0"
 					if(!event.dialog) event.dialog=ui.create.dialog('hidden');
@@ -15286,30 +15285,11 @@
 								event.dialog.addText('手牌区');
 								hs.randomSort();
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
-									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
-									var hsInvisible=[];
-									var hsVisible=[];
-									for(var j=0;j<hs.length;j++){
-										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
-											hsVisible.push(hs[j]);
-										}
-										else{
-											hsInvisible.push(hs[j]);
-										}
-									}
-									if(hsInvisible.length){
-										event.dialog.addText('不可见手牌');
-										event.dialog.add([hsInvisible,'blank']);
-									}
-									if(hsVisible.length){
-										event.dialog.addText('可见手牌');
-										event.dialog.add(hsVisible);
-										directh=false;
-									}
+									event.dialog.add([hs,'blank']);
 								}
 							}
 						}
@@ -15382,7 +15362,6 @@
 					}
 					event.resume();
 				},
-				//Modified
 				discardPlayerCard:function(){
 					"step 0"
 					if(event.directresult){
@@ -15428,30 +15407,11 @@
 								event.dialog.addText('手牌区');
 								hs.randomSort();
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
-									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
-									var hsInvisible=[];
-									var hsVisible=[];
-									for(var j=0;j<hs.length;j++){
-										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
-											hsVisible.push(hs[j]);
-										}
-										else{
-											hsInvisible.push(hs[j]);
-										}
-									}
-									if(hsInvisible.length){
-										event.dialog.addText('不可见手牌');
-										event.dialog.add([hsInvisible,'blank']);
-									}
-									if(hsVisible.length){
-										event.dialog.addText('可见手牌');
-										event.dialog.add(hsVisible);
-										directh=false;
-									}
+									event.dialog.add([hs,'blank']);
 								}
 							}
 						}
@@ -15547,7 +15507,6 @@
 						}
 					}
 				},
-				//Modified
 				gainPlayerCard:function(){
 					"step 0"
 					if(event.directresult){
@@ -15593,30 +15552,11 @@
 								event.dialog.addText('手牌区');
 								hs.randomSort();
 								if(event.visible||target.isUnderControl(true)||player.hasSkillTag('viewHandcard',null,target,true)){
-									event.dialog.addText('可见手牌');
 									event.dialog.add(hs);
 									directh=false;
 								}
 								else{
-									var hsInvisible=[];
-									var hsVisible=[];
-									for(var j=0;j<hs.length;j++){
-										if(get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard')){
-											hsVisible.push(hs[j]);
-										}
-										else{
-											hsInvisible.push(hs[j]);
-										}
-									}
-									if(hsInvisible.length){
-										event.dialog.addText('不可见手牌');
-										event.dialog.add([hsInvisible,'blank']);
-									}
-									if(hsVisible.length){
-										event.dialog.addText('可见手牌');
-										event.dialog.add(hsVisible);
-										directh=false;
-									}
+									event.dialog.add([hs,'blank']);
 								}
 							}
 						}
@@ -47390,8 +47330,41 @@
 			button:function(item,type,position,noclick,node){
 				switch(type){
 					case 'blank':
-					node=ui.create.div('.button.card',position);
-					node.link=item;
+					if(get.itemtype(item)=='card'&&item.hasGaintag('exposed')){
+						if(typeof item.copy=='function'){
+							node=item.copy(false);
+						}
+						else{
+							node=item.cloneNode(true);
+						}
+						node.classList.add('button');
+						if(position) position.appendChild(node);
+						node.link=item;
+						if(item.style.backgroundImage){
+							node.style.backgroundImage=item.style.backgroundImage;
+							node.style.backgroundSize='cover';
+						}
+						if(item.style.color){
+							node.style.color=item.style.color;
+						}
+						if(item.nature){
+							node.classList.add(item.nature);
+						}
+						if(!noclick){
+							lib.setIntro(node);
+						}
+						if(get.position(item)=='j'&&item.viewAs&&item.viewAs!=item.name&&lib.config.cardtempname!='off'){
+							node._tempName=ui.create.div('.tempname',node);
+							var tempname=get.translation(item.viewAs);
+							node._tempName.dataset.nature='wood';
+							node._tempName.innerHTML=lib.config.cardtempname=='default'?get.verticalStr(tempname):tempname;
+							node._tempName.tempname=tempname;
+						}
+					}
+					else{
+						node=ui.create.div('.button.card',position);
+						node.link=item;
+					}
 					break;
 
 					case 'card':
@@ -54818,7 +54791,6 @@
 				}
 			}
 		},
-		//Modified
 		nodeintro:function(node,simple,evt){
 			var uiintro=ui.create.dialog('hidden','notouchscroll');
 			if(node.classList.contains('player')&&!node.name){
@@ -54855,17 +54827,22 @@
 					uiintro.addText(get.colorspan(lib.characterTitle[node.name]));
 				}
 
-				var hs=node.getCards('h');
-				if(hs.length){
-					for(var j=0;j<hs.length;j++){
-						if(node.noclick||!(node.isUnderControl()||(!game.observe&&game.me&&game.me.hasSkillTag('viewHandcard',null,node,true))||get.tag(hs[j],'viewHandcard')||hs[j].hasGaintag('viewHandcard'))){
-							hs.splice(j,1);
-							j--;
-						}
-					}
+				if(!node.noclick){
+					var hs=node.getCards('h');
 					if(hs.length){
-						uiintro.add('<div class="text center">手牌</div>');
-						uiintro.addSmall(hs);
+						if(node.isUnderControl()||(!game.observe&&game.me&&game.me.hasSkillTag('viewHandcard',null,node,true))){
+							uiintro.add('<div class="text center">手牌</div>');
+							uiintro.addSmall(node.getCards('h'));
+						}
+						else{
+							for(var j=0;j<hs.length;j++){
+								if(!get.tag(hs[j],'exposed')&&!hs[j].hasGaintag('exposed')) hs.splice(j--,1);
+							}
+							if(hs.length){
+								uiintro.add('<div class="text center">手牌</div>');
+								uiintro.addSmall(hs);
+							}
+						}
 					}
 				}
 
@@ -55107,28 +55084,20 @@
 					var click=function(){
 						if(_status.dragged) return;
 						if(_status.justdragged) return;
+						if(_status.throwEmotionWait) return;
 						var emotion=this.link;
 						if(game.online){
 							game.send('throwEmotion',node,emotion);
 						}
 						else game.me.throwEmotion(node,emotion);
-					};
-					var click2=function(){
-						if(_status.dragged) return;
-						if(_status.justdragged) return;
-						var emotion=this.link.slice(0,-4);
-						if(game.online){
-							game.send('throwEmotion',node,emotion);
-						}
-						else game.me.throwEmotion(node,emotion);
-						for(var i=0;i<15;i++){
-							setTimeout(function(){
-								if(game.online){
-									game.send('throwEmotion',node,emotion);
-								}
-								else game.me.throwEmotion(node,emotion);
-							},125*(i+1));
-						}
+						uiintro._close();
+						_status.throwEmotionWait=true;
+						setTimeout(function(){
+							_status.throwEmotionWait=false;
+							if(ui.throwEmotion){
+								for(var i of ui.throwEmotion) i.classList.remove('exclude');
+							}
+						},(emotion=='flower'||emotion=='egg')?5000:10000)
 					};
 					var td;
 					var table=document.createElement('div');
@@ -55140,6 +55109,7 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
+						if(_status.throwEmotionWait) td.classList.add('exclude');
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
@@ -55156,25 +55126,11 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
+						if(_status.throwEmotionWait) td.classList.add('exclude');
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
 						td.addEventListener(lib.config.touchscreen?'touchend':'click',click);
-					}
-					uiintro.content.appendChild(table);
-					table=document.createElement('div');
-					table.classList.add('add-setting');
-					table.style.margin='0';
-					table.style.width='100%';
-					table.style.position='relative';
-					var listi=['flowerSpam','eggSpam'];
-					for(var i=0;i<listi.length;i++){
-						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
-						ui.throwEmotion.add(td);
-						td.link=listi[i];
-						table.appendChild(td);
-						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
-						td.addEventListener(lib.config.touchscreen?'touchend':'click',click2);
 					}
 					uiintro.content.appendChild(table);
 				}
@@ -55240,7 +55196,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -55277,7 +55233,7 @@
 								nameskin=nameskin.slice(3);
 								gzbool=true;
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
 						}
 						if(lib.config.change_skin){
 							if(!node.isUnseen(0)){
@@ -55547,8 +55503,8 @@
 							}
 						}
 						if(lib.card[name].yingbian_prompt&&get.is.yingbian(node.link||node)){
-							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: fzktk">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
-							else uiintro.add('<div class="text" style="font-family: fzktk">应变：'+lib.card[name].yingbian_prompt+'</div>');
+							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: yuanli">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
+							else uiintro.add('<div class="text" style="font-family: yuanli">应变：'+lib.card[name].yingbian_prompt+'</div>');
 						}
 						if(lib.translate[name+'_append']){
 							uiintro.add('<div class="text" style="display:inline">'+lib.translate[name+'_append']+'</div>');
@@ -55760,7 +55716,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -55779,7 +55735,7 @@
 								num--;
 								createButtons(num);
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
 						}
 						if(lib.config.change_skin){
 							loadImage();
