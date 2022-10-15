@@ -108,8 +108,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
 			sst_geno:"武将作者：Show-K<br>\
-				插图作者：ハルノ＠マリオ垢<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
+				插图作者：ハルノ＠マリオ垢<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
 				<hr>\
 				0104. Geno/ジーノ<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -183,8 +183,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				然后MNM开始对指定牌不能响应大打出手了。",
 			sst_bandana_waddle_dee:"武将作者：Show-K<br>\
-				插图作者：Konna-Nani<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/98930493")+"<br>\
+				插图作者：Konna-Nani<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/98930493")+"<br>\
 				<hr>\
 				0361. 头巾瓦豆鲁迪/Bandana Waddle Dee/バンダナワドルディ<br>\
 				系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -194,8 +194,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				一是为了蹭《星之卡比 探索发现》的热度，二是为了庆祝无名杀武将牌上牌机制变革，三是为了调侃卡比四人组中就剩他一直没有参战了。",
 			sst_magolor:"武将作者：Show-K<br>\
-				插图作者：邪仁寿<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/22504365")+"<br>\
+				插图作者：邪仁寿<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/22504365")+"<br>\
 				<hr>\
 				0355. 魔法洛亚/Magolor/マホロア<br>\
 				系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -2671,7 +2671,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_qiangdu_init:"枪笃",
 			sst_qiangdu_info:"游戏开始时，你将11张【刺枪】加入牌堆。你使用【刺枪】无距离限制。当你的♠牌正面向上离开你的区域后，你可以将一张牌当作【刺枪】使用。",
 			sst_mengchen:"盟谌",
-			sst_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用其中一张牌。",
+			sst_mengchen_info:"当你受到1点伤害后，你可以与一名角色依次摸一张牌并弃置一张牌，然后其可以使用以此法弃置的牌中的一张牌。",
 			sst_miulu:"谬陆",
 			sst_miulu2:"谬陆",
 			sst_miulu_effect:"谬陆",

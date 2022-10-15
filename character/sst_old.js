@@ -5,14 +5,15 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 		connect:true,
 		characterSort:{
 			sst_old:{
-                sst_64:["old_sst_samus","old_sst_donkey_kong"],
-                sst_melee:[],
-                sst_brawl:[],
-                sst_4:["old_sst_ryu"],
-                sst_ultimate:["old_sst_ken","old_sst_dark_samus","old_sst_richter"],
-                sst_spirits:["old_sst_geno"],
-                sst_players:[],
-				sst_ymk:["old_ymk_claude","ymk_577"],
+				sst_64:["deprecated_sst_samus","deprecated_sst_donkey_kong"],
+				sst_melee:[],
+				sst_brawl:[],
+				sst_4:["deprecated_sst_ryu"],
+				sst_ultimate:["deprecated_sst_ken","deprecated_sst_dark_samus","deprecated_sst_richter"],
+				sst_spirits:["deprecated_sst_geno"],
+				sst_players:[],
+				sst_ska:["deprecated_ska_professor_toad"],
+				sst_ymk:["deprecated_ymk_claude","ymk_577"],
 			},
 		},
 		character:{
@@ -48,15 +49,16 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			re_yuanshu:["male","sst_smash",4,["rewangzun","retongji"],["unseen"]],
 			//SST
 			//ska_bowser:["male","sst_dark",4,["ska_mengjin"],[]],
-			old_sst_samus:["female","sst_light",4,["old_sst_juezhan","old_sst_zailu"],[]],
-			old_sst_ken:["male","sst_light",4,["old_sst_yanyang","sst_shenglong"],[]],
-			old_ymk_claude:["male","sst_spirit",3,["old_ymk_yunchou","old_ymk_guimou"],[]],
-			old_sst_donkey_kong:["male","sst_light",4,["old_sst_baochui"],[]],
-			old_sst_dark_samus:["female","sst_dark",3,["sst_yingliu","old_sst_shunxing"],[]],
+			deprecated_sst_samus:["female","sst_light",4,["deprecated_sst_juezhan","deprecated_sst_zailu"],[]],
+			deprecated_sst_ken:["male","sst_light",4,["deprecated_sst_yanyang","sst_shenglong"],[]],
+			deprecated_ymk_claude:["male","sst_spirit",3,["deprecated_ymk_yunchou","deprecated_ymk_guimou"],[]],
+			deprecated_sst_donkey_kong:["male","sst_light",4,["deprecated_sst_baochui"],[]],
+			deprecated_sst_dark_samus:["female","sst_dark",3,["sst_yingliu","deprecated_sst_shunxing"],[]],
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
-			old_sst_richter:["male","sst_dark",4,["old_sst_shengxi","old_sst_xuelun"],[]],
-			old_sst_ryu:["male","sst_light",4,["old_sst_tandao","sst_bodong"],[]],
-			old_sst_geno:["male","sst_spirit",3,["old_sst_fuyuan","old_sst_doujiang"],[]]
+			deprecated_sst_richter:["male","sst_dark",4,["deprecated_sst_shengxi","deprecated_sst_xuelun"],[]],
+			deprecated_sst_ryu:["male","sst_light",4,["deprecated_sst_tandao","sst_bodong"],[]],
+			deprecated_sst_geno:["male","sst_spirit",3,["deprecated_sst_fuyuan","deprecated_sst_doujiang"],[]],
+			deprecated_ska_professor_toad:["male","sst_spirit",3,["deprecated_ska_juegu","deprecated_ska_kuiwang"],[]]
 		},
 		characterFilter:{
 		},
@@ -107,7 +109,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				<hr>\
 				"
 			*/
-			old_sst_samus:"武将作者：mario not mary<br>\
+			deprecated_sst_samus:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
 				0264. 萨姆斯/Samus/サムス<br>\
@@ -117,7 +119,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				“萨姆斯，很不幸的消息……”",
-			old_sst_ken:"武将作者：mario not mary<br>\
+			deprecated_sst_ken:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
 				0978. 肯/Ken/ケン<br>\
@@ -127,7 +129,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				我准备好了，来吧。",
-			old_ymk_claude:"武将作者：Yumikohimi<br>\
+			deprecated_ymk_claude:"武将作者：Yumikohimi<br>\
 				插图作者：未知<br>\
 				<hr>\
 				1386. 库罗德/Claude/クロード<br>\
@@ -137,7 +139,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				芙朵拉内外都要变革，才能得以见到所愿之景……对吧？",
-			old_sst_donkey_kong:"武将作者：mario not mary<br>\
+			deprecated_sst_donkey_kong:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
 				0134. 森喜刚/Donkey Kong/ドンキーコング<br>\
@@ -147,7 +149,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				砸人很疼的。",
-			old_sst_dark_samus:"武将作者：mario not mary<br>\
+			deprecated_sst_dark_samus:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
 				0265. 黑暗萨姆斯/Dark Samus/ダークサムス<br>\
@@ -160,7 +162,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_577:"武将作者：Yumikohimi<br>\
 				<hr>\
 				柚子设计的577，估计又要偏强……意外的还行？",
-			old_sst_richter:"武将作者：mario not mary<br>\
+			deprecated_sst_richter:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
 				1051. 里希特·贝尔蒙特/Richter Belmont/リヒター・ベルモンド<br>\
@@ -170,7 +172,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				“我有愧于此称……”",
-			old_sst_ryu:"武将作者：mario not mary<br>\
+			deprecated_sst_ryu:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
 				0977. 隆/Ryu/リュウ<br>\
@@ -180,9 +182,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				你必须击败我的升龙拳才能得到一线转机。",
-			old_sst_geno:"武将作者：Show-K<br>\
-				插图作者：ハルノ＠マリオ垢<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
+			deprecated_sst_geno:"武将作者：Show-K<br>\
+				插图作者：ハルノ＠マリオ垢<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/88378758")+"<br>\
 				<hr>\
 				0104. Geno/ジーノ<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -190,17 +192,29 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				他是星之族的一员，本来没有身体，本名也是无法拼读的“♡♪!?”，所以选择附身在一个叫Geno的木偶上行动。他总是自信满满，擅长分析问题，战斗能力也相当出色。他会和马力欧、桃花公主、酷霸王和Mallow一起打败恶人。<br>\
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
-				所以Square什么时候能把超级马力欧RPG交一下！"
+				所以Square什么时候能把超级马力欧RPG交一下！",
+			deprecated_ska_professor_toad:"武将作者：Show-K<br>\
+				插图作者：未知<br>\
+				<hr>\
+				S004. 考古学家奇诺比奥/Professor Toad/考古学者キノピオ<br>\
+				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
+				首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
+				考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
+				——翻译自《超级马力欧维基》<br>\
+				——"+get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
+				<hr>\
+				大概是现代纸片马力欧中最有特色的奇诺比奥了吧……"
 		},
 		characterTitle:{
-			old_sst_samus:"银河战士",
-			old_sst_ken:"红莲格斗王",
-			old_ymk_claude:"连系世界之王",
-			old_sst_donkey_kong:"丛林的王者",
-			old_sst_dark_samus:"暗流涌动",
+			deprecated_sst_samus:"银河战士",
+			deprecated_sst_ken:"红莲格斗王",
+			deprecated_ymk_claude:"连系世界之王",
+			deprecated_sst_donkey_kong:"丛林的王者",
+			deprecated_sst_dark_samus:"暗流涌动",
 			ymk_577:"生电妙手",
-			old_sst_richter:"血之轮回",
-			old_sst_ryu:"求道的武者"
+			deprecated_sst_richter:"血之轮回",
+			deprecated_sst_ryu:"求道的武者",
+			deprecated_ska_professor_toad:"沙原博时"
 		},
 		skill:{
 			//LTK
@@ -2757,7 +2771,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Samus
-			old_sst_juezhan:{
+			deprecated_sst_juezhan:{
 				mod:{
 					cardUsable:function (card,player,num){
 						if(card.name=="sha") return num+player.getDamagedHp();
@@ -2767,7 +2781,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			old_sst_zailu:{
+			deprecated_sst_zailu:{
 				trigger:{
 					global:"dieAfter",
 				},
@@ -2779,13 +2793,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					player.draw();
 					"step 1"
-					if(!player.storage.old_sst_zailu2) player.storage.old_sst_zailu2=0;
-					if(!player.storage.old_sst_zailu3) player.storage.old_sst_zailu3=0;
+					if(!player.storage.deprecated_sst_zailu2) player.storage.deprecated_sst_zailu2=0;
+					if(!player.storage.deprecated_sst_zailu3) player.storage.deprecated_sst_zailu3=0;
 					/*
-					if(game.players.length<=player.storage.old_sst_zailu3+1){
+					if(game.players.length<=player.storage.deprecated_sst_zailu3+1){
 						game.log(player,"选择了","摸牌阶段摸牌数+1");
 						player.popup("摸牌+1");
-						player.storage.old_sst_zailu2++;
+						player.storage.deprecated_sst_zailu2++;
 						event.finish();
 					}
 					*/
@@ -2794,7 +2808,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var players=game.filterPlayer(function(current){
 							return get.attitude(player,current)<0;
 						});
-						if(players&&players.length>player.storage.old_sst_zailu3+1){
+						if(players&&players.length>player.storage.deprecated_sst_zailu3+1){
 							return "使用基本牌或普通锦囊牌可以额外指定一个目标";
 						}
 						else{
@@ -2805,41 +2819,41 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.control=="使用基本牌或普通锦囊牌可以额外指定一个目标"){
 						game.log(player,"选择了","#y使用基本牌或普通锦囊牌可以额外指定一个目标");
 						player.popup("额外目标");
-						player.storage.old_sst_zailu3++;
+						player.storage.deprecated_sst_zailu3++;
 					}
 					else{
 						game.log(player,"选择了","#y摸牌阶段摸牌数+1");
 						player.popup("摸牌+1");
-						player.storage.old_sst_zailu2++;
+						player.storage.deprecated_sst_zailu2++;
 					}
 				},
-				group:["old_sst_zailu2","old_sst_zailu3"]
+				group:["deprecated_sst_zailu2","deprecated_sst_zailu3"]
 			},
-			old_sst_zailu2:{
+			deprecated_sst_zailu2:{
 				trigger:{
 					player:"phaseDrawBegin2",
 				},
 				locked:false,
 				forced:true,
 				filter:function (event,player){
-					return player.storage.old_sst_zailu2&&!event.numFixed;
+					return player.storage.deprecated_sst_zailu2&&!event.numFixed;
 				},
 				content:function (){
-					trigger.num+=player.storage.old_sst_zailu2;
+					trigger.num+=player.storage.deprecated_sst_zailu2;
 				},
 				ai:{
 					threaten:function (player,target){
-						if(!player.storage.old_sst_zailu2) return 1;
-						return 1+player.storage.old_sst_zailu2*0.2;
+						if(!player.storage.deprecated_sst_zailu2) return 1;
+						return 1+player.storage.deprecated_sst_zailu2*0.2;
 					}
 				}
 			},
-			old_sst_zailu3:{
+			deprecated_sst_zailu3:{
 				trigger:{
 					player:"useCard2",
 				},
 				filter:function (event,player){
-					if(!player.storage.old_sst_zailu3) return false;
+					if(!player.storage.deprecated_sst_zailu3) return false;
 					if(get.type(event.card)!="basic"&&get.type(event.card)!="trick") return false;
 					return game.hasPlayer(function(current){
 						//return !event.targets.contains(current)&&player.canUse(event.card,current);
@@ -2849,7 +2863,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function (){
 					"step 0"
-					player.chooseTarget(get.prompt("old_sst_zailu"),"为"+get.translation(trigger.card)+"增加目标",[1,player.storage.old_sst_zailu3],function(card,player,target){
+					player.chooseTarget(get.prompt("deprecated_sst_zailu"),"为"+get.translation(trigger.card)+"增加目标",[1,player.storage.deprecated_sst_zailu3],function(card,player,target){
 						return !_status.event.sourcex.contains(target)&&lib.filter.targetEnabled2(_status.event.card,player,target);
 					}).set("sourcex",trigger.targets).set("card",trigger.card).set("ai",function(target){
 						var player=_status.event.player;
@@ -2864,18 +2878,18 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					"step 2"
-					player.logSkill("old_sst_zailu",event.targets);
+					player.logSkill("deprecated_sst_zailu",event.targets);
 					trigger.targets.addArray(event.targets);
 				},
 				ai:{
 					threaten:function (player,target){
-						if(!player.storage.old_sst_zailu3) return 1;
-						return 1+player.storage.old_sst_zailu3*0.2;
+						if(!player.storage.deprecated_sst_zailu3) return 1;
+						return 1+player.storage.deprecated_sst_zailu3*0.2;
 					}
 				}
 			},
 			//Ken
-			old_sst_yanyang:{
+			deprecated_sst_yanyang:{
 				enable:"chooseToUse",
 				filterCard:function(){return true},
 				selectCard:[1,2],
@@ -2891,12 +2905,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return 3-get.value(card);
 				},
-				group:["old_sst_yanyang2"],
+				group:["deprecated_sst_yanyang2"],
 			},
-			old_sst_yanyang2:{
+			deprecated_sst_yanyang2:{
 				trigger:{player:"useCard1"},
 				filter:function(event,player){
-					return event.skill=="old_sst_yanyang";
+					return event.skill=="deprecated_sst_yanyang";
 				},
 				silent:true,
 				content:function(){
@@ -2908,10 +2922,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Claude
-			old_ymk_yunchou:{
-				group:["old_ymk_yunchou2"],
+			deprecated_ymk_yunchou:{
+				group:["deprecated_ymk_yunchou2"],
 				init:function(player){
-					if(!player.storage.old_ymk_yunchou) player.storage.old_ymk_yunchou=[];
+					if(!player.storage.deprecated_ymk_yunchou) player.storage.deprecated_ymk_yunchou=[];
 				},
 				intro:{
 					name:"运筹",
@@ -2931,21 +2945,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				direct:true,
 				filter:function(event,player){
-					return player.storage.old_ymk_yunchou.length==0&&player.countCards("he");
+					return player.storage.deprecated_ymk_yunchou.length==0&&player.countCards("he");
 				},
 				content:function(){
 					"step 0"
-					player.chooseCard(get.prompt("old_ymk_yunchou"),"你可以将最多"+get.cnNumber(Math.max(1,player.getDamagedHp()))+"张牌置于武将牌上","he",[1,Math.max(1,player.getDamagedHp())]).set("ai",function(card){
+					player.chooseCard(get.prompt("deprecated_ymk_yunchou"),"你可以将最多"+get.cnNumber(Math.max(1,player.getDamagedHp()))+"张牌置于武将牌上","he",[1,Math.max(1,player.getDamagedHp())]).set("ai",function(card){
 						return 11-get.value(card);
 					});
 					"step 1"
 					if(result.cards&&result.cards.length){
-						player.logSkill("old_ymk_yunchou");
+						player.logSkill("deprecated_ymk_yunchou");
 						player.lose(result.cards,ui.special,"toStorage");
 						player.$give(result.cards,player,"visible",false);
-						player.storage.old_ymk_yunchou=player.storage.old_ymk_yunchou.concat(result.cards);
-						player.syncStorage("old_ymk_yunchou");
-						player.markSkill("old_ymk_yunchou");
+						player.storage.deprecated_ymk_yunchou=player.storage.deprecated_ymk_yunchou.concat(result.cards);
+						player.syncStorage("deprecated_ymk_yunchou");
+						player.markSkill("deprecated_ymk_yunchou");
 						game.log(player,"将",result.cards,"置于武将牌上");
 					}
 				}
@@ -2959,7 +2973,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				},
 				*/
 			},
-			old_ymk_yunchou2:{
+			deprecated_ymk_yunchou2:{
 				trigger:{
 					player:"moveLastCardFromStorage",
 				},
@@ -2973,7 +2987,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					else if(player.getDamagedHp()&&!player.canMoveCard(true)){
-						player.chooseControl("回复一点体力","cancel2").set("prompt",get.prompt("old_ymk_yunchou")).set("prompt2","你可以回复一点体力").set("ai",function(){
+						player.chooseControl("回复一点体力","cancel2").set("prompt",get.prompt("deprecated_ymk_yunchou")).set("prompt2","你可以回复一点体力").set("ai",function(){
 							var player=_status.event.player;
 							if(player.getDamagedHp()>0&&get.recoverEffect(player,player,player)>0){
 								return "回复一点体力";
@@ -2984,7 +2998,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 					}
 					else if(!player.getDamagedHp()&&player.canMoveCard(true)){
-						player.chooseControl("移动场上的一张牌","cancel2").set("prompt",get.prompt("old_ymk_yunchou")).set("prompt2","你可以移动场上的一张牌").set("ai",function(){
+						player.chooseControl("移动场上的一张牌","cancel2").set("prompt",get.prompt("deprecated_ymk_yunchou")).set("prompt2","你可以移动场上的一张牌").set("ai",function(){
 							var player=_status.event.player;
 							if(player.canMoveCard(true)){
 								return "移动场上的一张牌";
@@ -2995,7 +3009,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						});
 					}
 					else{
-						player.chooseControl("回复一点体力","移动场上的一张牌","cancel2").set("prompt",get.prompt("old_ymk_yunchou")).set("prompt2","你可以回复一点体力或移动场上的一张牌").set("ai",function(){
+						player.chooseControl("回复一点体力","移动场上的一张牌","cancel2").set("prompt",get.prompt("deprecated_ymk_yunchou")).set("prompt2","你可以回复一点体力或移动场上的一张牌").set("ai",function(){
 							var player=_status.event.player;
 							if(player.getDamagedHp()>0&&get.recoverEffect(player,player,player)>0){
 								return "回复一点体力";
@@ -3011,12 +3025,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					switch(result.control){
 						case "回复一点体力":{
-							player.logSkill("old_ymk_yunchou");
+							player.logSkill("deprecated_ymk_yunchou");
 							player.recover("nocard");
 							break;
 						}
 						case "移动场上的一张牌":{
-							player.logSkill("old_ymk_yunchou");
+							player.logSkill("deprecated_ymk_yunchou");
 							player.moveCard();
 							break;
 						}
@@ -3030,12 +3044,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.2
 				}
 			},
-			old_ymk_guimou:{
-				group:["old_ymk_guimou2","old_ymk_guimou3","old_ymk_guimou4","old_ymk_guimou5"],
+			deprecated_ymk_guimou:{
+				group:["deprecated_ymk_guimou2","deprecated_ymk_guimou3","deprecated_ymk_guimou4","deprecated_ymk_guimou5"],
 				enable:"chooseToUse",
 				filter:function(event,player){
 					/*
-					if(event.type=="wuxie"||event.type=="respondShan"||!player.storage.old_ymk_yunchou||!player.storage.old_ymk_yunchou.length) return false;
+					if(event.type=="wuxie"||event.type=="respondShan"||!player.storage.deprecated_ymk_yunchou||!player.storage.deprecated_ymk_yunchou.length) return false;
 					var list=["sha","tao","shan","jiu","taoyuan","wugu","juedou","huogong","jiedao","tiesuo","guohe","shunshou","wuzhong","wanjian","nanman"];
 					if(get.mode()=="guozhan"){
 						list=list.concat(["xietianzi","shuiyanqijunx","lulitongxin","lianjunshengyan","chiling","diaohulishan","yuanjiao","huoshaolianying"]);
@@ -3045,7 +3059,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 					return false;
 					*/
-					return event.type!="wuxie"&&event.type!="respondShan"&&player.storage.old_ymk_yunchou&&player.storage.old_ymk_yunchou.length;
+					return event.type!="wuxie"&&event.type!="respondShan"&&player.storage.deprecated_ymk_yunchou&&player.storage.deprecated_ymk_yunchou.length;
 				},
 				chooseButton:{
 					dialog:function(){
@@ -3103,21 +3117,21 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					respondSha:true,
 					respondTao:true,
 					skillTagFilter:function(player){
-						if(!player.storage.old_ymk_yunchou||!player.storage.old_ymk_yunchou.length) return false;
+						if(!player.storage.deprecated_ymk_yunchou||!player.storage.deprecated_ymk_yunchou.length) return false;
 					}
 				}
 			},
-			old_ymk_guimou2:{
+			deprecated_ymk_guimou2:{
 				trigger:{player:"useCardBefore"},
 				filter:function(event,player){
-					return event.skill=="old_ymk_guimou_backup"||event.skill=="old_ymk_guimou4"||event.skill=="old_ymk_guimou5";
+					return event.skill=="deprecated_ymk_guimou_backup"||event.skill=="deprecated_ymk_guimou4"||event.skill=="deprecated_ymk_guimou5";
 				},
 				silent:true,
 				priority:15,
 				content:function(){
 					"step 0"
-					player.logSkill("old_ymk_guimou");
-					player.chooseCardButton("鬼谋：选择武将牌上的一张牌",player.storage.old_ymk_yunchou,true).set("ai",function(button){
+					player.logSkill("deprecated_ymk_guimou");
+					player.chooseCardButton("鬼谋：选择武将牌上的一张牌",player.storage.deprecated_ymk_yunchou,true).set("ai",function(button){
 						return 1/Math.max(0.1,get.value(button.link));
 					});
 					"step 1"
@@ -3125,12 +3139,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						event.card=result.links[0];
 						//game.cardsDiscard(card);
 						player.$throw(event.card,1000);
-						player.storage.old_ymk_yunchou.remove(event.card);
-						player.syncStorage("old_ymk_yunchou");
+						player.storage.deprecated_ymk_yunchou.remove(event.card);
+						player.syncStorage("deprecated_ymk_yunchou");
 						player.updateMarks();
 						game.delayx();
-						if(!player.storage.old_ymk_yunchou.length){
-							player.unmarkSkill("old_ymk_yunchou");
+						if(!player.storage.deprecated_ymk_yunchou.length){
+							player.unmarkSkill("deprecated_ymk_yunchou");
 							event.trigger("moveLastCardFromStorage");
 						}
 					}
@@ -3144,12 +3158,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.updateRoundNumber();
 				}
 			},
-			old_ymk_guimou3:{
+			deprecated_ymk_guimou3:{
 				trigger:{player:"chooseToRespondBegin"},
 				filter:function(event,player){
 					if(event.responded) return false;
 					if(!event.filterCard({name:"shan"})&&!event.filterCard({name:"sha"})) return false;
-					if(!player.storage.old_ymk_yunchou||!player.storage.old_ymk_yunchou.length) return false;
+					if(!player.storage.deprecated_ymk_yunchou||!player.storage.deprecated_ymk_yunchou.length) return false;
 					return true;
 				},
 				direct:true,
@@ -3157,13 +3171,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 0"
 					if(trigger.filterCard({name:"shan"})&&lib.filter.cardRespondable({name:"shan"},player,trigger)) event.name="shan";
 					else event.name="sha";
-					player.chooseBool(get.prompt("old_ymk_guimou"),"你可以将武将牌上的一张牌置于牌堆顶，视为打出一张"+get.translation(event.name)).set("ai",function(){
+					player.chooseBool(get.prompt("deprecated_ymk_guimou"),"你可以将武将牌上的一张牌置于牌堆顶，视为打出一张"+get.translation(event.name)).set("ai",function(){
 						return true;
 					});
 					"step 1"
 					if(result.bool){
-						player.logSkill("old_ymk_guimou");
-						player.chooseCardButton("鬼谋：选择武将牌上的一张牌",player.storage.old_ymk_yunchou,true).set("ai",function(button){
+						player.logSkill("deprecated_ymk_guimou");
+						player.chooseCardButton("鬼谋：选择武将牌上的一张牌",player.storage.deprecated_ymk_yunchou,true).set("ai",function(button){
 							return 1/Math.max(0.1,get.value(button.link));
 						});
 					}
@@ -3174,11 +3188,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.links){
 						event.card=result.links[0];
 						player.$throw(event.card,1000);
-						player.storage.old_ymk_yunchou.remove(event.card);
-						player.syncStorage("old_ymk_yunchou");
+						player.storage.deprecated_ymk_yunchou.remove(event.card);
+						player.syncStorage("deprecated_ymk_yunchou");
 						player.updateMarks();
-						if(!player.storage.old_ymk_yunchou.length) {
-							player.unmarkSkill("old_ymk_yunchou");
+						if(!player.storage.deprecated_ymk_yunchou.length) {
+							player.unmarkSkill("deprecated_ymk_yunchou");
 							event.trigger("moveLastCardFromStorage");
 						}
 					}
@@ -3202,28 +3216,28 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			old_ymk_guimou4:{
+			deprecated_ymk_guimou4:{
 				prompt:"将武将牌上的一张牌置于牌堆顶，视为使用一张闪",
 				enable:"chooseToUse",
 				filter:function(event,player){
-					return player.storage.old_ymk_yunchou&&player.storage.old_ymk_yunchou.length;
+					return player.storage.deprecated_ymk_yunchou&&player.storage.deprecated_ymk_yunchou.length;
 				},
 				filterCard:function(){return false;},
 				selectCard:-1,
 				viewAs:{name:"shan"},
 				ai:{
 					skillTagFilter:function(player){
-						return player.storage.old_ymk_yunchou&&player.storage.old_ymk_yunchou.length;
+						return player.storage.deprecated_ymk_yunchou&&player.storage.deprecated_ymk_yunchou.length;
 					},
 					respondShan:true
 				}
 			},
-			old_ymk_guimou5:{
+			deprecated_ymk_guimou5:{
 				enable:"chooseToUse",
 				filterCard:function(){return false;},
 				selectCard:-1,
 				viewAsFilter:function(player){
-					return player.storage.old_ymk_yunchou&&player.storage.old_ymk_yunchou.length;
+					return player.storage.deprecated_ymk_yunchou&&player.storage.deprecated_ymk_yunchou.length;
 				},
 				viewAs:{name:"wuxie"},
 				/*
@@ -3248,10 +3262,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				*/
 			},
 			//Donkey Kong
-			old_sst_baochui:{
+			deprecated_sst_baochui:{
 				trigger:{player:"phaseDiscardEnd"},
 				init:function(player){
-					player.storage.old_sst_baochui=[];
+					player.storage.deprecated_sst_baochui=[];
 				},
 				filter:function(event,player){
 					return event.cards&&event.cards.length&&event.cards.filterInD("d")&&event.cards.filterInD("d").length;
@@ -3261,9 +3275,9 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					var cards=trigger.cards.filterInD("d");
 					player.lose(cards,ui.special,"toStorage");
 					player.$gain2(cards);
-					player.storage.old_sst_baochui=player.storage.old_sst_baochui.concat(cards);
-					player.syncStorage("old_sst_baochui");
-					player.markSkill("old_sst_baochui");
+					player.storage.deprecated_sst_baochui=player.storage.deprecated_sst_baochui.concat(cards);
+					player.syncStorage("deprecated_sst_baochui");
+					player.markSkill("deprecated_sst_baochui");
 					game.log(player,"将",cards,"置于武将牌上");
 				},
 				intro:{
@@ -3280,19 +3294,19 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				ai:{
 					threaten:2
 				},
-				group:["old_sst_baochui2","old_sst_baochui3"]
+				group:["deprecated_sst_baochui2","deprecated_sst_baochui3"]
 			},
-			old_sst_baochui2:{
+			deprecated_sst_baochui2:{
 				enable:"chooseToUse",
 				prompt:function(){
-					if(_status.event.player.storage.old_sst_baochui.length){
-						return "你可以将武将牌上的所有牌视为伤害为"+Math.min(3,_status.event.player.storage.old_sst_baochui.length)+"的【杀】使用";
+					if(_status.event.player.storage.deprecated_sst_baochui.length){
+						return "你可以将武将牌上的所有牌视为伤害为"+Math.min(3,_status.event.player.storage.deprecated_sst_baochui.length)+"的【杀】使用";
 					}
 				},
 				filter:function(event,player){
 					if(event.filterCard&&!event.filterCard({name:"sha"},player,event)) return false;
 					if(!lib.filter.cardUsable({name:"sha"},player)) return false;
-					return player.storage.old_sst_baochui.length;
+					return player.storage.deprecated_sst_baochui.length;
 				},
 				filterTarget:function(card,player,target){
 					if(_status.event._backup&&
@@ -3306,23 +3320,23 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				line:false,
 				delay:false,
 				content:function(){
-					var cards=player.storage.old_sst_baochui;
-					player.storage.old_sst_baochui_num=cards.length;
-					player.useCard({name:"sha"},cards,target,"old_sst_baochui");
-					player.storage.old_sst_baochui.length=0;
-					player.syncStorage("old_sst_baochui");
+					var cards=player.storage.deprecated_sst_baochui;
+					player.storage.deprecated_sst_baochui_num=cards.length;
+					player.useCard({name:"sha"},cards,target,"deprecated_sst_baochui");
+					player.storage.deprecated_sst_baochui.length=0;
+					player.syncStorage("deprecated_sst_baochui");
 					player.updateMarks();
-					player.unmarkSkill("old_sst_baochui");
+					player.unmarkSkill("deprecated_sst_baochui");
 				},
 				ai:{
 					respondSha:true,
 					skillTagFilter:function(player){
-						if(!player.storage.old_sst_baochui.length) return false;
+						if(!player.storage.deprecated_sst_baochui.length) return false;
 					},
 					result:{
 						target:function(player,target){
 							var num=0;
-							if(player.storage.old_sst_baochui.length) num=player.storage.old_sst_baochui.length;
+							if(player.storage.deprecated_sst_baochui.length) num=player.storage.deprecated_sst_baochui.length;
 							return get.effect(target,{name:"sha"},player,target)-3+num;
 						}
 					},
@@ -3331,31 +3345,31 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			old_sst_baochui3:{
+			deprecated_sst_baochui3:{
 				trigger:{player:"useCard1"},
 				direct:true,
 				forced:true,
 				filter:function(event,player){
-					return event.skill=="old_sst_baochui";
+					return event.skill=="deprecated_sst_baochui";
 				},
 				content:function(){
 					//trigger.directHit.addArray(game.players);
 					if(typeof trigger.baseDamage!="number") trigger.baseDamage=1;
-					trigger.baseDamage+=Math.min(3,player.storage.old_sst_baochui_num)-1;
+					trigger.baseDamage+=Math.min(3,player.storage.deprecated_sst_baochui_num)-1;
 				},
 				ai:{
 					damageBonus:true
 				}
 			},
 			//Dark Samus
-			old_sst_shunxing:{
-				group:["old_sst_shunxing1","old_sst_shunxing2"],
+			deprecated_sst_shunxing:{
+				group:["deprecated_sst_shunxing1","deprecated_sst_shunxing2"],
 				ai:{
 					threaten:2,
 					expose:0.2
 				}
 			},
-			old_sst_shunxing1:{
+			deprecated_sst_shunxing1:{
 				trigger:{player:"phaseDrawBefore"},
 				direct:true,
 				content:function(){
@@ -3373,7 +3387,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						}
 					}
 					check=(num>=2&&num2>0);
-					player.chooseBool(get.prompt("old_sst_shunxing1"),"你可以跳过此摸牌阶段，然后获得一名其他角色区域内的一张牌").set("ai",function(){
+					player.chooseBool(get.prompt("deprecated_sst_shunxing1"),"你可以跳过此摸牌阶段，然后获得一名其他角色区域内的一张牌").set("ai",function(){
 						if(!_status.event.check) return false;
 						if(player.hasCard(function(card){
 							return get.name(card)=="bingliang";
@@ -3392,7 +3406,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						trigger.cancel();
-						player.logSkill("old_sst_shunxing1");
+						player.logSkill("deprecated_sst_shunxing1");
 						game.log(player,"跳过了此摸牌阶段");
 						player.chooseTarget("瞬形：获得一名其他角色区域内的一张牌",true,function(card,player,target){
 							return target!=player&&target.countGainableCards(player,"hej");
@@ -3427,7 +3441,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					game.delayx();
 				}
 			},
-			old_sst_shunxing2:{
+			deprecated_sst_shunxing2:{
 				trigger:{player:"phaseUseBefore"},
 				direct:true,
 				content:function(){
@@ -3442,7 +3456,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					else{
 						check=true;
 					}
-					player.chooseBool(get.prompt("old_sst_shunxing2"),"你可以跳过此出牌阶段，然后重铸任意张红色手牌").set("ai",function(){
+					player.chooseBool(get.prompt("deprecated_sst_shunxing2"),"你可以跳过此出牌阶段，然后重铸任意张红色手牌").set("ai",function(){
 						if(!_status.event.check) return false;
 						if(player.hasCard(function(card){
 							return get.name(card)=="lebu";
@@ -3460,7 +3474,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						trigger.cancel();
-						player.logSkill("old_sst_shunxing2");
+						player.logSkill("deprecated_sst_shunxing2");
 						game.log(player,"跳过了此出牌阶段");
 						player.chooseCard("h",[1,Infinity],"瞬形：你可以重铸任意张红色手牌",function(card){
 							return get.color(card)=="red";
@@ -3591,20 +3605,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Richter
-			old_sst_shengxi:{
+			deprecated_sst_shengxi:{
 				preHidden:true,
-				global:"old_sst_shengxi1",
+				global:"deprecated_sst_shengxi1",
 				onremove:function(player){
 					if(!game.hasPlayer(function(current){
-						return current.hasSkill("old_sst_shengxi");
+						return current.hasSkill("deprecated_sst_shengxi");
 					})){
 						var players=game.filterPlayer();
 						var cards=[];
 						for(var i=0;i<players.length;i++){
 							cards=players[i].getCards("h",function(card){
-								return card.hasGaintag("old_sst_shengxi");
+								return card.hasGaintag("deprecated_sst_shengxi");
 							});
-							players[i].removeGaintag("old_sst_shengxi",cards);
+							players[i].removeGaintag("deprecated_sst_shengxi",cards);
 							players[i].removeGaintag("exposed",cards);
 						}
 					}
@@ -3613,20 +3627,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					threaten:1.5
 				}
 			},
-			old_sst_shengxi1:{
+			deprecated_sst_shengxi1:{
 				direct:true,
 				trigger:{player:"useCardToPlayer"},
 				filter:function(event,player){
 					var cards=event.target.getCards("h",function(card){
-						return !card.hasGaintag("old_sst_shengxi");
+						return !card.hasGaintag("deprecated_sst_shengxi");
 					});
 					return game.hasPlayer(function(current){
-						return current.hasSkill("old_sst_shengxi")&&(player==current||event.targets.contains(current));
+						return current.hasSkill("deprecated_sst_shengxi")&&(player==current||event.targets.contains(current));
 					})&&cards&&cards.length;
 				},
 				content:function(){
 					"step 0"
-					player.choosePlayerCard(trigger.target,"h",get.prompt2("old_sst_shengxi",trigger.target)).set("filterButton",function(button){
+					player.choosePlayerCard(trigger.target,"h",get.prompt2("deprecated_sst_shengxi",trigger.target)).set("filterButton",function(button){
 						return !button.link.hasGaintag("exposed");
 					}).set("targetx",trigger.target).set("ai",function(button){
 						if(get.attitude(_status.event.player,_status.event.targetx)<0){
@@ -3639,11 +3653,11 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.cards&&result.cards.length){
-						player.logSkill("old_sst_shengxi2",trigger.target);
+						player.logSkill("deprecated_sst_shengxi2",trigger.target);
 						var card=result.cards[0];
 						trigger.target.$give(card,trigger.target,false);
 						trigger.target.addGaintag(card,"exposed");
-						trigger.target.addGaintag(card,"old_sst_shengxi");
+						trigger.target.addGaintag(card,"deprecated_sst_shengxi");
 						game.log(player,"明置了",trigger.target,"的",card);
 					}
 				},
@@ -3652,57 +3666,57 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					effect:{
 						player:function(card,player,target){
 							if(get.tag(card,"multitarget")) return [1,3];
-							if(card&&typeof card.hasGaintag=="function"&&card.hasGaintag("old_sst_shengxi")) return [1,3];
+							if(card&&typeof card.hasGaintag=="function"&&card.hasGaintag("deprecated_sst_shengxi")) return [1,3];
 						}
 					}
 				},
-				group:"old_sst_shengxi2"
+				group:"deprecated_sst_shengxi2"
 			},
-			old_sst_shengxi2:{
+			deprecated_sst_shengxi2:{
 				enable:"chooseToUse",
 				prompt:"你可以使用其他角色因〖圣袭〗明置的手牌",
 				hiddenCard:function(player,name){
-					var old_sst_shengxi=[];
+					var deprecated_sst_shengxi=[];
 					var players=game.filterPlayer(function(current){
 						return current!=player;
 					});
 					for(var i=0;i<players.length;i++){
-						old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-							return card.hasGaintag("old_sst_shengxi");
+						deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+							return card.hasGaintag("deprecated_sst_shengxi");
 						}));
 					}
-					for(var i=0;i<old_sst_shengxi.length;i++){
-						if(get.name(old_sst_shengxi[i])==name) return true;
+					for(var i=0;i<deprecated_sst_shengxi.length;i++){
+						if(get.name(deprecated_sst_shengxi[i])==name) return true;
 					}
 					return false;
 				},
 				filter:function(event,player){
-					var old_sst_shengxi=[];
+					var deprecated_sst_shengxi=[];
 					var players=game.filterPlayer(function(current){
 						return current!=player;
 					});
 					for(var i=0;i<players.length;i++){
-						old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-							return card.hasGaintag("old_sst_shengxi");
+						deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+							return card.hasGaintag("deprecated_sst_shengxi");
 						}));
 					}
-					for(var i=0;i<old_sst_shengxi.length;i++){
-						if(event.filterCard(old_sst_shengxi[i],player,event)) return true;
+					for(var i=0;i<deprecated_sst_shengxi.length;i++){
+						if(event.filterCard(deprecated_sst_shengxi[i],player,event)) return true;
 					}
 					return false;
 				},
 				chooseButton:{
 					dialog:function(event,player){
-						var old_sst_shengxi=[];
+						var deprecated_sst_shengxi=[];
 						var players=game.filterPlayer(function(current){
 							return current!=player;
 						});
 						for(var i=0;i<players.length;i++){
-							old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-								return card.hasGaintag("old_sst_shengxi");
+							deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+								return card.hasGaintag("deprecated_sst_shengxi");
 							}));
 						}
-						return ui.create.dialog("圣袭",old_sst_shengxi,"hidden");
+						return ui.create.dialog("圣袭",deprecated_sst_shengxi,"hidden");
 					},
 					filter:function(button,player){
 						var evt=_status.event.getParent();
@@ -3723,7 +3737,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 							selectCard:-1,
 							viewAs:links[0],
 							onuse:function(result,player){
-								//player.logSkill("old_sst_shengxi");
+								//player.logSkill("deprecated_sst_shengxi");
 								var owner=get.owner(result.card);
 								if(owner){
 									owner.lose(result.card,ui.special);
@@ -3746,45 +3760,45 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					save:true,
 					skillTagFilter:function(player,tag,arg){
 						if(arg!="use") return false;
-						var old_sst_shengxi=[];
+						var deprecated_sst_shengxi=[];
 						var players=game.filterPlayer(function(current){
 							return current!=player;
 						});
 						switch(tag){
 							case "respondSha":{
 								for(var i=0;i<players.length;i++){
-									old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-										return card.hasGaintag("old_sst_shengxi")&&get.name(card)=="sha";
+									deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+										return card.hasGaintag("deprecated_sst_shengxi")&&get.name(card)=="sha";
 									}));
 								}
-								if(!old_sst_shengxi.length) return false;
+								if(!deprecated_sst_shengxi.length) return false;
 								break;
 							}
 							case "respondShan":{
 								for(var i=0;i<players.length;i++){
-									old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-										return card.hasGaintag("old_sst_shengxi")&&get.name(card)=="shan";
+									deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+										return card.hasGaintag("deprecated_sst_shengxi")&&get.name(card)=="shan";
 									}));
 								}
-								if(!old_sst_shengxi.length) return false;
+								if(!deprecated_sst_shengxi.length) return false;
 								break;
 							}
 							case "respondTao":{
 								for(var i=0;i<players.length;i++){
-									old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-										return card.hasGaintag("old_sst_shengxi")&&get.name(card)=="tao";
+									deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+										return card.hasGaintag("deprecated_sst_shengxi")&&get.name(card)=="tao";
 									}));
 								}
-								if(!old_sst_shengxi.length) return false;
+								if(!deprecated_sst_shengxi.length) return false;
 								break;
 							}
 							case "save":{
 								for(var i=0;i<players.length;i++){
-									old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-										return card.hasGaintag("old_sst_shengxi")&&get.tag(card,"save");
+									deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+										return card.hasGaintag("deprecated_sst_shengxi")&&get.tag(card,"save");
 									}));
 								}
-								if(!old_sst_shengxi.length) return false;
+								if(!deprecated_sst_shengxi.length) return false;
 								break;
 							}
 						}
@@ -3793,20 +3807,20 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						var event=_status.event;
 						if(event.type!="phase") return 4;
 						if(!player) return -1;
-						var old_sst_shengxi=[];
+						var deprecated_sst_shengxi=[];
 						var players=game.filterPlayer(function(current){
 							return current!=player;
 						});
 						for(var i=0;i<players.length;i++){
-							old_sst_shengxi=old_sst_shengxi.concat(players[i].getCards("h",function(card){
-								return card.hasGaintag("old_sst_shengxi");
+							deprecated_sst_shengxi=deprecated_sst_shengxi.concat(players[i].getCards("h",function(card){
+								return card.hasGaintag("deprecated_sst_shengxi");
 							}));
 						}
-						if(!old_sst_shengxi||!old_sst_shengxi.length) return -1;
+						if(!deprecated_sst_shengxi||!deprecated_sst_shengxi.length) return -1;
 						var order=0;
-						for(var i=0;i<old_sst_shengxi.length;i++){
-							if(player.getUseValue(old_sst_shengxi[i])>0){
-								var order2=get.order(old_sst_shengxi[i]);
+						for(var i=0;i<deprecated_sst_shengxi.length;i++){
+							if(player.getUseValue(deprecated_sst_shengxi[i])>0){
+								var order2=get.order(deprecated_sst_shengxi[i]);
 								if(order2>order) order=order2;
 							}
 						}
@@ -3822,7 +3836,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					value:-1
 				}
 			},
-			old_sst_xuelun:{
+			deprecated_sst_xuelun:{
 				trigger:{player:"die"},
 				logTarget:"source",
 				forced:true,
@@ -3842,12 +3856,12 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						//target.addSkillLog(skills[i]);
 					}
 					*/
-					trigger.source.addSkillLog("old_sst_shengxi");
-					trigger.source.addSkillLog("old_sst_xuelun");
+					trigger.source.addSkillLog("deprecated_sst_shengxi");
+					trigger.source.addSkillLog("deprecated_sst_xuelun");
 				}
 			},
 			//Ryu
-			old_sst_tandao:{
+			deprecated_sst_tandao:{
 				enable:"phaseUse",
 				usable:1,
 				chooseButton:{
@@ -3866,13 +3880,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 						return {
 							delay:false,
 							color:result.control,
-							content:lib.skill.old_sst_tandao.contentx
+							content:lib.skill.deprecated_sst_tandao.contentx
 						};
 					}
 				},
 				contentx:function(){
 					"step 0"
-					event.color=lib.skill.old_sst_tandao_backup.color;
+					event.color=lib.skill.deprecated_sst_tandao_backup.color;
 					player.popup(event.color);
 					game.log(player,"选择了","#y"+get.translation(event.color));
 					player.showHandcards(get.translation(player.name)+"的手牌（声明了"+get.translation(event.color)+"）");
@@ -3909,7 +3923,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 				}
 			},
 			//Geno
-			old_sst_fuyuan:{
+			deprecated_sst_fuyuan:{
 				enable:"phaseUse",
 				usable:1,
 				delay:false,
@@ -3947,8 +3961,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(result.targets&&result.targets.length){
 						player.line(result.targets,"green");
 						player.addExpose(0.2);
-						result.targets[0].addSkill("old_sst_fuyuan_effect");
-						result.targets[0].addMark("old_sst_fuyuan_effect",1,false);
+						result.targets[0].addSkill("deprecated_sst_fuyuan_effect");
+						result.targets[0].addMark("deprecated_sst_fuyuan_effect",1,false);
 					}
 					if(!event.goon) event.finish();
 					"step 5"
@@ -4001,7 +4015,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
-			old_sst_fuyuan_effect:{
+			deprecated_sst_fuyuan_effect:{
 				charlotte:true,
 				forced:true,
 				intro:{
@@ -4013,14 +4027,14 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					return event.card&&get.tag(event.card,"damage");
 				},
 				content:function(){
-					trigger.baseDamage+=player.countMark("old_sst_fuyuan_effect");
-					player.removeSkill("old_sst_fuyuan_effect");
+					trigger.baseDamage+=player.countMark("deprecated_sst_fuyuan_effect");
+					player.removeSkill("deprecated_sst_fuyuan_effect");
 				},
 				ai:{
 					damageBonus:true
 				}
 			},
-			old_sst_doujiang:{
+			deprecated_sst_doujiang:{
 				unique:true,
 				mark:true,
 				limited:true,
@@ -4052,7 +4066,7 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					if(event.num_draw&&event.num_discard) str+="并";
 					if(event.num_discard) str+="弃置"+get.cnNumber(event.num_discard)+"张牌";
 					str+="，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）";
-					player.chooseTarget(get.prompt("old_sst_doujiang"),str).set("ai",function(target){
+					player.chooseTarget(get.prompt("deprecated_sst_doujiang"),str).set("ai",function(target){
 						var att=get.sgnAttitude(_status.event.player,target);
 						var diff_hp=target.countCards("h",function(card){
 							return lib.filter.cardDiscardable(card,player);
@@ -4079,8 +4093,8 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
-						player.logSkill("old_sst_doujiang",event.target);
-						player.awakenSkill("old_sst_doujiang");
+						player.logSkill("deprecated_sst_doujiang",event.target);
+						player.awakenSkill("deprecated_sst_doujiang");
 						if(event.num_draw) event.target.draw(event.num_draw);
 						if(event.num_discard) event.target.chooseToDiscard("斗降：弃置"+get.cnNumber(event.num_discard)+"张牌",event.num_discard,true,"he");
 					}
@@ -4106,6 +4120,151 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 					expose:0.2
 				},
 				group:"sst_doujiang2"
+			},
+			//Professor Toad
+			deprecated_ska_juegu:{
+				trigger:{player:["useCardBegin","respondBegin"]},
+				filter:event=>event.skill=="deprecated_ska_juegu_sha"||event.skill=="deprecated_ska_juegu_shan",
+				logTarget:"targets",
+				forced:true,
+				content:()=>{
+					"step 0"
+					delete trigger.skill;
+					trigger.getParent().set("deprecated_ska_juegu",true);
+					event.card_top=trigger.cards[0];
+					player.showCards(event.card_top);
+					"step 1"
+					player.$throw(1);
+					game.log(player,"将一张牌置于牌堆顶");
+					player.lose(event.card_top,ui.cardPile,"insert");
+					"step 2"
+					event.card_bottom=get.bottomCards()[0];
+					game.cardsGotoOrdering(event.card_bottom);
+					player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌（牌堆底牌）");
+					"step 3"
+					if(ui.discardPile.childNodes.length&&get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
+						trigger.card.cards=[];
+						trigger.cards=[];
+						delete trigger.card.suit;
+						delete trigger.card.number;
+					}
+					else{
+						if(!ui.discardPile.childNodes.length){
+							player.chat("无牌可比较了吗");
+							game.log("但是弃牌堆里面已经没有牌了！");
+						}
+						player.addTempSkill("deprecated_ska_juegu_disable");
+						trigger.cancel();
+						trigger.getParent().goto(0);
+					}
+					"step 4"
+					event.can_damage=get.color(event.card_top)!=get.color(event.card_bottom);
+					player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(event.can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",target=>{
+						const player=_status.event.player;
+						if(get.value(_status.event.card_bottom)<=get.damageEffect(target,player,player)&&_status.event.can_damage) return get.damageEffect(target,player,player);
+						return get.sgnAttitude(player,target);
+					}).set("card_bottom",event.card_bottom).set("can_damage",event.can_damage);
+					"step 5"
+					if(result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.line(event.target,"green");
+						event.target.gain(event.card_bottom);
+						event.target.$gain2(event.card_bottom,true);
+					}
+					else{
+						event.finish();
+					}
+					"step 6"
+					if(event.can_damage){
+						player.chooseBool("掘古：是否对"+get.translation(event.target)+"造成1点伤害？").set("ai",()=>get.damageEffect(_status.event.getParent().target,_status.event.player,_status.event.player)>0);
+					}
+					else{
+						event.finish();
+					}
+					"step 7"
+					if(result.bool) event.target.damage(player,"nocard");
+				},
+				group:["deprecated_ska_juegu_sha","deprecated_ska_juegu_shan"],
+				subSkill:{
+					sha:{
+						ignoreMod:true,
+						enable:["chooseToUse","chooseToRespond"],
+						viewAs:{name:"sha",isCard:true},
+						filterCard:true,
+						filter:(event,player)=>!event.deprecated_ska_juegu&&(event.type!="phase"||!player.hasSkill("deprecated_ska_juegu_disable")),
+						viewAsFilter:player=>{
+							if(!player.countCards("he")) return false;
+						},
+						position:"he",
+						check:card=>{
+							if(ui.discardPile.childNodes.length&&get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
+							return 5-get.value(card);
+						},
+						ai:{
+							order:()=>get.order({name:"sha",isCard:true})+0.1,
+							skillTagFilter:player=>{
+								if(!player.countCards("he")) return false;
+							},
+							respondSha:true,
+							expose:0.2
+						}
+					},
+					shan:{
+						ignoreMod:true,
+						enable:["chooseToUse","chooseToRespond"],
+						viewAs:{name:"shan",isCard:true},
+						filterCard:true,
+						filter:(event,player)=>!event.deprecated_ska_juegu&&(event.type!="phase"||!player.hasSkill("deprecated_ska_juegu_disable")),
+						viewAsFilter:player=>{
+							if(!player.countCards("he")) return false;
+						},
+						check:card=>{
+							if(get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
+							return 5-get.value(card);
+						},
+						position:"he",
+						ai:{
+							order:()=>get.order({name:"shan",isCard:true})+0.1,
+							skillTagFilter:player=>{
+								if(!player.countCards("he")) return false;
+							},
+							respondShan:true,
+							expose:0.2
+						}
+					},
+					disable:{
+						trigger:{global:["useCardAfter","useSkillAfter","phaseAfter"]},
+						silent:true,
+						charlotte:true,
+						filter:event=>event.skill!="deprecated_ska_juegu_sha"&&event.skill!="deprecated_ska_juegu_shan",
+						content:()=>{
+							player.removeSkill("deprecated_ska_juegu_disable");
+						}
+					}
+				}
+			},
+			deprecated_ska_kuiwang:{
+				trigger:{player:"gainAfter"},
+				frequent:true,
+				filter:event=>event.getParent().name=="draw",
+				content:()=>{
+					"step 0"
+					player.gain(get.bottomCards(trigger.cards.length));
+					player.$draw(trigger.cards.length);
+					"step 1"
+					player.chooseCard("窥往：将"+get.cnNumber(trigger.cards.length)+"张牌置于牌堆底（后选择的在下）",trigger.cards.length,true);
+					"step 2"
+					if(result.cards&&result.cards.length){
+						player.$throw(result.cards.length);
+						game.log(player,"将",get.cnNumber(result.cards.length),"张牌置于牌堆底");
+						player.lose(result.cards,ui.cardPile);
+					}
+					else{
+						event.finish();
+					}
+					"step 3"
+					game.broadcastAll(ui.clear);
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -4285,45 +4444,45 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			reyicong_info:"锁定技，你计算与其他角色的距离时-1。若你的体力值不大于2，则其他角色计算与你的距离时+1。",
 			//SST
 			//Character
-			old_sst_samus:"旧萨姆斯",
-			old_sst_ken:"旧肯",
-			old_ymk_claude:"旧库罗德",
-			old_sst_donkey_kong:"旧森喜刚",
-			old_sst_dark_samus:"旧黑暗萨姆斯",
+			deprecated_sst_samus:"旧萨姆斯",
+			deprecated_sst_ken:"旧肯",
+			deprecated_ymk_claude:"旧库罗德",
+			deprecated_sst_donkey_kong:"旧森喜刚",
+			deprecated_sst_dark_samus:"旧黑暗萨姆斯",
 			ymk_577:"方块君",
-			old_sst_richter:"旧里希特",
-			old_sst_ryu:"旧隆",
-			old_sst_geno:"旧♡♪!?",
+			deprecated_sst_richter:"旧里希特",
+			deprecated_sst_ryu:"旧隆",
+			deprecated_sst_geno:"旧♡♪!?",
 			//Character ab.
-			old_sst_dark_samus_ab:"黑暗萨姆斯",
-			old_sst_geno_ab:"旧Geno",
+			deprecated_sst_dark_samus_ab:"黑暗萨姆斯",
+			deprecated_sst_geno_ab:"旧Geno",
 			//Identity mode skill
-			old_sst_juezhan:"绝战",
-			old_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
-			old_sst_zailu:"载录",
-			old_sst_zailu2:"载录",
-			old_sst_zailu3:"载录",
-			old_sst_zailu_info:"一名角色死亡后，你可以摸一张牌，然后选择一项：1. 令你本局游戏中摸牌阶段摸牌数+1；2. 使用基本牌或普通锦囊牌可以额外指定一个目标。",
-			old_sst_yanyang:"焰扬",
-			old_sst_yanyang2:"焰扬",
-			old_sst_yanyang_info:"你可以将至多两张牌当作【火攻】使用；你以此法使用的【火攻】造成伤害时，其基础伤害为其对应实体牌数。",
-			old_ymk_yunchou:"运筹",
-			old_ymk_yunchou2:"运筹",
-			old_ymk_yunchou_info:"弃牌阶段开始时，若你的武将牌上没有牌，你可以将至多X张牌（X为你已损失的体力值且至少为1）置于你的武将牌上。当你失去武将牌上的最后一张牌时，你可以回复一点体力或移动场上的一张牌。",
-			old_ymk_guimou:"鬼谋",
-			old_ymk_guimou_backup:"鬼谋",
-			old_ymk_guimou3:"鬼谋",
-			old_ymk_guimou4:"鬼谋",
-			old_ymk_guimou5:"鬼谋",
-			old_ymk_guimou_info:"当你需要使用或打出一张基本牌或普通锦囊牌时，你可以将武将牌上的一张牌置于牌堆顶，视为使用或打出这张牌。",
-			old_sst_baochui:"爆锤",
-			old_sst_baochui2:"爆锤",
-			old_sst_baochui3:"爆锤",
-			old_sst_baochui_info:"弃牌阶段，你可以将你弃置的牌置于你的武将牌上。当你需要使用【杀】时，你可以将你武将牌上的所有牌视为伤害为X的【杀】使用。（X为此杀对应的实体牌数量且至多为3）",
-			old_sst_shunxing:"瞬形",
-			old_sst_shunxing1:"瞬形·摸牌",
-			old_sst_shunxing2:"瞬形·出牌",
-			old_sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得一名其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。",
+			deprecated_sst_juezhan:"绝战",
+			deprecated_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
+			deprecated_sst_zailu:"载录",
+			deprecated_sst_zailu2:"载录",
+			deprecated_sst_zailu3:"载录",
+			deprecated_sst_zailu_info:"一名角色死亡后，你可以摸一张牌，然后选择一项：1. 令你本局游戏中摸牌阶段摸牌数+1；2. 使用基本牌或普通锦囊牌可以额外指定一个目标。",
+			deprecated_sst_yanyang:"焰扬",
+			deprecated_sst_yanyang2:"焰扬",
+			deprecated_sst_yanyang_info:"你可以将至多两张牌当作【火攻】使用；你以此法使用的【火攻】造成伤害时，其基础伤害为其对应实体牌数。",
+			deprecated_ymk_yunchou:"运筹",
+			deprecated_ymk_yunchou2:"运筹",
+			deprecated_ymk_yunchou_info:"弃牌阶段开始时，若你的武将牌上没有牌，你可以将至多X张牌（X为你已损失的体力值且至少为1）置于你的武将牌上。当你失去武将牌上的最后一张牌时，你可以回复一点体力或移动场上的一张牌。",
+			deprecated_ymk_guimou:"鬼谋",
+			deprecated_ymk_guimou_backup:"鬼谋",
+			deprecated_ymk_guimou3:"鬼谋",
+			deprecated_ymk_guimou4:"鬼谋",
+			deprecated_ymk_guimou5:"鬼谋",
+			deprecated_ymk_guimou_info:"当你需要使用或打出一张基本牌或普通锦囊牌时，你可以将武将牌上的一张牌置于牌堆顶，视为使用或打出这张牌。",
+			deprecated_sst_baochui:"爆锤",
+			deprecated_sst_baochui2:"爆锤",
+			deprecated_sst_baochui3:"爆锤",
+			deprecated_sst_baochui_info:"弃牌阶段，你可以将你弃置的牌置于你的武将牌上。当你需要使用【杀】时，你可以将你武将牌上的所有牌视为伤害为X的【杀】使用。（X为此杀对应的实体牌数量且至多为3）",
+			deprecated_sst_shunxing:"瞬形",
+			deprecated_sst_shunxing1:"瞬形·摸牌",
+			deprecated_sst_shunxing2:"瞬形·出牌",
+			deprecated_sst_shunxing_info:"你可以跳过你的一个摸牌阶段，然后获得一名其他角色区域内的一张牌；你可以跳过你的一个出牌阶段，然后重铸任意张红色手牌。",
 			ymk_jiagou:"架构",
 			ymk_jiagou2:"架构",
 			ymk_jiagou3:"架构",
@@ -4331,33 +4490,40 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			ymk_jicai:"积材",
 			ymk_jicai2:"积材",
 			ymk_jicai_info:"锁定技，你跳过判定阶段，改为执行一个弃牌阶段；你跳过不以此法执行的弃牌阶段，改为执行一个摸牌阶段。",
-			old_sst_shengxi:"圣袭",
-			old_sst_shengxi1:"圣袭",
-			old_sst_shengxi2:"圣袭",
-			old_sst_shengxi2_backup:"圣袭",
-			old_sst_shengxi_info:"你使用牌指定目标时，或你成为牌的目标时，使用牌的角色可以明置任意名目标角色一张手牌；一名角色可以使用除其以外角色以此法明置的手牌。",
-			old_sst_xuelun:"血轮",
-			old_sst_xuelun_info:"锁定技，你死亡后，杀死你的角色获得〖圣袭〗〖血轮〗。",
-			old_sst_tandao:"探道",
-			old_sst_tandao_backup:"探道",
-			old_sst_tandao_info:"出牌阶段限一次，你可以选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌。（X为你本回合使用的牌类别数量）",
-			old_sst_fuyuan:"复愿",
-			old_sst_fuyuan_effect:"复愿",
-			old_sst_fuyuan_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1。若两张牌点数相同，你可以令一名角色一个限定技视为未发动过。",
-			old_sst_doujiang:"斗降",
-			old_sst_doujiang_info:"限定技，一名角色的结束阶段，你可以令一名角色摸X张牌并弃置Y张牌，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量）"
+			deprecated_sst_shengxi:"圣袭",
+			deprecated_sst_shengxi1:"圣袭",
+			deprecated_sst_shengxi2:"圣袭",
+			deprecated_sst_shengxi2_backup:"圣袭",
+			deprecated_sst_shengxi_info:"你使用牌指定目标时，或你成为牌的目标时，使用牌的角色可以明置任意名目标角色一张手牌；一名角色可以使用除其以外角色以此法明置的手牌。",
+			deprecated_sst_xuelun:"血轮",
+			deprecated_sst_xuelun_info:"锁定技，你死亡后，杀死你的角色获得〖圣袭〗〖血轮〗。",
+			deprecated_sst_tandao:"探道",
+			deprecated_sst_tandao_backup:"探道",
+			deprecated_sst_tandao_info:"出牌阶段限一次，你可以选择一种颜色，展示手牌并弃置所有此颜色的牌，然后摸X张牌。（X为你本回合使用的牌类别数量）",
+			deprecated_sst_fuyuan:"复愿",
+			deprecated_sst_fuyuan_effect:"复愿",
+			deprecated_sst_fuyuan_info:"出牌阶段限一次，你可以展示牌堆顶一张牌，然后你可以打出一张牌，令一名角色使用下一张带有「伤害」标签的牌伤害值基数+1。若两张牌点数相同，你可以令一名角色一个限定技视为未发动过。",
+			deprecated_sst_doujiang:"斗降",
+			deprecated_sst_doujiang_info:"限定技，一名角色的结束阶段，你可以令一名角色摸X张牌并弃置Y张牌，然后若其手牌数与其体力值或体力上限相等，你观看牌堆顶一张牌且可以使用之（其应变效果直接生效）。（X/Y为你本回合获得/失去牌数量）",
+			deprecated_ska_juegu:"掘古",
+			deprecated_ska_juegu_sha:"掘古·杀",
+			deprecated_ska_juegu_shan:"掘古·闪",
+			deprecated_ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】/【闪】；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害。",
+			deprecated_ska_kuiwang:"窥往",
+			deprecated_ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。"
 			//Sort
 		},
 		translateEnglish:{
-			old_sst_samus:"Old Samus",
-			old_sst_ken:"Old Ken",
-			old_ymk_claude:"Old Claude",
-			old_sst_donkey_kong:"Old Donkey Kong",
-			old_sst_dark_samus:"Old Dark Samus",
+			deprecated_sst_samus:"Deprecated Samus",
+			deprecated_sst_ken:"Deprecated Ken",
+			deprecated_ymk_claude:"Deprecated Claude",
+			deprecated_sst_donkey_kong:"Deprecated Donkey Kong",
+			deprecated_sst_dark_samus:"Deprecated Dark Samus",
 			ymk_577:"577",
-			old_sst_richter:"Old Richter",
-			old_sst_ryu:"Old Ryu",
-			old_sst_geno:"Old ♡♪!?"
+			deprecated_sst_richter:"Deprecated Richter",
+			deprecated_sst_ryu:"Deprecated Ryu",
+			deprecated_sst_geno:"Deprecated ♡♪!?",
+			deprecated_ska_professor_toad:"Deprecated Professor Toad"
 		},
 		perfectPair:{
 			//LTK
@@ -4376,12 +4542,13 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			zhangliao:["zangba"],
 			ganning:["lingtong","xf_sufei"],
 			//SST
-            old_sst_ken:["sst_ken","sst_ryu","old_sst_ryu"],
-			old_ymk_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
-			old_sst_donkey_kong:["sst_donkey_kong","sst_mario"],
-			old_sst_richter:["sst_richter","sst_simon"],
-			old_sst_ryu:["sst_ryu","sst_ken"],
-			old_sst_geno:["sst_geno","sst_mario","sst_bowser","sst_peach"]
+			deprecated_sst_ken:["sst_ken","sst_ryu","deprecated_sst_ryu"],
+			deprecated_ymk_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
+			deprecated_sst_donkey_kong:["sst_donkey_kong","sst_mario"],
+			deprecated_sst_richter:["sst_richter","sst_simon"],
+			deprecated_sst_ryu:["sst_ryu","sst_ken"],
+			deprecated_sst_geno:["sst_geno","sst_mario","sst_bowser","sst_peach"],
+			deprecated_ska_professor_toad:["ska_professor_toad","sst_mario","ska_olivia"]
 		},
 	};
 	return sst_old;

@@ -276,8 +276,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				终于有武将图片了。",
 			sst_peach:"武将作者：mario not mary<br>\
-				插图作者：ゲB<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/50055037")+"<br>\
+				插图作者：ゲB<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/50055037")+"<br>\
 				<hr>\
 				0005. 桃花公主/Peach/ピーチ<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -411,8 +411,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				“变幻自在”",
 			sst_kirby:"武将作者：mario not mary<br>\
-				插图作者：kotori<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/26818738")+"<br>\
+				插图作者：kotori<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/26818738")+"<br>\
 				<hr>\
 				0323. 卡比/Kirby/カービィ<br>\
 				系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -472,8 +472,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				大家都爱的秘书西施惠！",
 			sst_daisy:"武将作者：mario not mary<br>\
-				插图作者：高橋うもり<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/73249081")+"<br>\
+				插图作者：高橋うもり<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/73249081")+"<br>\
 				<hr>\
 				0006. 菊花公主/Daisy/デイジー<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -483,8 +483,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				嘿！我是黛西！",
 			sst_meta_knight:"武将作者：mario not mary<br>\
-				插图作者：糸谷さいれん<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/60069126")+"<br>\
+				插图作者：糸谷さいれん<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/60069126")+"<br>\
 				<hr>\
 				0324. 魅塔骑士/Meta Knight/メタナイト<br>\
 				系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -815,8 +815,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				自损八百，可伤敌一千——某张姓女子。",
 			sst_king_dedede:"武将作者：mario not mary<br>\
-				插图作者：太春/バルテー<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/42226957")+"<br>\
+				插图作者：太春/バルテー<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/42226957")+"<br>\
 				<hr>\
 				0325. 帝帝帝大王/King Dedede/デデデ大王<br>\
 				系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>\
@@ -1016,8 +1016,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				所以拳皇XV终于憋出来了……",
 			sst_pauline:"武将作者：mario not mary<br>\
-				插图作者：맛감쟈<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/84875359")+"<br>\
+				插图作者：맛감쟈<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/84875359")+"<br>\
 				<hr>\
 				0079. 宝琳/Pauline/ポリーン<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\

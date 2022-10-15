@@ -71,20 +71,20 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				上次柚子的武将就被老摸吵着要删，这次希望不要太IMBA……老摸的西施慧出来了，柚子的武将至少还是被借鉴了一点的。",
 			ska_bobby:"武将作者：Show-K<br>\
-				插图作者：海鮮炒め<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
+				插图作者：海鮮炒め<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/84022575")+"<br>\
 				<hr>\
 				S003. 炸弹彬/Bobby/ボム平<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
 				首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 				炸弹兵，通常被奥莉维亚称为“炸弹彬”，也曾被错误地称为“Bhomas”和“Bomber”，是《纸片马力欧 折纸国王》中马力欧的伙伴。作为一个没有保险丝、失忆的炸弹兵，他加入了马力欧和奥莉维亚的探险，努力回忆起他的记忆。在他们的冒险过程中，他将马力欧和奥莉维亚分别称为“大哥”和“女士”。<br>\
-				——翻译自《超级马力欧维基》<br>"+
-			"——"+get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
+				——翻译自《超级马力欧维基》<br>\
+				——"+get.formatUrl("https://www.mariowiki.com/Bob-omb_(Paper_Mario%3A_The_Origami_King)")+"<br>\
 				<hr>\
 				“我？哦，我是炸弹兵。”",
 			ska_olivia:"武将作者：Show-K<br>\
-				插图作者：蛇のこ<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
+				插图作者：蛇のこ<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/94074877")+"<br>\
 				<hr>\
 				1426. 奥莉维亚/Olivia/オリビア<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -118,8 +118,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
 				首次登场：<ruby>纸片马力欧 折纸国王<rp>（</rp><rt>Paper Mario: The Origami King</rt><rp>）</rp></ruby><br>\
 				考古学家奇诺比奥是第一次出现在《纸片马里奥 折纸国王》中的奇诺比奥。作为古代历史学院教授兼考古学家，他与马力欧和奥莉维亚联手，帮助他们破坏黄色神祇胶带。其棕色探险家装束和黄色斑点蘑菇头（大部分隐藏在他的髓质头盔中）以及他总是随身携带的铁锹和记事本，很容易将他与其他奇诺比奥区分开来。<br>\
-				——翻译自《超级马力欧维基》<br>"+
-			"——"+get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
+				——翻译自《超级马力欧维基》<br>\
+				——"+get.formatUrl("https://www.mariowiki.com/Professor_Toad")+"<br>\
 				<hr>\
 				大概是现代纸片马力欧中最有特色的奇诺比奥了吧……",
 			mnm_edelgard:"武将作者：mario not mary<br>\
@@ -153,8 +153,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>\
 				MNM曾经提过一个“面杀”版本技能，最近无名杀能玩音游了，于是我就借鉴了这种思路（不就是小游戏武将吗）。",
 			ska_king_olly:"武将作者：Show-K<br>\
-				插图作者：チョコ<br>"+
-			"——"+get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
+				插图作者：チョコ<br>\
+				——"+get.formatUrl("https://www.pixiv.net/artworks/91848135")+"<br>\
 				<hr>\
 				1427. 奥利王/King Olly/オリー王<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
@@ -954,150 +954,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			//Professor Toad
-			ska_juegu:{
-				trigger:{player:["useCardBegin","respondBegin"]},
-				filter:event=>event.skill=="ska_juegu_sha"||event.skill=="ska_juegu_shan",
-				logTarget:"targets",
-				forced:true,
-				content:()=>{
-					"step 0"
-					delete trigger.skill;
-					trigger.getParent().set("ska_juegu",true);
-					event.card_top=trigger.cards[0];
-					player.showCards(event.card_top);
-					"step 1"
-					player.$throw(1);
-					game.log(player,"将一张牌置于牌堆顶");
-					player.lose(event.card_top,ui.cardPile,"insert");
-					"step 2"
-					event.card_bottom=get.bottomCards()[0];
-					game.cardsGotoOrdering(event.card_bottom);
-					player.showCards(event.card_bottom,get.translation(player.name)+"展示的牌（牌堆底牌）");
-					"step 3"
-					if(ui.discardPile.childNodes.length&&get.suit(event.card_top)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])){
-						trigger.card.cards=[];
-						trigger.cards=[];
-						delete trigger.card.suit;
-						delete trigger.card.number;
-					}
-					else{
-						if(!ui.discardPile.childNodes.length){
-							player.chat("无牌可比较了吗");
-							game.log("但是弃牌堆里面已经没有牌了！");
-						}
-						player.addTempSkill("ska_juegu_disable");
-						trigger.cancel();
-						trigger.getParent().goto(0);
-					}
-					"step 4"
-					event.can_damage=get.color(event.card_top)!=get.color(event.card_bottom);
-					player.chooseTarget("掘古：你可以令一名角色获得"+get.translation(event.card_bottom)+(event.can_damage?"，然后你可以对其造成1点伤害":"")).set("ai",target=>{
-						const player=_status.event.player;
-						if(get.value(_status.event.card_bottom)<=get.damageEffect(target,player,player)&&_status.event.can_damage) return get.damageEffect(target,player,player);
-						return get.sgnAttitude(player,target);
-					}).set("card_bottom",event.card_bottom).set("can_damage",event.can_damage);
-					"step 5"
-					if(result.targets&&result.targets.length){
-						event.target=result.targets[0];
-						player.line(event.target,"green");
-						event.target.gain(event.card_bottom);
-						event.target.$gain2(event.card_bottom,true);
-					}
-					else{
-						event.finish();
-					}
-					"step 6"
-					if(event.can_damage){
-						player.chooseBool("掘古：是否对"+get.translation(event.target)+"造成1点伤害？").set("ai",()=>get.damageEffect(_status.event.getParent().target,_status.event.player,_status.event.player)>0);
-					}
-					else{
-						event.finish();
-					}
-					"step 7"
-					if(result.bool) event.target.damage(player,"nocard");
-				},
-				group:["ska_juegu_sha","ska_juegu_shan"],
-				subSkill:{
-					sha:{
-						ignoreMod:true,
-						enable:["chooseToUse","chooseToRespond"],
-						viewAs:{name:"sha",isCard:true},
-						filterCard:true,
-						filter:(event,player)=>!event.ska_juegu&&(event.type!="phase"||!player.hasSkill("ska_juegu_disable")),
-						viewAsFilter:player=>{
-							if(!player.countCards("he")) return false;
-						},
-						position:"he",
-						check:card=>{
-							if(ui.discardPile.childNodes.length&&get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
-							return 5-get.value(card);
-						},
-						ai:{
-							order:()=>get.order({name:"sha",isCard:true})+0.1,
-							skillTagFilter:player=>{
-								if(!player.countCards("he")) return false;
-							},
-							respondSha:true,
-							expose:0.2
-						}
-					},
-					shan:{
-						ignoreMod:true,
-						enable:["chooseToUse","chooseToRespond"],
-						viewAs:{name:"shan",isCard:true},
-						filterCard:true,
-						filter:(event,player)=>!event.ska_juegu&&(event.type!="phase"||!player.hasSkill("ska_juegu_disable")),
-						viewAsFilter:player=>{
-							if(!player.countCards("he")) return false;
-						},
-						check:card=>{
-							if(get.suit(card)==get.suit(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])) return 8-get.value(card);
-							return 5-get.value(card);
-						},
-						position:"he",
-						ai:{
-							order:()=>get.order({name:"shan",isCard:true})+0.1,
-							skillTagFilter:player=>{
-								if(!player.countCards("he")) return false;
-							},
-							respondShan:true,
-							expose:0.2
-						}
-					},
-					disable:{
-						trigger:{global:["useCardAfter","useSkillAfter","phaseAfter"]},
-						silent:true,
-						charlotte:true,
-						filter:event=>event.skill!="ska_juegu_sha"&&event.skill!="ska_juegu_shan",
-						content:()=>{
-							player.removeSkill("ska_juegu_disable");
-						}
-					}
-				}
-			},
-			ska_kuiwang:{
-				trigger:{player:"gainAfter"},
-				frequent:true,
-				filter:event=>event.getParent().name=="draw",
-				content:()=>{
-					"step 0"
-					player.gain(get.bottomCards(trigger.cards.length));
-					player.$draw(trigger.cards.length);
-					"step 1"
-					player.chooseCard("窥往：将"+get.cnNumber(trigger.cards.length)+"张牌置于牌堆底（后选择的在下）",trigger.cards.length,true);
-					"step 2"
-					if(result.cards&&result.cards.length){
-						player.$throw(result.cards.length);
-						game.log(player,"将",get.cnNumber(result.cards.length),"张牌置于牌堆底");
-						player.lose(result.cards,ui.cardPile);
-					}
-					else{
-						event.finish();
-					}
-					"step 3"
-					game.broadcastAll(ui.clear);
-				}
-			},
 			//Edelgard
 			mnm_tianjiu:{
 				forced:true,
@@ -2443,10 +2299,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
 			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
-			ska_olivia:["sst_mario","ska_bobby","ska_professor_toad","ska_king_olly"],
+			ska_bobby:["sst_mario"],
+			ska_olivia:["sst_mario","ska_bobby"],
 			ska_super_xiaojie:["sst_mario","sst_luigi"],
 			ska_show_k:["sst_mario"],
-			ska_king_olly:["sst_mario"],
+			ska_professor_toad:["sst_mario","ska_olivia"],
+			ska_king_olly:["sst_mario","ska_olivia"],
 			ska_koopa_troopa:["sst_mario"],
 			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
 			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
