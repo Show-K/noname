@@ -49,7 +49,7 @@ window.noname_update={
 		'character/sst_standard.js',
 		'character/sst_extra.js',
 		'character/sst_sp.js',
-		'character/sst_old.js',
+		'character/sst_legacy.js',
 		'extension/十周年UI/animation.css',
 		'extension/十周年UI/animation.js',
 		'extension/十周年UI/card.css',

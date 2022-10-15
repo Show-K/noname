@@ -1,10 +1,10 @@
 "use strict";
-game.import("character",function(lib,game,ui,get,ai,_status){
-	var sst_old={
-		name:"sst_old",
+game.import("character",(lib,game,ui,get,ai,_status)=>{
+	return {
+		name:"sst_legacy",
 		connect:true,
 		characterSort:{
-			sst_old:{
+			sst_legacy:{
 				sst_64:["deprecated_sst_samus","deprecated_sst_donkey_kong"],
 				sst_melee:[],
 				sst_brawl:[],
@@ -4453,9 +4453,10 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			deprecated_sst_richter:"旧里希特",
 			deprecated_sst_ryu:"旧隆",
 			deprecated_sst_geno:"旧♡♪!?",
+			deprecated_ska_professor_toad:"旧考古学家奇诺比奥",
 			//Character ab.
-			deprecated_sst_dark_samus_ab:"黑暗萨姆斯",
-			deprecated_sst_geno_ab:"旧Geno",
+			deprecated_sst_geno_ab:"Geno",
+			deprecated_ska_professor_toad_ab:"奇诺比奥",
 			//Identity mode skill
 			deprecated_sst_juezhan:"绝战",
 			deprecated_sst_juezhan_info:"锁定技，你于出牌阶段可以额外使用X张【杀】，你的攻击距离+X。（X为你已损失的体力值）",
@@ -4549,7 +4550,6 @@ game.import("character",function(lib,game,ui,get,ai,_status){
 			deprecated_sst_ryu:["sst_ryu","sst_ken"],
 			deprecated_sst_geno:["sst_geno","sst_mario","sst_bowser","sst_peach"],
 			deprecated_ska_professor_toad:["ska_professor_toad","sst_mario","ska_olivia"]
-		},
+		}
 	};
-	return sst_old;
 });

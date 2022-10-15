@@ -1403,7 +1403,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						"gongsunzan","xf_yiji"
 					];
 					player.chooseButton([get.prompt2("mnm_huaijiu"),[list,"character"]]).set("ai",button=>{
-						const skills=lib.characterPack.sst_old[button.link][3];
+						const skills=lib.characterPack.sst_legacy[button.link][3];
 						if(!Array.isArray(skills)) return 0;
 						return skills.map(i=>(get.skillRank(i,"in")+get.skillRank(i,"out"))/2).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/skills.length+Math.random();
 					});
@@ -1413,7 +1413,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						player.flashAvatar("mnm_huaijiu",result.links[0]);
 						player.popup(result.links[0],"thunder");
 						game.log(player,"选择了","#b"+get.translation(result.links[0]));
-						const skills=lib.characterPack.sst_old[result.links[0]][3];
+						const skills=lib.characterPack.sst_legacy[result.links[0]][3];
 						if(Array.isArray(skills)){
 							skills.forEach(i=>{
 								player.addTempSkill(i,{player:"phaseBegin"});

@@ -17,7 +17,7 @@ window.config={
 	zhinang_tricks:[],
 	connect_zhinang_tricks:[],
 	all:{
-		sgscharacters:['sst_standard','sst_extra','sst_sp','sst_old'],
+		sgscharacters:['sst_standard','sst_extra','sst_sp','sst_legacy'],
 		sgscards:['sst_standard','sst_extra','sst_sp','sst_land','standard','extra','sp','guozhan','zhulu','yingbian','yongjian'],
 		sgsmodes:['super_smash_tabletop','identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],
 		stockmode:['super_smash_tabletop','identity','th_mougong','guozhan','versus','doudizhu','connect','huanhuazhizhan','brawl'],

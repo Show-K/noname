@@ -3,7 +3,7 @@ window.noname_package={
 		sst_standard:'大乱桌斗',
 		sst_extra:'乱斗EX',
 		sst_sp:'乱斗SP',
-		sst_old:'乱斗怀旧'
+		sst_legacy:'乱斗LE'
 	},
 	card:{
 		sst_standard:'大乱桌斗',

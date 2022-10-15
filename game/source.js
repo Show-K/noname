@@ -17,7 +17,7 @@ window.noname_source_list=[
 	'character/sst_standard.js',
 	'character/sst_extra.js',
 	'character/sst_sp.js',
-	'character/sst_old.js',
+	'character/sst_legacy.js',
 	'game/asset.js',
 	'game/codemirror.js',
 	'game/config.js',
