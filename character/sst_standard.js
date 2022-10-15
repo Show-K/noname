@@ -5404,13 +5404,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							return true;
 						},
 						ai1:card=>{
-							let needsToDiscard=player.needsToDiscard();
-							if(ui.selected.cards.length){
-								ui.selected.cards.forEach(i=>{
-									if(get.position(i)=="h"&&game.checkMod(i,player,false,"ignoredHandcard",player)!=true) needsToDiscard--;
-								});
-							}
-							if(needsToDiscard>0&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) return 11-get.useful(card);
+							const player=_status.event.player;
+							if(player.needsToDiscard()-ui.selected.cards.filter(i=>get.position(i)=="h"&&game.checkMod(i,player,false,"ignoredHandcard",player)!=true).length>0&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) return 11-get.useful(card);
 							return 3-get.useful(card);
 						},
 						ai2:target=>{
