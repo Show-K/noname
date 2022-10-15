@@ -399,6 +399,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			ska_jixing:{
+				delay:false,
 				enable:"phaseUse",
 				usable:1,
 				filterTarget:(card,player,target)=>player.inRange(target),
@@ -431,9 +432,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:event=>event.result.color=="red",
 				content:()=>{
 					"step 0"
-					player.chooseTarget("洋寻：令一名角色获得弃牌堆顶的一张牌，然后若其不是你，其交给你一张牌",true).set("ai",target=>{
-						if(!target.countCards("he")) return get.sgnAttitude(_status.event.player,target);
-						return get.attitude(_status.event.player,target);
+					player.chooseTarget("洋寻：令一名角色获得弃牌堆顶的一张牌，然后若其不为你，其〖赠予〗你一张牌",true).set("ai",target=>{
+						if(!ui.discardPile.childNodes.length) return 0;
+						if(target!=_status.event.player&&!target.countCards("he")) return 0;
+						return get.sgnAttitude(_status.event.player,target)*get.value(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1]);
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
@@ -452,9 +454,38 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						event.finish();
 					}
 					"step 2"
-					if(target!=player) target.chooseCard("洋寻：交给"+get.translation(player)+"一张牌","he",true);
+					if(target!=player){
+						target.chooseCard("洋寻：【赠予】"+get.translation(player)+"一张牌","he",true).set("ai",card=>{
+							const gifts=(player,target)=>{
+								if(target.hasSkillTag("refuseGifts")) return 0;
+								if(get.type(card,false)=="equip") return get.effect(target,card,target,target);
+								if(card.name=="du") return player.hp>target.hp?-1:0;
+								if(target.hasSkillTag("nogain")) return 0;
+								return Math.max(1,get.value(card,player)-get.value(card,target));
+							};
+							const player=_status.event.player;
+							const target=_status.event.getParent().player;
+							let att=get.attitude(player,target);
+							if(att<0){
+								att=-Math.sqrt(-att);
+							}
+							else{
+								att=Math.sqrt(att);
+							}
+							return att*gifts(player,target);
+						});
+					}
+					else{
+						event.finish();
+					}
 					"step 3"
-					if(result.cards&&result.cards.length) target.give(result.cards,player);
+					if(result.cards&&result.cards.length){
+						const next=game.createEvent("_yongjian_zengyu");
+						next.player=target;
+						next.target=player;
+						next.cards=result.cards;
+						next.setContent(lib.skill._yongjian_zengyu.content);
+					}
 				}
 			},
 			ska_wangshi:{
@@ -582,10 +613,32 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.updateRenku();
 					game.cardsGotoOrdering(event.card).set("fromRenku",true);
 					player.showCards(event.card);
-					target.chooseCard("he","折赋：交给"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card),card=>lib.filter.canBeGained(card,_status.event.getParent().player,_status.event.player)).set("ai",card=>_status.event.player.getUseValue(_status.event.getParent().card)-get.value(card));
+					target.chooseCard("he","折赋：【赠予】"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card)).set("ai",card=>{
+						const gifts=(player,target)=>{
+							if(target.hasSkillTag("refuseGifts")) return 0;
+							if(get.type(card,false)=="equip") return get.effect(target,card,target,target);
+							if(card.name=="du") return player.hp>target.hp?-1:0;
+							if(target.hasSkillTag("nogain")) return 0;
+							return Math.max(1,get.value(card,player)-get.value(card,target));
+						};
+						const player=_status.event.player;
+						const target=_status.event.getParent().player;
+						let att=get.attitude(player,target);
+						if(att<0){
+							att=-Math.sqrt(-att);
+						}
+						else{
+							att=Math.sqrt(att);
+						}
+						return player.getUseValue(_status.event.getParent().card)-att*gifts(player,target);
+					});
 					"step 1"
 					if(result.cards&&result.cards.length){
-						target.give(result.cards,player);
+						const next=game.createEvent("_yongjian_zengyu");
+						next.player=target;
+						next.target=player;
+						next.cards=result.cards;
+						next.setContent(lib.skill._yongjian_zengyu.content);
 					}
 					else{
 						target.gain(event.card,"gain2");
@@ -954,6 +1007,109 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			//Professor Toad
+			ska_juegu:{
+				direct:true,
+				trigger:{player:"phaseUseEnd"},
+				filter:(event,player)=>{
+					let num=0;
+					player.getHistory("gain",evt=>{
+						const phaseDraw=evt.getParent(2);
+						if(!phaseDraw||phaseDraw.name!="phaseDraw") num+=evt.cards.length;
+					});
+					if(num<player.getHp()) return false;
+					return player.countCards("he");
+				},
+				content:()=>{
+					"step 0"
+					player.chooseCardTarget({
+						position:"he",
+						filterTarget:lib.skill._yongjian_zengyu.filterTarget,
+						ai1:card=>{
+							const player=_status.event.player;
+							const gifts=lib.skill._yongjian_zengyu.check(card);
+							if(player.needsToDiscard()&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) return 9-get.useful(card)+gifts;
+							return 5-get.useful(card)+gifts;
+						},
+						ai2:target=>{
+							const player=_status.event.player;
+							let att=get.attitude(player,target);
+							if(att<0){
+								att=-Math.sqrt(-att);
+							}
+							else{
+								att=Math.sqrt(att);
+							}
+							return att*lib.skill._yongjian_zengyu.ai.result.target(player,target)+get.damageEffect(target,player,player);
+						},
+						prompt:get.prompt("ska_juegu"),
+						prompt2:get.skillInfoTranslation("ska_juegu")
+					});
+					"step 1"
+					if(result.cards&&result.cards.length&&result.targets&&result.targets.length){
+						event.target=result.targets[0];
+						player.logSkill("ska_juegu",event.target);
+						const next=game.createEvent("_yongjian_zengyu");
+						next.player=player;
+						next.target=event.target;
+						next.cards=result.cards;
+						next.setContent(lib.skill._yongjian_zengyu.content);
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.chooseBool("掘古：是否对"+get.translation(target)+"造成1点伤害？").set("ai",()=>get.damageEffect(_status.event.getParent().target,_status.event.player,_status.event.player)>0);
+					"step 3"
+					if(result.bool) target.damage(player,"nocard");
+					"step 4"
+					player.addExpose(0.1);
+				},
+				ai:{
+					damage:true
+				}
+			},
+			ska_kuiwang:{
+				delay:false,
+				hiddenCard:(player,name)=>name!="wuxie"&&player.countCards("he"),
+				enable:["chooseToUse","chooseToRespond"],
+				filter:(event,player)=>!event.ska_kuiwang&&!event.filterCard({name:"wuxie"},player,event)&&player.countCards("he"),
+				filterCard:true,
+				position:"he",
+				discard:false,
+				loseTo:"cardPile",
+				insert:true,
+				prepare:(cards,player)=>{
+					const hs=[],nhs=[];
+					cards.forEach(card=>{
+						if(get.position(card)=="h"){
+							hs.push(card);
+						}
+						else{
+							nhs.push(card);
+						}
+					});
+					if(hs.length){
+						player.$throw(hs.length);
+						game.log(player,"将"+get.cnNumber(hs.length)+"张牌置于牌堆顶");
+					}
+					if(nhs.length){
+						player.$throw(nhs);
+						game.log(player,"将",nhs,"置于牌堆顶");
+					}
+				},
+				check:card=>5-get.value(card),
+				content:()=>{
+					const evt=event.getParent(2);
+					evt.set("ska_kuiwang",true);
+					evt.goto(0);
+					player.gain(get.bottomCards(),"gain2");
+				},
+				ai:{
+					result:{
+						player:1
+					}
+				}
+			},
 			//Edelgard
 			mnm_tianjiu:{
 				forced:true,
@@ -2152,7 +2308,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_jixing:"激行",
 			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色并判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_yangxun:"洋寻",
-			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶的一张牌，然后若其不是你，其交给你一张牌。",
+			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶的一张牌，然后若其不为你，其〖赠予〗你一张牌。",
 			ska_wangshi:"惘事",
 			ska_wangshi_info:"使命技。你区域内的♠牌和♠判定牌均视为♦。<br>\
 				成功：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
@@ -2161,7 +2317,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi_info:"一名角色受到伤害后，你可以判定并将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
-			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得亮出牌；2. 交给你一张牌，然后使用亮出牌（若不能使用则置入弃牌堆）。",
+			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得亮出牌；2. 〖赠予〗你一张牌，然后使用亮出牌（若不能使用则置入弃牌堆）。",
 			ska_kezhi:"恪志",
 			ska_kezhi_info:"一名角色使用或打出牌响应你使用的牌时，你可以失去1点体力并将一张牌当作被响应牌使用。若以此法使用的牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_jiyan:"籍验",
@@ -2189,11 +2345,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_mengjin:"盟进",
 			ska_mengjin_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌（X、Y为各自手牌数的一半且向上取整）。你以此法获得的牌无使用距离和次数限制直到回合结束。",
 			ska_juegu:"掘古",
-			ska_juegu_sha:"掘古·杀",
-			ska_juegu_shan:"掘古·闪",
-			ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】/【闪】；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害。",
+			ska_juegu_info:"出牌阶段结束时，若你本回合内不因摸牌阶段的额定摸牌而获得的牌数不小于体力值，你可以〖赠予〗一名其他角色一张牌，然后你可以对其造成1点伤害。",
 			ska_kuiwang:"窥往",
-			ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。",
+			ska_kuiwang_info:"当你需要使用或打出牌（【无懈可击】除外）时，你可以将一张牌置于牌堆顶并获得牌堆底一张牌。",
 			mnm_tianjiu:"天鹫",
 			mnm_tianjiu_info:"锁定技，出牌阶段开始时，你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】。",
 			mnm_yanhai:"炎骸",
@@ -2228,7 +2382,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_yuanlei_effect1:"远雷",
 			nnk_yuanlei_effect3:"远雷",
 			nnk_yuanlei_effect4:"远雷",
-			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：一，本回合你使用的下一张牌不可被响应；二，你摸两张牌；三，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；四，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为1）",
+			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：1，本回合你使用的下一张牌不可被响应；2，你摸两张牌；3，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；4，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为1）",
 			alz_yingjian:"影见",
 			alz_yingjian_backup:"影见",
 			alz_yingjian_info:"一名角色的结束阶段，若有角色对你使用过牌，你可以将仁库中的一张牌当作一张本回合使用过的基本牌或普通锦囊牌使用。",
