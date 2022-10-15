@@ -1687,7 +1687,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						let val=player.getUseValue({
 							name:button.link[2],
 							nature:button.link[3],
-						})-player.getHistory("useCard",evt=>evt.skill=="sst_chengli_backup"&&get.name(evt.card)==button.link[2]).length*3;
+						})-player.getHistory("useCard",evt=>evt.skill=="sst_chengli_backup"&&get.name(evt.card)==button.link[2]).length*6;
 						if(_status.event.getParent().type!="phase") val-=3;
 						return val;
 					},
@@ -2375,9 +2375,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_que",result.targets);
 						player.gainPlayerCard("驱厄：你可以获得最多"+get.cnNumber(player.getDamagedHp()+1)+"张黑色牌",result.targets[0],[1,player.getDamagedHp()+1],"h","visible").set("filterButton",button=>get.color(button.link)=="black").set("visibleMove",true);
-					}
-					else{
-						event.finish();
 					}
 					"step 2"
 					if(!result.cards||!result.cards.length) game.delayx();
@@ -7749,6 +7746,20 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Mega Man
 			sst_guangpao:{
 				enable:"phaseUse",
+				filter:(event,player)=>{
+					const statistic={};
+					player.getCards("he",card=>{
+						if(lib.filter.cardDiscardable(card,player)){
+							const name=get.name(card);
+							if(typeof statistic[name]!="number") statistic[name]=0;
+							statistic[name]++;
+						}
+					});
+					for(const name in statistic){
+						if(statistic[name]>=2) return true;
+					}
+					return false;
+				},
 				complexCard:true,
 				filterCard:(card,player)=>{
 					if(!ui.selected.cards.length) return true;
@@ -7810,16 +7821,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_tewu2:{
 				skillAnimation:true,
+				animationStr:"特武",
 				animationColor:"thunder",
 				trigger:{player:"die"},
 				filter:(event,player)=>game.hasPlayer(current=>current!=player&&current.hasSkill("sst_tewu"))&&game.hasPlayer(current=>current!=player&&!current.hasMark("sst_tewu")),
 				direct:true,
-				forced:true,
 				forceDie:true,
 				content:()=>{
-					"step 1"
+					"step 0"
 					player.chooseTarget("特武：指定一名其他角色，"+get.translation(game.filterPlayer(current=>current!=player&&current.hasSkill("sst_tewu")))+"对该角色造成伤害时弃置其一张牌",(card,player,target)=>target!=player&&!target.hasMark("sst_tewu"),true).set("ai",target=>10-get.attitude(_status.event.player,target)).set("forceDie",true);
-					"step 2"
+					"step 1"
 					if(result.targets&&result.targets.length){
 						player.logSkill("sst_tewu2",result.targets);
 						result.targets[0].addMark("sst_tewu",1,false);
@@ -8170,6 +8181,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						if(!lib.filter.cardEnabled(button.link,player)||!lib.filter.cardUsable(button.link,player)) return 10;
 						return 10-player.getUseValue(button.link);
 					}).set("delay",false);
+				},
+				ai:{
+					nokeep:true,
+					pretao:true
 				}
 			},
 			sst_wangyan:{
