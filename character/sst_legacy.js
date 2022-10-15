@@ -4455,6 +4455,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_sst_geno:"旧♡♪!?",
 			deprecated_ska_professor_toad:"旧考古学家奇诺比奥",
 			//Character ab.
+			deprecated_sst_dark_samus_ab:"黑暗萨姆斯",
 			deprecated_sst_geno_ab:"Geno",
 			deprecated_ska_professor_toad_ab:"奇诺比奥",
 			//Identity mode skill
