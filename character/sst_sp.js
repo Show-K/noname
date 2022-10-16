@@ -1704,8 +1704,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.filterPlayer2(current=>current.getHistory("useCard",evt=>{
 						if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
 					}));
-					used=used.map(card=>[card.suit,card.number,card.name,card.nature]);
-					player.chooseButton([get.prompt2("alz_yingjian"),"仁库中的牌",_status.renku,"本回合使用过的基本牌或普通锦囊牌",[used,"vcard"]]).set("filterButton",button=>{
+					player.chooseButton([get.prompt2("alz_yingjian"),"仁库中的牌",_status.renku,"本回合使用过的基本牌或普通锦囊牌",[used.map(card=>[card.suit,card.number,card.name,card.nature]),"vcard"]]).set("filterButton",button=>{
 						if(_status.renku.contains(button.link)){
 							if(!ui.selected.buttons.length) return true;
 							for(const i of ui.selected.buttons){
