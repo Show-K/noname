@@ -182,6 +182,9 @@ declare interface Game {
 	 */
 	shijianGetUpdateAssets: () => Promise<{
 		assets: string[],
+		skins: {
+			[key: string]: number
+		},
 	}>;
 
 	/**
