@@ -1947,9 +1947,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			//Daroach
 			ska_zhidai:{
-				init:player=>{
-					if(!Array.isArray(player.storage.ska_zhidai)) player.storage.ska_zhidai=[];
-				},
 				direct:true,
 				trigger:{global:"useCard1"},
 				filter:event=>event.player.countUsed(null,true)<=1&&!_status.dying.length&&event.targets&&event.targets.length,
@@ -1987,14 +1984,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(card&&cards){
 						const original=trigger.cards.filterInD("o");
 						if(original.length){
+							event.original=original;
 							player.$gain2(original,true);
 							player.gain(original);
-							if(Array.isArray(player.storage.ska_zhidai)){
-								player.storage.ska_zhidai.addArray(original);
-							}
-							else{
-								player.storage.ska_zhidai=original;
-							}
 						}
 						trigger.card=card;
 						trigger.cards=cards;
@@ -2010,16 +2002,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							evt.after.push(next);
 							next.set("player",player);
 							next.setContent(()=>{
-								player.removeGaintag("ska_zhidai",player.storage.ska_zhidai);
-								if(Array.isArray(player.storage.ska_zhidai)) player.storage.ska_zhidai.length=0;
+								player.removeGaintag("ska_zhidai",player.getCards());
 							});
 						}
 					}
 					else{
 						event.finish();
 					}
-					"step 2"
-					player.addGaintag(cards,"ska_zhidai");
+					"step 3"
+					if(Array.isArray(event.original)) player.addGaintag(event.original,"ska_zhidai");
 				},
 				ai:{
 					expose:0.2
@@ -2034,10 +2025,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				forced:true,
 				trigger:{global:"phaseJieshuBegin"},
-				filter:(event,player)=>player.storage.ska_zhidai.filter(card=>card.hasGaintag("ska_zhidai")).length,
+				filter:(event,player)=>player.countCards("h",card=>card.hasGaintag("ska_zhidai")),
 				content:()=>{
 					"step 0"
-					event.cards=player.storage.ska_zhidai.filter(card=>card.hasGaintag("ska_zhidai"));
+					event.cards=player.getCards("h",card=>card.hasGaintag("ska_zhidai"));
 					"step 1"
 					if(cards.length){
 						const card=cards.shift();
