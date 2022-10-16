@@ -7606,9 +7606,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						trigger.card.cards=[];
 					}
 					trigger.cards.length=0;
-					delete trigger.cards.suit;
-					delete trigger.cards.number;
-					delete trigger.cards.nature;
+					delete trigger.card.suit;
+					delete trigger.card.number;
+					delete trigger.card.nature;
 					delete trigger.skill;
 					trigger.getParent().set("sst_liaoyi",true);
 					"step 1"
