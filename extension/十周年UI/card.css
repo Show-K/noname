@@ -116,7 +116,7 @@
 .card>.gaintag.info,
 .card.button>.gaintag.info {
     left: 4px;
-    top: calc(50% - 38px);
+    top: calc(50% + 38px);
 	bottom: auto;
     right: 4px;
     width: auto;
