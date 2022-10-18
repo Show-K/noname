@@ -1,6 +1,9 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
-	var sst_land={
+	/**
+	 * @type {importCharacterConfig}
+	 */
+	const SST_LAND={
 		name:"sst_land",
 		connect:true,
 		card:{
@@ -621,5 +624,5 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			"新地图被使用时会覆盖当前地图效果"
 		}
 	};
-	return sst_land;
+	return SST_LAND;
 });

@@ -1,6 +1,9 @@
 "use strict";
 game.import("character",(lib,game,ui,get,ai,_status)=>{
-	return {
+	/**
+	 * @type {importCharacterConfig}
+	 */
+	const SST_LEGACY={
 		name:"sst_legacy",
 		connect:true,
 		characterSort:{
@@ -4553,4 +4556,5 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_ska_professor_toad:["ska_professor_toad","sst_mario","ska_olivia"]
 		}
 	};
+	return SST_LEGACY;
 });

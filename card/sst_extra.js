@@ -1,6 +1,9 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
-	var sst_extra={
+	/**
+	 * @type {importCharacterConfig}
+	 */
+	const SST_EXTRA={
 		name:"sst_extra",
 		connect:true,
 		card:{
@@ -59,5 +62,5 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["diamond",10,"sst_hylian_shield",null,["sst_light"]]
 		]
 	};
-	return sst_extra;
+	return SST_EXTRA;
 });

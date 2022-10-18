@@ -1,6 +1,9 @@
 "use strict";
 game.import("character",(lib,game,ui,get,ai,_status)=>{
-	return {
+	/**
+	 * @type {importCharacterConfig}
+	 */
+	const SST_STANDARD={
 		name:"sst_standard",
 		connect:true,
 		characterSort:{
@@ -12679,4 +12682,5 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				</ul>"
 		}
 	};
+	return SST_STANDARD;
 });

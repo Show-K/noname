@@ -1,6 +1,9 @@
 "use strict";
 game.import("card",(lib,game,ui,get,ai,_status)=>{
-	return {
+	/**
+	 * @type {importCardConfig}
+	 */
+	const SST_STANDARD={
 		name:"sst_standard",
 		connect:true,
 		card:{
@@ -211,4 +214,5 @@ game.import("card",(lib,game,ui,get,ai,_status)=>{
 		},
 		list:[]
 	};
+	return SST_STANDARD;
 });

@@ -1,6 +1,9 @@
 "use strict";
 game.import("card",function(lib,game,ui,get,ai,_status){
-	var sst_sp={
+	/**
+	 * @type {importCharacterConfig}
+	 */
+	const SST_SP={
 		name:"sst_sp",
 		connect:true,
 		card:{
@@ -1110,5 +1113,5 @@ game.import("card",function(lib,game,ui,get,ai,_status){
 			["spade",4,"ska_pumpkin",null,["sst_light","sst_reality"]]
 		]
 	};
-	return sst_sp;
+	return SST_SP;
 });

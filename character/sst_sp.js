@@ -1,6 +1,9 @@
 "use strict";
 game.import("character",(lib,game,ui,get,ai,_status)=>{
-	return {
+	/**
+	 * @type {importCharacterConfig}
+	 */
+	const SST_SP={
 		name:"sst_sp",
 		connect:true,
 		characterSort:{
@@ -2458,4 +2461,5 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_daroach:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee","sst_magolor"]
 		}
 	};
+	return SST_SP;
 });
