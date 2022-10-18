@@ -8,6 +8,6 @@ In order to avoid disturbing other people's gaming experience, please do not use
 
 # Super Smash Tabletop
 
-A ***Super Smash Bros.*** series fan game based on *Noname*. Not affiliated with *Nintendo*, *Sora*, and other related companies.
+A ***Super Smash Bros.*** series fan game based on *[Noname](https://github.com/libccy/noname)*. Not affiliated with *Nintendo*, *Sora*, and other related companies.
 
 [Web Browser Demo](https://supersmashtabletop.unitedrhythmized.club)
