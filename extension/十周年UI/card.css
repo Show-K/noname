@@ -159,10 +159,6 @@
 	z-index: 1;
 }
 
-.card.decade-card:not(*[data-card-type='basic'])>.name {
-    bottom: 20px;
-}
-
 #window[data-card-alternate-name-visible='off'] .card>.name,
 #window[data-card-alternate-name-visible='off'] .card>.range:not(.card-tag) {
     display: none;

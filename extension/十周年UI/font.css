@@ -11,6 +11,7 @@
 	font-family: 'fzhtk';
 	src: local('方正黑体_GBK'), url('../../font/fzhtk.ttf');
 }
+
 /*方正楷体*/
 @font-face {
 	font-family: 'fzktk';
