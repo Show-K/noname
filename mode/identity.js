@@ -818,11 +818,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					game.me.chooseButtonOL(list,function(player,result){
 						if(game.online||player==game.me){
 							player.init(result.links[0]);
-							if(!player.hasSkillTag("noExtraMaxHp")){
-								player.hp++;
-								player.maxHp++;
-								player.update();
-							}
+							player.hp++;
+							player.maxHp++;
+							player.update();
 						}
 					});
 					"step 5"
@@ -843,11 +841,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						for(var i in result){
 							if(!lib.playerOL[i].name){
 								lib.playerOL[i].init(result[i][0],result[i][1]);
-								if(!lib.playerOL[i].hasSkillTag("noExtraMaxHp")){
-									lib.playerOL[i].hp++;
-									lib.playerOL[i].maxHp++;
-									lib.playerOL[i].update();
-								}
+								lib.playerOL[i].hp++;
+								lib.playerOL[i].maxHp++;
+								lib.playerOL[i].update();
 							}
 						}
 					},result);
@@ -1005,16 +1001,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						event.map[event.bZhu].remove(character);
 						game.bZhu.init(character);
 					}
-					if(!game.rZhu.hasSkillTag("noExtraMaxHp")){
-						game.rZhu.maxHp++;
-						game.rZhu.hp++;
-						game.rZhu.update();
-					}
-					if(!game.bZhu.hasSkillTag("noExtraMaxHp")){
-						game.bZhu.maxHp++;
-						game.bZhu.hp++;
-						game.bZhu.update();
-					}
+					game.rZhu.maxHp++;
+					game.rZhu.hp++;
+					game.rZhu.update();
+					game.bZhu.maxHp++;
+					game.bZhu.hp++;
+					game.bZhu.update();
 					if(!event.isZhu){
 						var group=game.me.identity.indexOf('r')==0?event.rZhu:event.bZhu;
 						game.me.chooseButton(true,['请选择您的武将牌',[event.map[group].randomRemove(5),'character']]);
@@ -1070,7 +1062,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						else{
 							player.init(listc[0]);
 						}
-						if(player.identity=='mingzhong'&&!player.hasSkillTag("noExtraMaxHp")){
+						if(player.identity=='mingzhong'){
 							player.hp++;
 							player.maxHp++;
 							player.update();
@@ -1098,7 +1090,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						else{
 							player.init(choice);
 						}
-						if(game.players.length>4&&!player.hasSkillTag("noExtraMaxHp")){
+						if(game.players.length>4){
 							player.hp++;
 							player.maxHp++;
 							player.update();
@@ -1756,7 +1748,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}
 					event.list.remove(get.sourceCharacter(game.me.name1));
 					event.list.remove(get.sourceCharacter(game.me.name2));
-					if(game.me==game.zhu&&game.players.length>4&&!game.me.hasSkillTag("noExtraMaxHp")){
+					if(game.me==game.zhu&&game.players.length>4){
 						game.me.hp++;
 						game.me.maxHp++;
 						game.me.update();
@@ -1996,7 +1988,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					event.list2.remove(get.sourceCharacter(game.zhu.name1));
 					event.list2.remove(get.sourceCharacter(game.zhu.name2));
 
-					if(game.players.length>4&&!game.zhu.hasSkillTag("noExtraMaxHp")){
+					if(game.players.length>4){
 						game.zhu.maxHp++;
 						game.zhu.hp++;
 						game.zhu.update();
@@ -2010,7 +2002,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							zhu.hp++;
 							zhu.update();
 						}
-					},game.zhu,result.links[0],result.links[1],(game.players.length>4&&!game.zhu.hasSkillTag("noExtraMaxHp")));
+					},game.zhu,result.links[0],result.links[1],(game.players.length>4));
 					
 					if(game.zhu.group=='shen'&&!game.zhu.isUnseen(0)){
 						var list=['sst_light','sst_dark','sst_spirit','sst_reality','sst_smash'];
