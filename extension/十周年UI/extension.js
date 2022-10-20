@@ -1929,6 +1929,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 												function () {
 													return 0;
 												});
+											if (event.id) next._parent_id = event.id;
+											next.type = 'chooseToUse_button';
 										} else {
 											var next = player.chooseButton(dialog);
 											next.set('ai', info.chooseButton.check ||
@@ -1940,6 +1942,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 													return true;
 												});
 											next.set('selectButton', info.chooseButton.select || 1);
+											if (event.id) next._parent_id = event.id;
+											next.type = 'chooseToUse_button';
 										}
 										event.buttoned = event.result.skill;
 									} else if (info && info.precontent && !game.online && !event.nouse) {
@@ -3312,13 +3316,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 									var cardnum = card[1] || '';
 									var cardsuit = get.translation(card[0]);
 									if (parseInt(cardnum) == cardnum) cardnum = parseInt(cardnum);
-									if ([1, 11, 12, 13].contains(cardnum)) {
-										cardnum = {
-											'1': 'A',
-											'11': 'J',
-											'12': 'Q',
-											'13': 'K'
-										}[cardnum];
+									if (cardnum > 0 && cardnum < 14) {
+										cardnum = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'][cardnum - 1];
 									}
 									if (!lib.card[card[2]]) lib.card[card[2]] = {};
 									var info = lib.card[card[2]];
@@ -4863,6 +4862,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					game.check = function (event) {
 						var i, j, range;
 						if (event == undefined) event = _status.event;
+						event._checked = true;
 						var custom = event.custom || {};
 						var ok = true,
 							auto = true;
@@ -10038,10 +10038,11 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
 					'当前版本：1.2.0.220114.14SST（Show-K修复版）',
-					'更新日期：2022-10-18',
+					'更新日期：2022-10-20',
 					'- 修复了各种卡牌标签互相遮挡的异常。',
 					'- 取消了非基本牌的牌名辅助显示向上偏移的功能（尽量避免牌名辅助显示遮挡花色点数）。',
 					'- 修复了手机端手牌过多时无法横向拖拽以查找手牌的异常。',
+					'- 修复了庞德公〖评才〗的擦拭机制的擦拭位置与鼠标/触控点错位的异常。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
