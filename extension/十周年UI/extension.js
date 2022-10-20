@@ -5628,11 +5628,11 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						ui.me = ui.create.div('.hand-wrap', ui.arena);
 						ui.handcards1Container = decadeUI.element.create('hand-cards', ui.me);
 						ui.handcards2Container = ui.create.div('#handcards2');
+						ui.arena.classList.remove('nome');
 						if (lib.config.mousewheel && !lib.config.touchscreen) {
 							ui.handcards1Container.onmousewheel = decadeUI.handler.handMousewheel;
 							ui.handcards2Container.onmousewheel = ui.click.mousewheel;
 						}
-						ui.arena.classList.remove('nome');
 
 						var equipSolts = ui.equipSolts = decadeUI.element.create('equips-wrap');
 						equipSolts.back = decadeUI.element.create('equips-back', equipSolts);
@@ -5649,8 +5649,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 						ui.handcards1Container.ontouchstart = ui.click.touchStart;
 						ui.handcards2Container.ontouchstart = ui.click.touchStart;
-						ui.handcards1Container.ontouchmove = ui.click.touchScroll;
-						ui.handcards2Container.ontouchmove = ui.click.touchScroll;
+						ui.handcards1Container.ontouchmove = decadeUI.handler.touchScroll;
+						ui.handcards2Container.ontouchmove = decadeUI.handler.touchScroll;
 						ui.handcards1Container.style.WebkitOverflowScrolling = 'touch';
 						ui.handcards2Container.style.WebkitOverflowScrolling = 'touch';
 
@@ -8142,6 +8142,22 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 						if (hand.frameId == void 0) {
 							hand.frameId = requestAnimationFrame(handScroll);
+						}
+					},
+					touchScroll: function (e) {
+						if (_status.mousedragging) return;
+						if (_status.draggingtouchdialog) return;
+						if (!_status.dragged) {
+							if (Math.abs(e.touches[0].clientX / game.documentZoom - this.startX) > 10 ||
+								Math.abs(e.touches[0].clientY / game.documentZoom - this.startY) > 10) {
+								_status.dragged = true;
+							}
+						}
+						if (lib.device == 'ios' && this.scrollHeight <= this.offsetHeight + 5 && this.scrollWidth <= this.offsetWidth + 5) {
+							e.preventDefault();
+						} else {
+							delete _status._swipeorigin;
+							e.stopPropagation();
 						}
 					},
 				},
