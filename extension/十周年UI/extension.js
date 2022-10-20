@@ -8153,7 +8153,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								_status.dragged = true;
 							}
 						}
-						if (lib.device == 'ios' && this.scrollHeight <= this.offsetHeight + 5 && this.scrollWidth <= this.offsetWidth + 5) {
+						if ((this == ui.handcards1Container || this == ui.handcards2Container) && !this.style.overflowX == 'scroll') {
+							e.preventDefault();
+						} else if (lib.device == 'ios' && this.scrollHeight <= this.offsetHeight + 5 && this.scrollWidth <= this.offsetWidth + 5) {
 							e.preventDefault();
 						} else {
 							delete _status._swipeorigin;
@@ -10039,6 +10041,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					'更新日期：2022-10-18',
 					'- 修复了各种卡牌标签互相遮挡的异常。',
 					'- 取消了非基本牌的牌名辅助显示向上偏移的功能（尽量避免牌名辅助显示遮挡花色点数）。',
+					'- 修复了手机端手牌过多时无法横向拖拽以查找手牌的异常。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
