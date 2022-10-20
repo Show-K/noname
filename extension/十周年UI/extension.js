@@ -5627,9 +5627,11 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						ui.mebg = ui.create.div('#mebg', ui.arena);
 						ui.me = ui.create.div('.hand-wrap', ui.arena);
 						ui.handcards1Container = decadeUI.element.create('hand-cards', ui.me);
-						ui.handcards1Container.onmousewheel = decadeUI.handler.handMousewheel;
-
 						ui.handcards2Container = ui.create.div('#handcards2');
+						if (lib.config.mousewheel && !lib.config.touchscreen) {
+							ui.handcards1Container.onmousewheel = decadeUI.handler.handMousewheel;
+							ui.handcards2Container.onmousewheel = ui.click.mousewheel;
+						}
 						ui.arena.classList.remove('nome');
 
 						var equipSolts = ui.equipSolts = decadeUI.element.create('equips-wrap');
