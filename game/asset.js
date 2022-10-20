@@ -1,5 +1,5 @@
 window.noname_asset_list=[
-	'v1.9.115.3',
+	'v1.9.116',
 	//'audio/background/aozhan_chaoming.mp3',
 	//'audio/background/aozhan_online.mp3',
 	//'audio/background/aozhan_rewrite.mp3',

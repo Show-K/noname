@@ -859,8 +859,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				filterTarget:function(card,player,target){
 					if(target==player) return false;
 					if(player.isUnseen()) return target.isUnseen();
-					if(player.identity=='ye') return true;
-					return target.identity!=player.identity;
+					return !target.isFriendOf(player);
 				},
 				check:function(card){
 					if(card.name=='tao') return 0;
@@ -4620,6 +4619,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				changeViceOnline:function(){
 					'step 0'
+					player.showCharacter(2);
 					var group=lib.character[player.name1][1];
 					_status.characterlist.randomSort();
 					var name=false;
@@ -4636,16 +4636,19 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					event.toChange=name;
 					if(event.change) event.trigger('removeCharacterBefore');
 					'step 1'
-					var name=event.toChange;
-					game.log(player,'将副将变更为','#g'+get.translation(name));
-					player.viceChanged=true;
-					if(player.isUnseen(1)){
-						player.showCharacter(1,false);
+					if(event.hidden){
+						if(!player.isUnseen(1)) player.hideCharacter(1);
 					}
+					'step 2'
+					var name=event.toChange;
+					if(event.hidden) game.log(player,'替换了副将','#g'+get.translation(player.name2));
+					else game.log(player,'将副将从','#g'+get.translation(player.name2),'变更为','#g'+get.translation(name));
+					player.viceChanged=true;
 					player.reinit(player.name2,name,false);
 				},
 				changeVice:function(){
 					'step 0'
+					player.showCharacter(2);
 					if(!event.num) event.num=3;
 					var group=player.identity;
 					if(!lib.group.contains(group)) group=lib.character[player.name1][1];
@@ -4677,11 +4680,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					event.toChange=name;
 					if(event.change) event.trigger('removeCharacterBefore');
 					if(event.hidden){
-						if(player.isUnseen(0)) player.showCharacter(0,false);
 						if(!player.isUnseen(1)) player.hideCharacter(1);
-					}
-					else if(player.isUnseen(1)){
-						player.showCharacter(1,false);
 					}
 					'step 2'
 					var name=event.toChange;
