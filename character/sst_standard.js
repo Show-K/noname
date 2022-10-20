@@ -5926,7 +5926,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						target:(card,player,target)=>{
 							if(get.attitude(player,target)<0&&get.tag(card,"damage")){
 								if(get.name(card)=="sha") return [1,1];
-								return [1,3];
+								return [1,5];
 							}
 						}
 					},
