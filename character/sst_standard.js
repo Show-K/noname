@@ -8526,7 +8526,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					player:"useCardToPlayered",
 					target:"useCardToTargeted"
 				},
-				filter:event=>event.card.name=="sha"&&event.getParent().triggeredTargets3.length==1,
+				filter:(event,player)=>{
+					if(get.name(event.card)!="sha") return false;
+					const evt=event.getParent();
+					return typeof evt.sst_xuhuang!="object"||typeof evt.sst_xuhuang[player.playerid]!="object";
+				},
 				content:()=>{
 					"step 0"
 					player.chooseControl("是","否").set("ai",()=>{
@@ -8565,7 +8569,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}).set("prompt","虚晃："+get.translation(trigger.card)+"是否造成伤害？");
 					"step 1"
 					const evt=trigger.getParent();
-					if(typeof evt.sst_xuhuang!="object") evt.sst_xuhuang={};
+					if(typeof evt.sst_xuhuang!="object") evt.set("sst_xuhuang",{});
 					evt.sst_xuhuang[player.playerid]={result:result.control=="是"?true:false};
 				},
 				group:"sst_xuhuang2"
