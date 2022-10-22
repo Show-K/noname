@@ -346,8 +346,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			ymk_mihu:{
 				trigger:{player:"useCardToPlayered"},
-				filter:event=>{
-					if(event.getParent().triggeredTargets3.length>1) return false;
+				filter:(event,player)=>{
+					const evt=event.getParent();
+					if(typeof evt.ymk_mihu=="object"&&evt.ymk_mihu[player.playerid]) return false;
 					if(get.type(event.card)!="basic"&&get.type(event.card)!="trick") return false;
 					return event.targets&&event.targets.length;
 				},
@@ -379,13 +380,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 2"
 					if(result.targets&&result.targets.length){
 						player.line(result.targets,"green");
+						const evt=trigger.getParent();
+						if(typeof evt.ymk_mihu!="object") evt.set("ymk_mihu",{});
+						evt.ymk_mihu[player.playerid]=true;
 						if(event.type=="add"){
-							trigger.getParent().targets.addArray(result.targets);
-							trigger.getParent().triggeredTargets2.addArray(result.targets);
+							evt.targets.addArray(result.targets);
 						}
 						else{
-							trigger.targets.removeArray(result.targets);
-							trigger.getParent().triggeredTargets2.removeArray(result.targets);
+							evt.targets.removeArray(result.targets);
+							evt.triggeredTargets3.removeArray(result.targets);
 						}
 					}
 				}
