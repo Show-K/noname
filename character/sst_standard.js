@@ -8348,7 +8348,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				enable:"phaseUse",
 				filter:event=>{
 					const evt=event.getParent("phase");
-					return evt&&evt.name=="phase"&&!evt.sst_tankuang;
+					return evt&&evt.name=="phase"&&!evt.sst_tankuang_overflow;
 				},
 				chooseButton:{
 					dialog:(event,player)=>ui.create.dialog("###探矿###按花色或类别举荐一张牌，其间若本回合亮出的牌超过十张，中止此流程且本回合不能再发动此技能，然后你受到1点伤害（本回合已亮出"+get.cnNumber(player.storage.sst_tankuang.length)+"张牌）"),
@@ -8357,16 +8357,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						let count=0;
 						let value=0;
 						const choices=[];
-						const cardPile=Array.from(ui.cardPile.childNodes);
-						lib.suit.concat(["basic","trick","equip"]).forEach(i=>{
-							cardPile.forEach(card=>{
+						_status.event.controls.forEach(i=>{
+							for(let j=0;j<ui.cardPile.childNodes.length;j++){
+								const card=ui.cardPile.childNodes[j];
 								if(lib.suit.contains(i)){
 									if(get.suit(card)==i) value+=player.getUseValue(card);
 								}
 								else{
 									if(get.type2(card)==i) value+=player.getUseValue(card);
 								}
-							});
+							}
 							if(value>count){
 								count=value;
 								choices.length=0;
@@ -8410,7 +8410,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 3"
 					if(player.storage.sst_tankuang.length>10){
 						const evt=event.getParent("phase");
-						if(evt&&evt.name=="phase") evt.set("sst_tankuang",true);
+						if(evt&&evt.name=="phase") evt.set("sst_tankuang_overflow",true);
 						player.damage("nosource","nocard");
 						event.goto(5);
 					}
