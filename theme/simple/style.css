@@ -93,14 +93,18 @@ html{
 	background-size: 100% 100% !important;
 }
 .card{
-	background-size: 100% 100%;
-	background-position: center;
 	color: white;
 }
-.card:not(*:empty):not(.mark) {
+.card:not(*:empty) {
 	color:rgb(77, 60, 51);
 	text-shadow:none;
 	background: url('card.png');
+	background-size: 100% 100%;
+	background-position: center;
+}
+.card.mark {
+	background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+	color: white;
 }
 .card .markcount {
 	color: white;
