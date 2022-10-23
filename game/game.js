@@ -2907,6 +2907,15 @@
 							lib.init.cssstyles();
 						}
 					},
+					suits_font:{
+						name:'替换花色字体',
+						init:true,
+						unfrequent:true,
+						intro:'使用全角字符的花色替代系统自带的花色（重启游戏后生效）',
+						onclick:function(bool){
+							game.saveConfig('suits_font',bool);
+						}
+					},
 					update:function(config,map){
 						if(lib.config.custom_button){
 							map.custom_button_system_top.show();
@@ -8290,9 +8299,8 @@
 							lib.configMenu.appearence.config.cardtext_font.item[i]=pack.font[i];
 							lib.configMenu.appearence.config.global_font.item[i]=pack.font[i];
 							ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+".ttf');}",0);
-							ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
 						}
-						ui.css.fontsheet.sheet.insertRule("@font-face {font-family: 'Suits'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
+						if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: 'Suits'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
 						lib.configMenu.appearence.config.cardtext_font.item.default='默认';
 						lib.configMenu.appearence.config.global_font.item.default='默认';
 					}
@@ -8354,8 +8362,12 @@
 								extensionlist.push(lib.config.plays[i]);
 							}
 						}
+						var alerted=false;
 						for(var i=0;i<lib.config.extensions.length;i++){
-							if(window.bannedExtensions.contains(lib.config.extensions[i])) continue;
+							if(!alerted&&window.bannedExtensions.contains(lib.config.extensions[i])){
+								alerted=true;
+								alert('读取某些扩展时出现问题。');
+							};
 							var extcontent=localStorage.getItem(lib.configprefix+'extension_'+lib.config.extensions[i]);
 							if(extcontent){
 								_status.evaluatingExtension=true;
@@ -11708,6 +11720,7 @@
 						},event.chooseTime);
 					}
 					if(event.isMine()){
+						ui.arena.classList.add('choose-to-move');
 						delete ui.selected.guanxing_button;
 						var list=event.list,filterMove=event.filterMove,filterOk=event.filterOk;
 						_status.imchoosing=true;
@@ -11733,6 +11746,7 @@
 						event.dialog.classList.add('scroll1');
 						event.dialog.classList.add('scroll2');
 						event.dialog.classList.add('fullwidth');
+						event.dialog.classList.add('fullheight');
 						
 						event.moved=[];
 						var buttonss=[];
@@ -11761,7 +11775,8 @@
 						};
 						
 						for(var i=0;i<list.length;i++){
-							event.dialog.add('<div class="text center">'+list[i][0]+'</div>');
+							var tex=event.dialog.add('<div class="text center">'+list[i][0]+'</div>');
+							tex.classList.add('choosetomove');
 							var buttons=ui.create.div('.buttons',event.dialog.content,clickButtons);
 							buttonss.push(buttons);
 							buttons.classList.add('popup');
@@ -11780,6 +11795,9 @@
 							}
 							if(list[i][2]&&typeof list[i][2]=='function') buttons.textPrompt=list[i][2];
 						}
+						var tex=event.dialog.add('<div class="text center">点击两张牌以交换位置；点击一张牌并点击其他区域以移动卡牌</div>');
+						tex.classList.add('choosetomove');
+							
 						event.dialog.open();
 						updateButtons();
 						
@@ -11814,6 +11832,9 @@
 							if(ui.confirm) ui.confirm.close();
 							game.resume();
 							_status.imchoosing=false;
+							setTimeout(function(){
+								ui.arena.classList.remove('choose-to-move');
+							},500);
 						};
 						
 						game.pause();
