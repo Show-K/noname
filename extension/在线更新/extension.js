@@ -108,7 +108,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				const translate = {
 					coding: 'Coding',
 					github: 'GitHub',
-					fastgit: 'GitHub镜像'
+					ghproxy: 'GitHub镜像'
 				};
 				let url_in_updateURLS;
 				for (const updateURL in lib.updateURLS) {
@@ -401,19 +401,19 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 		precontent: function () {
 			// 添加一个更新地址
 			Object.assign(lib.updateURLS, {
-				fastgit: 'https://raw.fastgit.org/Show-K/noname/super-smash-tabletop',
+				ghproxy: 'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
 			});
 
-			// 初始化，更新地址修改为Coding (URC)
+			// 初始化，更新地址修改为URC
 			if (!game.getExtensionConfig('在线更新', 'update_link')) {
-				game.saveConfig('update_link', 'coding');
-				game.saveExtensionConfig('在线更新', 'update_link', 'coding');
-				lib.updateURL = lib.updateURLS['coding'];
+				game.saveConfig('update_link', 'URC');
+				game.saveExtensionConfig('在线更新', 'update_link', 'URC');
+				lib.updateURL = lib.updateURLS['URC'];
 			} else {
 				game.saveConfig('update_link', game.getExtensionConfig('在线更新', 'update_link'));
 			}
 
-			// 修改游戏原生更新选项，插入上面的3个更新地址
+			// 修改游戏原生更新选项，插入上面的1个更新地址
 			if (lib.configMenu.general.config.update_link) {
 				lib.configMenu.general.config.update_link = {
 					unfrequent: true,
@@ -424,15 +424,15 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								return url;
 							}
 						}
-						game.saveConfig('update_link', 'coding');
-						game.saveExtensionConfig('在线更新', 'update_link', 'coding');
-						lib.updateURL = lib.updateURLS.coding;
-						return 'coding';
+						game.saveConfig('update_link', 'URC');
+						game.saveExtensionConfig('在线更新', 'update_link', 'URC');
+						lib.updateURL = lib.updateURLS.URC;
+						return 'URC';
 					})(),
 					item: {
 						coding: 'Coding',
 						github: 'GitHub',
-						fastgit: 'GitHub镜像'
+						ghproxy: 'GitHub镜像'
 					},
 					onclick: function (item) {
 						if (lib.updateURLS[item]) {
@@ -451,7 +451,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			game.getFastestUpdateURL = function (updateURLS = lib.updateURLS, translate = {
 				coding: 'Coding',
 				github: 'GitHub',
-				fastgit: 'GitHub镜像'
+				ghproxy: 'GitHub镜像'
 			}) {
 				if (typeof updateURLS != 'object') throw new TypeError('updateURLS must be an object type');
 				if (typeof translate != 'object') throw new TypeError('translate must be an object type');
@@ -1095,7 +1095,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			show_version: {
 				clear: true,
 				nopointer: true,
-				name: '扩展版本： v1.45SST',
+				name: '扩展版本： v1.46SST',
 			},
 			update_link_explain: {
 				clear: true,
@@ -1106,7 +1106,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					无: '无',
 					coding: 'Coding',
 					github: 'GitHub',
-					fastgit: 'GitHub镜像'
+					ghproxy: 'GitHub镜像'
 				},
 				onclick: function (item) {
 					let str;
@@ -1117,8 +1117,8 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						case 'github':
 							str = '国外的更新源，没有vpn或修改host设置的情况下几乎连不上此更新源';
 							break;
-						case 'fastgit':
-							str = 'github的镜像网址，拥有在国内访问的能力，但是偶尔会很卡，推荐使用此更新源';
+						case 'ghproxy':
+							str = 'github的镜像网址，拥有在国内访问的能力';
 							break;
 					}
 					typeof str != 'undefined' && alert(str);
@@ -1127,7 +1127,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			},
 			update_link: {
 				name: '更新地址',
-				//init: (lib.updateURL == lib.updateURLS['coding'] ? 'coding' : 'fastgit'),
+				//init: (lib.updateURL == lib.updateURLS['coding'] ? 'coding' : 'ghproxy'),
 				init: (() => {
 					for (const url in lib.updateURLS) {
 						if (lib.updateURL == lib.updateURLS[url]) {
@@ -1142,11 +1142,13 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				item: {
 					coding: 'Coding',
 					github: 'GitHub',
-					fastgit: 'GitHub镜像'
+					ghproxy: 'GitHub镜像'
 				},
 				onclick: function (item) {
 					if (item != game.getExtensionConfig('在线更新', 'update_link')) {
 						delete window.noname_update;
+						delete window.noname_asset_list;
+						delete window.noname_skin_list;
 						if (lib.updateURLS[item]) {
 							game.saveConfig('update_link', item);
 							game.saveExtensionConfig('在线更新', 'update_link', item);
