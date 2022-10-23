@@ -1720,7 +1720,13 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						}
 						return _status.event.player.hasUseTarget({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
 					}).set("ai",button=>{
-						if(_status.renku.contains(button.link)) return 1;
+						if(_status.renku.contains(button.link)){
+							if(!ui.selected.buttons.length) return 1;
+							for(const i of ui.selected.buttons){
+								if(_status.renku.contains(i.link)) return 0;
+							}
+							return 1;
+						}
 						return _status.event.player.getUseValue({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
 					}).set("selectButton",2).set("complexSelect",true);
 					"step 1"

@@ -2874,7 +2874,7 @@
 					},
 					cardtext_font:{
 						name:'卡牌字体',
-						init:'fzhtk',
+						init:'default',
 						unfrequent:true,
 						item:{},
 						textMenu:function(node,link){
@@ -2890,7 +2890,7 @@
 					},
 					global_font:{
 						name:'界面字体',
-						init:'fzhtk',
+						init:'default',
 						unfrequent:true,
 						item:{},
 						textMenu:function(node,link){
@@ -2898,7 +2898,7 @@
 								node.style.fontFamily=link;
 							}
 							else{
-								node.style.fontFamily="'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei',Helvetica,Arial,sans-serif";
+								node.style.fontFamily="'fzhtk','STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei','Suits',Helvetica,Arial,sans-serif";
 							}
 							node.style.fontSize='20px';
 						},
@@ -9984,15 +9984,14 @@
 					ui.css.styles.remove();
 				}
 				ui.css.styles=lib.init.sheet();
-				ui.css.styles.sheet.insertRule('#arena .player>.name,#arena .button.character>.name {font-family: '+(lib.config.name_font||'fzhtk')+',fzhtk}',0);
-				ui.css.styles.sheet.insertRule('#arena .player .identity>div {font-family: '+(lib.config.identity_font||'fzhtk')+',fzhtk}',0);
-				ui.css.styles.sheet.insertRule('.button.character.newstyle>.identity {font-family: '+(lib.config.identity_font||'fzhtk')+',fzhtk}',0);
+				ui.css.styles.sheet.insertRule('#arena .player>.name,#arena .button.character>.name {font-family: '+(lib.config.name_font||'fzhtk')+'}',0);
+				ui.css.styles.sheet.insertRule('#arena .player .identity>div {font-family: '+(lib.config.identity_font||'fzhtk')+'}',0);
+				ui.css.styles.sheet.insertRule('.button.character.newstyle>.identity {font-family: '+(lib.config.identity_font||'fzhtk')+'}',0);
 				if(lib.config.cardtext_font&&lib.config.cardtext_font!='default'){
 					ui.css.styles.sheet.insertRule('.card div:not(.info):not(.background) {font-family: '+lib.config.cardtext_font+';}',0);
 				}
 				if(lib.config.global_font&&lib.config.global_font!='default'){
-					ui.css.styles.sheet.insertRule('#window {font-family: '+lib.config.global_font+',fzhtk}',0);
-					ui.css.styles.sheet.insertRule('#window #control{font-family: STHeiti,SimHei,Microsoft JhengHei,Microsoft YaHei,WenQuanYi Micro Hei,Helvetica,Arial,sans-serif}',0);
+					ui.css.styles.sheet.insertRule('#window #control{font-family: fzhtk,STHeiti,SimHei,Microsoft JhengHei,Microsoft YaHei,WenQuanYi Micro Hei,Suits,Helvetica,Arial,sans-serif}',0);
 				}
 				switch(lib.config.glow_phase){
 					case 'yellow':ui.css.styles.sheet.insertRule('#arena .player:not(.selectable):not(.selected).glow_phase {box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1px, rgb(217, 152, 62) 0 0 15px, rgb(217, 152, 62) 0 0 15px !important;}',0);break;
@@ -26722,7 +26721,7 @@
 						this.node.info.innerHTML=info.modinfo;
 					}
 					else{
-						this.node.info.innerHTML=get.translation(card[0])+'<span style="font-family:xinwei"> </span><span style="font-family:xinwei">'+cardnum+'</span>';
+						this.node.info.innerHTML=get.translation(card[0])+'<span style="font-family:fzhtk"> </span><span style="font-family:fzhtk">'+cardnum+'</span>';
 					}
 					if(info.addinfo){
 						if(!this.node.addinfo){
@@ -47385,41 +47384,8 @@
 			button:function(item,type,position,noclick,node){
 				switch(type){
 					case 'blank':
-					if(get.itemtype(item)=='card'&&item.hasGaintag('exposed')){
-						if(typeof item.copy=='function'){
-							node=item.copy(false);
-						}
-						else{
-							node=item.cloneNode(true);
-						}
-						node.classList.add('button');
-						if(position) position.appendChild(node);
-						node.link=item;
-						if(item.style.backgroundImage){
-							node.style.backgroundImage=item.style.backgroundImage;
-							node.style.backgroundSize='cover';
-						}
-						if(item.style.color){
-							node.style.color=item.style.color;
-						}
-						if(item.nature){
-							node.classList.add(item.nature);
-						}
-						if(!noclick){
-							lib.setIntro(node);
-						}
-						if(get.position(item)=='j'&&item.viewAs&&item.viewAs!=item.name&&lib.config.cardtempname!='off'){
-							node._tempName=ui.create.div('.tempname',node);
-							var tempname=get.translation(item.viewAs);
-							node._tempName.dataset.nature='wood';
-							node._tempName.innerHTML=lib.config.cardtempname=='default'?get.verticalStr(tempname):tempname;
-							node._tempName.tempname=tempname;
-						}
-					}
-					else{
 						node=ui.create.div('.button.card',position);
 						node.link=item;
-					}
 					break;
 
 					case 'card':

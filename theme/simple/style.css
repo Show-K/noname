@@ -48,10 +48,6 @@ html{
 .menubutton{
 	border-radius: 4px;
 }
-/*.player{
-	background-image: url('card.png');
-	background-size: cover;
-}*/
 #window>.dialog.popped{
 	border-radius: 6px;
 }
@@ -97,21 +93,21 @@ html{
 	background-size: 100% 100% !important;
 }
 .card{
-	color:white;
+	background-size: 100% 100%;
+	background-position: center;
+	color: white;
 }
-.card:not(*:empty),.cardbg{
+.card:not(*:empty):not(.mark) {
 	color:rgb(77, 60, 51);
 	text-shadow:none;
 	background: url('card.png');
-	background-size:100% 100%;
-	background-position: center;
 }
-.card .markcount{
-	box-shadow: rgba(0, 0, 0, 0.8) 0 0 0 1px, rgba(0, 0, 0, 0.2) 0 3px 10px;
-	background: url('card.png');
-	background-size:100% 100% cover;
-	background-position: center;
-	/*color: white;*/
+.card .markcount {
+	color: white;
+}
+.card,.menubg,.cardbg,.button.character.cardbg {
+	color: white;
+	text-shadow: none;
 }
 #me>div>div>.card,#arena>.card:not(*:empty){
 	box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
@@ -127,11 +123,11 @@ html{
 }*/
 
 .card:empty,.card.infohidden{
-    background: url('../style/cardback/image/official.png');
+    background: url('../style/cardback/image/super_smash_tabletop.png');
     background-size: 100% 100%;
 }
 .card.infohidden:not(.infoflip){
-	background: url('../style/cardback/image/official2.png');
+	background: url('../style/cardback/image/super_smash_tabletop2.png');
 	background-size: 100% 100%;
 }
 
@@ -145,6 +141,7 @@ html{
 }
 
 .player .marks>div:first-child>div{
+	filter: invert(0.8) sepia(1);
 	-webkit-filter: invert(0.8) sepia(1);
 }
 
@@ -167,13 +164,8 @@ html{
 
 
 .woodbg{
-	color:rgba(77, 60, 51,1) !important;
+	color:white !important;
 	text-shadow:none !important;
-}
-.woodbg .menubutton.large{
-	background: url('card2.png') !important;
-	background-size: 100% 100% !important;
-	box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1px, rgba(0, 0, 0, 0.3) 0 0 5px !important;
 }
 
 .player>.glassbg{
@@ -202,6 +194,7 @@ html{
 	transition-property: transform;
 	transition-duration: 0s;
 	background-size: cover;
+	filter: blur(3px);
 	-webkit-filter: blur(3px);
 }
 .popup-container>.prompt-container>div>div{

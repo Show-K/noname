@@ -893,7 +893,7 @@ input.fileinput::-webkit-file-upload-button {
 .menubutton.large{
 	font-size:30px;
 	line-height:30px;
-	font-family:'STfzhtk','fzhtk';
+	font-family:'fzhtk';
 }
 .menubutton.round{
 	width:40px;
@@ -1196,7 +1196,7 @@ input.fileinput::-webkit-file-upload-button {
 	padding: 0;
 	text-align: center;
 	width: 80px;
-	font-family:'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;
+	font-family:'fzhtk','STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei','Suits',Helvetica,Arial,sans-serif;
 }
 .videonode.menubutton.extension>.caption>.menubutton>a{
 	margin: 0;
@@ -1242,7 +1242,7 @@ input.fileinput::-webkit-file-upload-button {
 	top: 35px;
 	line-height: 20px;
 	text-align: left;
-	font-family:'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei',Helvetica,Arial,sans-serif
+	font-family:'fzhtk','STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei','Suits',Helvetica,Arial,sans-serif
 }
 .videonode.menubutton.extension>.text{
 	left: 0;
@@ -1324,7 +1324,7 @@ input.fileinput::-webkit-file-upload-button {
 	height: 30px;
 	line-height: 30px;
 	font-size: 18px;
-	font-family: 'lishu','fzhtk';
+	font-family: 'fzhtk';
 }
 .onlineclient .videonode.videonodestatus{
 	height: auto;
@@ -1507,7 +1507,7 @@ input.fileinput::-webkit-file-upload-button {
 	overflow: hidden;
 }
 .popup-container.editor>div>.editbutton{
-	font-family: 'lishu';
+	font-family: 'fzhtk';
 	font-size: 18px;
 	color: rgb(0,0,0);
 	text-shadow: none;
