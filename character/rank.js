@@ -76,7 +76,8 @@ window.noname_character_rank={
 			"sst_r_o_b",
 			"sst_bayonetta",
 			"nnk_decidueye",
-			"nnk_machamp"
+			"nnk_machamp",
+			"ska_rabbid_peach"
 		],
 		rare:[
 			"sst_mario",
