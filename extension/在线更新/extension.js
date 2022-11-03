@@ -406,9 +406,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 			// 初始化，更新地址修改为URC
 			if (!game.getExtensionConfig('在线更新', 'update_link')) {
-				game.saveConfig('update_link', 'URC');
-				game.saveExtensionConfig('在线更新', 'update_link', 'URC');
-				lib.updateURL = lib.updateURLS['URC'];
+				game.saveConfig('update_link', 'coding');
+				game.saveExtensionConfig('在线更新', 'update_link', 'coding');
+				lib.updateURL = lib.updateURLS['coding'];
 			} else {
 				game.saveConfig('update_link', game.getExtensionConfig('在线更新', 'update_link'));
 			}
@@ -424,10 +424,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								return url;
 							}
 						}
-						game.saveConfig('update_link', 'URC');
-						game.saveExtensionConfig('在线更新', 'update_link', 'URC');
-						lib.updateURL = lib.updateURLS.URC;
-						return 'URC';
+						game.saveConfig('update_link', 'coding');
+						game.saveExtensionConfig('在线更新', 'update_link', 'coding');
+						lib.updateURL = lib.updateURLS.coding;
+						return 'coding';
 					})(),
 					item: {
 						coding: 'Coding',
@@ -1134,10 +1134,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 							return url;
 						}
 					}
-					game.saveConfig('update_link', 'URC');
-					game.saveExtensionConfig('在线更新', 'update_link', 'URC');
-					lib.updateURL = lib.updateURLS['URC'];
-					return 'URC';
+					game.saveConfig('update_link', 'coding');
+					game.saveExtensionConfig('在线更新', 'update_link', 'coding');
+					lib.updateURL = lib.updateURLS['coding'];
+					return 'coding';
 				})(),
 				item: {
 					coding: 'Coding',
