@@ -8076,10 +8076,14 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						}, timestamp);
 					},
 					resize: function () {
-						if (decadeUI.isMobile())
+						if (decadeUI.isMobile()) {
 							ui.arena.classList.add('dui-mobile');
-						else
+							ui.window.classList.add('dui-mobile');
+						}
+						else {
 							ui.arena.classList.remove('dui-mobile');
+							ui.window.classList.remove('dui-mobile');
+						}
 
 						var set = decadeUI.dataset;
 						set.animSizeUpdated = false;
@@ -10052,13 +10056,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			intro: (function () {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
-					'当前版本：1.2.0.220114.15SST（Show-K修复版）',
-					'更新日期：2022-10-28',
-					'- 修复了牌名辅助显示被遮挡的异常。',
-					'- 修复了国战模式势力标记选项中缺少“野”的异常。',
-					'- 修复了chooseToMove时确定按钮过于偏上的异常。',
-					'- 修复了单独播放副将的骨骼动画时会影响到主将的异常（感谢 雷 的帮助）',
-					'- 修复了拥有动态皮肤的武将处于隐匿状态时依旧展示动态皮肤的异常（感谢 雷 的帮助）',
+					'当前版本：1.2.0.220114.16SST（Show-K修复版）',
+					'更新日期：2022-11-03',
+					'- 修复了处于隐匿状态的武将的静态武将图片不显示的异常。',
+					'- 修复了手机端牌堆查看等界面花色图案过大的异常。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
@@ -10078,7 +10079,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			author: "短歌 QQ464598631<br>(Show-K未经允许修改)",
 			diskURL: "",
 			forumURL: "",
-			version: "1.2.0.220114.15SST",
+			version: "1.2.0.220114.16SST",
 		},
 		files: {
 			"character": [],

@@ -217,7 +217,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ymk_577:"生电妙手",
 			deprecated_sst_richter:"血之轮回",
 			deprecated_sst_ryu:"求道的武者",
-			deprecated_ska_professor_toad:"沙原博时"
+			deprecated_ska_professor_toad:"沙原博时",
+			ska_bowser:"联挚之火"
 		},
 		skill:{
 			//LTK
@@ -4515,7 +4516,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_ska_juegu_shan:"掘古·闪",
 			deprecated_ska_juegu_info:"当你需要使用或打出一张【杀】/【闪】时，你可以展示一张牌A并将其置于牌堆顶，然后亮出牌堆底一张牌B：1. 若A花色与弃牌堆顶牌相同，你视为使用或打出一张【杀】/【闪】；2. 你可以令一名角色获得B，然后若与A颜色不同，你可以对其造成1点伤害。",
 			deprecated_ska_kuiwang:"窥往",
-			deprecated_ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。"
+			deprecated_ska_kuiwang_info:"当你因摸牌而获得牌时，你可以从牌堆底获得等量的牌，然后将等量的牌置于牌堆底。",
+			ska_mengjin:"盟进",
+			ska_mengjin_info:"出牌阶段限一次，你可以交给一名其他角色X张牌，然后其交给你Y张牌（X、Y为各自手牌数的一半且向上取整）。你以此法获得的牌无使用距离和次数限制直到回合结束。"
 			//Sort
 		},
 		translateEnglish:{

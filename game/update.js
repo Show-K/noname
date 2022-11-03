@@ -79,6 +79,10 @@ window.noname_update={
 		'mode/super_smash_tabletop.js',
 		'mode/th_mougong.js',
 		//Rewrite
-		'extension/十周年UI/image/card/sst_spear_thrust.webp'
+		'extension/十周年UI/image/card/sst_spear_thrust.webp',
+		'image/character/nnk_decidueye.png',
+		'image/character/nnk_machamp.png',
+		'image/character/ska_rabbid_peach.png',
+		'image/character/ska_rabbid_rosalina.png'
 	]
 };

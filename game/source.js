@@ -174,5 +174,9 @@ window.noname_source_list=[
 	'node_modules/options/package.json',
 	'node_modules/options/lib/options.js',
 	//Rewrite
-	'extension/十周年UI/image/card/sst_spear_thrust.webp'
+	'extension/十周年UI/image/card/sst_spear_thrust.webp',
+	'image/character/nnk_decidueye.png',
+	'image/character/nnk_machamp.png',
+	'image/character/ska_rabbid_peach.png',
+	'image/character/ska_rabbid_rosalina.png'
 ];

@@ -1260,6 +1260,8 @@ window.noname_asset_list=[
 	'image/character/ska_daroach.png',
 	'image/character/nnk_decidueye.png',
 	'image/character/nnk_machamp.png',
+	'image/character/ska_rabbid_peach.png',
+	'image/character/ska_rabbid_rosalina.png',
 
 	'image/character/caocao.png',
 	'image/character/daqiao.png',

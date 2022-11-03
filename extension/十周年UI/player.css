@@ -481,19 +481,14 @@
 .player.unseen>.primary-avatar,
 .player.unseen2>.deputy-avatar,
 .player.d-skin>.primary-avatar,
-.player.d-skin2>.deputy-avatar {
-	opacity: 0 !important;
-}
-
+.player.d-skin2>.deputy-avatar,
 .player.unseen>.dynamic-wrap,
 .player.unseen2>.dynamic-wrap {
 	opacity: 0;
 }
 
 #arena:not(.observe)>.player[data-position='0'].unseen>.primary-avatar,
-#arena:not(.observe)>.player[data-position='0'].unseen2>.deputy-avatar,
-#arena:not(.observe)>.player[data-position='0'].unseen>.dynamic-wrap,
-#arena:not(.observe)>.player[data-position='0'].unseen2>.dynamic-wrap {
+#arena:not(.observe)>.player[data-position='0'].unseen2>.deputy-avatar {
 	opacity: 0.3;
 }
 
