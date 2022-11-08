@@ -2221,60 +2221,25 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			//Rabbid Peach
 			ska_lianmao:{
-				locked:true,
-				direct:true,
+				forced:true,
 				trigger:{player:"useCardToPlayer"},
-				filter:(event,player)=>{
-					if(!["basic","trick"].contains(get.type(event.card))) return false;
-					const evt=event.getParent();
-					if(evt.ska_lianmao) return false;
-					return evt.targets.filter(current=>current!=player&&current.countGainableCards(player,"hej")).length;
-				},
+				filter:(event,player)=>player.inRange(event.target)&&event.target.countGainableCards(player,"hej"),
+				logTarget:"target",
 				content:()=>{
 					"step 0"
-					player.chooseTarget(get.prompt2("ska_lianmao"),(card,player,target)=>target!=player&&_status.event.getTrigger().getParent().targets.contains(target)&&target.countGainableCards(player,"hej"),true).set("ai",target=>{
-						const player=_status.event.player;
-						let att=get.attitude(player,target);
-						if(att<0){
-							att=-Math.sqrt(-att);
-						}
-						else{
-							att=Math.sqrt(att);
-						}
-						return att*lib.card.shunshou.ai.result.target(player,target);
-					});
+					event.cards=[];
+					event.target=trigger.target;
+					player.gainPlayerCard("恋貌：正面朝上获得"+get.translation(event.target)+"区域内一张牌，然后"+get.translation(event.target)+"正面朝上获得你区域内一张牌，若这两张牌颜色相同，你摸一张牌",event.target,"hej","visibleMove",true).set("delay",false);
 					"step 1"
-					if(result.targets&&result.targets.length){
-						trigger.getParent().set("ska_lianmao",true);
-						event.cards=[];
-						event.target=result.targets[0];
-						player.logSkill("ska_lianmao",event.target);
-						player.gainPlayerCard("恋貌：获得"+get.translation(event.target)+"区域内一张牌，然后"+get.translation(event.target)+"获得你区域内一张牌（均正面朝上移动），若这两张牌颜色相同，你摸一张牌",event.target,"hej","visibleMove",true).set("delay",false);
-					}
-					else{
-						event.finish();
-					}
-					"step 2"
-					let str="恋貌：获得"+get.translation(player)+"区域内一张牌（正面朝上移动）";
+					let str="恋貌：正面朝上获得"+get.translation(player)+"区域内一张牌";
 					if(result.cards&&result.cards.length){
 						cards.push(...result.cards);
-						str+="，若与"+get.translation(cards)+"颜色相同，"+get.translation(player)+"摸一张牌";
+						if(cards.length==1) str+="，若与"+get.translation(cards)+"颜色相同，"+get.translation(player)+"摸一张牌";
 					}
 					target.gainPlayerCard(str,player,"hej","visibleMove",true).set("delay",false);
-					"step 3"
-					if(result.cards&&result.cards.length){
-						cards.push(...result.cards);
-						if(cards.length>=2){
-							let identical=true;
-							for(let i=0;i<cards.length-1;i++){
-								if(get.color(cards[i])!=get.color(cards[i+1])){
-									identical=false;
-									break;
-								}
-							}
-							if(identical) player.draw("nodelay");
-						}
-					}
+					"step 2"
+					if(result.cards&&result.cards.length) cards.push(...result.cards);
+					if(cards.length==2&&get.color(cards[0])==get.color(cards[1])) player.draw("nodelay");
 				}
 			},
 			ska_huirong:{
@@ -2525,7 +2490,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_mianyu:"免御",
 			nnk_mianyu_info:"锁定技，你的【闪】和【桃】均视为【杀】；你使用以此法视为的【杀】无次数限制且无视防具。",
 			ska_lianmao:"恋貌",
-			ska_lianmao_info:"锁定技，当你使用基本牌或普通锦囊牌指定目标时，你正面朝上获得其中一个不为你的目标区域内一张牌，然后其也对你如此做。若这两张牌颜色相同，你摸一张牌。",
+			ska_lianmao_info:"锁定技，当你使用牌指定攻击范围内的角色为目标时，你正面朝上获得其区域内一张牌，然后其也对你如此做。若这两张牌颜色相同，你摸一张牌。",
 			ska_huirong:"恢荣",
 			ska_huirong_info:"出牌阶段限一次，你可以将两张红色牌当作【刮骨疗毒】使用；你使用【刮骨疗毒】可以额外选择一名角色。",
 			ska_yingyong:"颖慵",

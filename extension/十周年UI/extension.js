@@ -5444,18 +5444,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						}
 
 						uiintro.style.zIndex = 21;
-						var clickintro = function () {
-							if (_status.touchpopping) return;
-							delete _status.removePop;
-							layer.remove();
-							this.delete();
-							ui.historybar.style.zIndex = '';
-							delete _status.currentlogv;
-							if (!ui.arena.classList.contains('menupaused') && !uiintro.noresume) game.resume2();
-							if (uiintro._onclose) {
-								uiintro._onclose();
-							}
-						};
 						var currentpop = this;
 						_status.removePop = function (node) {
 							if (node == currentpop) return false;
@@ -5469,11 +5457,6 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								_status.clicked = true;
 							});
 							uiintro._clickintro = clicklayer;
-						} else if (!lib.config.touchscreen) {
-							uiintro.addEventListener('mouseleave', clickintro);
-							uiintro.addEventListener('click', clickintro);
-						} else if (uiintro.touchclose) {
-							uiintro.listen(clickintro);
 						}
 						uiintro._close = clicklayer;
 

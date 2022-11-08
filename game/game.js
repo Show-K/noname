@@ -51301,18 +51301,6 @@
 					}
 				}
 				uiintro.style.zIndex=21;
-				var clickintro=function(){
-					if(_status.touchpopping) return;
-					delete _status.removePop;
-					layer.remove();
-					this.delete();
-					ui.historybar.style.zIndex='';
-					delete _status.currentlogv;
-					if(!ui.arena.classList.contains('menupaused')&&!uiintro.noresume) game.resume2();
-					if(uiintro._onclose){
-						uiintro._onclose();
-					}
-				};
 				var currentpop=this;
 				_status.removePop=function(node){
 					if(node==currentpop) return false;
@@ -51326,13 +51314,6 @@
 						_status.clicked=true;
 					});
 					uiintro._clickintro=clicklayer;
-				}
-				else if(!lib.config.touchscreen){
-					uiintro.addEventListener('mouseleave',clickintro);
-					uiintro.addEventListener('click',clickintro);
-				}
-				else if(uiintro.touchclose){
-					uiintro.listen(clickintro);
 				}
 				uiintro._close=clicklayer;
 
@@ -54848,22 +54829,22 @@
 					uiintro.addText(get.colorspan(lib.characterTitle[node.name]));
 				}
 
-				if(!node.noclick){
+				if(!node.noclick&&(node.isUnderControl()||(!game.observe&&game.me&&game.me.hasSkillTag('viewHandcard',null,node,true)))){
 					var hs=node.getCards('h');
 					if(hs.length){
-						if(node.isUnderControl()||(!game.observe&&game.me&&game.me.hasSkillTag('viewHandcard',null,node,true))){
-							uiintro.add('<div class="text center">手牌</div>');
-							uiintro.addSmall(node.getCards('h'));
-						}
-						else{
-							for(var j=0;j<hs.length;j++){
-								if(!get.tag(hs[j],'exposed')&&!hs[j].hasGaintag('exposed')) hs.splice(j--,1);
-							}
-							if(hs.length){
-								uiintro.add('<div class="text center">手牌</div>');
-								uiintro.addSmall(hs);
-							}
-						}
+						uiintro.add('<div class="text center">手牌</div>');
+						uiintro.addSmall(node.getCards('h'));
+					}
+				}
+
+				if(!node.noclick){
+					var exposed=node.getCards('h',function(card){
+						return get.tag(card,'exposed')||card.hasGaintag('exposed');
+					});
+					if(exposed.length){
+						uiintro.add('<div class="text center">明置手牌</div>');
+						uiintro.addSmall(exposed);
+						uiintro.add(ui.create.div('.placeholder.slim'));
 					}
 				}
 
@@ -55105,20 +55086,28 @@
 					var click=function(){
 						if(_status.dragged) return;
 						if(_status.justdragged) return;
-						if(_status.throwEmotionWait) return;
 						var emotion=this.link;
 						if(game.online){
 							game.send('throwEmotion',node,emotion);
 						}
 						else game.me.throwEmotion(node,emotion);
-						uiintro._close();
-						_status.throwEmotionWait=true;
-						setTimeout(function(){
-							_status.throwEmotionWait=false;
-							if(ui.throwEmotion){
-								for(var i of ui.throwEmotion) i.classList.remove('exclude');
-							}
-						},(emotion=='flower'||emotion=='egg')?5000:10000)
+					};
+					var click2=function(){
+						if(_status.dragged) return;
+						if(_status.justdragged) return;
+						var emotion=this.link.slice(0,-4);
+						if(game.online){
+							game.send('throwEmotion',node,emotion);
+						}
+						else game.me.throwEmotion(node,emotion);
+						for(var i=0;i<15;i++){
+							setTimeout(function(){
+								if(game.online){
+									game.send('throwEmotion',node,emotion);
+								}
+								else game.me.throwEmotion(node,emotion);
+							},125*(i+1));
+						}
 					};
 					var td;
 					var table=document.createElement('div');
@@ -55130,7 +55119,6 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
-						if(_status.throwEmotionWait) td.classList.add('exclude');
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
@@ -55147,11 +55135,25 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
-						if(_status.throwEmotionWait) td.classList.add('exclude');
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
 						td.addEventListener(lib.config.touchscreen?'touchend':'click',click);
+					}
+					uiintro.content.appendChild(table);
+					table=document.createElement('div');
+					table.classList.add('add-setting');
+					table.style.margin='0';
+					table.style.width='100%';
+					table.style.position='relative';
+					var listi=['flowerSpam','eggSpam'];
+					for(var i=0;i<listi.length;i++){
+						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
+						ui.throwEmotion.add(td);
+						td.link=listi[i];
+						table.appendChild(td);
+						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
+						td.addEventListener(lib.config.touchscreen?'touchend':'click',click2);
 					}
 					uiintro.content.appendChild(table);
 				}
