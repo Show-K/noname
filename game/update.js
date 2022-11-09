@@ -75,14 +75,10 @@ window.noname_update={
 		'extension/在线更新/extension.css',
 		'extension/在线更新/extension.js',
 		'extension/在线更新/typings/index.d.ts',
+		'font/suits.woff2',
 		'mode/huanhuazhizhan.js',
 		'mode/super_smash_tabletop.js',
-		'mode/th_mougong.js',
+		'mode/th_mougong.js'
 		//Rewrite
-		'extension/十周年UI/image/card/sst_spear_thrust.webp',
-		'image/character/nnk_decidueye.png',
-		'image/character/nnk_machamp.png',
-		'image/character/ska_rabbid_peach.png',
-		'image/character/ska_rabbid_rosalina.png'
 	]
 };

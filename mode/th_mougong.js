@@ -1427,9 +1427,9 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 							game.broadcastAll(function () {
 								game.showIdentity();
 								if (game.zhu && game.zhu.isAlive() && get.population('nei') == 1 && get.config('nei_fullscreenpop')) {
-									game.zhu.$fullscreenpop('<span style="font-family:fzhtk"><span data-nature="fire">SUDDEN</span> <span data-nature="thunder">DEATH</span></span>');
+									game.zhu.$fullscreenpop('<span style="font-family:sarasa"><span data-nature="fire">SUDDEN</span> <span data-nature="thunder">DEATH</span></span>');
 									setTimeout(function () {
-										game.zhu.$fullscreenpop('<span style="font-family:fzhtk"><span data-nature="soil">GO!</span></span>');
+										game.zhu.$fullscreenpop('<span style="font-family:sarasa"><span data-nature="soil">GO!</span></span>');
 									}, 1000);
 								}
 							});

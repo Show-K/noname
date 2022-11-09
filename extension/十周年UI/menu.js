@@ -1277,7 +1277,7 @@ decadeModule.import(function(lib, game, ui, get, ai, _status){
 									var ext = i.slice(i.lastIndexOf('.') + 1);
 									if (i.indexOf('audio/') == 0 && (ext == 'mp3' || ext == 'ogg')) {
 										audios.push(i);
-									} else if (i.indexOf('font/') == 0 && ext == 'ttf') {
+									} else if (i.indexOf('font/') == 0 && ext == 'woff2') {
 										fonts.push(i);
 									} else if (i.indexOf('image/') == 0 && (ext == 'jpg' || ext == 'png')) {
 										images.push(i);

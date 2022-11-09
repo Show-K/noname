@@ -27,7 +27,7 @@
 	line-height: 20px;
 	color: white;
 	font-size: 20px;
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-align: center;
 	text-shadow: none;
 	z-index: 7;
@@ -79,7 +79,7 @@
     padding-bottom: 3px;
     background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.2) 90%, transparent 100%);
 	color: rgb(250, 250, 250);
-    font-family: fzhtk;
+    font-family: sarasa;
 	text-align: center;
     text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px rgb(51,51,51);
 	transition: opacity 0.1s linear;
@@ -119,7 +119,7 @@
     padding-bottom: 3px;
     color: rgb(250, 250, 250);
     background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.2) 90%, transparent 100%);
-    font-family: fzhtk;
+    font-family: sarasa;
     text-shadow: rgb(51,51,51) 1px 0 0, rgb(51,51,51) 0 1px 0, rgb(51,51,51) -1px 0 0, rgb(51,51,51) 0 -1px 0;
 }
 
@@ -167,7 +167,7 @@
     height: 36px;
     line-height: 36px;
     font-size: 20px;
-    font-family: fzhtk;
+    font-family: sarasa;
     color: rgb(255,255,200);
     text-align: center;
 	pointer-events: auto;
@@ -193,7 +193,7 @@
 	line-height: 24px;
     color: rgb(50,25,0);
     font-size: 20px;
-    font-family: fzhtk;
+    font-family: sarasa;
     text-align: center;
     text-shadow: none;
 }
@@ -213,7 +213,7 @@
 	line-height: 28px;
     color: rgb(40,30,20);
     font-size: 28px;
-    font-family: fzhtk;
+    font-family: sarasa;
     text-align: center;
     text-shadow: none;
     white-space: nowrap;
@@ -333,7 +333,7 @@
     width: 100%;
     height: auto;
     color: red;
-    font-family: fzhtk;
+    font-family: sarasa;
     font-size: 20px;
     text-align: center;
     text-shadow: none;
@@ -352,7 +352,7 @@
     line-height: 60px;
     color: red;
     font-size: 66px;
-    font-family: fzhtk;
+    font-family: sarasa;
     text-align: center;
     text-shadow: 0 0 5px black, 0 0 7px black, 0 0 10px black;
     
@@ -403,7 +403,7 @@
     height: 36px;
     line-height: 36px;
     font-size: 20px;
-    font-family: fzhtk;
+    font-family: sarasa;
     color: rgb(255,255,200);
     text-align: center;
 	pointer-events: auto;
@@ -417,7 +417,7 @@
     line-height: 24px;
     color: rgb(50,25,0);
     font-size: 20px;
-    font-family: fzhtk;
+    font-family: sarasa;
     text-align: center;
     text-shadow: none;
 	pointer-events: auto;
@@ -433,7 +433,7 @@
     line-height: 30px;
     color: rgb(40,30,20);
     font-size: 30px;
-    font-family: fzhtk;
+    font-family: sarasa;
     text-align: center;
     text-shadow: none;
 	white-space: nowrap;
@@ -489,7 +489,7 @@
     color: rgb(50,25,0);
     font-size: 22px;
     font-weight: bold;
-    font-family: fzhtk;
+    font-family: sarasa;
     text-align: center;
     text-shadow: none;
     background: rgb(194,164,131);

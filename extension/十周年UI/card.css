@@ -44,7 +44,7 @@
     line-height: 150px;
 	color: black;
 	font-size: 100px;
-    font-family: fzhtk;
+    font-family: sarasa;
 	font-display: swap;
     text-align: center;
     text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white, 0 0 5px white, 0 0 5px white;
@@ -104,7 +104,7 @@
 	align-items: center;
 	align-content: center;
 	justify-content: center;
-	font-family: fzhtk !important;
+	font-family: sarasa !important;
 	z-index: 4;
 }
 
@@ -123,7 +123,7 @@
     color: #181818;
     font-size: 20px;
     font-weight: bold;
-    font-family: fzhtk;
+    font-family: sarasa;
     line-height: 24px;
     text-align: center;
     text-shadow: none;
@@ -151,7 +151,7 @@
 	color: black;
 	font-size: 16px;
 	font-weight: bold;
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-shadow: 0 0 1px white, 0 0 3px white;
 	border: 1px solid black;
 	border-radius: 2px;
@@ -175,7 +175,7 @@
     color: #181818;
     font-size: 20px;
     font-weight: bold;
-    font-family: fzhtk;
+    font-family: sarasa;
     line-height: 24px;
     text-align: center;
     text-shadow: none;

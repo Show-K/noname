@@ -1420,8 +1420,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						ui.ladder=ui.create.system(game.getLadderName(lib.storage.ladder.current),null,true);
 						lib.setPopped(ui.ladder,function(uiintro){
 							var uiintro=ui.create.dialog('hidden');
-							uiintro.add('<div class="text center">当前分数：<div style="width:40px;text-align:left;font-family:fzhtk">'+(lib.storage.ladder.current+(_status.ladder_tmp?40:0))+'</div></div>');
-							uiintro.add('<div class="text center">历史最高：<div style="width:40px;text-align:left;font-family:fzhtk">'+lib.storage.ladder.top+'</div></div>');
+							uiintro.add('<div class="text center">当前分数：<div style="width:40px;text-align:left;font-family:sarasa">'+(lib.storage.ladder.current+(_status.ladder_tmp?40:0))+'</div></div>');
+							uiintro.add('<div class="text center">历史最高：<div style="width:40px;text-align:left;font-family:sarasa">'+lib.storage.ladder.top+'</div></div>');
 							uiintro.content.lastChild.style.paddingBottom='8px';
 							return uiintro;
 						},180);

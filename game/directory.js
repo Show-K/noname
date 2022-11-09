@@ -33,7 +33,7 @@ var get = function(dir,callback){
 					var url=dir+'/'+filename;
 					var stat=fs.statSync(url);
 					if(stat.isFile()){
-						if(['.jpg','.png','.mp3','.ttf'].indexOf(path.extname(url))!=-1){
+						if(['.jpg','.png','.mp3','.woff2'].indexOf(path.extname(url))!=-1){
 							var assetentry=path.relative(path.dirname(__dirname),url);
 							assetlist+=',\n\t\''+assetentry+'\'';
 							entrylist.push(assetentry);

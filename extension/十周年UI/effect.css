@@ -120,7 +120,7 @@
 	height: 100%;
 	color: rgb(70,15,15);
 	font-size: 100px;
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-align: center;
 	text-shadow: 0 0 10px red;
 	opacity: 0;
@@ -170,7 +170,7 @@
 	top: calc(50% + 150px + 15px);
 	color: rgb(215, 234, 67);
 	font-size: 60px;
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-shadow: 0 0 5px rgb(77, 60, 51), 0 0 4px rgb(77, 60, 51);
 	transform: translateX(-50%);
 	z-index: 99;

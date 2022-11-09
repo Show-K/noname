@@ -73,8 +73,8 @@ window.noname_package={
 		music_galeem_dharkon:'光暗'
 	},
 	font:{
-		fzhtk:"黑体",
-		fzktk:'楷体'
+		sarasa:"黑体",
+		twkai:'楷体'
 	},
 	theme:{
 		woodden:'木纹',

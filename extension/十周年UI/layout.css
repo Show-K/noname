@@ -124,7 +124,7 @@ body>.background {
 	left: 50px;
 	right: 50px;
 	color: rgb(250, 250, 250);
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
 }
 
@@ -308,7 +308,7 @@ body>.background {
 	width: calc(100% - 15px);
 	color: black;
 	font-size: 20px;
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-align: center;
 	z-index: 1;
 }
@@ -370,7 +370,7 @@ body>.background {
 	color: black;
 	font-size: 14px;
 	font-weight: bold;
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-shadow: 0 0 1px white, 0 0 3px white;
 	border: 1px solid black;
 	border-radius: 2px;
@@ -425,7 +425,7 @@ body>.background {
 .touchinfo {
 	top: 1%;
 	color: rgb(250, 250, 250);
-	font-family: fzhtk;
+	font-family: sarasa;
 	text-shadow: rgb(51, 51, 51) 1px 0 0, rgb(51, 51, 51) 0 1px 0, rgb(51, 51, 51) -1px 0 0, rgb(51, 51, 51) 0 -1px 0;
 	/* background: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black; */
 	z-index: 4;
@@ -466,7 +466,7 @@ body>.background {
 	width: auto;
 	height: 42px;
 	font-size: 23px;
-	font-family: fzhtk;
+	font-family: sarasa;
 	transition: opacity 0.3s;
 	pointer-events: none;
 	z-index: 8;
@@ -599,7 +599,7 @@ body>.background {
 }
 
 .button.character>.showintro.rarity {
-	font-family: fzhtk;
+	font-family: sarasa;
 	font-size: 16px;
 	bottom: -15px;
 	left: 5.25px;

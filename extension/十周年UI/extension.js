@@ -6142,7 +6142,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						lib.config.glow_phase = '';
 						initCssstylesFunction.call(this);
 						lib.config.glow_phase = temp;
-						ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: fzhtk }', 0);
+						ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: sarasa }', 0);
 					};
 
 					lib.init.layout = function (layout, nosave) {

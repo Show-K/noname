@@ -18,7 +18,7 @@ window.noname_source_list=[
 	'character/sst_extra.js',
 	'character/sst_sp.js',
 	'character/sst_legacy.js',
-	'font/suits.ttf',
+	'font/suits.woff2',
 	'game/asset.js',
 	'game/codemirror.js',
 	'game/config.js',
@@ -172,11 +172,6 @@ window.noname_source_list=[
 	'node_modules/ultron/package.json',
 	'node_modules/ultron/test.js',
 	'node_modules/options/package.json',
-	'node_modules/options/lib/options.js',
+	'node_modules/options/lib/options.js'
 	//Rewrite
-	'extension/十周年UI/image/card/sst_spear_thrust.webp',
-	'image/character/nnk_decidueye.png',
-	'image/character/nnk_machamp.png',
-	'image/character/ska_rabbid_peach.png',
-	'image/character/ska_rabbid_rosalina.png'
 ];

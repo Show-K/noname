@@ -179,7 +179,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				cardPrompt:function(card){
 					var str='出牌阶段，对你使用。你将【浮雷】置入判定区。若判定结果为♠，则目标角色受到X点雷电伤害（X为此牌判定结果为♠的次数）。判定完成后，将此牌移动到下家的判定区里。';
-					if(card.storage&&card.storage.fulei) str+=('<br><span style="font-family:fzhtk">此牌已判定命中过：'+card.storage.fulei+'次</span>');
+					if(card.storage&&card.storage.fulei) str+=('<br><span style="font-family:sarasa">此牌已判定命中过：'+card.storage.fulei+'次</span>');
 					return str;
 				},
 				effect:function(){
