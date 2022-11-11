@@ -1383,6 +1383,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				preHidden:true,
 				trigger:{global:"damageSource"},
 				init:player=>player.storage.renku=true,
+				filter:event=>event.source,
 				check:()=>_status.renku.length<6,
 				content:()=>{
 					"step 0"
@@ -2450,7 +2451,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_xiangshi_info:"出牌阶段限一次，你可以翻面。若如此做，你可以打出一张牌，然后弃置一名角色区域内的一张牌。若这两张牌的花色相同，你翻面。",
 			mnm_huaijiu:"怀旧",
 			mnm_huaijiu_info:"准备阶段，你可以获得一名《三国杀 标准版》武将的技能，直到你的下一个回合开始。",
-			mnm_huaijiu_append:"<span style=\"font-family: twkai\">*可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
+			mnm_huaijiu_append:"<span style=\"font-family: LXGWWenKai\">*可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍</span>",
 			mnm_huaijiu_faq:"*",
 			mnm_huaijiu_faq_info:"可选武将：曹操、司马懿、夏侯惇、张辽、许褚、郭嘉、甄姬、刘备、关羽、张飞、诸葛亮、赵云、马超、黄月英、孙权、甘宁、吕蒙、黄盖、周瑜、大乔、陆逊、孙尚香、华佗、吕布、貂蝉、华雄、袁术、公孙瓒、伊籍",
 			nnk_yuanlei:"远雷",

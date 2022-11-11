@@ -74,7 +74,7 @@ window.noname_package={
 	},
 	font:{
 		sarasa:"黑体",
-		twkai:'楷体'
+		LXGWWenKai:'楷体'
 	},
 	theme:{
 		woodden:'木纹',

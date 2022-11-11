@@ -8298,7 +8298,7 @@
 							lib.configMenu.appearence.config.identity_font.item[i]=pack.font[i];
 							lib.configMenu.appearence.config.cardtext_font.item[i]=pack.font[i];
 							lib.configMenu.appearence.config.global_font.item[i]=pack.font[i];
-							if(i=="sarasa"){
+							if(i=='sarasa'){
 								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-extralight.woff2'); font-weight: 200; font-style: normal;}",0);
 								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-light.woff2'); font-weight: 300; font-style: normal;}",0);
 								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-regular.woff2'); font-weight: 400; font-style: normal;}",0);
@@ -8310,10 +8310,10 @@
 								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-semibolditalic.woff2'); font-weight: 600; font-style: italic;}",0);
 								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-bolditalic.woff2'); font-weight: 700; font-style: italic;}",0);
 							}
-							else if(i=="twkai"){
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/TW-Kai-98_1.woff2');}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/TW-Kai-Ext-B-98_1.woff2');}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/TW-Kai-Plus-98_1.woff2');}",0);
+							else if(i=='LXGWWenKai'){
+								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-Light.woff2'); font-weight: 300;}",0);
+								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-Regular.woff2'); font-weight: 400;}",0);
+								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-Bold.woff2'); font-weight: 700;}",0);
 							}
 							else{
 								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+".woff2');}",0);
@@ -10016,7 +10016,8 @@
 					ui.css.styles.sheet.insertRule('.card div:not(.info):not(.background) {font-family: '+lib.config.cardtext_font+';}',0);
 				}
 				if(lib.config.global_font&&lib.config.global_font!='default'){
-					ui.css.styles.sheet.insertRule('#window #control{font-family: sarasa,STHeiti,SimHei,Microsoft JhengHei,Microsoft YaHei,WenQuanYi Micro Hei,Suits,Helvetica,Arial,sans-serif}',0);
+					ui.css.styles.sheet.insertRule('#window {font-family: '+lib.config.global_font+'}',0);
+					ui.css.styles.sheet.insertRule('#window #control{font-family: STHeiti,SimHei,Microsoft JhengHei,Microsoft YaHei,WenQuanYi Micro Hei,Suits,Helvetica,Arial,sans-serif}',0);
 				}
 				switch(lib.config.glow_phase){
 					case 'yellow':ui.css.styles.sheet.insertRule('#arena .player:not(.selectable):not(.selected).glow_phase {box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1px, rgb(217, 152, 62) 0 0 15px, rgb(217, 152, 62) 0 0 15px !important;}',0);break;
@@ -11566,7 +11567,7 @@
 							else if(acc>=65) rank=['C','thunder'];
 							else rank=['D','fire'];
 							event.dialog.textPrompt.innerHTML='<div class="text center">演奏结束！<br>最大连击数：'+max_combo+'  精准度：'+acc+'%</div>';
-							game.me.$fullscreenpop('<span style="font-family:sarasa">演奏评级：<span data-nature="'+rank[1]+'">'+rank[0]+'</span></span>',null,null,false);
+							game.me.$fullscreenpop('演奏评级：<span data-nature="'+rank[1]+'">'+rank[0]+'</span>',null,null,false);
 							//返回结果并继续游戏
 							setTimeout(function(){
 								event._result={
@@ -15106,7 +15107,7 @@
 								var item=ui.create.div('.button.card.pointerdiv.mebg');
 								item.style.width='50px';
 								buttons.insertBefore(item,event.dialog.buttons[i]);
-								item.innerHTML='<div style="font-family: sarasa;font-size: 25px;height: 75px;line-height: 25px;top: 8px;left: 10px;width: 30px;">第'+get.cnNumber(i+1,true)+'张</div>';
+								item.innerHTML='<div style="font-size: 25px;height: 75px;line-height: 25px;top: 8px;left: 10px;width: 30px;">第'+get.cnNumber(i+1,true)+'张</div>';
 								if(i==event.dialog.buttons.length+1){
 									item.firstChild.innerHTML='牌堆底';
 								}
@@ -26746,7 +26747,7 @@
 						this.node.info.innerHTML=info.modinfo;
 					}
 					else{
-						this.node.info.innerHTML=get.translation(card[0])+'<span style="font-family:sarasa"> </span><span style="font-family:sarasa">'+cardnum+'</span>';
+						this.node.info.innerHTML=get.translation(card[0])+'<span> </span><span>'+cardnum+'</span>';
 					}
 					if(info.addinfo){
 						if(!this.node.addinfo){
@@ -38286,7 +38287,7 @@
 				if(rarity!='common'&&lib.config.show_rarity){
 					var intro=button.node.intro;
 					intro.classList.add('showintro');
-					intro.style.fontFamily='sarasa';
+					// intro.style.fontFamily='sarasa';
 					intro.style.fontSize='16px';
 					intro.style.bottom='1px';
 					intro.style.left='6px';
@@ -46114,7 +46115,7 @@
 					newlined2=document.createElement('div');
 					newlined2.style.marginTop='5px';
 					newlined2.style.display='none';
-					newlined2.style.fontFamily='sarasa';
+					// newlined2.style.fontFamily='sarasa';
 					newlined2.classList.add('pointernode');
 					if(get.is.phoneLayout()){
 						newlined2.style.fontSize='32px';
@@ -46276,7 +46277,7 @@
 							newlined=document.createElement('div');
 							newlined.style.marginTop='5px';
 							newlined.style.display='block';
-							newlined.style.fontFamily='sarasa';
+							// newlined.style.fontFamily='sarasa';
 							if(get.is.phoneLayout()){
 								newlined.style.fontSize='32px';
 							}
@@ -48890,9 +48891,9 @@
 				else{
 					num=ui.cardPile.childNodes.length;
 				}
-				uiintro.add('剩余 <span style="font-family:'+'sarasa'+'">'+num);
+				uiintro.add('剩余 '+num);
 
-				uiintro.add('<div class="text center">轮数 <span style="font-family:sarasa">'+game.roundNumber+'</span>&nbsp;&nbsp;&nbsp;&nbsp;洗牌 <span style="font-family:sarasa">'+game.shuffleNumber+'</div>');
+				uiintro.add('<div class="text center">轮数 '+game.roundNumber+'&nbsp;&nbsp;&nbsp;&nbsp;洗牌 '+game.shuffleNumber+'</div>');
 				uiintro.add('<div class="text center">弃牌堆</div>');
 				if(_status.discardPile.length){
 					var list=[];
@@ -55553,8 +55554,8 @@
 							}
 						}
 						if(lib.card[name].yingbian_prompt&&get.is.yingbian(node.link||node)){
-							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: twkai">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
-							else uiintro.add('<div class="text" style="font-family: twkai">应变：'+lib.card[name].yingbian_prompt+'</div>');
+							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: LXGWWenKai">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
+							else uiintro.add('<div class="text" style="font-family: LXGWWenKai">应变：'+lib.card[name].yingbian_prompt+'</div>');
 						}
 						if(lib.translate[name+'_append']){
 							uiintro.add('<div class="text" style="display:inline">'+lib.translate[name+'_append']+'</div>');

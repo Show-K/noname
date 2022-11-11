@@ -6090,8 +6090,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 
 						card.$suitnum.$num = decadeUI.element.create(null, card.$suitnum, 'span');
+						card.$suitnum.$num.style.fontFamily = '"STHeiti","SimHei","Microsoft JhengHei","Microsoft YaHei","WenQuanYi Micro Hei",Helvetica,Arial,sans-serif';
 						card.$suitnum.$br = decadeUI.element.create(null, card.$suitnum, 'br');
 						card.$suitnum.$suit = decadeUI.element.create('suit', card.$suitnum, 'span');
+						card.$suitnum.$suit.style.fontFamily = '"STHeiti","SimHei","Microsoft JhengHei","Microsoft YaHei","WenQuanYi Micro Hei",Helvetica,Arial,sans-serif';
 						card.$equip.$suitnum = decadeUI.element.create(null, card.$equip, 'span');
 						card.$equip.$name = decadeUI.element.create(null, card.$equip, 'span');
 
@@ -6142,7 +6144,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						lib.config.glow_phase = '';
 						initCssstylesFunction.call(this);
 						lib.config.glow_phase = temp;
-						ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: sarasa }', 0);
+						// ui.css.styles.sheet.insertRule('.avatar-name, .avatar-name-default { font-family: sarasa }', 0);
 					};
 
 					lib.init.layout = function (layout, nosave) {
@@ -10040,9 +10042,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
 					'当前版本：1.2.0.220114.16SST（Show-K修复版）',
-					'更新日期：2022-11-03',
+					'更新日期：2022-11-10',
 					'- 修复了处于隐匿状态的武将的静态武将图片不显示的异常。',
 					'- 修复了手机端牌堆查看等界面花色图案过大的异常。',
+					'- 修复了因其他字体的点数花色导致破坏十周年UI卡牌点数花色布局的异常。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',

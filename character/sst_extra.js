@@ -2013,7 +2013,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					maixie:true,
 					maixie_hp:true,
 					maiHp:true,
-					threaten:0.5
+					threaten:0.25
 				},
 				group:"sst_juexin_fail",
 				subSkill:{
@@ -2349,26 +2349,26 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:()=>_status.currentPhase.isIn(),
 				logTarget:()=>_status.currentPhase,
 				content:()=>{
-					lib.skill.sst_anzong.logTarget().addSkill("sst_anzong_effect");
+					lib.skill.sst_anzong.logTarget().addSkill(event.name+"_effect");
 					game.delayx();
 				}
 			},
 			sst_anzong_effect:{
 				charlotte:true,
-				init:player=>{
-					player.storage.sst_anzong_effect=player.dieAfter2;
+				init:(player,skill)=>{
+					player.storage[skill]=player.dieAfter2;
 					game.broadcastAll((player,dieAfter2)=>player.dieAfter2=dieAfter2,player,source=>{
 						if(source) source.draw(3);
 					});
 				},
 				mark:true,
 				intro:{
-					content:"杀死你执行的奖惩为：<span style=\"font-family: twkai\">杀死你的角色摸三张牌</span>",
+					content:"杀死你执行的奖惩为：<span style=\"font-family: LXGWWenKai\">杀死你的角色摸三张牌</span>",
 					markcount:()=>3
 				},
-				onremove:player=>{
-					game.broadcastAll((player,dieAfter2)=>player.dieAfter2=dieAfter2,player,player.storage.sst_anzong_effect);
-					delete player.storage.sst_anzong_effect;
+				onremove:(player,skill)=>{
+					game.broadcastAll((player,dieAfter2)=>player.dieAfter2=dieAfter2,player,player.storage[skill]);
+					delete player.storage[skill];
 				}
 			},
 			//Inkling
@@ -2704,7 +2704,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_shouyin_info:"你使用牌结算后，可以令一名其他角色选择是否使用一张类别相同的牌，若其以此法使用了牌且两张牌目标唯一且相同，你摸一张牌。",
 			sst_anzong:"暗踪",
 			sst_anzong_effect:"暗踪",
-			sst_anzong_info:"隐匿技，锁定技，当你登场时，将杀死当前回合角色执行的奖惩改为：<span style=\"font-family: twkai\">杀死其的角色摸三张牌</span>。",
+			sst_anzong_info:"隐匿技，锁定技，当你登场时，将杀死当前回合角色执行的奖惩改为：<span style=\"font-family: LXGWWenKai\">杀死其的角色摸三张牌</span>。",
 			sst_xumo:"蓄墨",
 			sst_xumo_info:"隐匿技，锁定技，当你登场时，摸三张牌。",
 			sst_pentu:"喷涂",

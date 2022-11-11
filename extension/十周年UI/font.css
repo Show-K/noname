@@ -58,7 +58,7 @@
 
 @font-face {
 	font-family: 'sarasa';
-	src: url('../../font/sarasa-ui-sc-italicitalic.woff2');
+	src: url('../../font/sarasa-ui-sc-italic.woff2');
 	font-weight: 400;
 	font-style: italic;
 }
@@ -77,18 +77,27 @@
 	font-style: italic;
 }
 
-/*全字库楷体*/
+/*霞鹜文楷*/
 @font-face {
-	font-family: 'twkai';
-	src: local('TW-Kai'), url('../../font/TW-Kai-98_1.woff2');
+	font-family: 'LXGWWenKai';
+	src: local('LXGW WenKai Light'), url('../../font/LXGWWenKai-Light.woff2');
+	font-weight: 300;
 }
 
 @font-face {
-	font-family: 'twkai';
-	src: local('TW-Kai-Ext-B'), url('../../font/TW-Kai-Ext-B-98_1.woff2');
+	font-family: 'LXGWWenKai';
+	src: local('LXGW WenKai'), url('../../font/LXGWWenKai-Regular.woff2');
+	font-weight: 400;
 }
 
 @font-face {
-	font-family: 'twkai';
-	src: local('TW-Kai-Plus'), url('../../font/TW-Kai-Plus-98_1.woff2');
+	font-family: 'LXGWWenKai';
+	src: url('../../font/LXGWWenKai-Bold.woff2');
+	font-weight: 700;
+}
+
+/*花色*/
+@font-face {
+	font-family: 'Suits';
+	src: local('Noname Suit'), url('../../font/suits.woff2');
 }
