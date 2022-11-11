@@ -1946,6 +1946,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_yebao_effect:{
 				charlotte:true,
+				locked:true,
 				mark:true,
 				init:player=>{
 					if(!Array.isArray(player.storage.sst_yebao_effect)) player.storage.sst_yebao_effect=[];
@@ -1964,14 +1965,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				onremove:true,
 				trigger:{global:"phaseEnd"},
-				forced:true,
+				direct:true,
 				content:()=>{
 					for(let i=0;Array.isArray(player.storage.sst_yebao_effect)&&i<player.storage.sst_yebao_effect.length;i++){
 						player.storage.sst_yebao_effect[i]--;
 						if(player.storage.sst_yebao_effect[i]<=0) player.storage.sst_yebao_effect.splice(i--,1);
 						player.markSkill("sst_yebao_effect");
 						if(!player.storage.sst_yebao_effect.length) player.removeSkill("sst_yebao_effect");
-						player.chooseToDiscard("业报：弃置一张牌","he",true);
+						player.chooseToDiscard("业报：弃置一张牌","he",true).set("logSkill","sst_yebao_effect");
 					}
 				}
 			},
