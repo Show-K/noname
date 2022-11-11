@@ -3969,7 +3969,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const history=player.getAllHistory("useCard");
 						if(history&&history.length){
 							const targets=game.filterPlayer(current=>player.canUse(card,current));
-							if(targets.length==1&&history[history.length-1].targets.contains(targets[0])) return num-10;
+							if(targets.length==1&&history[history.length-1].targets.contains(targets[0])) return num/2;
 						}
 					}
 				},
