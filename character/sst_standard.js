@@ -2031,7 +2031,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					target.addMark("sst_shengbing_effect",1,false);
 				},
 				ai:{
-					expose:0.2
+					expose:0.2,
+					noe:true
 				}
 			},
 			sst_shengbing_effect:{
