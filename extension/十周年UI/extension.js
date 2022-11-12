@@ -2065,14 +2065,13 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 								delete player.equiping;
 								return;
 							}
-							if (lib.config.background_audio) {
-								game.playAudio('effect', get.subtype(card));
-							}
-							game.broadcast(function (type) {
+							var subtype = get.subtype(card);
+							if (subtype == 'equip6') subtype = 'equip3';
+							game.broadcastAll(function (type) {
 								if (lib.config.background_audio) {
 									game.playAudio('effect', type);
 								}
-							}, get.subtype(card));
+							}, subtype);
 							player.$equip(card);
 							game.addVideo('equip', player, get.cardInfo(card));
 							game.log(player, '装备了', card);
@@ -10042,10 +10041,11 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				var log = [
 					'有bug先检查其他扩展，不行再关闭UI重试，最后再联系作者。',
 					'当前版本：1.2.0.220114.16SST（Show-K修复版）',
-					'更新日期：2022-11-10',
+					'更新日期：2022-11-12',
 					'- 修复了处于隐匿状态的武将的静态武将图片不显示的异常。',
 					'- 修复了手机端牌堆查看等界面花色图案过大的异常。',
 					'- 修复了因其他字体的点数花色导致破坏十周年UI卡牌点数花色布局的异常。',
+					'- 修复了使用equip6牌无声音的异常。',
 					/*
 					'- 新增动皮及背景：[曹节-凤历迎春]、[曹婴-巾帼花舞]、[貂蝉-战场绝版]、[何太后-耀紫迷幻]、[王荣-云裳花容]、[吴苋-金玉满堂]、[周夷-剑舞浏漓]；',
 					'- 新增动皮oncomplete支持(函数内部只能调用this.xxx代码)；',
