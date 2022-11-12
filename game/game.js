@@ -1,5 +1,9 @@
 "use strict";
 (function(){
+	if(!localStorage.getItem('noname_alerted')){
+		localStorage.setItem('noname_alerted',true);
+		alert('无名杀官方发布地址仅有GitHub仓库！\n其他所有的所谓“无名杀”社群（包括但不限于绝大多数“官方”QQ群、QQ频道等）均为粉丝自发组织，与无名杀官方无关！');
+	}
 	var _status={
 		//New add
 		mougong_buff:['sha','shan','juedou','huogong','tao'],
@@ -2830,7 +2834,7 @@
 								node.style.fontFamily=link;
 							}
 							else{
-								node.style.fontFamily="'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei',Helvetica,Arial,sans-serif";
+								node.style.fontFamily="'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei','Suits',Helvetica,Arial,sans-serif";
 							}
 							node.style.fontSize='20px';
 						},
@@ -7109,6 +7113,7 @@
 			globalId:0,
 		},
 		help:{
+			'关于游戏':'<div style="margin:10px">关于无名杀</div><ul style="margin-top:0"><li>无名杀官方发布地址仅有GitHub仓库！<br><a href="https://github.com/libccy/noname">点击前往Github仓库</a><br><li>其他所有的所谓“无名杀”社群（包括但不限于绝大多数“官方”QQ群、QQ频道等）均为粉丝自发组织，与无名杀官方无关！',
 			'游戏操作':'<ul><li>长按/鼠标悬停/右键单击显示信息。<li>触屏模式中，双指点击切换暂停；下划显示菜单，上划切换托管。<li>键盘快捷键<br>'+
 			'<table><tr><td>A<td>切换托管<tr><td>W<td>切换不询问无懈<tr><td>空格<td>暂停</table><li>编辑牌堆<br>在卡牌包中修改牌堆后，将自动创建一个临时牌堆，在所有模式中共用，当保存当前牌堆后，临时牌堆被清除。每个模式可设置不同的已保存牌堆，设置的牌堆优先级大于临时牌堆。</ul>',
 			'游戏命令':'<div style="margin:10px">变量名</div><ul style="margin-top:0"><li>场上角色<br>game.players<li>阵亡角色<br>game.dead'+
@@ -8038,6 +8043,7 @@
 							lib.configMenu.appearence.config.cardtext_font.item[i]=pack.font[i];
 							lib.configMenu.appearence.config.global_font.item[i]=pack.font[i];
 							ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+".ttf');}",0);
+							if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
 						}
 						if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: 'Suits'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
 						lib.configMenu.appearence.config.cardtext_font.item.default='默认';
@@ -8104,9 +8110,10 @@
 						}
 						var alerted=false;
 						for(var i=0;i<lib.config.extensions.length;i++){
-							if(!alerted&&window.bannedExtensions.contains(lib.config.extensions[i])){
+							if(window.bannedExtensions.contains(lib.config.extensions[i])){
+								//if(!alerted) alert('读取某些扩展时出现问题。');
 								alerted=true;
-								alert('读取某些扩展时出现问题。');
+								continue;
 							}
 							var extcontent=localStorage.getItem(lib.configprefix+'extension_'+lib.config.extensions[i]);
 							if(extcontent){
@@ -8129,9 +8136,10 @@
 					else{
 						var alerted=false;
 						for(var i=0;i<lib.config.extensions.length;i++){
-							if(!alerted&&window.bannedExtensions.contains(lib.config.extensions[i])){
+							if(window.bannedExtensions.contains(lib.config.extensions[i])){
+								//if(!alerted) alert('读取某些扩展时出现问题。');
 								alerted=true;
-								alert('读取某些扩展时出现问题。');
+								continue;
 							}
 							game.import('extension',{name:lib.config.extensions[i]});
 						}
@@ -8204,7 +8212,17 @@
 										loadPack();
 									}
 								}
+								//读取扩展
+								var alerted=false;
 								for(var i=0;i<extensionlist.length;i++){
+									if(window.bannedExtensions.contains(extensionlist[i])){
+										alerted=true;
+										extToLoad--;
+										if(extToLoad==0){
+											loadPack();
+										}
+										continue;
+									}
 									lib.init.js(lib.assetURL+'extension/'+extensionlist[i],'extension',extLoaded,(function(i){
 										return function(){
 											game.removeExtension(i);
@@ -11097,6 +11115,9 @@
 							if(ui.confirm) ui.confirm.close();
 							game.resume();
 							_status.imchoosing=false;
+							setTimeout(function(){
+								ui.arena.classList.remove('choose-to-move');
+							},500);
 						};
 						event.dialog.classList.add('scroll1');
 						event.dialog.classList.add('scroll2');
@@ -11563,8 +11584,11 @@
 						list.push('equip'+i);
 					}
 					if(!list.length) event.finish();
-					else{
+					else if(list.length==1){
 						event.list=list;
+						event._result={control:list[0]};
+					}
+					else{
 						var next=player.chooseControl(list);
 						next.set('prompt','请选择恢复一个装备栏');
 						if(!event.ai) event.ai=function(event,player,list){
@@ -11589,6 +11613,10 @@
 						list.push('equip'+i);
 					}
 					if(!list.length) event.finish();
+					else if(list.length==1){
+						event.list=list;
+						event._result={control:list[0]};
+					}
 					else{
 						event.list=list;
 						var next=player.chooseControl(list);
@@ -17310,14 +17338,13 @@
 						delete player.equiping;
 						return;
 					}
-					if(lib.config.background_audio){
-						game.playAudio('effect',get.subtype(card));
-					}
-					game.broadcast(function(type){
+					var subtype=get.subtype(card);
+					if(subtype=='equip6') subtype='equip3';
+					game.broadcastAll(function(type){
 						if(lib.config.background_audio){
 							game.playAudio('effect',type);
 						}
-					},get.subtype(card));
+					},subtype);
 					player.$equip(card);
 					game.addVideo('equip',player,get.cardInfo(card));
 					game.log(player,'装备了',card);
@@ -20038,6 +20065,7 @@
 							if(card.name=='du') addi-=3;
 							var source=_status.event.source;
 							var player=_status.event.player;
+							var event=_status.event.getParent();
 							var getn=function(card){
 								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13*(event.small?-1:1);
 								return get.number(card)*(event.small?-1:1);
@@ -37142,7 +37170,7 @@
 		roundNumber:0,
 		shuffleNumber:0,
 	};
-	window['b'+'ann'+'e'+'dE'+'x'+'ten'+'s'+'i'+'o'+'ns']=[];
+	window['b'+'ann'+'e'+'dE'+'x'+'ten'+'s'+'i'+'o'+'ns']=['\u4fa0\u4e49','\u5168\u6559\u7a0b'];
 	var ui={
 		updates:[],
 		thrown:[],
@@ -52993,7 +53021,7 @@
 		},
 		position:function(card,ordering){
 			if(get.itemtype(card)=='player') return parseInt(card.dataset.position);
-			if(card.timeout&&card.destiny){
+			if(card.timeout&&card.destiny&&card.destiny.classList){
 				if(card.destiny.classList.contains('equips')) return 'e';
 				if(card.destiny.classList.contains('judges')) return 'j';
 				if(card.destiny.classList.contains('expansions')) return 'x';
@@ -53004,7 +53032,7 @@
 				if(card.destiny.id=='ordering') return ordering?'o':'d';
 				return null;
 			}
-			if(!card.parentNode) return;
+			if(!card.parentNode||!card.parentNode.classList) return;
 			if(card.parentNode.classList.contains('equips')) return 'e';
 			if(card.parentNode.classList.contains('judges')) return 'j';
 			if(card.parentNode.classList.contains('expansions')) return 'x';
@@ -53448,8 +53476,8 @@
 			var func;
 			if(sort=='type_sort'){
 				func=function(card){
-					var type=get.type(card);
-					var subtype=get.subtype(card);
+					var type=get.type(card,null,false);
+					var subtype=get.subtype(card,false);
 					if(lib.cardType[subtype]){
 						return lib.cardType[subtype];
 					}
