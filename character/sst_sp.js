@@ -1127,7 +1127,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						game.log(player,"将",nhs,"置于牌堆顶");
 					}
 				},
-				check:card=>5-get.value(card),
+				check:card=>7-get.value(card),
 				content:()=>{
 					const evt=event.getParent(2);
 					evt.set("ska_kuiwang",true);

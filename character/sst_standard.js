@@ -1691,10 +1691,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						if(["wugu","zhulu_card","yiyi","lulitongxin","lianjunshengyan","diaohulishan"].contains(button.link[2])) return 0;
 						const player=_status.event.player;
 						if(player.countCards("hs",button.link[2])) return 0;
+						if(player.hasHistory("useCard",evt=>evt.skill=="sst_chengli_backup"&&get.name(evt.card)==button.link[2])) return 0;
 						let val=player.getUseValue({
 							name:button.link[2],
 							nature:button.link[3],
-						})-player.getHistory("useCard",evt=>evt.skill=="sst_chengli_backup"&&get.name(evt.card)==button.link[2]).length*6;
+						});
 						if(_status.event.getParent().type!="phase") val-=3;
 						return val;
 					},
@@ -8206,11 +8207,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 1"
 					if(player.countCards("h")>player.getHp()&&player.countCards("hej")>1){
 						player.discardPlayerCard("暴食：弃置"+get.cnNumber(player.countCards("hej")-1)+"张区域内的牌",player,player.countCards("hej")-1,"hej",true).set("ai",button=>{
-							const player=_status.event.player;
 							if(get.position(button.link)=="e"||get.position(button.link)=="j") return 100;
 							if(get.name(button.link)=="du") return 20;
+							const player=_status.event.player;
 							if(!lib.filter.cardEnabled(button.link,player)||!lib.filter.cardUsable(button.link,player)) return 10;
-							return 10-player.getUseValue(button.link);
+							return -player.getUseValue(button.link);
 						}).set("delay",false);
 					}
 				},
