@@ -11,10 +11,6 @@
 		const formatted=doubleSlash.map(str=>str.replace(/(?<after>:)/giu,'$1<wbr>').replace(/(?<before>[/~.,\-_?#%])/giu,'<wbr>$1').replace(/(?<beforeAndAfter>[=&])/giu,'<wbr>$1<wbr>')).join('//<wbr>');
 		return formatted;
 	};
-	if(!localStorage.getItem('noname_alerted')){
-		localStorage.setItem('noname_alerted',true);
-		alert('无名杀官方发布地址仅有GitHub仓库！\n其他所有的所谓“无名杀”社群（包括但不限于绝大多数“官方”QQ群、QQ频道等）均为粉丝自发组织，与无名杀官方无关！');
-	}
 	var _status={
 		//SST addition
 		mougong_buff:['sha','shan','juedou','huogong','tao'],
