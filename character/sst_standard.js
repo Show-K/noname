@@ -11873,14 +11873,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				return str;
 			}
 		},
-		/*
-		characterReplace:{
-			sst_mario:["sst_mario","sst_dr_mario"],
-			sst_link:["sst_link","sst_young_link","sst_toon_link"],
-			sst_samus:["sst_samus","sst_zero_suit_samus"],
-			sst_byleth_male:["sst_byleth_male","sst_byleth_female"],
-		},
-		*/
+		characterReplace:{},
 		translate:{
 			//Character
 			sst_mario:"马力欧",

@@ -2339,14 +2339,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				return "转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色<span class=\"bluetext\">①翻面</span>②本轮非锁定技失效。";
 			}
 		},
-		/*
-		characterReplace:{
-			//sst_mario:["sst_mario","sst_dr_mario","ska_mario"],
-			//sst_bowser:["sst_bowser","ska_bowser"],
-			sst_yumikohimi:["sst_yumikohimi","ymk_yumikohimi"],
-			sst_isabelle:["sst_isabelle","ymk_isabelle"]
-		},
-		*/
+		characterReplace:{},
 		translate:{
 			//Character
 			ymk_isabelle:"SP西施惠",

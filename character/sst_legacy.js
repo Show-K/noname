@@ -21,6 +21,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		},
 		character:{
 			//LTK
+			re_lidian:["male","sst_smash",3,["xunxun","wangxi"],["unseen"]],
+			re_xushu:["male","sst_smash",4,["zhuhai","qianxin"],["unseen"]],
 			caocao:["male","sst_smash",4,["jianxiong","hujia"],["zhu","unseen"]],
 			simayi:["male","sst_smash",3,["fankui","guicai"],["unseen"]],
 			xiahoudun:["male","sst_smash",4,["ganglie"],["unseen"]],
@@ -67,6 +69,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		},
 		characterIntro:{
 			//LTK
+			re_lidian:"字曼成，曹操麾下将领。李典深明大义，不与人争功，崇尚学习与高贵儒雅，尊重博学之士，在军中被称为长者。李典有长者之风，官至破虏将军，三十六岁去世。魏文帝曹丕继位后追谥号为愍侯。",
+			xushu:"字元直，与司马徽、诸葛亮等人为友。先化名单福仕官于新野的刘备，后因曹操囚禁其母而不得不弃备投操，临行前向刘备推荐诸葛亮之才。入曹营后，一言不发，不曾为曹操进献过一计半策。后人形容徐庶“身在曹营心在汉”。",
 			liubei:"先主姓刘，讳备，字玄德，涿郡涿县人，汉景帝子中山靖王胜之后也。以仁德治天下。",
 			guanyu:"字云长，本字长生，并州河东解州人。五虎上将之首，爵至汉寿亭侯，谥曰“壮缪侯”。被奉为“关圣帝君”，崇为“武圣”。",
 			zhangfei:"字翼德，涿郡人，燕颔虎须，豹头环眼。有诗云：“长坂坡头杀气生，横枪立马眼圆睁。一声好似轰雷震，独退曹家百万兵”。",
@@ -222,6 +226,181 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		},
 		skill:{
 			//LTK
+			xunxun:{
+				audio:2,
+				trigger:{player:"phaseDrawBegin1"},
+				preHidden:true,
+				content:function(){
+					"step 0"
+					var cards=get.cards(4);
+					game.cardsGotoOrdering(cards);
+					var next=player.chooseToMove("恂恂：将两张牌置于牌堆顶",true);
+					next.set("list",[
+						["牌堆顶",cards],
+						["牌堆底"],
+					]);
+					next.set("filterMove",function(from,to,moved){
+						if(to==1&&moved[1].length>=2) return false;
+						return true;
+					});
+					next.set("filterOk",function(moved){
+						return moved[1].length==2;
+					});
+					next.set("processAI",function(list){
+						var cards=list[0][1].slice(0).sort(function(a,b){
+							return get.value(b)-get.value(a);
+						});
+						return [cards,cards.splice(2)];
+					})
+					"step 1"
+					var top=result.moved[0];
+					var bottom=result.moved[1];
+					top.reverse();
+					for(var i=0;i<top.length;i++){
+						ui.cardPile.insertBefore(top[i],ui.cardPile.firstChild);
+					}
+					for(i=0;i<bottom.length;i++){
+						ui.cardPile.appendChild(bottom[i]);
+					}
+					game.updateRoundNumber();
+					game.delayx();
+				},
+			},
+			wangxi:{
+				audio:2,
+				trigger:{player:"damageEnd",source:"damageSource"},
+				filter:function(event){
+					if(event._notrigger.contains(event.player)) return false;
+					return event.num&&event.source&&event.player&&
+					event.player.isAlive()&&event.source.isAlive()&&event.source!=event.player;
+				},
+				check:function(event,player){
+					if(player.isPhaseUsing()) return true;
+					if(event.player==player) return get.attitude(player,event.source)>-3;
+					return get.attitude(player,event.player)>-3;
+				},
+				logTarget:function(event,player){
+					if(event.player==player) return event.source;
+					return event.player;
+				},
+				preHidden:true,
+				content:function(){
+					"step 0"
+					event.count=trigger.num;
+					"step 1"
+					game.asyncDraw([trigger.player,trigger.source]);
+					event.count--;
+					"step 2"
+					game.delay();
+					"step 3"
+					if(event.count){
+						player.chooseBool(get.prompt2("wangxi",lib.skill.wangxi.logTarget(trigger,player)))
+					}
+					else event.finish();
+					"step 4"
+					if(result.bool){
+						player.logSkill("wangxi",lib.skill.wangxi.logTarget(trigger,player));
+						event.goto(1);
+					}
+				},
+				ai:{
+					maixie:true,
+					maixie_hp:true
+				}
+			},
+			zhuhai:{
+				audio:2,
+				audioname:["gz_re_xushu"],
+				trigger:{global:"phaseJieshuBegin"},
+				direct:true,
+				filter:function(event,player){
+					return event.player.isAlive()&&event.player.getStat("damage")&&
+					lib.filter.targetEnabled({name:"sha"},player,event.player)&&(player.hasSha()||_status.connectMode&&player.countCards("h")>0);
+				},
+				content:function(){
+					player.chooseToUse(function(card,player,event){
+						if(get.name(card)!="sha") return false;
+						return lib.filter.filterCard.apply(this,arguments);
+					},"诛害：是否对"+get.translation(trigger.player)+"使用一张杀？").set("logSkill","zhuhai").set("complexSelect",true).set("filterTarget",function(card,player,target){
+						if(target!=_status.event.sourcex&&!ui.selected.targets.contains(_status.event.sourcex)) return false;
+						return lib.filter.targetEnabled.apply(this,arguments);
+					}).set("sourcex",trigger.player);
+				}
+			},
+			qianxin:{
+				skillAnimation:true,
+				animationColor:"orange",
+				audio:2,
+				unique:true,
+				juexingji:true,
+				trigger:{source:"damageSource"},
+				forced:true,
+				derivation:"jianyan",
+				filter:function(event,player){
+					return player.hp<player.maxHp;
+				},
+				content:function(){
+					player.awakenSkill("qianxin");
+					player.addSkill("jianyan");
+					player.loseMaxHp();
+				}
+			},
+			jianyan:{
+				audio:2,
+				enable:"phaseUse",
+				usable:1,
+				delay:false,
+				filter:function(event,player){
+					return game.hasPlayer(function(current){
+						return current.hasSex("male");
+					});
+				},
+				content:function(){
+					"step 0"
+					player.chooseControl(["red","black","basic","trick","equip"]).set("ai",function(){
+						var player=_status.event.player;
+						if(!player.hasShan()) return "basic";
+						if(player.countCards("e")<=1) return "equip";
+						if(player.countCards("h")>2) return "trick";
+						return "red";
+					});
+					"step 1"
+					event.card=get.cardPile(function(card){
+						if(get.color(card)==result.control) return true;
+						if(get.type(card,"trick")==result.control) return true;
+						return false;
+					},"cardPile");
+					if(!event.card){
+						event.finish();
+						return;
+					}
+					player.showCards([event.card]);
+					"step 2"
+					player.chooseTarget(true,"选择一名男性角色送出"+get.translation(event.card),function(card,player,target){
+						return target.hasSex("male");
+					}).set("ai",function(target){
+						var att=get.attitude(_status.event.player,target);
+						if(_status.event.neg) return -att;
+						return att;
+					}).set("neg",get.value(event.card,player,"raw")<0);
+					"step 3"
+					player.line(result.targets,"green");
+					result.targets[0].gain(event.card,"gain2");
+
+				},
+				ai:{
+					order:9,
+					result:{
+						player:function(player){
+							if(game.hasPlayer(function(current){
+								return current.hasSex("male")&&get.attitude(player,current)>0;
+							})) return 2;
+							return 0;
+						},
+					},
+					threaten:1.2
+				}
+			},
 			rewangzun:{
 				trigger:{global:"phaseZhunbeiBegin"},
 				forced:true,
@@ -1125,7 +1304,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 				},
 				prompt:"将一张红色牌当杀使用或打出",
-				check:function(card){return 4-get.value(card)},
+				check:function(card){
+					var val=get.value(card);
+					if(_status.event.name=="chooseToRespond") return 1/Math.max(0.1,val);
+					return 5-val;
+				},
 				ai:{
 					skillTagFilter:function(player){
 						if(get.zhu(player,"shouyue")){
@@ -2515,7 +2698,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(result.bool){
 						event.target=result.targets[0];
 						player.line(event.target,"green");
-						player.give(event.card,event.target);
+						player.give(card,event.target,true);
 					}
 					else ui.cardPile.appendChild(event.card);
 					game.updateRoundNumber();
@@ -4271,8 +4454,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			}
 		},
-		dynamicTranslate:{
-		},
+		dynamicTranslate:{},
+		characterReplace:{},
 		translate: {
 			//LTK
 			caocao:"曹操",
@@ -4290,7 +4473,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			zhangliao:"张辽",
 			xuzhu:"许褚",
 			guojia:"郭嘉",
-			zhenji:"甄姬",
+			zhenji:"甄宓",
 			liubei:"刘备",
 			guanyu:"关羽",
 			zhangfei:"张飞",
@@ -4443,9 +4626,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			rewangzun_info:"锁定技，一名其他角色的准备阶段开始时，若其体力值大于你，你摸一张牌。然后若其身份为主公/主帅/君主/地主且明置，则你摸一张牌，且其本回合的手牌上限-1。",
 			retongji:"同疾",
 			retongji_info:"攻击范围内包含你的角色成为【杀】的目标时，若你不是此【杀】的使用者或目标，其可弃置一张牌，然后将此【杀】转移给你。",
-			gongsunzan:"公孙瓒",
-			reyicong:"义从",
-			reyicong_info:"锁定技，你计算与其他角色的距离时-1。若你的体力值不大于2，则其他角色计算与你的距离时+1。",
+			re_xushu:"徐庶",
+			zhuhai:"诛害",
+			zhuhai_info:"一名其他角色的结束阶段开始时，若该角色本回合造成过伤害，你可以对其使用一张【杀】。",
+			qianxin:"潜心",
+			qianxin_info:"觉醒技，当你造成一次伤害后，若你已受伤，你须减1点体力上限，并获得技能“荐言”。",
+			jianyan:"荐言",
+			jianyan_info:"出牌阶段限一次，你可以声明一种牌的类别或颜色，并亮出牌库中第一张符合你声明的牌，然后你令一名男性角色获得此牌",
+			re_lidian:"李典",
+			xunxun:"恂恂",
+			xunxun_info:"摸牌阶段，你可以观看牌堆顶的四张牌，然后将其中的两张牌置于牌堆顶，并将其余的牌以任意顺序置于牌堆底。",
+			wangxi:"忘隙",
+			wangxi_info:"每当你对其他角色造成1点伤害后，或受到其他角色造成的1点伤害后，你可与该角色各摸一张牌。",
 			//SST
 			//Character
 			deprecated_sst_samus:"旧萨姆斯",

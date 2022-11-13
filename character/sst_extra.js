@@ -52,7 +52,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_inkling_male:["male","sst_light",3,["sst_xumo","sst_pentu"],["unseen","hiddenSkill"]],
 			sst_wii_fit_trainer:["","sst_light",4,["sst_zuoxi"],[]]
 		},
-		characterFilter:{},
+		characterFilter:{
+			sst_claude:()=>{
+				if(_status.connectMode) return lib.config.connect_cards.contains("yingbian");
+				return lib.config.cards.contains("yingbian");
+			}
+		},
 		characterIntro:{
 			/*
 			"武将作者：Yumikohimi<br>\
@@ -2581,6 +2586,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					失败：以此法展示三次手牌后，此技能改为非使命技，“场上等量的牌”改为“场上等量的红色牌”。";
 			}
 		},
+		characterReplace:{},
 		translate: {
 			//Civil War mode reference
 			_guozhan_marks:"标记",
