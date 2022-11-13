@@ -11310,7 +11310,7 @@
 						}
 						else{
 							//str3+=player.name.toUpperCase();
-							str3+=window.pinyinUtil.getPinyin(get.translation(player),"").toUpperCase();
+							str3+=pinyinUtil.getPinyin(get.translation(player),"").toUpperCase();
 						}
 						str3+="</span> <span data-nature=\"thunder\">FIRST!</span></span>";
 						setTimeout(function(){

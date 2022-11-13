@@ -14,9 +14,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				}
 			}
 			if(get.config('realtime')){
-				if(!window.pinyin_dict_notone) require("./game/pinyin_dict_notone.js");
-				if(!window.pinyin_dict_polyphone) require("./game/pinyin_dict_polyphone.js");
-				if(!window.pinyinUtil) require("./game/pinyinUtil.js");
+				if(typeof window.pinyin_dict_notone!="object") lib.init.js(lib.assetURL+"game","pinyin_dict_notone");
+				if(typeof window.pinyin_dict_polyphone!="object") lib.init.js(lib.assetURL+"game","pinyin_dict_polyphone");
+				if(typeof window.pinyinUtil!="object") lib.init.js(lib.assetURL+"game","pinyinUtil");
 				lib.element.content.phaseLoop=lib.element.content.phaseLoopRealtime;
 				lib.element.content.phase=lib.element.content.phaseRealtime;
 				lib.element.content.phaseDraw=lib.element.content.phaseDrawRealtime;

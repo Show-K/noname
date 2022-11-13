@@ -474,8 +474,11 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 							var hpNode = this.node.hp;
 							if (!this.storage.nohp) {
 								if (hpMax > 9) {
-									hpNode.innerHTML = (isNaN(hp) ? '×' : (hp == Infinity ? '∞' : hp)) + '<br>/<br>'
-										+ (isNaN(hpMax) ? '×' : (hpMax == Infinity ? '∞' : hpMax)) + '<div></div>';
+									hpNode.innerHTML = '<span style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl;">'
+										+ (isNaN(hp) ? '×' : (hp == Infinity ? '∞' : hp))
+										+ '/'
+										+ (isNaN(hpMax) ? '×' : (hpMax == Infinity ? '∞' : hpMax))
+										+ '</span><div></div>';
 									if (hp == 0) hpNode.lastChild.classList.add('lost');
 									hpNode.classList.add('textstyle');
 								} else {
