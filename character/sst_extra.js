@@ -953,18 +953,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				locked:true,
 				direct:true,
 				trigger:{player:"phaseJieshuBegin"},
-				filter:(event,player)=>player.countCards("h",card=>lib.filter.cardDiscardable(card,player))&&game.countPlayer(current=>current.countCards("ej",card=>{
+				filter:(event,player)=>player.hasCard(card=>lib.filter.cardDiscardable(card,player),"h")&&game.countPlayer(current=>current.hasCard(card=>{
 					if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
 					return true;
-				})),
+				},"ej")),
 				content:()=>{
 					"step 0"
 					const max=game.countPlayer(current=>{
-						if(player.storage.sst_wenxin_alter) return current.countCards("ej",card=>get.color(card)=="red");
+						if(player.storage.sst_wenxin_alter) return current.hasCard(card=>get.color(card)=="red","ej");
 						return current.countCards("ej");
 					});
 					player.chooseToDiscard(get.prompt("sst_wenxin"),get.skillInfoTranslation("sst_wenxin",player),[1,max]).set("ai",card=>{
-						const num=game.countPlayer(current=>current.countCards("ej",card=>{
+						const num=game.countPlayer(current=>current.hasCard(card=>{
 							if(_status.event.player.storage.sst_wenxin_alter&&get.color(card)!="red") return false;
 							const fieldValue=card=>{
 								const player=get.owner(card);
@@ -1000,7 +1000,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							const val=fieldValue(card);
 							if(get.attitude(_status.event.player,get.owner(card))>0) return -val>0;
 							return val>0;
-						}));
+						},"ej"));
 						if(ui.selected.cards.length>=num) return 0;
 						let val=5-get.useful(card);
 						if(get.color(card)=="black") val+=3;
@@ -1024,18 +1024,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							const guohe=(player,target)=>{
 								const att=get.attitude(player,target);
 								if(att>0){
-									if(target.countCards("j",card=>{
+									if(target.hasCard(card=>{
 										if(player.storage.sst_wenxin_alter&&get.color(card)!="red") return false;
 										const cardj=card.viewAs?{name:card.viewAs}:card;
 										return get.effect(target,cardj,target,player)<0;
-									})>0) return 3;
+									},"j")) return 3;
 									const baiyin=target.getEquip("baiyin");
 									if(baiyin&&(player.storage.sst_wenxin_alter?get.color(baiyin)=="red":true)&&target.isDamaged()&&
 										get.recoverEffect(target,player,player)>0) if(target.hp==1&&!target.hujia) return 1.6;
-									if(target.countCards("e",card=>{
+									if(target.hasCard(card=>{
 										if(player.storage.sst_wenxin_alter&&get.color(card)!="red") return false;
 										if(get.position(card)=="e") return get.value(card,target)<0;
-									})>0) return 1;
+									},"e")) return 1;
 								}
 								const es=target.getCards("e",card=>{
 									if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
@@ -1044,10 +1044,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								const noe=(es.length==0||target.hasSkillTag("noe"));
 								const noe2=(es.filter(esx=>get.value(esx,target)>0).length==0);
 								if(noe||noe2) return 0;
-								if(att<=0&&!target.countCards("e",card=>{
+								if(att<=0&&!target.hasCard(card=>{
 									if(player.storage.sst_wenxin_alter) return get.color(card)=="red";
 									return true;
-								})) return 1.5;
+								},"e")) return 1.5;
 								return -1.5;
 							};
 							const player=_status.event.player;
@@ -1077,7 +1077,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					event.goto(2);
 					"step 5"
 					player.showHandcards();
-					if(!player.storage.sst_wenxin&&player.countCards()&&!player.countCards("h",card=>get.color(card)!="red")) event.red=true;
+					if(!player.storage.sst_wenxin&&player.countCards()&&!player.hasCard(card=>get.color(card)!="red","h")) event.red=true;
 					"step 6"
 					if(event.black) player.draw(event.black);
 					if(player.storage.sst_wenxin) event.finish();
@@ -1721,7 +1721,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					player.addSkill("sst_miulu_effect");
-					if(player.countCards("h",card=>!card.hasGaintag("exposed"))) player.chooseCard("谬陆：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,card=>!card.hasGaintag("exposed"),true).set("ai",get.value);
+					if(player.hasCard(card=>!card.hasGaintag("exposed"),"h")) player.chooseCard("谬陆：明置"+get.cnNumber(-trigger.num)+"张暗置手牌",-trigger.num,card=>!card.hasGaintag("exposed"),true).set("ai",get.value);
 					"step 1"
 					if(result.cards&&result.cards.length){
 						player.$give(result.cards,player,false);
@@ -2272,12 +2272,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 0"
 					player.chooseTarget(get.prompt2("sst_dieying"),(card,player,target)=>target.countGainableCards(player,"ej")).set("ai",target=>{
 						const shunshou=(player,target)=>{
-							if(get.attitude(player,target)<=0) return (target.countCards("e",card=>get.value(card,target)>0&&card!=target.getEquip("jinhe"))>0)?-1.5:1.5;
-							return (target.countCards("ej",card=>{
+							if(get.attitude(player,target)<=0) return (target.hasCard(card=>get.value(card,target)>0&&card!=target.getEquip("jinhe"),"e")>0)?-1.5:1.5;
+							return (target.hasCard(card=>{
 								if(get.position(card)=="e") return get.value(card,target)<=0;
 								const cardj=card.viewAs?{name:card.viewAs}:card;
 								return get.effect(target,cardj,target,player)<0;
-							})>0)?1.5:-1.5;
+							},"ej"))?1.5:-1.5;
 						};
 						const player=_status.event.player;
 						let att=get.attitude(player,target);

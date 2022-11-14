@@ -1331,7 +1331,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(!player.isMinHandcard()) return false;
 					if(!game.hasPlayer(current=>current.countCards("h")&&current.isMaxHandcard())) return false;
 					if(event.getParent("sst_haoduo").name=="sst_haoduo") return false;
-					if(event.name=="gain"&&event.player==player&&event.cards&&event.cards.length&&player.countCards("h",card=>event.cards.contains(card))) return true;
+					if(event.name=="gain"&&event.player==player&&event.cards&&event.cards.length&&player.hasCard(card=>event.cards.contains(card),"h")) return true;
 					const evt=event.getl(player);
 					return evt&&evt.player==player&&evt.hs&&evt.hs.length;
 				},
@@ -1803,7 +1803,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				usable:1,
 				preHidden:true,
 				trigger:{global:"useCard"},
-				filter:(event,player)=>player.countCards("h",card=>lib.filter.cardDiscardable(card,player))||get.itemtype(_status.pileTop)=="card",
+				filter:(event,player)=>player.hasCard(card=>lib.filter.cardDiscardable(card,player),"h")||get.itemtype(_status.pileTop)=="card",
 				direct:true,
 				content:()=>{
 					"step 0"
@@ -2000,7 +2000,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			sst_shengbing:{
-				trigger:{player:"loseEnd"},
+				trigger:{player:"loseAfter"},
 				filter:event=>event.es&&event.es.length,
 				direct:true,
 				content:()=>{
@@ -2158,18 +2158,23 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			//Rosalina
 			sst_xingchen:{
-				trigger:{player:"loseEnd"},
+				trigger:{player:"loseBefore"},
 				filter:event=>{
 					if(event.getParent().name!="discard") return false;
-					for(const card of event.hs){
-						if(get.position(card,true)=="d") return true;
+					for(const card of event.cards){
+						if(event.player.hasCard(i=>i==card,"h")) return true;
 					}
 					return false;
+				},
+				prompt2:event=>{
+					const str="你可以将"+get.translation(event.cards.filter(card=>event.player.hasCard(i=>i==card,"h")))+"任意分配给其他角色";
+					if(_status.currentPhase&&_status.currentPhase.isIn()) return str+"，然后"+get.translation(_status.currentPhase)+"摸一张牌";
+					return str;
 				},
 				check:(event,player)=>game.hasPlayer(current=>current!=player&&get.attitude(player,current)>0),
 				content:()=>{
 					"step 0"
-					event.cards=trigger.hs.filter(card=>get.position(card,true)=="d");
+					event.cards=trigger.cards.filter(card=>trigger.player.hasCard(i=>i==card,"h"));
 					"step 1"
 					if(cards.length>1){
 						player.chooseCardButton("星尘：你可以将牌分配给其他角色",cards,[1,cards.length]).set("ai",()=>{
@@ -2210,7 +2215,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						event.goto(1);
 					}
 					"step 4"
-					if(_status.currentPhase.isIn()) _status.currentPhase.draw();
+					if(_status.currentPhase&&_status.currentPhase.isIn()) _status.currentPhase.draw();
 				}
 			},
 			sst_zhuansheng:{
@@ -2337,17 +2342,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							if(target==player&&target.countCards("ej")) return 2;
 							const att=get.attitude(player,target);
 							if(att>0){
-								if(target.countCards("j",card=>{
+								if(target.hasCard(card=>{
 									const cardj=card.viewAs?{name:card.viewAs}:card;
 									return get.effect(target,cardj,target,player)<0;
-								})>0) return 3;
+								},"j")) return 3;
 								if(target.getEquip("baiyin")&&target.isDamaged()&&
 									get.recoverEffect(target,player,player)>0){
 									if(target.hp==1&&!target.hujia) return 1.6;
 								}
-								if(target.countCards("e",card=>{
+								if(target.hasCard(card=>{
 									if(get.position(card)=="e") return get.value(card,target)<0;
-								})>0) return 1;
+								},"e")) return 1;
 							}
 							const es=target.getCards("e");
 							const noe=(es.length==0||target.hasSkillTag("noe"));
@@ -3382,7 +3387,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				viewAs:{name:"sha"},
 				viewAsFilter:player=>{
 					if(!player.storage.sst_baozheng) return false;
-					if(!player.countCards("he",card=>player.storage.sst_baozheng.contains(card))) return false;
+					if(!player.hasCard(card=>player.storage.sst_baozheng.contains(card),"he")) return false;
 				},
 				prompt:"将暴征获得的牌当作杀使用",
 				check:card=>5-get.value(card),
@@ -3539,7 +3544,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 					game.delayx();
 					"step 2"
-					const filterTarget=(card,player,target)=>target!=player&&target.countCards("e",card=>player.isEmpty(get.subtype(card)));
+					const filterTarget=(card,player,target)=>target!=player&&target.hasCard(card=>player.isEmpty(get.subtype(card)),"e");
 					if(game.hasPlayer(current=>filterTarget(null,player,current))){
 						player.chooseTarget(filterTarget,"瞬形：将场上一张装备移动到你的装备区",true).set("ai",target=>{
 							const player=_status.event.player;
@@ -5156,7 +5161,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Meta Knight
 			sst_canyun:{
 				enable:"phaseUse",
-				filter:(event,player)=>player.countCards("he",card=>!Array.isArray(player.storage.sst_canyun_effect)||!player.storage.sst_canyun_effect.contains(get.suit(card))),
+				filter:(event,player)=>player.hasCard(card=>!Array.isArray(player.storage.sst_canyun_effect)||!player.storage.sst_canyun_effect.contains(get.suit(card)),"he"),
 				filterCard:(card,player)=>!Array.isArray(player.storage.sst_canyun_effect)||!player.storage.sst_canyun_effect.contains(get.suit(card)),
 				filterTarget:true,
 				selectTarget:-1,
@@ -5815,7 +5820,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				preHidden:true,
 				trigger:{player:"useCardAfter"},
 				filter:event=>event.cards.length,
-				check:(event,player)=>!player.countCards("h",card=>get.type2(card)==get.type2(event.card)&&lib.filter.cardEnabled(card,player)&&lib.filter.cardUsable(card,player)),
+				check:(event,player)=>!player.hasCard(card=>get.type2(card)==get.type2(event.card)&&lib.filter.cardEnabled(card,player)&&lib.filter.cardUsable(card,player),"h"),
 				content:()=>{
 					"step 0"
 					player.draw();
@@ -6150,7 +6155,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Ken
 			sst_yanyang:{
 				enable:"phaseUse",
-				filterTarget:(card,player,target)=>target.countCards("he",card=>lib.filter.cardDiscardable(card,target))&&target.countCards("h")>=player.countCards("h"),
+				filterTarget:(card,player,target)=>target.hasCard(card=>lib.filter.cardDiscardable(card,target),"he")&&target.countCards("h")>=player.countCards("h"),
 				delay:false,
 				content:()=>{
 					"step 0"
@@ -6368,9 +6373,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				usable:1,
 				hiddenCard:(player,name)=>{
 					if(player.getStat().skill.sst_tugu) return false;
-					return get.tag({name:name},"damage")&&player.countCards("hes",card=>!get.tag(card,"damage"))&&lib.inpile.contains(name);
+					return get.tag({name:name},"damage")&&player.hasCard(card=>!get.tag(card,"damage"),"hes")&&lib.inpile.contains(name);
 				},
-				filter:(event,player)=>player.countCards("hes",card=>!get.tag(card,"damage")),
+				filter:(event,player)=>player.hasCard(card=>!get.tag(card,"damage"),"hes"),
 				chooseButton:{
 					dialog:(event,player)=>{
 						const list=[];
@@ -6417,7 +6422,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					order:4,
 					skillTagFilter:(player,tag,arg)=>{
 						if(arg!="use") return false;
-						if(!player.countCards("hes",card=>!get.tag(card,"damage"))) return false;
+						if(!player.hasCard(card=>!get.tag(card,"damage"),"hes")) return false;
 					},
 					result:{
 						player:1
@@ -7471,15 +7476,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const guohe=(player,target)=>{
 							const att=get.attitude(player,target);
 							if(att>0){
-								if(target.countCards("j",card=>{
+								if(target.hasCard(card=>{
 									const cardj=card.viewAs?{name:card.viewAs}:card;
 									return get.effect(target,cardj,target,player)<0;
-								})>0) return 3;
+								},"j")) return 3;
 								if(target.getEquip("baiyin")&&target.isDamaged()&&
 									get.recoverEffect(target,player,player)>0) if(target.hp==1&&!target.hujia) return 1.6;
-								if(target.countCards("e",card=>{
+								if(target.hasCard(card=>{
 									if(get.position(card)=="e") return get.value(card,target)<0;
-								})>0) return 1;
+								},"e")) return 1;
 							}
 							const es=target.getCards("e");
 							const noe=(es.length==0||target.hasSkillTag("noe"));
@@ -7587,7 +7592,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_fanfei:{
 				trigger:{target:"useCardToTarget"},
-				filter:(event,player)=>get.color(event.card)=="red"&&player.countCards("he",card=>lib.filter.cardDiscardable(card,player)),
+				filter:(event,player)=>get.color(event.card)=="red"&&player.hasCard(card=>lib.filter.cardDiscardable(card,player),"he"),
 				direct:true,
 				content:()=>{
 					"step 0"
@@ -7711,7 +7716,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					},
 					respondSha:true,
 					skillTagFilter:player=>{
-						if(!player.countCards("he",card=>get.name(card)=="sha")||!game.hasPlayer(current=>current.hasSex("male"))) return false;
+						if(!player.hasCard(card=>get.name(card)=="sha","he")||!game.hasPlayer(current=>current.hasSex("male"))) return false;
 					}
 				}
 			},
@@ -7735,7 +7740,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					order:()=>get.order({name:"shan"})+0.3,
 					respondSha:true,
 					skillTagFilter:player=>{
-						if(!player.countCards("he",card=>get.name(card)=="shan")||!game.hasPlayer(current=>current.hasSex("male"))) return false;
+						if(!player.hasCard(card=>get.name(card)=="shan","he")||!game.hasPlayer(current=>current.hasSex("male"))) return false;
 					}
 				}
 			},
@@ -7871,7 +7876,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Captain Falcon
 			sst_jijing:{
 				enable:"phaseUse",
-				filter:(event,player)=>player.countCards("h",card=>lib.filter.cardDiscardable(card,player)),
+				filter:(event,player)=>player.hasCard(card=>lib.filter.cardDiscardable(card,player),"h"),
 				filterCard:true,
 				selectCard:-1,
 				delay:false,
@@ -8344,7 +8349,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				forced:true,
 				filter:(event,player)=>{
 					player.updateMarks("sst_juelu");
-					return event.player.identity==player.storage.sst_juelu&&player.countCards("h",card=>lib.filter.cardDiscardable(card,player))
+					return event.player.identity==player.storage.sst_juelu&&player.hasCard(card=>lib.filter.cardDiscardable(card,player),"h")
 				},
 				content:()=>{
 					player.discard(player.getCards("h",card=>lib.filter.cardDiscardable(card,player)));
@@ -9505,7 +9510,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(!Array.isArray(player.storage.sst_fulei)) player.storage.sst_fulei=[];
 				},
 				preHidden:true,
-				trigger:{player:"loseEnd"},
+				trigger:{player:"loseAfter"},
 				filter:(event,player)=>(!player.storage.sst_fulei.contains("h")&&event.hs.filterInD("d").length)||
 					(!player.storage.sst_fulei.contains("e")&&event.es.filterInD("d").length)||
 					(!player.storage.sst_fulei.contains("j")&&event.js.filterInD("d").length),
@@ -9754,7 +9759,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						"triggerHiddenBefore","triggerHiddenBegin","triggerHiddenEnd","triggerHiddenAfter",
 						"skillBefore","skillBegin","skillEnd","skillAfter",
 						"arrangeTriggerBefore","arrangeTriggerBegin","arrangeTrigger","arrangeTriggerEnd","arrangeTriggerAfter",
-						"loseEnd","equipEnd","addJudgeEnd","gainEnd","loseAsyncEnd","addToExpansionEnd"
+						"loseEnd","equipEnd","addJudgeEnd","gainEnd","loseAsyncEnd","addToExpansionEnd",
+						"loseAfter","equipAfter","addJudgeAfter","gainAfter","loseAsyncAfter","addToExpansionAfter"
 					]
 				},
 				content:()=>{
@@ -9776,11 +9782,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_xiangzhu:{
 				trigger:{player:"phaseZhunbeiBegin"},
-				filter:(event,player)=>game.hasPlayer(current=>current!=player&&current.countCards("e",card=>player.isEmpty(get.subtype(card)))),
+				filter:(event,player)=>game.hasPlayer(current=>current!=player&&current.hasCard(card=>player.isEmpty(get.subtype(card)),"e")),
 				direct:true,
 				content:()=>{
 					"step 0"
-					player.chooseTarget(get.prompt2("sst_xiangzhu"),(card,player,target)=>target!=player&&target.countCards("e",cardx=>player.isEmpty(get.subtype(cardx)))).set("ai",target=>Math.max(...target.getCards("e",card=>_status.event.player.isEmpty(get.subtype(card))).map(card=>get.value(card))));
+					player.chooseTarget(get.prompt2("sst_xiangzhu"),(card,player,target)=>target!=player&&target.hasCard(cardx=>player.isEmpty(get.subtype(cardx)),"e")).set("ai",target=>Math.max(...target.getCards("e",card=>_status.event.player.isEmpty(get.subtype(card))).map(card=>get.value(card))));
 					"step 1"
 					if(result.targets&&result.targets.length){
 						event.target=result.targets[0];
@@ -9806,7 +9812,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_xiangzhu2:{
 				direct:true,
 				trigger:{player:"phaseJieshuBegin"},
-				filter:(event,player)=>player.countCards("e",card=>card.hasGaintag("sst_xiangzhu")),
+				filter:(event,player)=>player.hasCard(card=>card.hasGaintag("sst_xiangzhu"),"e"),
 				content:()=>{
 					"step 0"
 					const cards=player.getCards("e",card=>card.hasGaintag("sst_xiangzhu"));
@@ -10586,7 +10592,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				preHidden:true,
 				direct:true,
 				trigger:{player:"phaseZhunbeiBegin"},
-				filter:(event,player)=>player.countCards("he",card=>lib.filter.cardDiscardable(card,player)),
+				filter:(event,player)=>player.hasCard(card=>lib.filter.cardDiscardable(card,player),"he"),
 				content:()=>{
 					"step 0"
 					player.chooseCardTarget({
@@ -11301,7 +11307,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					save:true,
 					skillTagFilter:(player,tag,arg)=>{
 						if(arg!="use") return false;
-						if(!player.countCards("he",card=>lib.filter.cardDiscardable(card,player))) return false;
+						if(!player.hasCard(card=>lib.filter.cardDiscardable(card,player),"he")) return false;
 						switch(tag){
 							case "respondSha":
 								if(player.storage.sst_liedui!=1) return false;
@@ -11321,7 +11327,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 				},
 				hiddenCard:(player,name)=>{
-					if(!player.countCards("he",card=>lib.filter.cardDiscardable(card,player))) return false;
+					if(!player.hasCard(card=>lib.filter.cardDiscardable(card,player),"he")) return false;
 					return ["sha","shan","tao","jiu","wuxie"][player.storage.sst_liedui-1]==name;
 				}
 			},
@@ -11661,7 +11667,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const rotation=player.storage.sst_qiangyi||1;
 					if(rotation==1) return player.hasValueTarget({name:"sha",isCard:true},false);
 					if(rotation==2) return player.isPhaseUsing();
-					if(rotation==3) return (_status.currentPhase==player&&!player.countCards("h",card=>lib.filter.cardEnabled(card,player)&&lib.filter.cardUsable(card,player)))||get.attitude(player,_status.currentPhase)<0;
+					if(rotation==3) return (_status.currentPhase==player&&!player.hasCard(card=>lib.filter.cardEnabled(card,player)&&lib.filter.cardUsable(card,player),"h"))||get.attitude(player,_status.currentPhase)<0;
 					return false;
 				},
 				content:()=>{
@@ -12019,7 +12025,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_shengbing:"圣兵",
 			sst_shengbing_effect:"圣兵",
 			sst_shengbing_effect2:"圣兵",
-			sst_shengbing_info:"你失去装备区内的牌时，你可以将其置入一名其他角色的装备区，然后该角色须弃置一张牌且下一个出牌阶段可以额外使用一张【杀】。",
+			sst_shengbing_info:"你失去装备区内的牌后，你可以将其置入一名其他角色的装备区，然后该角色须弃置一张牌且下一个出牌阶段可以额外使用一张【杀】。",
 			sst_hanmang:"寒芒",
 			sst_hanmang_info:"锁定技，你对一名角色造成伤害时，若你计算与该角色的距离与你的攻击范围相同，你令此伤害+1。",
 			sst_jianbu:"剑步",
@@ -12321,7 +12327,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_qianban2:"牵绊",
 			sst_qianban3:"牵绊",
 			sst_qianban4:"牵绊",
-			sst_qianban_info:"锁定技，当你失去装备区内的武器牌时，你获得此牌。只要你的装备区有武器牌，你加1点体力上限，摸牌阶段摸牌数+1。结束阶段，若你的装备区没有武器牌，你弃置场上的一张牌。",
+			sst_qianban_info:"锁定技，当你失去装备区内的武器牌后，你获得此牌。只要你的装备区有武器牌，你加1点体力上限，摸牌阶段摸牌数+1。结束阶段，若你的装备区没有武器牌，你弃置场上的一张牌。",
 			sst_tanyun:"探云",
 			sst_tanyun_info:"每回合限一次，准备阶段或结束阶段，你可以将弃牌堆最上方的一张你指定类别的牌置于牌堆顶。",
 			sst_zhuizhai:"追债",
@@ -12424,7 +12430,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_fengcu_effect:"凤蹴",
 			sst_fengcu_info:"你可以将两张颜色不同的牌当作【杀】或【闪】使用或打出。若以此法使用的牌造成了伤害，你本轮造成伤害后获得目标一张牌；若以此法响应了牌，你获得被响应的牌。",
 			sst_fulei:"伏雷",
-			sst_fulei_info:"每回合每个区域的牌限一次，你的牌进入弃牌堆时，你可以用其中一张牌与一名其他角色拼点，然后你选择令没赢的角色受到你造成的1点雷电伤害或判定一次【闪电】。",
+			sst_fulei_info:"每回合每个区域的牌限一次，你的牌进入弃牌堆后，你可以用其中一张牌与一名其他角色拼点，然后你选择令没赢的角色受到你造成的1点雷电伤害或判定一次【闪电】。",
 			sst_duoshan:"躲闪",
 			sst_duoshan_info:"当你受到伤害时，你可以弃置你一个区域内的所有牌（至少一张），然后防止此伤害。",
 			sst_juao:"倨傲",

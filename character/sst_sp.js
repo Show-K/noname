@@ -1221,12 +1221,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				position:"hes",
 				viewAs:{name:"sha",nature:"fire"},
 				viewAsFilter:player=>{
-					if(!player.countCards("hes",card=>get.color(card)=="red")) return false;
+					if(!player.hasCard(card=>get.color(card)=="red","hes")) return false;
 				},
 				check:card=>5-get.value(card),
 				ai:{
 					skillTagFilter:player=>{
-						if(!player.countCards("hes",card=>get.color(card)=="red")) return false;
+						if(!player.hasCard(card=>get.color(card)=="red","hes")) return false;
 					},
 					respondSha:true
 				}
@@ -2257,7 +2257,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				position:"hes",
 				viewAs:{name:"guaguliaodu"},
 				viewAsFilter:player=>{
-					if(player.countCards("hes",card=>get.color(card)=="red")<2) return false;
+					if(player.hasCard(card=>get.color(card)=="red","hes")<2) return false;
 				},
 				check:card=>5-get.value(card)
 			},
@@ -2285,7 +2285,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						ui.cardPile.insertBefore(card.fix(),ui.cardPile.firstChild);
 					}
 					"step 2"
-					_status.currentPhase.chooseToDiscard("颖慵：弃置一张牌","he",true);
+					if(_status.currentPhase) _status.currentPhase.chooseToDiscard("颖慵：弃置一张牌","he",true);
 				},
 				ai:{
 					expose:0.2
