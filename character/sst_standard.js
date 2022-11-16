@@ -1456,12 +1456,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_yinjie){
-						evt.set("sst_yinjie",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_yinjie_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							if(Array.isArray(player.storage.sst_yinjie)) player.storage.sst_yinjie.length=0;
 						});
@@ -1937,12 +1936,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_qiji){
-						evt.set("sst_qiji",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_qiji_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							if(Array.isArray(player.storage.sst_qiji)){
 								player.storage.sst_qiji[0]=false;
@@ -2144,7 +2142,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const player=_status.event.player;
 						const target=_status.event.getTrigger().player;
 						if(get.name(card)=="du") return Math.cbrt(-get.attitude(player,target)*20);
-						return Math.cbrt(get.attitude(player,target)*get.value(card,target))-player.getHandcardLimit()+player.countCards("he",card=>lib.filter.canBeGained(card,target,player));
+						return Math.cbrt(get.attitude(player,target)*get.value(card))-player.getHandcardLimit()+player.countCards("he",card=>lib.filter.canBeGained(card,target,player));
 					});
 					"step 1"
 					if(result.cards&&result.cards.length){
@@ -2356,7 +2354,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 							const es=target.getCards("e");
 							const noe=(es.length==0||target.hasSkillTag("noe"));
-							const noe2=(es.filter(esx=>get.value(esx,target)>0).length==0);
+							const noe2=!es.some(esx=>get.value(esx,target)>0);
 							if(noe||noe2) return 0;
 							if(att<=0&&!target.countCards("e")) return 1.5;
 							return -1.5;
@@ -2993,7 +2991,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const next=game.createEvent("sst_tianmai_clear");
 						event.next.remove(next);
 						dying.after.push(next);
-						next.set("player",target);
+						next.player=target;
 						next.setContent(()=>{
 							const phase=event.getParent("phase");
 							if(phase&&phase.name=="phase"){
@@ -3004,7 +3002,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								game.broadcastAll(ui.clear);
 								_status.roundStart=player;
 								_status.roundSkipped=true;
-								let phaseLoop=phase.getParent("phaseLoop");
+								const phaseLoop=phase.getParent("phaseLoop");
 								if(phaseLoop&&phaseLoop.name=="phaseLoop"){
 									phaseLoop.player=player;
 									phaseLoop.goto(0);
@@ -3181,23 +3179,20 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 1"
 					if(player.hasSkill("sst_juezhan")&&!lib.skill.sst_qiongtu.isSstJuezhanDeletedAll(player)){
 						const next=game.createEvent("sstJuezhanDelete");
-						next.set("player",player);
+						next.player=player;
 						next.setContent(lib.skill.sst_qiongtu.sstJuezhanDelete);
 					}
 				},
 				isSstJuezhanDeletedAll:player=>{
-					if(!Array.isArray(player.storage.sst_juezhan)) return true;
-					let bool=true;
-					for(const i of player.storage.sst_juezhan){
-						if(i){
-							bool=false;
-							break;
-						}
-					}
-					return bool;
+					if(!Array.isArray(player.storage.sst_juezhan)) return false;
+					if(player.storage.sst_juezhan[0]) return false;
+					if(player.storage.sst_juezhan[1]) return false;
+					if(Array.isArray(player.storage.sst_juezhan[2])) return false;
+					return true;
 				},
 				sstJuezhanDelete:()=>{
 					"step 0"
+					if(!Array.isArray(player.storage.sst_juezhan)) player.storage.sst_juezhan=[true,true,["equip1","equip2","equip3","equip4","equip5"].filter(i=>!player.isDisabled(i))];
 					const choice=[];
 					const list=[];
 					if(player.storage.sst_juezhan[0]){
@@ -3208,7 +3203,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						choice.push("｛2｝");
 						list.push("｛2｝你使用牌不能指定与你距离1以外的目标。");
 					}
-					if(player.storage.sst_juezhan[2]){
+					if(Array.isArray(player.storage.sst_juezhan[2])){
 						choice.push("｛3｝");
 						list.push("｛3｝你的装备区被废除。");
 					}
@@ -3224,20 +3219,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						switch(result.control){
 							case "｛1｝":
 								player.storage.sst_juezhan[0]=false;
-								str="｛你带有「伤害」标签的牌均视为【杀】。｝";
+								str+="｛你带有「伤害」标签的牌均视为【杀】。｝";
 								break;
 							case "｛2｝":
 								player.storage.sst_juezhan[1]=false;
-								str="｛你使用牌不能指定与你距离1以外的目标。｝";
+								str+="｛你使用牌不能指定与你距离1以外的目标。｝";
 								break;
 							case "｛3｝":
+								const disable=player.storage.sst_juezhan[2];
 								player.storage.sst_juezhan[2]=false;
-								str="｛你的装备区被废除。｝";
-								player.enableEquip("equip1");
-								player.enableEquip("equip2");
-								player.enableEquip("equip3");
-								player.enableEquip("equip4");
-								player.enableEquip("equip5");
+								str+="｛你的装备区被废除。｝";
+								disable.forEach(i=>player.enableEquip(i));
 								break;
 						}
 						game.log(player,"更改了","#g【绝战】","的描述");
@@ -3276,26 +3268,32 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_juezhan:{
 				init:player=>{
-					if(!Array.isArray(player.storage.sst_juezhan)){
-						player.storage.sst_juezhan=[true,true,[]];
-						["equip1","equip2","equip3","equip4","equip5"].forEach(pos=>{
-							if(!player.isDisabled(pos)) player.storage.sst_juezhan[2].push(pos);
-						});
+					const enable=["equip1","equip2","equip3","equip4","equip5"].filter(i=>!player.isDisabled(i));
+					if(Array.isArray(player.storage.sst_juezhan)){
+						if(Array.isArray(player.storage.sst_juezhan[2])){
+							player.storage.sst_juezhan[2].length=0;
+							player.storage.sst_juezhan[2].addArray(enable);
+						}
 					}
-					if(player.storage.sst_juezhan[2].length&&_status.gameStarted){
+					else{
+						player.storage.sst_juezhan=[true,true,enable];
+					}
+					if(Array.isArray(player.storage.sst_juezhan[2])&&enable.length&&_status.gameStarted){
 						player.logSkill("sst_juezhan");
-						player.storage.sst_juezhan[2].forEach(pos=>player.disableEquip(pos));
+						enable.forEach(i=>player.disableEquip(i));
 					}
 				},
-				onremove:player=>player.storage.sst_juezhan[2].forEach(pos=>player.enableEquip(pos)),
+				onremove:player=>{
+					if(Array.isArray(player.storage.sst_juezhan[2])) player.storage.sst_juezhan[2].forEach(i=>player.enableEquip(i))
+				},
 				forced:true,
 				trigger:{
 					global:"phaseBefore",
 					player:"enterGame"
 				},
-				filter:(event,player)=>(event.name!="phase"||game.phaseNumber==0)&&player.storage.sst_juezhan[2].length,
+				filter:(event,player)=>(event.name!="phase"||game.phaseNumber==0)&&Array.isArray(player.storage.sst_juezhan[2])&&player.storage.sst_juezhan[2].length,
 				content:()=>{
-					player.storage.sst_juezhan[2].forEach(pos=>player.disableEquip(pos));
+					player.storage.sst_juezhan[2].forEach(i=>player.disableEquip(i));
 				},
 				mod:{
 					cardname:(card,player)=>{
@@ -3316,12 +3314,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_baozheng){
-						evt.set("sst_baozheng",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_baozheng_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							if(Array.isArray(player.storage.sst_baozheng)) player.storage.sst_baozheng.length=0;
 						});
@@ -3717,8 +3714,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.delayx();
 					"step 3"
 					const next=game.createEvent("nine_effect");
-					next.set("player",player);
-					next.set("target",trigger.target);
+					next.player=player;
+					next.target=trigger.target;
 					//next.set("others",game.filterPlayer(current=>current!=player&&current!=trigger.target));
 					next.setContent(lib.skill.sst_shenpan.nine_effect);
 				},
@@ -4213,11 +4210,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(cards.length) player.loseToDiscardpile(cards);
 				},
 				trigger:{player:"damageEnd"},
-				filter:(event,player)=>player.hasSkill("sst_fuchou_effect")&&get.itemtype(event.cards)=="cards"&&event.cards.filterInD("od").length,
+				filter:(event,player)=>player.hasSkill("sst_fuchou_effect")&&get.itemtype(event.cards)=="cards"&&event.cards.filterInD("o").length,
 				check:()=>true,
 				prompt2:"你受到伤害后，你可以将造成伤害的牌置于你的武将牌上。你可以将这些牌如手牌般使用或打出，你使用这些牌造成伤害时，此伤害+1。",
 				content:()=>{
-					const cards=trigger.cards.filterInD("od");
+					const cards=trigger.cards.filterInD("o");
 					player.$gain2(cards);
 					game.log(player,"将",cards,"置于了武将牌上");
 					player.loseToSpecial(cards,"sst_fuchou_card");
@@ -4322,12 +4319,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				onuse:(result,player)=>{
 					player.storage.sst_huanbian.push(get.name(result.card));
 					const evt=_status.event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_huanbian){
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_huanbian_clear");
 						_status.event.next.remove(next);
 						evt.after.push(next);
-						evt.set("sst_huanbian",true);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							if(Array.isArray(player.storage.sst_huanbian)) player.storage.sst_huanbian.length=0;
 						});
@@ -4408,13 +4404,13 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const list=[];
 					const listm=[];
 					const listv=[];
-					if(trigger.player.name1!=undefined){
+					if(typeof trigger.player.name1!="undefined"){
 						listm.addArray(lib.character[trigger.player.name1][3]);
 					}
 					else{
 						listm.addArray(lib.character[trigger.player.name][3]);
 					}
-					if(trigger.player.name2!=undefined) listv.addArray(lib.character[trigger.player.name2][3]);
+					if(typeof trigger.player.name2!="undefined") listv.addArray(lib.character[trigger.player.name2][3]);
 					listm.addArray(listv);
 					const func=skill=>{
 						const info=get.info(skill);
@@ -4672,15 +4668,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					return str+num+"；然后若此牌没有造成伤害，本局游戏你的手牌上限-1";
 				},
 				content:()=>{
-					let num=0;
-					player.getHistory("lose",evt=>num+=evt.cards.length);
+					const num=player.getHistory("lose",evt=>evt.cards&&evt.cards.length).map(evt=>evt.cards.length).reduce((previousValue,currentValue)=>previousValue+currentValue,0);
 					num=Math.ceil(num/2)+1;
 					trigger.getParent().baseDamage+=num-1;
 					const next=game.createEvent("sst_baochui_clear");
 					event.next.remove(next);
 					trigger.getParent().after.push(next);
-					next.set("player",player);
-					next.set("card",trigger.card);
+					next.player=player;
+					next.card=trigger.card;
 					next.setContent(lib.skill.sst_baochui.contentx);
 				},
 				contentx:()=>{
@@ -4916,14 +4911,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_wenxu:{
 				trigger:{global:"useCardAfter"},
 				logTarget:"player",
-				filter:(event,player)=>event.player!=player&&_status.currentPhase==event.player&&get.itemtype(event.cards)=="cards"&&event.cards.filterInD("od").length,
+				filter:(event,player)=>event.player!=player&&_status.currentPhase==event.player&&get.itemtype(event.cards)=="cards"&&event.cards.filterInD("o").length,
 				check:(event,player)=>{
 					if(get.attitude(player,event.player)>0&&game.hasPlayer(current=>event.player.canUse("sha",current)&&get.effect(current,{name:"sha",isCard:true},event.player,player)>0)) return event.player.getCardUsable("sha")<event.player.countCards("h","sha");
 					return false;
 				},
 				content:()=>{
 					"step 0"
-					player.gain(trigger.cards.filterInD("od"),"gain2");
+					player.gain(trigger.cards.filterInD("o"),"gain2");
 					"step 1"
 					trigger.player.addTempSkill("sst_wenxu_effect");
 					trigger.player.addMark("sst_wenxu_effect",1,false);
@@ -5542,27 +5537,28 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(cards.length) player.loseToDiscardpile(cards);
 					delete player.storage.sst_jingyue_target;
 				},
-				trigger:{global:"useCardAfter"},
-				filter:(event,player)=>event.player.isPhaseUsing()&&event.player==player.storage.sst_jingyue_target&&get.itemtype(event.cards)=="cards"&&event.cards.filterInD("od").length,
+				trigger:{global:["useCardAfter","phaseJieshuBegin"]},
+				filter:(event,player,name)=>{
+					if(event.player!=player.storage.sst_jingyue_target) return false;
+					if(name=="phaseJieshuBegin") return player.getExpansions("sst_jingyue_effect").length;
+					return event.player.isPhaseUsing()&&get.itemtype(event.cards)=="cards"&&event.cards.filterInD("o").length;
+				},
 				forced:true,
 				logTarget:"player",
 				content:()=>{
-					player.addToExpansion(trigger.cards.filterInD("od"),"gain2").gaintag.add("sst_jingyue_effect");
-				},
-				group:"sst_jingyue_effect2"
-			},
-			sst_jingyue_effect2:{
-				trigger:{global:"phaseJieshuBegin"},
-				filter:(event,player)=>event.player==player.storage.sst_jingyue_target&&player.getExpansions("sst_jingyue_effect").length,
-				forced:true,
-				content:()=>{
 					"step 0"
-					player.chooseBool("镜月：以"+get.translation(trigger.player)+"为唯一目标依次使用"+get.translation(player.getExpansions("sst_jingyue_effect"))+"（目标不合法则置入弃牌堆），否则获得"+get.translation(player.getExpansions("sst_jingyue_effect"))).set("ai",()=>{
-						const player=_status.event.player;
-						const cards=player.getExpansions("sst_jingyue_effect");
-						const target=_status.event.getTrigger().player;
-						return cards.filter(card=>lib.filter.targetEnabled3(card,player,target)).map(card=>get.effect(target,card,player,player)).reduce((previousValue,currentValue)=>previousValue+currentValue,0)>cards.map(card=>get.value(card)).reduce((previousValue,currentValue)=>previousValue+currentValue,0);
-					});
+					if(event.triggername=="phaseJieshuBegin"){
+						player.chooseBool("镜月：以"+get.translation(trigger.player)+"为唯一目标依次使用"+get.translation(player.getExpansions("sst_jingyue_effect"))+"（目标不合法则置入弃牌堆），否则获得"+get.translation(player.getExpansions("sst_jingyue_effect"))).set("ai",()=>{
+							const player=_status.event.player;
+							const cards=player.getExpansions("sst_jingyue_effect");
+							const target=_status.event.getTrigger().player;
+							return cards.filter(card=>lib.filter.targetEnabled3(card,player,target)).map(card=>get.effect(target,card,player,player)).reduce((previousValue,currentValue)=>previousValue+currentValue,0)>cards.map(card=>get.value(card)).reduce((previousValue,currentValue)=>previousValue+currentValue,0);
+						});
+					}
+					else{
+						player.addToExpansion(trigger.cards.filterInD("o"),"gain2").gaintag.add("sst_jingyue_effect");
+						event.finish();
+					}
 					"step 1"
 					if(!result.bool){
 						player.gain(player.getExpansions("sst_jingyue_effect"),"gain2");
@@ -6270,6 +6266,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_zhuzai:{
 				preHidden:true,
 				global:"sst_zhuzai_ai",
+				init:player=>{
+					if(!Array.isArray(player.storage.sst_zhuzai)) player.storage.sst_zhuzai=[];
+				},
 				trigger:{global:"phaseZhunbeiBegin"},
 				filter:event=>event.player.countCards("h"),
 				logTarget:"player",
@@ -6277,14 +6276,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_zhuzai){
-						evt.set("sst_zhuzai",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_zhuzai_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
-							delete player.storage.sst_zhuzai
+							if(Array.isArray(player.storage.sst_zhuzai)) player.storage.sst_zhuzai.length=0;
+							game.filterPlayer(current=>current.removeGaintag("sst_zhuzai"));
 						});
 					}
 					"step 1"
@@ -6307,8 +6306,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 							return str;
 						};
+						player.storage.sst_zhuzai.addArray(result.cards);
+						trigger.player.addGaintag(result.cards,"sst_zhuzai");
 						player.showCards(result.cards,get.translation(player)+"对"+translateTargets(trigger.player)+"发动了【"+get.skillTranslation(event.name,player)+"】");
-						player.storage.sst_zhuzai=result.cards[0];
 					}
 				},
 				group:["sst_zhuzai2","sst_zhuzai3"]
@@ -6316,7 +6316,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_zhuzai2:{
 				trigger:{global:"useCard2"},
 				filter:(event,player)=>{
-					if(!["basic","trick"].contains(get.type(event.card))||!event.cards.contains(player.storage.sst_zhuzai)||event.player!=_status.currentPhase) return false;
+					if(!["basic","trick"].contains(get.type(event.card))) return false;
+					if(event.player!=_status.currentPhase) return false;
+					if(!event.player.hasHistory("lose",evt=>{
+						if(evt.getParent()!=event) return false;
+						for(const i in evt.gaintag_map){
+							if(evt.gaintag_map[i].contains("sst_zhuzai")&&player.storage.sst_zhuzai.some(card=>card.cardid==i)) return true;
+						}
+						return false;
+					})) return false;
 					return game.hasPlayer(current=>!event.targets.contains(current)&&lib.filter.targetEnabled2(event.card,event.player,current));
 				},
 				direct:true,
@@ -6338,7 +6346,13 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_zhuzai3:{
 				trigger:{global:"phaseJieshuBegin"},
-				filter:(event,player)=>player.storage.sst_zhuzai&&!event.player.hasHistory("useCard",evt=>evt.cards.contains(player.storage.sst_zhuzai)),
+				filter:(event,player)=>!event.player.hasHistory("useCard",evt=>event.player.hasHistory("lose",lose=>{
+					if(lose.getParent()!=evt) return false;
+					for(const i in lose.gaintag_map){
+						if(lose.gaintag_map[i].contains("sst_zhuzai")&&player.storage.sst_zhuzai.some(card=>card.cardid==i)) return true;
+					}
+					return false;
+				})),
 				logTarget:"player",
 				prompt2:event=>"你可以对"+get.translation(event.player)+"造成1点伤害",
 				check:(event,player)=>get.damageEffect(event.player,player,player)>0,
@@ -6851,8 +6865,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const next=game.createEvent("sst_shishi_clear");
 					event.next.remove(next);
 					trigger.after.push(next);
-					next.set("player",player);
-					next.set("card",trigger.card);
+					next.player=player;
+					next.card=trigger.card;
 					next.setContent(()=>{
 						if(!game.cardCausedDamage(card)){
 							game.log(player,"将武将变更为","#b"+get.translation("sst_ocarina_of_time_link"));
@@ -7137,8 +7151,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			//Ocarina of Time Link
 			sst_shisu:{
-				trigger:{player:"phaseDrawBegin1"},
+				trigger:{player:"phaseDrawBegin"},
 				forced:true,
+				filter:event=>!event.numFixed,
 				content:()=>{
 					trigger.num=Math.max(0,player.getHp()+2-player.countCards("h"));
 				},
@@ -7619,7 +7634,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				ai:{
 					effect:{
 						target:(card,player,target)=>{
-							if(get.color(card)=="red"&&game.hasPlayer(current=>current.countCards()>=target.countCards()&&get.damageEffect(current,target,player)<0)) return [1,-5];
+							if(target!=player&&get.color(card)=="red"&&game.hasPlayer(current=>current.countCards()>=target.countCards()&&get.damageEffect(current,target,player)<0)) return [1,-5];
 						}
 					}
 				}
@@ -7674,8 +7689,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const next=game.createEvent("sst_liaoyi_clear");
 						event.next.remove(next);
 						trigger.after.push(next);
-						next.set("player",event.current);
-						next.set("target",player);
+						next.player=event.current;
+						next.target=player;
 						next.setContent(()=>{
 							player.gainPlayerCard("聊依：获得"+get.translation(target)+"一张牌",target,"he",true);
 						});
@@ -8056,17 +8071,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:(event,player)=>{
 					if(player!=_status.currentPhase) return false;
 					if(event.name=="lose"&&event.position!=ui.discardPile) return false;
-					return event.cards.filter(card=>get.color(card)!="none").length;
+					return event.cards.some(card=>get.color(card)!="none");
 				},
 				content:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_juyuan){
-						evt.set("sst_juyuan",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_juyuan_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							player.storage.sst_juyuan_black=0;
 							player.storage.sst_juyuan_red=0;
@@ -8415,12 +8429,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				contentx:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_tankuang){
-						evt.set("sst_tankuang",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_tankuang_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							if(Array.isArray(player.storage.sst_tankuang)) player.storage.sst_tankuang.length=0;
 						});
@@ -8907,12 +8920,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							str+=text;
 							str+="</div>";
 							const next=choiceList.add(str);
+							choiceList.buttons.add(next.firstChild);
 							next.firstChild.addEventListener(lib.config.touchscreen?"touchend":"click",ui.click.button);
 							next.firstChild.link=i;
 							for(const j in lib.element.button){
 								next[j]=lib.element.button[j];
 							}
-							choiceList.buttons.add(next.firstChild);
 						});
 						return choiceList;
 					};
@@ -9098,7 +9111,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}),cards,get.name(event.muniu));
 					const muniu=event.muniu;
 					if(!muniu||!cards.length) cards.forEach(card=>card.discard());
-					if(muniu.cards==undefined) muniu.cards=[];
+					if(typeof muniu.cards=="undefined") muniu.cards=[];
 					muniu.cards.addArray(cards);
 					muniu.sst_qiaoqi=true;
 					game.broadcast((muniu,cards)=>{
@@ -9170,7 +9183,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						event.finish();
 						return;
 					}
-					if(muniu.cards==undefined) muniu.cards=[];
+					if(typeof muniu.cards=="undefined") muniu.cards=[];
 					muniu.cards.addArray(cards);
 					muniu.sst_qiaoqi=true;
 					game.broadcast((muniu,cards)=>{
@@ -9268,7 +9281,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const cards=[];
 					player.getCards("e",card=>card.cards&&card.sst_qiaoqi).forEach(card=>cards.addArray(card.cards));
 					if(!cards.length) return false;
-					return event.ss.filter(card=>cards.contains(card)).length;
+					return event.ss.some(card=>cards.contains(card));
 				},
 				content:()=>{
 					const sst_qiaoqi=player.getCards("e",card=>card.cards&&card.sst_qiaoqi);
@@ -9474,18 +9487,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const next=game.createEvent("sst_fengcu_clear");
 					event.next.remove(next);
 					trigger.after.push(next);
-					next.set("player",player);
-					next.set("card",trigger.card);
-					next.set("respondTo",trigger.respondTo);
+					next.player=player;
+					next.card=trigger.card;
+					next.respondTo=trigger.respondTo;
 					next.setContent(lib.skill.sst_fengcu2.contentx);
 				},
 				contentx:()=>{
 					"step 0"
 					if(game.cardCausedDamage(card)) player.addTempSkill("sst_fengcu_effect","roundStart");
 					"step 1"
-					if(event.respondTo){
-						const respond=event.respondTo[1];
-						if(respond&&respond.cards&&respond.cards.filterInD("od").length) player.gain(respond.cards.filterInD("od"),"gain2");
+					if(event.respondTo&&event.respondTo[1]&&event.respondTo[1].cards){
+						const cards=event.respondTo[1].cards.filterInD("o");
+						if(cards.length) player.gain(cards,"gain2");
 					}
 				}
 			},
@@ -9527,12 +9540,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 1"
 					if(result.targets&&result.targets.length){
 						const evt=event.getParent("phase");
-						if(evt&&evt.name=="phase"&&!evt.sst_fulei){
-							evt.set("sst_fulei",true);
+						if(evt&&evt.name=="phase"){
 							const next=game.createEvent("sst_fulei_clear");
 							event.next.remove(next);
 							evt.after.push(next);
-							next.set("player",player);
+							next.player=player;
 							next.setContent(()=>{
 								if(Array.isArray(player.storage.sst_fulei)) player.storage.sst_fulei.length=0;
 							});
@@ -9720,12 +9732,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					const evt=event.getParent("phase");
-					if(evt&&evt.name=="phase"&&!evt.sst_fankui){
-						evt.set("sst_fankui",true);
+					if(evt&&evt.name=="phase"){
 						const next=game.createEvent("sst_fankui_clear");
 						event.next.remove(next);
 						evt.after.push(next);
-						next.set("player",player);
+						next.player=player;
 						next.setContent(()=>{
 							if(Array.isArray(player.storage.sst_fankui)) player.storage.sst_fankui.length=0;
 						});
@@ -9774,8 +9785,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(targets.length){
 						targets.sortBySeat(_status.currentPhase);
 						const next=game.createEvent("inRangeOf",false);
-						next.set("player",player);
-						next.set("targets",targets);
+						next.player=player;
+						next.targets=targets;
 						next.setContent("emptyEvent");
 					}
 				}
@@ -10785,60 +10796,63 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const func=(id,total)=>{
 						const setting=ui.create.dialog("###饥肠：设定本回合的以下数值###（三项数值相加须等于"+total+"）");
 						setting.videoId=id;
+						//Number of cards
 						setting.addText("摸牌阶段额外摸牌数");
 						const table=document.createElement("div");
+						setting.content.appendChild(table);
 						table.classList.add("add-setting");
 						table.style.margin="0";
 						table.style.width="100%";
 						table.style.position="relative";
 						for(let i=0;i<=total;i++){
 							const td=ui.create.div(".button.tdnode");
-							td.innerHTML="<span>"+i+"</span>";
 							table.appendChild(td);
+							setting.buttons.add(td);
+							td.innerHTML="<span>"+i+"</span>";
 							td.addEventListener(lib.config.touchscreen?"touchend":"click",ui.click.button);
 							td.link=["sst_jichang_first",i];
 							for(const j in lib.element.button){
 								td[j]=lib.element.button[j];
 							}
-							setting.buttons.add(td);
 						}
-						setting.content.appendChild(table);
+						//Attack range
 						setting.addText("攻击范围增加数");
 						const table2=document.createElement("div");
+						setting.content.appendChild(table2);
 						table2.classList.add("add-setting");
 						table2.style.margin="0";
 						table2.style.width="100%";
 						table2.style.position="relative";
 						for(let i=0;i<=total;i++){
 							const td=ui.create.div(".button.tdnode");
-							td.innerHTML="<span>"+i+"</span>";
 							table2.appendChild(td);
+							setting.buttons.add(td);
+							td.innerHTML="<span>"+i+"</span>";
 							td.addEventListener(lib.config.touchscreen?"touchend":"click",ui.click.button);
 							td.link=["sst_jichang_second",i];
 							for(const j in lib.element.button){
 								td[j]=lib.element.button[j];
 							}
-							setting.buttons.add(td);
 						}
-						setting.content.appendChild(table2);
+						//Times limit
 						setting.addText("出牌阶段额外使用【杀】次数");
 						const table3=document.createElement("div");
+						setting.content.appendChild(table3);
 						table3.classList.add("add-setting");
 						table3.style.margin="0";
 						table3.style.width="100%";
 						table3.style.position="relative";
 						for(let i=0;i<=total;i++){
 							const td=ui.create.div(".button.tdnode");
-							td.innerHTML="<span>"+i+"</span>";
 							table3.appendChild(td);
+							setting.buttons.add(td);
+							td.innerHTML="<span>"+i+"</span>";
 							td.addEventListener(lib.config.touchscreen?"touchend":"click",ui.click.button);
 							td.link=["sst_jichang_third",i];
 							for(const j in lib.element.button){
 								td[j]=lib.element.button[j];
 							}
-							setting.buttons.add(td);
 						}
-						setting.content.appendChild(table3);
 						return setting;
 					};
 					if(player.isOnline2()) player.send(func,event.videoId,total);
@@ -11780,7 +11794,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				viewAs:{name:"sha"},
 				filterCard:card=>get.itemtype(card)=="card",
 				position:"hes",
-				check:card=>5-get.value(card)
+				check:card=>8-get.value(card)
 			}
 		},
 		dynamicTranslate:{
@@ -12201,7 +12215,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_renqing_faq_info:"你的回合内，不以此法执行的摸牌阶段，出牌阶段，弃牌阶段开始前，你可以跳过此阶段，改为从上述其他两个阶段选择一个执行。若如此做，本回合结束时，若本回合没有执行过弃牌阶段，你失去1点体力。",
 			sst_manchan:"蛮缠",
 			sst_manchan_effect:"蛮缠",
-			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整，若为0则无需弃置牌），然后你可以于伤害来源的下个回合内发动〖任情〗。",
+			sst_manchan_info:"当你受到伤害后，你可以弃置一半手牌（向下取整），然后你可以于伤害来源的下个回合内发动〖任情〗。",
 			sst_canyun:"残云",
 			sst_canyun_effect:"残云",
 			sst_canyun_effect2:"残云",
@@ -12225,7 +12239,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_xiangle_info:"锁定技，当其他角色使用【杀】指定你为目标时，其需弃置一张基本牌，否则此【杀】对你无效。",
 			sst_jingyue:"镜月",
 			sst_jingyue_effect:"镜月",
-			sst_jingyue_effect2:"镜月",
 			sst_jingyue_info:"一名其他角色的准备阶段，你可以失去1点体力，若如此做，该角色于本回合出牌阶段内使用的牌进入弃牌堆前，你将其置于你的武将牌上，然后此回合的结束阶段，你选择一项：1. 以该角色为唯一目标依次使用这些牌（目标不合法则置入弃牌堆）；2. 获得这些牌。",
 			sst_jianxiang:"渐翔",
 			sst_jianxiang_effect:"渐翔",

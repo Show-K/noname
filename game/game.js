@@ -1479,7 +1479,7 @@
 								}
 								case 'new':node.setBackgroundImage('theme/style/card/image/new.png');break;
 								case 'ol':node.setBackgroundImage('theme/style/card/image/ol.png');break;
-								case 'wood':node.setBackgroundImage('theme/woodden/wood.jpg');node.style.backgroundSize='initial';break;
+								case 'wood':node.setBackgroundImage('theme/woodden/wood3.png');node.style.backgroundSize='initial';break;
 								case 'music':node.setBackgroundImage('theme/music/wood3.png');break;
 								case 'simple':node.setBackgroundImage('theme/simple/card.png');break;
 							}
@@ -1610,7 +1610,7 @@
 								case 'official':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/official.png');break;
 								case 'liusha':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/liusha.png');break;
 								case 'ol':node.className='button character';node.setBackgroundImage('theme/style/cardback/image/ol.png');break;
-								case 'wood':node.className='button card fullskin';node.setBackgroundImage('theme/woodden/wood.jpg');node.style.backgroundSize='initial';break;
+								case 'wood':node.className='button card fullskin';node.setBackgroundImage('theme/woodden/wood3.png');node.style.backgroundSize='initial';break;
 								case 'music':node.className='button card fullskin';node.setBackgroundImage('theme/music/wood3.png');break;
 							}
 							if(link=='custom'){
@@ -1924,7 +1924,7 @@
 									node.className='button character dashedmenubutton';
 									break;
 								}
-								case 'wood':node.setBackgroundImage('theme/woodden/wood.jpg');break;
+								case 'wood':node.setBackgroundImage('theme/woodden/wood3.png');break;
 								case 'music':node.style.backgroundImage='linear-gradient(#4b4b4b, #464646)';break;
 								case 'simple':node.style.backgroundImage='linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4))';break;
 							}
@@ -1967,7 +1967,7 @@
 							else if(layout!='default'){
 								var str='';
 								switch(layout){
-									case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood.jpg")';break;
+									case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood3.png")';break;
 									case 'music':str='linear-gradient(#4b4b4b, #464646)';break;
 									case 'simple':str='linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4))';break;
 								}
@@ -2357,7 +2357,7 @@
 									node.classList.add('dashedmenubutton');
 									break;
 								}
-								case 'wood':node.setBackgroundImage('theme/woodden/wood.jpg');break;
+								case 'wood':node.setBackgroundImage('theme/woodden/wood3.png');break;
 								case 'music':node.style.backgroundImage='linear-gradient(#4b4b4b, #464646)';break;
 								case 'simple':node.style.backgroundImage='linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4))';break;
 							}
@@ -2399,7 +2399,7 @@
 							else if(layout!='default'){
 								var str='';
 								switch(layout){
-									case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood.jpg")';break;
+									case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood3.png")';break;
 									case 'music':str='linear-gradient(#4b4b4b, #464646);color:white;text-shadow:black 0 0 2px';break;
 									case 'simple':str='linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));color:white;text-shadow:black 0 0 2px';break;
 								}
@@ -7955,7 +7955,7 @@
 					if(lib.config.player_style&&lib.config.player_style!='default'&&lib.config.player_style!='custom'){
 						var str='';
 						switch(lib.config.player_style){
-							case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood.jpg")';break;
+							case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood3.png")';break;
 							case 'music':str='linear-gradient(#4b4b4b, #464646)';break;
 							case 'simple':str='linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4))';break;
 						}
@@ -7974,7 +7974,7 @@
 					if(lib.config.control_style&&lib.config.control_style!='default'&&lib.config.control_style!='custom'){
 						var str='';
 						switch(lib.config.control_style){
-							case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood.jpg")';break;
+							case 'wood':str='url("'+lib.assetURL+'theme/woodden/wood3.png")';break;
 							case 'music':str='linear-gradient(#4b4b4b, #464646);color:white;text-shadow:black 0 0 2px';break;
 							case 'simple':str='linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));color:white;text-shadow:black 0 0 2px';break;
 						}
@@ -10335,6 +10335,12 @@
 		},
 		translate:{
 			//SST addition
+			db_atk:'进攻对策',
+			db_atk1:'全军出击',
+			db_atk2:'分兵围城',
+			db_def:'防御对策',
+			db_def1:'奇袭粮道',
+			db_def2:'开城诱敌',
 			attack:'攻击',
 			shield:'防御',
 			grab:'投掷',
@@ -27403,6 +27409,22 @@
 				type:'pss',
 				fullskin:true,
 			},
+			db_atk1:{
+				type:'db_atk',
+				fullimage:true,
+			},
+			db_atk2:{
+				type:'db_atk',
+				fullimage:true,
+			},
+			db_def1:{
+				type:'db_def',
+				fullimage:true,
+			},
+			db_def2:{
+				type:'db_def',
+				fullimage:true,
+			},
 			feichu_equip1:{
 				type:"equip",
 				subtype:"equip1",
@@ -33640,10 +33662,10 @@
 			var extname=(_status.extension||info.extension);
 			var imgsrc;
 			if(_status.evaluatingExtension){
-				imgsrc='db:extension-'+extname+':'+name+'.jpg';
+				imgsrc='db:extension-'+extname+':'+name+'.png';
 			}
 			else{
-				imgsrc='ext:'+extname+'/'+name+'.jpg';
+				imgsrc='ext:'+extname+'/'+name+'.png';
 			}
 			var character=[info.sex,info.group,info.hp,info.skills||[],[imgsrc]];
 			if(info.tags){
@@ -33670,10 +33692,10 @@
 						}
 						var imgsrc;
 						if(_status.evaluatingExtension){
-							imgsrc='db:extension-'+extname+':'+j+'.jpg';
+							imgsrc='db:extension-'+extname+':'+j+'.png';
 						}
 						else{
-							imgsrc='ext:'+extname+'/'+j+'.jpg';
+							imgsrc='ext:'+extname+'/'+j+'.png';
 						}
 						pack[i][j][4].push(imgsrc);
 						if(pack[i][j][4].contains('boss')||
@@ -33716,10 +33738,10 @@
 			}
 			else if(info.fullimage){
 				if(_status.evaluatingExtension){
-					info.image='db:extension-'+extname+':'+name+'.jpg';
+					info.image='db:extension-'+extname+':'+name+'.png';
 				}
 				else{
-					info.image='ext:'+extname+'/'+name+'.jpg';
+					info.image='ext:'+extname+'/'+name+'.png';
 				}
 			}
 			lib.card[name]=info;
@@ -33773,10 +33795,10 @@
 						}
 						else if(pack[i][j].fullimage){
 							if(_status.evaluatingExtension){
-								pack[i][j].image='db:extension-'+extname+':'+j+'.jpg';
+								pack[i][j].image='db:extension-'+extname+':'+j+'.png';
 							}
 							else{
-								pack[i][j].image='ext:'+extname+'/'+j+'.jpg';
+								pack[i][j].image='ext:'+extname+'/'+j+'.png';
 							}
 						}
 						lib.cardPack[packname].push(j);
@@ -33808,10 +33830,10 @@
 			var imgsrc;
 			var extname=_status.extension||info2.extension;
 			if(_status.evaluatingExtension){
-				imgsrc='extension-'+extname+':'+name+'.jpg';
+				imgsrc='extension-'+extname+':'+name+'.png';
 			}
 			else{
-				imgsrc='ext:'+extname+'/'+name+'.jpg';
+				imgsrc='ext:'+extname+'/'+name+'.png';
 			}
 			lib.mode[name]={
 				name:info2.translate,
@@ -41408,7 +41430,7 @@
 									}
 								}
 								if(!fakeme.image){
-									if(!page.content.image[name+'.jpg']){
+									if(!page.content.image[name+'.png']){
 										editnode.classList.add('disabled');
 										return;
 									}
@@ -41496,7 +41518,7 @@
 									};
 									page.content.image={};
 									for(var i in page.content.pack.character){
-										var file=i+'.jpg';
+										var file=i+'.png';
 										var loadImage=function(file,data){
 											var img = new Image();
 											img.crossOrigin = 'Anonymous';
@@ -41772,8 +41794,8 @@
 											alert('武将名与现有武将重复，请更改\n提示：武将名格式为id+|+中文名，其中id必须惟一');
 											return;
 										}
-										page.content.image[name+'.jpg']=page.content.image[currentButton.link+'.jpg'];
-										delete page.content.image[currentButton.link+'.jpg'];
+										page.content.image[name+'.png']=page.content.image[currentButton.link+'.png'];
+										delete page.content.image[currentButton.link+'.png'];
 										delete page.content.pack.character[currentButton.link];
 										delete page.content.pack.translate[currentButton.link];
 										currentButton.link=name;
@@ -41786,10 +41808,10 @@
 									}
 								}
 								if(fakeme.image){
-									page.content.image[name+'.jpg']=fakeme.image;
+									page.content.image[name+'.png']=fakeme.image;
 								}
 								else{
-									if(!page.content.image[name+'.jpg']){
+									if(!page.content.image[name+'.png']){
 										alert('请选择武将头像');
 										return;
 									}
@@ -41975,14 +41997,6 @@
 									for(var i in page.content.pack.card){
 										var file;
 										var fullskin=page.content.pack.card[i].fullskin?true:false;
-										/*
-										if(fullskin){
-											file=i+'.png';
-										}
-										else{
-											file=i+'.jpg';
-										}
-										*/
 										file=i+'.png';
 										var loadImage=function(file,data){
 											var img = new Image();
@@ -42105,20 +42119,12 @@
 								var fileToLoad=input.files[0];
 								if(fileToLoad){
 									var fileReader = new FileReader();
-									var fullimage=(fileToLoad.name.indexOf('.jpg')!=-1);
 									fileReader.onload = function(fileLoadedEvent)
 									{
 										var data = fileLoadedEvent.target.result;
-										if(fullimage){
-											fakeme.imagenode.style.backgroundImage='';
-											fakeme.style.backgroundImage='url('+data+')';
-											fakeme.classList.remove('fullskin');
-										}
-										else{
-											fakeme.style.backgroundImage='';
-											fakeme.imagenode.style.backgroundImage='url('+data+')';
-											fakeme.classList.add('fullskin');
-										}
+										fakeme.style.backgroundImage='';
+										fakeme.imagenode.style.backgroundImage='url('+data+')';
+										fakeme.classList.add('fullskin');
 										fakeme.image64=data;
 										fakeme.classList.add('inited');
 										var fileReader = new FileReader();
@@ -42322,13 +42328,7 @@
 											alert('卡牌名与现有卡牌重复，请更改\n提示：卡牌名格式为id+|+中文名，其中id必须惟一');
 											return;
 										}
-										var extname;
-										if(currentButton.classList.contains('fullskin')){
-											extname='.png';
-										}
-										else{
-											extname='.jpg';
-										}
+										var extname='.png';
 										page.content.image[name+extname]=page.content.image[currentButton.link+extname];
 										delete page.content.image[currentButton.link+extname];
 										delete page.content.pack.card[currentButton.link];
@@ -42344,14 +42344,7 @@
 									}
 								}
 								if(fakeme.image){
-									if(fakeme.classList.contains('fullskin')){
-										page.content.image[name+'.png']=fakeme.image;
-										delete page.content.image[name+'.jpg'];
-									}
-									else{
-										page.content.image[name+'.jpg']=fakeme.image;
-										delete page.content.image[name+'.png'];
-									}
+									page.content.image[name+'.png']=fakeme.image;
 								}
 								else if(!fakeme.classList.contains('inited')){
 									alert('请选择一个卡牌背景');
@@ -47283,7 +47276,7 @@
 				// 	var bg2=ui.create.div(bg);
 				// 	ui.create.div(bg);
 				// 	var rect=players[i].getBoundingClientRect();
-				// 	bg2.style.backgroundImage='url("image/background/huangtian_bg.jpg")';
+				// 	bg2.style.backgroundImage='url("image/background/huangtian_bg.png")';
 				// 	bg2.style.width=ui.window.offsetWidth+'px';
 				// 	bg2.style.height=ui.window.offsetHeight+'px';
 				// 	bg2.style.transform='translate('+(-rect.left)+'px,'+(-rect.top)+'px)';
@@ -54690,7 +54683,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -54727,7 +54720,7 @@
 								nameskin=nameskin.slice(3);
 								gzbool=true;
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
 						}
 						if(lib.config.change_skin){
 							if(!node.isUnseen(0)){
@@ -55210,7 +55203,7 @@
 								});
 								button._link=i;
 								if(i){
-									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.jpg');
+									button.setBackgroundImage('image/skin/'+nameskin+'/'+i+'.png');
 								}
 								else{
 									if(gzbool&&lib.character[nameskin2][4].contains('gzskin')&&lib.config.mode_config.guozhan.guozhanSkin) button.setBackground(nameskin2,'character','noskin');
@@ -55229,7 +55222,7 @@
 								num--;
 								createButtons(num);
 							}
-							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.jpg';
+							img.src=lib.assetURL+'image/skin/'+nameskin+'/'+num+'.png';
 						}
 						if(lib.config.change_skin){
 							loadImage();

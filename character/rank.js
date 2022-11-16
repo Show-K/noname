@@ -153,7 +153,8 @@ window.noname_character_rank={
 			"ska_daroach",
 			"sst_inkling",
 			"sst_wii_fit_trainer",
-			"ska_rabbid_peach"
+			"ska_rabbid_peach",
+			"ska_tails"
 		],
 		junk:[]
 	}

@@ -1356,19 +1356,19 @@ body>.background.land {
 	border-radius: 0;
 }
 .card>.cardframebg[data-auto='gold']{
-	background-image:url('../../theme/style/card/image/border_gold.jpg');
+	background-image:url('../../theme/style/card/image/border_gold.png');
 }
 .card>.cardframebg[data-auto='silver']{
-	background-image:url('../../theme/style/card/image/border_silver.jpg');
+	background-image:url('../../theme/style/card/image/border_silver.png');
 }
 .card>.cardframebg[data-auto='bronze']{
-	background-image:url('../../theme/style/card/image/border_bronze.jpg');
+	background-image:url('../../theme/style/card/image/border_bronze.png');
 }
 .card>.cardframebg[data-auto='wood']{
-	background-image:url('../../theme/style/card/image/border_wood.jpg');
+	background-image:url('../../theme/style/card/image/border_wood.png');
 }
 .card>.cardframebg[data-auto='map']{
-	background-image:url('../../theme/style/card/image/border_map.jpg');
+	background-image:url('../../theme/style/card/image/border_map.png');
 }
 .card>.cardavatar{
 	width: calc(100% - 6px);

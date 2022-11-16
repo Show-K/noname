@@ -46,7 +46,7 @@ var get = function(dir,callback){
 								for(var i=0;i<list.length;i++){
 									var url2=url+'/'+list[i];
 									var stat=fs.statSync(url2);
-									if(stat.isFile()&&path.extname(url2)=='.jpg'){
+									if(stat.isFile()&&path.extname(url2)=='.png'){
 										num++;
 									}
 								}
