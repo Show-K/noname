@@ -4642,7 +4642,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:(event,player)=>player.isPhaseUsing()&&get.tag(event.card,"damage")&&event.targets&&event.targets.length==1,
 				check:(event,player)=>{
 					let num=0;
-					player.getHistory("lose",evt=>num+=evt.cards.length);
+					player.getHistory("lose",evt=>num+=evt.cards2.length);
 					num=Math.ceil(num/2)+1;
 					if(num<=1) return false;
 					let rand=0.95;
@@ -4660,16 +4660,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 					return Math.random()>rand?true:false;
 				},
-				prompt2:(event,player)=>{
-					let str="出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为";
-					let num=0;
-					player.getHistory("lose",evt=>num+=evt.cards.length);
-					num=Math.ceil(num/2)+1;
-					return str+num+"；然后若此牌没有造成伤害，本局游戏你的手牌上限-1";
-				},
+				prompt2:(event,player)=>"出牌阶段限一次，你使用带有「伤害」标签的牌指定唯一目标时，你可以令其伤害值基数为"+(Math.ceil(player.getHistory("lose",evt=>evt.cards2&&evt.cards2.length).map(evt=>evt.cards2.length).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/2)+1)+"；然后若此牌没有造成伤害，本局游戏你的手牌上限-1",
 				content:()=>{
-					const num=player.getHistory("lose",evt=>evt.cards&&evt.cards.length).map(evt=>evt.cards.length).reduce((previousValue,currentValue)=>previousValue+currentValue,0);
-					num=Math.ceil(num/2)+1;
+					const num=Math.ceil(player.getHistory("lose",evt=>evt.cards2&&evt.cards2.length).map(evt=>evt.cards2.length).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/2)+1;
 					trigger.getParent().baseDamage+=num-1;
 					const next=game.createEvent("sst_baochui_clear");
 					event.next.remove(next);
@@ -10322,7 +10315,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						delay:false,
 						content:lib.skill.sst_zaowu2.contentx,
 						ai:{
-							order:10,
 							result:{
 								target:(player,target)=>get.damageEffect(target,player,target)
 							}

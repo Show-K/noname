@@ -501,15 +501,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							if(get.type(card,false)=="equip") return _status.event.getParent().player.canEquip(card,true);
 							return true;
 						},true).set("ai",card=>{
-							const gifts=(card,player,target)=>{
-								if(target.hasSkillTag("refuseGifts")) return 0;
-								if(get.type(card,false)=="equip") return get.effect(target,card,target,target);
-								if(card.name=="du") return player.hp>target.hp?-1:0;
-								if(target.hasSkillTag("nogain")) return 0;
-								return Math.max(1,get.value(card,player)-get.value(card,target));
-							};
-							const player=_status.event.player;
 							const target=_status.event.getParent().player;
+							if(target.hasSkillTag("refuseGifts")) return 0;
+							const player=_status.event.player;
+							if(get.type(card,false)=="equip") return get.effect(target,card,target,player);
 							let att=get.attitude(player,target);
 							if(att<0){
 								att=-Math.sqrt(-att);
@@ -517,7 +512,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							else{
 								att=Math.sqrt(att);
 							}
-							return att*gifts(card,player,target);
+							if(card.name=="du") return player.hp>target.hp?-att:0;
+							if(target.hasSkillTag("nogain")) return 0;
+							return att*Math.max(1,get.value(card,player)-get.value(card,target));
 						});
 					}
 					else{
@@ -643,13 +640,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						delay:false,
 						content:lib.skill.ska_zhefu.contentx,
 						ai:{
-							order:10,
 							result:{
-								target:()=>get.value(links[0])
+								target:(player,target)=>target.getUseValue(links[0])
 							}
 						}
 					}),
-					prompt:()=>"请选择〖折赋〗的目标",
+					prompt:()=>"请选择【折赋】的目标",
 				},
 				contentx:()=>{
 					"step 0"
@@ -658,19 +654,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.updateRenku();
 					game.cardsGotoOrdering(event.card).set("fromRenku",true);
 					player.showCards(event.card);
-					target.chooseCard("he","折赋：【赠予】"+get.translation(player)+"一张牌，然后使用"+get.translation(event.card)+"，或获得"+get.translation(event.card),card=>{
+					target.chooseCard("he","折赋：【赠予】"+get.translation(player)+"一张牌并使用"+get.translation(event.card),card=>{
 						if(get.type(card,false)=="equip") return _status.event.getParent().player.canEquip(card,true);
 						return true;
-					}).set("ai",card=>{
-						const gifts=(card,player,target)=>{
-							if(target.hasSkillTag("refuseGifts")) return 0;
-							if(get.type(card,false)=="equip") return get.effect(target,card,target,target);
-							if(card.name=="du") return player.hp>target.hp?-1:0;
-							if(target.hasSkillTag("nogain")) return 0;
-							return Math.max(1,get.value(card,player)-get.value(card,target));
-						};
-						const player=_status.event.player;
+					},true).set("ai",card=>{
 						const target=_status.event.getParent().player;
+						if(target.hasSkillTag("refuseGifts")) return 0;
+						const player=_status.event.player;
+						if(get.type(card,false)=="equip") return get.effect(target,card,target,player);
 						let att=get.attitude(player,target);
 						if(att<0){
 							att=-Math.sqrt(-att);
@@ -678,7 +669,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						else{
 							att=Math.sqrt(att);
 						}
-						return player.getUseValue(_status.event.getParent().card)-att*gifts(card,player,target);
+						if(card.name=="du") return player.hp>target.hp?-att:0;
+						if(target.hasSkillTag("nogain")) return 0;
+						return att*Math.max(1,get.value(card,player)-get.value(card,target));
 					});
 					"step 1"
 					if(result.cards&&result.cards.length){
@@ -688,12 +681,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						next.cards=result.cards;
 						next.setContent(lib.skill._yongjian_zengyu.content);
 					}
-					else{
-						target.gain(event.card,"gain2");
-						event.finish();
-					}
 					"step 2"
-					if(game.hasPlayer(current=>target.canUse(card,current))){
+					if(target.hasUseTarget(card)){
 						target.chooseUseTarget(card,true,false);
 					}
 					else{
@@ -701,7 +690,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 				},
 				ai:{
-					expose:0.2,
 					order:8,
 					result:{
 						player:1
@@ -1080,15 +1068,21 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							return 5-get.useful(card)+gifts;
 						},
 						ai2:target=>{
-							const player=_status.event.player;
-							let att=get.attitude(player,target);
-							if(att<0){
-								att=-Math.sqrt(-att);
+							const gifts=(card,player,target)=>{
+								if(!card||target.hasSkillTag("refuseGifts")) return 0;
+								if(get.type(card,false)=="equip") return get.effect(target,card,target,player);
+								let att=get.attitude(player,target);
+								if(att<0){
+									att=-Math.sqrt(-att);
+								}
+								else{
+									att=Math.sqrt(att);
+								}
+								if(card.name=="du") return player.hp>target.hp?-att:0;
+								if(target.hasSkillTag("nogain")) return 0;
+								return att*Math.max(1,get.value(card,player)-get.value(card,target));
 							}
-							else{
-								att=Math.sqrt(att);
-							}
-							return att*lib.skill._yongjian_zengyu.ai.result.target(player,target)+get.damageEffect(target,player,player);
+							return gifts(ui.selected.cards[0],_status.event.player,target)+get.damageEffect(target,_status.event.player,_status.event.player);
 						},
 						prompt:get.prompt("ska_juegu"),
 						prompt2:get.skillInfoTranslation("ska_juegu")
@@ -1154,6 +1148,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					player.gain(get.bottomCards(),"gain2");
 				},
 				ai:{
+					order:10,
 					result:{
 						player:1
 					}
@@ -1468,7 +1463,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						delay:false,
 						content:lib.skill.ska_zhesheng.contentx,
 						ai:{
-							order:10,
 							result:{
 								target:(player,target)=>{
 									if(!ui.selected.targets.length){
@@ -1482,7 +1476,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 						}
 					}),
-					prompt:()=>"请选择〖折生〗的目标",
+					prompt:()=>"请选择【折生】的目标",
 				},
 				contentx:()=>{
 					"step 0"
@@ -1492,18 +1486,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.cardsGotoOrdering(event.card).set("fromRenku",true);
 					player.showCards(event.card);
 					"step 1"
+					player.addTempSkill("ska_zhesheng_effect");
 					targets[0].useCard(card,targets[1],false,"noai");
 				},
 				ai:{
-					expose:0.2,
 					order:6,
 					result:{
 						player:1
 					}
-				},
-				group:"ska_zhesheng2"
+				}
 			},
-			ska_zhesheng2:{
+			ska_zhesheng_effect:{
+				charlotte:true,
 				forced:true,
 				popup:false,
 				trigger:{global:"useCard1"},
@@ -2108,30 +2102,31 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 2"
 					if(result.cards&&result.cards.length) target.addToExpansion(result.cards,target,"give").gaintag.add("nnk_fengying");
 					"step 3"
-					event.expansions=target.getExpansions("nnk_fengying");
-					if(event.expansions.length){
+					const expansions=target.getExpansions("nnk_fengying");
+					if(expansions.length){
 						event.cards=target.getCards("he",card=>{
-							if(lib.filter.cardDiscardable(card,target)) return false;
-							for(const i of event.expansions){
+							if(!lib.filter.cardDiscardable(card,target)) return false;
+							for(const i of expansions){
 								if(get.name(card)==get.name(i)) return true;
 							}
 							return false;
 						});
 						if(event.cards.length){
-							target.chooseBool("缝影：展示手牌并弃置"+get.translation(event.cards)+"，否则本局游戏不能使用或打出与"+get.translation(event.expansions)+"同名的牌").set("ai",()=>{
+							target.chooseBool("缝影：展示手牌并弃置"+get.translation(event.cards)+"，否则本局游戏不能使用或打出与"+get.translation(expansions)+"同名的牌").set("ai",()=>{
 								if(_status.event.player.hasSkill("nnk_fengying_effect")) return false;
 								return true;
 							});
 						}
 						else{
-							target.chooseBool("缝影：本局游戏不能使用或打出与"+get.translation(event.expansions)+"同名的牌");
+							event.directresult=true;
+							target.chooseControl("ok2").set("prompt","缝影：本局游戏不能使用或打出与"+get.translation(expansions)+"同名的牌");
 						}
 					}
 					else{
 						event.finish();
 					}
 					"step 4"
-					if(result.bool&&event.cards.length){
+					if(result.bool&&!event.directresult){
 						target.showHandcards();
 					}
 					else{
@@ -2368,7 +2363,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark-1));
 					if(digit==0) digit=10;
 					if(name=="gainAfter"){
-						if(typeof event.animate=="undefined"||event.animate=="draw") return false;
+						if(event.animate!="gain"&&event.animate!="gain2"&&event.animate!="draw2"&&event.animate!="give") return false;
 						for(const card of event.cards){
 							if(get.number(card)==digit) return true;
 						}
@@ -2416,13 +2411,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						}
 						return false;
 					}).set("ai",target=>{
-						const gifts=(card,player,target)=>{
-							if(target.hasSkillTag("refuseGifts")) return 0;
-							if(get.type(card,false)=="equip") return get.effect(target,card,target,target);
-							if(card.name=="du") return player.hp>target.hp?-1:0;
-							if(target.hasSkillTag("nogain")) return 0;
-							return Math.max(1,get.value(card,player)-get.value(card,target));
-						};
 						const player=_status.event.player;
 						let att=get.attitude(player,target);
 						if(att<0){
@@ -2435,7 +2423,13 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							if(get.type(card,false)=="equip") return target.canEquip(card,true);
 							return true;
 						});
-						return att*cards.map(card=>gifts(card,player,target)).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/cards.length;
+						return cards.map(card=>{
+							if(target.hasSkillTag("refuseGifts")) return 0;
+							if(get.type(card,false)=="equip") return get.effect(target,card,target,player);
+							if(card.name=="du") return player.hp>target.hp?-att:0;
+							if(target.hasSkillTag("nogain")) return 0;
+							return att*Math.max(1,get.value(card,player)-get.value(card,target));
+						}).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/cards.length;
 					});
 					"step 1"
 					if(result.targets&&result.targets.length){
@@ -2488,7 +2482,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								let digit=parseInt(current.storage.STRING_SQRT_2.charAt(current.countMark("ska_jizhuan")-1));
 								if(digit==0) digit=10;
 								return number==digit;
-							})) return [1,1];
+							})) return [1,2];
+							if(game.hasPlayer(current=>{
+								if(!current.hasSkill("ska_jizhuan")) return false;
+								if(get.attitude(player,current)>=0) return false;
+								let digit=parseInt(current.storage.STRING_SQRT_2.charAt(current.countMark("ska_jizhuan")-1));
+								if(digit==0) digit=10;
+								return number==digit;
+							})) return [1,-2];
 						}
 					}
 				}
@@ -2800,7 +2801,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi_info:"一名角色受到伤害后，你可以判定并将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
 			ska_zhefu:"折赋",
 			ska_zhefu_backup:"折赋",
-			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并令一名角色选择一项：1. 获得亮出牌；2. 〖赠予〗你一张牌，然后使用亮出牌（若不能使用则置入弃牌堆）。",
+			ska_zhefu_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，令一名角色〖赠予〗你一张牌并使用亮出牌（若不能使用则置入弃牌堆）。",
 			ska_kezhi:"恪志",
 			ska_kezhi_info:"一名角色使用或打出牌响应你使用的牌时，你可以失去1点体力并将一张牌当作被响应牌使用。若以此法使用的牌造成过伤害，你可以回复1点体力或摸两张牌。",
 			ska_jiyan:"籍验",
@@ -2847,7 +2848,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_shenqi_alter_info:"一名角色造成伤害后，你可以将牌堆底一张牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色不同的牌。",
 			ska_zhesheng:"折生",
 			ska_zhesheng_backup:"折生",
-			ska_zhesheng_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并指定一名角色，视为其对另外一名你指定的角色使用此牌（不能被响应）。",
+			ska_zhesheng_info:"出牌阶段限一次，你可以亮出仁库中的一张牌，并指定两名角色，令第一名角色对第二名角色使用此牌（不能被响应）。",
 			ska_suixuan:"随旋",
 			ska_suixuan2:"随旋",
 			ska_suixuan_info:"锁定技，当你受到伤害后，你翻面。当你翻面时，你视为使用一张无距离限制的【杀】，然后弃置一张牌。",

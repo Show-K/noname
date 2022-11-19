@@ -2324,9 +2324,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						player.logSkill("sst_shouyin",result.targets);
 						event.target=result.targets[0];
 						event.chooseToUse=event.target.chooseToUse("授音：你可以使用一张"+get.translation(get.type(trigger.card,"trick"))+"牌",function(card){
-							if(get.type2(card)!=get.type2(_status.event.getTrigger().card)) return false;
+							if(get.type2(card)!=get.type2(_status.event.cardx)) return false;
 							return lib.filter.filterCard.apply(this,arguments);
-						}).set("addCount",false);
+						}).set("addCount",false).set("cardx",trigger.card);
 					}
 					else{
 						event.finish();

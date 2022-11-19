@@ -12,14 +12,14 @@ window.noname_character_rank={
 		legend:[
 			"ymk_isabelle",
 			"sst_sans",
-			"sst_massy"
+			"sst_massy",
+			"sst_marioraz"
 		],
 		epic:[
 			"sst_dr_mario",
 			"sst_palutena",
 			"sst_rosalina",
 			"sst_zero_suit_samus",
-			"sst_peach",
 			"sst_byleth_female",
 			"sst_byleth_male",
 			"sst_mario_not_mary",
@@ -69,15 +69,15 @@ window.noname_character_rank={
 			"sst_lucina",
 			"ymk_tianyi",
 			"sst_olimar",
-			"sst_marioraz",
 			"sst_piranha_plant",
 			"alz_yuri_kozukata",
 			"sst_ganondorf",
 			"sst_r_o_b",
 			"sst_bayonetta",
-			"nnk_decidueye",
 			"nnk_machamp",
-			"ska_rabbid_rosalina"
+			"ska_rabbid_rosalina",
+			"ska_tails",
+			"ska_rabbid_peach"
 		],
 		rare:[
 			"sst_mario",
@@ -153,8 +153,8 @@ window.noname_character_rank={
 			"ska_daroach",
 			"sst_inkling",
 			"sst_wii_fit_trainer",
-			"ska_rabbid_peach",
-			"ska_tails"
+			"nnk_decidueye",
+			"sst_peach"
 		],
 		junk:[]
 	}
