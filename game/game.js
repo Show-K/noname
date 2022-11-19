@@ -4345,6 +4345,13 @@
 						frequent:true,
 						restart:true,
 					},
+					connect_unbalanced_mode:{
+						name:'阴间模式',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开启后游戏中将模仿三国杀客户端特有的游戏外机制等'
+					},
 					connect_zhong_card:{
 						name:'明忠卡牌替换',
 						init:true,
@@ -4524,6 +4531,13 @@
 						},
 						frequent:true,
 						restart:true,
+					},
+					unbalanced_mode:{
+						name:'阴间模式',
+						init:false,
+						restart:true,
+						frequent:true,
+						intro:'开启后游戏中将模仿三国杀客户端特有的游戏外机制等'
 					},
 					double_nei:{
 						name:'双内奸',
@@ -5188,13 +5202,6 @@
 						restart:true,
 						intro:'<li>势备：默认模式，使用线下《君临天下·势备篇》的牌堆进行游戏。<br><li>应变：使用OL的应变国战牌堆进行游戏。<br><li>怀旧：使用传统国战的牌堆进行游戏。',
 					},
-					connect_qunxionggeju:{
-						name:'群雄割据',
-						init:false,
-						frequent:true,
-						restart:true,
-						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
-					},
 					connect_player_number:{
 						name:'游戏人数',
 						init:'8',
@@ -5210,6 +5217,13 @@
 						},
 						frequent:true,
 						restart:true,
+					},
+					connect_qunxionggeju:{
+						name:'群雄割据',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
 					},
 					connect_initshow_draw:{
 						name:'首亮奖励',
@@ -5286,13 +5300,6 @@
 						restart:true,
 						intro:'<li>势备：默认模式，使用线下《君临天下·势备篇》的牌堆进行游戏。<br><li>应变：使用OL的应变国战牌堆进行游戏。<br><li>怀旧：使用传统国战的牌堆进行游戏。<br><li>自由：使用玩家的自定义牌堆进行游戏。',
 					},
-					qunxionggeju:{
-						name:'群雄割据',
-						init:false,
-						frequent:true,
-						restart:true,
-						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
-					},
 					player_number:{
 						name:'游戏人数',
 						init:'8',
@@ -5308,6 +5315,13 @@
 						},
 						frequent:true,
 						restart:true,
+					},
+					qunxionggeju:{
+						name:'群雄割据',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
 					},
 					initshow_draw:{
 						name:'首亮奖励',
@@ -6064,6 +6078,12 @@
 						init:false,
 						frequent:true,
 						intro:'在用户填写的IP地址没有直接指定使用WS/WSS协议的情况下，默认使用WSS协议，而非WS协议来连接到联机服务器。<br>请不要轻易勾选此项！',
+					},
+					ten_players:{
+						name:'十人房间',
+						input:false,
+						frequent:true,
+						intro:'你的房间游戏人数由最多八人提升至最多十人。<br>若开启此项，其他人必须也支持十人房间才能进入你的房间，否则会报错！<br>若关闭此项，你不能进入其他人创建的十人房间，否则会报错！'
 					},
 				}
 			},
@@ -46654,7 +46674,9 @@
 			},
 			connectPlayers:function(ip){
 				game.connectPlayers=[];
-				for(var i=0;i<10;i++){
+				var max=8;
+				if(get.config('ten_players','connect')) max=10;
+				for(var i=0;i<max;i++){
 					var player=ui.create.player(ui.window);
 					player.dataset.position=i;
 					player.classList.add('connect');
@@ -51124,7 +51146,7 @@
 			return num;
 		},
 		connectNickname:function(){
-			return typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家';
+			return '※'+(typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家');
 		},
 		zhinangs:function(filter){
 			var list=(_status.connectMode?lib.configOL:lib.config).zhinang_tricks;

@@ -305,8 +305,31 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				if(_status.mode=='purple'&&player.seatNum>5) return 5;
 				return 4;
 			});
-			if(_status.connectMode&&lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
+			if(!lib.configOL.unbalanced_mode&&_status.connectMode&&lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
+			if((_status.connectMode&&lib.configOL.unbalanced_mode)||(!_status.connectMode&&get.config('unbalanced_mode'))){
+				event.replaceHandcards=game.players.map(current=>[current,null]);
+				event.num=0;
+			}
+			else{
+				event.goto(8);
+			}
 			"step 7"
+			if(num<10){
+				event.num++;
+				for(let i=0;i<event.replaceHandcards.length;i++){
+					if(event.replaceHandcards[i][0]._start_cards==event.replaceHandcards[i][1]){
+						event.replaceHandcards.splice(i--,1);
+					}
+					else{
+						event.replaceHandcards[i][1]=event.replaceHandcards[i][0]._start_cards;
+					}
+				};
+				if(event.replaceHandcards.length){
+					game.replaceHandcards(event.replaceHandcards.map(i=>i[0]));
+					event.redo();
+				}
+			}
+			"step 8"
 			game.phaseLoop(_status.firstAct2||game.zhong||game.zhu||_status.firstAct||game.me);
 		},
 		game:{
@@ -362,6 +385,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			},
 			getRoomInfo:function(uiintro){
 				uiintro.add('<div class="text chat">游戏模式：'+(lib.configOL.identity_mode=='zhong'?'明忠':'标准'));
+				uiintro.add('<div class="text chat">阴间模式：'+(lib.configOL.unbalanced_mode?'开启':'关闭'));
 				uiintro.add('<div class="text chat">双将模式：'+(lib.configOL.double_character?'开启':'关闭'));
 				if(lib.configOL.identity_mode!='zhong'){
 					uiintro.add('<div class="text chat">双内奸：'+(lib.configOL.double_nei?'开启':'关闭'));
@@ -1219,6 +1243,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 										num=8;
 									}
 								}
+								else if(get.config('unbalanced_mode')){
+									switch(link){
+										case 'zhu':case 'zhong':case 'fan':num=12;break;
+										case 'nei':num=20;break;
+									}
+								}
 								_status.event.parent.swapnodialog=function(dialog,list){
 									var buttons=ui.create.div('.buttons');
 									var node=dialog.buttons[0].parentNode;
@@ -1450,6 +1480,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						num=6;
 						if(game.me.identity=='zhu'||game.me.identity=='nei'||game.me.identity=='mingzhong'){
 							num=8;
+						}
+					}
+					else if(get.config('unbalanced_mode')){
+						switch(game.me.identity){
+							case 'zhu':case 'zhong':case 'fan':num=12;break;
+							case 'nei':num=20;break;
 						}
 					}
 					if(game.zhu!=game.me){
@@ -1694,7 +1730,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<game.players.length;i++){
 						if(game.players[i]!=game.zhu&&game.players[i]!=game.me){
 							event.list.randomSort();
-							event.ai(game.players[i],event.list.splice(0,get.config('choice_'+game.players[i].identity)),null,event.list)
+							let num=get.config('choice_'+game.players[i].identity);
+							if(get.config('unbalanced_mode')){
+								switch(game.players[i].identity){
+									case 'zhu':case 'zhong':case 'fan':num=12;break;
+									case 'nei':num=20;break;
+								}
+							}
+							event.ai(game.players[i],event.list.splice(0,num),null,event.list)
 						}
 					}
 					"step 3"
@@ -1905,8 +1948,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						list=event.list.randomGets(8);
 					}
 					else{
+						let num=5;
+						if(lib.configOL.unbalanced_mode) num=12;
 						list2.sort(lib.sort.character);
-						list=list2.concat(list3.randomGets(5));
+						list=list2.concat(list3.randomGets(num));
 					}
 					var next=game.zhu.chooseButton(true);
 					next.set('selectButton',(lib.configOL.double_character?2:1));
@@ -2005,7 +2050,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							if(game.players[i].special_identity){
 								str+='（'+get.translation(game.players[i].special_identity)+'）';
 							}
-							list.push([game.players[i],[str,[event.list.randomRemove(num+num3),'characterx']],selectButton,true]);
+							let numFinal=num+num3;
+							if(lib.configOL.unbalanced_mode&&!event.zhongmode){
+								switch(game.players[i].identity){
+									case 'zhu':case 'zhong':case 'fan':numFinal=12;break;
+									case 'nei':numFinal=20;break;
+								}
+							}
+							list.push([game.players[i],[str,[event.list.randomRemove(numFinal),'characterx']],selectButton,true]);
 						}
 					}
 					game.me.chooseButtonOL(list,function(player,result){
