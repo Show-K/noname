@@ -43,11 +43,11 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'https://unitedrhythmized.club/Show-K/noname/master',
-			github:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname/master',
+			coding:'https://unitedrhythmized.club/Show-K/noname',
+			github:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname',
 		},
-		updateURL:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname/master',
-		mirrorURL:'https://unitedrhythmized.club/Show-K/noname/master',
+		updateURL:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname',
+		mirrorURL:'https://unitedrhythmized.club/Show-K/noname',
 		hallURL:'unitedrhythmized.club',
 		assetURL:'',
 		changeLog:[],
@@ -51714,7 +51714,7 @@
 				url+='/';
 			}
 			if(master!='nodev'){
-				return url;
+				return url+'master/';
 			}
 			else{
 				return url+'v'+lib.version+'/';
