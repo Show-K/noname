@@ -13,7 +13,6 @@
 	};
 	var _status={
 		//SST addition
-		mougong_buff:['sha','shan','juedou','huogong','tao'],
 		discardPile:[],
 		//SST addition end
 		paused:false,
@@ -51,11 +50,11 @@
 		configprefix:'noname_0.9_',
 		versionOL:27,
 		updateURLS:{
-			coding:'https://unitedrhythmized.club/Show-K/noname/super-smash-tabletop',
-			github:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
+			coding:'https://unitedrhythmized.club/Show-K/noname',
+			github:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname',
 		},
-		updateURL:'https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
-		mirrorURL:'https://unitedrhythmized.club/Show-K/noname/super-smash-tabletop',
+		updateURL:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname',
+		mirrorURL:'https://unitedrhythmized.club/Show-K/noname',
 		hallURL:'unitedrhythmized.club',
 		assetURL:'',
 		changeLog:[],
@@ -4346,6 +4345,13 @@
 						frequent:true,
 						restart:true,
 					},
+					connect_unbalanced_mode:{
+						name:'阴间模式',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开启后游戏中将模仿三国杀客户端特有的游戏外机制等'
+					},
 					connect_zhong_card:{
 						name:'明忠卡牌替换',
 						init:true,
@@ -4539,6 +4545,13 @@
 						},
 						frequent:true,
 						restart:true,
+					},
+					unbalanced_mode:{
+						name:'阴间模式',
+						init:false,
+						restart:true,
+						frequent:true,
+						intro:'开启后游戏中将模仿三国杀客户端特有的游戏外机制等'
 					},
 					double_nei:{
 						name:'双内奸',
@@ -5358,13 +5371,6 @@
 						restart:true,
 						intro:'<li>势备：默认模式，使用线下《君临天下·势备篇》的牌堆进行游戏。<br><li>应变：使用OL的应变国战牌堆进行游戏。<br><li>怀旧：使用传统国战的牌堆进行游戏。',
 					},
-					connect_qunxionggeju:{
-						name:'群雄割据',
-						init:false,
-						frequent:true,
-						restart:true,
-						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
-					},
 					connect_player_number:{
 						name:'游戏人数',
 						init:'8',
@@ -5380,6 +5386,13 @@
 						},
 						frequent:true,
 						restart:true,
+					},
+					connect_qunxionggeju:{
+						name:'群雄割据',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
 					},
 					connect_initshow_draw:{
 						name:'首亮奖励',
@@ -5456,13 +5469,6 @@
 						restart:true,
 						intro:'<li>势备：默认模式，使用线下《君临天下·势备篇》的牌堆进行游戏。<br><li>应变：使用OL的应变国战牌堆进行游戏。<br><li>怀旧：使用传统国战的牌堆进行游戏。<br><li>自由：使用玩家的自定义牌堆进行游戏。',
 					},
-					qunxionggeju:{
-						name:'群雄割据',
-						init:false,
-						frequent:true,
-						restart:true,
-						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
-					},
 					player_number:{
 						name:'游戏人数',
 						init:'8',
@@ -5479,6 +5485,13 @@
 						},
 						frequent:true,
 						restart:true,
+					},
+					qunxionggeju:{
+						name:'群雄割据',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开放不同势力组合，以优先亮出的武将牌作为自己的势力，双势力武将则使用列表的第一个势力',
 					},
 					initshow_draw:{
 						name:'首亮奖励',
@@ -6269,6 +6282,12 @@
 						init:false,
 						frequent:true,
 						intro:'在用户填写的IP地址没有直接指定使用WS/WSS协议的情况下，默认使用WSS协议，而非WS协议来连接到联机服务器。<br>请不要轻易勾选此项！',
+					},
+					ten_players:{
+						name:'十人房间',
+						input:false,
+						frequent:true,
+						intro:'你的房间游戏人数由最多八人提升至最多十人。<br>若开启此项，其他人必须也支持十人房间才能进入你的房间，否则会报错！<br>若关闭此项，你不能进入其他人创建的十人房间，否则会报错！'
 					},
 				}
 			},
@@ -27994,153 +28013,6 @@
 			}
 		},
 		skill:{
-			//SST addition
-			_sst_sex_select:{
-				charlotte:true,
-				superCharlotte:true,
-				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2020,
-				filter:(event,player)=>player.sex=='',
-				content:()=>{
-					'step 0'
-					player.chooseControl('male','female').set('prompt','选择性别').set('ai',()=>['male','female'].randomGet());
-					'step 1'
-					player.sex=result.control;
-					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
-					const name=player.name;
-					const differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
-					if(differentAvatar.contains(name)) player.setAvatar(name,name+'_'+result.control);
-					game.log(player,'将性别变为了','#y'+get.translation(result.control));
-					const differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
-					if(typeof differentGroup[name+'_'+result.control]=='string') player.changeGroup(differentGroup[name+'_'+result.control]);
-					player.update();
-				}
-			},
-			_sst_group_select:{
-				charlotte:true,
-				superCharlotte:true,
-				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2019,
-				filter:(event,player)=>!get.config('no_group')&&player.group=='sst_smash',
-				content:()=>{
-					'step 0'
-					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',()=>{
-						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
-						return _status.event.controls.randomGet();
-					});
-					'step 1'
-					player.changeGroup(result.control);
-					player.update();
-				}
-			},
-			_useAnger_juedou:{
-				ruleSkill:true,
-				charlotte:true,
-				forced:true,
-				popup:false,
-				trigger:{source:'damageBegin1'},
-				filter:(event,player)=>{
-					const evt=event.getParent(2);
-					if(!evt||evt.name!='useCard') return false;
-					if(typeof evt.th_anger!='object') return false;
-					if(typeof evt.th_anger[player.playerid]!='number') return false;
-					return evt.th_anger[player.playerid]!=0;
-				},
-				content:()=>trigger.num+=trigger.getParent(2).th_anger[player.playerid]
-			},
-			braces:{
-				intro:{
-					content:'#'
-				}
-			},
-			choose_to_use_skip:{
-				charlotte:true,
-				superCharlotte:true,
-				ruleSkill:true,
-				init:function(player){
-					game.addVideo('chooseToUseSkipNode',player,true);
-					game.broadcastAll(function(player){
-						if(!player.node.chooseToUseFinish){
-							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','跳过<br>出牌',player.node.avatar);
-							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','跳过<br>出牌',player.node.avatar2);
-						}
-					},player);
-				},
-				onremove:function(player){
-					game.addVideo('chooseToUseSkipNode',player,false);
-					game.broadcastAll(function(player){
-						if(player.node.chooseToUseFinish){
-							player.node.chooseToUseFinish.delete();
-							player.node.chooseToUseFinish2.delete();
-							delete player.node.chooseToUseFinish;
-							delete player.node.chooseToUseFinish2;
-						}
-					},player);
-				}
-			},
-			choose_to_use_finish:{
-				charlotte:true,
-				superCharlotte:true,
-				ruleSkill:true,
-				init:function(player){
-					game.addVideo('chooseToUseFinishNode',player,true);
-					game.broadcastAll(function(player){
-						if(!player.node.chooseToUseFinish){
-							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','结束<br>出牌',player.node.avatar);
-							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','结束<br>出牌',player.node.avatar2);
-						}
-					},player);
-				},
-				onremove:function(player){
-					game.addVideo('chooseToUseFinishNode',player,false);
-					game.broadcastAll(function(player){
-						if(player.node.chooseToUseFinish){
-							player.node.chooseToUseFinish.delete();
-							player.node.chooseToUseFinish2.delete();
-							delete player.node.chooseToUseFinish;
-							delete player.node.chooseToUseFinish2;
-						}
-					},player);
-				}
-			},
-			choose_to_use_finish_first:{
-				charlotte:true,
-				superCharlotte:true,
-				ruleSkill:true,
-				init:function(player){
-					game.addVideo('chooseToUseFinishFirstNode',player,true);
-					game.broadcastAll(function(player){
-						if(!player.node.chooseToUseFinish){
-							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','首先<br>结束',player.node.avatar);
-							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','首先<br>结束',player.node.avatar2);
-						}
-					},player);
-				},
-				onremove:function(player){
-					game.addVideo('chooseToUseFinishFirstNode',player,false);
-					game.broadcastAll(function(player){
-						if(player.node.chooseToUseFinish){
-							player.node.chooseToUseFinish.delete();
-							player.node.chooseToUseFinish2.delete();
-							delete player.node.chooseToUseFinish;
-							delete player.node.chooseToUseFinish2;
-						}
-					},player);
-				}
-			},
-			//SST addition End
 			zhengsu:{
 				trigger:{player:'phaseDiscardEnd'},
 				forced:true,
@@ -29029,7 +28901,84 @@
 					player.link();
 					if(trigger.getParent().notLink()) trigger.getParent().lianhuanable=true;
 				}
+			},
+			//SST addition
+			choose_to_use_skip:{
+				charlotte:true,
+				superCharlotte:true,
+				ruleSkill:true,
+				init:function(player){
+					game.addVideo('chooseToUseSkipNode',player,true);
+					game.broadcastAll(function(player){
+						if(!player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','跳过<br>出牌',player.node.avatar);
+							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','跳过<br>出牌',player.node.avatar2);
+						}
+					},player);
+				},
+				onremove:function(player){
+					game.addVideo('chooseToUseSkipNode',player,false);
+					game.broadcastAll(function(player){
+						if(player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish.delete();
+							player.node.chooseToUseFinish2.delete();
+							delete player.node.chooseToUseFinish;
+							delete player.node.chooseToUseFinish2;
+						}
+					},player);
+				}
+			},
+			choose_to_use_finish:{
+				charlotte:true,
+				superCharlotte:true,
+				ruleSkill:true,
+				init:function(player){
+					game.addVideo('chooseToUseFinishNode',player,true);
+					game.broadcastAll(function(player){
+						if(!player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','结束<br>出牌',player.node.avatar);
+							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','结束<br>出牌',player.node.avatar2);
+						}
+					},player);
+				},
+				onremove:function(player){
+					game.addVideo('chooseToUseFinishNode',player,false);
+					game.broadcastAll(function(player){
+						if(player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish.delete();
+							player.node.chooseToUseFinish2.delete();
+							delete player.node.chooseToUseFinish;
+							delete player.node.chooseToUseFinish2;
+						}
+					},player);
+				}
+			},
+			choose_to_use_finish_first:{
+				charlotte:true,
+				superCharlotte:true,
+				ruleSkill:true,
+				init:function(player){
+					game.addVideo('chooseToUseFinishFirstNode',player,true);
+					game.broadcastAll(function(player){
+						if(!player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish=ui.create.div('.playerchoosetousefinish','首先<br>结束',player.node.avatar);
+							player.node.chooseToUseFinish2=ui.create.div('.playerchoosetousefinish','首先<br>结束',player.node.avatar2);
+						}
+					},player);
+				},
+				onremove:function(player){
+					game.addVideo('chooseToUseFinishFirstNode',player,false);
+					game.broadcastAll(function(player){
+						if(player.node.chooseToUseFinish){
+							player.node.chooseToUseFinish.delete();
+							player.node.chooseToUseFinish2.delete();
+							delete player.node.chooseToUseFinish;
+							delete player.node.chooseToUseFinish2;
+						}
+					},player);
+				}
 			}
+			//SST addition end
 		},
 		character:{},
 		perfectPair:{},
@@ -30749,8 +30698,6 @@
 			}
 		},
 		connect:function(ip,callback){
-			if(get.config('hall_ip')=='47.99.105.222') game.saveConfig('hall_ip','unitedrhythmized.club','connect');
-			if(lib.config.last_ip=='47.99.105.222') game.saveConfig('last_ip','unitedrhythmized.club');
 			if(game.online) return;
 			var withport=false;
 			var index=ip.lastIndexOf(':');
@@ -30764,7 +30711,6 @@
 				ip=ip+':8080';
 			}
 			if(ip=='47.99.105.222:8080'){
-				alert('为保证官方服务器（47.99.105.222）安全，以及尊重现维护者苏婆玛丽奥，《一劳永逸》不允许连接官方服务器！\n如需进入，可用最新的离线/完整包重新覆盖等措施解除《一劳永逸》\n自动跳转至unitedrhythmized.club');
 				ip='unitedrhythmized.club:8080';
 			}
 			_status.connectCallback=callback;
@@ -43504,7 +43450,7 @@
 								return 'GitHub';
 							}
 							if(str==lib.updateURLS.coding){
-								return 'Coding'
+								return 'Coding';
 							}
 							var index;
 							index=str.indexOf('://');
@@ -47189,7 +47135,9 @@
 			},
 			connectPlayers:function(ip){
 				game.connectPlayers=[];
-				for(var i=0;i<10;i++){
+				let max=8;
+				if(get.config('ten_players','connect')) max=10;
+				for(var i=0;i<max;i++){
 					var player=ui.create.player(ui.window);
 					player.dataset.position=i;
 					player.classList.add('connect');
@@ -51650,7 +51598,7 @@
 			return num;
 		},
 		connectNickname:function(){
-			return typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家';
+			return '※'+(typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家');
 		},
 		zhinangs:function(filter){
 			var list=(_status.connectMode?lib.configOL:lib.config).zhinang_tricks;
@@ -52241,7 +52189,7 @@
 				url+='/';
 			}
 			if(master!='nodev'){
-				return url;
+				return url+'master/';
 			}
 			else{
 				return url+'v'+lib.version+'/';

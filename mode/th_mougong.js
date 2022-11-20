@@ -1929,7 +1929,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					if (game.roundNumber == 1) return false;
 					if (!player.hasMark('th_anger')) return false;
 					var cardName = get.name(event.card);
-					if (!_status.mougong_buff.contains(cardName)) return false;
+					if (!['sha', 'shan', 'juedou', 'huogong', 'tao'].contains(cardName)) return false;
 					var marks = player.countMark('th_anger');
 					if ((cardName == 'sha' || cardName == 'shan') && marks < 1) return false;
 					if ((cardName == 'juedou' || cardName == 'huogong') && marks < 2) return false;
@@ -2022,6 +2022,24 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 						if (tag == 'respondShan' && !(player.countCards('hs', { name: 'shan' }) > 0 && player.hasMark('th_anger'))) return false;
 						if (tag == 'save' && !(player.countCards('hs', { name: 'tao' }) > 0 && player.countMark('th_anger') > 2)) return false;
 					}
+				}
+			},
+			_useAnger_juedou: {
+				ruleSkill: true,
+				charlotte: true,
+				forced: true,
+				popup: false,
+				trigger: { source: 'damageBegin1' },
+				filter: function (event, player) {
+					var evt = event.getParent(2);
+					if (!evt || evt.name != 'useCard') return false;
+					if (typeof evt.th_anger != 'object') return false;
+					if (typeof evt.th_anger[player.playerid] != 'number') return false;
+					return evt.th_anger[player.playerid] != 0;
+				},
+				content: function () {
+					var evt = trigger.getParent(2);
+					trigger.num += evt.th_anger[player.playerid];
 				}
 			},
 			th_anger: {
