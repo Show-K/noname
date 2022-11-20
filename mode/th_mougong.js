@@ -1929,7 +1929,7 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					if (game.roundNumber == 1) return false;
 					if (!player.hasMark('th_anger')) return false;
 					var cardName = get.name(event.card);
-					if (!_status.mougong_buff.contains(cardName)) return false;
+					if (!['sha', 'shan', 'juedou', 'huogong', 'tao'].contains(cardName)) return false;
 					var marks = player.countMark('th_anger');
 					if ((cardName == 'sha' || cardName == 'shan') && marks < 1) return false;
 					if ((cardName == 'juedou' || cardName == 'huogong') && marks < 2) return false;
