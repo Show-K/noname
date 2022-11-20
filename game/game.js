@@ -555,8 +555,8 @@
 						init:'coding',
 						unfrequent:true,
 						item:{
-							coding:'Github Proxy',
-							github:'GitHub',
+							coding:'URC',
+							github:'GitHub Proxy',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
@@ -565,7 +565,7 @@
 					},
 					extension_source:{
 						name:'获取扩展地址',
-						init:'Coding',
+						init:'GitHub',
 						unfrequent:true,
 						item:{},
 						intro:function(){
@@ -43447,10 +43447,10 @@
 						var li3=document.createElement('li');
 						var trimurl=function(str){
 							if(str==lib.updateURLS.github){
-								return 'GitHub';
+								return 'GitHub Proxy';
 							}
 							if(str==lib.updateURLS.coding){
-								return 'Coding';
+								return 'URC';
 							}
 							var index;
 							index=str.indexOf('://');
