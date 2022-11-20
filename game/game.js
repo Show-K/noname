@@ -5,9 +5,9 @@
 		alert('无名杀官方发布地址仅有GitHub仓库！\n其他所有的所谓“无名杀”社群（包括但不限于绝大多数“官方”QQ群、QQ频道等）均为粉丝自发组织，与无名杀官方无关！');
 	}
 	var _status={
-		//New add
+		//URC addition
 		mougong_buff:['sha','shan','juedou','huogong','tao'],
-		//New add end
+		//URC addition end
 		paused:false,
 		paused2:false,
 		paused3:false,
@@ -44,9 +44,9 @@
 		versionOL:27,
 		updateURLS:{
 			coding:'https://unitedrhythmized.club/Show-K/noname/master',
-			github:'https://raw.githubusercontent.com/Show-K/noname/master',
+			github:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname/master',
 		},
-		updateURL:'https://raw.githubusercontent.com/Show-K/noname/master',
+		updateURL:'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname/master',
 		mirrorURL:'https://unitedrhythmized.club/Show-K/noname/master',
 		hallURL:'unitedrhythmized.club',
 		assetURL:'',
@@ -18747,7 +18747,7 @@
 				},
 				chat:function(str){
 					if(get.is.banWords(str)) return;
-					//New add
+					//URC addition
 					if(str[0]=='/'){
 						var chat=str.slice(1);
 						if(chat.indexOf(' ')!=-1){
@@ -18774,7 +18774,7 @@
 							}
 						}
 					}
-					//New add end
+					//URC addition end
 					lib.element.player.say.call(this,str);
 					game.broadcast(function(id,str){
 						if(lib.playerOL[id]){
@@ -27729,26 +27729,6 @@
 			}
 		},
 		skill:{
-			//New
-			_useAnger_juedou:{
-				ruleSkill:true,
-				charlotte:true,
-				forced:true,
-				popup:false,
-				trigger:{source:'damageBegin1'},
-				filter:function(event,player){
-					var evt=event.getParent(2);
-					if(!evt||evt.name!='useCard') return false;
-					if(typeof evt.th_anger!='object') return false;
-					if(typeof evt.th_anger[player.playerid]!='number') return false;
-					return evt.th_anger[player.playerid]!=0;
-				},
-				content:function(){
-					var evt=trigger.getParent(2);
-					trigger.num+=evt.th_anger[player.playerid];
-				}
-			},
-			//New End
 			zhengsu:{
 				trigger:{player:'phaseDiscardEnd'},
 				forced:true,
@@ -30271,8 +30251,6 @@
 			}
 		},
 		connect:function(ip,callback){
-			if(get.config('hall_ip')=='47.99.105.222') game.saveConfig('hall_ip','unitedrhythmized.club','connect');
-			if(lib.config.last_ip=='47.99.105.222') game.saveConfig('last_ip','unitedrhythmized.club');
 			if(game.online) return;
 			var withport=false;
 			var index=ip.lastIndexOf(':');
@@ -30286,7 +30264,6 @@
 				ip=ip+':8080';
 			}
 			if(ip=='47.99.105.222:8080'){
-				alert('为保证官方服务器（47.99.105.222）安全，以及尊重现维护者苏婆玛丽奥，《一劳永逸》不允许连接官方服务器！\n如需进入，可用最新的离线/完整包重新覆盖等措施解除《一劳永逸》\n自动跳转至unitedrhythmized.club');
 				ip='unitedrhythmized.club:8080';
 			}
 			_status.connectCallback=callback;
@@ -43005,7 +42982,7 @@
 								return 'GitHub';
 							}
 							if(str==lib.updateURLS.coding){
-								return 'Coding'
+								return 'Coding';
 							}
 							var index;
 							index=str.indexOf('://');
@@ -46674,7 +46651,7 @@
 			},
 			connectPlayers:function(ip){
 				game.connectPlayers=[];
-				var max=8;
+				let max=8;
 				if(get.config('ten_players','connect')) max=10;
 				for(var i=0;i<max;i++){
 					var player=ui.create.player(ui.window);

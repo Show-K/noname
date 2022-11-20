@@ -2024,6 +2024,24 @@ game.import("mode", function (lib, game, ui, get, ai, _status) {
 					}
 				}
 			},
+			_useAnger_juedou: {
+				ruleSkill: true,
+				charlotte: true,
+				forced: true,
+				popup: false,
+				trigger: { source: 'damageBegin1' },
+				filter: function (event, player) {
+					var evt = event.getParent(2);
+					if (!evt || evt.name != 'useCard') return false;
+					if (typeof evt.th_anger != 'object') return false;
+					if (typeof evt.th_anger[player.playerid] != 'number') return false;
+					return evt.th_anger[player.playerid] != 0;
+				},
+				content: function () {
+					var evt = trigger.getParent(2);
+					trigger.num += evt.th_anger[player.playerid];
+				}
+			},
 			th_anger: {
 				mark: true,
 				intro: {
