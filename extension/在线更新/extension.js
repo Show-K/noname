@@ -106,9 +106,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			const { url, error, message } = err;
 			if (typeof url !== 'undefined' && typeof error !== 'undefined' && typeof message !== 'undefined') {
 				const translate = {
-					coding: 'Coding',
-					github: 'GitHub',
-					ghproxy: 'GitHub镜像'
+					coding: 'URC',
+					github: 'GitHub Proxy',
+					fastgit: 'GitHub镜像'
 				};
 				let url_in_updateURLS;
 				for (const updateURL in lib.updateURLS) {
@@ -118,7 +118,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					}
 				}
 				if (url_in_updateURLS) {
-					alert(`更新源:${url_in_updateURLS}\n网络请求目标：${url.replace(lib.updateURL + '/', '')}\n${error instanceof window.ProgressEvent ? '' : ('状态消息或状态码：' + error + '\n')}提示:${message}`);
+					alert(`更新源:${url_in_updateURLS}\n网络请求目标：${url.replace(lib.updateURL + '/super-smash-tabletop/', '')}\n${error instanceof window.ProgressEvent ? '' : ('状态消息或状态码：' + error + '\n')}提示:${message}`);
 				} else {
 					alert(`网络请求目标：${url}\n${error instanceof window.ProgressEvent ? '' : ('状态消息或状态码：' + error + '\n')}提示:${message}`);
 				}
@@ -401,8 +401,10 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 		precontent: function () {
 			// 添加一个更新地址
 			Object.assign(lib.updateURLS, {
-				ghproxy: 'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname/super-smash-tabletop',
+				fastgit: 'https://raw.fastgit.org/Show-K/noname'
 			});
+			lib.updateURLS.coding = 'https://unitedrhythmized.club/Show-K/noname';
+			lib.updateURLS.github = 'https://ghproxy.com/https://raw.githubusercontent.com/Show-K/noname';
 
 			// 初始化，更新地址修改为URC
 			if (!game.getExtensionConfig('在线更新', 'update_link')) {
@@ -413,7 +415,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				game.saveConfig('update_link', game.getExtensionConfig('在线更新', 'update_link'));
 			}
 
-			// 修改游戏原生更新选项，插入上面的1个更新地址
+			// 修改游戏原生更新选项，插入上面的更新地址
 			if (lib.configMenu.general.config.update_link) {
 				lib.configMenu.general.config.update_link = {
 					unfrequent: true,
@@ -430,9 +432,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 						return 'coding';
 					})(),
 					item: {
-						coding: 'Coding',
-						github: 'GitHub',
-						ghproxy: 'GitHub镜像'
+						coding: 'URC',
+						github: 'GitHub Proxy',
+						fastgit: 'GitHub镜像'
 					},
 					onclick: function (item) {
 						if (lib.updateURLS[item]) {
@@ -449,9 +451,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 
 			/** 检测最快连接到的更新源  */
 			game.getFastestUpdateURL = function (updateURLS = lib.updateURLS, translate = {
-				coding: 'Coding',
-				github: 'GitHub',
-				ghproxy: 'GitHub镜像'
+				coding: 'URC',
+				github: 'GitHub Proxy',
+				fastgit: 'GitHub镜像'
 			}) {
 				if (typeof updateURLS != 'object') throw new TypeError('updateURLS must be an object type');
 				if (typeof translate != 'object') throw new TypeError('translate must be an object type');
@@ -461,7 +463,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					const url = updateURLS[key];
 					const start = new Date().getTime();
 					promises.push(
-						myFetch(`${url}/game/update.js?date=${(new Date()).getTime()}`)
+						myFetch(`${url}/super-smash-tabletop/game/update.js?date=${(new Date()).getTime()}`)
 							.then(async response => {
 								try {
 									await response.text();
@@ -550,7 +552,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				}
 
 				if (url.indexOf('http') != 0) {
-					url = lib.updateURL + '/' + url;
+					url = lib.updateURL + '/super-smash-tabletop/' + url;
 				}
 
 				lib.config.extension_在线更新_brokenFile.add(downloadUrl);
@@ -886,7 +888,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				/** 获取noname_update */
 				function getNonameUpdate() {
 					/** 更新源地址 */
-					const updateURL = lib.updateURL + '/';
+					const updateURL = lib.updateURL + '/super-smash-tabletop/';
 					if (typeof window.noname_update == 'object') {
 						return Promise.resolve(window.noname_update);
 					} else {
@@ -918,7 +920,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				/** 获取noname_source_list */
 				function getSourceList() {
 					/** 更新源地址 */
-					const updateURL = lib.updateURL + '/';
+					const updateURL = lib.updateURL + '/super-smash-tabletop/';
 					if (typeof window.noname_source_list == 'object') {
 						return Promise.resolve(window.noname_source_list);
 					} else {
@@ -997,7 +999,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				/** 获取noname_asset_list */
 				function getNonameAssets() {
 					/** 更新源地址 */
-					const updateURL = lib.updateURL + '/';
+					const updateURL = lib.updateURL + '/super-smash-tabletop/';
 					if (typeof window.noname_asset_list == 'object') {
 						return Promise.resolve(window.noname_asset_list);
 					} else {
@@ -1104,21 +1106,22 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 				init: '无',
 				item: {
 					无: '无',
-					coding: 'Coding',
-					github: 'GitHub',
-					ghproxy: 'GitHub镜像'
+					coding: 'URC',
+					github: 'GitHub Proxy',
+					fastgit: 'GitHub镜像'
 				},
 				onclick: function (item) {
 					let str;
 					switch (item) {
 						case 'coding':
-							str = '已替换为URC（由Show-K大佬提供，名字取自United Rhythmized Club）';
+							// str = '目前最主要的更新源，但也是崩的最彻底的一个';
+							str = '更换为了另一个可用网址（由Show-K大佬提供，名字取自United Rhythmized Club）';
 							break;
 						case 'github':
-							str = '国外的更新源，没有vpn或修改host设置的情况下几乎连不上此更新源';
+							str = 'GitHub Proxy源，拥有在国内访问的能力';
 							break;
-						case 'ghproxy':
-							str = 'github的镜像网址，拥有在国内访问的能力';
+						case 'fastgit':
+							str = 'GitHub的镜像网址，拥有在国内访问的能力，但是偶尔会很卡';
 							break;
 					}
 					typeof str != 'undefined' && alert(str);
@@ -1127,7 +1130,7 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			},
 			update_link: {
 				name: '更新地址',
-				//init: (lib.updateURL == lib.updateURLS['coding'] ? 'coding' : 'ghproxy'),
+				//init: (lib.updateURL == lib.updateURLS['coding'] ? 'coding' : 'fastgit'),
 				init: (() => {
 					for (const url in lib.updateURLS) {
 						if (lib.updateURL == lib.updateURLS[url]) {
@@ -1140,9 +1143,9 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 					return 'coding';
 				})(),
 				item: {
-					coding: 'Coding',
-					github: 'GitHub',
-					ghproxy: 'GitHub镜像'
+					coding: 'URC',
+					github: 'GitHub Proxy',
+					fastgit: 'GitHub镜像'
 				},
 				onclick: function (item) {
 					if (item != game.getExtensionConfig('在线更新', 'update_link')) {
@@ -1897,5 +1900,5 @@ game.import("extension", function (lib, game, ui, get, ai, _status) {
 			version: "1.46SST",
 		},
 		files: { "character": [], "card": [], "skill": [] }
-	}
-})
+	};
+});
