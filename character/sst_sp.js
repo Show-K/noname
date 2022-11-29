@@ -6,17 +6,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 	const SST_SP={
 		name:"sst_sp",
 		connect:true,
-		characterSort:{
-			sst_sp:{
-				sst_mnm:["mnm_edelgard"],
-				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails"],
-				sst_nnk:["nnk_robin","nnk_decidueye","nnk_machamp"],
-				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
-				sst_xsj:["xsj_yu_narukami","xsj_dante"],
-				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
-			}
-		},
 		character:{
 			ymk_isabelle:["female","sst_light",3,["ymk_zhongmi","ymk_mihu"],[]],
 			ska_bobby:["male","sst_spirit",3,["ska_jixing","ska_yangxun","ska_wangshi"],[]],
@@ -47,6 +36,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		},
 		characterFilter:{
 			mnm_edelgard:mode=>mode=="identity"
+		},
+		characterSort:{
+			sst_sp:{
+				sst_mnm:["mnm_edelgard"],
+				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails"],
+				sst_nnk:["nnk_robin","nnk_decidueye","nnk_machamp"],
+				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
+				sst_xsj:["xsj_yu_narukami","xsj_dante"],
+				sst_entertainment:["mnm_captain_falcon","mnm_9_volt_18_volt"]
+			}
 		},
 		characterIntro:{
 			/*
@@ -333,6 +333,26 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:"孤芳他赏",
 			ska_rabbid_rosalina:"博闻强倦",
 			ska_tails:"豁然开朗"
+		},
+		perfectPair:{
+			ymk_isabelle:["sst_villager"],
+			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
+			ska_bobby:["sst_mario"],
+			ska_olivia:["sst_mario","ska_bobby"],
+			ska_super_xiaojie:["sst_mario","sst_luigi"],
+			ska_show_k:["sst_mario"],
+			ska_professor_toad:["sst_mario","ska_olivia"],
+			ska_king_olly:["sst_mario","ska_olivia"],
+			ska_koopa_troopa:["sst_mario"],
+			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
+			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
+			nnk_robin:["sst_robin","sst_lucina","sst_chrom"],
+			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
+			xsj_yu_narukami:["sst_joker"],
+			ska_daroach:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee","sst_magolor"],
+			ska_rabbid_peach:["sst_mario","sst_luigi","sst_peach","sst_bowser","sst_yoshi"],
+			ska_rabbid_rosalina:["sst_mario","sst_luigi","sst_peach","sst_bowser","sst_yoshi","ska_rabbid_peach"],
+			ska_tails:["sst_sonic"]
 		},
 		skill:{
 			//System
@@ -3004,26 +3024,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:"Rabbid Peach",
 			ska_rabbid_rosalina:"Rabbid Rosalina",
 			ska_tails:"Tails"
-		},
-		perfectPair:{
-			ymk_isabelle:["sst_villager"],
-			ymk_yumikohimi:["sst_mario_not_mary","sst_terry"],
-			ska_bobby:["sst_mario"],
-			ska_olivia:["sst_mario","ska_bobby"],
-			ska_super_xiaojie:["sst_mario","sst_luigi"],
-			ska_show_k:["sst_mario"],
-			ska_professor_toad:["sst_mario","ska_olivia"],
-			ska_king_olly:["sst_mario","ska_olivia"],
-			ska_koopa_troopa:["sst_mario"],
-			alz_kyo_kusanagi:["sst_kyo_kusanagi"],
-			mnm_9_volt_18_volt:["sst_9_volt_18_volt","sst_wario"],
-			nnk_robin:["sst_robin","sst_lucina","sst_chrom"],
-			ymk_tianyi:["sst_mario_not_mary","sst_yumikohimi","ymk_yumikohimi","sst_kirby","sst_kazuya"],
-			xsj_yu_narukami:["sst_joker"],
-			ska_daroach:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee","sst_magolor"],
-			ska_rabbid_peach:["sst_mario","sst_luigi","sst_peach","sst_bowser","sst_yoshi"],
-			ska_rabbid_rosalina:["sst_mario","sst_luigi","sst_peach","sst_bowser","sst_yoshi","ska_rabbid_peach"],
-			ska_tails:["sst_sonic"]
 		}
 	};
 	return SST_SP;

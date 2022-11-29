@@ -6,19 +6,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 	const SST_LEGACY={
 		name:"sst_legacy",
 		connect:true,
-		characterSort:{
-			sst_legacy:{
-				sst_64:["deprecated_sst_samus","deprecated_sst_donkey_kong"],
-				sst_melee:[],
-				sst_brawl:[],
-				sst_4:["deprecated_sst_ryu"],
-				sst_ultimate:["deprecated_sst_ken","deprecated_sst_dark_samus","deprecated_sst_richter"],
-				sst_spirits:["deprecated_sst_geno"],
-				sst_players:[],
-				sst_ska:["deprecated_ska_professor_toad"],
-				sst_ymk:["deprecated_ymk_claude","ymk_577"],
-			},
-		},
 		character:{
 			//LTK
 			re_lidian:["male","sst_smash",3,["xunxun","wangxi"],["unseen"]],
@@ -66,6 +53,19 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_ska_professor_toad:["male","sst_spirit",3,["deprecated_ska_juegu","deprecated_ska_kuiwang"],[]]
 		},
 		characterFilter:{
+		},
+		characterSort:{
+			sst_legacy:{
+				sst_64:["deprecated_sst_samus","deprecated_sst_donkey_kong"],
+				sst_melee:[],
+				sst_brawl:[],
+				sst_4:["deprecated_sst_ryu"],
+				sst_ultimate:["deprecated_sst_ken","deprecated_sst_dark_samus","deprecated_sst_richter"],
+				sst_spirits:["deprecated_sst_geno"],
+				sst_players:[],
+				sst_ska:["deprecated_ska_professor_toad"],
+				sst_ymk:["deprecated_ymk_claude","ymk_577"],
+			},
 		},
 		characterIntro:{
 			//LTK
@@ -223,6 +223,31 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_sst_ryu:"求道的武者",
 			deprecated_ska_professor_toad:"沙原博时",
 			ska_bowser:"联挚之火"
+		},
+		perfectPair:{
+			//LTK
+			xiahoudun:["xiahouyuan"],
+			zhenji:["caopi"],
+			caocao:["xuzhu","dianwei","bianfuren"],
+			huangzhong:["weiyan"],
+			zhugeliang:["jiangwei","jiangfei","huangyueying"],
+			liubei:["guanyu","zhangfei","ganfuren"],
+			zhaoyun:["liushan"],
+			daqiao:["xiaoqiao"],
+			zhouyu:["huanggai","xiaoqiao","zhouyi"],
+			sunquan:["zhoutai"],
+			lvbu:["diaochan"],
+			machao:["madai","mayunlu"],
+			zhangliao:["zangba"],
+			ganning:["lingtong","xf_sufei"],
+			//SST
+			deprecated_sst_ken:["sst_ken","sst_ryu","deprecated_sst_ryu"],
+			deprecated_ymk_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
+			deprecated_sst_donkey_kong:["sst_donkey_kong","sst_mario"],
+			deprecated_sst_richter:["sst_richter","sst_simon"],
+			deprecated_sst_ryu:["sst_ryu","sst_ken"],
+			deprecated_sst_geno:["sst_geno","sst_mario","sst_bowser","sst_peach"],
+			deprecated_ska_professor_toad:["ska_professor_toad","sst_mario","ska_olivia"]
 		},
 		skill:{
 			//System
@@ -4780,31 +4805,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_sst_ryu:"Deprecated Ryu",
 			deprecated_sst_geno:"Deprecated ♡♪!?",
 			deprecated_ska_professor_toad:"Deprecated Professor Toad"
-		},
-		perfectPair:{
-			//LTK
-			xiahoudun:["xiahouyuan"],
-			zhenji:["caopi"],
-			caocao:["xuzhu","dianwei","bianfuren"],
-			huangzhong:["weiyan"],
-			zhugeliang:["jiangwei","jiangfei","huangyueying"],
-			liubei:["guanyu","zhangfei","ganfuren"],
-			zhaoyun:["liushan"],
-			daqiao:["xiaoqiao"],
-			zhouyu:["huanggai","xiaoqiao","zhouyi"],
-			sunquan:["zhoutai"],
-			lvbu:["diaochan"],
-			machao:["madai","mayunlu"],
-			zhangliao:["zangba"],
-			ganning:["lingtong","xf_sufei"],
-			//SST
-			deprecated_sst_ken:["sst_ken","sst_ryu","deprecated_sst_ryu"],
-			deprecated_ymk_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
-			deprecated_sst_donkey_kong:["sst_donkey_kong","sst_mario"],
-			deprecated_sst_richter:["sst_richter","sst_simon"],
-			deprecated_sst_ryu:["sst_ryu","sst_ken"],
-			deprecated_sst_geno:["sst_geno","sst_mario","sst_bowser","sst_peach"],
-			deprecated_ska_professor_toad:["ska_professor_toad","sst_mario","ska_olivia"]
 		}
 	};
 	return SST_LEGACY;
