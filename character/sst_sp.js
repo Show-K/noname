@@ -32,7 +32,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_machamp:["male","sst_spirit",4,["nnk_manwu","nnk_mianyu"],[]],
 			ska_rabbid_peach:["female","sst_spirit",3,["ska_lianmao","ska_huirong"],[]],
 			ska_rabbid_rosalina:["female","sst_spirit",3,["ska_yingyong","ska_zhenmei"],[]],
-			ska_tails:["male","sst_spirit",3,["ska_jizhuan","ska_fuwu"],[]]
+			ska_tails:["male","sst_spirit",3,["ska_jizhuan","ska_fuwu"],[]],
+			ska_edge:["female","sst_spirit",3,["ska_jingni","ska_pushun"],["hiddenSkill"]]
 		},
 		characterFilter:{
 			mnm_edelgard:mode=>mode=="identity"
@@ -41,7 +42,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails","ska_edge"],
 				sst_nnk:["nnk_robin","nnk_decidueye","nnk_machamp"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_xsj:["xsj_yu_narukami","xsj_dante"],
@@ -306,7 +307,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				温柔善良的小狐狸，因为有2根尾巴，所以曾经被欺负。有一次他在West Side岛上遇见了索尼克，于是决定和他一起冒险。现在他不光是一个优秀的机械师，也是索尼克可靠的同伴。比起最初羞涩内向的性格，现在他也开朗了很多。<br>\
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
-				孰强孰弱？"
+				孰强孰弱？",
+			ska_edge:`武将作者：Show-K<br>
+				插图作者：《马力欧+疯狂兔子 星耀之愿》<br>
+				<hr>
+				S009. 刀锋/Edge/エッジ<br>
+				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>马力欧+疯狂兔子 星耀之愿<rp>（</rp><rt>Mario + Rabbids Sparks of Hope</rt><rp>）</rp></ruby><br>
+				刀锋既酷又独立，拯救星琪和银河是她最大的动力。 她的正义感不会让她放弃，直到完成使命！<br>
+				——《马力欧+疯狂兔子 星耀之愿》<br>
+				<hr>
+				“JUST Edge.”`
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -332,7 +343,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_machamp:"百裂拳击",
 			ska_rabbid_peach:"孤芳他赏",
 			ska_rabbid_rosalina:"博闻强倦",
-			ska_tails:"豁然开朗"
+			ska_tails:"豁然开朗",
+			ska_edge:"自由意识"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -351,8 +363,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			xsj_yu_narukami:["sst_joker"],
 			ska_daroach:["sst_kirby","sst_meta_knight","sst_king_dedede","sst_bandana_waddle_dee","sst_magolor"],
 			ska_rabbid_peach:["sst_mario","sst_luigi","sst_peach","sst_bowser","sst_yoshi"],
-			ska_rabbid_rosalina:["sst_mario","sst_luigi","sst_peach","sst_bowser","sst_yoshi","ska_rabbid_peach"],
-			ska_tails:["sst_sonic"]
+			ska_rabbid_rosalina:["sst_mario","sst_luigi","sst_peach","sst_bowser","ska_rabbid_peach"],
+			ska_tails:["sst_sonic"],
+			ska_edge:["sst_mario","sst_luigi","sst_peach","sst_bowser","ska_rabbid_peach","ska_rabbid_rosalina"]
 		},
 		skill:{
 			//System
@@ -360,26 +373,26 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
+					global:"gameStart",
+					player:["enterGame","showCharacterEnd"]
 				},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2020,
-				filter:(event,player)=>player.sex=='',
+				filter:(event,player)=>player.sex=="",
 				content:()=>{
-					'step 0'
-					player.chooseControl('male','female').set('prompt','选择性别').set('ai',()=>['male','female'].randomGet());
-					'step 1'
+					"step 0"
+					player.chooseControl("male","female").set("prompt","选择性别").set("ai",()=>["male","female"].randomGet());
+					"step 1"
 					player.sex=result.control;
 					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
 					const name=player.name;
-					const differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
-					if(differentAvatar.contains(name)) player.setAvatar(name,name+'_'+result.control);
-					game.log(player,'将性别变为了','#y'+get.translation(result.control));
-					const differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
-					if(typeof differentGroup[name+'_'+result.control]=='string') player.changeGroup(differentGroup[name+'_'+result.control]);
+					const differentAvatar=["sst_corrin","sst_robin","nnk_robin","sst_inkling"];
+					if(differentAvatar.contains(name)) player.setAvatar(name,name+"_"+result.control);
+					game.log(player,"将性别变为了","#y"+get.translation(result.control));
+					const differentGroup={sst_corrin_male:"sst_dark",sst_corrin_female:"sst_light"};
+					if(typeof differentGroup[name+"_"+result.control]=="string") player.changeGroup(differentGroup[name+"_"+result.control]);
 					player.update();
 				}
 			},
@@ -387,28 +400,28 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
+					global:"gameStart",
+					player:["enterGame","showCharacterEnd"]
 				},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2019,
-				filter:(event,player)=>!get.config('no_group')&&player.group=='sst_smash',
+				filter:(event,player)=>!get.config("no_group")&&player.group=="sst_smash",
 				content:()=>{
-					'step 0'
-					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',()=>{
+					"step 0"
+					player.chooseControl("sst_light","sst_dark","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",()=>{
 						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
 						return _status.event.controls.randomGet();
 					});
-					'step 1'
+					"step 1"
 					player.changeGroup(result.control);
 					player.update();
 				}
 			},
 			braces:{
 				intro:{
-					content:'#'
+					content:"#"
 				}
 			},
 			//SP Isabelle
@@ -550,20 +563,45 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:event=>event.result.color=="red",
 				content:()=>{
 					"step 0"
-					player.chooseTarget("洋寻：令一名角色获得弃牌堆顶的一张牌，然后若其不为你，其〖赠予〗你一张牌",true).set("ai",target=>{
-						if(!ui.discardPile.childNodes.length) return 0;
-						if(target!=_status.event.player&&!target.countCards("he")) return 0;
-						return get.sgnAttitude(_status.event.player,target)*get.value(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1]);
-					});
+					if(ui.discardPile.childNodes.length){
+						player.chooseTarget("洋寻：将弃牌堆顶的一张牌赠予一名角色，然后若其不为你，其赠予你一张牌",true).set("ai",target=>{
+							if(!ui.discardPile.childNodes.length) return 0;
+							if(get.attitude(_status.event.player,target)<=0||!target.countCards("he")) return 0;
+							const gifts=(card,player,target)=>{
+								if(!card||target.hasSkillTag("refuseGifts")) return 0;
+								if(get.type(card,false)=="equip") return get.effect(target,card,target,player);
+								let att=get.attitude(player,target);
+								if(att<0){
+									att=-Math.sqrt(-att);
+								}
+								else{
+									att=Math.sqrt(att);
+								}
+								if(card.name=="du") return player.hp>target.hp?-att:0;
+								if(target.hasSkillTag("nogain")) return 0;
+								return att*Math.max(1,get.value(card,player)-get.value(card,target));
+							}
+							return gifts(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],_status.event.player,target);
+						});
+					}
+					else{
+						player.chat("无牌可赠予了吗");
+						game.log("但是弃牌堆里面已经没有牌了！");
+						event.finish();
+					}
 					"step 1"
 					if(result.targets&&result.targets.length){
 						player.line(result.targets,"green");
 						event.target=result.targets[0];
 						if(ui.discardPile.childNodes.length){
-							event.target.gain(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1],"gain2");
+							const next=game.createEvent("_yongjian_zengyu");
+							next.player=player;
+							next.target=event.target;
+							next.cards=[ui.discardPile.childNodes[ui.discardPile.childNodes.length-1]];
+							next.setContent(lib.skill._yongjian_zengyu.content);
 						}
 						else{
-							player.chat("无牌可得了吗");
+							player.chat("无牌可赠予了吗");
 							game.log("但是弃牌堆里面已经没有牌了！");
 							event.finish();
 						}
@@ -573,7 +611,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 					"step 2"
 					if(target!=player){
-						target.chooseCard("洋寻：【赠予】"+get.translation(player)+"一张牌","he",card=>{
+						target.chooseCard("洋寻：赠予"+get.translation(player)+"一张牌","he",card=>{
 							if(get.type(card,false)=="equip") return _status.event.getParent().player.canEquip(card,true);
 							return true;
 						},true).set("ai",card=>{
@@ -668,9 +706,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						}
 					}).set("judge2",()=>true);
 				},
-				ai:{
-					maixie:true
-				},
 				group:"ska_shenqi2"
 			},
 			ska_shenqi2:{
@@ -730,7 +765,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.updateRenku();
 					game.cardsGotoOrdering(event.card).set("fromRenku",true);
 					player.showCards(event.card);
-					target.chooseCard("he","折赋：【赠予】"+get.translation(player)+"一张牌并使用"+get.translation(event.card),card=>{
+					target.chooseCard("he","折赋：赠予"+get.translation(player)+"一张牌并使用"+get.translation(event.card),card=>{
 						if(get.type(card,false)=="equip") return _status.event.getParent().player.canEquip(card,true);
 						return true;
 					},true).set("ai",card=>{
@@ -1484,9 +1519,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 1"
 					game.broadcastAll(ui.clear);
 				},
-				ai:{
-					maixie:true
-				},
 				group:"ska_shenqi_alter2"
 			},
 			ska_shenqi_alter2:{
@@ -1810,20 +1842,13 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				init:player=>player.storage.renku=true,
 				direct:true,
 				trigger:{global:"phaseJieshuBegin"},
-				filter:(event,player)=>{
-					if(!_status.renku.length||!game.hasPlayer2(current=>current.hasHistory("useCard",evt=>evt.targets.contains(player)))) return false;
-					const used=[];
-					game.filterPlayer2(current=>current.getHistory("useCard",evt=>{
-						if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
-					}));
-					return used.length;
-				},
+				filter:(event,player)=>_status.renku.length&&game.getGlobalHistory("useCard",evt=>evt.targets.contains(player)).length&&game.getGlobalHistory("useCard",evt=>["basic","trick"].contains(get.type(evt.card))).length,
 				content:()=>{
 					"step 0"
-					const used=[];
-					game.filterPlayer2(current=>current.getHistory("useCard",evt=>{
-						if(!used.contains(evt.card)&&["basic","trick"].contains(get.type(evt.card))) used.push(evt.card);
-					}));
+					const used=game.getGlobalHistory("useCard",evt=>["basic","trick"].contains(get.type(evt.card))).reduce((previousValue,currentValue)=>{
+						previousValue.add(currentValue.card);
+						return previousValue;
+					},[]);
 					player.chooseButton([get.prompt2("alz_yingjian"),"仁库中的牌",_status.renku,"本回合使用过的基本牌或普通锦囊牌",[used.map(card=>[card.suit,card.number,card.name,card.nature]),"vcard"]]).set("filterButton",button=>{
 						if(_status.renku.contains(button.link)){
 							if(!ui.selected.buttons.length) return true;
@@ -2701,15 +2726,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark));
 								if(digit==0) digit=10;
 								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return 0;
-								if(player.hasCard(card=>get.number(card)==parseInt(_status.event.left),"hejsx")) return 1;
-								return randn_bm()<countMark/length?1:0;
+								if(player.hasCard(card=>get.number(card)==parseInt(_status.event.left),"hejsx")) return randn_bm()+0.5;
+								return randn_bm()<countMark/length?randn_bm()+0.5:0;
 							}
 							else if(typeof _status.event.right=="string"&&button.link=="shift_right"){
 								let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark));
 								if(digit==0) digit=10;
 								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return 0;
-								if(player.hasCard(card=>get.number(card)==parseInt(_status.event.right),"hejsx")) return 1;
-								return randn_bm()>countMark/length?1:0;
+								if(player.hasCard(card=>get.number(card)==parseInt(_status.event.right),"hejsx")) return randn_bm()+0.5;
+								return randn_bm()>countMark/length?randn_bm()+0.5:0;
 							}
 							else if(!_status.event.to&&button.link=="change_left"){
 								if(countMark-2<0) return 0;
@@ -2719,7 +2744,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 									if(digitRight==digit) return 0;
 								}
 								if(digit==0) digit=10;
-								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return 1;
+								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return randn_bm()+0.5;
 								return randn_bm()<countMark/length?1:0;
 							}
 							else if(_status.event.to&&button.link=="change_right"){
@@ -2730,8 +2755,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 									if(digitLeft==digit) return 0;
 								}
 								if(digit==0) digit=10;
-								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return 1;
-								return randn_bm()>countMark/length?1:0;
+								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return randn_bm()+0.5;
+								return randn_bm()>countMark/length?randn_bm()+0.5:0;
 							}
 							return 0;
 						});
@@ -2805,6 +2830,52 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					trigger.num--;
 				}
+			},
+			//Edge
+			ska_jingni:{
+				trigger:{target:"_yongjian_zengyuBegin"},
+				logTarget:"player",
+				check:(event,player)=>get.attitude(player,event.player)<0,
+				content:()=>{
+					"step 0"
+					trigger._zengyu_denied=true;
+					game.log(player,"拒绝了",trigger.player,"发起的赠予");
+					player.chat("但是，我拒绝！");
+					game.delayx();
+					"step 1"
+					trigger.player.chooseBool(`迳逆：是否对${get.translation(player)}造成1点伤害？`).set("ai",()=>get.damageEffect(_status.event.getParent().player,_status.event.player,_status.event.player)>0);
+					"step 2"
+					if(result.bool) player.damage(trigger.player,"nocard");
+				}
+			},
+			ska_pushun:{
+				hiddenSkill:true,
+				round:1,
+				direct:true,
+				trigger:{
+					player:"showCharacterAfter",
+					global:"damageBegin1"
+				},
+				filter:(event,player,name)=>(name=="showCharacterAfter"||(event.source&&event.source.inRange(player)))&&game.hasPlayer(current=>player.inRange(current)),
+				content:()=>{
+					"step 0"
+					player.chooseTarget(get.prompt2("ska_pushun"),[1,Infinity],(card,player,target)=>player.inRange(target)).set("ai",target=>get.damageEffect(target,_status.event.player,_status.event.player)>0);
+					"step 1"
+					if(result.targets&&result.targets.length){
+						const targets=result.targets.sortBySeat(_status.currentPhase);
+						player.logSkill("ska_pushun",targets);
+						targets.forEach(i=>i.damage(player,"nocard"));
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					game.delayx();
+				},
+				ai:{
+					expose:0.2,
+					damage:true
+				}
 			}
 		},
 		dynamicTranslate:{
@@ -2854,6 +2925,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:"疯兔桃花公主",
 			ska_rabbid_rosalina:"疯兔罗莎塔",
 			ska_tails:"塔尔斯",
+			ska_edge:"刀锋",
 			//Character ab.
 			ska_bobby_ab:"炸弹兵",
 			ska_professor_toad_ab:"奇诺比奥",
@@ -2868,7 +2940,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_jixing:"激行",
 			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色并判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_yangxun:"洋寻",
-			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你令一名角色获得弃牌堆顶的一张牌，然后若其不为你，其〖赠予〗你一张牌。",
+			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你将弃牌堆顶的一张牌〖赠予〗一名角色，然后若其不为你，其〖赠予〗你一张牌。",
 			ska_wangshi:"惘事",
 			ska_wangshi_info:"使命技。你区域内的♠牌和♠判定牌均视为♦。<br>\
 				成功：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。",
@@ -2943,7 +3015,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_yuanlei_info:"出牌阶段限一次，你可以将X张牌当作无距离限制的雷【杀】使用。若此雷【杀】造成了伤害，且X不小于：1，本回合你使用的下一张牌不可被响应；2，你摸两张牌；3，本回合你可以额外使用一张【杀】，且使用【杀】可以额外指定一个目标；4，本回合你使用的下一张【杀】伤害值基数+2。（X不超过你的体力上限且至少为1）",
 			alz_yingjian:"影见",
 			alz_yingjian_backup:"影见",
-			alz_yingjian_info:"一名角色的结束阶段，若有角色对你使用过牌，你可以将仁库中的一张牌当作一张本回合使用过的基本牌或普通锦囊牌使用。",
+			alz_yingjian_info:"一名角色的结束阶段，若有角色对你使用过牌，你可以将仁库中的一张牌当作一张一名角色于本回合内使用过的基本牌或普通锦囊牌使用。",
 			alz_qushui:"趋水",
 			alz_qushui_info:"转换技，出牌阶段限一次，你可以将三张牌置于仁库中，令一名角色①翻面②本轮非锁定技失效。",
 			ymk_kaibai:"开摆",
@@ -2987,6 +3059,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_fuwu_append:"<span style=\"font-family: LXGWWenKai\">*左/右移一位；移位方向改为左/右。</span>",
 			ska_fuwu_faq:"*",
 			ska_fuwu_faq_info:"左/右移一位；移位方向改为左/右。",
+			ska_jingni:"迳逆",
+			ska_jingni_info:"当一名角色〖赠予〗你时，你可以令此次〖赠予〗失败，然后其可以对你造成1点伤害。",
+			ska_pushun:"瀑瞬",
+			ska_pushun_info:"隐匿技，每轮限一次，当你登场后，或一名攻击范围内包含你的角色造成伤害时，你可以对攻击范围内的任意名角色各造成1点伤害。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -3023,7 +3099,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_machamp:"Machamp",
 			ska_rabbid_peach:"Rabbid Peach",
 			ska_rabbid_rosalina:"Rabbid Rosalina",
-			ska_tails:"Tails"
+			ska_tails:"Tails",
+			ska_edge:"Edge"
 		}
 	};
 	return SST_SP;

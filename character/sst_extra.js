@@ -334,26 +334,26 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
+					global:"gameStart",
+					player:["enterGame","showCharacterEnd"]
 				},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2020,
-				filter:(event,player)=>player.sex=='',
+				filter:(event,player)=>player.sex=="",
 				content:()=>{
-					'step 0'
-					player.chooseControl('male','female').set('prompt','选择性别').set('ai',()=>['male','female'].randomGet());
-					'step 1'
+					"step 0"
+					player.chooseControl("male","female").set("prompt","选择性别").set("ai",()=>["male","female"].randomGet());
+					"step 1"
 					player.sex=result.control;
 					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
 					const name=player.name;
-					const differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
-					if(differentAvatar.contains(name)) player.setAvatar(name,name+'_'+result.control);
-					game.log(player,'将性别变为了','#y'+get.translation(result.control));
-					const differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
-					if(typeof differentGroup[name+'_'+result.control]=='string') player.changeGroup(differentGroup[name+'_'+result.control]);
+					const differentAvatar=["sst_corrin","sst_robin","nnk_robin","sst_inkling"];
+					if(differentAvatar.contains(name)) player.setAvatar(name,name+"_"+result.control);
+					game.log(player,"将性别变为了","#y"+get.translation(result.control));
+					const differentGroup={sst_corrin_male:"sst_dark",sst_corrin_female:"sst_light"};
+					if(typeof differentGroup[name+"_"+result.control]=="string") player.changeGroup(differentGroup[name+"_"+result.control]);
 					player.update();
 				}
 			},
@@ -361,28 +361,28 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
+					global:"gameStart",
+					player:["enterGame","showCharacterEnd"]
 				},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2019,
-				filter:(event,player)=>!get.config('no_group')&&player.group=='sst_smash',
+				filter:(event,player)=>!get.config("no_group")&&player.group=="sst_smash",
 				content:()=>{
-					'step 0'
-					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',()=>{
+					"step 0"
+					player.chooseControl("sst_light","sst_dark","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",()=>{
 						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
 						return _status.event.controls.randomGet();
 					});
-					'step 1'
+					"step 1"
 					player.changeGroup(result.control);
 					player.update();
 				}
 			},
 			braces:{
 				intro:{
-					content:'#'
+					content:"#"
 				}
 			},
 			_guozhan_marks:{
@@ -496,12 +496,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				forced:true,
 				popup:false,
-				trigger:{source:'damageBegin1'},
+				trigger:{source:"damageBegin1"},
 				filter:(event,player)=>{
 					const evt=event.getParent(2);
-					if(!evt||evt.name!='useCard') return false;
-					if(typeof evt.th_anger!='object') return false;
-					if(typeof evt.th_anger[player.playerid]!='number') return false;
+					if(!evt||evt.name!="useCard") return false;
+					if(typeof evt.th_anger!="object") return false;
+					if(typeof evt.th_anger[player.playerid]!="number") return false;
 					return evt.th_anger[player.playerid]!=0;
 				},
 				content:()=>trigger.num+=trigger.getParent(2).th_anger[player.playerid]
@@ -1390,7 +1390,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Robin
 			sst_zuozhan:{
 				preHidden:true,
-				trigger:{global:"damageBegin4"},
+				trigger:{global:"damageBegin3"},
 				filter:event=>!event.player.hasSkill("sst_junce"),
 				logTarget:"player",
 				check:(event,player)=>get.attitude(player,event.player)>0,
@@ -1924,7 +1924,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_nuyan:{
 				direct:true,
 				trigger:{player:"useCard"},
-				filter:event=>_status.mougong_buff.contains(get.name(event.card)),
+				filter:event=>["sha","shan","juedou","huogong","tao"].contains(get.name(event.card)),
 				content:()=>{
 					"step 0"
 					player.chooseToDiscard(get.prompt2(event.name),card=>get.color(card)=="red","he").set("ai",card=>{

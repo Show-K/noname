@@ -154,7 +154,8 @@ window.noname_character_rank={
 			"sst_inkling",
 			"sst_wii_fit_trainer",
 			"nnk_decidueye",
-			"sst_peach"
+			"sst_peach",
+			"ska_edge"
 		],
 		junk:[]
 	}

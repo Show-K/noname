@@ -1287,26 +1287,26 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
+					global:"gameStart",
+					player:["enterGame","showCharacterEnd"]
 				},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2020,
-				filter:(event,player)=>player.sex=='',
+				filter:(event,player)=>player.sex=="",
 				content:()=>{
-					'step 0'
-					player.chooseControl('male','female').set('prompt','选择性别').set('ai',()=>['male','female'].randomGet());
-					'step 1'
+					"step 0"
+					player.chooseControl("male","female").set("prompt","选择性别").set("ai",()=>["male","female"].randomGet());
+					"step 1"
 					player.sex=result.control;
 					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
 					const name=player.name;
-					const differentAvatar=['sst_corrin','sst_robin','nnk_robin','sst_inkling'];
-					if(differentAvatar.contains(name)) player.setAvatar(name,name+'_'+result.control);
-					game.log(player,'将性别变为了','#y'+get.translation(result.control));
-					const differentGroup={sst_corrin_male:'sst_dark',sst_corrin_female:'sst_light'};
-					if(typeof differentGroup[name+'_'+result.control]=='string') player.changeGroup(differentGroup[name+'_'+result.control]);
+					const differentAvatar=["sst_corrin","sst_robin","nnk_robin","sst_inkling"];
+					if(differentAvatar.contains(name)) player.setAvatar(name,name+"_"+result.control);
+					game.log(player,"将性别变为了","#y"+get.translation(result.control));
+					const differentGroup={sst_corrin_male:"sst_dark",sst_corrin_female:"sst_light"};
+					if(typeof differentGroup[name+"_"+result.control]=="string") player.changeGroup(differentGroup[name+"_"+result.control]);
 					player.update();
 				}
 			},
@@ -1314,28 +1314,28 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				superCharlotte:true,
 				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
+					global:"gameStart",
+					player:["enterGame","showCharacterEnd"]
 				},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
 				priority:2019,
-				filter:(event,player)=>!get.config('no_group')&&player.group=='sst_smash',
+				filter:(event,player)=>!get.config("no_group")&&player.group=="sst_smash",
 				content:()=>{
-					'step 0'
-					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',()=>{
+					"step 0"
+					player.chooseControl("sst_light","sst_dark","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",()=>{
 						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
 						return _status.event.controls.randomGet();
 					});
-					'step 1'
+					"step 1"
 					player.changeGroup(result.control);
 					player.update();
 				}
 			},
 			braces:{
 				intro:{
-					content:'#'
+					content:"#"
 				}
 			},
 			//Mario
@@ -6298,12 +6298,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				delay:false,
 				content:()=>{
 					"step 0"
-					target.discardPlayerCard("诈谋：弃置"+get.translation(player)+"一张手牌",player,"h",true);
+					target.discardPlayerCard(`诈谋：弃置${get.translation(player)}一张手牌，若为黑色，视为${get.translation(player)}对你使用一张任意普通锦囊牌`,player,"h",true);
 					"step 1"
 					if(result.cards&&result.cards.length&&get.color(result.cards[0])=="black"){
 						event.card=result.cards[0];
 						const list=lib.inpile.filter(name=>get.type(name)=="trick"&&lib.filter.targetEnabled3({name:name,isCard:true},player,target)).map(name=>["锦囊","",name]);
-						if(list.length) player.chooseButton(["诈谋：视为对"+get.translation(target)+"使用一张锦囊牌",[list,"vcard"]],true).set("filterButton",button=>lib.filter.targetEnabled3({name:button.link[2],isCard:true},_status.event.player,_status.event.getParent().target)).set("ai",button=>get.effect(_status.event.getParent().target,{name:button.link[2],isCard:true},_status.event.player,_status.event.player));
+						if(list.length) player.chooseButton([`诈谋：视为对${get.translation(target)}使用一张锦囊牌`,[list,"vcard"]],true).set("filterButton",button=>lib.filter.targetEnabled3({name:button.link[2],isCard:true},_status.event.player,_status.event.getParent().target)).set("ai",button=>get.effect(_status.event.getParent().target,{name:button.link[2],isCard:true},_status.event.player,_status.event.player));
 					}
 					else{
 						event.finish();
@@ -6311,7 +6311,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 2"
 					if(result.links&&result.links.length) player.useCard({name:result.links[0][2],isCard:true},target,false);
 					"step 3"
-					player.chooseBool("诈谋：是否收回"+get.translation(card)+"？否则令此技能视为此出牌阶段未发动过").set("ai",()=>{
+					player.chooseBool(`诈谋：是否收回${get.translation(card)}？否则令此技能视为此出牌阶段未发动过`).set("ai",()=>{
 						const card=_status.event.getParent().card;
 						if(!_status.event.player.countCards("h",{color:"black"})&&get.value(card)>0) return true;
 						if(get.position(card)=="d") return get.value(card)>7;
@@ -6608,11 +6608,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					if(trigger.player==player){
-						player.chooseTarget(get.prompt("sst_shizhu"),"你可以令一名其他角色弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用",lib.filter.notMe).set("ai",target=>-get.attitude(_status.event.player,target));
+						player.chooseTarget(get.prompt("sst_shizhu"),`你可以令一名其他角色弃置${get.cnNumber(trigger.cards.length)}张牌，若如此做，你可以从你与其弃置的牌中选择任意张对你或其使用`,(card,player,target)=>target.countCards("he",i=>lib.filter.cardDiscardable(i,target))>=_status.event.getTrigger().cards.length).set("ai",target=>-get.attitude(_status.event.player,target));
 						event.control=1;
 					}
 					else{
-						player.chooseToDiscard(get.prompt("sst_shizhu"),"你可以弃置"+get.cnNumber(trigger.cards.length)+"张牌，若如此做，你可以从你与"+get.translation(trigger.player)+"弃置的牌中选择任意张对你或其使用",trigger.cards.length,"he").set("logSkill",["sst_shizhu",trigger.player]).set("ai",card=>Math.max(get.effect(_status.event.player,card,_status.event.player,_status.event.player),get.effect(_status.event.getTrigger().player,card,_status.event.player,_status.event.player))-5);
+						player.chooseToDiscard(get.prompt("sst_shizhu"),`你可以弃置${get.cnNumber(trigger.cards.length)}张牌，若如此做，你可以从此阶段进入弃牌堆的牌中选择任意张对你或其使用`,trigger.cards.length,"he").set("logSkill",["sst_shizhu",trigger.player]).set("ai",card=>{
+							const player=_status.event.player;
+							const target=_status.event.getTrigger().player;
+							if(!lib.filter.targetEnabled3(card,player,player)&&!lib.filter.targetEnabled3(card,player,target)&&!_status.event.getTrigger().cards.some(i=>lib.filter.targetEnabled3(i,player,player)||lib.filter.targetEnabled3(i,player,target))) return 0;
+							return Math.max(get.effect(player,card,player,player),get.effect(target,card,player,player))-5;
+						});
 						event.control=2;
 					}
 					"step 1"
@@ -6620,7 +6625,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						if(result.targets&&result.targets.length){
 							event.target=result.targets[0];
 							player.logSkill("sst_shizhu",event.target);
-							event.target.chooseToDiscard("拾珠：弃置"+get.cnNumber(trigger.cards.length)+"张牌",trigger.cards.length,"he",true);
+							event.target.chooseToDiscard(`拾珠：弃置${get.cnNumber(trigger.cards.length)}张牌，然后${get.translation(player)}可以从此阶段进入弃牌堆的牌中选择任意张对${get.translation(player)}或你使用`,trigger.cards.length,"he",true);
 						}
 						else{
 							event.finish();
@@ -6659,7 +6664,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						event.finish();
 					}
 					"step 5"
-					player.chooseTarget("拾珠：选择"+get.translation(card)+"的目标",(card,player,target)=>{
+					player.chooseTarget(`拾珠：选择${get.translation(card)}的目标`,(card,player,target)=>{
 						const evt=_status.event.getParent();
 						return [player,evt.target].contains(target)&&lib.filter.targetEnabled3(evt.card,player,target);
 					}).set("ai",target=>get.effect(target,_status.event.getParent().card,_status.event.player,_status.event.player));
@@ -7939,7 +7944,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					nocount:true
 				},
 				global:"sst_tewu2",
-				trigger:{source:"damageSource"},
+				trigger:{source:"damageBegin1"},
 				forced:true,
 				filter:(event,player)=>event.player.hasMark("sst_tewu")&&event.player.countCards("he"),
 				logTarget:"player",
@@ -9190,10 +9195,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(!muniu||!cards.length) cards.forEach(card=>card.discard());
 					if(typeof muniu.cards=="undefined") muniu.cards=[];
 					muniu.cards.addArray(cards);
-					muniu.sst_qiaoqi=true;
+					if(get.name(muniu)!="muniu") muniu.sst_qiaoqi=true;
 					game.broadcast((muniu,cards)=>{
 						muniu.cards=cards;
-						muniu.sst_qiaoqi=true;
+						if(get.name(muniu)!="muniu") muniu.sst_qiaoqi=true;
 					},muniu,muniu.cards);
 					target.markSkill("sst_qiaoqi");
 					game.delayx();
@@ -12258,7 +12263,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_xinghuo2:"星火",
 			sst_xinghuo_info:"其他角色死亡后，其可以令你摸一张牌或回复1点体力。",
 			sst_badao:"霸岛",
-			sst_badao_info:"准备阶段，你可以获得一名其他角色区域内的一张牌，然后攻击范围内有你的角色可以依次以你为目标使用一张基本牌。",
+			sst_badao_info:"准备阶段，你可以获得一名其他角色区域内的一张牌，然后攻击范围内包含你的角色可以依次以你为目标使用一张基本牌。",
 			sst_jinjia:"金甲",
 			sst_jinjia_info:"锁定技，每当你受到1点伤害时，你令此伤害减1，若此前你于本回合以此法减少过伤害，你翻面，失去〖金甲〗。",
 			sst_baochui:"爆锤",
@@ -12510,7 +12515,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_fumo:"附魔",
 			sst_fumo2:"附魔",
 			sst_fumo3:"附魔",
-			sst_fumo_info:"锁定技，若你的装备区内有：<br>武器牌，你可以指定你造成伤害（不得为连环伤害）的属性；<br>防具牌，攻击范围内没有你的角色不能对你造成伤害；<br>坐骑牌，坐骑数值翻倍；<br>宝物牌，〖巧器〗无次数限制。",
+			sst_fumo_info:"锁定技，若你的装备区内有：<br>武器牌，你可以指定你造成伤害（不得为连环伤害）的属性；<br>防具牌，攻击范围内不包含你的角色不能对你造成伤害；<br>坐骑牌，坐骑数值翻倍；<br>宝物牌，〖巧器〗无次数限制。",
 			sst_longbo:"龙搏",
 			sst_longbo_info:"你使用红色牌对上X家、使用黑色牌对下X家无次数限制；你使用牌无距离限制。（X为存活玩家数的一半且向上取整）",
 			sst_fengcu:"凤蹴",
