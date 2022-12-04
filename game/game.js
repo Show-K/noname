@@ -6262,6 +6262,13 @@
 						restart:true,
 						frequent:true,
 					},
+					connect_unbalanced_mode:{
+						name:'阴间模式',
+						init:false,
+						frequent:true,
+						restart:true,
+						intro:'开启后游戏中将模仿三国杀客户端特有的游戏外机制等'
+					},
 					connect_double_character:{
 						name:'双将模式',
 						init:false,
@@ -6328,6 +6335,13 @@
 						},
 						restart:true,
 						frequent:true,
+					},
+					unbalanced_mode:{
+						name:'阴间模式',
+						init:false,
+						restart:true,
+						frequent:true,
+						intro:'开启后游戏中将模仿三国杀客户端特有的游戏外机制等'
 					},
 					double_character:{
 						name:'双将模式',
