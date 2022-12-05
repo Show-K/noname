@@ -150,6 +150,30 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				};
 			}
 			if(_status.mode!='online'&&_status.connectMode&&lib.configOL.change_card) game.replaceHandcards(game.players.slice(0));
+			if((_status.connectMode&&lib.configOL.unbalanced_mode)||(!_status.connectMode&&get.config('unbalanced_mode'))){
+				event.replaceHandcards=game.players.map(current=>[current,null]);
+				event.num=0;
+			}
+			else{
+				event.goto(5);
+			}
+			"step 4"
+			if(num<10){
+				event.num++;
+				for(let i=0;i<event.replaceHandcards.length;i++){
+					if(event.replaceHandcards[i][0]._start_cards==event.replaceHandcards[i][1]){
+						event.replaceHandcards.splice(i--,1);
+					}
+					else{
+						event.replaceHandcards[i][1]=event.replaceHandcards[i][0]._start_cards;
+					}
+				};
+				if(event.replaceHandcards.length){
+					game.replaceHandcards(event.replaceHandcards.map(i=>i[0]));
+					event.redo();
+				}
+			}
+			"step 5"
 			game.phaseLoop(game.zhu||_status.firstAct||game.me);
 			game.zhu.showGiveup();
 		},
@@ -536,7 +560,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						if(!event.map[id]) event.map[id]=[];
 						event.map[id].addArray(event.list2.randomRemove(1));
 						event.list.removeArray(event.map[id]);
-						event.map[id].addArray(event.list.randomRemove(4-event.map[id].length));
+						event.map[id].addArray(event.list.randomRemove(get.config('unbalanced_mode')?5:4-event.map[id].length));
 						event.list2.removeArray(event.map[id]);
 					}
 					event.dialog=ui.create.dialog('你的选将框',[event.map[game.me.playerid],'character']);
@@ -560,7 +584,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							player.showIdentity();
 						}
 						event.dialog.close();
-						event.map[game.zhu.playerid].addArray(event.list.randomRemove(3));
+						event.map[game.zhu.playerid].addArray(event.list.randomRemove(get.config('unbalanced_mode')?4:3));
 					}
 					else{
 						event.current=event.current.next;
@@ -634,7 +658,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					event.list.randomSort();
 					_status.characterlist=event.list.slice(0);
 					for(var player of game.players){
-						player._characterChoice=event.list.randomRemove(player.identity=='zhu'?5:3);
+						player._characterChoice=event.list.randomRemove(player.identity=='zhu'?(get.config('unbalanced_mode')?10:5):(get.config('unbalanced_mode')?6:3));
 						if(player.identity=='fan') player._friend=(player.next.identity=='fan'?player.next:player.previous);
 					}
 					var createDialog=['选择武将'];
@@ -1158,7 +1182,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					
 					var map={};
 					for(var player of game.players){
-						player._characterChoice=event.list.randomRemove(player.identity=='zhu'?5:3);
+						player._characterChoice=event.list.randomRemove(player.identity=='zhu'?(lib.configOL.unbalanced_mode?10:5):(lib.configOL.unbalanced_mode?6:3));
 						if(player.identity=='fan') player._friend=(player.next.identity=='fan'?player.next:player.previous);
 						map[player.playerid]=player._characterChoice;
 					}
@@ -1264,7 +1288,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						if(!event.map[id]) event.map[id]=[];
 						event.map[id].addArray(event.list2.randomRemove(1));
 						event.list.removeArray(event.map[id]);
-						event.map[id].addArray(event.list.randomRemove(4-event.map[id].length));
+						event.map[id].addArray(event.list.randomRemove(lib.configOL.unbalanced_mode?5:4-event.map[id].length));
 						event.list2.removeArray(event.map[id]);
 					}
 					_status.characterlist=event.list.slice(0);
@@ -1289,7 +1313,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							player.identityShown=true;
 						}
 						game.broadcastAll('closeDialog',event.videoId)
-						event.map[game.zhu.playerid].addArray(event.list.randomRemove(3));
+						event.map[game.zhu.playerid].addArray(event.list.randomRemove(lib.configOL.unbalanced_mode?4:3));
 					}
 					else{
 						event.current=event.current.next;

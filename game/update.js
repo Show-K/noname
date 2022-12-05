@@ -1,6 +1,6 @@
 window.noname_update={
-	version:'1.9.116.3',
-	update:'1.9.116.2',
+	version:'1.9.117.1',
+	update:'1.9.117',
 	changeLog:[
 		'亚空使者 机器人',
 		'喷射战士 鱿鱼',
@@ -15,7 +15,8 @@ window.noname_update={
 		'（实验）自由意识 刀锋',
 		'Snake、希克调整',
 		'代码优化',
-		'其他技能调整和bug修复'
+		'其他技能调整和bug修复',
+		'players://["sst_r_o_b","sst_inkling","sst_wii_fit_trainer","sst_bayonetta","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails","ska_edge"]'
 	],
 	files:[
 		'card/extra.js',
