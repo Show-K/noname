@@ -18490,6 +18490,7 @@
 				initOL:function(name,character){
 					this.node.avatar.setBackground(character,'character');
 					this.node.avatar.show();
+					name=`${[' - 离线',' - 托管'].contains(name.slice(-5))?'×':''}${name}`;
 					this.node.name.innerHTML=get.verticalStr(name);
 					this.nickname=name;
 					this.avatar=character;
@@ -18547,8 +18548,8 @@
 						this.hp=Math.min(this.maxHp,info[3]);
 						if(this.hp<this.maxHp||config.gameStarted) str+=('人数：'+this.hp+'/'+this.maxHp);
 						else str+=('人数：<span class="firetext">'+this.hp+'/'+this.maxHp+'</span>');
-						
-						str+=('　('+info[0].slice(0,12)+' 的房间)');
+						const nickname=info[0].slice(0,12);
+						str+=`　(${[' - 离线',' - 托管'].contains(nickname.slice(-5))?'×':''}${nickname} 的房间)`;
 						if(config.mode!='guozhan'&&(config.mode!='doudizhu'||config.doudizhu_mode!='online')){
 							str+='【';
 							for(var i=0;i<config.cardPack.length;i++){
@@ -47409,14 +47410,16 @@
 						for(var i=0;i<button.info.length;i++){
 							var node=ui.create.div('.menubutton.videonode.pointerdiv',uiintro.content);
 							ui.create.div('.menubutton.videoavatar',node).setBackground(button.info[i][1]||'caocao','character');
+							const nickname=button.info[i][0]||'无名玩家';
+							const nicknameTest=`${[' - 离线',' - 托管'].contains(nickname.slice(-5))?'×':''}${nickname}`;
 							if(button.info[i][4]==game.wsid){
-								ui.create.div('.name','<span class="thundertext thunderauto">'+(button.info[i][0]||'无名玩家'),node);node.isme=true;
+								ui.create.div('.name',`<span class="thundertext thunderauto">${nicknameTest}`,node);node.isme=true;
 							}
 							else if(button.info[i][2]){
-								ui.create.div('.name',(button.info[i][0]||'无名玩家'),node);
+								ui.create.div('.name',nicknameTest,node);
 							}
 							else{
-								ui.create.div('.name','<span style="opacity:0.6">'+(button.info[i][0]||'无名玩家'),node);
+								ui.create.div('.name',`<span style="opacity:0.6">${nicknameTest}`,node);
 							}
 							//show ID
 							//ui.create.div('.videostatus',node,button.info[i][5]);
@@ -51266,9 +51269,7 @@
 			}
 			return num;
 		},
-		connectNickname:function(){
-			return '※'+(typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家');
-		},
+		connectNickname:()=>`※${(typeof lib.config.connect_nickname=='string'?(lib.config.connect_nickname.slice(0,12)):'无名玩家')}`,
 		zhinangs:function(filter){
 			var list=(_status.connectMode?lib.configOL:lib.config).zhinang_tricks;
 			if(!list||!list.filter||!list.length) return get.inpile('trick','trick').randomGets(3);
