@@ -10608,9 +10608,7 @@
 					event.card2=card;
 					'step 4'
 					if(event.lose_list.length){
-						game.loseAsync({
-							lose_list:event.lose_list,
-						}).setContent('chooseToCompareLose');
+						event.lose_list.forEach(i=>i[0].lose(i[1],ui.ordering));
 					}
 					if(event.card2) game.cardsGotoOrdering(event.card2);
 					'step 5'
@@ -10620,8 +10618,14 @@
 					player.$compare(event.card1,player,event.card2);
 					game.log(player,'的拼点牌为',event.card1);
 					game.log('#b牌堆顶','的拼点牌为',event.card2);
-					event.num1=event.card1.number;
-					event.num2=event.card2.number;
+					const getNum=card=>{
+						for(const i of event.lose_list){
+							if(i[1]==card) return get.number(card,i[0]);
+						}
+						return get.number(card,false);
+					};
+					event.num1=getNum(event.card1);
+					event.num2=getNum(event.card2);
 					event.trigger('compare');
 					game.delay(0,1500);
 					'step 6'
@@ -17843,32 +17847,7 @@
 					return true;
 				},
 				chooseToComparePileTop:function(check){
-					const next=game.createEvent('chooseToCompare');
-					next.set('player',this);
-					if(check){
-						next.set('ai',check);
-					}
-					else{
-						next.set('ai',card=>{
-							if(typeof card=='string'&&lib.skill[card]){
-								const ais=lib.skill[card].check||(()=>0);
-								return ais();
-							}
-							const player=get.owner(card);
-							const getn=card=>{
-								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13;
-								return get.number(card);
-							};
-							const event=_status.event.getParent();
-							let addi=(get.value(card)>=8&&get.type(card)!='equip')?-10:0;
-							if(card.name=='du') addi+=5;
-							return getn(card)-get.value(card)/2+addi;
-						});
-					}
-					next.setContent('chooseToComparePileTop');
-					next.forceDie=true;
-					next._args=Array.from(arguments);
-					return next;
+					return this.chooseToCompare(null,check).setContent('chooseToComparePileTop');
 				},
 				initBraces:function(num,forced){
 					if(this.bracesInited()&&!forced) return;

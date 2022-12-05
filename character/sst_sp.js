@@ -774,7 +774,22 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					_status.renku.remove(event.card);
 					game.updateRenku();
 					game.cardsGotoOrdering(event.card).set("fromRenku",true);
-					player.showCards(event.card);
+					const translateTargets=targets=>{
+						if(get.itemtype(targets)=="player") targets=[targets];
+						let str="";
+						if(targets[0]==player){
+							str="自己";
+							if(targets.length>1){
+								str+="、";
+								str+=get.translation(targets.slice(1));
+							}
+						}
+						else{
+							str=get.translation(targets);
+						}
+						return str;
+					};
+					player.showCards(event.card,`${get.translation(player)}对${translateTargets(target)}发动了【${get.skillTranslation(event.name,player)}】`);
 					target.chooseCard("he",`折赋：赠予${get.translation(player)}一张牌并使用${get.translation(event.card)}`,card=>{
 						if(get.type(card,false)=="equip") return _status.event.getParent().player.canEquip(card,true);
 						return true;
@@ -1602,7 +1617,22 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					_status.renku.remove(event.card);
 					game.updateRenku();
 					game.cardsGotoOrdering(event.card).set("fromRenku",true);
-					player.showCards(event.card);
+					const translateTargets=targets=>{
+						if(get.itemtype(targets)=="player") targets=[targets];
+						let str="";
+						if(targets[0]==player){
+							str="自己";
+							if(targets.length>1){
+								str+="、";
+								str+=get.translation(targets.slice(1));
+							}
+						}
+						else{
+							str=get.translation(targets);
+						}
+						return str;
+					};
+					player.showCards(event.card,`${get.translation(player)}对${translateTargets(targets)}发动了【${get.skillTranslation(event.name,player)}】`);
 					"step 1"
 					player.addTempSkill("ska_zhesheng_effect");
 					targets[0].useCard(card,targets[1],false,"noai");
@@ -2012,9 +2042,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							player.unmarkSkill("xsj_dongqie");
 						});
 					}
-					"step 1"
 					player.draw();
-					"step 2"
+					"step 1"
 					const cards=result.filter(card=>player.getCards("he").contains(card));
 					if(cards.length){
 						player.showCards(cards);
