@@ -50482,15 +50482,12 @@
 					return false;
 				}
 				//SST addition
-				var characterstats=ui.create.div('.menubg.characterstats',layer);
+				const characterstats=ui.create.div('.menubg.characterstats',layer);
 				ui.create.div('',get.translation(get.characterStat(name,'type')),characterstats);
-				ui.create.div('','TYP',characterstats,{opacity:0.6});
-				ui.create.div('','PRI',characterstats,{opacity:0.6});
-				ui.create.div('',get.characterStat(name,'primary').toString(),characterstats);
-				ui.create.div('',get.characterStat(name,'attack').toString(),characterstats);
-				ui.create.div('','ATK',characterstats,{opacity:0.6});
-				ui.create.div('','DEF',characterstats,{opacity:0.6});
-				ui.create.div('',get.characterStat(name,'defense').toString(),characterstats);
+				ui.create.div('',get.characterStat(name,'primary'),characterstats);
+				ui.create.div('',get.characterStat(name,'attack'),characterstats);
+				ui.create.div('',get.characterStat(name,'defense'),characterstats);
+				characterstats.addEventListener(lib.config.touchscreen?'touchend':'click',ui.click.touchpop);
 				//SST addition end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
 				var playerbg=ui.create.div('.menubutton.large.ava',uiintro);
@@ -56164,20 +56161,21 @@
 		 * Get character stat
 		 * @param {string} name 
 		 * @param {string} key 
-		 * @return {number|string} 
+		 * @return {string} 
 		 */
 		characterStat:(name,key)=>{
 			if(name&&lib.character[name]&&lib.character[name][4]){
 				for(const i of lib.character[name][4]){
-					if(i.indexOf(key+':')==0){
-						const value=i.split(':').slice(1);
-						if(key=='primary'||key=='attack'||key=='defense') return parseFloat(value);
-						return value;
+					if(i.indexOf(`${key}:`)==0) {
+						const value=i.split(':')[1].split(',');
+						if(value.length<=1) return value[0];
+						if(key=='primary'||key=='attack'||key=='defense'){
+							if(value.length==3) return `${value[0]}<ruby>⟶<rp> (Increment: </rp><rt>${value[1]}</rt><rp>) </rp></ruby>${value[2]}`;
+						}
 					}
 				}
 			}
-			if(key=='primary'||key=='attack'||key=='defense') return 0;
-			return '';
+			return 'undefined';
 		}
 		//SST addition end
 	};

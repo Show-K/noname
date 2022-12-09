@@ -1891,21 +1891,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					},[]);
 					player.chooseButton([get.prompt2("alz_yingjian"),"仁库中的牌",_status.renku,"本回合使用过的基本牌或普通锦囊牌",[used.map(card=>[card.suit,card.number,card.name,card.nature]),"vcard"]]).set("filterButton",button=>{
 						if(_status.renku.contains(button.link)){
-							if(!ui.selected.buttons.length) return true;
 							for(const i of ui.selected.buttons){
 								if(_status.renku.contains(i.link)) return false;
 							}
-							return true;
+							return lib.filter.cardEnabled(button.link,_status.event.player,"forceEnable");
+						}
+						for(const i of ui.selected.buttons){
+							if(!_status.renku.contains(i.link)) return false;
 						}
 						return _status.event.player.hasUseTarget({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
 					}).set("ai",button=>{
-						if(_status.renku.contains(button.link)){
-							if(!ui.selected.buttons.length) return 1;
-							for(const i of ui.selected.buttons){
-								if(_status.renku.contains(i.link)) return 0;
-							}
-							return 1;
-						}
+						if(_status.renku.contains(button.link)) return 11-get.value(button.link);
 						return _status.event.player.getUseValue({suit:button.link[0],number:button.link[1],name:button.link[2],nature:button.link[3]});
 					}).set("selectButton",2).set("complexSelect",true);
 					"step 1"
@@ -1957,7 +1953,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					player.changeZhuanhuanji(event.name);
 					player.$throw(cards);
 					game.log(player,"将",cards,"置入了仁库");
-					player.lose(cards,ui.special,"toRenku");
+					player.lose(cards,ui.special,"visible","toRenku");
 					"step 1"
 					game.delayx();
 					"step 2"

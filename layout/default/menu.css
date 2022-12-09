@@ -194,7 +194,7 @@
 	animation: dialog_start2 0.3s;
 	-webkit-animation: dialog_start2 0.3s;
 }
-/*New add*/
+/*SST addition*/
 .removing>.menubg.characterstats{
 	transform: scale(0.8);
 	opacity: 0;
@@ -207,31 +207,16 @@
 	top: calc(50% - 208px);
 	animation: dialog_start2 0.3s;
 	-webkit-animation: dialog_start2 0.3s;
-	display: grid;
-	column-gap: 18px;
-	grid-template-columns: 1fr 15% 15% 1fr;
-	grid-template-rows: 1fr 1fr;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 	font-size: 24px;
 	line-height: 24px;
 }
 .menubg.characterstats>div{
 	position: relative;
 }
-.menubg.characterstats>div:nth-child(4n-3),
-.menubg.characterstats>div:nth-child(4n-2){
-	text-align: right;
-}
-.menubg.characterstats>div:nth-child(4n-2){
-	justify-self: left;
-}
-.menubg.characterstats>div:nth-child(4n-1),
-.menubg.characterstats>div:nth-child(4n){
-	text-align: left;
-}
-.menubg.characterstats>div:nth-child(4n-1){
-	justify-self: right;
-}
-/*New add end*/
+/*SST addition end*/
 .menubg.charactercard>.menubutton.large.ava{
 	width: 180px;
 	height: 240px;
