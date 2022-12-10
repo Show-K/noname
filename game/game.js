@@ -56170,7 +56170,7 @@
 						const value=i.split(':')[1].split(',');
 						if(value.length<=1) return value[0];
 						if(key=='primary'||key=='attack'||key=='defense'){
-							if(value.length==3) return `${value[0]}<ruby>⟶<rp> (Increment: </rp><rt>${value[1]}</rt><rp>) </rp></ruby>${value[2]}`;
+							if(value.length>=3) return `${value[0]}<div${value.slice(1,-1).length>1?' data-type="discrete"':''}><span>${value.slice(1,-1).join(' ')}</span></div>${value[value.length-1]}`;
 						}
 					}
 				}

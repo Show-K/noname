@@ -756,7 +756,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					backup:links=>({
 						filterCard:()=>false,
 						selectCard:-1,
-						filterTarget:true,
+						filterTarget:(card,player,target)=>target.countCards("he"),
 						card:links[0],
 						delay:false,
 						content:lib.skill.ska_zhefu.contentx,

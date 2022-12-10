@@ -1999,7 +1999,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 3"
 					if(result.targets&&result.targets.length){
 						player.line(result.targets,"fire");
-						result.targets[0].damage(player,"nocard");
+						result.targets[0].damage(player,"fire","nocard");
 						player.addExpose(0.2);
 					}
 				},

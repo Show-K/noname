@@ -78,14 +78,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_corrin:["","sst_smash",2,["sst_juelu","sst_longwei"],[]],
 			sst_corrin_female:["female","sst_smash",2,["sst_juelu","sst_longwei"],["unseen"]],
 			sst_corrin_male:["male","sst_smash",2,["sst_juelu","sst_longwei"],["unseen"]],
-			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:unknown","primary:1","attack:2","defense:1.2"]],
+			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:unknown","primary:20","attack:1,0,0,0,0.5,1.5","defense:1"]],
 			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu"]],
 			sst_feiji:["male","sst_reality",4,["sst_xuhuang"],[]],
 			sst_sonic:["male","sst_light",4,["sst_jibu","sst_juechen"],[]],
 			sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],[]],
 			sst_fox:["male","sst_light",4,["sst_powei"],[]],
 			sst_mii_fighters:["","sst_smash",4,["sst_bianshe"],[]],
-			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],["type:unknown","primary:1","attack:2","defense:1.2"]],
+			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],["type:unknown","primary:20","attack:1","defense:4"]],
 			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
 			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],[]],
 			sst_falco:["male","sst_light",4,["sst_juao"],[]],
@@ -6075,7 +6075,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							`摸${get.cnNumber(event.num)}张牌`,
 							`弃置${get.cnNumber(event.num)}张牌`
 						]).set("ai",()=>get.attitude(player,_status.event.getParent().target)>0?0:1).set("prompt","施魔：选择一项");
-						event.str=str2;
 					}
 					else{
 						event.finish();
@@ -6432,7 +6431,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_zhuzai3:{
 				trigger:{global:"phaseJieshuBegin"},
-				filter:(event,player)=>!event.player.hasHistory("useCard",evt=>event.player.hasHistory("lose",lose=>{
+				filter:(event,player)=>player.storage.sst_zhuzai.length&&!event.player.hasHistory("useCard",evt=>event.player.hasHistory("lose",lose=>{
 					if(lose.getParent()!=evt) return false;
 					for(const i in lose.gaintag_map){
 						if(lose.gaintag_map[i].contains("sst_zhuzai")&&player.storage.sst_zhuzai.some(card=>card.cardid==i)) return true;

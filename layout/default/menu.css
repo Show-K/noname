@@ -216,6 +216,19 @@
 .menubg.characterstats>div{
 	position: relative;
 }
+.menubg.characterstats>div>div{
+	border-bottom: 2px solid;
+	display: inline-flex;
+	line-height: 12px;
+	position: relative;
+	vertical-align: top;
+}
+.menubg.characterstats>div>div[data-type="discrete"]{
+	border-bottom: 2px dotted;
+}
+.menubg.characterstats>div>div>span{
+	font-size: 12px;
+}
 /*SST addition end*/
 .menubg.charactercard>.menubutton.large.ava{
 	width: 180px;
