@@ -50482,12 +50482,23 @@
 					return false;
 				}
 				//SST addition
-				const characterstats=ui.create.div('.menubg.characterstats',layer);
-				ui.create.div('',get.translation(get.characterStat(name,'type')),characterstats);
-				ui.create.div('',get.characterStat(name,'primary'),characterstats);
-				ui.create.div('',get.characterStat(name,'attack'),characterstats);
-				ui.create.div('',get.characterStat(name,'defense'),characterstats);
-				characterstats.addEventListener(lib.config.touchscreen?'touchend':'click',ui.click.touchpop);
+				const characterStats=ui.create.div('.menubg.characterstats',layer);
+				const type=ui.create.div('type',characterStats);
+				ui.create.div('','TYPE',type);
+				ui.create.div('',get.translation(get.characterStat(name,'type')),type);
+				const primary=ui.create.div('primary',characterStats);
+				ui.create.div('','PRIMARY',primary);
+				ui.create.div('',get.characterStat(name,'primary'),primary);
+				const attack=ui.create.div('attack',characterStats);
+				ui.create.div('','ATTACK',attack);
+				ui.create.div('',get.characterStat(name,'attack'),attack);
+				const defense=ui.create.div('defense',characterStats);
+				ui.create.div('','DEFENSE',defense);
+				ui.create.div('',get.characterStat(name,'defense'),defense);
+				characterStats.addEventListener(lib.config.touchscreen?'touchend':'click',ui.click.touchpop);
+				const characterFeature=ui.create.div('.menubg.characterfeature',layer);
+				ui.create.div('',get.characterStat(name,'feature'),characterFeature);
+				characterFeature.addEventListener(lib.config.touchscreen?'touchend':'click',ui.click.touchpop);
 				//SST addition end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
 				var playerbg=ui.create.div('.menubutton.large.ava',uiintro);
@@ -56175,7 +56186,7 @@
 					}
 				}
 			}
-			return 'undefined';
+			return '⸻';
 		}
 		//SST addition end
 	};

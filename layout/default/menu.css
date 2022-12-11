@@ -195,39 +195,58 @@
 	-webkit-animation: dialog_start2 0.3s;
 }
 /*SST addition*/
-.removing>.menubg.characterstats{
-	transform: scale(0.8);
+.removing>.menubg.characterstats,
+.removing>.menubg.characterfeature{
 	opacity: 0;
+	transform: scale(0.8);
 	transition: all 0.3s;
 }
-.menubg.characterstats{
-	width: 500px;
-	height: 48px;
-	left: calc(50% - 250px);
-	top: calc(50% - 208px);
+.menubg.characterstats,
+.menubg.characterfeature{
+	align-items: center;
 	animation: dialog_start2 0.3s;
 	-webkit-animation: dialog_start2 0.3s;
 	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
 	font-size: 24px;
+	height: 72px;
+	justify-content: space-evenly;
+	left: calc(50% - 250px);
 	line-height: 24px;
+	width: 500px;
+}
+.menubg.characterstats{
+	top: calc(50% - 232px);
+}
+.menubg.characterfeature{
+	bottom: calc(50% - 232px);
 }
 .menubg.characterstats>div{
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+.menubg.characterstats>div,
+.menubg.characterstats>div>div,
+.menubg.characterfeature>div{
 	position: relative;
 }
-.menubg.characterstats>div>div{
+.menubg.characterstats>div>div:first-child{
+	opacity: 0.6;
+}
+.menubg.characterstats>div>div>div{
 	border-bottom: 2px solid;
 	display: inline-flex;
 	line-height: 12px;
 	position: relative;
 	vertical-align: top;
 }
-.menubg.characterstats>div>div[data-type="discrete"]{
+.menubg.characterstats>div>div>div[data-type="discrete"]{
 	border-bottom: 2px dotted;
 }
-.menubg.characterstats>div>div>span{
+.menubg.characterstats>div>div>div>span{
 	font-size: 12px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
 /*SST addition end*/
 .menubg.charactercard>.menubutton.large.ava{
