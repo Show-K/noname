@@ -131,8 +131,8 @@ window.config={
 
 	cards:['sst_standard','standard','extra'],
 	characters:['sst_standard','sst_extra'],
-	connect_characters:[],
-	connect_cards:[],
+	connect_characters:['sst_standard','sst_extra'],
+	connect_cards:['sst_standard','standard','extra'],
 	plays:[],
 	extensions:['在线更新','十周年UI','导入助手'],
 	banned:[],
