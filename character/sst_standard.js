@@ -939,7 +939,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>
 				可能只有玩过灯火之星的人才知道Mii斗士有默认配置。`,
 			sst_alex:`武将作者：mario not mary<br>
-				插图作者：未知<br>
+				插图作者：《我的世界》<br>
 				<hr>
 				1429. 艾莉克斯/Alex/アレックス（Minecraft）<br>
 				系列：<ruby>我的世界<rp>（</rp><rt>Minecraft</rt><rp>）</rp></ruby><br>
@@ -947,7 +947,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				身为史蒂夫的女朋友，她也一同来到了大乱斗的世界，并在这里继续进行她的创造与建设，小心她所布置的各种机关！它们可能会让你陷入大麻烦。<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
-				好像Minecraft官方的确有说过她是史蒂夫的女朋友。`,
+				真正的主角。`,
 			sst_min_min:`武将作者：mario not mary<br>
 				插图作者：未知<br>
 				<hr>
