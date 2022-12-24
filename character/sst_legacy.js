@@ -149,9 +149,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_sst_donkey_kong:"武将作者：mario not mary<br>\
 				插图作者：未知<br>\
 				<hr>\
-				0134. 森喜刚/Donkey Kong/ドンキーコング<br>\
-				系列：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>\
-				首次登场：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>\
+				0134. 咚奇刚/Donkey Kong/ドンキーコング<br>\
+				系列：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>\
+				首次登场：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>\
 				丛林的王者，也是最狂热的香蕉狂魔。他的冒险总是以某人偷了他的香蕉开始。在大乱斗中，他的力度和投技是众所周知的。虽然体积很大，但是速度也不是特别慢。他的前投掷还能扛着对手走哦！要合理利用这一点！<br>\
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
@@ -196,7 +196,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				0104. Geno/ジーノ<br>\
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>\
 				首次登场：<ruby>超级马力欧RPG<rp>（</rp><rt>Super Mario RPG: Legend of the Seven Stars</rt><rp>）</rp></ruby><br>\
-				他是星之族的一员，本来没有身体，本名也是无法拼读的“♡♪!?”，所以选择附身在一个叫Geno的木偶上行动。他总是自信满满，擅长分析问题，战斗能力也相当出色。他会和马力欧、桃花公主、酷霸王和Mallow一起打败恶人。<br>\
+				他是星之族的一员，本来没有身体，本名也是无法拼读的“♡♪!?”，所以选择附身在一个叫Geno的木偶上行动。他总是自信满满，擅长分析问题，战斗能力也相当出色。他会和马力欧、碧姬公主、酷霸王和Mallow一起打败恶人。<br>\
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				所以Square什么时候能把超级马力欧RPG交一下！",
@@ -4734,7 +4734,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_sst_samus:"旧萨姆斯",
 			deprecated_sst_ken:"旧肯",
 			deprecated_ymk_claude:"旧库罗德",
-			deprecated_sst_donkey_kong:"旧森喜刚",
+			deprecated_sst_donkey_kong:"旧咚奇刚",
 			deprecated_sst_dark_samus:"旧黑暗萨姆斯",
 			ymk_577:"方块君",
 			deprecated_sst_richter:"旧里希特",

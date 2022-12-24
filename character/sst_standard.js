@@ -143,7 +143,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>
 				0001. 马力欧/Mario/マリオ<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
-				首次登场：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
 				超级标志性的角色！这位游戏巨星常常从酷霸王手中拯救世界。他有惊人的跳跃能力和多种变身道具。在闲暇时刻，他还会参与体育运动，擅长的项目数也数不清。在大乱斗里，他是一个值得信赖的全能型斗士。让我们一起来说：“是我，马力欧！”<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
@@ -274,7 +274,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				0007. 酷霸王/Bowser/クッパ<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
 				首次登场：<ruby>超级马力欧兄弟<rp>（</rp><rt>Super Mario Bros.</rt><rp>）</rp></ruby><br>
-				马力欧的死对头，也是桃花公主老被绑架的罪魁祸首。他的阴谋基本上都没有实现，相反，有时候他甚至还会和马力欧合作。在大乱斗中，他是全游戏最重的人物，并且不会被轻攻击打出硬直。你必须得揍得足够大力才能将他击飞！<br>
+				马力欧的死对头，也是碧姬公主老被绑架的罪魁祸首。他的阴谋基本上都没有实现，相反，有时候他甚至还会和马力欧合作。在大乱斗中，他是全游戏最重的人物，并且不会被轻攻击打出硬直。你必须得揍得足够大力才能将他击飞！<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				终于有武将图片了。`,
@@ -282,10 +282,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				插图作者：ゲB<br>
 				——${get.formatUrl("https://www.pixiv.net/artworks/50055037")}<br>
 				<hr>
-				0005. 桃花公主/Peach/ピーチ<br>
+				0005. 碧姬公主/Peach/ピーチ<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
 				首次登场：<ruby>超级马力欧兄弟<rp>（</rp><rt>Super Mario Bros.</rt><rp>）</rp></ruby><br>
-				蘑菇王国的公主，也是强大和可爱可以共存的最好证明。在大乱斗中，桃花公主可以在空中飘浮，随后突然落地掏出一堆武器来——包括但不限于平底锅、阳伞和奇诺比奥——所以她到底把这些都放在哪的啊？<br>
+				蘑菇王国的公主，也是强大和可爱可以共存的最好证明。在大乱斗中，碧姬公主可以在空中飘浮，随后突然落地掏出一堆武器来——包括但不限于平底锅、阳伞和奇诺比奥——所以她到底把这些都放在哪的啊？<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				哦～我赢了吗？`,
@@ -428,18 +428,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				插图作者：未知<br>
 				<hr>
 				0136. 库鲁鲁王/King K. Rool/キングクルール<br>
-				系列：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
-				首次登场：<ruby>超级森喜刚<rp>（</rp><rt>Donkey Kong Country</rt><rp>）</rp></ruby><br>
-				就像马力欧的死对头是酷霸王一样，森喜刚的死对头是库鲁鲁王。他是个性格恶劣的鳄鱼，拥有坚硬的肚皮铠甲和闪亮的皇冠。想要他和森喜刚合作甚至成为朋友是几乎不可能的。<br>
+				系列：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>超级咚奇刚<rp>（</rp><rt>Donkey Kong Country</rt><rp>）</rp></ruby><br>
+				就像马力欧的死对头是酷霸王一样，咚奇刚的死对头是库鲁鲁王。他是个性格恶劣的鳄鱼，拥有坚硬的肚皮铠甲和闪亮的皇冠。想要他和咚奇刚合作甚至成为朋友是几乎不可能的。<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
-				别说他了，现在连森喜刚新作也没有个影子……`,
+				别说他了，现在连咚奇刚新作也没有个影子……`,
 			sst_donkey_kong:`武将作者：mario not mary<br>
 				插图作者：未知<br>
 				<hr>
-				0134. 森喜刚/Donkey Kong/ドンキーコング<br>
-				系列：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
-				首次登场：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
+				0134. 咚奇刚/Donkey Kong/ドンキーコング<br>
+				系列：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
 				丛林的王者，也是最狂热的香蕉狂魔。他的冒险总是以某人偷了他的香蕉开始。在大乱斗中，他的力度和投技是众所周知的。虽然体积很大，但是速度也不是特别慢。他的前投掷还能扛着对手走哦！要合理利用这一点！<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
@@ -478,10 +478,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				插图作者：高橋うもり<br>
 				——${get.formatUrl("https://www.pixiv.net/artworks/73249081")}<br>
 				<hr>
-				0006. 菊花公主/Daisy/デイジー<br>
+				0006. 黛西公主/Daisy/デイジー<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
 				首次登场：<ruby>超级马力欧乐园<rp>（</rp><rt>Super Mario Land</rt><rp>）</rp></ruby><br>
-				虽然是萨拉萨大陆的公主，但菊花公主完全没有身为王族的优雅，反而相当活泼任性，这也是她的独特之处。据说路易吉对她很着迷？和桃花公主不同，菊花公主只被绑架过一次。<br>
+				虽然是萨拉萨大陆的公主，但黛西公主完全没有身为王族的优雅，反而相当活泼任性，这也是她的独特之处。据说路易吉对她很着迷？和碧姬公主不同，黛西公主只被绑架过一次。<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				嘿！我是黛西！`,
@@ -574,7 +574,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				0012. 温缇/Wendy/ウェンディ<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
 				首次登场：<ruby>超级马力欧兄弟3<rp>（</rp><rt>Super Mario Bros. 3</rt><rp>）</rp></ruby><br>
-				酷霸王7人组中唯一的一个女孩子。她非常莽，也非常傲慢自大，并且将桃花公主和菊花公主视为对手。虽然性格像是假小子，但是也不排斥用粉色蝴蝶结和高跟鞋展示自己女性化的一面。在《新超级马力欧兄弟U》中，她还展示了自己优雅的溜冰技巧。<br>
+				酷霸王7人组中唯一的一个女孩子。她非常莽，也非常傲慢自大，并且将碧姬公主和黛西公主视为对手。虽然性格像是假小子，但是也不排斥用粉色蝴蝶结和高跟鞋展示自己女性化的一面。在《新超级马力欧兄弟U》中，她还展示了自己优雅的溜冰技巧。<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				0013. 雷米/Lemmy/レミー<br>
@@ -1024,8 +1024,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>
 				0079. 宝琳/Pauline/ポリーン<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
-				首次登场：<ruby>森喜刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
-				宝琳登场于1981年的初代《森喜刚》游戏，在那个游戏中，森喜刚不断从台阶上扔下木桶，而马力欧需要躲开木桶救出宝琳。经过这么多年之后，她现在的形象和最初登场时也截然不同了。在《超级马力欧奥德赛》中，她作为纽敦市市长举办了一场盛大的庆典。<br>
+				首次登场：<ruby>咚奇刚<rp>（</rp><rt>Donkey Kong</rt><rp>）</rp></ruby><br>
+				宝琳登场于1981年的初代《咚奇刚》游戏，在那个游戏中，咚奇刚不断从台阶上扔下木桶，而马力欧需要躲开木桶救出宝琳。经过这么多年之后，她现在的形象和最初登场时也截然不同了。在《超级马力欧奥德赛》中，她作为纽敦市市长举办了一场盛大的庆典。<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				此次推出的三噩梦命魂武将其一。`,
@@ -1895,7 +1895,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					mark:(dialog,content,player)=>{
 						if(player!=game.me) return `牌堆顶的牌始终对${get.translation(player)}可见`;
 						if(get.itemtype(_status.pileTop)!="card") return "牌堆顶无牌";
-						dialog.add([_status.pileTop]);
+						dialog.addAuto(_status.pileTop);
 					}
 				},
 				usable:1,
@@ -6742,7 +6742,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							if(["heart","diamond"].contains(suit)) return "red";
 							return "none";
 						}
-						if(player.storage.sst_yufeng_effect&&color(suit)==color(player.storage.sst_yufeng_effect)&&suit!=player.storage.sst_yufeng_effect) return player.storage.sst_yufeng_effect;
+						if(player.storage.sst_yufeng_effect&&color(suit)==color(player.storage.sst_yufeng_effect)) return player.storage.sst_yufeng_effect;
 					}
 				}
 			},
@@ -10824,7 +10824,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(!event.hs.length&&event.es.length) return false;
 					if(event.player.getNext()!=player&&event.player.getPrevious()!=player) return false;
 					if(!event.visible) return false;
-					for(const i of event.cards){
+					for(const i of event.cards2){
 						if(get.suit(i)=="heart") return true;
 					}
 					return false;
@@ -10993,7 +10993,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 							return String.fromCharCode(9311+n);
 						};
-						player.popup(zeroToTwentyAsCircledNumber(sst_jichang_first)+zeroToTwentyAsCircledNumber(sst_jichang_second)+zeroToTwentyAsCircledNumber(sst_jichang_third),"green");
+						player.popup(zeroToTwentyAsCircledNumber(sst_jichang_first)+zeroToTwentyAsCircledNumber(sst_jichang_second)+zeroToTwentyAsCircledNumber(sst_jichang_third),"wood");
 						player.chat(`摸牌阶段额外摸牌数：${sst_jichang_first}<br>攻击范围增加数：${sst_jichang_second}<br>出牌阶段额外使用【杀】次数：${sst_jichang_third}`);
 						player.storage.sst_jichang_effect=[sst_jichang_first,sst_jichang_second,sst_jichang_third];
 						player.addTempSkill("sst_jichang_effect");
@@ -11982,7 +11982,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_zero_suit_samus:"零装甲萨姆斯",
 			sst_luigi:"路易吉",
 			sst_bowser:"酷霸王",
-			sst_peach:"桃花公主",
+			sst_peach:"碧姬公主",
 			sst_byleth_female:"贝雷丝",
 			sst_byleth_male:"贝雷特",
 			sst_massy:"Massy",
@@ -11999,11 +11999,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_greninja:"甲贺忍蛙",
 			sst_kirby:"卡比",
 			sst_king_k_rool:"库鲁鲁王",
-			sst_donkey_kong:"森喜刚",
+			sst_donkey_kong:"咚奇刚",
 			sst_richter:"里希特",
 			sst_pokemon_trainer_red:"赤红",
 			sst_isabelle:"西施惠",
-			sst_daisy:"菊花公主",
+			sst_daisy:"黛西公主",
 			sst_meta_knight:"魅塔骑士",
 			sst_little_mac:"小麦克",
 			sst_oc:"OC",

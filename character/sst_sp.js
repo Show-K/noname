@@ -280,10 +280,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:`武将作者：Show-K<br>
 				插图作者：《马力欧+疯狂兔子 星耀之愿》<br>
 				<hr>
-				0129. 疯兔桃花公主/Rabbid Peach/ラビッツピーチ<br>
+				0129. 疯兔碧姬公主/Rabbid Peach/ラビッツピーチ<br>
 				系列：<ruby>马力欧<rp>（</rp><rt>Mario</rt><rp>）</rp></ruby><br>
 				首次登场：<ruby>马力欧+疯狂兔子：王国之战<rp>（</rp><rt>Mario + Rabbids Kingdom Battle</rt><rp>）</rp></ruby><br>
-				一只疯兔和桃花公主的假发融合后的产物。她不但和一般的疯兔一样皮，也更加自恋，总是试图吸引人的注意，还喜欢自拍，和真正的桃花公主一点都不一样——她似乎和桃花公主相处也不太融洽。<br>
+				一只疯兔和碧姬公主的假发融合后的产物。她不但和一般的疯兔一样皮，也更加自恋，总是试图吸引人的注意，还喜欢自拍，和真正的碧姬公主一点都不一样——她似乎和碧姬公主相处也不太融洽。<br>
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				任天堂+育碧=?`,
@@ -531,12 +531,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Bobby
 			_sst_judge_count:{
 				charlotte:true,
-				trigger:{player:"judgeBegin"},
+				trigger:{global:"judgeBegin"},
 				ruleSkill:true,
 				silent:true,
 				firstDo:true,
+				filter:(event,player)=>typeof player.storage.ska_wangshi=="number",
 				content:()=>{
-					player.actionHistory[player.actionHistory.length-1].custom.push(trigger);
+					player.storage.ska_wangshi++;
+					player.updateMarks();
 				}
 			},
 			ska_jixing:{
@@ -574,7 +576,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					if(ui.discardPile.childNodes.length){
-						player.chooseTarget("洋寻：将弃牌堆顶的一张牌赠予一名角色，然后若其不为你，其赠予你一张牌",true).set("ai",target=>{
+						player.chooseTarget(`洋寻：将${get.translation(ui.discardPile.childNodes[ui.discardPile.childNodes.length-1])}赠予一名角色，然后若其不为你，其赠予你一张牌`,true).set("ai",target=>{
 							if(!ui.discardPile.childNodes.length) return 0;
 							if(get.attitude(_status.event.player,target)<=0||!target.countCards("he")) return 0;
 							const gifts=(card,player,target)=>{
@@ -655,17 +657,46 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			ska_wangshi:{
+				init:player=>{
+					if(typeof player.storage.ska_wangshi!="number") player.storage.ska_wangshi=0;
+				},
+				mark:true,
+				intro:{
+					mark:(dialog,storage)=>{
+						dialog.add(`<div class="text center" style="font-size: 11px;">${storage}/13 ${"█".repeat(Math.min(13,storage))}${"▒".repeat(Math.max(0,13-storage))} ${["D","D","D","D","D","D","D","D","C","B","A","AA","EX","EX+"][Math.min(13,storage)]}</div>`);
+						if(storage>=13){
+							dialog.add(`<div class="text center" style="color: #1f626b; transform: scaleY(-100%);">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+							dialog.add(`<div style="-webkit-text-stroke: 1px white; color: #1f626b; font-weight: bold; text-align: center;">PURE MEMORY</div>`);
+							dialog.add(`<div class="text center" style="color: #1f626b;">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+						}
+						else if(storage>=12){
+							dialog.add(`<div class="text center" style="color: #7c298d; transform: scaleY(-100%);">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+							dialog.add(`<div style="-webkit-text-stroke: 1px white; color: #7c298d; font-weight: bold; text-align: center;">FULL RECALL</div>`);
+							dialog.add(`<div class="text center" style="color: #7c298d;">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+						}
+						else if(storage>=11){
+							dialog.add(`<div class="text center" style="color: #732136; transform: scaleY(-100%);">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+							dialog.add(`<div style="-webkit-text-stroke: 1px white; color: #732136; font-weight: bold; text-align: center;">TRACK COMPLETE</div>`);
+							dialog.add(`<div class="text center" style="color: #732136;">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+						}
+						else{
+							dialog.add(`<div class="text center" style="color: #732136; transform: scaleY(-100%);">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+							dialog.add(`<div style="-webkit-text-stroke: 1px white; color: #732136; font-weight: bold; text-align: center;">TRACK LOST</div>`);
+							dialog.add(`<div class="text center" style="color: #732136;">▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰ ▰</div>`);
+						}
+					}
+				},
 				dutySkill:true,
 				mod:{
-					suit:(card,suit)=>{
-						if(suit=="spade") return "diamond";
+					suit:card=>{
+						if(card.number>=_status.event.player.storage.ska_wangshi) return "diamond";
 					}
 				},
 				group:"ska_wangshi_achieve",
 				subSkill:{
 					achieve:{
 						trigger:{player:"phaseZhunbeiBegin"},
-						filter:()=>game.filterPlayer2(current=>current.hasAllHistory("custom",evt=>evt.name=="judge")).map(current=>current.getAllHistory("custom",evt=>evt.name=="judge").length).reduce((previousValue,currentValue)=>previousValue+currentValue,0)>=11,
+						filter:(event,player)=>player.storage.ska_wangshi>=11,
 						forced:true,
 						skillAnimation:true,
 						animationColor:"fire",
@@ -2342,6 +2373,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				forced:true,
 				trigger:{source:"damageBegin1"},
 				filter:(event,player)=>event.card&&get.name(event.card)=="sha"&&player.getDamagedHp(),
+				logTarget:"player",
 				content:()=>{
 					trigger.num+=player.getDamagedHp();
 				},
@@ -2954,7 +2986,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_daroach:"怪盗洛切",
 			nnk_decidueye:"狙射树枭",
 			nnk_machamp:"怪力",
-			ska_rabbid_peach:"疯兔桃花公主",
+			ska_rabbid_peach:"疯兔碧姬公主",
 			ska_rabbid_rosalina:"疯兔罗莎塔",
 			ska_tails:"塔尔斯",
 			ska_edge:"刀锋",
@@ -2963,7 +2995,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_professor_toad_ab:"奇诺比奥",
 			ska_king_olly_ab:"奥利",
 			mnm_9_volt_18_volt_ab:"九伏十八伏",
-			ska_rabbid_peach_ab:"疯兔桃花",
+			ska_rabbid_peach_ab:"疯兔碧姬",
 			//Identity mode skill
 			ymk_zhongmi:"忠秘",
 			ymk_zhongmi_info:"你的回合外，当你获得或不因使用或打出而失去牌时，你可以选择一项：1. 令一名其他角色摸X+1张牌；2. 弃置一名其他角色的X+1张牌。（X为你损失的体力值）",
@@ -2972,10 +3004,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_jixing:"激行",
 			ska_jixing_info:"出牌阶段限一次，你可以指定攻击范围内一名角色并判定，若结果不为♦，你对其造成1点伤害，否则你弃置一张牌。",
 			ska_yangxun:"洋寻",
-			ska_yangxun_info:"锁定技，当一名角色的判定牌生效后，若为红色，你将弃牌堆顶的一张牌〖赠予〗一名角色，然后若其不为你，其〖赠予〗你一张牌。",
+			ska_yangxun_info:"锁定技，当一名角色的红色判定牌生效后，你将弃牌堆顶的一张牌〖赠予〗一名角色，然后若其不为你，其〖赠予〗你一张牌。",
 			ska_wangshi:"惘事",
-			ska_wangshi_info:`使命技。你区域内的♠牌和♠判定牌均视为♦。<br>
-				成功：准备阶段，若本局已结算过11次判定，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。`,
+			ska_wangshi_info:`使命技。你区域内点数不小于X的牌均视为♦。<br>
+				成功：准备阶段，若X不小于11，你获得弃牌堆顶两张牌，重铸一张牌，回复体力至体力上限。（X为本局游戏判定事件的数量）`,
 			ska_shenqi:"神祇-",
 			ska_shenqi2:"神祇-",
 			ska_shenqi_info:"一名角色受到伤害后，你可以判定并将判定牌置于仁库中；当你使用牌时，你可以从仁库中获得一张与此牌颜色相同的牌。",
