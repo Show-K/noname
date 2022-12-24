@@ -172,6 +172,7 @@ window.noname_source_list=[
 	'node_modules/ultron/package.json',
 	'node_modules/ultron/test.js',
 	'node_modules/options/package.json',
-	'node_modules/options/lib/options.js'
+	'node_modules/options/lib/options.js',
 	//Rewrite
+	'image/character/sst_alex.png'
 ];

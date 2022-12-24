@@ -83,7 +83,8 @@ window.noname_update={
 		'font/suits.woff2',
 		'mode/huanhuazhizhan.js',
 		'mode/super_smash_tabletop.js',
-		'mode/th_mougong.js'
+		'mode/th_mougong.js',
 		//Rewrite
+		'image/character/sst_alex.png'
 	]
 };
