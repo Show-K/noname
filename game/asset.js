@@ -1373,5 +1373,6 @@ window.noname_skin_list={
 	sst_young_link:1,
 	sst_zelda:1,
 	ymk_577:1,
-	sst_bayonetta:2
+	sst_bayonetta:2,
+	sst_wario:2
 };

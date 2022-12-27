@@ -85,6 +85,7 @@ window.noname_update={
 		'mode/super_smash_tabletop.js',
 		'mode/th_mougong.js',
 		//Rewrite
-		'image/character/sst_alex.png'
+		'image/character/sst_alex.png',
+		'image/character/sst_wario.png'
 	]
 };

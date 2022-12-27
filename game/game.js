@@ -271,7 +271,7 @@
 					},
 					swipe:{
 						name:'滑动手势',
-						init:true,
+						init:false,
 						unfrequent:true,
 						intro:'在非滚动区域向四个方向滑动可执行对应操作',
 					},
@@ -10676,17 +10676,10 @@
 				},
 				judgeCard:()=>{
 					'step 0'
-					if(typeof event.card=='string'){
-						event.card=game.createCard(event.card,'','');
-						event.card._destroy=true;
-						event.card.expired=true;
-					}
-					'step 1'
-					//player.lose(event.card,'visible',ui.ordering);
-					player.$phaseJudge(event.card);
+					player.$phaseJudge(card);
 					event.cancelled=false;
 					event.trigger('judgeCard');
-					event.cardName=event.card.viewAs||event.card.name;
+					event.cardName=card.viewAs||card.name;
 					player.popup(event.cardName,'thunder');
 					if(!lib.card[event.cardName].effect){
 						game.delay();
@@ -10696,15 +10689,23 @@
 						game.delay();
 						event.nojudge=true;
 					}
+					'step 1'
+					if(!event.cancelled&&!event.nojudge) player.judge(card);
 					'step 2'
-					if(!event.cancelled&&!event.nojudge) player.judge(event.card);
-					'step 3'
-					if(event.cancelled&&!event.direct){
+					if(event.excluded){
+						delete event.excluded;
+					}
+					else if(event.cancelled&&!event.direct){
 						if(lib.card[event.cardName].cancel){
-							const next=game.createEvent(event.cardName+'Cancel');
+							const next=game.createEvent(`${event.cardName}Cancel`);
 							next.setContent(lib.card[event.cardName].cancel);
-							next.card=event.card;
-							next.cards=[event.card];
+							next.cards=[card];
+							if(!card.viewAs){
+								next.card=get.autoViewAs(card);
+							}
+							else{
+								next.card=get.autoViewAs({name:event.cardName},next.cards);
+							}
 							next.player=player;
 						}
 					}
@@ -10712,8 +10713,13 @@
 						const next=game.createEvent(event.cardName);
 						next.setContent(lib.card[event.cardName].effect);
 						next._result=result;
-						next.card=event.card;
-						next.cards=[event.card];
+						next.cards=[card];
+						if(!card.viewAs){
+							next.card=get.autoViewAs(card);
+						}
+						else{
+							next.card=get.autoViewAs({name:event.cardName},next.cards);
+						}
 						next.player=player;
 					}
 					ui.clear();
@@ -17943,7 +17949,14 @@
 				judgeCard:function(card){
 					const next=game.createEvent('judgeCard');
 					next.player=this;
-					next.card=card;
+					if(get.itemtype(card)=='card'){
+						next.card=card;
+					}
+					else{
+						next.card=game.createCard(card,'','');
+						next.card._destroy=true;
+						next.card.expired=true;
+					}
 					next.setContent('judgeCard');
 					return next;
 				},

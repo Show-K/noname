@@ -23,7 +23,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			nnk_robin:["","sst_dark",4,["nnk_yuanlei"],[]],
 			nnk_robin_female:["female","sst_dark",4,["nnk_yuanlei"],["unseen"]],
 			nnk_robin_male:["male","sst_dark",4,["nnk_yuanlei"],["unseen"]],
-			alz_yuri_kozukata:["female","sst_spirit","3",["alz_yingjian","alz_qushui"]],
+			alz_yuri_kozukata:["female","sst_spirit",3,["alz_yingjian","alz_qushui"]],
 			ymk_tianyi:["male","sst_reality",4,["ymk_kaibai"],[]],
 			xsj_yu_narukami:["male","sst_spirit",3,["xsj_dongqie","xsj_taluo"],[]],
 			xsj_dante:["male","sst_spirit",4,["xsj_wanxie","xsj_moxue"],[]],
@@ -206,6 +206,26 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				南柯设计的第二个武将，值得一试。`,
+			nnk_robin_female:`武将作者：南柯<br>
+				插图作者：未知<br>
+				<hr>
+				0617. 鲁弗莱（女性）/Robin (Female)/ルフレ（女性）<br>
+				系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>
+				《火焰纹章：觉醒》中的主角，根据选择的性别不同，能够攻略的对象也不一样——比如女鲁弗莱可以攻略库洛姆。她可以切换青铜剑和雷剑进行攻击，在地面或空中输入快弹就可以切换为雷剑，但雷剑使用时也会像魔法书一样消耗耐久。<br>
+				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
+				<hr>
+				南柯设计的第二个武将，值得一试。`,
+			nnk_robin_male:`武将作者：南柯<br>
+				插图作者：未知<br>
+				<hr>
+				0616. 鲁弗莱（男性）/Robin (Male)/ルフレ（男性）<br>
+				系列：<ruby>火焰纹章<rp>（</rp><rt>Fire Emblem</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>火焰纹章 觉醒<rp>（</rp><rt>Fire Emblem Awakening</rt><rp>）</rp></ruby><br>
+				《火焰纹章：觉醒》中的主角，形象和性别可以自定义。根据选择的性别不同，能够攻略的对象也不一样——比如男鲁弗莱可以攻略露琪娜。在大乱斗中，鲁弗莱除了剑术之外，还会使用魔法。魔法书用完之后需要等待恢复。<br>
+				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
+				<hr>
+				南柯设计的第二个武将，值得一试。`,
 			alz_yuri_kozukata:`武将作者：Show-K、Axel_Zhai<br>
 				插图作者：未知<br>
 				<hr>
@@ -334,6 +354,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_koopa_troopa:"从逸不逾",
 			mnm_9_volt_18_volt:"电子幻界",
 			nnk_robin:"卓越的战术师",
+			nnk_robin_female:"卓越的战术师",
+			nnk_robin_male:"卓越的战术师",
 			alz_yuri_kozukata:"濡鸦之巫女",
 			ymk_tianyi:"虚假的废物",
 			xsj_yu_narukami:"钢之妹控番长",
@@ -368,72 +390,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_edge:["sst_mario","sst_luigi","sst_peach","sst_bowser","ska_rabbid_peach","ska_rabbid_rosalina"]
 		},
 		skill:{
-			//System
-			_sst_sex_select:{
-				charlotte:true,
-				superCharlotte:true,
-				trigger:{
-					global:"gameStart",
-					player:["enterGame","showCharacterEnd"]
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2020,
-				filter:(event,player)=>player.sex=="",
-				content:()=>{
-					"step 0"
-					player.chooseControl("male","female").set("prompt","选择性别").set("ai",()=>["male","female"].randomGet());
-					"step 1"
-					player.sex=result.control;
-					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
-					const name=player.name;
-					const differentAvatar=[
-						"sst_corrin",
-						"sst_robin",
-						"nnk_robin",
-						"sst_inkling"
-					];
-					const nameAfter=`${name}_${result.control}`;
-					if(differentAvatar.contains(name)) player.setAvatar(name,nameAfter);
-					game.log(player,"将性别变为了",`#y${get.translation(result.control)}`);
-					const differentGroup={
-						sst_corrin_male:"sst_dark",
-						sst_corrin_female:"sst_light"
-					};
-					const group=differentGroup[nameAfter];
-					if(typeof group=="string") player.changeGroup(group);
-					player.update();
-				}
-			},
-			_sst_group_select:{
-				charlotte:true,
-				superCharlotte:true,
-				trigger:{
-					global:"gameStart",
-					player:["enterGame","showCharacterEnd"]
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2019,
-				filter:(event,player)=>!get.config("no_group")&&player.group=="sst_smash",
-				content:()=>{
-					"step 0"
-					player.chooseControl("sst_light","sst_dark","sst_spirit","sst_reality").set("prompt","选择势力").set("ai",()=>{
-						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
-						return _status.event.controls.randomGet();
-					});
-					"step 1"
-					player.changeGroup(result.control);
-					player.update();
-				}
-			},
-			braces:{
-				intro:{
-					content:"#"
-				}
-			},
 			//SP Isabelle
 			ymk_zhongmi:{
 				trigger:{player:["gainAfter","loseAfter"]},
@@ -538,7 +494,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:(event,player)=>typeof player.storage.ska_wangshi=="number",
 				content:()=>{
 					player.storage.ska_wangshi++;
-					player.updateMarks();
+					if(player.hasSkill("ska_wangshi")) player.markSkill("ska_wangshi");
 				}
 			},
 			ska_jixing:{
@@ -1249,7 +1205,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								if(target.hasSkillTag("nogain")) return 0;
 								return att*Math.max(1,get.value(card,player)-get.value(card,target));
 							}
-							return gifts(ui.selected.cards[0],_status.event.player,target)+get.damageEffect(target,_status.event.player,_status.event.player);
+							return Math.max(gifts(ui.selected.cards[0],_status.event.player,target),get.damageEffect(target,_status.event.player,_status.event.player));
 						},
 						prompt:get.prompt("ska_juegu"),
 						prompt2:get.skillInfoTranslation("ska_juegu")
@@ -2979,6 +2935,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_koopa_troopa:"慢慢龟",
 			mnm_9_volt_18_volt:"SP九伏特＆十八伏特",
 			nnk_robin:"SP鲁弗莱",
+			nnk_robin_female:"SP鲁弗莱",
+			nnk_robin_male:"SP鲁弗莱",
 			alz_yuri_kozukata:"不来方夕莉",
 			ymk_tianyi:"天翊",
 			xsj_yu_narukami:"鸣上悠",
@@ -3046,7 +3004,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			mnm_tianjiu_info:"锁定技，出牌阶段开始时，你须弃置一张手牌或失去1点体力，视为对攻击范围内任意名角色使用一张【杀】。",
 			mnm_yanhai:"炎骸",
 			mnm_yanhai2:"炎骸",
-			mnm_yanhai_info:"觉醒技，若你不是主公，你死亡前，将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为“成为唯一存活者”。",
+			mnm_yanhai_info:`觉醒技，若你不是主公，你死亡前，改为将体力回复至2点，摸三张牌，所有角色视为在你攻击范围内，胜利条件变更为：<span style="font-family: LXGWWenKai">成为唯一存活者</span>。`,
 			alz_wushi:"无式",
 			alz_wushi_info:"当你使用牌指定唯一目标后，你可以与目标角色拼点。若你赢，你可以对其使用X张无视距离的【杀】（X为你与其距离+1）。",
 			alz_huangyao:"荒咬",
@@ -3154,6 +3112,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_koopa_troopa:"Koopa Troopa",
 			mnm_9_volt_18_volt:"SP 9-Volt & 18-Volt",
 			nnk_robin:"SP Robin",
+			nnk_robin_female:"SP Robin",
+			nnk_robin_male:"SP Robin",
 			alz_yuri_kozukata:"Yuri Kozukata",
 			ymk_tianyi:"Tianyi",
 			xsj_yu_narukami:"Yu Narukami",
@@ -3167,5 +3127,44 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_edge:"Edge"
 		}
 	};
+	if(!lib.config.characters.contains("sst_extra")){
+		SST_SP.skill._sst_sex_select={
+			charlotte:true,
+			superCharlotte:true,
+			trigger:{
+				global:"gameStart",
+				player:["enterGame","showCharacterEnd"]
+			},
+			ruleSkill:true,
+			silent:true,
+			firstDo:true,
+			priority:2020,
+			filter:(event,player)=>player.sex=="",
+			content:()=>{
+				"step 0"
+				player.chooseControl("male","female").set("prompt","选择性别").set("ai",()=>["male","female"].randomGet());
+				"step 1"
+				player.sex=result.control;
+				game.broadcast((player,sex)=>player.sex=sex,player,result.control);
+				const name=player.name;
+				const differentAvatar=[
+					"sst_corrin",
+					"sst_robin",
+					"nnk_robin",
+					"sst_inkling"
+				];
+				const nameAfter=`${name}_${result.control}`;
+				if(differentAvatar.contains(name)) player.setAvatar(name,nameAfter);
+				game.log(player,"将性别变为了",`#y${get.translation(result.control)}`);
+				const differentGroup={
+					sst_corrin_male:"sst_dark",
+					sst_corrin_female:"sst_light"
+				};
+				const group=differentGroup[nameAfter];
+				if(typeof group=="string") player.changeGroup(group);
+				player.update();
+			}
+		};
+	}
 	return SST_SP;
 });

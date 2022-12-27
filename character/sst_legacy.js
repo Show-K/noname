@@ -41,19 +41,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			re_yuanshu:["male","sst_smash",4,["rewangzun","retongji"],["unseen"]],
 			//SST
 			//ska_bowser:["male","sst_dark",4,["ska_mengjin"],[]],
-			deprecated_sst_samus:["female","sst_light",4,["deprecated_sst_juezhan","deprecated_sst_zailu"],[]],
-			deprecated_sst_ken:["male","sst_light",4,["deprecated_sst_yanyang","sst_shenglong"],[]],
-			deprecated_ymk_claude:["male","sst_spirit",3,["deprecated_ymk_yunchou","deprecated_ymk_guimou"],[]],
-			deprecated_sst_donkey_kong:["male","sst_light",4,["deprecated_sst_baochui"],[]],
-			deprecated_sst_dark_samus:["female","sst_dark",3,["sst_yingliu","deprecated_sst_shunxing"],[]],
-			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],[]],
-			deprecated_sst_richter:["male","sst_dark",4,["deprecated_sst_shengxi","deprecated_sst_xuelun"],[]],
-			deprecated_sst_ryu:["male","sst_light",4,["deprecated_sst_tandao","sst_bodong"],[]],
-			deprecated_sst_geno:["male","sst_spirit",3,["deprecated_sst_fuyuan","deprecated_sst_doujiang"],[]],
+			deprecated_sst_samus:["female","sst_light",4,["deprecated_sst_juezhan","deprecated_sst_zailu"],["type:shield"]],
+			deprecated_sst_ken:["male","sst_light",4,["deprecated_sst_yanyang","sst_shenglong"],["type:neutral"]],
+			deprecated_ymk_claude:["male","sst_spirit",3,["deprecated_ymk_yunchou","deprecated_ymk_guimou"],["type:grab"]],
+			deprecated_sst_donkey_kong:["male","sst_light",4,["deprecated_sst_baochui"],["type:grab"]],
+			deprecated_sst_dark_samus:["female","sst_dark",3,["sst_yingliu","deprecated_sst_shunxing"],["type:grab"]],
+			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],["type:unknown"]],
+			deprecated_sst_richter:["male","sst_dark",4,["deprecated_sst_shengxi","deprecated_sst_xuelun"],["type:grab"]],
+			deprecated_sst_ryu:["male","sst_light",4,["deprecated_sst_tandao","sst_bodong"],["type:attack"]],
+			deprecated_sst_geno:["male","sst_spirit",3,["deprecated_sst_fuyuan","deprecated_sst_doujiang"],["type:attack"]],
 			deprecated_ska_professor_toad:["male","sst_spirit",3,["deprecated_ska_juegu","deprecated_ska_kuiwang"],[]]
 		},
-		characterFilter:{
-		},
+		characterFilter:{},
 		characterSort:{
 			sst_legacy:{
 				sst_64:["deprecated_sst_samus","deprecated_sst_donkey_kong"],
@@ -250,72 +249,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			deprecated_ska_professor_toad:["ska_professor_toad","sst_mario","ska_olivia"]
 		},
 		skill:{
-			//System
-			_sst_sex_select:{
-				charlotte:true,
-				superCharlotte:true,
-				trigger:{
-					global:"gameStart",
-					player:["enterGame","showCharacterEnd"]
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2020,
-				filter:(event,player)=>player.sex=="",
-				content:()=>{
-					"step 0"
-					player.chooseControl("male","female").set("prompt","选择性别").set("ai",()=>["male","female"].randomGet());
-					"step 1"
-					player.sex=result.control;
-					game.broadcast((player,sex)=>player.sex=sex,player,result.control);
-					const name=player.name;
-					const differentAvatar=[
-						"sst_corrin",
-						"sst_robin",
-						"nnk_robin",
-						"sst_inkling"
-					];
-					const nameAfter=`${name}_${result.control}`;
-					if(differentAvatar.contains(name)) player.setAvatar(name,nameAfter);
-					game.log(player,"将性别变为了",`#y${get.translation(result.control)}`);
-					const differentGroup={
-						sst_corrin_male:"sst_dark",
-						sst_corrin_female:"sst_light"
-					};
-					const group=differentGroup[nameAfter];
-					if(typeof group=="string") player.changeGroup(group);
-					player.update();
-				}
-			},
-			_sst_group_select:{
-				charlotte:true,
-				superCharlotte:true,
-				trigger:{
-					global:'gameStart',
-					player:['enterGame','showCharacterEnd']
-				},
-				ruleSkill:true,
-				silent:true,
-				firstDo:true,
-				priority:2019,
-				filter:(event,player)=>!get.config('no_group')&&player.group=='sst_smash',
-				content:()=>{
-					'step 0'
-					player.chooseControl('sst_light','sst_dark','sst_spirit','sst_reality').set('prompt','选择势力').set('ai',()=>{
-						if(game.zhu&&game.zhu!=_status.event.player&&get.attitude(_status.event.player,game.zhu)>0&&_status.event.controls.contains(game.zhu.group)) return game.zhu.group;
-						return _status.event.controls.randomGet();
-					});
-					'step 1'
-					player.changeGroup(result.control);
-					player.update();
-				}
-			},
-			braces:{
-				intro:{
-					content:'#'
-				}
-			},
 			//LTK
 			xunxun:{
 				audio:2,
@@ -2932,7 +2865,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					}
 					return 0;
 				},
-				line:"thunder",
 				content:function (){
 					"step 0"
 					player.chooseBool("数变：令"+get.translation(target)+"回复1点体力，否则受到你造成的1点伤害").set("ai",function(){
@@ -3045,6 +2977,32 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						content:function(){
 							player.storage.ska_mengjin=[];
 						}
+					}
+				}
+			},
+			deprecated_sst_shuanghan:{
+				trigger:{player:"useCardToPlayer"},
+				filter:(event,player)=>event.target!=player&&event.target.countCards("h")>=player.countCards("h"),
+				check:(event,player)=>{
+					const target=event.target;
+					const eff=get.effect(target,event.card,player,player);
+					if(get.attitude(player,target)>0){
+						if(eff>=0) return false;
+						return true;
+					}
+					if(eff<=0) return true;
+					if(target.countCards("he")<2) return false;
+					if(target.getCards("he").filter(card=>get.value(card)>6).length>=2) return true;
+					return false;
+				},
+				logTarget:"target",
+				content:()=>{
+					"step 0"
+					trigger.getParent().excluded.add(trigger.target);
+					"step 1"
+					if(trigger.player.countDiscardableCards(player,"he")){
+						player.line(trigger.target,"green");
+						player.discardPlayerCard(`霜寒：弃置${get.translation(trigger.target)}两张牌`,"he",trigger.target,2,true);
 					}
 				}
 			},

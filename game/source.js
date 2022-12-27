@@ -174,5 +174,6 @@ window.noname_source_list=[
 	'node_modules/options/package.json',
 	'node_modules/options/lib/options.js',
 	//Rewrite
-	'image/character/sst_alex.png'
+	'image/character/sst_alex.png',
+	'image/character/sst_wario.png'
 ];
