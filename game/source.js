@@ -175,5 +175,12 @@ window.noname_source_list=[
 	'node_modules/options/lib/options.js',
 	//Rewrite
 	'image/character/sst_alex.png',
-	'image/character/sst_wario.png'
+	'image/character/sst_wario.png',
+	'image/character/sst_little_mac.png',
+	'image/character/sst_9_volt_18_volt.png',
+	'image/character/mnm_9_volt_18_volt.png',
+	'image/character/sst_villager.png',
+	'image/character/sst_ryu.png',
+	'image/character/sst_yoshi.png',
+	'image/character/sst_king_k_rool.png'
 ];

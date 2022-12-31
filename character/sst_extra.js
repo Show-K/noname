@@ -8,19 +8,19 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		connect:true,
 		character:{
 			//Soldier
-			shibing1sst_light:["male","sst_light",0,[],["unseen"]],
-			shibing2sst_light:["female","sst_light",0,[],["unseen"]],
-			shibing1sst_dark:["male","sst_dark",0,[],["unseen"]],
-			shibing2sst_dark:["female","sst_dark",0,[],["unseen"]],
-			shibing1sst_spirit:["male","sst_spirit",0,[],["unseen"]],
-			shibing2sst_spirit:["female","sst_spirit",0,[],["unseen"]],
-			shibing1sst_reality:["male","sst_reality",0,[],["unseen"]],
-			shibing2sst_reality:["female","sst_reality",0,[],["unseen"]],
-			shibing1sst_smash:["male","sst_smash",0,[],["unseen"]],
-			shibing2sst_smash:["female","sst_smash",0,[],["unseen"]],
+			shibing1sst_light:["male","sst_light",0,[],["type:neutral","unseen"]],
+			shibing2sst_light:["female","sst_light",0,[],["type:neutral","unseen"]],
+			shibing1sst_dark:["male","sst_dark",0,[],["type:neutral","unseen"]],
+			shibing2sst_dark:["female","sst_dark",0,[],["type:neutral","unseen"]],
+			shibing1sst_spirit:["male","sst_spirit",0,[],["type:neutral","unseen"]],
+			shibing2sst_spirit:["female","sst_spirit",0,[],["type:neutral","unseen"]],
+			shibing1sst_reality:["male","sst_reality",0,[],["type:neutral","unseen"]],
+			shibing2sst_reality:["female","sst_reality",0,[],["type:neutral","unseen"]],
+			shibing1sst_smash:["male","sst_smash",0,[],["type:neutral","unseen"]],
+			shibing2sst_smash:["female","sst_smash",0,[],["type:neutral","unseen"]],
 			//Identity mode character
-			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:unknown"]],
-			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],[]],
+			sst_pyra_mythra:["female","sst_light",3,["sst_xuanyi","sst_fuxin"],["type:attack,shield"]],
+			sst_9_volt_18_volt:["male","sst_spirit",4,["sst_tanfen","sst_sutong"],["type:shield"]],
 			sst_king_dedede:["male","sst_dark",4,["sst_baoshi","sst_wangyan"],["zhu","type:attack"]],
 			sst_corrin:["","sst_smash",2,["sst_juelu","sst_longwei"],["type:shield"]],
 			sst_corrin_female:["female","sst_smash",2,["sst_juelu","sst_longwei"],["type:shield","unseen"]],
@@ -36,10 +36,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_robin_female:["female","sst_dark",3,["sst_zuozhan","sst_junce"],["type:grab","unseen"]],
 			sst_robin_male:["male","sst_dark",3,["sst_zuozhan","sst_junce"],["type:grab","unseen"]],
 			sst_paipai:["male","sst_reality",4,["sst_aoshang","sst_lianxia"],["type:unknown"]],
-			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_zhoudu","sst_mengchen"],[]],
-			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_jifan"],[]],
+			sst_bandana_waddle_dee:["male","sst_spirit",3,["sst_zhoudu","sst_mengchen"],["type:neutral"]],
+			sst_magolor:["male","sst_spirit","1/1/5",["sst_miulu","sst_jifan"],["type:attack"]],
 			sst_roy:["male","sst_light",4,["sst_nuyan"],["type:attack"]],
-			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],[]],
+			sst_sans:["male","sst_spirit",1,["sst_yebao","sst_juexin"],["type:shield"]],
 			sst_r_o_b:["male","sst_dark",5,["sst_yinbao","sst_zhuxin"],["hiddenSkill","type:shield"]],
 			sst_snake:["male","sst_dark",4,["sst_qianlong","sst_dieying"],["hiddenSkill","type:grab"]],
 			sst_sheik:["female","sst_dark",3,["sst_nixing","sst_shouyin","sst_anzong"],["hiddenSkill","type:shield"]],
@@ -47,7 +47,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_inkling_female:["female","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill","type:attack","unseen"]],
 			sst_inkling_male:["male","sst_light",3,["sst_xumo","sst_pentu"],["hiddenSkill","type:attack","unseen"]],
 			sst_wii_fit_trainer:["","sst_light",4,["sst_zuoxi"],["type:shield"]],
-			sst_krystal:["female","sst_spirit",3,["sst_liaoyi","sst_shuanghan"],[]]
+			sst_krystal:["female","sst_spirit",3,["sst_liaoyi","sst_shuanghan"],["type:neutral"]]
 		},
 		characterFilter:{
 			sst_corrin:mode=>mode=="identity"||mode=="th_mougong",
@@ -85,6 +85,16 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>
 				`
 			*/
+			shibing1sst_light:"此角色的武将牌已被移除。",
+			shibing2sst_light:"此角色的武将牌已被移除。",
+			shibing1sst_dark:"此角色的武将牌已被移除。",
+			shibing2sst_dark:"此角色的武将牌已被移除。",
+			shibing1sst_spirit:"此角色的武将牌已被移除。",
+			shibing2sst_spirit:"此角色的武将牌已被移除。",
+			shibing1sst_reality:"此角色的武将牌已被移除。",
+			shibing2sst_reality:"此角色的武将牌已被移除。",
+			shibing1sst_smash:"此角色的武将牌已被移除。",
+			shibing2sst_smash:"此角色的武将牌已被移除。",
 			sst_pyra_mythra:`武将作者：mario not mary<br>
 				插图作者：未知<br>
 				<hr>

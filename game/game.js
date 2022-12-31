@@ -7205,6 +7205,7 @@
 								}
 							}
 						}
+						if(name.indexOf('deprecated_')==0) name=name.slice(11);
 						if(extimage){
 							src=extimage.replace(/ext:/,'extension/');
 						}
@@ -50607,19 +50608,24 @@
 				const characterStats=ui.create.div('.menubg.characterstats',layer);
 				const type=ui.create.div('type',characterStats);
 				ui.create.div('','TYPE',type);
-				ui.create.div('',get.translation(get.characterStat(name,'type')),type);
+				const typeStat=get.characterStat(name,'type');
+				ui.create.div(typeStat[1],get.translation(typeStat[0]),type);
 				const primary=ui.create.div('primary',characterStats);
 				ui.create.div('','PRIMARY',primary);
-				ui.create.div('',get.characterStat(name,'primary'),primary);
+				const primaryStat=get.characterStat(name,'primary');
+				ui.create.div(`.${primaryStat[1]}`,primaryStat[0],primary);
 				const attack=ui.create.div('attack',characterStats);
 				ui.create.div('','ATTACK',attack);
-				ui.create.div('',get.characterStat(name,'attack'),attack);
+				const attackStat=get.characterStat(name,'attack');
+				ui.create.div(`.${attackStat[1]}`,attackStat[0],attack);
 				const defense=ui.create.div('defense',characterStats);
 				ui.create.div('','DEFENSE',defense);
-				ui.create.div('',get.characterStat(name,'defense'),defense);
+				const defenseStat=get.characterStat(name,'defense');
+				ui.create.div(`.${defenseStat[1]}`,defenseStat[0],defense);
 				characterStats.addEventListener(lib.config.touchscreen?'touchend':'click',ui.click.touchpop);
 				const characterFeature=ui.create.div('.menubg.characterfeature',layer);
-				ui.create.div('',get.characterStat(name,'feature'),characterFeature);
+				const featureStat=get.characterStat(name,'feature');
+				ui.create.div(featureStat[1],featureStat[0],characterFeature);
 				characterFeature.addEventListener(lib.config.touchscreen?'touchend':'click',ui.click.touchpop);
 				//SST addition end
 				var uiintro=ui.create.div('.menubg.charactercard',layer);
@@ -54489,6 +54495,7 @@
 					node=node.link;
 				}
 				var capt=get.translation(node.name);
+				if(node.sex&&node.sex.length) capt+=`&nbsp;&nbsp;${node.sex=='none'?'无':get.translation(node.sex)}`;
 				if((lib.character[node.name]&&lib.character[node.name][1])||lib.group.contains(node.group)){
 					capt+='&nbsp;&nbsp;'+(lib.group.contains(node.group)?get.translation(node.group):lib.translate[lib.character[node.name][1]]);
 				}
@@ -55209,20 +55216,22 @@
 			}
 			else if(node.classList.contains('character')){
 				var character=node.link;
+				let str=get.translation(character);
+				if(lib.character[character]&&lib.character[character][0]&&lib.character[character][0].length) str+=`&nbsp;&nbsp;${lib.character[character][0]=='none'?'无':get.translation(lib.character[character][0])}`;
 				if(lib.character[node.link]&&lib.character[node.link][1]){
 					var group=get.is.double(node.link,true);
 					if(group){
-						var str=get.translation(character)+'&nbsp;&nbsp;';
+						str+='&nbsp;&nbsp;';
 						for(var i=0;i<group.length;i++){
 							str+=get.translation(group[i]);
 							if(i<group.length-1) str+='/';
 						}
 						uiintro.add(str);
 					}
-					else uiintro.add(get.translation(character)+'&nbsp;&nbsp;'+lib.translate[lib.character[node.link][1]]);
+					else uiintro.add(str+'&nbsp;&nbsp;'+lib.translate[lib.character[node.link][1]]);
 				}
 				else{
-					uiintro.add(get.translation(character));
+					uiintro.add(str);
 				}
 
 				if(lib.characterTitle[node.link]){
@@ -56294,21 +56303,29 @@
 		 * Get character stat
 		 * @param {string} name 
 		 * @param {string} key 
-		 * @return {string} 
+		 * @return {string[]} 
 		 */
 		characterStat:(name,key)=>{
 			if(name&&lib.character[name]&&lib.character[name][4]){
 				for(const i of lib.character[name][4]){
 					if(i.indexOf(`${key}:`)==0) {
 						const value=i.split(':')[1].split(',');
-						if(value.length<=1) return value[0];
+						if(key=='type') return [value.map(i=>get.translation(i)).join('/'),''];
 						if(key=='primary'||key=='attack'||key=='defense'){
-							if(value.length>=3) return `${value[0]}<div${value.slice(1,-1).length>1?' data-type="discrete"':''}><span>${value.slice(1,-1).join(' ')}</span></div>${value[value.length-1]}`;
+							if(value.length>=3) return [`${value[0]}<div${value.slice(1,-1).length>1?' data-type="discrete"':''}><span>${value.slice(1,-1).join(' ')}</span></div>${value[value.length-1]}`,''];
+							if(value.length==2){
+								if(value[1]=='average') return [`${value[0]}\u0305`,''];
+							}
 						}
+						while(value.length<2){
+							value.push('');
+						}
+						if(key=='feature'&&value[0].length>40) value[1]='.smallfont';
+						return value;
 					}
 				}
 			}
-			return '⸻';
+			return ['⸻',''];
 		}
 		//SST addition end
 	};

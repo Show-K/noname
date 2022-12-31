@@ -43,14 +43,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//ska_bowser:["male","sst_dark",4,["ska_mengjin"],[]],
 			deprecated_sst_samus:["female","sst_light",4,["deprecated_sst_juezhan","deprecated_sst_zailu"],["type:shield"]],
 			deprecated_sst_ken:["male","sst_light",4,["deprecated_sst_yanyang","sst_shenglong"],["type:neutral"]],
-			deprecated_ymk_claude:["male","sst_spirit",3,["deprecated_ymk_yunchou","deprecated_ymk_guimou"],["type:grab"]],
+			deprecated_sst_claude:["male","sst_spirit",3,["deprecated_ymk_yunchou","deprecated_ymk_guimou"],["type:grab"]],
 			deprecated_sst_donkey_kong:["male","sst_light",4,["deprecated_sst_baochui"],["type:grab"]],
 			deprecated_sst_dark_samus:["female","sst_dark",3,["sst_yingliu","deprecated_sst_shunxing"],["type:grab"]],
 			ymk_577:["male","sst_reality",3,["ymk_jiagou","ymk_jicai"],["type:unknown"]],
 			deprecated_sst_richter:["male","sst_dark",4,["deprecated_sst_shengxi","deprecated_sst_xuelun"],["type:grab"]],
 			deprecated_sst_ryu:["male","sst_light",4,["deprecated_sst_tandao","sst_bodong"],["type:attack"]],
 			deprecated_sst_geno:["male","sst_spirit",3,["deprecated_sst_fuyuan","deprecated_sst_doujiang"],["type:attack"]],
-			deprecated_ska_professor_toad:["male","sst_spirit",3,["deprecated_ska_juegu","deprecated_ska_kuiwang"],[]]
+			deprecated_ska_professor_toad:["male","sst_spirit",3,["deprecated_ska_juegu","deprecated_ska_kuiwang"],["type:grab"]]
 		},
 		characterFilter:{},
 		characterSort:{
@@ -63,7 +63,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				sst_spirits:["deprecated_sst_geno"],
 				sst_players:[],
 				sst_ska:["deprecated_ska_professor_toad"],
-				sst_ymk:["deprecated_ymk_claude","ymk_577"],
+				sst_ymk:["deprecated_sst_claude","ymk_577"],
 			},
 		},
 		characterIntro:{
@@ -135,7 +135,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>\
 				<hr>\
 				我准备好了，来吧。",
-			deprecated_ymk_claude:"武将作者：Yumikohimi<br>\
+			deprecated_sst_claude:"武将作者：Yumikohimi<br>\
 				插图作者：未知<br>\
 				<hr>\
 				1386. 库罗德/Claude/クロード<br>\
@@ -214,7 +214,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		characterTitle:{
 			deprecated_sst_samus:"银河战士",
 			deprecated_sst_ken:"红莲格斗王",
-			deprecated_ymk_claude:"连系世界之王",
+			deprecated_sst_claude:"连系世界之王",
 			deprecated_sst_donkey_kong:"丛林的王者",
 			deprecated_sst_dark_samus:"暗流涌动",
 			ymk_577:"生电妙手",
@@ -241,7 +241,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ganning:["lingtong","xf_sufei"],
 			//SST
 			deprecated_sst_ken:["sst_ken","sst_ryu","deprecated_sst_ryu"],
-			deprecated_ymk_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
+			deprecated_sst_claude:["sst_claude","sst_byleth_male","sst_byleth_female"],
 			deprecated_sst_donkey_kong:["sst_donkey_kong","sst_mario"],
 			deprecated_sst_richter:["sst_richter","sst_simon"],
 			deprecated_sst_ryu:["sst_ryu","sst_ken"],
@@ -4691,7 +4691,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Character
 			deprecated_sst_samus:"旧萨姆斯",
 			deprecated_sst_ken:"旧肯",
-			deprecated_ymk_claude:"旧库罗德",
+			deprecated_sst_claude:"旧库罗德",
 			deprecated_sst_donkey_kong:"旧咚奇刚",
 			deprecated_sst_dark_samus:"旧黑暗萨姆斯",
 			ymk_577:"方块君",
@@ -4765,7 +4765,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		translateEnglish:{
 			deprecated_sst_samus:"Deprecated Samus",
 			deprecated_sst_ken:"Deprecated Ken",
-			deprecated_ymk_claude:"Deprecated Claude",
+			deprecated_sst_claude:"Deprecated Claude",
 			deprecated_sst_donkey_kong:"Deprecated Donkey Kong",
 			deprecated_sst_dark_samus:"Deprecated Dark Samus",
 			ymk_577:"577",

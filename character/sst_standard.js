@@ -22,8 +22,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_luigi:["male","sst_light",4,["sst_que","sst_guiyun"],["type:grab","primary:4.2","attack:1.4","defense:1.2"]],
 			sst_bowser:["male","sst_dark",5,["sst_xiduo","sst_xiongao","sst_yujun"],["zhu","type:neutral","primary:20","attack:1,0.25,2","defense:1,0.25,2"]],
 			sst_peach:["female","sst_light",3,["sst_hongyan","sst_yice","sst_qiuyuan"],["zhu","type:grab"]],
-			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],["type:unknown"]],
-			sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],["type:unknown"]],
+			sst_byleth_female:["female","sst_light",3,["sst_potian","sst_shenjiao"],["type:attack"]],
+			sst_byleth_male:["male","sst_light",4,["sst_yanchuan","sst_tianmai"],["type:attack"]],
 			sst_massy:["male","sst_reality",5,["sst_shenfa","sst_shenwu"],["type:unknown"]],
 			sst_samus:["female","sst_light",4,["sst_qiongtu","sst_juezhan"],["type:shield"]],
 			sst_ridley:["male","sst_dark",5,["sst_baozheng","sst_furan"],["type:attack"]],
@@ -32,11 +32,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_mario_not_mary:["male","sst_reality",5,["sst_qixiao","sst_xuansha"],["type:unknown"]],
 			sst_yumikohimi:["female","sst_reality",3,["sst_yingji","sst_huxiao"],["type:unknown"]],
 			sst_haine:["male","sst_reality",3,["sst_yiqing","sst_mingxi"],["type:unknown"]],
-			sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],["type:unknown"]],
+			sst_terry:["male","sst_light",4,["sst_elang","sst_paoxiao"],["type:attack"]],
 			sst_simon:["male","sst_dark",4,["sst_shengfa","sst_shengbian"],["type:grab"]],
 			sst_incineroar:["male","sst_dark",4,["sst_weihe","sst_fuchou"],["type:attack"]],
 			sst_greninja:["male","sst_dark",3,["sst_huanbian","sst_yingxi"],["type:shield"]],
-			sst_kirby:["male","sst_light",3,["sst_qushi","sst_xinghuo"],["type:unknown","primary:1","attack:1","defense:1"]],
+			sst_kirby:["male","sst_light",3,["sst_qushi","sst_xinghuo"],["type:unknown","primary:?,average","attack:?,average","defense:?,average"]],
 			sst_king_k_rool:["male","sst_dark",4,["sst_badao","sst_jinjia"],["type:attack"]],
 			sst_donkey_kong:["male","sst_light",4,["sst_baochui"],["type:grab"]],
 			sst_richter:["male","sst_dark",4,["sst_xuelun","sst_shengxi"],["type:grab"]],
@@ -47,7 +47,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_little_mac:["male","sst_light",2,["sst_douhun","sst_juejing"],["type:attack"]],
 			sst_oc:["male","sst_reality",4,["sst_baling"],["type:unknown"]],
 			sst_mr_8:["male","sst_reality",3,["sst_yingzi","sst_geliao"],["type:unknown"]],
-			sst_dark_link:["male","sst_spirit",4,["sst_jingyue"],[]],
+			sst_dark_link:["male","sst_spirit",4,["sst_jingyue"],["type:shield"]],
 			sst_kyuukou:["male","sst_reality",4,["sst_jianxiang","sst_baochao"],["type:unknown"]],
 			sst_windier:["female","sst_reality",3,["sst_chixing","sst_chuanxiao"],["type:unknown"]],
 			sst_rentianshu:["male","sst_reality",4,["sst_jilve","sst_yuanchuan"],["type:unknown"]],
@@ -56,47 +56,47 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_koopalings:["double","sst_dark",7,["sst_shimo","sst_qiebao","sst_duzhi"],["type:grab"]],
 			sst_ryu:["male","sst_light",4,["sst_tandao","sst_bodong"],["type:attack"]],
 			sst_ken:["male","sst_light",4,["sst_yanyang","sst_shenglong"],["type:neutral"]],
-			sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],[]],
-			sst_master_hand:["male","sst_spirit",4,["sst_zhuzai","sst_zhixu"],["zhu"]],
+			sst_waluigi:["male","sst_spirit",4,["sst_zhamou"],["type:neutral"]],
+			sst_master_hand:["male","sst_spirit",4,["sst_zhuzai","sst_zhixu"],["zhu","type:neutral"]],
 			sst_ike:["male","sst_light",4,["sst_tugu"],["type:attack"]],
 			sst_miumiu:["female","sst_reality",3,["sst_qichang","sst_shizhu"],["type:unknown"]],
 			sst_toon_link:["male","sst_light",4,["sst_yufeng","sst_chihang"],["type:attack"]],
 			sst_wolf:["male","sst_dark",4,["sst_xishou"],["type:attack"]],
 			sst_young_link:["male","sst_dark",3,["sst_shishi","sst_jiamian"],["type:grab"]],
-			sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["unseen"]],
-			sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],[]],
-			sst_joker:["male","sst_dark",3,["sst_daoxin","sst_fanni"],["type:unknown"]],
-			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],[]],
-			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],[]],
+			sst_ocarina_of_time_link:["male","sst_light",4,["sst_shisu","sst_yongfeng"],["type:grab","unseen"]],
+			sst_spring_man:["male","sst_spirit",4,["sst_shenbi","sst_lanbo"],["type:neutral"]],
+			sst_joker:["male","sst_dark",3,["sst_daoxin","sst_fanni"],["type:grab"]],
+			sst_rex:["male","sst_spirit",3,["sst_qianban","sst_tanyun"],["type:shield"]],
+			sst_cuphead_mugman:["male","sst_spirit",3,["sst_zhuizhai","sst_fanfei"],["type:attack"]],
 			sst_mega_man:["male","sst_light",4,["sst_guangpao","sst_tewu"],["type:shield"]],
 			sst_captain_falcon:["male","sst_light",4,["sst_jijing"],["type:attack"]],
 			sst_jigglypuff:["female","sst_light",3,["sst_yinyao","sst_anke"],["type:shield"]],
 			sst_lucario:["male","sst_dark",4,["sst_bodao","sst_juyuan"],["type:attack"]],
 			sst_pichu:["double","sst_light","2/3",["sst_tieyan","sst_gaoya"],["type:attack"]],
-			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:unknown","primary:20","attack:1,0,0,0,0.5,1.5","defense:1"]],
-			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu"]],
+			sst_steve:["male","sst_light",4,["sst_tankuang"],["type:grab","primary:20","attack:1,0,0,0,0.5,1.5","defense:1"]],
+			sst_ma:["male","sst_reality",4,["sst_fumiao","sst_huayu"],["zhu","type:unknown"]],
 			sst_feiji:["male","sst_reality",4,["sst_xuhuang"],["type:unknown"]],
 			sst_sonic:["male","sst_light",4,["sst_jibu","sst_juechen"],["type:attack"]],
-			sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],["type:unknown"]],
+			sst_hero:["male","sst_light",4,["sst_songmo","sst_yonghun"],["type:attack"]],
 			sst_fox:["male","sst_light",4,["sst_powei"],["type:shield"]],
-			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],["type:unknown","primary:20","attack:1","defense:4"]],
-			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],[]],
+			sst_alex:["female","sst_light",3,["sst_qiaoqi","sst_fumo"],["type:grab","primary:20","attack:1","defense:1","feature:若你的装备区内有武器牌，你的攻击+X（X为此牌的攻击范围）；你的装备区内每有一张非武器牌，你的防御+1。"]],
+			sst_min_min:["female","sst_light",3,["sst_longbo","sst_fengcu"],["type:attack"]],
 			sst_pikachu:["double","sst_light",3,["sst_fulei","sst_duoshan"],["type:attack"]],
 			sst_falco:["male","sst_light",4,["sst_juao"],["type:attack"]],
-			sst_enderman:["none","sst_dark",2,["sst_lingying","sst_fankui","sst_xiangzhu"],[]],
-			sst_sephiroth:["male","sst_dark",5,["sst_fenshi","sst_xingduo"],[]],
+			sst_enderman:["none","sst_dark",2,["sst_lingying","sst_fankui","sst_xiangzhu"],["type:neutral","primary:40","attack:7","defense:1"]],
+			sst_sephiroth:["male","sst_dark",5,["sst_fenshi","sst_xingduo"],["type:attack"]],
 			sst_pokemon_trainer_leaf:["female","sst_light",3,["sst_jiliu"],["type:attack"]],
-			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],[]],
-			sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],[]],
-			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],[]],
-			sst_kazuya:["male","sst_dark",5,["sst_chouyu","sst_xuehai"],["type:unknown"]],
-			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],[]],
-			sst_sora:["male","sst_light",4,["sst_qixin","sst_gongcun"],["type:unknown"]],
+			sst_kyo_kusanagi:["male","sst_spirit",4,["sst_congyun","sst_fuzhuo"],["type:attack"]],
+			sst_pauline:["female","sst_spirit",3,["sst_shangzheng","sst_yinyuan"],["type:shield"]],
+			sst_dr_wily:["male","sst_spirit",3,["sst_zaowu","sst_fuqi"],["type:attack"]],
+			sst_kazuya:["male","sst_dark",5,["sst_chouyu","sst_xuehai"],["type:attack"]],
+			sst_kraid:["male","sst_spirit",8,["sst_yintong","sst_gukui"],["type:neutral"]],
+			sst_sora:["male","sst_light",4,["sst_qixin","sst_gongcun"],["type:neutral"]],
 			sst_pac_man:["male","sst_light",3,["sst_jichang"],["type:grab"]],
 			sst_mewtwo:["none","sst_dark",3,["sst_xiongli","sst_nixi"],["type:grab"]],
 			sst_olimar:["male","sst_light",3,["sst_liedui","sst_chunni"],["type:grab"]],
-			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu"]],
-			sst_piranha_plant:["none","sst_dark",4,["sst_tunshi","sst_yangfen"],["type:unknown"]],
+			sst_marioraz:["male","sst_reality",2,["sst_buxi","sst_litu","sst_zihua"],["zhu","type:unknown"]],
+			sst_piranha_plant:["none","sst_dark",4,["sst_tunshi","sst_yangfen"],["type:grab"]],
 			sst_bayonetta:["female","sst_dark",3,["sst_qiangyi","sst_moke"],["type:shield"]]
 		},
 		characterFilter:{},
@@ -601,7 +601,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>
 				摇身一变就和酷霸王没有血缘关系了。`,
 			sst_ryu:`武将作者：mario not mary<br>
-				插图作者：未知<br>
+				插图作者：隆叔_karate<br>
 				<hr>
 				0977. 隆/Ryu/リュウ<br>
 				系列：<ruby>街头霸王<rp>（</rp><rt>Street Fighter</rt><rp>）</rp></ruby><br>
@@ -2124,10 +2124,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//Rosalina
 			sst_xingchen:{
 				trigger:{player:"loseBefore"},
-				filter:event=>{
+				filter:(event,player)=>{
 					if(event.getParent().name!="discard") return false;
 					for(const card of event.cards){
-						if(event.player.hasCard(i=>i==card,"h")) return true;
+						if(player.hasCard(i=>i==card,"h")) return true;
 					}
 					return false;
 				},
@@ -2139,7 +2139,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				check:(event,player)=>game.hasPlayer(current=>current!=player&&get.attitude(player,current)>0),
 				content:()=>{
 					"step 0"
-					event.cards=trigger.cards.filter(card=>trigger.player.hasCard(i=>i==card,"h"));
+					event.cards=trigger.cards.filter(card=>player.hasCard(i=>i==card,"h"));
 					"step 1"
 					if(cards.length>1){
 						player.chooseCardButton("星尘：你可以将牌分配给其他角色",cards,[1,cards.length]).set("ai",()=>{
@@ -2852,18 +2852,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				}
 			},
 			sst_shenjiao:{
-				trigger:{player:"loseEnd"},
-				filter:event=>{
+				trigger:{player:"loseBefore"},
+				filter:(event,player)=>{
 					if(event.getParent().skill!="_chongzhu") return false;
-					for(const i of event.cards2){
-						if(get.position(i,true)=="d") return true;
+					for(const card of event.cards){
+						if(player.hasCard(i=>i==card,"he")) return true;
 					}
 					return false;
 				},
 				direct:true,
 				content:()=>{
 					"step 0"
-					event.cards=trigger.cards2.filter(card=>get.position(card,true)=="d");
+					event.cards=trigger.cards.filter(card=>player.hasCard(i=>i==card,"he"));
 					let str=`你可以将${get.translation(event.cards)}交给一名其他角色`;
 					if(trigger.getParent(2).name=="sst_potian") str+="，然后你令该角色于其下一个回合内拥有【破天】";
 					player.chooseTarget(get.prompt("sst_shenjiao"),str,lib.filter.notMe).set("ai",target=>get.attitude(_status.event.player,target));
@@ -2877,7 +2877,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						event.finish();
 					}
 					"step 2"
-					if(trigger.getParent(2).name=="sst_potian") target.addTempSkill("sst_shenjiao_effect",{player:"phaseBeginStart"});
+					if(trigger.getParent(2).name=="sst_potian"){
+						target.addTempSkill("sst_shenjiao_effect",{player:"phaseBeginStart"});
+						game.log(player,"令",target,"于其下一个回合内拥有","#g【破天】");
+					}
 				},
 				ai:{
 					expose:0.2
@@ -2967,7 +2970,6 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								_status.event.finish();
 								_status.event.untrigger(true);
 								game.broadcastAll(ui.clear);
-								_status.roundStart=player;
 								_status.roundSkipped=true;
 								const phaseLoop=phase.getParent("phaseLoop");
 								if(phaseLoop&&phaseLoop.name=="phaseLoop"){
@@ -5941,8 +5943,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						const controls=["选项一"];
 						if(trigger.player.countCards("he",card=>lib.filter.cardDiscardable(card,trigger.player))>=2) controls.push("选项二");
 						player.chooseControl(controls).set("choiceList",[
-							`摸${get.cnNumber(event.num)}张牌`,
-							`弃置${get.cnNumber(event.num)}张牌`
+							`${get.translation(event.target)}摸${get.cnNumber(event.num)}张牌`,
+							`${get.translation(event.target)}弃置${get.cnNumber(event.num)}张牌`
 						]).set("ai",()=>get.attitude(player,_status.event.getParent().target)>0?0:1).set("prompt","施魔：选择一项");
 					}
 					else{
@@ -6606,12 +6608,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				mod:{
 					suit:(card,suit)=>{
 						const player=_status.event.player;
-						const color=suit=>{
-							if(["spade","club"].contains(suit)) return "black";
-							if(["heart","diamond"].contains(suit)) return "red";
-							return "none";
+						if(get.itemtype(player)=="player"){
+							const color=suit=>{
+								if(["spade","club"].contains(suit)) return "black";
+								if(["heart","diamond"].contains(suit)) return "red";
+								return "none";
+							};
+							if(player.storage.sst_yufeng_effect&&color(suit)==color(player.storage.sst_yufeng_effect)) return player.storage.sst_yufeng_effect;
 						}
-						if(player.storage.sst_yufeng_effect&&color(suit)==color(player.storage.sst_yufeng_effect)) return player.storage.sst_yufeng_effect;
 					}
 				}
 			},
@@ -8349,6 +8353,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_juechen2:{
 				trigger:{player:"useCard2"},
 				filter:(event,player)=>{
+					if(_status.currentPhase==player&&player.hasSkill("sst_juechen")) return false;
 					if(get.type(event.card)!="basic"&&get.type(event.card)!="trick") return false;
 					return game.hasPlayer(current=>!event.targets.contains(current)&&lib.filter.targetEnabled2(event.card,event.player,current)&&current.hasSkill("sst_phase_pass")&&_status.currentPhase!=current&&current.hasSkill("sst_juechen"));
 				},
@@ -9610,8 +9615,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_menghuo:{
 				forced:true,
 				trigger:{source:"damageBegin2"},
+				filter:event=>event.nature!="fire",
 				content:()=>{
-					trigger.nature="fire"
+					trigger.nature="fire";
 				},
 				group:["sst_menghuo2","sst_menghuo3"]
 			},

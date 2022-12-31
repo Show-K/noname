@@ -3049,19 +3049,20 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				'sst_wario','sst_ganondorf','sst_bowser','sst_ridley','sst_dark_samus','sst_mr_game_watch',
 				'sst_simon','sst_incineroar','sst_greninja','sst_king_k_rool','sst_richter','sst_meta_knight',
 				'sst_bowser_jr','sst_koopalings','sst_wolf','sst_young_link','sst_joker',
-				'sst_lucario','sst_king_dedede','sst_enderman','sst_sephiroth','sst_kazuya',
-				'sst_piranha_plant',
+				'sst_lucario','sst_enderman','sst_sephiroth','sst_kazuya','sst_mewtwo',
+				'sst_piranha_plant','sst_bayonetta',
 				//----------------
+				'sst_king_dedede',
 				'sst_snake','sst_sheik',
 				'sst_robin',
 				"sst_r_o_b"
 			],
 			sst_spirit:[
 				'sst_dark_link','sst_waluigi','sst_master_hand','sst_spring_man','sst_rex',
-				'sst_cuphead_mugman','sst_krystal','sst_kyo_kusanagi','sst_pauline','sst_dr_wily',
+				'sst_cuphead_mugman','sst_kyo_kusanagi','sst_pauline','sst_dr_wily',
 				'sst_kraid',
 				//----------------
-				'sst_9_volt_18_volt',
+				'sst_9_volt_18_volt','sst_krystal',
 				'sst_geno',
 				'sst_bandana_waddle_dee','sst_sans',
 				'sst_magolor'
@@ -3073,6 +3074,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				//----------------
 				"sst_paipai"
 			],
+			sst_smash:[
+				'sst_mii_fighters'
+			]
 		},
 		online_cardPile:[
 			['spade',1,'guding'],

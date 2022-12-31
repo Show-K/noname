@@ -208,17 +208,20 @@
 	-webkit-animation: dialog_start2 0.3s;
 	display: flex;
 	font-size: 24px;
-	height: 72px;
 	justify-content: space-evenly;
 	left: calc(50% - 250px);
 	line-height: 24px;
-	width: 500px;
 }
 .menubg.characterstats{
+	height: 72px;
 	top: calc(50% - 232px);
+	width: 500px;
 }
 .menubg.characterfeature{
 	bottom: calc(50% - 232px);
+	height: 56px;
+	padding: 8px;
+	width: 484px;
 }
 .menubg.characterstats>div{
 	align-items: center;
@@ -247,6 +250,10 @@
 	font-size: 12px;
 	padding-left: 4px;
 	padding-right: 4px;
+}
+.menubg.characterfeature>div.smallfont{
+	font-size: 16px;
+	line-height: initial;
 }
 /*SST addition end*/
 .menubg.charactercard>.menubutton.large.ava{

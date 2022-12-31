@@ -1081,7 +1081,9 @@ window.noname_asset_list=[
 	'extension/十周年UI/image/decoration/identity_nei.png',
 	'extension/十周年UI/image/decoration/identity_nongmin.png',
 	'extension/十周年UI/image/decoration/identity_zhong.png',
+	'extension/十周年UI/image/decoration/identity_zhong_blue.png',
 	'extension/十周年UI/image/decoration/identity_zhu.png',
+	'extension/十周年UI/image/decoration/identity_zhu_blue.png',
 	'extension/十周年UI/image/decoration/name_sst_dark.png',
 	'extension/十周年UI/image/decoration/name_sst_light.png',
 	'extension/十周年UI/image/decoration/name_sst_reality.png',
@@ -1374,5 +1376,6 @@ window.noname_skin_list={
 	sst_zelda:1,
 	ymk_577:1,
 	sst_bayonetta:2,
-	sst_wario:2
+	sst_wario:2,
+	sst_little_mac:1
 };
