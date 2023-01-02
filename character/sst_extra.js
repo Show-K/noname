@@ -52,11 +52,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 		characterFilter:{
 			sst_corrin:mode=>mode=="identity"||mode=="th_mougong",
 			sst_corrin_female:mode=>mode=="identity"||mode=="th_mougong",
-			sst_corrin_male:mode=>mode=="identity"||mode=="th_mougong",
-			sst_claude:()=>{
-				if(_status.connectMode) return lib.configOL.cardPack.contains("yingbian");
-				return lib.config.cards.contains("yingbian");
-			}
+			sst_corrin_male:mode=>mode=="identity"||mode=="th_mougong"
 		},
 		characterSort:{
 			sst_extra:{
@@ -192,7 +188,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				——封羽翎烈，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
 				可能只有玩过灯火之星的人才知道Mii斗士有默认配置。`,
-			sst_claude:`武将作者：mario not mary、Yumikohimi<br>
+			sst_claude:`武将作者：Show-K、mario not mary、Yumikohimi<br>
 				插图作者：井塚大介<br>
 				——《TCG火焰纹章<ruby>0<rp>（</rp><rt>Cipher</rt><rp>）</rp></ruby>》<br>
 				<hr>
@@ -786,7 +782,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			sst_fuxin_effect:{
 				init:player=>{
-					if(Array.isArray(player.storage.sst_fuxin_effect)) player.storage.sst_fuxin_effect=[];
+					if(!Array.isArray(player.storage.sst_fuxin_effect)) player.storage.sst_fuxin_effect=[];
 				},
 				trigger:{player:"phaseZhunbeiBegin"},
 				filter:(event,player)=>player.storage.sst_fuxin_effect.length&&!player.hasCard(card=>player.storage.sst_fuxin_effect.contains(card),"hej"),
@@ -1126,11 +1122,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_yunchou:{
 				frequent:true,
 				trigger:{player:"useCardBegin"},
-				filter:event=>get.is.yingbian(event.card),
+				filter:event=>get.is.yingbian(event.card)||(Array.isArray(event.card.cardtags)&&event.card.cardtags.some(i=>i.indexOf("yingbian_")==0)),
 				content:()=>{
-					const list=["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"];
-					if(!trigger.card.cardtags) trigger.card.cardtags=[];
-					trigger.card.cardtags.addArray(list);
+					if(!Array.isArray(trigger.card.cardtags)) trigger.card.cardtags=[];
+					trigger.card.cardtags.addArray(["yingbian_kongchao","yingbian_canqu","yingbian_fujia","yingbian_zhuzhan"]);
+					game.broadcast((card,cardtags)=>card.cardtags=cardtags,trigger.card,trigger.card.cardtags);
 				},
 				ai:{
 					effect:{
@@ -1144,60 +1140,25 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				usable:1,
 				direct:true,
 				trigger:{player:"useCardBegin"},
-				filter:event=>get.is.yingbian(event.card),
+				filter:event=>{
+					const name=get.name(event.card);
+					return lib.card[name]&&Array.isArray(lib.card[name].yingbian_tags)&&lib.card[name].yingbian_tags.filter(i=>!get.cardtag(event.card,`yingbian_${i}`)).length;
+				},
 				content:()=>{
 					"step 0"
-					const list=lib.card[get.name(trigger.card)].yingbian_tags.slice(0).map(i=>`yingbian_${i}_tag`);
-					player.chooseControl(list,"cancel2").set("ai",()=>{
-						const list=_status.event.controls;
-						const card=_status.event.getTrigger().card;
-						const choices=["yingbian_all_tag","yingbian_damage_tag","yingbian_hit_tag","yingbian_draw_tag","yingbian_gain_tag","yingbian_add_tag","yingbian_remove_tag"];
-						for(const i of choices){
-							if(_status.cardtag&&_status.cardtag[i.slice(0,-4)]&&_status.cardtag[i.slice(0,-4)].contains(card.cardid)) return "cancel2";
-							if(list.contains(i)) return i;
-						}
-						return "cancel2";
-					}).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.translation("sst_guimou_info"));
+					player.chooseControl(lib.card[get.name(trigger.card)].yingbian_tags.filter(i=>!get.cardtag(trigger.card,`yingbian_${i}`)).map(i=>`yingbian_${i}_tag`),"cancel2").set("ai",()=>_status.event.controls.slice(0,-1).randomGet()).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.skillInfoTranslation("sst_guimou"));
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
 						player.logSkill("sst_guimou");
-						if(!_status.cardtag) _status.cardtag={};
-						const cardtag=[];
-						["yingbian_add","yingbian_remove","yingbian_draw","yingbian_all","yingbian_hit","yingbian_gain","yingbian_damage"].forEach(i=>{
-							if(!_status.cardtag[i]) _status.cardtag[i]=[];
-							if(_status.cardtag[i].contains(trigger.card.cardid)){
-								_status.cardtag[i].remove(trigger.card.cardid);
-								cardtag.push(i);
-							}
-						});
-						_status.cardtag[result.control.slice(0,-4)].add(trigger.card.cardid);
-						game.broadcastAll(cardtag=>_status.cardtag=cardtag,_status.cardtag);
+						if(!Array.isArray(trigger.card.cardtags)) trigger.card.cardtags=[];
+						trigger.card.cardtags.add(result.control.slice(0,-4));
+						game.broadcast((card,cardtags)=>card.cardtags=cardtags,trigger.card,trigger.card.cardtags);
 						player.popup(result.control,"wood");
 						game.log(player,"指定此牌的应变效果为",`#y${result.control}`);
-						const evt=event.getParent("useCard");
-						if(evt&&evt.name=="useCard"){
-							const next=game.createEvent("sst_guimou_clear");
-							event.next.remove(next);
-							evt.after.push(next);
-							next.player=player;
-							next.card=trigger.card;
-							next.cardtag=cardtag;
-							next.cardtag_temp=result.control.slice(0,-4);
-							next.setContent(lib.skill.sst_guimou.contentx);
-						}
 					}
 					else{
 						player.storage.counttrigger[event.name]--;
 					}
-				},
-				contentx:()=>{
-					if(!_status.cardtag) _status.cardtag={};
-					["yingbian_add","yingbian_remove","yingbian_draw","yingbian_all","yingbian_hit","yingbian_gain","yingbian_damage"].forEach(i=>{
-						if(!_status.cardtag[i]) _status.cardtag[i]=[];
-					});
-					_status.cardtag[event.cardtag_temp].remove(card.cardid);
-					event.cardtag.forEach(i=>_status.cardtag[i].add(card.cardid));
-					game.broadcastAll(cardtag=>_status.cardtag=cardtag,_status.cardtag);
 				}
 			},
 			//Geno
@@ -1789,6 +1750,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				firstDo:true,
 				trigger:{global:"loseAfter"},
 				filter:event=>{
+					if(!event.player.isIn()) return false;
 					if(event.player.countCards("h")) return false;
 					return event.hs&&event.hs.length>0;
 				},
@@ -1897,90 +1859,106 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			},
 			//派派
 			sst_aoshang:{
-				init:player=>{
+				init:()=>{
 					if(!_status.sst_aoshang){
-						_status.sst_aoshang=true;
-						game.broadcastAll(()=>{
-							lib.inpile.forEach(i=>{
-								const info=lib.card[i];
-								if(!info.backup_yingbian_prompt){
-									info.backup_yingbian_prompt=card=>{
-										let str="";
-										if(get.cardtag(card,"yingbian_gain")) str+="当你声明使用此牌时，你获得此牌响应的目标牌";
-										if(get.cardtag(card,"yingbian_hit")){
-											if(str.length) str+="；";
-											str+="此牌不可被响应";
-										}
-										if(get.cardtag(card,"yingbian_all")){
-											if(str.length) str+="；";
-											str+="此牌的效果改为依次执行所有选项";
-										}
-										if(get.cardtag(card,"yingbian_draw")){
-											if(str.length) str+="；";
-											str+="当你声明使用此牌时，你摸一张牌";
-										}
-										if(get.cardtag(card,"yingbian_remove")){
-											if(str.length) str+="；";
-											str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
-										}
-										if(get.cardtag(card,"yingbian_add")){
-											if(str.length) str+="；";
-											str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
-										}
-										return str;
-									};
-									info.yingbian_prompt=function(card){
-										let str="";
-										if(get.cardtag(card,"yingbian_recover")) str+="当你声明使用此牌时，你回复1点体力";
-										const str2=this.backup_yingbian_prompt.apply(this,arguments);
-										if(str.length&&str2.length) str+="；";
-										return str+str2;
+						game.broadcastAll(()=>_status.sst_aoshang=true);
+						lib.inpile.forEach(i=>{
+							const info=lib.card[i];
+							if(!info.backup_yingbian_prompt){
+								info.backup_yingbian_prompt=card=>{
+									let str="";
+									if(get.cardtag(card,"yingbian_damage")){
+										str+="此牌的伤害值基数+1";
 									}
-								}
-								else if(info.yingbian_prompt){
-									info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
-									info.yingbian_prompt=function(card){
-										let str="";
-										if(get.cardtag(card,"yingbian_recover")) str+="当你声明使用此牌时，你回复1点体力";
-										const str2=this.sst_aoshang_yingbian_prompt.apply(this,arguments);
-										if(str.length&&str2.length) str+="；";
-										return str+str2;
+									if(get.cardtag(card,"yingbian_gain")){
+										if(str.length) str+="；";
+										str+="当你声明使用此牌时，你获得此牌响应的目标牌";
 									}
-								}
-								if(!info.backup_yingbian){
-									info.backup_yingbian=event=>{
-										const card=event.card;
-										if(get.cardtag(card,"yingbian_gain")){
-											const cardx=event.respondTo;
-											if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("o").length) event.player.gain(cardx[1].cards.filterInD("o"),"gain2","log");
-										}
-										if(get.cardtag(card,"yingbian_hit")){
-											event.directHit.addArray(game.players);
-											game.log(card,"不可被响应");
-										}
-										if(get.cardtag(card,"yingbian_all")){
-											card.yingbian_all=true;
-											game.log(card,"执行所有选项");
-										}
-										if(get.cardtag(card,"yingbian_draw")) event.player.draw();
-										if(get.cardtag(card,"yingbian_remove")) event.yingbian_removeTarget=true;
-										if(get.cardtag(card,"yingbian_add")) event.yingbian_addTarget=true;
-									};
-									info.yingbian=function(event){
-										const card=event.card;
-										if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0) event.player.recover("nocard");
-										this.backup_yingbian.apply(this,arguments);
+									if(get.cardtag(card,"yingbian_hit")){
+										if(str.length) str+="；";
+										str+="此牌不可被响应";
 									}
-								}
-								else if(info.yingbian){
-									info.sst_aoshang_yingbian=info.yingbian;
-									info.yingbian=function(event){
-										const card=event.card;
-										if(get.cardtag(card,"yingbian_recover")&&player.maxHp-player.hp>0) event.player.recover("nocard");
-										this.sst_aoshang_yingbian.apply(this,arguments);
+									if(get.cardtag(card,"yingbian_all")){
+										if(str.length) str+="；";
+										str+="此牌的效果改为依次执行所有选项";
 									}
+									if(get.cardtag(card,"yingbian_draw")){
+										if(str.length) str+="；";
+										str+="当你声明使用此牌时，你摸一张牌";
+									}
+									if(get.cardtag(card,"yingbian_remove")){
+										if(str.length) str+="；";
+										str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
+									}
+									if(get.cardtag(card,"yingbian_add")){
+										if(str.length) str+="；";
+										str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
+									}
+									return str;
+								};
+								info.yingbian_prompt=function(card){
+									let str="";
+									if(get.cardtag(card,"yingbian_recover")) str+="当你声明使用此牌时，你回复1点体力";
+									const str2=this.backup_yingbian_prompt.apply(this,arguments);
+									if(str.length&&str2.length) str+="；";
+									return str+str2;
 								}
-							});
+							}
+							else if(info.yingbian_prompt){
+								info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
+								info.yingbian_prompt=function(card){
+									let str="";
+									if(get.cardtag(card,"yingbian_recover")) str+="当你声明使用此牌时，你回复1点体力";
+									const str2=this.sst_aoshang_yingbian_prompt.apply(this,arguments);
+									if(str.length&&str2.length) return `${str}；${str2}`;
+									return `${str}${str2}`;
+								}
+							}
+							if(Array.isArray(info.yingbian_tags)){
+								if(!info.yingbian_tags.contains("recover")) info.yingbian_tags.unshift("recover");
+							}
+							else{
+								info.yingbian_tags=["recover"];
+							}
+							if(!info.backup_yingbian){
+								info.backup_yingbian=event=>{
+									const card=event.card;
+									if(get.cardtag(card,"yingbian_damage")){
+										if(typeof event.baseDamage!="number") event.baseDamage=1;
+										event.baseDamage++;
+										game.log(card,"的伤害值基数+1");
+									}
+									if(get.cardtag(card,"yingbian_gain")){
+										const cardx=event.respondTo;
+										if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("o").length) event.player.gain(cardx[1].cards.filterInD("o"),"gain2","log");
+									}
+									if(get.cardtag(card,"yingbian_hit")){
+										event.directHit.addArray(game.players);
+										game.log(card,"不可被响应");
+									}
+									if(get.cardtag(card,"yingbian_all")){
+										card.yingbian_all=true;
+										game.log(card,"执行所有选项");
+									}
+									if(get.cardtag(card,"yingbian_draw")) event.player.draw();
+									if(get.cardtag(card,"yingbian_remove")) event.yingbian_removeTarget=true;
+									if(get.cardtag(card,"yingbian_add")) event.yingbian_addTarget=true;
+								};
+								info.yingbian=function(event){
+									const card=event.card;
+									if(get.cardtag(card,"yingbian_recover")&&event.player.maxHp-event.player.hp>0) event.player.recover("nocard");
+									this.backup_yingbian.apply(this,arguments);
+								}
+							}
+							else if(info.yingbian){
+								info.sst_aoshang_yingbian=info.yingbian;
+								info.yingbian=function(event){
+									const card=event.card;
+									if(get.cardtag(card,"yingbian_recover")&&event.player.maxHp-event.player.hp>0) event.player.recover("nocard");
+									this.sst_aoshang_yingbian.apply(this,arguments);
+								}
+							}
+							game.broadcast((i,info)=>lib.card[i]=info,i,info);
 						});
 					}
 				},
@@ -2732,11 +2710,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				contentx:()=>{
 					"step 0"
 					game.cardsGotoOrdering(cards);
-					let history;
-					const players=game.filterPlayer();
-					let bool=false;
-					for(const current of players){
-						history=current.getHistory("sourceDamage",evt=>evt.card==card);
+					let onlyOne=false;
+					for(const current of game.filterPlayer()){
+						const history=current.getHistory("sourceDamage",evt=>evt.card==card).reduce((previousValue,currentValue)=>{
+							if(!previousValue.some(evt=>evt.player==currentValue.player)) previousValue.push(currentValue);
+							return previousValue;
+						},[]);
 						if(history.length==1){
 							event.target=history[0].player;
 							const translateTargets=targets=>{
@@ -2755,11 +2734,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 								return str;
 							};
 							player.showCards(cards,`${get.translation(player)}对${translateTargets(event.target)}发动了【潜龙】`);
-							bool=true;
+							onlyOne=true;
 							break;
 						}
 					}
-					if(!bool) event.finish();
+					if(!onlyOne) event.finish();
 					"step 1"
 					cards.forEach(i=>{
 						if(target.isIn()&&lib.filter.targetEnabled3(i,player,target)) player.useCard(i,target,false,"noai");
@@ -3319,9 +3298,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_miqiang:"秘枪",
 			sst_miqiang_info:"你的攻击范围视为无限。",
 			sst_yunchou:"运筹",
-			sst_yunchou_info:"若你使用的牌具有应变效果，你可以令此牌允许满足任意一种应变条件。",
+			sst_yunchou_info:"若你使用的牌具有应变效果，你可以视为此牌具有所有应变条件。",
 			sst_guimou:"鬼谋",
-			sst_guimou_info:"每回合限一次，若你使用的牌具有应变效果，你可以任意指定此牌的应变效果。",
+			sst_guimou_info:"每回合限一次，你使用的牌可以视为额外具有一个应变效果。",
 			sst_fuyuan:"复愿",
 			sst_fuyuan_effect:"复愿",
 			sst_fuyuan_info:"一名角色的准备阶段，你可以展示牌堆顶一张牌，然后你可以重铸一张牌，令其本回合下次造成伤害后再次结算此伤害。若这两张牌点数相同，你令其一个限定技视为未发动过。",
@@ -3352,7 +3331,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_junce_info:"当你受到伤害后，你可以摸一张牌或获得一张额外智囊。背水：弃置所有手牌。",
 			sst_aoshang:"傲上",
 			sst_aoshang2:"傲上",
-			sst_aoshang_info:"锁定技，你使用的牌不能被点数大于此牌的牌响应且拥有「空巢→回复1点体力」应变效果。",
+			sst_aoshang_info:"锁定技，你使用的牌不能被点数大于此牌的牌响应且视为具有「空巢→回复1点体力」应变效果。",
 			sst_lianxia:"怜下",
 			sst_lianxia_info:"出牌阶段限一次，你可以将一张牌交给一名手牌数小于你的角色，然后手牌数最多的角色依次交给你一张牌（若为你则无需交给牌）。",
 			sst_zhoudu:"骤笃",

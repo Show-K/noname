@@ -10703,9 +10703,11 @@
 							next.cards=[card];
 							if(!card.viewAs){
 								next.card=get.autoViewAs(card);
+								next.card.expired=card.expired;
 							}
 							else{
 								next.card=get.autoViewAs({name:event.cardName},next.cards);
+								next.card.expired=card.expired;
 							}
 							next.player=player;
 						}
@@ -10717,9 +10719,11 @@
 						next.cards=[card];
 						if(!card.viewAs){
 							next.card=get.autoViewAs(card);
+							next.card.expired=card.expired;
 						}
 						else{
 							next.card=get.autoViewAs({name:event.cardName},next.cards);
+							next.card.expired=card.expired;
 						}
 						next.player=player;
 					}

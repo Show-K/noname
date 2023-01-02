@@ -2045,8 +2045,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					player.chooseControl("cancel2").set("choiceList",[
-						"少摸一张牌，本回合你计算与其他角色距离-1",
-						"多摸一张牌，本回合你计算与其他角色距离+1"
+						"少摸一张牌，本回合你计算与其他角色的距离-1",
+						"多摸一张牌，本回合你计算与其他角色的距离+1"
 					]).set("ai",()=>{
 						const player=_status.event.player;
 						if(player.countCards("h")<2) return 1;
@@ -2076,7 +2076,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				marktext:"-",
 				intro:{
-					content:"本回合你计算与其他角色距离-#"
+					content:"本回合你计算与其他角色的距离-#"
 				},
 				onremove:true,
 				mod:{
@@ -2087,7 +2087,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				charlotte:true,
 				marktext:"+",
 				intro:{
-					content:"本回合你计算与其他角色距离+#"
+					content:"本回合你计算与其他角色的距离+#"
 				},
 				onremove:true,
 				mod:{
@@ -5184,7 +5184,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 2"
 					if(num<targets.length){
 						if(targets[num].isIn()){
-							targets[num].chooseToUse(`斗魂：对${get.translation(player)}使用一张杀（无距离限制），若如此做，你计算与${get.translation(player)}距离为1直到${get.translation(player)}的下个准备阶段，否则本回合你不能响应${get.translation(player)}使用的牌`).set("filterTarget",function(card,player,target){
+							targets[num].chooseToUse(`斗魂：对${get.translation(player)}使用一张杀（无距离限制），若如此做，你计算与${get.translation(player)}的距离为1直到${get.translation(player)}的下个准备阶段，否则本回合你不能响应${get.translation(player)}使用的牌`).set("filterTarget",function(card,player,target){
 								if(target!=_status.event.getParent().player) return false;
 								return lib.filter.targetEnabled.apply(this,arguments);
 							}).set("filterCard",function(card){
@@ -5222,7 +5222,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_douhun_effect_sha:{
 				charlotte:true,
 				intro:{
-					content:"你计算与$距离为1直到$下个回合开始"
+					content:"你计算与$的距离为1直到$下个回合开始"
 				},
 				onremove:true,
 				mod:{
@@ -5547,7 +5547,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jianxiang_effect:{
 				charlotte:true,
 				intro:{
-					content:(storage,player)=>`你本局游戏计算与其他角色距离-${storage}<br>当前你计算与其他角色距离：${-player.getGlobalFrom()}`
+					content:(storage,player)=>`你本局游戏计算与其他角色的距离-${storage}<br>当前你计算与其他角色的距离：${-player.getGlobalFrom()}`
 				},
 				onremove:true,
 				mod:{
@@ -5586,7 +5586,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_baochao_effect:{
 				charlotte:true,
 				intro:{
-					content:(storage,player)=>`你本局游戏计算与其他角色距离+${storage}<br>当前你计算与其他角色距离：${-player.getGlobalFrom()}`
+					content:(storage,player)=>`你本局游戏计算与其他角色的距离+${storage}<br>当前你计算与其他角色的距离：${-player.getGlobalFrom()}`
 				},
 				onremove:true,
 				mod:{
@@ -5684,7 +5684,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				check:(event,player)=>get.attitude(player,event.player)>0,
 				content:()=>{
 					"step 0"
-					trigger.player.gainPlayerCard(`辑略：你可以获得${get.translation(player)}任意张手牌，然后你本回合计算与其他角色距离-X（X为其以此法获得${get.translation(player)}的牌的数量），若因此你与场上所有其他角色距离为1，${get.translation(player)}摸两张牌`,player,[1,Infinity],"h","visible").set("ai",button=>_status.event.player.getUseValue(button.link));
+					trigger.player.gainPlayerCard(`辑略：你可以获得${get.translation(player)}任意张手牌，然后你本回合计算与其他角色的距离-X（X为其以此法获得${get.translation(player)}的牌的数量），若因此你与场上所有其他角色距离为1，${get.translation(player)}摸两张牌`,player,[1,Infinity],"h","visible").set("ai",button=>_status.event.player.getUseValue(button.link));
 					"step 1"
 					if(result.cards&&result.cards.length){
 						trigger.player.addTempSkill("sst_jilve_effect");
@@ -5705,7 +5705,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jilve_effect:{
 				charlotte:true,
 				intro:{
-					content:"本回合计算与其他角色距离-#"
+					content:"本回合计算与其他角色的距离-#"
 				},
 				onremove:true,
 				mod:{
@@ -6756,7 +6756,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_xishou_effect:{
 				charlotte:true,
 				intro:{
-					content:"你本回合手牌上限和计算与其他角色距离均-#"
+					content:"你本回合手牌上限和计算与其他角色的距离均-#"
 				},
 				onremove:true,
 				mod:{
@@ -7728,7 +7728,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jijing_effect:{
 				charlotte:true,
 				intro:{
-					content:"你计算与其他角色距离-#"
+					content:"你计算与其他角色的距离-#"
 				},
 				onremove:true,
 				mod:{
@@ -9569,7 +9569,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jiliu_effect:{
 				charlotte:true,
 				intro:{
-					content:"本回合你计算与其他角色距离-#"
+					content:"本回合你计算与其他角色的距离-#"
 				},
 				onremove:true,
 				mod:{
@@ -11568,7 +11568,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jianbu:"剑步",
 			sst_jianbu_less:"剑步-",
 			sst_jianbu_more:"剑步+",
-			sst_jianbu_info:"摸牌阶段，你可以：1. 少摸一张牌，本回合你计算与其他角色距离-1；2. 多摸一张牌，本回合你计算与其他角色距离+1。",
+			sst_jianbu_info:"摸牌阶段，你可以：1. 少摸一张牌，本回合你计算与其他角色的距离-1；2. 多摸一张牌，本回合你计算与其他角色的距离+1。",
 			sst_fuguo:"复国",
 			sst_fuguo2:"复国",
 			sst_fuguo_info:"主公技，准备阶段，与你势力相同的其他角色可以交给你一张牌。",
@@ -11747,7 +11747,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_douhun_effect:"斗魂",
 			sst_douhun_effect_sha:"斗魂",
 			sst_douhun_effect_direct:"斗魂",
-			sst_douhun_info:"锁定技，准备阶段，你令你计算与其他角色的距离为1直到回合结束，然后其他角色需依次以你为目标使用一张【杀】（无距离限制），否则本回合不能响应你使用的牌。以此法对你使用【杀】的角色计算与你距离为1直到你的下个回合开始。",
+			sst_douhun_info:"锁定技，准备阶段，你令你计算与其他角色的距离为1直到回合结束，然后其他角色需依次以你为目标使用一张【杀】（无距离限制），否则本回合不能响应你使用的牌。以此法对你使用【杀】的角色计算与你的距离为1直到你的下个回合开始。",
 			sst_juejing:"绝境",
 			sst_juejing_info:"锁定技，每当你获得或失去牌后，将你的手牌数摸至或弃置至四张。",
 			sst_baling:"霸凌",
@@ -11765,17 +11765,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jingyue_info:"一名其他角色的准备阶段，你可以失去1点体力，若如此做，该角色于本回合出牌阶段内使用的牌进入弃牌堆前，你将其置于你的武将牌上，然后此回合的结束阶段，你选择一项：1. 以该角色为唯一目标依次使用这些牌（目标不合法则置入弃牌堆）；2. 获得这些牌。",
 			sst_jianxiang:"渐翔",
 			sst_jianxiang_effect:"渐翔",
-			sst_jianxiang_info:"锁定技，你的结束阶段结束后，你本局游戏计算与其他角色距离-2。",
+			sst_jianxiang_info:"锁定技，你的结束阶段结束后，你本局游戏计算与其他角色的距离-2。",
 			sst_baochao:"爆炒",
 			sst_baochao_effect:"爆炒",
-			sst_baochao_info:"一名角色使用【杀】或【桃】时，你可以令你本局游戏计算与其他角色距离+1，若如此做，此牌基数+1。",
+			sst_baochao_info:"一名角色使用【杀】或【桃】时，你可以令你本局游戏计算与其他角色的距离+1，若如此做，此牌基数+1。",
 			sst_chixing:"赤行",
 			sst_chixing_info:"你使用的最后一张牌为红色的回合结束后，你可以令至多｛1｝名角色将手牌数调整到与你另外指定的一名角色相等。",
 			sst_chuanxiao:"传笑",
 			sst_chuanxiao_info:"锁定技，每轮游戏开始时，若你使用的最后一张牌为红色，你令｛｝内数值+1。",
 			sst_jilve:"辑略",
 			sst_jilve_effect:"辑略",
-			sst_jilve_info:"一名其他角色的出牌阶段开始时，你可以令其观看并获得你任意张手牌，然后该角色本回合计算与其他角色距离-X（X为其以此法获得你的牌的数量），若因此其与场上所有其他角色距离为1，你摸两张牌。",
+			sst_jilve_info:"一名其他角色的出牌阶段开始时，你可以令其观看并获得你任意张手牌，然后该角色本回合计算与其他角色的距离-X（X为其以此法获得你的牌的数量），若因此其与场上所有其他角色距离为1，你摸两张牌。",
 			sst_yuanchuan:"源传",
 			sst_yuanchuan_info:"锁定技，你死亡后，所有被〖辑略〗指定过的角色摸三张牌。",
 			sst_diebu:"蝶步",
@@ -11835,7 +11835,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_chihang_info:"一名角色的出牌阶段开始时，其可以展示并交给你一张牌（若为你则无需交给牌）。若如此做，此出牌阶段内，其使用或打出牌时，若与此牌花色：相同，其将手牌补至体力上限；不同，其须失去1点体力或结束出牌阶段。",
 			sst_xishou:"袭狩",
 			sst_xishou_effect:"袭狩",
-			sst_xishou_info:"出牌阶段，若你手牌上限不为0，你可以令你本回合手牌上限和计算与其他角色距离均-1，然后你将手牌补至体力上限。若如此做，你每于弃牌阶段弃置一张牌，你失去1点体力。",
+			sst_xishou_info:"出牌阶段，若你手牌上限不为0，你可以令你本回合手牌上限和计算与其他角色的距离均-1，然后你将手牌补至体力上限。若如此做，你每于弃牌阶段弃置一张牌，你失去1点体力。",
 			sst_shishi:"时逝",
 			sst_shishi_info:"锁定技，结束阶段，若你未受伤，你弃置一名角色的一张牌；若你已受伤，你视为使用一张【杀】，若此【杀】未造成伤害，你将武将牌变更为【时光的笛音·林克】 。",
 			sst_jiamian:"假面",
@@ -11880,7 +11880,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jijing:"急竞",
 			sst_jijing2:"急竞",
 			sst_jijing_effect:"急竞",
-			sst_jijing_info:"出牌阶段，你可以弃置所有手牌（至少一张），并摸比弃置牌数少一的牌，然后你计算与其他角色距离-1。结束阶段，若你与其他角色距离均为1，你摸两张牌或回复1点体力，然后重置此技能的距离计算。",
+			sst_jijing_info:"出牌阶段，你可以弃置所有手牌（至少一张），并摸比弃置牌数少一的牌，然后你计算与其他角色的距离-1。结束阶段，若你与其他角色距离均为1，你摸两张牌或回复1点体力，然后重置此技能的距离计算。",
 			sst_yinyao:"音谣",
 			sst_yinyao_info:"准备阶段，你可以展示并弃置一张手牌，然后从你下家开始到你上家为止，每名角色须依次展示与其上家所展示的牌花色或点数相同的牌（若其没有手牌则跳过），否则其翻面并结束此流程。",
 			sst_anke:"安可",
@@ -11939,7 +11939,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_fengcu_effect:"凤蹴",
 			sst_fengcu_info:"你可以将两张颜色不同的牌当作【杀】或【闪】使用或打出。若以此法使用的牌造成了伤害，你本轮造成伤害后获得目标一张牌；若以此法响应了牌，你获得被响应的牌。",
 			sst_fulei:"伏雷",
-			sst_fulei_info:"每回合每个区域的牌限一次，你的牌进入弃牌堆后，你可以用其中一张牌与一名其他角色拼点，然后你选择令没赢的角色受到你造成的1点雷电伤害或判定一次【闪电】。",
+			sst_fulei_info:"每回合每个区域限一次，你区域内的牌进入弃牌堆后，你可以用其中一张牌与一名其他角色拼点，然后你选择令没赢的角色受到你造成的1点雷电伤害或判定一次【闪电】。",
 			sst_duoshan:"躲闪",
 			sst_duoshan_info:"当你受到伤害时，你可以弃置你一个区域内的所有牌（至少一张），然后防止此伤害。",
 			sst_juao:"倨傲",
@@ -11958,18 +11958,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_xingduo_info:"限定技，结束阶段，你可以减1点体力上限，令至多三名其他角色选择失去一半体力（向下取整）或翻面。",
 			sst_jiliu:"激流",
 			sst_jiliu_effect:"激流",
-			sst_jiliu_info:"锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色距离-1，然后你失去〖激流〗，获得〖茂盛〗。",
+			sst_jiliu_info:"锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。",
 			sst_jiliu_append:`<span style="font-family: LXGWWenKai">〖茂盛〗锁定技，当你使用或打出牌时，令至多X名角色横置（已横置的角色改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）<br>
 				〖猛火〗锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。</span>`,
 			sst_maosheng:"茂盛",
 			sst_maosheng_info:"锁定技，当你使用或打出牌时，令至多X名角色横置（已横置的角色改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）",
 			sst_maosheng_append:`<span style="font-family: LXGWWenKai">〖猛火〗锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。<br>
-				〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色距离-1，然后你失去〖激流〗，获得〖茂盛〗。</span>`,
+				〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。</span>`,
 			sst_menghuo:"猛火",
 			sst_menghuo2:"猛火",
 			sst_menghuo3:"猛火",
 			sst_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去一点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
-			sst_menghuo_append:`<span style="font-family: LXGWWenKai">〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色距离-1，然后你失去〖激流〗，获得〖茂盛〗。<br>
+			sst_menghuo_append:`<span style="font-family: LXGWWenKai">〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。<br>
 				〖茂盛〗锁定技，当你使用或打出牌时，令至多X名角色横置（已横置的角色改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）</span>`,
 			sst_congyun:"丛云",
 			sst_congyun_info:"出牌阶段限一次，你可以视为使用一张【火攻】。",

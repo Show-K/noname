@@ -2634,10 +2634,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					lib.skill.ska_jizhuan.init.apply(this,arguments);
 				},
 				direct:true,
-				trigger:{player:["phaseZhunbeiBegin","phaseJieshuBegin"]},
+				trigger:{player:["phaseBegin","phaseEnd"]},
 				content:()=>{
 					"step 0"
-					if(event.triggername=="phaseZhunbeiBegin"){
+					if(event.triggername=="phaseBegin"){
 						event.videoId=lib.status.videoId++;
 						const func=(id,left,right,to)=>{
 							const setting=ui.create.dialog(`###${get.prompt("ska_fuwu")}###你可以设定X`);
@@ -2786,14 +2786,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						next.set("right",right);
 						next.set("to",to);
 					}
-					else if(event.triggername=="phaseJieshuBegin"){
+					else if(event.triggername=="phaseEnd"){
 						let str="你可以";
 						const pre=player.getCards("h",card=>lib.filter.cardDiscardable(card,player));
 						if(pre.length) str+=`弃置${get.translation(pre)}，`;
 						player.chooseTarget(get.prompt("ska_fuwu"),`${str}令一名其他角色执行一个额外回合（摸牌阶段少摸一张牌）`,lib.filter.notMe).set("ai",target=>get.attitude(_status.event.player,target));
 					}
 					"step 1"
-					if(event.triggername=="phaseZhunbeiBegin"){
+					if(event.triggername=="phaseBegin"){
 						if(player.isOnline2()) player.send("closeDialog",event.videoId);
 						event.dialog.close();
 						if(result.links&&result.links.length){
@@ -2834,7 +2834,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							game.delayx();
 						}
 					}
-					else if(event.triggername=="phaseJieshuBegin"&&result.targets&&result.targets.length){
+					else if(event.triggername=="phaseEnd"&&result.targets&&result.targets.length){
 						player.logSkill("ska_fuwu",result.targets);
 						player.addExpose(0.2);
 						player.discard(player.getCards("h",card=>lib.filter.cardDiscardable(card,player)));
@@ -3077,7 +3077,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_jizhuan:"机转",
 			ska_jizhuan_info:"当有牌正面朝上移动后，你可以将X移位，并将其中点数为X的牌依次〖赠予〗一名角色。（X为√2对应位的值且0视为10，初始设定：个位；向右移位）",
 			ska_fuwu:"辅鹜",
-			ska_fuwu_info:"准备阶段，你可以设定X；结束阶段，你可以弃置所有手牌，令一名其他角色获得一个额外回合（摸牌阶段少摸一张牌）。",
+			ska_fuwu_info:"回合开始时，你可以设定X；回合结束时，你可以弃置所有手牌，令一名其他角色获得一个额外回合（摸牌阶段少摸一张牌）。",
 			ska_fuwu_append:`<span style="font-family: LXGWWenKai">*左/右移一位；移位方向改为左/右。</span>`,
 			ska_fuwu_faq:"*",
 			ska_fuwu_faq_info:"左/右移一位；移位方向改为左/右。",

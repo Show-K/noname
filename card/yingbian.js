@@ -16,26 +16,15 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				filterTarget:function(card,player,target){
 					return target!=player&&target.countCards('hej')>0;
 				},
-				yingbian_tags:['gain','hit','all','draw','remove','add'],
+				yingbian_tags:['all','hit','add'],
 				yingbian_prompt:function(card){
 					var str='';
-					if(get.cardtag(card,'yingbian_gain')){
-						str+='当你声明使用此牌时，你获得此牌响应的目标牌';
+					if(get.cardtag(card,'yingbian_all')){
+						str+='此牌的效果改为依次执行所有选项';
 					}
 					if(get.cardtag(card,'yingbian_hit')){
 						if(str.length) str+='；';
 						str+='此牌不可被响应';
-					}
-					if(get.cardtag(card,'yingbian_all')){
-						str+='此牌的效果改为依次执行所有选项';
-					}
-					if(get.cardtag(card,'yingbian_draw')){
-						if(str.length) str+='；';
-						str+='当你声明使用此牌时，你摸一张牌';
-					}
-					if(get.cardtag(card,'yingbian_remove')){
-						if(str.length) str+='；';
-						str+='当你使用此牌选择目标后，你可为此牌减少一个目标';
 					}
 					if(!str.length||get.cardtag(card,'yingbian_add')){
 						if(str.length) str+='；';
@@ -45,28 +34,15 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				yingbian:function(event){
 					var card=event.card,bool=false;
-					if(get.cardtag(card,'yingbian_gain')){
-						bool=true;
-						var cardx=event.respondTo;
-						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD('od').length) event.player.gain(cardx[1].cards.filterInD('od'),'gain2','log');
-					}
-					if(get.cardtag(card,'yingbian_hit')){
-						bool=true;
-						event.directHit.addArray(game.players);
-						game.log(card,'不可被响应');
-					}
 					if(get.cardtag(card,'yingbian_all')){
 						bool=true;
 						card.yingbian_all=true;
 						game.log(card,'执行所有选项');
 					}
-					if(get.cardtag(card,'yingbian_draw')){
+					if(get.cardtag(card,'yingbian_hit')){
 						bool=true;
-						event.player.draw();
-					}
-					if(get.cardtag(card,'yingbian_remove')){
-						bool=true;
-						event.yingbian_removeTarget=true;
+						event.directHit.addArray(game.players);
+						game.log(card,'不可被响应');
 					}
 					if(!bool||get.cardtag(card,'yingbian_add')){
 						event.yingbian_addTarget=true;
@@ -198,63 +174,11 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				filterTarget:function(card,player,target){
 					return target!=player&&target.countCards('h')>0;
 				},
-				yingbian_prompt:function(card){
-					var str='';
-					if(get.cardtag(card,'yingbian_damage')){
-						if(str.length) str+='；';
-						str+='此牌的伤害值基数+1';
-					}
-					if(get.cardtag(card,'yingbian_gain')){
-						str+='当你声明使用此牌时，你获得此牌响应的目标牌';
-					}
-					if(get.cardtag(card,'yingbian_hit')){
-						str+='此牌不可被响应';
-					}
-					if(get.cardtag(card,'yingbian_draw')){
-						if(str.length) str+='；';
-						str+='当你声明使用此牌时，你摸一张牌';
-					}
-					if(get.cardtag(card,'yingbian_remove')){
-						if(str.length) str+='；';
-						str+='当你使用此牌选择目标后，你可为此牌减少一个目标';
-					}
-					if(!str.length||get.cardtag(card,'yingbian_add')){
-						if(str.length) str+='；';
-						str+='当你使用此牌选择目标后，你可为此牌增加一个目标';
-					}
-					return str;
-				},
+				yingbian_prompt:'当你使用此牌选择目标后，你可为此牌增加一个目标',
+				yingbian_tags:['add'],
 				yingbian:function(event){
-					var card=event.card,bool=false;
-					if(get.cardtag(card,'yingbian_damage')){
-						bool=true;
-						if(typeof event.baseDamage!='number') event.baseDamage=1;
-						event.baseDamage++;
-						game.log(event.card,'的伤害值基数+1');
-					}
-					if(get.cardtag(card,'yingbian_gain')){
-						bool=true;
-						var cardx=event.respondTo;
-						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD('od').length) event.player.gain(cardx[1].cards.filterInD('od'),'gain2','log');
-					}
-					if(get.cardtag(card,'yingbian_hit')){
-						bool=true;
-						event.directHit.addArray(game.players);
-						game.log(card,'不可被响应');
-					}
-					if(get.cardtag(card,'yingbian_draw')){
-						bool=true;
-						event.player.draw();
-					}
-					if(get.cardtag(card,'yingbian_remove')){
-						bool=true;
-						event.yingbian_removeTarget=true;
-					}
-					if(!bool||get.cardtag(card,'yingbian_add')){
-						event.yingbian_addTarget=true;
-					}
+					event.yingbian_addTarget=true;
 				},
-				yingbian_tags:['damage','gain','hit','draw','remove','add'],
 				content:function(){
 					'step 0'
 					if(player.isDead()||!target.countCards('h')){

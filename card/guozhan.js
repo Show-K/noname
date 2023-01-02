@@ -64,13 +64,13 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					}
 					event.current=current;
 					if(current.identity!='sst_dark'){
-						current.chooseToDiscard('he','弃置一张牌，并视为对'+get.translation(target)+'使用一张【杀】，或点击「取消」可以弃置其一张牌').set('ai',function(card){
+						current.chooseToDiscard('he','弃置一张牌，并视为对'+get.translation(target)+'使用一张【杀】，或点击「取消」弃置其一张牌').set('ai',function(card){
 							if(!_status.event.goon) return 0;
 							return 5-get.value(card);
 						}).set('goon',(get.effect(target,{name:'guohe'},current)<get.effect(target,{name:'sha'},current)));
 					}
 					else{
-						current.chooseBool('是否视为对'+get.translation(target)+'使用一张【杀】？','若点击「取消」则改为可以获得其一张牌').set('ai',function(){
+						current.chooseBool('是否视为对'+get.translation(target)+'使用一张【杀】？','若点击「取消」则改为获得其一张牌').set('ai',function(){
 							var player=_status.event.player,target=_status.event.getParent().target;
 							return (get.effect(target,{name:'shunshou'},player)<=get.effect(target,{name:'sha'},player))
 						});
@@ -85,7 +85,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						if(current.isIn()&&current.canUse({name:'sha',isCard:true},target,false)) current.useCard({name:'sha',isCard:true},target,false);
 					}
 					else{
-						current[current.identity=='sst_dark'?'gainPlayerCard':'discardPlayerCard'](target,'he').set('boolline',true);
+						current[current.identity=='sst_dark'?'gainPlayerCard':'discardPlayerCard'](target,true,'he').set('boolline',true);
 					}
 					if(event.list.length) event.goto(1);
 				},
@@ -460,26 +460,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				enable:true,
 				yingbian_prompt:function(card){
 					var str='';
-					if(get.cardtag(card,'yingbian_damage')){
-						if(str.length) str+='；';
-						str+='此牌的伤害值基数+1';
-					}
-					if(get.cardtag(card,'yingbian_gain')){
-						str+='当你声明使用此牌时，你获得此牌响应的目标牌';
-					}
-					if(get.cardtag(card,'yingbian_hit')){
-						str+='此牌不可被响应';
-					}
 					if(get.cardtag(card,'yingbian_all')){
 						str+='此牌的效果改为依次执行所有选项';
-					}
-					if(get.cardtag(card,'yingbian_draw')){
-						if(str.length) str+='；';
-						str+='当你声明使用此牌时，你摸一张牌';
-					}
-					if(get.cardtag(card,'yingbian_remove')){
-						if(str.length) str+='；';
-						str+='当你使用此牌选择目标后，你可为此牌减少一个目标';
 					}
 					if(!str.length||get.cardtag(card,'yingbian_add')){
 						if(str.length) str+='；';
@@ -489,40 +471,15 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				yingbian:function(event){
 					var card=event.card,bool=false;
-					if(get.cardtag(card,'yingbian_damage')){
-						bool=true;
-						if(typeof event.baseDamage!='number') event.baseDamage=1;
-						event.baseDamage++;
-						game.log(event.card,'的伤害值基数+1');
-					}
-					if(get.cardtag(card,'yingbian_gain')){
-						bool=true;
-						var cardx=event.respondTo;
-						if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD('od').length) event.player.gain(cardx[1].cards.filterInD('od'),'gain2','log');
-					}
-					if(get.cardtag(card,'yingbian_hit')){
-						bool=true;
-						event.directHit.addArray(game.players);
-						game.log(card,'不可被响应');
-					}
 					if(get.cardtag(card,'yingbian_all')){
 						bool=true;
 						card.yingbian_all=true;
 						game.log(card,'执行所有选项');
 					}
-					if(get.cardtag(card,'yingbian_draw')){
-						bool=true;
-						event.player.draw();
-					}
-					if(get.cardtag(card,'yingbian_remove')){
-						bool=true;
-						event.yingbian_removeTarget=true;
-					}
 					if(!bool||get.cardtag(card,'yingbian_add')){
 						event.yingbian_addTarget=true;
 					}
 				},
-				yingbian_tags:['damage','gain','hit','all','draw','remove','add'],
 				content:function(){
 					'step 0'
 					if(event.card.yingbian_all){
@@ -1907,7 +1864,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			huxinjing_info:'此牌可对其他角色使用。当你受到伤害时，若伤害值大于1或大于等于你的体力值，则你可以将【护心镜】置入弃牌堆，然后防止此伤害。',
 			huxinjing_info_guozhan:'当你受到伤害时，若伤害值大于或等于你的体力值，则你可以将【护心镜】置入弃牌堆，然后防止此伤害。',
 			gz_haolingtianxia:'号令天下',
-			gz_haolingtianxia_info:'出牌阶段，对一名体力值不为全场最少的角色使用。所有其他角色依次可以选择一项：①弃置一张牌（暗势力角色无需弃牌），视为对目标角色使用一张【杀】；②弃置目标角色的一张牌（暗势力角色改为获得其一张牌）。',
+			gz_haolingtianxia_info:'出牌阶段，对一名体力值不为全场最少的角色使用。所有其他角色依次选择一项：①弃置一张牌（暗势力角色无需弃牌），视为对目标角色使用一张【杀】；②弃置目标角色的一张牌（暗势力角色改为获得其一张牌）。',
 			gz_kefuzhongyuan:'克复中原',
 			gz_kefuzhongyuan_info:'出牌阶段，对任意名角色使用。目标角色选择一项：①视为使用一张【杀】（现势力角色以此法使用【杀】的伤害值基数+1）；②摸一张牌（现势力角色改为摸两张牌）。',
 			gz_guguoanbang:'固国安邦',
