@@ -4334,9 +4334,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					return type=="basic"||type=="trick";
 				},
 				content:()=>{
-					const card=Object.assign({},trigger.card);
+					const card=player.storage.sst_huanbian_previous=Object.assign({},trigger.card);
 					delete card.isCard;
-					player.storage.sst_huanbian_previous=card;
+					delete card.suit;
+					delete card.number;
 				}
 			},
 			sst_yingxi:{
