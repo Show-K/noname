@@ -6802,26 +6802,27 @@
 			globalId:0,
 		},
 		help:{
-			'关于':'<ul><li>《大乱桌斗》（原《大乱斗杀》）是基于《无名杀》的《任天堂明星大乱斗》同人游戏，不隶属于<i>任天堂</i>、<i>Sora</i>和其他相关公司。'+
-			'<li>作者（以斜体表示）：'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>Show-K</i>（程序开发，卡牌创作）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>mario not mary</i>（《大乱斗杀》计划发起，主要卡牌创作，插图）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>Yumikohimi</i>、<i>南柯</i>、<i>Axel_Zhai</i>、<i>小时节</i>等（卡牌创作）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>封羽翎烈</i>等（《任天堂明星大乱斗特别版全命魂介绍》、插图）</ul>'+
-			'<li>另外感谢（以斜体表示）：'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>水乎</i>（《无名杀》创始，原《无名杀》程序开发）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>苏婆玛丽奥</i>（现《无名杀》程序开发）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>短歌</i>（《十周年UI》、《导入助手》程序开发）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>诗笺</i>（《在线更新》、Windows版客户端程序开发、Android版客户端程序开发）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>玄武</i>（Android版客户端程序开发）</ul>'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li><i>雷</i>（谋攻篇模式开发）</ul>'+
-			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除。</ul>',
-			'相关链接':'<ul><li>GitHub仓库：'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://github.com/Show-K/noname')+'</ul>'+
-			'<li>Coding仓库：'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://show-kadot.coding.net/public/noname/noname/git')+'</ul>'+
-			'<li>《任天堂明星大乱斗特别版全命魂介绍》：'+
-			'<ul style=\"padding-left:20px;padding-top:5px\"><li>'+formatUrl('https://ssbuspirits.top')+'</ul></ul>',
+			'关于':'<ul><li>《大乱桌斗》（原《大乱斗杀》）是基于《无名杀》的《任天堂明星大乱斗》同人游戏，不隶属于<i>任天堂</i>、<i>Sora</i>和其他相关公司。</li>'+
+			'<li>作者（以斜体表示）：</li>'+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>Show-K</i>（程序开发，卡牌创作）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>mario not mary</i>（《大乱斗杀》计划发起，主要卡牌创作，插图）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>Yumikohimi</i>、<i>南柯</i>、<i>Axel_Zhai</i>、<i>小时节</i>等（卡牌创作）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>封羽翎烈</i>等（《任天堂明星大乱斗特别版全命魂介绍》、插图）</li></ul>`+
+			'<li>另外感谢（以斜体表示）：</li>'+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>水乎</i>（《无名杀》创始，原《无名杀》程序开发）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>苏婆玛丽奥</i>（现《无名杀》程序开发）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>短歌</i>（《十周年UI》、《导入助手》程序开发）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>诗笺</i>（《在线更新》、Windows版客户端程序开发、Android版客户端程序开发）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>玄武</i>（Android版客户端程序开发）</li></ul>`+
+			`<ul style="padding-left:20px;padding-top:5px"><li><i>雷</i>（谋攻篇模式开发）</li></ul>`+
+			'<ul style="padding-left:20px;padding-top:5px"><li><i>灵徒℡丶</i>（URC服务器赞助（11/2022~））</li></ul>'+
+			'<li>对于未经允许即使用各自作者的插图的事情表示深感抱歉，会尽量标注作者以及相应地址/社交账号，若有异议可联系修改/删除。</li></ul>',
+			'相关链接':'<ul><li>GitHub仓库：</li>'+
+			`<ul style="padding-left:20px;padding-top:5px"><li>${formatUrl('https://github.com/Show-K/noname')}</li></ul>`+
+			'<li>Coding仓库：</li>'+
+			`<ul style="padding-left:20px;padding-top:5px"><li>${formatUrl('https://show-kadot.coding.net/public/noname/noname/git')}</li></ul>`+
+			'<li>《任天堂明星大乱斗特别版全命魂介绍》：</li>'+
+			`<ul style="padding-left:20px;padding-top:5px"><li>${formatUrl('https://ssbuspirits.top')}</li></ul></ul>`,
 			'关于无名杀':'<div style="margin:10px">关于无名杀</div><ul style="margin-top:0"><li>无名杀官方发布地址仅有GitHub仓库！<br><a href="https://github.com/libccy/noname">点击前往Github仓库</a><br><li>其他所有的所谓“无名杀”社群（包括但不限于绝大多数“官方”QQ群、QQ频道等）均为粉丝自发组织，与无名杀官方无关！',
 			'游戏操作':'<ul><li>长按/鼠标悬停/右键单击显示信息。<li>触屏模式中，双指点击切换暂停；下划显示菜单，上划切换托管。<li>键盘快捷键<br>'+
 			'<table><tr><td>A<td>切换托管<tr><td>W<td>切换不询问无懈<tr><td>空格<td>暂停</table><li>编辑牌堆<br>在卡牌包中修改牌堆后，将自动创建一个临时牌堆，在所有模式中共用，当保存当前牌堆后，临时牌堆被清除。每个模式可设置不同的已保存牌堆，设置的牌堆优先级大于临时牌堆。</ul>',

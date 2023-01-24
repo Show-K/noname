@@ -33,7 +33,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:["female","sst_spirit",3,["ska_lianmao","ska_huirong"],["type:shield"]],
 			ska_rabbid_rosalina:["female","sst_spirit",3,["ska_yingyong","ska_zhenmei"],["type:grab"]],
 			ska_tails:["male","sst_spirit",3,["ska_jizhuan","ska_fuwu"],["type:grab"]],
-			ska_edge:["female","sst_spirit",3,["ska_jingni","ska_pushun"],["hiddenSkill","type:attack"]]
+			ska_edge:["female","sst_spirit",3,["ska_jingni","ska_pushun"],["hiddenSkill","type:attack"]],
+			ska_warden:["none","sst_spirit","4/10",["ska_zhenhan"],["type:attack","primary:5,1,500","attack:1,0.5,20","defense:1"]]
 		},
 		characterFilter:{
 			mnm_edelgard:mode=>mode=="identity"
@@ -42,7 +43,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_sp:{
 				sst_mnm:["mnm_edelgard"],
 				sst_ymk:["ymk_isabelle","ymk_yumikohimi","ymk_tianyi"],
-				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails","ska_edge"],
+				sst_ska:["ska_bobby","ska_olivia","ska_super_xiaojie","ska_show_k","ska_professor_toad","ska_king_olly","ska_koopa_troopa","ska_daroach","ska_rabbid_peach","ska_rabbid_rosalina","ska_tails","ska_edge","ska_warden"],
 				sst_nnk:["nnk_robin","nnk_decidueye","nnk_machamp"],
 				sst_alz:["alz_kyo_kusanagi","alz_yuri_kozukata"],
 				sst_xsj:["xsj_yu_narukami","xsj_dante"],
@@ -268,7 +269,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				<hr>
 				0351. 怪盗洛切/Daroach/ドロッチェ<br>
 				系列：<ruby>星之卡比<rp>（</rp><rt>Kirby</rt><rp>）</rp></ruby><br>
-				首次登场：<ruby>星之卡比 参上！呐喊团<rp>（</rp><rt>Kirby: Squeak Squad</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>星之卡比 驾到！怪盗洛切团<rp>（</rp><rt>Kirby: Squeak Squad</rt><rp>）</rp></ruby><br>
 				洛切是探寻宝藏的怪盗组织呐喊团的领导者，他们盗取了自认为装有宝物的宝箱，却被卡比认为是盗取了他的蛋糕的凶手（整个游戏直到最终关前以卡比视角来看就是在追逐自己的蛋糕）。在冰雪之岛，卡比终于追上了洛切并将其打败，魅塔骑士却突然出现并夺走了宝箱，卡比不得不为了自己的“蛋糕”重新追了上去。<br>
 				——封羽翎烈、鸿渐于陆，《任天堂明星大乱斗特别版全命魂介绍》<br>
 				<hr>
@@ -286,7 +287,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				洗翠地区的狙射树枭没有固定的地盘，会为找寻食物而四处改变居所。它的脚力十分发达，踢击的威力之大能折断树木，击裂岩石。与至今为止所发现的样子不同，它会积极发动近身战并以力量制服对手。擅长利用飞翔冲向对手发出踢技，并用藏在翅膀里的箭释放连续攻击的战法。另一方面，对于不存敌意的对手它似乎会有宽容的一面。<br>
 				——《神奇宝贝百科》<br>
 				<hr>
-				竟然没有被《任天堂明星大乱斗 特别版》收录为命魂。`,
+				竟然没有被《任天堂明星大乱斗 特别版》收录为命魂？`,
 			nnk_machamp:`武将作者：南柯<br>
 				插图作者：《宝可拳 POKKÉN TOURNAMENT DX》<br>
 				<hr>
@@ -337,7 +338,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				刀锋既酷又独立，拯救星琪和银河是她最大的动力。 她的正义感不会让她放弃，直到完成使命！<br>
 				——《马力欧+疯狂兔子 星耀之愿》<br>
 				<hr>
-				“JUST Edge.”`
+				“JUST Edge.”`,
+			ska_warden:`武将作者：Show-K<br>
+				插图作者：《我的世界》<br>
+				<hr>
+				S010. 监守者/Warden/ウォーデン<br>
+				系列：<ruby>我的世界<rp>（</rp><rt>Minecraft</rt><rp>）</rp></ruby><br>
+				首次登场：<ruby>我的世界<rp>（</rp><rt>Minecraft</rt><rp>）</rp></ruby><br>
+				监守者（Warden）是一种高大而危险的敌对生物，会根据振动和气息判断生物的位置。<br>
+				——《Minecraft Wiki》<br>
+				<hr>
+				怎么总有人不听劝呢？`
 		},
 		characterTitle:{
 			ymk_isabelle:"尽忠职守",
@@ -366,7 +377,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:"孤芳他赏",
 			ska_rabbid_rosalina:"博闻强倦",
 			ska_tails:"豁然开朗",
-			ska_edge:"自由意识"
+			ska_edge:"自由意识",
+			ska_warden:"循声守卫"
 		},
 		perfectPair:{
 			ymk_isabelle:["sst_villager"],
@@ -880,7 +892,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						selectCard:-1,
 						viewAs:{name:"sha",isCard:true,storage:{ska_jiyan:true}},
 						filter:(event,player)=>player.storage.ska_jiyan.contains("sha"),
-						prompt:()=>"视为使用或打出一张【杀】",
+						prompt:()=>"视为使用或打出一张杀",
 						precontent:()=>{
 							player.logSkill("ska_jiyan");
 							delete event.result.skill;
@@ -904,7 +916,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						filterCard:()=>false,
 						selectCard:-1,
 						viewAs:{name:"shan",isCard:true},
-						prompt:()=>"视为使用或打出一张【闪】",
+						prompt:()=>"视为使用或打出一张闪",
 						filter:(event,player)=>player.storage.ska_jiyan.contains("shan"),
 						precontent:()=>{
 							player.logSkill("ska_jiyan");
@@ -929,7 +941,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						filterCard:()=>false,
 						selectCard:-1,
 						viewAs:{name:"tao",isCard:true},
-						prompt:()=>"视为使用或打出一张【桃】",
+						prompt:()=>"视为使用或打出一张桃",
 						filter:(event,player)=>player.storage.ska_jiyan.contains("tao"),
 						precontent:()=>{
 							player.logSkill("ska_jiyan");
@@ -955,7 +967,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						filterCard:()=>false,
 						selectCard:-1,
 						viewAs:{name:"jiu",isCard:true},
-						prompt:()=>"视为使用或打出一张【酒】",
+						prompt:()=>"视为使用或打出一张酒",
 						filter:(event,player)=>player.storage.ska_jiyan.contains("jiu"),
 						precontent:()=>{
 							player.logSkill("ska_jiyan");
@@ -1358,12 +1370,12 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				position:"hes",
 				viewAs:{name:"sha",nature:"fire"},
 				viewAsFilter:player=>{
-					if(!player.hasCard(card=>get.color(card)=="red","hes")) return false;
+					if(!player.hasCard({color:"red"},"hes")) return false;
 				},
 				check:card=>5-get.value(card),
 				ai:{
 					skillTagFilter:player=>{
-						if(!player.hasCard(card=>get.color(card)=="red","hes")) return false;
+						if(!player.hasCard({color:"red"},"hes")) return false;
 					},
 					respondSha:true
 				}
@@ -1740,7 +1752,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					player.chooseButton([get.prompt2("mnm_huaijiu"),[list,"character"]]).set("ai",button=>{
 						const skills=lib.characterPack.sst_legacy[button.link][3];
 						if(!Array.isArray(skills)) return 0;
-						return skills.map(i=>(get.skillRank(i,"in")+get.skillRank(i,"out"))/2).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/skills.length+Math.random();
+						return skills.map(value=>(get.skillRank(value,"in")+get.skillRank(value,"out"))/2).reduce((previousValue,currentValue)=>previousValue+currentValue,0)/skills.length+Math.random();
 					});
 					"step 1"
 					if(result.links&&result.links.length){
@@ -1750,10 +1762,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						game.log(player,"选择了",`#b${get.translation(result.links[0])}`);
 						const skills=lib.characterPack.sst_legacy[result.links[0]][3];
 						if(Array.isArray(skills)){
-							skills.forEach(i=>{
-								player.addTempSkill(i,{player:"phaseBegin"});
-								player.popup(i,"thunder");
-								game.log(player,"获得了技能",`#g【${get.translation(i)}】`);
+							skills.forEach(value=>{
+								player.addTempSkill(value,{player:"phaseBegin"});
+								player.popup(value,"thunder");
+								game.log(player,"获得了技能",`#g【${get.translation(value)}】`);
 							});
 						}
 					}
@@ -2393,7 +2405,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				position:"hes",
 				viewAs:{name:"guaguliaodu"},
 				viewAsFilter:player=>{
-					if(player.hasCard(card=>get.color(card)=="red","hes")<2) return false;
+					if(player.countCards("hes",{color:"red"})<2) return false;
 				},
 				check:card=>8-get.value(card)
 			},
@@ -2468,13 +2480,13 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					content:(storage,player)=>{
 						const partLeft=player.storage.ska_jizhuan_direction?`<span style="opacity:0.5">${player.storage.STRING_SQRT_2.slice(Math.max(0,storage-9),storage-1)}</span>`:player.storage.STRING_SQRT_2.slice(Math.max(0,storage-9),storage-1);
 						const shiftLeft=player.storage.ska_jizhuan_direction?`<span style="opacity:0.5">«</span>`:`<span class="bluetext">«</span>`;
-						const value=`<span class="greentext">${player.storage.STRING_SQRT_2.charAt(storage-1)}</span>`;
+						const value=`<span class="greentext">${player.storage.STRING_SQRT_2[storage-1]}</span>`;
 						const shiftRight=player.storage.ska_jizhuan_direction?`<span class="bluetext">»</span>`:`<span style="opacity:0.5">»</span>`;
 						const partRight=player.storage.ska_jizhuan_direction?player.storage.STRING_SQRT_2.slice(storage,Math.min(storage+8,player.storage.STRING_SQRT_2.length)):`<span style="opacity:0.5">${player.storage.STRING_SQRT_2.slice(storage+1,Math.min(storage+8,player.storage.STRING_SQRT_2.length))}</span>`;
 						return `${partLeft}${storage>1?shiftLeft:""}${value}${storage<player.storage.STRING_SQRT_2.length?shiftRight:""}${partRight}`;
 					},
 					markcount:(storage,player)=>{
-						const digit=parseInt(player.storage.STRING_SQRT_2.charAt(storage-1));
+						const digit=parseInt(player.storage.STRING_SQRT_2[storage-1]);
 						if(digit==0) return 10;
 						return digit;
 					}
@@ -2484,7 +2496,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				filter:(event,player,name)=>{
 					const countMark=player.countMark("ska_jizhuan");
 					if((player.storage.ska_jizhuan_direction&&countMark>=player.storage.STRING_SQRT_2.length)||(!player.storage.ska_jizhuan_direction&&countMark<=1)) return false;
-					let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark-1));
+					let digit=parseInt(player.storage.STRING_SQRT_2[countMark-1]);
 					if(digit==0) digit=10;
 					if(name=="gainAfter"){
 						if(event.animate!="gain"&&event.animate!="gain2"&&event.animate!="draw2"&&event.animate!="give") return false;
@@ -2507,11 +2519,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					"step 0"
 					const countMark=player.countMark("ska_jizhuan");
 					const positionDigitAfter=player.storage.ska_jizhuan_direction?countMark:countMark-2;
-					let charAt=player.storage.STRING_SQRT_2.charAt(positionDigitAfter);
+					let charAt=player.storage.STRING_SQRT_2[positionDigitAfter];
 					if(charAt=="0") charAt="10";
 					let str=`你可以将X移位至${charAt}`;
 					const move=[];
-					let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark-1));
+					let digit=parseInt(player.storage.STRING_SQRT_2[countMark-1]);
 					if(digit==0) digit=10;
 					if(event.triggername=="gainAfter") move.addArray(trigger.cards.filter(card=>get.number(card)==digit));
 					const evt=trigger.getl(trigger.player);
@@ -2560,17 +2572,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						player.logSkill("ska_jizhuan",event.target);
 						const countMark=player.countMark("ska_jizhuan");
 						if(player.storage.ska_jizhuan_direction){
-							let charAtRight=player.storage.STRING_SQRT_2.charAt(countMark);
+							let charAtRight=player.storage.STRING_SQRT_2[countMark];
 							if(charAtRight=="0") charAtRight="10";
 							game.log(player,"将","#gX","右移一位至",`#y${charAtRight}`);
-							player.popup(`${player.storage.STRING_SQRT_2.charAt(countMark-1)}»${charAtRight}`);
+							player.popup(`${player.storage.STRING_SQRT_2[countMark-1]}»${charAtRight}`);
 							player.addMark("ska_jizhuan",1,false);
 						}
 						else{
-							let charAtLeft=player.storage.STRING_SQRT_2.charAt(countMark-2);
+							let charAtLeft=player.storage.STRING_SQRT_2[countMark-2];
 							if(charAtLeft=="0") charAtLeft="10";
 							game.log(player,"将","#gX","左移一位至",`#y${charAtLeft}`);
-							player.popup(`${charAtLeft}«${player.storage.STRING_SQRT_2.charAt(countMark-1)}`);
+							player.popup(`${charAtLeft}«${player.storage.STRING_SQRT_2[countMark-1]}`);
 							player.removeMark("ska_jizhuan",1,false);
 						}
 					}
@@ -2602,14 +2614,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							if(game.hasPlayer(current=>{
 								if(!current.hasSkill("ska_jizhuan")) return false;
 								if(get.attitude(player,current)<=0) return false;
-								let digit=parseInt(current.storage.STRING_SQRT_2.charAt(current.countMark("ska_jizhuan")-1));
+								let digit=parseInt(current.storage.STRING_SQRT_2[current.countMark("ska_jizhuan")-1]);
 								if(digit==0) digit=10;
 								return number==digit;
 							})) return [1,2];
 							if(game.hasPlayer(current=>{
 								if(!current.hasSkill("ska_jizhuan")) return false;
 								if(get.attitude(player,current)>=0) return false;
-								let digit=parseInt(current.storage.STRING_SQRT_2.charAt(current.countMark("ska_jizhuan")-1));
+								let digit=parseInt(current.storage.STRING_SQRT_2[current.countMark("ska_jizhuan")-1]);
 								if(digit==0) digit=10;
 								return number==digit;
 							})) return [1,-2];
@@ -2702,9 +2714,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							return setting;
 						};
 						const countMark=player.countMark("ska_jizhuan");
-						let left=countMark>1?player.storage.STRING_SQRT_2.charAt(countMark-2):null;
+						let left=countMark>1?player.storage.STRING_SQRT_2[countMark-2]:null;
 						if(left=="0") left="10";
-						let right=countMark<player.storage.STRING_SQRT_2.length?player.storage.STRING_SQRT_2.charAt(countMark):null;
+						let right=countMark<player.storage.STRING_SQRT_2.length?player.storage.STRING_SQRT_2[countMark]:null;
 						if(right=="0") right="10";
 						const to=!player.storage.ska_jizhuan_direction;
 						if(player.isOnline2()) player.send(func,event.videoId,left,right,to);
@@ -2745,14 +2757,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							const countMark=player.countMark("ska_jizhuan")-1;
 							const length=player.storage.STRING_SQRT_2.length-1;
 							if(typeof _status.event.left=="string"&&button.link=="shift_left"){
-								let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark));
+								let digit=parseInt(player.storage.STRING_SQRT_2[countMark]);
 								if(digit==0) digit=10;
 								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return 0;
 								if(player.hasCard(card=>get.number(card)==parseInt(_status.event.left),"hejsx")) return randn_bm()+0.5;
 								return randn_bm()<countMark/length?randn_bm()+0.5:0;
 							}
 							else if(typeof _status.event.right=="string"&&button.link=="shift_right"){
-								let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark));
+								let digit=parseInt(player.storage.STRING_SQRT_2[countMark]);
 								if(digit==0) digit=10;
 								if(player.hasCard(card=>get.number(card)==digit,"hejsx")) return 0;
 								if(player.hasCard(card=>get.number(card)==parseInt(_status.event.right),"hejsx")) return randn_bm()+0.5;
@@ -2760,9 +2772,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 							else if(!_status.event.to&&button.link=="change_left"){
 								if(countMark-2<0) return 0;
-								let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark-2));
+								let digit=parseInt(player.storage.STRING_SQRT_2[countMark-2]);
 								if(countMark+1<length){
-									const digitRight=parseInt(player.storage.STRING_SQRT_2.charAt(countMark+2));
+									const digitRight=parseInt(player.storage.STRING_SQRT_2[countMark+2]);
 									if(digitRight==digit) return 0;
 								}
 								if(digit==0) digit=10;
@@ -2771,9 +2783,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							}
 							else if(_status.event.to&&button.link=="change_right"){
 								if(countMark+2>length) return 0;
-								let digit=parseInt(player.storage.STRING_SQRT_2.charAt(countMark+2));
+								let digit=parseInt(player.storage.STRING_SQRT_2[countMark+2]);
 								if(countMark-1>0){
-									const digitLeft=parseInt(player.storage.STRING_SQRT_2.charAt(countMark-2));
+									const digitLeft=parseInt(player.storage.STRING_SQRT_2[countMark-2]);
 									if(digitLeft==digit) return 0;
 								}
 								if(digit==0) digit=10;
@@ -2790,7 +2802,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						let str="你可以";
 						const pre=player.getCards("h",card=>lib.filter.cardDiscardable(card,player));
 						if(pre.length) str+=`弃置${get.translation(pre)}，`;
-						player.chooseTarget(get.prompt("ska_fuwu"),`${str}令一名其他角色执行一个额外回合（摸牌阶段少摸一张牌）`,lib.filter.notMe).set("ai",target=>get.attitude(_status.event.player,target));
+						player.chooseTarget(get.prompt("ska_fuwu"),`${str}令一名其他角色执行一个额外回合（摸牌阶段少摸一张牌）`,lib.filter.notMe).set("ai",target=>{
+							if(target.hasJudge("lebu")) return -1;
+							if(get.attitude(player,target)>4) return get.threaten(target)/Math.sqrt(target.hp+1)/Math.sqrt(target.countCards("h")+1);
+							return -1;
+						});
 					}
 					"step 1"
 					if(event.triggername=="phaseBegin"){
@@ -2799,20 +2815,20 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						if(result.links&&result.links.length){
 							player.logSkill("ska_fuwu");
 							const countMark=player.countMark("ska_jizhuan");
-							result.links.forEach(i=>{
-								switch(i){
+							result.links.forEach(value=>{
+								switch(value){
 									case "shift_left":
-										let charAtLeft=player.storage.STRING_SQRT_2.charAt(countMark-2);
+										let charAtLeft=player.storage.STRING_SQRT_2[countMark-2];
 										if(charAtLeft=="0") charAtLeft="10";
 										game.log(player,"将","#gX","左移一位至",`#y${charAtLeft}`);
-										player.popup(`${charAtLeft}«${player.storage.STRING_SQRT_2.charAt(countMark-1)}`);
+										player.popup(`${charAtLeft}«${player.storage.STRING_SQRT_2[countMark-1]}`);
 										player.removeMark("ska_jizhuan",1,false);
 										break;
 									case "shift_right":
-										let charAtRight=player.storage.STRING_SQRT_2.charAt(countMark);
+										let charAtRight=player.storage.STRING_SQRT_2[countMark];
 										if(charAtRight=="0") charAtRight="10";
 										game.log(player,"将","#gX","右移一位至",`#y${charAtRight}`);
-										player.popup(`${player.storage.STRING_SQRT_2.charAt(countMark-1)}»${charAtRight}`);
+										player.popup(`${player.storage.STRING_SQRT_2[countMark-1]}»${charAtRight}`);
 										player.addMark("ska_jizhuan",1,false);
 										break;
 									case "change_left":
@@ -2885,7 +2901,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(result.targets&&result.targets.length){
 						const targets=result.targets.sortBySeat(_status.currentPhase);
 						player.logSkill("ska_pushun",targets);
-						targets.forEach(i=>i.damage(player,"nocard"));
+						targets.forEach(value=>value.damage(player,"nocard"));
 					}
 					else{
 						event.finish();
@@ -2896,6 +2912,67 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				ai:{
 					expose:0.2,
 					damage:true
+				}
+			},
+			//Warden
+			ska_zhenhan:{
+				direct:true,
+				trigger:{
+					player:"phaseZhunbeiBegin",
+					global:["loseAfter","cardsDiscardAfter","loseAsyncAfter","equipAfter"]
+				},
+				filter:(event,player,name)=>name=="phaseZhunbeiBegin"||event.getd().some(card=>get.cardtag(card,"gifts")),
+				content:()=>{
+					"step 0"
+					player.chooseTarget(get.prompt2("ska_zhenhan"),lib.filter.notMe).set("ai",target=>{
+						if(get.distance(_status.event.player,target)>1) return -get.attitude(_status.event.player,target);
+						return get.effect(target,{name:"losehp"},_status.event.player,_status.event.player);
+					}).set("targetprompt",target=>get.distance(_status.event.player,target)>1?"距离-1":"失去体力");
+					"step 1"
+					if(result.targets&&result.targets.length){
+						player.logSkill("ska_zhenhan",result.targets);
+						const target=result.targets[0];
+						if(get.distance(player,target)>1){
+							player.addSkill("ska_zhenhan_effect");
+							if(typeof player.storage.ska_zhenhan_effect[target.playerid]!="number") player.storage.ska_zhenhan_effect[target.playerid]=0;
+							player.storage.ska_zhenhan_effect[target.playerid]++;
+							player.markSkill("ska_zhenhan_effect");
+							event.finish();
+						}
+						else{
+							target.loseHp();
+						}
+					}
+					else{
+						event.finish();
+					}
+					"step 2"
+					player.removeSkill("ska_zhenhan_effect");
+				},
+				ai:{
+					expose:0.2
+				}
+			},
+			ska_zhenhan_effect:{
+				charlotte:true,
+				init:player=>{
+					if(typeof player.storage.ska_zhenhan_effect!="object") player.storage.ska_zhenhan_effect={};
+				},
+				intro:{
+					content:storage=>game.filterPlayer2(current=>typeof storage[current.playerid]=="number").sortBySeat(_status.currentPhase).map(current=>`你本局游戏计算与${get.translation(current)}的距离-${storage[current.playerid]}`).join("<br>"),
+					markcount:storage=>{
+						let count=0;
+						for(const i in storage){
+							count+=storage[i];
+						}
+						return count;
+					}
+				},
+				onremove:true,
+				mod:{
+					globalFrom:(from,to,distance)=>{
+						if(typeof from.storage.ska_zhenhan_effect=="object"&&typeof from.storage.ska_zhenhan_effect[to.playerid]=="number") return distance-from.storage.ska_zhenhan_effect[to.playerid];
+					}
 				}
 			}
 		},
@@ -2948,6 +3025,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_rosalina:"疯兔罗莎塔",
 			ska_tails:"塔尔斯",
 			ska_edge:"刀锋",
+			ska_warden:"监守者",
 			//Character ab.
 			ska_bobby_ab:"炸弹兵",
 			ska_professor_toad_ab:"奇诺比奥",
@@ -3085,6 +3163,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_jingni_info:"当一名角色〖赠予〗你时，你可以令此次〖赠予〗失败，然后其可以对你造成1点伤害。",
 			ska_pushun:"瀑瞬",
 			ska_pushun_info:"隐匿技，每轮限一次，当你登场后，或一名攻击范围内包含你的角色造成伤害时，你可以对攻击范围内的任意名角色各造成1点伤害。",
+			ska_zhenhan:"振撼",
+			ska_zhenhan_effect:"振撼",
+			ska_zhenhan_info:"准备阶段，或带有「赠」标签的牌进入弃牌堆后，你可以令你本局游戏计算与一名其他角色的距离-1。若你与其距离为1，改为令其失去1点体力并重置距离计算。",
 			//Sort
 			sst_special:"SP",
 			sst_mnm:"mario not mary",
@@ -3124,7 +3205,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			ska_rabbid_peach:"Rabbid Peach",
 			ska_rabbid_rosalina:"Rabbid Rosalina",
 			ska_tails:"Tails",
-			ska_edge:"Edge"
+			ska_edge:"Edge",
+			ska_warden:"Warden"
 		}
 	};
 	if(lib.config.mode!="connect"&&!lib.config.characters.contains("sst_extra")){

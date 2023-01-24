@@ -92,6 +92,8 @@ window.noname_update={
 		'image/character/sst_villager.png',
 		'image/character/sst_ryu.png',
 		'image/character/sst_yoshi.png',
-		'image/character/sst_king_k_rool.png'
+		'image/character/sst_king_k_rool.png',
+		'image/character/sst_enderman.png',
+		'image/character/sst_steve.png'
 	]
 };

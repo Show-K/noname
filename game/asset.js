@@ -209,6 +209,7 @@ window.noname_asset_list=[
 	'audio/skill/guanshi_skill.mp3',
 	'audio/skill/guding_skill.mp3',
 	'audio/skill/hanbing_skill.mp3',
+	'audio/skill/qibaodao2.mp3',
 	'audio/skill/qilin_skill.mp3',
 	'audio/skill/qinggang_skill.mp3',
 	'audio/skill/qinglong_skill.mp3',

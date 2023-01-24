@@ -76,8 +76,7 @@ window.noname_character_rank={
 			"sst_bayonetta",
 			"nnk_machamp",
 			"ska_rabbid_rosalina",
-			"ska_tails",
-			"ska_rabbid_peach"
+			"ska_tails"
 		],
 		rare:[
 			"sst_mario",
@@ -155,7 +154,9 @@ window.noname_character_rank={
 			"sst_wii_fit_trainer",
 			"nnk_decidueye",
 			"sst_peach",
-			"ska_edge"
+			"ska_edge",
+			"ska_warden",
+			"ska_rabbid_peach"
 		],
 		junk:[]
 	}

@@ -20,6 +20,9 @@ game.import("card",(lib,game,ui,get,ai,_status)=>{
 					player.unmarkSkill("sst_aegises_skill");
 				},
 				equipDelay:false,
+				yingbian_prompt:"当你声明使用此牌时，你摸一张牌",
+				yingbian_tags:["draw"],
+				yingbian:event=>event.player.draw(),
 				ai:{
 					basic:{
 						equipValue:4.5
@@ -35,6 +38,46 @@ game.import("card",(lib,game,ui,get,ai,_status)=>{
 				range:(card,player,target)=>player.inRange(target),
 				selectTarget:1,
 				filterTarget:lib.filter.notMe,
+				yingbian_prompt:card=>{
+					let str="";
+					if(get.cardtag(card,"yingbian_damage")){
+						str+="此牌的伤害值基数+1";
+					}
+					if(get.cardtag(card,"yingbian_hit")){
+						if(str.length) str+="；";
+						str+="此牌不可被响应";
+					}
+					if(get.cardtag(card,"yingbian_draw")){
+						if(str.length) str+="；";
+						str+="当你声明使用此牌时，你摸一张牌";
+					}
+					if(!str.length||get.cardtag(card,"yingbian_add")){
+						if(str.length) str+="；";
+						str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
+					}
+					return str;
+				},
+				yingbian_tags:["damage","hit","draw","add"],
+				yingbian:event=>{
+					const card=event.card;
+					let bool=false;
+					if(get.cardtag(card,"yingbian_damage")){
+						bool=true;
+						if(typeof event.baseDamage!="number") event.baseDamage=1;
+						event.baseDamage++;
+						game.log(card,"的伤害值基数+1");
+					}
+					if(get.cardtag(card,"yingbian_hit")){
+						bool=true;
+						event.directHit.addArray(game.players);
+						game.log(card,"不可被响应");
+					}
+					if(get.cardtag(card,"yingbian_draw")){
+						bool=true;
+						event.player.draw();
+					}
+					if(!bool||get.cardtag(card,"yingbian_add")) event.yingbian_addTarget=true;
+				},
 				content:()=>{
 					"step 0"
 					if(typeof event.baseDamage!="number") event.baseDamage=1;
@@ -108,6 +151,9 @@ game.import("card",(lib,game,ui,get,ai,_status)=>{
 				fullborder:"simple",
 				skills:["sst_ink_skill"],
 				selectTarget:[-1,-2],
+				yingbian_prompt:"当你声明使用此牌时，你摸一张牌",
+				yingbian_tags:["draw"],
+				yingbian:event=>event.player.draw(),
 				ai:{
 					order:9,
 					equipValue:card=>{

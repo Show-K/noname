@@ -662,7 +662,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					if(typeof evt.th_anger[player.playerid]!="number") return false;
 					return evt.th_anger[player.playerid]!=0;
 				},
-				content:()=>trigger.num+=trigger.getParent(2).th_anger[player.playerid]
+				content:()=>{
+					trigger.num+=trigger.getParent(2).th_anger[player.playerid];
+				}
 			},
 			//Pyra/Mythra
 			sst_xuanyi:{
@@ -767,7 +769,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					const card=game.createCard4("sst_aegises","","","",["sst_pyra_mythra"]);
 					player.give(card,target,"give",true);
 					target.addAdditionalSkill("sst_fuxin","sst_fuxin_effect",true);
-					player.storage.sst_fuxin_effect.push(card);
+					target.storage.sst_fuxin_effect.push(card);
 				},
 				ai:{
 					order:1,
@@ -800,24 +802,14 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					player.chooseControl(lib.suit,"cancel2").set("ai",()=>{
-						const statistic={};
-						Array.from(ui.cardPile.childNodes).forEach(card=>{
-							const suit=get.suit(card);
-							if(lib.suit.contains(suit)){
-								if(!statistic[suit]) statistic[suit]=0;
-								statistic[suit]++;
-							}
-						});
-						let min=ui.cardPile.childNodes.length;
-						let choice="cancel2";
-						for(const i in statistic){
-							if(!lib.suit.contains(i)) continue;
-							if(statistic[i]<min){
-								min=statistic[i];
-								choice=i;
-							}
-						}
-						return choice;
+						const controls=_status.event.controls.filter(value=>value!="cancel2");
+						const cardPile=Array.from(ui.cardPile.childNodes);
+						const choices=controls.map(value=>-cardPile.filter(card=>get.suit(card)==value).length);
+						const max=Math.max(...choices);
+						return choices.reduce((previousValue,currentValue,currentIndex)=>{
+							if(currentValue==max) previousValue.push(currentIndex);
+							return previousValue;
+						},[]).randomGet();
 					}).set("prompt",get.prompt("sst_tanfen")).set("prompt2",get.translation("sst_tanfen_info"));
 					"step 1"
 					if(result.control!="cancel2"){
@@ -929,18 +921,18 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_juelu:{
 				intro:{
 					content:storage=>{
-						const list=[];
-						game.filterPlayer(current=>{
-							if(!list.contains(current.identity)) list.push(current.identity);
-						});
-						return `标记的身份：${get.translation(`${storage}2`)}<br>${get.translation(`${storage}2`)}人数排名：${list.filter(i=>get.population(i)>get.population(storage)).length+1}`;
+						const list=game.filterPlayer().map(current=>current.identity).reduce((previousValue,currentValue)=>{
+							previousValue.add(currentValue);
+							return previousValue;
+						},[]);
+						return `标记的身份：${get.translation(`${storage}2`)}<br>${get.translation(`${storage}2`)}人数排名：${list.filter(value=>get.population(value)>get.population(storage)).length+1}`;
 					},
 					markcount:storage=>{
 						const list=[];
 						game.filterPlayer(current=>{
 							if(!list.contains(current.identity)) list.push(current.identity);
 						});
-						return list.filter(i=>get.population(i)>get.population(storage)).length+1;
+						return list.filter(value=>get.population(value)>get.population(storage)).length+1;
 					}
 				},
 				trigger:{
@@ -961,7 +953,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						player.storage.sst_juelu=control;
 						player.popup(result.control);
 						player.markSkill("sst_juelu");
-						game.broadcastAll((player,text)=>player.marks.sst_juelu.firstChild.innerHTML=text,player,get.translation(control));
+						game.broadcastAll((player,innerHTML)=>player.marks.sst_juelu.firstChild.innerHTML=innerHTML,player,get.translation(control));
 						game.log(player,"标记了",`#y${get.translation(result.control)}`);
 					}
 					game.delayx();
@@ -977,7 +969,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.filterPlayer(current=>{
 						if(!list.contains(current.identity)) list.push(current.identity);
 					});
-					trigger.num+=list.filter(i=>get.population(i)>get.population(player.storage.sst_juelu)).length+1;
+					trigger.num+=list.filter(value=>get.population(value)>get.population(player.storage.sst_juelu)).length+1;
 				},
 				ai:{
 					threaten:1.5
@@ -989,7 +981,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							game.filterPlayer(current=>{
 								if(!list.contains(current.identity)) list.push(current.identity);
 							});
-							return num+list.filter(i=>get.population(i)>get.population(player.storage.sst_juelu)).length;
+							return num+list.filter(value=>get.population(value)>get.population(player.storage.sst_juelu)).length;
 						}
 					}
 				}
@@ -998,9 +990,10 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				trigger:{global:"dieAfter"},
 				forced:true,
 				filter:(event,player)=>{
-					player.updateMarks("sst_juelu");
-					return event.player.identity==player.storage.sst_juelu&&player.hasCard(card=>lib.filter.cardDiscardable(card,player),"h")
+					player.markSkill("sst_juelu");
+					return event.player.identity==player.storage.sst_juelu&&player.hasCard(card=>lib.filter.cardDiscardable(card,player),"h");
 				},
+				logTarget:"player",
 				content:()=>{
 					player.discard(player.getCards("h",card=>lib.filter.cardDiscardable(card,player)));
 				}
@@ -1142,11 +1135,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				trigger:{player:"useCardBegin"},
 				filter:event=>{
 					const name=get.name(event.card);
-					return lib.card[name]&&Array.isArray(lib.card[name].yingbian_tags)&&lib.card[name].yingbian_tags.filter(i=>!get.cardtag(event.card,`yingbian_${i}`)).length;
+					return lib.card[name]&&Array.isArray(lib.card[name].yingbian_tags)&&lib.card[name].yingbian_tags.filter(value=>!get.cardtag(event.card,`yingbian_${value}`)).length;
 				},
 				content:()=>{
 					"step 0"
-					player.chooseControl(lib.card[get.name(trigger.card)].yingbian_tags.filter(i=>!get.cardtag(trigger.card,`yingbian_${i}`)).map(i=>`yingbian_${i}_tag`),"cancel2").set("ai",()=>_status.event.controls.slice(0,-1).randomGet()).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.skillInfoTranslation("sst_guimou"));
+					player.chooseControl(lib.card[get.name(trigger.card)].yingbian_tags.filter(value=>!get.cardtag(trigger.card,`yingbian_${value}`)).map(value=>`yingbian_${value}_tag`),"cancel2").set("ai",()=>_status.event.controls.slice(0,-1).randomGet()).set("prompt",get.prompt("sst_guimou")).set("prompt2",get.skillInfoTranslation("sst_guimou"));
 					"step 1"
 					if(result.control&&result.control!="cancel2"){
 						player.logSkill("sst_guimou");
@@ -1154,7 +1147,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						trigger.card.cardtags.add(result.control.slice(0,-4));
 						game.broadcast((card,cardtags)=>card.cardtags=cardtags,trigger.card,trigger.card.cardtags);
 						player.popup(result.control,"wood");
-						game.log(player,"指定此牌的应变效果为",`#y${result.control}`);
+						game.log(player,"令",trigger.card,"视为额外具有",`#y${result.control}`,"应变效果");
 					}
 					else{
 						player.storage.counttrigger[event.name]--;
@@ -1220,7 +1213,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					game.delayx();
 					if(!event.equal) event.finish();
 					"step 4"
-					const list=target.getSkills(null,null,false).filter(i=>get.info(i).limited&&target.awakenedSkills.contains(i));
+					const list=target.getSkills(null,null,false).filter(value=>get.info(value).limited&&target.awakenedSkills.contains(value));
 					if(list.length){
 						player.chooseControl(list).set("prompt","复愿：选择一个限定技恢复之");
 					}
@@ -1430,11 +1423,11 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					"step 0"
 					const max=game.countPlayer(current=>{
-						if(player.storage.sst_wenxin_alter) return current.hasCard(card=>get.color(card)=="red","ej");
+						if(player.storage.sst_wenxin_alter) return current.hasCard({color:"red"},"ej");
 						return current.countCards("ej");
 					});
 					player.chooseToDiscard(get.prompt("sst_wenxin"),get.skillInfoTranslation("sst_wenxin",player),[1,max]).set("ai",card=>{
-						const num=game.countPlayer(current=>current.hasCard(card=>{
+						if(ui.selected.cards.length>=game.countPlayer(current=>current.hasCard(card=>{
 							if(_status.event.player.storage.sst_wenxin_alter&&get.color(card)!="red") return false;
 							const fieldValue=card=>{
 								const player=get.owner(card);
@@ -1470,10 +1463,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 							const val=fieldValue(card);
 							if(get.attitude(_status.event.player,get.owner(card))>0) return -val>0;
 							return val>0;
-						},"ej"));
-						if(ui.selected.cards.length>=num) return 0;
-						let val=5-get.useful(card);
-						if(get.color(card)=="black") val+=3;
+						},"ej"))) return 0;
+						const val=5-get.useful(card);
+						if(get.color(card)=="black") return val+3;
 						return val;
 					}).set("logSkill","sst_wenxin");
 					"step 1"
@@ -1671,7 +1663,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						return 0;
 					}).set("judge2",()=>true);
 					"step 1"
-					if(game.hasPlayer(current=>player.canUse({name:"sha",cards:[result.card]},current))) player.chooseUseTarget({name:"sha"},[result.card],false,true).set("viewAs",true).set("ai",(get.color(result.card)=="red"||(get.color(result.card)=="black"&&player.hp>1))?get.effect_use:()=>0);
+					if(game.hasPlayer(current=>player.canUse({name:"sha",cards:[result.card]},current))) player.chooseUseTarget({name:"sha"},[result.card],false,true).set("viewAs",true).set("ai",(get.color(result.card)=="red"||get.color(result.card)=="black"&&player.hp>1)?get.effect_use:()=>0);
 				},
 				ai:{
 					threaten:1.5
@@ -1860,106 +1852,60 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			//派派
 			sst_aoshang:{
 				init:()=>{
-					if(!_status.sst_aoshang){
-						game.broadcastAll(()=>_status.sst_aoshang=true);
-						lib.inpile.forEach(i=>{
-							const info=lib.card[i];
-							if(!info.backup_yingbian_prompt){
-								info.backup_yingbian_prompt=card=>{
-									let str="";
-									if(get.cardtag(card,"yingbian_damage")){
-										str+="此牌的伤害值基数+1";
-									}
-									if(get.cardtag(card,"yingbian_gain")){
-										if(str.length) str+="；";
-										str+="当你声明使用此牌时，你获得此牌响应的目标牌";
-									}
-									if(get.cardtag(card,"yingbian_hit")){
-										if(str.length) str+="；";
-										str+="此牌不可被响应";
-									}
-									if(get.cardtag(card,"yingbian_all")){
-										if(str.length) str+="；";
-										str+="此牌的效果改为依次执行所有选项";
-									}
-									if(get.cardtag(card,"yingbian_draw")){
-										if(str.length) str+="；";
-										str+="当你声明使用此牌时，你摸一张牌";
-									}
-									if(get.cardtag(card,"yingbian_remove")){
-										if(str.length) str+="；";
-										str+="当你使用此牌选择目标后，你可为此牌减少一个目标";
-									}
-									if(get.cardtag(card,"yingbian_add")){
-										if(str.length) str+="；";
-										str+="当你使用此牌选择目标后，你可为此牌增加一个目标";
-									}
-									return str;
-								};
-								info.yingbian_prompt=function(card){
-									let str="";
-									if(get.cardtag(card,"yingbian_recover")) str+="当你声明使用此牌时，你回复1点体力";
-									const str2=this.backup_yingbian_prompt.apply(this,arguments);
-									if(str.length&&str2.length) str+="；";
-									return str+str2;
+					if(_status.sst_aoshang) return;
+					game.broadcastAll(()=>_status.sst_aoshang=true);
+					for(const i in lib.card){
+						const info=lib.card[i];
+						if(typeof info.yingbian_prompt=="function"){
+							info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
+							info.yingbian_prompt=function(card){
+								if(get.cardtag(card,"yingbian_recover")){
+									if(this.yingbian_tags.slice(this.yingbian_tags.indexOf("recover")+1).some(i=>get.cardtag(card,`yingbian_${i}`))) return `当你声明使用此牌时，你回复1点体力；${this.sst_aoshang_yingbian_prompt.apply(this,arguments)}`;
+									return "当你声明使用此牌时，你回复1点体力";
 								}
-							}
-							else if(info.yingbian_prompt){
-								info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
-								info.yingbian_prompt=function(card){
-									let str="";
-									if(get.cardtag(card,"yingbian_recover")) str+="当你声明使用此牌时，你回复1点体力";
-									const str2=this.sst_aoshang_yingbian_prompt.apply(this,arguments);
-									if(str.length&&str2.length) return `${str}；${str2}`;
-									return `${str}${str2}`;
+								return this.sst_aoshang_yingbian_prompt.apply(this,arguments);
+							};
+						}
+						else if(typeof info.yingbian_prompt=="string"){
+							info.sst_aoshang_yingbian_prompt=info.yingbian_prompt;
+							info.yingbian_prompt=function(card){
+								let str="";
+								if(get.cardtag(card,"yingbian_recover")){
+									str+="当你声明使用此牌时，你回复1点体力";
 								}
-							}
-							if(Array.isArray(info.yingbian_tags)){
-								if(!info.yingbian_tags.contains("recover")) info.yingbian_tags.unshift("recover");
-							}
-							else{
-								info.yingbian_tags=["recover"];
-							}
-							if(!info.backup_yingbian){
-								info.backup_yingbian=event=>{
-									const card=event.card;
-									if(get.cardtag(card,"yingbian_damage")){
-										if(typeof event.baseDamage!="number") event.baseDamage=1;
-										event.baseDamage++;
-										game.log(card,"的伤害值基数+1");
-									}
-									if(get.cardtag(card,"yingbian_gain")){
-										const cardx=event.respondTo;
-										if(cardx&&cardx[1]&&cardx[1].cards&&cardx[1].cards.filterInD("o").length) event.player.gain(cardx[1].cards.filterInD("o"),"gain2","log");
-									}
-									if(get.cardtag(card,"yingbian_hit")){
-										event.directHit.addArray(game.players);
-										game.log(card,"不可被响应");
-									}
-									if(get.cardtag(card,"yingbian_all")){
-										card.yingbian_all=true;
-										game.log(card,"执行所有选项");
-									}
-									if(get.cardtag(card,"yingbian_draw")) event.player.draw();
-									if(get.cardtag(card,"yingbian_remove")) event.yingbian_removeTarget=true;
-									if(get.cardtag(card,"yingbian_add")) event.yingbian_addTarget=true;
-								};
-								info.yingbian=function(event){
-									const card=event.card;
-									if(get.cardtag(card,"yingbian_recover")&&event.player.maxHp-event.player.hp>0) event.player.recover("nocard");
-									this.backup_yingbian.apply(this,arguments);
+								if(!str.length||get.cardtag(card,`yingbian_${this.yingbian_tags[this.yingbian_tags.length-1]}`)){
+									str+=this.sst_aoshang_yingbian_prompt;
 								}
-							}
-							else if(info.yingbian){
-								info.sst_aoshang_yingbian=info.yingbian;
-								info.yingbian=function(event){
-									const card=event.card;
-									if(get.cardtag(card,"yingbian_recover")&&event.player.maxHp-event.player.hp>0) event.player.recover("nocard");
+								return str;
+							};
+						}
+						else{
+							info.yingbian_prompt="当你声明使用此牌时，你回复1点体力";
+						}
+						if(typeof info.yingbian=="function"){
+							info.sst_aoshang_yingbian=info.yingbian;
+							info.yingbian=function(event){
+								if(get.cardtag(event.card,"yingbian_recover")){
+									if(event.player.maxHp-event.player.hp>0) event.player.recover("nocard");
+									if(info.yingbian_tags.slice(info.yingbian_tags.indexOf("recover")+1).some(i=>get.cardtag(event.card,`yingbian_${i}`))) this.sst_aoshang_yingbian.apply(this,arguments);
+								}
+								else{
 									this.sst_aoshang_yingbian.apply(this,arguments);
 								}
-							}
-							game.broadcast((i,info)=>lib.card[i]=info,i,info);
-						});
+							};
+						}
+						else{
+							info.yingbian=event=>{
+								if(event.player.maxHp-event.player.hp>0) event.player.recover("nocard");
+							};
+						}
+						if(Array.isArray(info.yingbian_tags)){
+							if(!info.yingbian_tags.contains("recover")) info.yingbian_tags.unshift("recover");
+						}
+						else{
+							info.yingbian_tags=["recover"];
+						}
+						game.broadcast((i,info)=>lib.card[i]=info,i,info);
 					}
 				},
 				forced:true,
@@ -1977,24 +1923,49 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				silent:true,
 				trigger:{global:["chooseToUseBegin","chooseToRespondBegin"]},
 				filter:(event,player)=>{
-					const evt=event.getParent(2);
+					let evt;
+					const wuxie=event.getParent();
+					if(wuxie&&wuxie.name=="_wuxie"){
+						evt=wuxie._trigger.getParent();
+					}
+					else{
+						evt=event.getParent(2);
+					}
 					if(!evt||evt.name!="useCard") return false;
 					return evt.player==player&&typeof get.number(evt.card)=="number";
 				},
 				content:()=>{
-					const evt=trigger.getParent(2);
 					if(trigger.filterCard){
 						trigger.set("sstAoshangFilterCard",trigger.filterCard);
 						trigger.set("filterCard",function(card){
-							if(card&&_status.event.respondToCard&&get.number(card)>get.number(_status.event.respondToCard)) return false;
-							if(typeof _status.event.sstAoshangFilterCard!="function") return true;
-							return _status.event.sstAoshangFilterCard.apply(this,arguments);
+							let evt=_status.event._trigger;
+							if(!evt) evt=_status.event;
+							let responding;
+							const wuxie=evt.getParent();
+							if(wuxie&&wuxie.name=="_wuxie"){
+								responding=wuxie._trigger.getParent();
+							}
+							else{
+								responding=evt.getParent(2);
+							}
+							if(card&&responding.card&&get.number(card)>get.number(responding.card)) return false;
+							return evt.sstAoshangFilterCard.apply(this,arguments);
 						});
-						trigger.set("respondToCard",evt.card);
 					}
 					else{
-						trigger.set("filterCard",card=>card&&_status.event.respondToCard&&!(get.number(card)>get.number(_status.event.respondToCard)));
-						trigger.set("respondToCard",evt.card);
+						trigger.set("filterCard",card=>{
+							let evt=_status.event._trigger;
+							if(!evt) evt=_status.event;
+							let responding;
+							const wuxie=evt.getParent();
+							if(wuxie&&wuxie.name=="_wuxie"){
+								responding=wuxie._trigger.getParent();
+							}
+							else{
+								responding=evt.getParent(2);
+							}
+							return card&&responding.card&&!(get.number(card)>get.number(responding.card));
+						});
 					}
 				}
 			},
@@ -2083,7 +2054,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				content:()=>{
 					const next=player.chooseToUse();
 					next.set("prompt",get.prompt("sst_zhoudu"));
-					next.set("prompt2","你可以将一张牌当作【刺枪】使用");
+					next.set("prompt2","你可以将一张牌当作刺枪使用");
 					next.set("logSkill","sst_zhoudu");
 					next.set("norestore",true);
 					next.set("_backupevent","sst_zhoudux");
@@ -2258,7 +2229,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				check:card=>{
 					const player=_status.event.player;
 					let val=6-get.useful(card);
-					if(player.needsToDiscard()-ui.selected.cards.filter(i=>get.position(i)=="h"&&game.checkMod(i,player,false,"ignoredHandcard",player)!=true)>0&&get.position(card)=="h"&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) val+=5;
+					if(player.needsToDiscard()-ui.selected.cards.filter(value=>get.position(value)=="h"&&game.checkMod(value,player,false,"ignoredHandcard",player)!=true)>0&&get.position(card)=="h"&&game.checkMod(card,player,false,"ignoredHandcard",player)!=true) val+=5;
 					return val;
 				},
 				ai:{
@@ -2657,8 +2628,8 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 					return 5-get.value(card);
 				},
 				precontent:()=>{
-					if(Array.isArray(event.result.card.cards)&&event.result.card.cards.length){
-						event.result.card.cards.length=0;
+					if(Array.isArray(event.result.card.cards)){
+						if(event.result.card.cards.length) event.result.card.cards.length=0;
 					}
 					else{
 						event.result.card.cards=[];
@@ -2718,30 +2689,15 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 						},[]);
 						if(history.length==1){
 							event.target=history[0].player;
-							const translateTargets=targets=>{
-								if(get.itemtype(targets)=="player") targets=[targets];
-								let str="";
-								if(targets[0]==player){
-									str="自己";
-									if(targets.length>1){
-										str+="、";
-										str+=get.translation(targets.slice(1));
-									}
-								}
-								else{
-									str=get.translation(targets);
-								}
-								return str;
-							};
-							player.showCards(cards,`${get.translation(player)}对${translateTargets(event.target)}发动了【潜龙】`);
+							player.showCards(cards);
 							onlyOne=true;
 							break;
 						}
 					}
 					if(!onlyOne) event.finish();
 					"step 1"
-					cards.forEach(i=>{
-						if(target.isIn()&&lib.filter.targetEnabled3(i,player,target)) player.useCard(i,target,false,"noai");
+					cards.forEach(value=>{
+						if(target.isIn()&&lib.filter.targetEnabled3(value,player,target)) player.useCard(value,target,false,"noai");
 					});
 				}
 			},
@@ -2915,9 +2871,9 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				content:()=>{
 					trigger.cards.filter(card=>card.cards&&get.name(card)=="sst_ink").forEach(sst_ink=>{
-						sst_ink.cards.forEach(i=>{
-							player.node.equips.appendChild(i);
-							i.parentNode.classList.add("equips");
+						sst_ink.cards.forEach(value=>{
+							player.node.equips.appendChild(value);
+							value.parentNode.classList.add("equips");
 						});
 						const modify=cards=>{
 							const index=cards.indexOf(sst_ink);
