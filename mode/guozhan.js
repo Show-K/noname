@@ -869,12 +869,12 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					return 5-get.value(card);
 				},
 				selectCard:[1,3],
-				prepare:'give',
 				discard:false,
-				// delay:0.5,
+				lose:false,
+				delay:false,
 				content:function(){
 					"step 0"
-					target.gain(cards,player);
+					player.give(cards,target);
 					"step 1"
 					if(!target.isUnseen()){
 						player.draw(cards.length);
@@ -912,7 +912,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					'step 0'
-					if(player.phaseNumber==1&&player.isUnseen(0)&&(_status.connectMode?!lib.configOL.junzhu:get.config('junzhu'))){
+					if(player.phaseNumber==1&&player.isUnseen(0)&&(_status.connectMode?lib.configOL.junzhu:get.config('junzhu'))){
 						var name=player.name1;
 						if(name.indexOf('gz_')!=0||!lib.junList.contains(name.slice(3))){
 							event.goto(3);
@@ -3934,6 +3934,21 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				// }
 			}
 		},
+		dynamicTranslate:{
+			gzzhaosong:function(player){
+				var storage=player.getStorage('gzzhaosong');
+				var list1=['效果①','效果②','效果③'];
+				var str='每局游戏每项限一次。';
+				var list2=['①一名角色进入濒死状态时，你可以令其回复至2点体力并摸一张牌。','②出牌阶段，你可观看一名其他角色的所有暗置武将牌和手牌，然后可以获得其区域内的一张牌。','③一名角色使用【杀】选择唯一目标后，你可以为此【杀】增加两个目标。'];
+				for(var i=0;i<3;i++){
+					var bool=storage.contains(list1[i]);
+					if(bool) str+='<span style="text-decoration:line-through">';
+					str+=list2[i];
+					if(bool) str+='</span>';
+				}
+				return str;
+			},
+		},
 		translate:{
 			qunxionggeju:'群雄割据',
 
@@ -4606,7 +4621,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					'step 2'
 					if(event.junling=='junling2'&&source!=player){
 						if(result.cards.length&&event.ing){
-							source.gain(result.cards,player,'giveAuto');
+							player.give(result.cards,source);
 						}
 						event.num++;
 						if(event.num<3){
@@ -5192,7 +5207,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					}
 					if(!group) group=lib.character[this.name1][1];
 					if(_status.yeidentity&&_status.yeidentity.contains(group)) return false;
-					if(get.zhu(this,null,true)) return true;
+					if(get.zhu(this,null,group)) return true;
 					return get.totalPopulation(group)+1<=get.population()/2;
 				},
 				perfectPair:function(choosing){
