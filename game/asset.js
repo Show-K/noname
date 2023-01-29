@@ -269,9 +269,7 @@ window.noname_asset_list=[
 	'audio/voice/female/22.mp3',
 	
 	//New add
-	'font/LXGWWenKai-Bold.woff2',
-	'font/LXGWWenKai-Light.woff2',
-	'font/LXGWWenKai-Regular.woff2',
+	'font/LXGWWenKaiGBScreen.woff2',
 	'font/sarasa-ui-sc-bold.woff2',
 	'font/sarasa-ui-sc-bolditalic.woff2',
 	'font/sarasa-ui-sc-extralight.woff2',

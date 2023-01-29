@@ -11576,7 +11576,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_shenfa_info:"锁定技，你使用【杀】指定目标后，你令目标角色选择一项：此【杀】不可被响应，或此【杀】伤害+1。",
 			sst_shenwu:"神悟",
 			sst_shenwu_info:"锁定技，结束阶段，若你本回合内未造成过伤害，你摸一张牌，然后若〖神罚〗不为最高级，你减1点体力上限，升级〖神罚〗。",
-			sst_shenwu_append:`<span style="font-family: LXGWWenKai">*〖神罚〗二级：改为由自己选择一项效果。三级：改为同时具有两种效果。</span>`,
+			sst_shenwu_append:`<span style="font-family: LXGWWenKaiGBScreen">*〖神罚〗二级：改为由自己选择一项效果。三级：改为同时具有两种效果。</span>`,
 			sst_shenwu_faq:"*",
 			sst_shenwu_faq_info:"〖神罚〗二级：改为由自己选择一项效果。三级：改为同时具有两种效果。",
 			sst_qiongtu:"茕途",
@@ -11599,7 +11599,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_shunxing_draw:"摸牌",
 			sst_shunxing_use:"出牌",
 			sst_shunxing_info:"锁定技，弃牌阶段结束时，若你于此阶段弃置了牌，你废除一个阶段，然后将场上一张装备移动到你的装备区，否则你恢复一个阶段。",
-			sst_shunxing_append:`<span style="font-family: LXGWWenKai">*可废除/恢复阶段：摸牌阶段〖影流〗、出牌阶段〖影流〗、摸牌阶段、出牌阶段。</span>`,
+			sst_shunxing_append:`<span style="font-family: LXGWWenKaiGBScreen">*可废除/恢复阶段：摸牌阶段〖影流〗、出牌阶段〖影流〗、摸牌阶段、出牌阶段。</span>`,
 			sst_shunxing_faq:"*",
 			sst_shunxing_faq_info:"可废除/恢复阶段：摸牌阶段〖影流〗、出牌阶段〖影流〗、摸牌阶段、出牌阶段。",
 			sst_shenpan:"审判",
@@ -11620,7 +11620,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_xuansha:"喧杀",
 			sst_xuansha_effect:"喧杀",
 			sst_xuansha_info:"觉醒技，准备阶段，若你的体力值为1，你加1点体力上限，然后修改〖奇嚣〗描述，且本回合你的手牌均视为【桃】。",
-			sst_xuansha_append:`<span style="font-family: LXGWWenKai">*“一”修改为“两”，“1”修改为“2”，“两名角色”修改为“至多两名角色”。</span>`,
+			sst_xuansha_append:`<span style="font-family: LXGWWenKaiGBScreen">*“一”修改为“两”，“1”修改为“2”，“两名角色”修改为“至多两名角色”。</span>`,
 			sst_xuansha_faq:"*",
 			sst_xuansha_faq_info:"“一”修改为“两”，“1”修改为“2”，“两名角色”修改为“至多两名角色”。",
 			sst_yingji:"鹰击",
@@ -11797,7 +11797,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_shishi_info:"锁定技，结束阶段，若你未受伤，你弃置一名角色的一张牌；若你已受伤，你视为使用一张【杀】，若此【杀】未造成伤害，你将武将牌变更为【时光的笛音·林克】 。",
 			sst_jiamian:"假面",
 			sst_jiamian_info:"此武将牌登场时，你获得一张武将牌置于一旁，称为“假面”。你可以弃置一张“假面”，发动场上与“假面”同势力角色的一个没有技能标签的技能，然后获得一张新的“假面”。",
-			sst_jiamian_append:`<span style="font-family: LXGWWenKai">*斗势力或神势力的“假面”视为与任意角色同势力。</span>`,
+			sst_jiamian_append:`<span style="font-family: LXGWWenKaiGBScreen">*斗势力或神势力的“假面”视为与任意角色同势力。</span>`,
 			sst_jiamian_faq:"*",
 			sst_jiamian_faq_info:"斗势力或神势力的“假面”视为与任意角色同势力。",
 			sst_shisu:"时溯",
@@ -11916,17 +11916,17 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_jiliu:"激流",
 			sst_jiliu_effect:"激流",
 			sst_jiliu_info:"锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。",
-			sst_jiliu_append:`<span style="font-family: LXGWWenKai">〖茂盛〗锁定技，当你使用或打出牌时，令至多X名角色横置（若其已横置，改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）<br>
+			sst_jiliu_append:`<span style="font-family: LXGWWenKaiGBScreen">〖茂盛〗锁定技，当你使用或打出牌时，令至多X名角色横置（若其已横置，改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）<br>
 				〖猛火〗锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去1点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。</span>`,
 			sst_maosheng:"茂盛",
 			sst_maosheng_info:"锁定技，当你使用或打出牌时，令至多X名角色横置（若其已横置，改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）",
-			sst_maosheng_append:`<span style="font-family: LXGWWenKai">〖猛火〗锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去1点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。<br>
+			sst_maosheng_append:`<span style="font-family: LXGWWenKaiGBScreen">〖猛火〗锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去1点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。<br>
 				〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。</span>`,
 			sst_menghuo:"猛火",
 			sst_menghuo2:"猛火",
 			sst_menghuo3:"猛火",
 			sst_menghuo_info:"锁定技，你造成的伤害均视为火焰伤害；当你使用【决斗】时，你失去1点体力，此决斗造成的伤害+1；当一名角色因你造成的伤害进入濒死状态时，你失去〖猛火〗，获得〖激流〗。",
-			sst_menghuo_append:`<span style="font-family: LXGWWenKai">〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。<br>
+			sst_menghuo_append:`<span style="font-family: LXGWWenKaiGBScreen">〖激流〗锁定技，当你造成伤害后，你摸X张牌（X为与你距离1以内的角色数），本回合你计算与其他角色的距离-1，然后你失去〖激流〗，获得〖茂盛〗。<br>
 				〖茂盛〗锁定技，当你使用或打出牌时，令至多X名角色横置（若其已横置，改为弃置其一张牌），然后你失去〖茂盛〗，获得〖猛火〗。（X为与你距离1以内的角色数）</span>`,
 			sst_congyun:"丛云",
 			sst_congyun_info:"出牌阶段限一次，你可以视为使用一张【火攻】。",

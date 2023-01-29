@@ -2807,7 +2807,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 				},
 				mark:true,
 				intro:{
-					content:`杀死你执行的奖惩为：<span style="font-family: LXGWWenKai">杀死你的角色摸三张牌</span>`,
+					content:`杀死你执行的奖惩为：<span style="font-family: LXGWWenKaiGBScreen">杀死你的角色摸三张牌</span>`,
 					markcount:()=>3
 				},
 				onremove:(player,skill)=>{
@@ -3244,7 +3244,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_longwei_info:"锁定技，〖决路〗发动后，你加Y点体力上限并回复Y点体力。（Y为你标记身份对应的人数）",
 			sst_bianshe:"编设",
 			sst_bianshe_info:"锁定技，每轮游戏开始时，你选择以下任意两个技能，本轮内视为拥有之。",
-			sst_bianshe_append:`<span style="font-family: LXGWWenKai">〖秘拳〗你可以跳过摸牌阶段，然后对攻击范围内一名角色造成1点伤害。<br>
+			sst_bianshe_append:`<span style="font-family: LXGWWenKaiGBScreen">〖秘拳〗你可以跳过摸牌阶段，然后对攻击范围内一名角色造成1点伤害。<br>
 				〖秘剑〗出牌阶段开始时，你可以摸一张牌，然后你可以使用一张牌。<br>
 				〖秘枪〗你的攻击范围视为无限。</span>`,
 			sst_miquan:"秘拳",
@@ -3324,7 +3324,7 @@ game.import("character",(lib,game,ui,get,ai,_status)=>{
 			sst_shouyin_info:"你使用牌结算后，可以令一名其他角色选择是否使用一张类别相同的牌，若其以此法使用了牌且两张牌目标唯一且相同，你摸一张牌。",
 			sst_anzong:"暗踪",
 			sst_anzong_effect:"暗踪",
-			sst_anzong_info:`隐匿技，锁定技，当你登场时，将杀死当前回合角色执行的奖惩改为：<span style="font-family: LXGWWenKai">杀死其的角色摸三张牌</span>。`,
+			sst_anzong_info:`隐匿技，锁定技，当你登场时，将杀死当前回合角色执行的奖惩改为：<span style="font-family: LXGWWenKaiGBScreen">杀死其的角色摸三张牌</span>。`,
 			sst_xumo:"蓄墨",
 			sst_xumo_info:"隐匿技，锁定技，当你登场时，摸三张牌。",
 			sst_pentu:"喷涂",

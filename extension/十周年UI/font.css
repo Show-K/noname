@@ -79,21 +79,8 @@
 
 /*霞鹜文楷*/
 @font-face {
-	font-family: 'LXGWWenKai';
-	src: local('LXGW WenKai Light'), url('../../font/LXGWWenKai-Light.woff2');
-	font-weight: 300;
-}
-
-@font-face {
-	font-family: 'LXGWWenKai';
-	src: local('LXGW WenKai'), url('../../font/LXGWWenKai-Regular.woff2');
-	font-weight: 400;
-}
-
-@font-face {
-	font-family: 'LXGWWenKai';
-	src: url('../../font/LXGWWenKai-Bold.woff2');
-	font-weight: 700;
+	font-family: 'LXGWWenKaiGBScreen';
+	src: local('LXGW WenKai Light'), url('../../font/LXGWWenKaiGBScreen.woff2');
 }
 
 /*花色*/

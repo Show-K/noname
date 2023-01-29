@@ -73,7 +73,7 @@ window.noname_package={
 	},
 	font:{
 		sarasa:"黑体",
-		LXGWWenKai:'楷体'
+		LXGWWenKaiGBScreen:'楷体'
 	},
 	theme:{
 		woodden:'木纹',

@@ -7743,28 +7743,23 @@
 							lib.configMenu.appearence.config.cardtext_font.item[i]=pack.font[i];
 							lib.configMenu.appearence.config.global_font.item[i]=pack.font[i];
 							if(i=='sarasa'){
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-extralight.woff2'); font-weight: 200; font-style: normal;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-light.woff2'); font-weight: 300; font-style: normal;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-regular.woff2'); font-weight: 400; font-style: normal;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-semibold.woff2'); font-weight: 600; font-style: normal;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-bold.woff2'); font-weight: 700; font-style: normal;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-extralightitalic.woff2'); font-weight: 200; font-style: italic;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-lightitalic.woff2'); font-weight: 300; font-style: italic;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-italicitalic.woff2'); font-weight: 400; font-style: italic;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-semibolditalic.woff2'); font-weight: 600; font-style: italic;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-ui-sc-bolditalic.woff2'); font-weight: 700; font-style: italic;}",0);
-							}
-							else if(i=='LXGWWenKai'){
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-Light.woff2'); font-weight: 300;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-Regular.woff2'); font-weight: 400;}",0);
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+"-Bold.woff2'); font-weight: 700;}",0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-extralight.woff2'); font-weight: 200; font-style: normal;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-light.woff2'); font-weight: 300; font-style: normal;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-regular.woff2'); font-weight: 400; font-style: normal;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-semibold.woff2'); font-weight: 600; font-style: normal;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-bold.woff2'); font-weight: 700; font-style: normal;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-extralightitalic.woff2'); font-weight: 200; font-style: italic;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-lightitalic.woff2'); font-weight: 300; font-style: italic;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-italicitalic.woff2'); font-weight: 400; font-style: italic;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-semibolditalic.woff2'); font-weight: 600; font-style: italic;}`,0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}-ui-sc-bolditalic.woff2'); font-weight: 700; font-style: italic;}`,0);
 							}
 							else{
-								ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+".woff2');}",0);
+								ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/${i}.woff2');}`,0);
 							}
-							if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/suits.woff2');}",0);
+							if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: '${i}'; src: url('${lib.assetURL}font/suits.woff2');}`,0);
 						}
-						if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: 'Suits'; src: url('"+lib.assetURL+"font/suits.woff2');}",0);
+						if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule(`@font-face {font-family: 'Suits'; src: url('${lib.assetURL}font/suits.woff2');}`,0);
 						lib.configMenu.appearence.config.cardtext_font.item.default='默认';
 						lib.configMenu.appearence.config.global_font.item.default='默认';
 					}
@@ -55377,8 +55372,8 @@
 							}
 						}
 						if(lib.card[name].yingbian_prompt&&get.is.yingbian(node.link||node)){
-							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: LXGWWenKai">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
-							else uiintro.add('<div class="text" style="font-family: LXGWWenKai">应变：'+lib.card[name].yingbian_prompt+'</div>');
+							if(typeof lib.card[name].yingbian_prompt=='function') uiintro.add('<div class="text" style="font-family: LXGWWenKaiGBScreen">应变：'+lib.card[name].yingbian_prompt(node.link||node)+'</div>');
+							else uiintro.add('<div class="text" style="font-family: LXGWWenKaiGBScreen">应变：'+lib.card[name].yingbian_prompt+'</div>');
 						}
 						if(lib.translate[name+'_append']){
 							uiintro.add('<div class="text" style="display:inline">'+lib.translate[name+'_append']+'</div>');
