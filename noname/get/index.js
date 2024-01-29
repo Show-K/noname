@@ -298,7 +298,7 @@ export class Get extends Uninstantable {
 		return list;
 	}
 	static numOf(obj, item) { return obj.filter(element => element == item).length; }
-	static connectNickname() { return typeof lib.config.connect_nickname == 'string' ? (lib.config.connect_nickname.slice(0, 12)) : "无名玩家"; }
+	static connectNickname() { return `※${typeof lib.config.connect_nickname == 'string' ? (lib.config.connect_nickname.slice(0, 12)) : "无名玩家"}`; }
 	static zhinangs(filter) {
 		var list = (_status.connectMode ? lib.configOL : lib.config).zhinang_tricks;
 		if (!list || !list.filter || !list.length) return get.inpile('trick', 'trick').randomGets(3);

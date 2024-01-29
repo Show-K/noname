@@ -31,7 +31,7 @@ export class Library extends Uninstantable {
 	static updateURLS = updateURLs;
 	static updateURL = updateURLs.github;
 	static mirrorURL = updateURLs.coding;
-	static hallURL = '47.99.105.222';
+	static hallURL = 'unitedrhythmized.club';
 	static assetURL = assetURL;
 	static userAgent = userAgent;
 	static characterDefaultPicturePath = characterDefaultPicturePath;

@@ -7,6 +7,20 @@ import { UI as ui } from '../../ui/index.js';
 import { CacheContext } from '../cache/cacheContext.js';
 import { ChildNodesWatcher } from '../cache/childNodesWatcher.js';
 
+/**
+ * @param {string} nickname
+ */
+function isInvalidNickname(nickname) {
+	switch (nickname.slice(-5)) {
+		case ' - 离线':
+		case ' - 托管':
+			return true;
+
+		default:
+			return false;
+	}
+}
+
 export class Player extends HTMLDivElement {
 	/**
 	 * @param {HTMLDivElement|DocumentFragment} [position]
@@ -2451,7 +2465,12 @@ export class Player extends HTMLDivElement {
 			if (this.hp < this.maxHp || config.gameStarted) str += ('人数：' + this.hp + '/' + this.maxHp);
 			else str += ('人数：<span class="firetext">' + this.hp + '/' + this.maxHp + '</span>');
 
-			str += ('　(' + info[0].slice(0, 12) + ' 的房间)');
+			str += '　(';
+			const nickname = info[0].slice(0, 12);
+
+			if (isInvalidNickname(nickname)) str += '×';
+
+			str += `${nickname}<span style="opacity: 0.5;">#${this.key}</span> 的房间)`;
 			if (config.mode != 'guozhan' && (config.mode != 'doudizhu' || config.doudizhu_mode != 'online')) {
 				str += '【';
 				for (var i = 0; i < config.cardPack.length; i++) {

@@ -1,6 +1,20 @@
 import { ui, game, get, lib, _status } from "../../../noname.js";
 import { Uninstantable } from "../../util/index.js";
 
+/**
+ * @param {string} nickname
+ */
+function isInvalidNickname(nickname) {
+	switch (nickname.slice(-5)) {
+		case ' - 离线':
+		case ' - 托管':
+			return true;
+
+		default:
+			return false;
+	}
+}
+
 export class Click extends Uninstantable {
 	static identitycircle() {
 		var list = [];
@@ -396,14 +410,23 @@ export class Click extends Uninstantable {
 				for (var i = 0; i < button.info.length; i++) {
 					var node = ui.create.div('.menubutton.videonode.pointerdiv', uiintro.content);
 					ui.create.div('.menubutton.videoavatar', node).setBackground(button.info[i][1] || 'caocao', 'character');
+					/**
+					 * @type {string}
+					 */
+					let nickname = button.info[i][0] || '无名玩家';
+
+					if (isInvalidNickname(nickname)) nickname = `×${nickname}`;
+
+					nickname += `<span style="opacity: 0.5;">#${button.info[i][5]}</span>`;
+
 					if (button.info[i][4] == game.wsid) {
-						ui.create.div('.name', '<span class="thundertext thunderauto">' + (button.info[i][0] || '无名玩家'), node); node.isme = true;
+						ui.create.div('.name', `<span class="thundertext thunderauto">${nickname}`, node); node.isme = true;
 					}
 					else if (button.info[i][2]) {
-						ui.create.div('.name', (button.info[i][0] || '无名玩家'), node);
+						ui.create.div('.name', nickname, node);
 					}
 					else {
-						ui.create.div('.name', '<span style="opacity:0.6">' + (button.info[i][0] || '无名玩家'), node);
+						ui.create.div('.name', `<span style="opacity:0.6">${nickname}`, node);
 					}
 					//show ID
 					//ui.create.div('.videostatus',node,button.info[i][5]);

@@ -1685,7 +1685,7 @@ input.fileinput::-webkit-file-upload-button {
 
 .onlineclient .videonode>.name {
 	left: 35px;
-	max-width: 125px;
+	max-width: 305px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-align: left;

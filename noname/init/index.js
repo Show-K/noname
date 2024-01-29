@@ -453,20 +453,18 @@ export async function boot() {
 				//lib.init.onload=backup_onload;
 				_status.evaluatingExtension = false;
 			}
-			else if (config.get('mode') != 'connect' || (!localStorage.getItem(lib.configprefix + 'directstart') && show_splash)) {
+			else {
 				extensionlist.push(config.get('extensions')[name]);
 			}
 		}
 	}
 	else {
-		if (config.get('mode') != 'connect' || (!localStorage.getItem(lib.configprefix + 'directstart') && show_splash)) {
-			for (var name = 0; name < config.get('extensions').length; name++) {
-				if (Reflect.get(window, 'bannedExtensions').includes(config.get('extensions')[name])) {
-					continue;
-				}
-				// @ts-ignore
-				game.import('extension', { name: config.get('extensions')[name] });
+		for (var name = 0; name < config.get('extensions').length; name++) {
+			if (Reflect.get(window, 'bannedExtensions').includes(config.get('extensions')[name])) {
+				continue;
 			}
+			// @ts-ignore
+			game.import('extension', { name: config.get('extensions')[name] });
 		}
 	}
 
@@ -550,7 +548,7 @@ export async function boot() {
 		Reflect.get(ui, 'css')[stylesName[i]] = stylesLoaded[i];
 	}
 
-	if (extensionlist.length && (config.get('mode') != 'connect' || show_splash)) {
+	if (extensionlist.length) {
 		_status.extensionLoading = [];
 		_status.extensionLoaded = [];
 
